@@ -39,6 +39,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -271,6 +279,12 @@
       "category": "MNPI",
       "matched_text": "chinese wall",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Nimbus Quantum Logistics Private Limited by Aurora Bharat Mobility Limited (India).\nAcquirer details: Aurora Bharat Mobility Limited, C I N: L 2 9 3 0 8 K A 2 0 2 1 P L C 0 7 9 1 2 3; listed on NSE and BSE (symbol: NVBM, for illustration only).\nPrimary contact: Ms. Saanvi Rao, Company Secretary, saanvi.rao@aurorabharat.example.in, tel: +91-90000-88888; website: https://investors.aurora.example.in.\nTarget details: Nimbus Quantum Logistics Private Limited (CIN: U60232MH2018PTC441221; GSTIN: 27AAQPL3456P1Z9), registered office at Plot 14, Orbit Enclave, MIDC Phase 4, Aurangabad 431999, Maharashtra.\nConsideration: INR 420 crore (75% cash, 25% share swap), subject to completion accounts under Ind AS 103; any equity issuance will comply with SEBI (LODR) Regulations, 2015.\nUPSI handling: Unpublished price sensitive information will be shared only post-NDA as per SEBI (PIT) Regulations, with trading window closure and insider list maintenance; this sentence is not MNPI.\nData room: https://dataroom.aurora.example.in/deal?pid=PAN%3DQZTPA1234F&gst=29QZTPA1234F1Z0 (URL contains masked identifiers for diligence).\nKYC/PII for signatories: P A N: Q Z T P A 1 2 3 4 F; Aadhaar: 1234 5678 9012 (sample with invalid checksum); Passport (India): Z1234567; do not email scanned cards without redaction.\nEscrow and settlement: Fictional India Commerce Bank, IFSC FICB0001234, A/c No. 004201876543, UPI: aurora.escrow@ficb; beneficiary name must match board resolution.\nAcquirer tax profile: GSTIN (Karnataka) 29QZTPA1234F1Z0 (illustrative, checksum not valid); corporate address: TechVista Park, Tower C, Sector 98, New Noida 209999, Uttar Pradesh.\nData protection: Each Party shall issue a DPDP Act-compliant notice and obtain consent where required; no processing of personal data of individuals under 18 without verifiable guardian consent; appoint a Grievance Officer.\nPlaceholders not to be treated as identifiers: Compliance Officer: __________; PAN (to be filled): ________; phone (helpline): 1800-000-1122; role-only names like \u201cAuthorised Signatory\u201d are not persons.\nCovenants: No forward dealing or tipper\u2013tippee sharing; no auto-forwarding of emails; chinese wall to be maintained; negative MAC: normal product roadmap changes shall not constitute a Material Adverse Change.\nConditions precedent and approvals: CCI notification if thresholds met, RBI approval for any non-resident remittance, SEBI observation letter if required, NSE/BSE intimation, target board and shareholder approvals.\nSignatories: Mr. Arvind Menon, Director, arvind.menon@nimbusql.example.in; For Acquirer \u2014 Authorised Signatory; pending board sign-off, do kickoff after greenlight; drawdown schedule attached in Annexure A.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

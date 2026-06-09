@@ -53,6 +53,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -370,6 +378,24 @@
       "category": "MNPI",
       "matched_text": "restricted list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts: DPO Ms. He Min (dpo@silverharbor.cn), Controller Privacy Office (privacy@lanqiaoharbour.com.cn), tel. +86-138-1234-6801; registered address (controller): Room 1802, Tower C, Yulan Plaza, Xingkai Road 88, Nanshan District, Shenzhen 518199",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ment onboarding/administration and issuer liaison under PIPL, CSL, and DSL; compliance with PRC Securities Law and stock exchange rules for inside information handling.\nContacts: DPO Ms. He Min (dpo@silverharbor.cn), Controller Privacy Office (privacy@lanqiaoharbour.com.cn), tel. +86-138-1234-6801; registered address (controller): Room 1802, Tower C, Yulan Plaza, Xingkai Road 88, Nanshan District, Shenzhen 518199.\nCategories: name, position, mobile number, business email, payroll bank account number, resident identity card number, PRC passport number (for travel), device IDs for access control, and restricted-list status for MNPI governance.\nIllustrative identifiers in workflows: Resident ID No. 440305200112123217 for onboarding of Mr. Qiu Jun; Passport No. E98765432 for Ms. Du Ling\u2019s issuer site visit; vendor due diligence against Unified Social Credit Code 91520100MA7T6Q9L3C.\nPayment and registration: example settlement account 6222 8888 0000 9130 at Seabird Commercial Bank (fictional), payee \u201cSilver Harbor Analytics (Shanghai) Co., Ltd.\u201d; registered office for processor: Suite 602, Building B, Qiyuan Center, Jinyu Road 66, Pudong New Area, Shanghai 200136.\nMNPI controls: employees accessing draft earnings, undisclosed financings, or mandate letters are designated handlers; Mr. Chen Wei is placed on the restricted list with a trading blackout per SSE rules and internal Policy SH-IR-07.\nCross-border transfers: HR and IR contact files may be exported to Hong Kong affiliates under the CAC Standard Contract for Personal Information Export; if data includes minors under 14, guardian consent is required or transfer is declined.\nLocalization and retention: originals stored in PRC (Chengdu and Nanjing zones); finance/tax vouchers 10 years, recruitment files 24 months, access logs for MNPI systems 6 years, subject to extension upon CSRC inquiry holds.\nData subject rights: submit DSAR via dsar@lanqiaoharbour.com.cn or mail to the DPO; identity is verified using masked credentials (e.g., 4403********3217) and registered mobile number; responses within statutory timelines.\nNegative/precision note: the label \u201cManager\u201d or a form field \u201cName:\u201d without corroboration is insufficient for identification, and the government service hotline 12345 must not be used to send personal information to us.\nBait/validation rule: any record containing Resident ID 11010519900101888X (checksum invalid) or USCC 91110108MA002X0000 (checksum invalid) will be rejected and logged for remediation, with no processing performed.\nSub-processors: Qilin Cloud (Guangzhou) Data Hosting Co., Ltd. (USCC 91440101MA5DF6R2M9) for infrastructure; Muduo Outsourced Payroll (Chengdu) Ltd. (USCC 91510100MA6A9J7F4Q) for payroll, each bound by this DPA and subject to audits.\nSecurity: encryption in transit and at rest, role-based access controls, quarterly MNPI access reviews, and incident notification within 48 hours to the controller and, if required, to CAC.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

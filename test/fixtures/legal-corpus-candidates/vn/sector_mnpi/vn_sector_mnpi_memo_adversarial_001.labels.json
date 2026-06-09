@@ -17,13 +17,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -37,13 +37,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -57,6 +57,46 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
     "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -76,47 +116,47 @@
     },
     {
       "category": "PII",
-      "matched_text": "Bà Bùi Lan Hương",
+      "matched_text": "B\u00e0 B\u00f9i Lan H\u01b0\u01a1ng",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Ông Trần Vũ Hải",
+      "matched_text": "\u00d4ng Tr\u1ea7n V\u0169 H\u1ea3i",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "EMP‑H4I5",
+      "matched_text": "EMP\u2011H4I5",
       "rule": "employee_id"
     },
     {
       "category": "PII",
-      "matched_text": "Bà Nguyễn Mỹ An",
+      "matched_text": "B\u00e0 Nguy\u1ec5n M\u1ef9 An",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Duy Lâm",
+      "matched_text": "Mr. Duy L\u00e2m",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "compliance@thienha‑fintech.vn",
+      "matched_text": "compliance@thienha\u2011fintech.vn",
       "rule": "email_address"
     },
     {
       "category": "PII",
-      "matched_text": "0938‑0*0‑119",
+      "matched_text": "0938\u20110*0\u2011119",
       "rule": "phone_number"
     },
     {
       "category": "PII",
-      "matched_text": "VNB‑***4930",
+      "matched_text": "VNB\u2011***4930",
       "rule": "bank_account"
     },
     {
       "category": "PII",
-      "matched_text": "Tầng 12, Số 88 Đường Hồ Mây, Q7, TP Đông Sài Gòn",
+      "matched_text": "T\u1ea7ng 12, S\u1ed1 88 \u0110\u01b0\u1eddng H\u1ed3 M\u00e2y, Q7, TP \u0110\u00f4ng S\u00e0i G\u00f2n",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -151,7 +191,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Blackout window 01/06–15/06",
+      "matched_text": "Blackout window 01/06\u201315/06",
       "rule": "blackout_period_reference"
     },
     {
@@ -186,7 +226,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "no‑tipping",
+      "matched_text": "no\u2011tipping",
       "rule": "tipping_language"
     },
     {
@@ -196,7 +236,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "THA‑Token",
+      "matched_text": "THA\u2011Token",
       "rule": "dpt_protocol_event_marker"
     },
     {
@@ -211,7 +251,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Scope‑2 reduction verification",
+      "matched_text": "Scope\u20112 reduction verification",
       "rule": "esg_climate_pre_disclosure"
     },
     {
@@ -231,7 +271,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-public: Proposal to tokenize internal carbon offsets and e‑money balances for pilot “THA‑Token” with Ví Sao Băng; no public offering contemplated; pending MHX sandbox admission; limit wallet caps to VND 5m during UAT",
+      "matched_text": "Non-public: Proposal to tokenize internal carbon offsets and e\u2011money balances for pilot \u201cTHA\u2011Token\u201d with V\u00ed Sao B\u0103ng; no public offering contemplated; pending MHX sandbox admission; limit wallet caps to VND 5m during UAT",
       "rule": "material_event"
     },
     {
@@ -263,7 +303,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-public: Proposal to tokenize internal carbon offsets and e‑money balances for pilot “THA‑Token” with Ví Sao Băng; no public offering contemplated; pending MHX sandbox admission; limit wallet caps to VND 5m during UAT",
+      "matched_text": "Non-public: Proposal to tokenize internal carbon offsets and e\u2011money balances for pilot \u201cTHA\u2011Token\u201d with V\u00ed Sao B\u0103ng; no public offering contemplated; pending MHX sandbox admission; limit wallet caps to VND 5m during UAT",
       "rule": "material_event"
     },
     {
@@ -310,6 +350,12 @@
       "category": "MNPI",
       "matched_text": "Information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ref: 2O26-LD-MHX-03 \u2014 Internal Legal & Compliance Memo \u2014 CTCP C\u00f4ng Ngh\u1ec7 T\u00e0i Ch\u00ednh Thi\u00ean H\u00e0 (Ticker: THA, S\u1edf GDCK Minh H\u1ea3i \u201cMHX\u201d) \u2014 Confidential/Kh\u00f4ng c\u00f4ng b\u1ed1\nTo: H\u0110QT; From: Ph\u00e1p ch\u1ebf & Tu\u00e2n th\u1ee7; Contact: B\u00e0 B\u00f9i Lan H\u01b0\u01a1ng (Ph\u00f3 TG\u0110 Ph\u00e1p ch\u1ebf), +84-28-3899-5521, huong.bui@thienha-fintech.vn; \u0110/c: T\u1ea7ng 12, S\u1ed1 88 \u0110\u01b0\u1eddng H\u1ed3 M\u00e2y, Q7, TP \u0110\u00f4ng S\u00e0i G\u00f2n\nSubject: Pre-disclosure controls on stablecoin pilot and cyber event; Ngh\u1ecb \u0111\u1ecbnh 13 (b\u1ea3o v\u1ec7 d\u1eef li\u1ec7u c\u00e1 nh\u00e2n) and Lu\u1eadt Ch\u1ee9ng kho\u00e1n selective disclosure considerations\nNon-public: On 26/05 a ransomware event encrypted ~3% of CRM nodes; no customer balances moved; remediation underway; this has not been posted to MHX issuer portal or via CBTT and remains MNPI\nNon-public: Draft term sheet with Tre Xanh Capital for ESG-linked convertible notes \u2014 VND 420bn, 8.2% coupon with ratchet to 7.5% upon Scope\u20112 reduction verification; long\u2011stop 30/07; exclusivity to 15/06; proposed covenants include 1.75x DSCR\nNon-public: Proposal to tokenize internal carbon offsets and e\u2011money balances for pilot \u201cTHA\u2011Token\u201d with V\u00ed Sao B\u0103ng; no public offering contemplated; pending MHX sandbox admission; limit wallet caps to VND 5m during UAT\nTrading controls: Blackout window 01/06\u201315/06 for all persons on i n s i d e r   l i s t v1.3 (ref: INS\u201174A9); no personal dealing in THA shares, options, or DPTs; strict no\u2011tipping and avoid selective disclosure in any vendor demos\nInsider list update: add \u00d4ng Tr\u1ea7n V\u0169 H\u1ea3i (CIO, ID: EMP\u2011H4I5), B\u00e0 Nguy\u1ec5n M\u1ef9 An (Head of ESG), and external counsel at H\u00e3ng Lu\u1eadt Thi\u00ean Phong; record and protect PII consistent with Ngh\u1ecb \u0111\u1ecbnh 13\nInformation barriers: Maintain t\u01b0\u1eddng l\u1eeda th\u00f4ng tin between Crypto Lab and ECM; shared drive \\\\ops\u2011nas\\deal\\THA\u2011Token will be access\u2011controlled; do not forward the draft deck outside the clean team\nBanking details for escrow (masked): VNB\u2011***4930 at NH T\u01b0 Nh\u00e2n Ph\u01b0\u1ee3ng C\u1eedu; authorized signer Mr. Duy L\u00e2m; store only in encrypted vault; this line intentionally includes PII for downstream capture",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -326,15 +372,15 @@
       "reason": "Defined abbreviation for exchange, not PII/MNPI"
     },
     {
-      "matched_text": "“breach”",
+      "matched_text": "\u201cbreach\u201d",
       "reason": "Educational mock example, not a live cyber incident"
     },
     {
-      "matched_text": "“wallet”",
+      "matched_text": "\u201cwallet\u201d",
       "reason": "Educational mock example, not a live crypto wallet event"
     },
     {
-      "matched_text": "“token”",
+      "matched_text": "\u201ctoken\u201d",
       "reason": "Marketing UI term, not a securities/DPT offer"
     },
     {
@@ -346,17 +392,17 @@
   "uncertain": [
     {
       "concept": "bank_account (masked)",
-      "matched_text": "VNB‑***4930",
+      "matched_text": "VNB\u2011***4930",
       "reason": "Masked account-like identifier; may be considered bank account but pattern is obfuscated"
     },
     {
       "concept": "phone_number (masked)",
-      "matched_text": "0938‑0*0‑119",
+      "matched_text": "0938\u20110*0\u2011119",
       "reason": "Masked digits with asterisk may evade strict phone regex"
     },
     {
       "concept": "email_address",
-      "matched_text": "compliance@thienha‑fintech.vn",
+      "matched_text": "compliance@thienha\u2011fintech.vn",
       "reason": "Email contains non-ASCII hyphen which may not match strict regex"
     },
     {
@@ -366,7 +412,7 @@
     },
     {
       "concept": "dpt_protocol_event_marker",
-      "matched_text": "THA‑Token",
+      "matched_text": "THA\u2011Token",
       "reason": "Non-public crypto/stablecoin pilot name; event-marker coverage may be schema-specific"
     },
     {
@@ -381,7 +427,7 @@
     },
     {
       "concept": "esg_climate_pre_disclosure",
-      "matched_text": "Scope‑2 reduction verification",
+      "matched_text": "Scope\u20112 reduction verification",
       "reason": "ESG target/verification reference before disclosure; detectors may not key on Scope-2 phrasing"
     },
     {
@@ -389,37 +435,5 @@
       "matched_text": "clean team",
       "reason": "Information barrier practice term not always explicitly mapped in detectors"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

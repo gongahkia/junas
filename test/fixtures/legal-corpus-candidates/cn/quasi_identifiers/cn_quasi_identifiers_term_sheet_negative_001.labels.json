@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -223,11 +231,6 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
     },
@@ -245,6 +248,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Guangzhou Yunqiao Information Technology Group Co., Ltd. (USCC: 91TEST0000000000XX) and Wuxi Hanxing New Materials Co., Ltd. (USCC: 9135ZZ0000000000XY).\nTransaction: non-binding term sheet for a minority strategic investment and technology collaboration in silicon carbide substrates.\nIssuer and security: Issuer is Wuxi Hanxing New Materials Co., Ltd.; proposed issuance of preferred equity with customary rights; no public offering contemplated.\nConditions precedent: internal approvals; if restructuring triggers SSE STAR or SZSE ChiNext listing plans, CSRC filing and exchange review will apply; SAMR filing if thresholds met.\nMNPI: parties confirm this term sheet relies on publicly announced information only, including stale notices on the Jiangsu Equity Exchange dated 2023-05-10; no inside information as defined under the Securities Law is solicited.\nInsider management: if any non-public facts later arise, the Issuer will open an insider list and seal files until disclosure, but no trading in A-shares is contemplated by either party.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

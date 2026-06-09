@@ -52,6 +52,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -184,6 +192,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Haeseong Robotics Co., Ltd. (fictional KR issuer) Privacy Notice and Retention Workflow (PIPA/FSCMA context).\nWe process employee and investor-relations data to meet obligations under the Capital Markets Supervision Agency (CMSA\u2011KR, fictional) and the Financial Conduct Secretariat (FCS\u2011KR, fictional), and we do not collect resident-number (RRN) unless a statute expressly requires it.\nCategories include role-based emails (e.g., ir@haeseong-robotics.example), IP logs, device inventory tags, and masked account references (e.g., payroll acct ****-**-0000) used for reconciliation only.\nFor MNPI under FSCMA, insider lists and trading blackout notices are kept separately, role-restricted, and timestamped; public disclosures occur via the SPARK issuer portal (fictional) after board approval, so generic IR decks are not MNPI.\nWe rely on consent or statutory bases under PIPA Art. 15/17 and maintain processing records with retention schedules for HR, security, and IR artifacts applicable to a Korea-listed issuer.\nExample onboarding record (single data-matter, access-limited): warehouse shift lead at the Busan site, birth month 1991-07, company device tag HSR-BX7-0421, internal employee code WRK-2219, and HR mailbox shiftops@haeseong-robotics.example.\nEach element above is stored in separate tables with role-based keys; we never store full resident-number and use salted hashes where a legal identifier token is mandated.\nInvestor queries received at ir@haeseong-robotics.example are logged with general firm descriptors and exclude trading account numbers or broker IDs.\nGeneric demographics like \u201c20s cohort\u201d or \u201cSeoul metro\u201d are analyzed in aggregate and are not used to single out any person.\nCross-border transfers to our processor Okdo Cloud Korea, Inc. (fictional) follow PIPA Art. 28\u20117 with transfer notices; primary hosting remains in KR with read-only backup in JP.\nWe disclose to service providers under written DPAs and do not sell personal information; a current vendor list is available upon request to the privacy office.\nRetention: HR files 5 years from separation; IR inquiry logs 2 years; device security logs 6 months, unless a CMSA\u2011KR or FCS\u2011KR inquiry requires longer preservation.\nSecurity measures include pseudonymization, encryption at rest, access logging, and quarterly audits; failed login events may be linked to device tags but not to names.\nData Subject Rights: submit DSAR via privacy@haeseong-robotics.example or toll\u2011free helpdesk 080-000-0000; we verify identity through non-sensitive checks and will never request bank PINs.\nIf a \u201cdeal\u201d is mentioned in a call, we presume it is publicly announced (e.g., already posted on SPARK) and treat recordings as non\u2011MNPI unless Legal flags otherwise.\nAny sample identifiers in training materials (e.g., 900101-1234567, ACCT-000-XYZ) are invalid placeholders for illustration and should not be used to identify real persons.\nThis notice summarizes current practices and may be revised following future FCS\u2011KR guidance updates.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

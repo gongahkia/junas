@@ -52,6 +52,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -339,6 +347,24 @@
       "category": "MNPI",
       "matched_text": "320121",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data types affected under PIPL: employee contact data (e.g., +86 21 8555 0199; y.li@haiteng-robotics.cn), limited identity data (CN Resident ID sample: 320104199109237214), and one PRC passport (EJ90234567) uploaded during onboarding by Mr. Zhao Ren.\nA small subset of payroll stubs included truncated bank account references (e.g., 6214 8890 1234 5678 901) and office address records (Unit 1203, Tower B, 88 Yunhe Road, Huining District, Hengzhou 320123, PRC); no biometric templates were processed.\nOne malformed identifier (\u201c440101198812120019\u201d) failed the resident-ID checksum and was purged during data hygiene; a generic test entry \u201c0000 0000 0000 0000\u201d was also identified and removed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Haiteng Robotics (Hengzhou) Co., Ltd. (Unified Social Credit Code: 93H3200MA7Q18K2R5), an issuer on the Hengzhou Main Board, reports a cybersecurity incident detected on 2026-05-28 21:36 CST impacting HR onboarding and the vendor settlement portal.\nInitial triage by Ms. Lin Weiqi (Data Protection Officer) indicates unauthorized API access via a compromised vendor token; contact: privacy@haiteng-robotics.cn, +86 10 6245 7781, WeChat: HT-Compliance.\nData types affected under PIPL: employee contact data (e.g., +86 21 8555 0199; y.li@haiteng-robotics.cn), limited identity data (CN Resident ID sample: 320104199109237214), and one PRC passport (EJ90234567) uploaded during onboarding by Mr. Zhao Ren.\nA small subset of payroll stubs included truncated bank account references (e.g., 6214 8890 1234 5678 901) and office address records (Unit 1203, Tower B, 88 Yunhe Road, Huining District, Hengzhou 320123, PRC); no biometric templates were processed.\nOne malformed identifier (\u201c440101198812120019\u201d) failed the resident-ID checksum and was purged during data hygiene; a generic test entry \u201c0000 0000 0000 0000\u201d was also identified and removed.\nAs inside information, the interruption delayed Q2 vendor payments and could affect short-term cash flow forecasts; this has not been publicly disclosed and trading remains within a closed window per Hengzhou Securities Regulatory Office guidance.\nWe filed a preliminary 72-hour notice to Nanshi Municipal Cyberspace Administration (Docket: NSCAC [2026] No. 014) and initiated a data breach record per internal PIPL/CSL/DSL procedures.\nCross-border context: remote diagnostics by Pacific Nimbus Pte. Ltd. (Singapore) were suspended pending assessment; Standard Contract on file (Hengzhou CAC Cross-Border Filing No. HZ-CB-2026-077) requires revalidation after scope change.\nFor avoidance of doubt, the \u201c12345\u201d hotline listed on our footer is a public city service number and is not personal information; form placeholders such as \u201cName: ____\u201d and \u201cID No.: ____\u201d seen in screenshots were empty and non-substantive.\nNo PI of minors under 14 was involved; birthdates reviewed against HR rosters confirmed only adult employees in scope.\nIndicators of compromise show credential stuffing against a legacy OAuth client; tokens revoked at 22:04 CST and IP blocks applied at the WAF; vendor API keys rotated and least-privilege scopes enforced.\nEmployment workflow remediation: HR Manager to switch identity verification to in-person check for PRC passports and resident IDs; onboarding forms now mask CNID and bank digits server-side by default.\nIssuer obligations: we prepared a draft disclosure for Hengzhou Main Board regarding operational impact; decision to disclose will follow the materiality assessment and avoidance-of-delay analysis under issuer rules.\nData subjects may request access/rectification via dpo@haiteng-robotics.cn or by post to Compliance Office, 16F, Tower A, 66 Ningyuan Ave., Hexi New Area, Hengzhou 320121; we will verify identity using secure challenge without collecting full CNID.\nLocal government liaison: Hengzhou High-Tech Zone Cybersecurity Center (Ref.: HZ-HTZ-2026-221) has been notified and will conduct a joint drill review next quarter.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -272,14 +280,10 @@
       "rule": "named_person"
     },
     {
-      "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
+      "category": "PII",
+      "matched_text": "On 2025-06-12 10:34 CST, a misconfiguration in the HR onboarding form within the \u201cQiyu Hire\u201d portal briefly allowed authenticated line managers to view two additional fields (full name and partially masked resident ID) for 42 new hires during a role mapping update by the IT admin team.\nExposed data categories were limited to names, corporate emails, PRC mobile numbers, and resident ID numbers with middle digits masked; no bank accounts, medical data, or minors under 14 were present, and the exposure window lasted 23 minutes before deactivation.\nNo unapproved cross-border transfer occurred; however, CloudCedar Pte. Ltd. (Singapore) is our backup vendor under DPA Schedule 2 (HR Data), and the relevant data-export approval (Haitang Municipal Cyberspace Administration Standard Contract Filing Ref: SCF-2025-HT-1173) remains in effect for hashed personnel identifiers only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

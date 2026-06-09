@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -264,6 +272,18 @@
       "category": "MNPI",
       "matched_text": "restricted lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing Addendum between Azure Lotus Holdings Limited (a Hong Kong listed issuer) as Controller and Verdant Crane Capital Management Ltd. as Processor, governed by Hong Kong law and the Personal Data (Privacy) Ordinance, with personal data defined as data relating to a living individual whose identity is directly or indirectly ascertainable.\nOur Data Protection Officer is Mr. R.K. Yuen, reachable at privacy@verdantcrane.example.hk; the Controller\u2019s contact is Ms. E. Poon, Company Secretary, at cosec@azurelotus.example.com.hk.\nProcessing purposes include merger and acquisition diligence, fund investor onboarding (AML/KYC), and employment/secondment workflows, limited to what is necessary and proportionate for the above.\nProcessor may receive information constituting \u201cinside information\u201d under Hong Kong securities legislation (including Part XIVA concepts) and must keep such information confidential, avoid selective disclosure, and use it solely for agreed purposes.\nSelective disclosure is permitted only under the incomplete negotiations safe harbour and solely to recipients subject to written confidentiality obligations; the Controller will make an announcement as soon as reasonably practicable once confidentiality no longer applies or price sensitivity arises, and the Processor shall not trade or recommend trading in the Controller\u2019s securities.\nProcessor will observe blackout windows and closed periods notified by the Controller (including results blackout and any ad hoc trading restrictions), and will implement an internal dealing code for Access Persons mirroring the Controller\u2019s code.\nPrior to any onward transfer to sub-processors (including offshore affiliates), the Processor will confirm whether the relevant information has been \u201ccleansed\u201d by public announcement; for example, the Controller\u2019s 3 May 2026 announcement on the Exchange\u2019s news website (PHEX ref: P2026/1456) regarding the proposed acquisition of Coral Ridge Foods Limited is already public and should no longer be treated as MNPI.\nPublic materials such as the Controller\u2019s FY2019 press release about a legacy joint venture and mainstream media summaries are stale and not, by themselves, indicative of current inside information status.\nNon-issuer operational notices (e.g., Mayfly Facilities\u2019 monthly maintenance memo for a third-party data room) are not inside information of the Controller and should not trigger trading halts or cleansing.\nSubtle controls: if the audit timetable shifts a Board meeting into an earlier week, the Controller may declare an extended closed period; the Processor must update its watch/restricted lists within one business day of notice.\nPersonal data rights: the Processor will assist the Controller in responding to data access/erasure/rectification requests under Hong Kong privacy law within 40 days; DSARs received directly will be forwarded to the Controller without undue delay.\nCross-border transfers: until any statutory cross-border transfer provisions are commenced, the Processor will apply contractual safeguards and transfer impact assessments for exports to Verdant Crane Processing Hub (New Pearl City) and any other sub-processor, and will not export identity documents unless strictly necessary.\nRetention: MNPI will be segregated and, once cleansed by a public announcement, reclassified and redacted in working papers within 30 days; personal data in diligence files will be retained no longer than 7 years from deal completion or engagement end, subject to legal hold.\nIncident response: suspected personal data breaches or inadvertent disclosure of inside information will be notified to the Controller within 24 hours, with facts sufficient for the Controller to consider a trading halt and an \u201cas soon as",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

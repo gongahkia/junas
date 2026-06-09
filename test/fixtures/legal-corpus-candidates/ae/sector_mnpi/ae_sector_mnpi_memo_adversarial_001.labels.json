@@ -101,6 +101,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -513,6 +521,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL\u2014UAE PDPL/MNPI; Al Safa Holdings PJSC (DIFC Branch) \u2014 Board Update re: Rimal Digital Assets Ltd (ADGM) and Shamal Green Energy SPC.\nSubject to SCA/DFSA rules; do not forward; blackout window for directors and PDMRs opens 02-06-2026 18:00 GST pending ADX sustainability-linked sukuk term sheet review.\nMNPI: Rimal's hot-wallet compromise on 28-05-2026 (2.4% DPT reserves), no client losses yet; FSRA notified; cyber forensics ongoing; commercial cyber warranty trigger under SPA draft \u00a79.2 likely.\nMNPI: Proposed ESG restatement by Shamal (Scope 2 down 18% due to revised REC allocation) will shift coupon step-up from +25bps to +5bps; draft term sheet includes a 101% make-whole if SPT missed.\nInsider list v3 (Q2-26) attached; add Mr. Saeed Al Bahri (Non-Exec Dir., family origin noted: Al Bahri\u2014Al Ain) and Ms. Layla Haddad (GC) \u2014 Emirates I D: 784-19**-1234567-9; contact layla.haddad@al-safa.example.\nInformation barrier: Trading Desk (DIFC) ring-fenced; no access to deal room; compliance to monitor logs via u r l: https://intra.al-safa.example/rooms/rimal?token=ib-%32%36%41.\nSelective disclosure risk: Rimal CEO briefed a vendor on \"cold-wallet migration\" on 30-05; vendor NDA signed, but content extended to liquidity buffers\u2014treat as MNPI and remediate.\nCommercial terms (non-public): exclusivity with Rimal through 31-07; valuation range AED 145\u2013165m; earn-out tied to DIFC crypto-custody licence issuance by 30-09; break fee AED 5m if FSRA declines.\nFor avoidance of doubt, nothing herein constitutes a material adverse change declaration, and no MAC clause is triggered by Shamal\u2019s methodology update per public GHG Protocol guidance.\nPDPL controls: collect only necessary IDs (E I D, trade licence TL-ADGM-00X-7Z1), store in DIFC data vault; data minimisation log at https://vault.al-safa.example/logs/pdpl?ref=TL-ADGM-00X-7Z1.\nOperational note (benign): the marketing team\u2019s ESG webinar titled \"Crypto Custody and Climate Disclosures 101\" is open to the public and contains no non-public issuer information.\ntraining-only: update playbook on incident response and information-barrier attestations; this task is standard project management and not related to any live trade.\nInvestor-relations: no external Q&A until ADX filing window; press holding line approved by Mr. Faisal Rahman, Co Sec, via compliance@al-safa.example.\nUAE regulatory context: SCA MAR principles on market abuse, DFSA COB 11 selective disclosure, and ADGM FSRA MKT apply; note DIFC\u2013ADGM cross-border sharing requires purpose limitation.\nTipping prohibition reminder: no discussion with family members or third parties; breach may lead to SCA administrative fines and internal sanctions under Policy COM-IB-2024.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -299,6 +307,18 @@
       "category": "MNPI",
       "matched_text": "Insider List",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rina Low (DPO), rina.low@oriellelegal.sg, +65 6123 0000",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY NON-PUBLIC \u2014 Retention & Transfer Workflow Note (PDPA/SFA context, SG) \u2014 Deal Codename: Project SeaGlass.\nPrepared by Orielle Legal LLP for Ferrosun Limited (SLE\u2011ST Mainboard issuer) re proposed acquisition of Blue Banyan Pte. Ltd.; internal checklist ref: SEA\u2011GL\u2011M&A.\nContact: Ms. Rina Low (DPO), rina.low@oriellelegal.sg, +65 6123 0000; R e f: SEA\u2011GL\u2011455/\u0394; IR channel: ir@ferrosun.com.sg.\nRetention (PDPA s.25): redact/anonymise staff rosters and CVs (EmpCode E\u20111A3\u201177; HR tag H\u201104\u2011bb) within 18 months post\u2011completion or sooner if no longer necessary.\nTransfer (PDPA s.26): cross\u2011border hosting with CloudMynah (HK) allowed with legally enforceable obligations and TIA logged at https://intranet.orielle.sg/retention?case=PRJ%5BSeaGlass%5D#TIA.\nMNPI scope: draft Share Purchase Agreement (definitive) dated 2026\u201106\u201130; consideration S$145,000,000 for 62.5% of issued shares; embargo until 2026\u201107\u201115 08:30 SGT (before SLE\u2011ST market open).\nMAC/MAE: parties agree that routine seasonal churn under 4% and ordinary\u2011course supplier price revisions do not constitute a MAC.\nBoard memo and investor\u2011relations draft must be watermarked NON\u2011PUBLIC; filename convention: SeaGlass_IR\u2011v4_embargo\u20110715.pdf; room access limited to Role: M&A\u2011Core\u2011A only.\nAccess/Correction (PDPA ss.21\u201322): DSAR portal for affected Blue Banyan employees at https://oriellelegal.sg/dsar?ticket=SG-24-SEA%2FGL%2F0091; verify with EmpCode + last payroll month only (no NRIC collected).\nPublic\u2011source reference: valuation cross\u2011check against 2023 Straits Business Digest indices and archived SLE circulars (stale, public data only).\nTrading blackout: insiders under SFA ss.218/219 must abstain; add to Insider List IL\u2011S L e\u2011SeaG l a s s; segregate emails using label \u201cprj\u2011sgl\u2011m n p i\u201d.\nMinimise collection: replace personal emails with token IDs (tkn:u5\u2011**\u201131) and enable auto\u2011purge of mailboxes 30 days post\u2011announcement via RetenSure policy set \u201cRS\u2011SeaG\u201130D\u201d.\npm note: push docs to room \u201creef\u2011data\u201d by fri 5pm; move spa day to the week after the embargo; no names in task cards and avoid attaching CV scans.\nException handling: if the Financial Markets Supervisory Authority (FMSA) or SLE RegCo requests copies, retain exact sets under \u201cRegCo\u2011Hold\u201d; otherwise apply rolling 90\u2011day purge post\u2011go\u2011live.\nGeneral note: this workflow guidance is generic compliance text and, by itself, provides no forecasts or product claims.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

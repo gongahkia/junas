@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -195,6 +203,12 @@
       "category": "MNPI",
       "matched_text": "00.0%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "we record only public-source issuer facts (e.g., already-announced adx filing ref obh-2023-042) and remove free-text fields that could indirectly identify a person.\ndsar intake: submit via privacy@orionbay.example or portal form; verification uses non-sensitive reference checks and does not require a scan of an emirates id.\ncross-border transfers follow pdpl chapter on adequacy and adgm dp regs; standard contractual clauses apply to processors; no onward sale or combining with unrelated ad networks.\ninvestor-relations draft re a secondary listing timetable is embargoed until 2026-01-15 08:00 gst; distribute only to the ir group mailbox.\nnegated mac language: no mac/mae has been identified to date and this note does not modify any definitive agreement or disclosure obligations.\nreferences to market data rely on public faqs and archived sca bulletins; spa-day vouchers from our wellness partner are optional and unrelated to trading decisions.\nhr wellness: spa-day bookings are processed under consent, used only to schedule sessions, and the roster is deleted within 7 days.\nsecurity and retention: access is role-based; admin logs kept 12 months; documents tagged with generic labels (account_id, device_id, eid_stub); finance records retained per statutory limits.\nrights: under the uae pdpl, you may request access, correction, erasure, and objection; we may refuse only if a request is manifestly unfounded or excessive.\nprecision note: this workflow contains no non-public pricing, no board deliberations, and no insider lists; any percentages appearing in templates are placeholders (00.0%).\npublic, stale transaction reference: a share purchase agreement dated 2024-03-01 was already announced on our website and noted in adgm fsra notices.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

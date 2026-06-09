@@ -60,6 +60,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -148,7 +156,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Emirates ID 784-1█34-5678█0-1",
+      "matched_text": "Emirates ID 784-1\u258834-5678\u25880-1",
       "rule": "ae_emirates_id"
     },
     {
@@ -163,12 +171,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "≥2%",
+      "matched_text": "\u22652%",
       "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "matched_text": "≥5%",
+      "matched_text": "\u22655%",
       "rule": "financial_percentage"
     },
     {
@@ -193,7 +201,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Materiality guidance: ≥2% of consolidated gross assets or ≥5% of quarterly EBITDA triggers ad hoc disclosure on the next trading day via ADX/DFM; DIFC-listed sukuk follow DFSA dissemination cut-offs.",
+      "matched_text": "Materiality guidance: \u22652% of consolidated gross assets or \u22655% of quarterly EBITDA triggers ad hoc disclosure on the next trading day via ADX/DFM; DIFC-listed sukuk follow DFSA dissemination cut-offs.",
       "rule": "material_event"
     },
     {
@@ -225,7 +233,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Materiality guidance: ≥2% of consolidated gross assets or ≥5% of quarterly EBITDA triggers ad hoc disclosure on the next trading day via ADX/DFM; DIFC-listed sukuk follow DFSA dissemination cut-offs.",
+      "matched_text": "Materiality guidance: \u22652% of consolidated gross assets or \u22655% of quarterly EBITDA triggers ad hoc disclosure on the next trading day via ADX/DFM; DIFC-listed sukuk follow DFSA dissemination cut-offs.",
       "rule": "material_event"
     },
     {
@@ -257,6 +265,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing Addendum and MNPI Handling Schedule between Mirage Grid PJSC (Controller) and Sand Dune Advisors FZ-LLC (Processor), UAE.\nScope: personal data per UAE PDPL, including onboarding KYC (Emirates ID scans, trade licence copies, contact details, family origin where lawfully provided), and deal-room access logs.\nLawful basis: contract performance and legitimate interests; storage primarily in the UAE (on DIFC-hosted systems) with failover in ADGM; minimal profiling, no automated decisions with legal effect.\nRoles and contacts: Controller DPO Ms. Huda Al Qasimi, dpo@miragegrid.ae, Gate 7, DIFC, Dubai; Processor contact: Mr. Tareq N. Al Marei, compliance@sandduneadvisors.ae.\nDSAR: submit to privacy@miragegrid.ae or via https://miragegrid.ae/pri vacy/DSAR; acknowledgment within 7 days and response within 30 days per PDPL, subject to legal holds.\nTransfers: permitted under PDPL with appropriate safeguards (intra-group binding rules; SCC-style clauses for non-adequate jurisdictions); subprocessors in KSA and EU are listed at htt ps://miragegrid.ae/subp rocessors.pdf.\nRetention: Emirates ID copy deleted within 90 days post-verification; trade licence data retained 6 years; deal-room logs retained through closure plus 5 years; no \u201cnot a MAC\u201d carveout changes retention.\nMNPI definition: non-public, price-sensitive issuer information per SCA market conduct rules, DIFC MAR, and ADGM MKT; issuer-relative materiality assessed by the Disclosure Committee.\nDisclosure timing: no selective disclosure; public release via DFM/ADX announcements and SCA-approved eServices; b l a c k o u t w i n d o w from quarter-end until 24h after publication.\nWall-crossing: potential investors and advisors receive MNPI only under NDA; insider list maintained in the DFSA format; confirmations archived under ref: INS-\u0394-2026/0O2.\nPublic reference for precision: the \u201cProject Pearl\u201d revolving facility was already disclosed by Mirage Grid PJSC on DFM eDisclosure 05-03-2024 (press release link: https://dfm.ae/issuers/mirage-grid/pearl-release.pdf) and is not MNPI.\nNon-issuer updates like cafeteria hours, FalconPay Lite product FAQs, or legacy blog posts, and broad press-release summaries from trade media do not trigger this Schedule.\nMateriality guidance: \u22652% of consolidated gross assets or \u22655% of quarterly EBITDA triggers ad hoc disclosure on the next trading day via ADX/DFM; DIFC-listed sukuk follow DFSA dissemination cut-offs.\nExample personal identifiers processed for due diligence: Emirates ID 784-1\u258834-5678\u25880-1; Trade Licence TL-DIFC-0O1-2l3; client code MG-CLl-0097; these are obfuscated and for illustration.\nRecords of processing are available on request and may cite public filings (e.g., Mirage Grid Annual Report 2024 at https://adx.ae/issuers/mirage-grid/annual2024.pdf), which are already public and outside MNPI scope.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -277,7 +291,7 @@
       "reason": "Governance role noun, not PII/MNPI value"
     },
     {
-      "matched_text": "INS-Δ-2026/0O2",
+      "matched_text": "INS-\u0394-2026/0O2",
       "reason": "Internal reference code; not an allowed PII/MNPI category"
     }
   ],

@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -369,6 +377,18 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY NON-PUBLIC \u2014 Data Processing Addendum (DPA) for Project Banyan \u2014 not for external distribution.\nParties: Veridian Harvest Holdings Limited (a Hong Kong-listed issuer on the Harbor Listing Exchange) and Port Prosperity Capital Management Limited (manager of Harbour Peak Fund II LP) regarding the proposed acquisition of Aurora Metals (Asia) Limited.\nScope: processing of personal data under the Personal Data (Privacy) Ordinance (PDPO), including employee records, director contact details, and vendor onboarding files; data subjects include staff of the Target and advisers.\nMNPI handling: materials constitute inside information under the Securities and Futures Ordinance until announcement and are subject to wall-crossing and clean-team restrictions.\nEmbargo: IR holding statement and board memo embargoed until 17 July 2026, 09:00 HKT; draft investor-relations Q&A appended for internal review only.\nDeal documents: Draft Sale and Purchase Agreement and Scheme Implementation Deed marked \u201cdefinitive agreement \u2013 draft\u201d and to be circulated to the board of Veridian Harvest for sign-off by Dr. Kelvin Chow, Company Secretary.\nConsideration: headline purchase price HKD 1,280,000,000 with a contingent earn-out of 12.5% of EBITDA above HKD 200,000,000 for FY2027; payment schedule and escrow instructions in Annex 3.\nMAC/MAE: the definition of Material Adverse Effect excludes industry-wide regulatory changes and pandemics, and the absence of an MAE is not a condition precedent to Completion.\nTransfers: personal data may be transferred to subprocessors Cypress Vault Systems (HK) Limited (VDR), Nimbus Data Processing Pte. Ltd. (SG), and Oakleaf Analytics Ltd. (UK) under data transfer agreements and onward-transfer restrictions consistent with PDPO and anticipated Section 33 guidance.\nDSARs: data subjects may submit access or correction requests to Ms. Tessa Ng, Data Protection Officer, at dpo@veridianharvest.hk or +852 3890 1122; we will respond within 40 days and may charge a reasonable fee as permitted by PDPO.\nRetention: board packs, term sheets, and clean-team logs will be retained for 7 years from Completion or for 3 months after a Process Abort Notice, whichever occurs first, then securely deleted or anonymised.\nSecurity: encrypted-at-rest storage in the VDR, role-based access, and audit logs; only licensed corporations who have executed wall-cross letters may access pricing models and synergy schedules.\nPublic-source carve-out: as reported by the Southshore Times on 3 May 2024, general sector consolidation rumors are public and excluded from MNPI scope, but specific valuation ranges and earn-out triggers herein remain non-public.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

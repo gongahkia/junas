@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -360,6 +368,18 @@
       "category": "MNPI",
       "matched_text": "28,500,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u975e\u516c\u958b",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 \u975e\u516c\u958b \u2014 Project Mikan Term Sheet; Embargoed until 2026-07-15 09:00 JST.\nParties: Midorikawa Holdings KK (HSE Prime, Japanese issuer) as Buyer and Kizuna Robotics KK (unlisted) as Target; seller group led by Mr. Haruto Seki.\nTransaction: Buyer to acquire 60.0% of Target\u2019s issued shares for an enterprise value of JPY 28,500,000,000 (approximate per-share price JPY 2,850), payable in cash at Closing.\nThis document contains MNPI under the FIEA and is not to be disclosed on the HSE Timely Portal (HTP), to analysts, or to any third party until the Embargo Date.\nDefinitive Agreements: Share Purchase Agreement and Shareholders\u2019 Agreement governed by Japanese law; this term sheet is non-binding except for confidentiality, exclusivity, costs, and governing law; no public tender offer (TOB) will be used for this private transaction.\nConditions Precedent: (i) Midorikawa board approval, (ii) Japan Competition Authority (JCA) Phase I clearance, (iii) no injunction, (iv) key customer consent, and (v) confirmation of APPI-compliant data handling.\nMAC/MAE: Closing conditioned on no Material Adverse Effect on Target; for the avoidance of doubt, general changes in FX rates or sector-wide HSE Manufacturing Index declines shall not constitute a MAC.\nEmployee & Integration: establish a retention pool equal to 5% of purchase price and grant stock acquisition rights (\u65b0\u682a\u4e88\u7d04\u6a29) in Midorikawa; no \u201cMy Number\u201d or individual codes will be transferred prior to Closing.\nFunding: mix of unsecured corporate bonds and syndicated loans from fictional lenders; no shareholder approval is required under HSE rules due to leverage within pre-disclosed limits.\nTimeline: Signing targeted for 2026-07-12; Closing expected by 2026-09-30 with a longstop date of 2026-12-31; leak protocol uses only the codename \u201cProject Mikan\u201d.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

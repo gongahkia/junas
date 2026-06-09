@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -200,6 +208,24 @@
       "category": "MNPI",
       "matched_text": "Effective date",
       "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR: submit via portal /privacy/request or role mailbox privacy@huaxin-meridian.example; requests will be verified using non-sensitive data points and logs without storing full resident ID codes.\nCross-border transfers: where vendors in Hong Kong SAR/Singapore process limited HR or IR metadata, we execute PRC Standard Contract Clauses and conduct personal information protection impact assessments; security assessment filing is prepared if thresholds are met with the competent cyberspace authority.\nPublic-status semantics: this workflow treats as \u201cpublic\u201d any document already released on the domestic exchange disclosure platform or on our website (e.g., 2024 ESG update, 2023 annual report, bond interest notice), and relies on those sources to avoid re-collecting PI",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: processing of personal information under the PIPL, and security/important data controls under the CSL/DSL for employment and issuer information disclosure operations.\nCategories: job applicants and employees (name, contact, masked PRC resident ID number for verification, education/qualifications); we do not target minors and will delete any data about children under 14 on verification.\nInvestor relations operations use publicly-available shareholder contact details and exchange disclosure platform data; benign press releases and historical \u4e34\u65f6\u516c\u544a already posted are handled as public information.\nRetention: recruitment materials up to 12 months; payroll/tax/board records retained per statutory periods; access logs for disclosure systems retained 24 months unless incident review requires longer.\nDSAR: submit via portal /privacy/request or role mailbox privacy@huaxin-meridian.example; requests will be verified using non-sensitive data points and logs without storing full resident ID codes.\nCross-border transfers: where vendors in Hong Kong SAR/Singapore process limited HR or IR metadata, we execute PRC Standard Contract Clauses and conduct personal information protection impact assessments; security assessment filing is prepared if thresholds are met with the competent cyberspace authority.\nPublic-status semantics: this workflow treats as \u201cpublic\u201d any document already released on the domestic exchange disclosure platform or on our website (e.g., 2024 ESG update, 2023 annual report, bond interest notice), and relies on those sources to avoid re-collecting PI.\nDisclosure channels: issuer announcements are filed through the Haicheng Securities Exchange \u4fe1\u606f\u62ab\u9732\u7cfb\u7edf and company website; copies archived internally as public records with minimal PI.\nPositive MNPI control: before public disclosure, drafts of \u4e1a\u7ee9\u9884\u544a and \u8463\u4e8b\u4f1a\u51b3\u8bae constitute inside information under the Securities Law; finance/IR staff observe an issuer blackout window of T\u221210 to T+2 trading days and must not trade issuer securities during that period.\nSelective disclosure control: no analyst or media communications conveying \u672a\u516c\u5f00\u91cd\u5927\u4fe1\u606f may occur prior to filing; only standardized Q&A after publication on the exchange platform is permitted.\nFalse-positive bait note: \u201cacquisition\u201d in HR onboarding FAQs refers to the publicly-announced 2023 integration of a subsidiary (notice code: Lin-2023-011) and has no bearing on current undisclosed matters.\nSharing: routine reports to payroll agents, auditors, and the registrar are limited to necessary PI; no full resident ID images are stored; vendor lists and subprocessor locations are posted in a public notice and updated quarterly.\nExceptions: we may decline DSAR requests where disclosure would reveal trade secrets, compromise anti-fraud controls, or conflict with Securities Law recordkeeping of MNPI access trails.\nVersion: PI-OPS-IR-2025.02; Owner: Compliance Office; Contact: privacy@huaxin-meridian.example; Effective date: 2025-02-01.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

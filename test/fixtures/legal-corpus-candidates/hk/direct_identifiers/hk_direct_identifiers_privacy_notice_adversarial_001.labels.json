@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -264,6 +272,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbor Meridian Capital Management (HK) Limited (CR No. 2899123; BR\u2011No: 59871234\u2011000; SFC CE No. ZYQ999) \u2014 Privacy & DSAR/Transfer Addendum for HKEX\u2011listed workflows.\nThis notice complies with PDPO DPP1\u20136 and addresses SFO Part XIVA obligations for MNPI during M&A, fund onboarding, and employment operations.\nWe process employee and investor identifiers including HKID and HKSAR Passport numbers, company contact details, and settlement accounts for listed\u2011company transactions.\nData example for HR point\u2011of\u2011contact: Ms. Ada Chow, HR Manager, HKID: K123456(0) [checksum invalid], HKSAR Passport: KZ1 234 567, tel: +852 6 1 2 3  9 9 0 0, email: privacy@harborcap.hk.\nRegistered office: 18/F, Pearl Gate, 12 Hoi Ming Lane, East Central, Hong Kong; deal\u2011room URL: hxxps://dataroom.harborcap.example.hk/rights?req=dsar&case=BR-59871234-000%2Femp%3Dachow.\nIn connection with a contemplated acquisition of Bright Tern Group Limited by Harbor Meridian (unannounced, price\u2011sensitive term sheet), information constitutes inside information under SFO unless generally known.\nAccess to such MNPI is restricted to wall\u2011crossed insiders; trading in the issuer\u2019s securities is prohibited until HKEX disclosure is made and insider lists are filed.\nDSARs may be lodged via the above portal or by contacting the Data Protection Officer at dpo@harborcap.hk; we may require reasonable proof of identity before disclosure.\nTransfers: employee payroll and investor KYC may be transferred to Blue Kite Services Pte. Ltd. (processor) and to our fund administrator in Singapore under contractual safeguards; no onward transfer for marketing without consent.\nRetention: M&A due\u2011diligence files retained 90 days post\u2011closing, payroll records 7 years, AML/KYC 7 years after exit; non\u2011deal chats and generic project docs are not used as systems of record.\nFor settlement of tendered shares, remit to client sub\u2011account 102\u2011356\u2011123456\u2011001 at Pacific Jade Bank (HK) Limited; treasury contact: Mr. K. L. Fong, kl.fong@harborcap.hk.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -147,8 +155,9 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
+      "matched_text": "Harbour Crest Dynamics Limited \u2014 HK Data Export Approval Note and DPA Schedule (HKEX-listed, PDPO compliant).\nScope: M&A due diligence data rooms, fund investor onboarding, and employment HR processing by Harbour Crest Dynamics Limited and processors Silver Quay Services Limited and CloudHarbor Technology (HK) Limited.\nPDPO basis: personal data has the meaning in PDPO and is processed under DPP1 (minimisation), DPP2 (retention), and DPP3 (use and consent).\nMNPI control: this workflow excludes inside information as defined in Part XIVA of the SFO; only HKEX-published announcements or aggregated non-identifiable metrics are in scope.\nCross-border transfer approval: on 2025-02-14 the Data Export Committee approved a one-off, already completed export of masked HR payroll extracts to CloudHarbor Technology Pte. Ltd. (Singapore) with TIAs and contractual safeguards; no live transfer is underway.\nInternational transfer stance: Section 33 PDPO is not commenced, but PCPD guidance is applied and model clauses mirror EU SCC safeguards for onward processing limits.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -270,6 +278,12 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Do not circulate the draft breach notification for the 28 May key-management failure affecting Qasr Fintech Digital Custody ADGM Ltd; the matter is non-public and under FSRA engagement.\nMaintain information barriers: Research and the Token Listings Committee must use role mailboxes (research@qasr.example and listings@qasr.example) for pre-listing communications in ADX/DFM contexts.\nInsider-list hygiene: for genuine events, record functional titles only (e.g., \u201cHead of Wallet Ops\u201d) and store on the secure tracker; do not include Emirates ID, phone, or family details.\nCommercial terms in case studies should be generic (e.g., \u201cdiscounted maker fees,\u201d \u201cintroductory rebates\u201d) and must not reference live negotiations or counterparties.\nEmployee trading blackout for Q2 results follows the published calendar; refrain from rumor discussion or any conduct that could be construed as tipping.\nThe sustainability team may discuss public ESG frameworks but must not claim any third-party assurance until the auditor posts it on a public registry.\nKeep the draft, non-public term sheet for the carbon-credit tokenization pilot with Palm Oasis Utilities PJSC within the DIFC project room until SCA engagement is complete; do not share outside the deal team.\nPDPL and market-abuse queries should be sent to privacy@qasr.example or the helpline 800-000-PRIV; this memo is for internal guidance and not legal advice.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

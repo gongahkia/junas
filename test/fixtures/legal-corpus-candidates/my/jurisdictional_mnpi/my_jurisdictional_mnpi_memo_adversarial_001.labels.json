@@ -7,13 +7,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -27,13 +27,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -48,6 +48,43 @@
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
+  "_resolved_label_warnings": {
+    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
+    "count": 3,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
+      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+    ]
+  },
+  "_resolved_label_warnings_history": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 32,
     "new_must_detect_count": 14,
@@ -57,6 +94,14 @@
     "removed_must_not_detect": [],
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -81,12 +126,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "An analyst briefing deck shared under NDA on 18 June 2026 contains preliminary 2Q revenue guidance (+12–15% qoq) not previously announced; this is MNPI and must not be selectively disclosed",
+      "matched_text": "An analyst briefing deck shared under NDA on 18 June 2026 contains preliminary 2Q revenue guidance (+12\u201315% qoq) not previously announced; this is MNPI and must not be selectively disclosed",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Materiality: thresholds are exceeded relative to the issuer’s size; an Immediate Announcement to Bursa Lestari is required under MMLR paragraph 9.03 upon signing of binding financing and SPA; target release before market open next business day",
+      "matched_text": "Materiality: thresholds are exceeded relative to the issuer\u2019s size; an Immediate Announcement to Bursa Lestari is required under MMLR paragraph 9.03 upon signing of binding financing and SPA; target release before market open next business day",
       "rule": "material_event"
     },
     {
@@ -161,7 +206,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "12–15%",
+      "matched_text": "12\u201315%",
       "rule": "financial_percentage"
     },
     {
@@ -243,12 +288,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "An analyst briefing deck shared under NDA on 18 June 2026 contains preliminary 2Q revenue guidance (+12–15% qoq) not previously announced; this is MNPI and must not be selectively disclosed",
+      "matched_text": "An analyst briefing deck shared under NDA on 18 June 2026 contains preliminary 2Q revenue guidance (+12\u201315% qoq) not previously announced; this is MNPI and must not be selectively disclosed",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Materiality: thresholds are exceeded relative to the issuer’s size; an Immediate Announcement to Bursa Lestari is required under MMLR paragraph 9.03 upon signing of binding financing and SPA; target release before market open next business day",
+      "matched_text": "Materiality: thresholds are exceeded relative to the issuer\u2019s size; an Immediate Announcement to Bursa Lestari is required under MMLR paragraph 9.03 upon signing of binding financing and SPA; target release before market open next business day",
       "rule": "material_event"
     },
     {
@@ -290,6 +335,12 @@
       "category": "MNPI",
       "matched_text": "15%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INTERNAL LEGAL & COMPLIANCE MEMO \u2014 Awan Berlabuh Berhad (Company No.: 2 0 1 1 0 4 4 1 1 9 K) \u2014 Private & Confidential\nSubject: MNPI assessment for proposed private placement and sukuk financing; disclosure obligations under Bursa Lestari Main Market Listing Requirements (MMLR)\nPrepared by Puan Nadira Salleh, Company Secretary; contact: legal@awanberlabuh.com.my; cc Encik Farid Rahman (+60 1x-3xx xxxx), CFO\nNon-public: Board has approved in principle a RM120,000,000 Sukuk Murabahah programme with Serambi Capital Partners Sdn Bhd; term sheet target signing 04 July 2026\nNon-public: Negotiations to acquire 51% of Kembara Logistik Sdn Bhd at ~7.5x FY25 EBITDA; exclusivity until 30 June 2026; break fee RM3.0m payable by target on competing bid\nClosed period: directors and principal officers are in a closed period from 30 June 2026 until release of 2Q results on/around 30 July 2026; no dealings per MMLR paragraph 14.08\nAn analyst briefing deck shared under NDA on 18 June 2026 contains preliminary 2Q revenue guidance (+12\u201315% qoq) not previously announced; this is MNPI and must not be selectively disclosed\nMateriality: thresholds are exceeded relative to the issuer\u2019s size; an Immediate Announcement to Bursa Lestari is required under MMLR paragraph 9.03 upon signing of binding financing and SPA; target release before market open next business day\nReference: Immediate Announcement dated 12 Aug 2025 (URL: https://filings.bursalestari.my/annc/2025/08/AB B R-20250812-0001.pdf) on LRT Package C award remains public and does not itself create a current disclosure obligation\nIndustry updates by The Daily Ledger (5 May 2026) on port congestion and the Selatan Port Authority Circular No. 14/2026 are public and not MNPI; operational chatter from vendors is not an issuer announcement\nThe FY2023 audited financial statements (issued 29 Feb 2024) and Nimbus ERP v3.1 launch press release (UR L: http://inv.awanberlabuh.com.my/pr?ref=nm-2024-03) are stale public information and may be cited broadly\nFor signing logistics only: Encik Farid\u2019s NRIC 7 9 1 2 3 - 0 5 - 5 5 5 5 and service address L evel 2, Menara Nila, 8 Jalan Damai, 5 0 4 5 0 Kuala Lumpur; do not circulate beyond deal team (PDPA applies)\nNo MAC has been triggered under the draft SPA; however, this does not negate the need for immediate disclosure once terms become binding or if selective disclosure risks arise",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -355,42 +406,5 @@
       "matched_text": "blackout comms policy applies",
       "reason": "Blackout policy reference is relevant but not the canonical 'Closed period' phrasing"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_resolved_label_warnings_history": [],
-  "_resolved_label_warnings": {
-    "count": 3,
-    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
-      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
-    ]
-  },
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

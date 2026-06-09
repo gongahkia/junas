@@ -50,6 +50,14 @@
     "previous_must_detect_count": 15,
     "previous_must_not_detect_count": 6
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -202,6 +210,18 @@
       "category": "MNPI",
       "matched_text": "information barrier",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "North Hollow Capital Ltd \u2014 UK Data Protection and Insider Information Workflow Notice\nWe process personal data under UK GDPR where it relates to an identified or identifiable individual (e.g., employees, contractors, and counterparties in UK financial-services workflows) and comply with FCA record-keeping and UK MAR market-abuse standards.\nWe collect role-based contact details (e.g., team mailbox, desk location), work identifiers (e.g., EMP-UK-0042), and access logs; we do not require national insurance numbers or passport scans for the insider-list process.\nUse of terms such as crypto, ESG/climate, cyber, information barrier, blackout, or tipping in training, marketing brochures, or operations manuals (e.g., \u201cCrypto Onboarding Guide\u201d, \u201cESG Climate Tips\u201d) does not make the material inside information.\nAn insider-list is only created where UK MAR inside information exists; entries use placeholders and role descriptors (Fields: Role, Function, Reason for access, Timestamp) and may be supplied to the FCA upon request.\nUntil announced by the issuer, draft commercial terms for a tokenised carbon-unit pilot on the Aquila Exchange UK are treated as inside information and recorded on the insider-list; access is restricted to a clean team behind the information barrier.\nWe operate information-barrier controls (segregated drives, monitored channels, pre-clearance, and blackout calendars) and run periodic \u201cno tipping\u201d training; general product marketing is outside these controls.\nPublic or already-announced materials (e.g., published ESG targets, climate disclosures, or public crypto research notes) are not inside information and are stored in our open library.\nCyber tabletop exercises (e.g., \u201cCyber Drill Playbook v3.0\u201d) use synthetic incidents and redacted logs; operational simulations do not include live customer PII or deal-stage content.\nA draft cyber incident assessment describing service-disruption risks at Brindle Orbit plc, pending external disclosure via a regulated information service, is restricted to the clean team and logged on the insider-list until publication.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

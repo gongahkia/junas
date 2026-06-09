@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -144,7 +152,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "employee ID E1‑0O‑Q7",
+      "matched_text": "employee ID E1\u20110O\u2011Q7",
       "rule": "employee_id"
     },
     {
@@ -169,7 +177,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Acct 77 12‑xx45",
+      "matched_text": "Acct 77 12\u2011xx45",
       "rule": "customer_account_number"
     },
     {
@@ -184,12 +192,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "material and non‑public",
+      "matched_text": "material and non\u2011public",
       "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "matched_text": "877‑555‑0O19",
+      "matched_text": "877\u2011555\u20110O19",
       "rule": "phone_number"
     },
     {
@@ -219,12 +227,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "preliminary Q2 net charge‑offs",
+      "matched_text": "preliminary Q2 net charge\u2011offs",
       "rule": "material_event"
     },
     {
       "category": "PII",
-      "matched_text": "Biometric access log excerpt 07/29 06:14: “SANDOVAL‑P | Door‑3 | m a t c h 96%”",
+      "matched_text": "Biometric access log excerpt 07/29 06:14: \u201cSANDOVAL\u2011P | Door\u20113 | m a t c h 96%\u201d",
       "rule": "biometric_identifier"
     },
     {
@@ -283,6 +291,24 @@
       "category": "MNPI",
       "matched_text": "analyst briefing",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sandoval is a member of CareTech Workers Union Local 942 and practices the Sikh religion",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Sandoval, RN (employee ID E1\u20110O\u2011Q7), disclosed type 1 diabetes treatment details and provided a fingerprint template for MedSafe vault access; restrict to need\u2011to\u2011know.\nMs. Sandoval is a member of CareTech Workers Union Local 942 and practices the Sikh religion; HR must segregate these attributes from performance files and investor materials.\nAnchored PII: Mr. Jonah Pike (analyst\u2011relations lead) identifies as gay; his benefits enrollment and spouse coverage selections are not to be shared with analysts or lenders.\nBenign policy note: our inclusion and diversity policy respects religion and sexual orientation without collecting such data for marketing.\nAny outreach to Bay Cross Analytics or other sell\u2011side firms shall be via public webcast; do not email side figures to jake@baycross.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The 07/14 analyst briefing deck includes preliminary Q2 net charge\u2011offs and AuroraPulse cardiac patch read\u2011outs; treat as MNPI until a current report is filed.\nAnchored PII: Ms. Priya Sandoval, RN (employee ID E1\u20110O\u2011Q7), disclosed type 1 diabetes treatment details and provided a fingerprint template for MedSafe vault access; restrict to need\u2011to\u2011know.\nMs. Sandoval is a member of CareTech Workers Union Local 942 and practices the Sikh religion; HR must segregate these attributes from performance files and investor materials.\nAnchored PII: Mr. Jonah Pike (analyst\u2011relations lead) identifies as gay; his benefits enrollment and spouse coverage selections are not to be shared with analysts or lenders.\nBenign policy note: our inclusion and diversity policy respects religion and sexual orientation without collecting such data for marketing.\nAny outreach to Bay Cross Analytics or other sell\u2011side firms shall be via public webcast; do not email side figures to jake@baycross.example under Reg FD.\nGLBA reminder: MeadowPay HSA wallet accounts Acct 77 12\u2011xx45 and r o u t i n g 1l\u201188\u20116O appear in screenshots; redact before circulation; URL https://portal.harborgatehb.com/r?case=FD\u20112O2Q\u201111A.\nBiometric access log excerpt 07/29 06:14: \u201cSANDOVAL\u2011P | Door\u20113 | m a t c h 96%\u201d; purge after 30 days per Policy HGB\u2011BIO\u201112 and retain only aggregated metrics.\nPreliminary cohort n=44 at Prospect Vista Clinic shows a 14.8% A1C reduction; this operational outcome is material and non\u2011public until stats lock and public webcast occurs.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -307,22 +333,22 @@
   "uncertain": [
     {
       "concept": "routing number",
-      "matched_text": "r o u t i n g 1l‑88‑6O",
+      "matched_text": "r o u t i n g 1l\u201188\u20116O",
       "reason": "Sensitive banking identifier but no explicit routing_number rule in allowed taxonomy"
     },
     {
       "concept": "URL with internal case ID",
-      "matched_text": "https://portal.harborgatehb.com/r?case=FD‑2O2Q‑11A",
+      "matched_text": "https://portal.harborgatehb.com/r?case=FD\u20112O2Q\u201111A",
       "reason": "Could embed an internal tracking/session identifier not explicitly covered by allowed rules"
     },
     {
       "concept": "username/biometric log identifier",
-      "matched_text": "SANDOVAL‑P",
+      "matched_text": "SANDOVAL\u2011P",
       "reason": "Indirect personal identifier within a biometric log; mapping to a specific PII rule is not explicit beyond broader biometric context"
     },
     {
       "concept": "financial performance MNPI",
-      "matched_text": "preliminary Q2 net charge‑offs",
+      "matched_text": "preliminary Q2 net charge\u2011offs",
       "reason": "Pre-release financial metric likely material but lacks explicit amount; classification under material_event may be interpretive"
     },
     {

@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -255,6 +263,12 @@
       "category": "MNPI",
       "matched_text": "Insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ified Social Credit Code (USCC): 9135A0X9M1W2345678; registered office: 19/F, Tower A, No. 88 Jinhuan Road, Qihe District, Shanhai City, CN 219999.\nData Protection Officer: Ms. Rui Xiong; e m a i l: dpo@shanhai-aster.cn; ph one: +86 139 0000 1234.\nFor employment onboarding we collect PRC Resident ID, bank account, mobile, email, and travel passport where required; sample Resident ID: 1 1 0 1 0 5 1 9 8 9 0 1 0 1 4 3 2 (checksum invalid).\nPassport No. (HR file example): E E12345678; job applicant contact: hr-intake@shanhai-aster.cn.\nPayroll Acct No.: 6214 88 00 00 12 34 567; bank branch: Shanhai Rural Bank\u2014Xincheng Sub-branch.\nData subjects may submit DSAR via https://data.shanhai-aster.cn/dsar?uid=11010519890101432 and by email to privacy@shanhai-aster.cn; PUBLIC HELP DESK: 000-000-0000 (not for identity verification).\nWe do not knowingly process minors under 14; if discovered, sensitive PI workflows request guardian consent and restrict access until remediation.\nMNPI on material transactions is maintained on an insider list; prior to public disclosure under CSRC/SSE rules, access is role-based (Role: CFO; Role: board secretary) and event-logged.\nInsider lists and relevant audit trails are retained 10 years after public disclosure; employee personnel files are retained 5 years post-termination unl",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

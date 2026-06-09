@@ -37,6 +37,32 @@
     "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
     "status": "owner_approved_in_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -105,7 +131,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "replace any bank account field “Account No: __________” and residential address fields “Address Line 1/2: __________” with masked values unless a legal requirement exists",
+      "matched_text": "replace any bank account field \u201cAccount No: __________\u201d and residential address fields \u201cAddress Line 1/2: __________\u201d with masked values unless a legal requirement exists",
       "rule": "data_minimisation_marker"
     },
     {
@@ -144,6 +170,18 @@
       "category": "MNPI",
       "matched_text": "restricted",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Compliance Note \u2014 Vriddhi Chemtech Limited (Legal & Secretarial) to Board and Functional Leads\nThis memo summarizes DPDPA compliance for identifiers and our insider trading controls under the Indian securities regulator\u2019s PIT Regulations, 2015.\nFor routine vendor onboarding, do not request Aadhaar; if a form has \u201cAadhaar No: ______\u201d, treat as optional and redact; example placeholder \u201c0000 0000 0000\u201d must never be stored as real data.\nLikewise avoid capturing PAN in general files; label-only fields \u201cPAN: ______\u201d and \u201cGSTIN: ______\u201d on templates are permitted; sample GSTIN \u201c29AAAAA0000A1Z0\u201d is invalid and for illustration.\nOur corporate CIN on letterheads may appear as \u201cU00000MH2024PLC000000 (sample)\u201d; this is non-personal and may be used in public-facing documents.\nFor child interactions (under 18) in campus outreach, obtain guardian consent; do not collect school IDs or Aadhaar for age verification; use parental declaration instead.\nAny investor update must exclude unpublished price sensitive information (UPSI); only facts already posted to a national stock exchange through our 14 May 2025 notice may be shared by Investor Relations.\nFor board packs, replace any bank account field \u201cAccount No: __________\u201d and residential address fields \u201cAddress Line 1/2: __________\u201d with masked values unless a legal requirement exists.\nIntentional exception: for a single contractor travel booking, a passport identifier will be retained per law\u2014Passport No: T8394021\u2014stored in the restricted HR vault with 90-day deletion.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -207,24 +245,6 @@
       "concept": "retention/deletion control",
       "matched_text": "stored in the restricted HR vault with 90-day deletion",
       "reason": "Indicates retention and deletion timeline, but no explicit retention marker rule is provided"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

@@ -44,6 +44,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -336,6 +344,24 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Ms. Janelle Ng, Data Protection Officer, dpo@harbourpeak.example, +852 5 5 0 0 2 1 7 9.\nPurpose: maintain insider lists and deal\u2011room access for Project Jade (proposed acquisition of EcoVista Batteries Ltd.) and a parallel seed allocation in Quayside Digital Assets Fund SPC.\nPDPO basis: personal data (e.g., staffRef HP\u2011RH/EMP/0 0 9 3, masked email f.lau@hp\u2011ex am ple.c o m) collected for employment, M&A due diligence, and fund onboarding; data subjects include employees, secondees, and advisers.\nMNPI scope under the SFO: inside information relating to non\u2011public ESG\u2011linked capex forecasts, cyber incident telemetry affecting operational plants, and draft commercial terms for tokenised renewable receivables on the HarbourChain private ledger.\nInsider list fields include name, role, employer, timestamps, wall\u2011cross status, and blackout windows; access is restricted by Chinese walls/information barriers between the fund desk and listed\u2011company team, with monitoring by Compliance.\nNo dealing by directors or relevant employees during HKEX blackout periods, and no tipping or selective disclosure to potential cornerstone investors or digital asset market makers.\nProcessor obligations: implement ISO27001 controls, segmented VDRs at https://dataroom.harbourpeak.example/invite?deal=Pr0jJade&uid=hp\u20110 0 9 3, and breach escalation within 24h to HarbourPeak and legal counsel.\nCyber incident workflow: if a ransomware alert or DPT wallet compromise implicates Project Jade files, we freeze access, rotate keys (vaultRef: vlt//hp\u2011r01), and assess Part XIVA SFO disclosure; where material, SFC/HKEX will be notified before any market communication.\nCross\u2011border transfers: limited to processors in SZ and SG subject to contract and onward\u2011transfer vetting; logs include truncated device IDs (dv\u2011id: q4 7 a\u2011 9z) and pseudonymous wallet tags (tag: 0xAB..72), with data retained 7 years from deal close or employment end.\nData subject rights: access/correction/erasure under PDPO s.18\u201122 may be requested via dsar@harbourpeak.example; we require minimal proof (ticket: DS A R\u20112 1\u2011HPRH) and will respond within 40 days unless an SFO preservation notice applies.\nCommercial term signals (not for external distribution): draft earn\u2011out range HKD 1 8 0\u20132 2 0 m and ESG KPI CO\u2082e\u2011reduction ratchet \u00b115% are stored in the VDR and are not generally known to persons who commonly deal in our securities.\nTraining note (benign): our public webinar \u201cCrypto custody 101\u201d covers generic wallet hygiene and ESG reporting vocab, without issuer\u2011specific strategies, forecasts, or transaction timing.\nNegative assurance: this notice does not constitute a profit forecast, does not vary any SPA MAC clause, and marketing materials that reference \u201cinside information\u201d only quote public law definitions from the SFO.\nRetention exceptions: statutory HR files (e.g., leave forms, payroll bank ref ****5 3 9) follow employment policy; public\u2011source ESG data scraped from regulators\u2019 websites may be archived for benchmarking without MNPI constraints.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

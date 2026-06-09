@@ -50,6 +50,14 @@
     "previous_must_detect_count": 10,
     "previous_must_not_detect_count": 4
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -182,6 +190,18 @@
       "category": "MNPI",
       "matched_text": "Market abuse context: policy attaches issuer wall\u2011crossing controls under UK MAR; this memo contains no inside information, no live deal details, and is not a data breach notification.",
       "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hester Cole, Data Protection Officer, privacy.office@northvaleplc.example, tel +44 20 0000 1122 (routing code OPR-7f).\nScope: onboarding form meta-data for employees and contractors (E-7X9  3 1; CL/0-7-1-A) processed by Clearsage Compute Ltd (UK) and HarborOak Data LLC (US).\nCross-border transfer: limited payroll support fields to HarborOak Data LLC, Delaware, via UK Addendum to SCCs; transfer request TR/2026/09a closed at http://intra.nvplc/local/export?id=TR%2F2026%2F09a.\nMinimisation: we capture role, work email, and hashed NI proxy (e.g., \u201cNI* 2 9 *** 4Z\u201d), but not home addresses for trading-floor temps; no m.a.c. addresses or device serials are stored.\nConsent withdrawal: Mr. Aadil Royce",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Ms. Hester Cole, Data Protection Officer, privacy.office@northvaleplc.example, tel +44 20 0000 1122 (routing code OPR-7f).\nScope: onboarding form meta-data for employees and contractors (E-7X9  3 1; CL/0-7-1-A) processed by Clearsage Compute Ltd (UK) and HarborOak Data LLC (US).\nCross-border transfer: limited payroll support fields to HarborOak Data LLC, Delaware, via UK Addendum to SCCs; transfer request TR/2026/09a closed at http://intra.nvplc/local/export?id=TR%2F2026%2F09a.\nMinimisation: we capture role, work email, and hashed NI proxy (e.g., \u201cNI* 2 9 *** 4Z\u201d), but not home addresses for trading-floor temps; no m.a.c. addresses or device serials are stored.\nConsent withdrawal: Mr. Aadil Royce (emp ref E-7X9  3 1) withdrew marketing consent on 04\u201105\u20112026; marketing flags were suppressed the same day.\nDSAR: data-sub ject ac cess re quest DS/2026-117 acknowledged 09\u201105\u20112026 and fulfilled 16\u201105\u20112026; archive exports redacted per UK GDPR Art.15(4).\nErasure: post-termination deletion for Ms. J. Rooke completed 01\u201106\u20112026 (ticket ERA/26/0041); HR record retained only as anonymised headcount.\nRetention: financial-services employment records retained 6 years for FCA SYSC auditability, then pseudonymised; dealing logs retained 7 years per market-abuse surveillance.\nMarket abuse context: policy attaches issuer wall\u2011crossing controls under UK MAR; this memo contains no inside information, no live deal details, and is not a data breach notification.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

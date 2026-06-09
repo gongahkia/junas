@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -257,6 +265,24 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Rivermark Fintech Services Private Limited (\"Rivermark\") \u2014 India DPA Schedule & Privacy Workflow Note v2.6 (effective 2026-06-01)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Principal DSARs may be filed at https://ex.port.rivermark.example/dsr?req=DSR-23-09-7x&acc=cli%2F00842 or by email to Ms. Riya Dhawan, DPO, at privacy@rivermark.example; statutory response target is 30 days.\nRetention: KYC records are retained for 8 years post relationship end and then erased by job EJ-78; EJ-78 completed for archive batch AR-2025-12 on 2026-02-14 03:20 IST.\nCross-border note: DEA-91 for nightly export to Orion vault was revoked on 2026-03-31, and no active Aadhaar fields are transferred out of India; this decommissioned flow remains documented for audit only.\nListed-company workflows: for Kalpana AgroTech Limited (listed on Aurora Stock Exchange, ASE code: KALP-AG), unpublished price-sensitive information (UPSI) is segregated per Indian PIT norms; insider list IL-ASE-119 is maintained and the trading window is closed during board cycles.\nUPSI is excluded from DSAR responses until publicly disclosed through ASE filings/press releases; this exclusion is compliance-based and not a denial of access to non-UPSI personal data.\nErasure on request: Requests tagged ERQ-452 are processed after identity verification; no legal hold is active for cli-00842 as of 2026-06-01, so soft-delete is converted to hard-delete at day 30.\nChild accounts: guardian email and phone (hashed) are captured in the consent record; we also verify against public-source corporate registries for directors only, not for minors.\nPolicy control: Riv er mark prohibits bulk export of PAN or Aadhaar to non-permitted locations; there is no scheduled cross-border copy job for identifiers in Q3 FY26.\nSecurity and access: quarterly audit log review ALR-17 shows no unauthorized access; auth scope \"minimised-k yc\" prevents processors from viewing full KYC scans.\nproject jasmine: completed; mango-lake pipeline stores only salted sha256(msisdn) and truncated GSTIN, and does not ingest live GPS or wifi bssid.\nIdentifiers (obfuscated): Client-ID cli-00 842-N; PAN QXXPX9 9 9 9 Z; GST IN 09AB CDE 1234F 1Z5; Aadhaar 9999-0000-1234 (dummy only); contact dpo@rivermark.example; Registered Office: 17, Plot 5, Sector 2B, New Jalgaon, Palash Pradesh 440120.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

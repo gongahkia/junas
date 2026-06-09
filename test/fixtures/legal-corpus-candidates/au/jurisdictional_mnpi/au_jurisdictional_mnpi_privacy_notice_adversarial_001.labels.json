@@ -48,6 +48,14 @@
     "status": "post_cn_ae_precision_realign_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AU",
@@ -225,6 +233,12 @@
       "category": "MNPI",
       "matched_text": "2.5%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing & MNPI Handling Addendum between Curalta BioSystems Ltd and Mallee Capital Pty Ltd (issuer listed on the Australian Unified Securities Exchange, \u201cAUSE\u201d)\nScope: Personal information means information or opinion about an identified or reasonably identifiable individual under the Privacy Act 1988 (Cth); we process employee, health (workplace safety), recruitment, and credit-related data to deliver HR/payroll, clinic rostering, and expense-card services (EmpRef: AU//QF-1 7 3; CardID: CL**-9x-44).\nRetention & minimisation: payroll and contractor records are retained 7 years, health surveillance data per WHS obligations (max 30 years or earlier if de-identified), credit assessments 5 years, then purged; we do not require copies of government IDs for onboarding where a certified alternate is sighted; see http://intra.curaltabio.example/policy?doc=AU-PRIV-APP11#retention.\nIndividual rights: requests for access/correction under APP 12/13 may be lodged via privacy.office@curalta.example.au; we will verify identity using internal tokens only (Ticket: A U - P R 1 2 3 4) and respond in a reasonable period.\nOverseas disclosures: where data is processed by Nuvama Cirrus Pte Ltd (Singapore) and KauriWorks Ltd (NZ), we take reasonable steps to ensure APP 8 compliance and enter contract terms equivalent to APP 8.1; absence of such safeguards requires express, informed consent.\nSecurity & breaches: suspected eligible data breaches are assessed within 30 days under the NDB scheme and, if likely to cause serious harm, notifications are made to affected individuals and the Australian Markets Oversight Commission (AMOC).\nMNPI controls: \u201cMNPI\u201d means information not generally available and that a reasonable person would expect to have a material effect on the price or value of Curalta securities (s1042A/s1043A Corporations Act); staff must not trade or tip where MNPI is held.\nBlackout windows: no dealing by directors or employees from quarter-end until the AUSE release of Appendix 4C/Appendix 4D, and from financial year-end until the Preliminary Final Report; exceptions require Company Secretary approval and are logged (L R 3 . 1 and 3.1A con tinuous dis clo sure).\nSelective disclosure: analyst/press briefings must use only publicly available information; any inadvertent disclosure is escalated to the Company Secretary, Mr. Rowan P. Hale, for \u201cimmediate\u201d AUSE release or trading halt request; cleansing notices are lodged before resumption where applicable.\nPublic-status note: the AUSE announcement dated 15 Jan 2025 (Appendix 4E Preliminary Final Report) and our 20 Feb 2025 product brochure (Yarrawa Core v3.2) are already public; referencing those materials in meetings does not involve MNPI; stale 2023 market commentary remains public and not selectively disclosed.\nIssuer-relative materiality: for internal monitoring only (not a safe harbour), we treat \u22652.5% movement in consolidated revenue or loss of a top-5 customer as likely material and subject to L R 3 . 1 disclosure unless LR 3.1A confiden",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

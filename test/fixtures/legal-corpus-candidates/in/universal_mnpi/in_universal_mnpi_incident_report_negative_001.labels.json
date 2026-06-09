@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -112,6 +120,12 @@
       "category": "MNPI",
       "matched_text": "restricted",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Asterion Infologics Limited \u2014 operational incident report (India), ref OI/2026/042, listed on NSE/BSE, business vertical: enterprise software.\nOn 28 May 2026 13:22 IST, an internal wiki space used by investor relations and legal was misconfigured to public read for 47 minutes; SOC alert closed the window and access logs show five anonymous views with no bulk download.\nContent in scope: public/stale materials such as the 2023 press pack and board memo excerpts on the already-announced amalgamation with Trivana Retail Private Limited, including the line \u201cthe transaction is not expected to have a material adverse effect.\u201d\nTemplates observed: \u201cterm_sheet_template_v5.docx,\u201d a generic \u201cdefinitive_agreement_outline.pdf,\u201d a deal checklist shell, and a header stamp reading \u201cnon-public draft\u201d applied to boilerplates; none contained current counterparties, pricing, or timelines.\nA CSR signup sheet listed two volunteers marked \u201cunder 18\u201d with guardian consent status only; no contact details, Aadhaar, PAN, GSTIN, biometrics, or health data were stored.\nPlaceholder fields in examples showed invalid formats (e.g., Aadhaar: 0000-0000-000; PAN: ABCD12345; GSTIN: 27ABCDE1234F1), indicating no live identifiers under the Digital Personal Data Protection Act.\nSEBI (PIT) assessment: based on forensic review, the exposed content substantially matched public research notes dated Q3\u2013Q4 FY24 and did not reveal UPSI.\nOne draft investor-relations note contained an embargo instruction: \u201cdo not release before 14 Aug 2026 09:15 IST\u201d; the file has been quarantined and access is restricted to the company secretary group.\nTrading window remains as scheduled for Q1 FY27; no additional closure or disclosure is being made to NSE/BSE at this stage, and no Form B/C triggers were identified.\nRegulatory posture: not material under Reg 30 of SEBI LODR; we will voluntarily notify exchanges only if final RCA indicates any UPSI event or adverse impact.\nDPDPA compliance review confirms no consent artifacts beyond checkbox logs and anonymized tokens; children\u2019s data was limited to age and consent flags without identifiers.\nRemediation: wiki space set to private, S3 policy hardened, DLP tuned to flag generic \u201cnon-public\u201d markers on upload, quarterly access reviews reinstated, and templates moved to a restricted repository.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

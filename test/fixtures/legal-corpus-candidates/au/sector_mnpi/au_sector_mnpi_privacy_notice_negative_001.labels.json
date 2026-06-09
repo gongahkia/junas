@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -6,14 +28,29 @@
   "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -132,6 +169,12 @@
       "category": "MNPI",
       "matched_text": "information barrier",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Nandurra Grid Systems Limited (AEX:XX00, ABN 00 000 000 000) \u2014 Data Retention and DSAR Workflow (Australia).\nWe collect personal information under the Privacy Act 1988 (Cth) for HR, payroll, HSE, trade-credit assessment, and customer support; opinions recorded in performance notes may identify an individual.\nRoutine records include role-based emails (e.g., finance@ngsl.example.au), employee identifiers (EID-0000-XYZ), contractor onboarding checks, and training completions (cyber, tipping, and information-barrier modules).\nMarketing examples reference crypto and ESG topics in education only; our \u201cToken Basics for Utilities\u201d webinar does not contain transaction data or investment advice.\nInsiders and blackout windows are explained in generic policy guides for staff share trading and do not disclose deal-stage information.\nData is stored in AU-hosted services with backups; transfers outside Australia use standard contracts and vendor DPIAs; no overseas disclosure is made without notice.\nDSAR process: lodge via privacy@ngsl.example.au; we verify identity and respond within a reasonable period; redactions apply to third-party confidentiality and legal privilege.\nEmployment and health/safety records are retained for statutory periods (e.g., incident reports, workers compensation files); credit files for trade accounts are kept for audit cycles then securely destroyed.\nSecurity incidents are logged for tabletop drills, and example breach playbooks use placeholder account numbers (e.g., ACC-9999-TEST) and invalid IDs, not live customer data.\nA retention hold is applied to a draft ESG-linked power purchase agreement for a microgrid project pending national exchange release; access is ring-fenced under an information barrier and recorded on the insider list.\nRoutine commercial negotiations disclosed publicly on 2025-12-01 remain outside this hold; published summaries on our investor page and the market operator\u2019s website are already generally available information.\nOn 2026-05-20 a preliminary cyber incident review flagged test-user access to a non-public crypto-custody integration runbook including draft commercial term ranges; content was quarantined pending internal materiality review unde",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -169,34 +212,5 @@
       "matched_text": "workers compensation files",
       "reason": "Indicates sensitive health/safety records contextually, but not a specific individual's health condition or treatment"
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

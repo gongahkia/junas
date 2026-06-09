@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 0,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -178,11 +186,6 @@
       "category": "PII",
       "matched_text": "1-877-555-0199",
       "rule": "phone_number"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",

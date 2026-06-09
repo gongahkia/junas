@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -315,6 +323,24 @@
       "category": "MNPI",
       "matched_text": "5%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 2026-07-10 03:40 KST, our edge-device OTA server (cluster \u201cYong-2\u201d) experienced unauthorized script injection; services auto-failed over within 12m, but logs indicate 1,482 customer support records were accessed.\nPreliminary forensics suggest limited exposure of contact fields; one staff profile contained partial resident-no. data (R RN: 8 9 0 7 2 2-1 2 3 X X X) and hashed payroll alias (acct: 110-XX-4920), which triggers PIPA breach assessment and 24h internal escalation.\nWe estimate immediate remediation at KRW 1.2 billion and a potential Q3 delivery slippage of ~2.8% of unit volumes; insurance deductible under CyberGuard-Plus is KRW 250 million",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 2026-07-10 03:40 KST, our edge-device OTA server (cluster \u201cYong-2\u201d) experienced unauthorized script injection; services auto-failed over within 12m, but logs indicate 1,482 customer support records were accessed.\nPreliminary forensics suggest limited exposure of contact fields; one staff profile contained partial resident-no. data (R RN: 8 9 0 7 2 2-1 2 3 X X X) and hashed payroll alias (acct: 110-XX-4920), which triggers PIPA breach assessment and 24h internal escalation.\nWe estimate immediate remediation at KRW 1.2 billion and a potential Q3 delivery slippage of ~2.8% of unit volumes; insurance deductible under CyberGuard-Plus is KRW 250 million.\nThis incident intersects with the pending Share Subscription Agreement (definitive) under Project BADA with Seojeong Capital Partners SPC, signed 2026-06-28; covenant 7.2 (No MAE) references \u201cmaterial adverse effect\u201d measured on consolidated revenue impact >5.0%.\nNo MAC/MAE shall be deemed to have occurred as of the date hereof based on current impact modeling; nonetheless, the investor has reserved rights to request a supplemental disclosure letter.\nRegulatory: notification draft to the competent authority and FSS cyber desk is prepared; if personal data impact is confirmed, we will file a PIPA notice within 72h and prepare a DART-style disclosure for our exchange segment.\nInvestor relations draft (v0.9) is attached; do not publish to https://ir.haneul-robotics.kr/notice?prj=BADA&emb=2026-07-15T09%3A00%2BKST prior to embargo; media holding statement contains the phrase \u201coperational anomaly under investigation.\u201d\nPer public-source context, Hanseo Daily (2024-01-12) covered a similar outage at an unrelated firm; that article is stale and should not be cited for current risk magnitude.\nPoint of contact: Ms. Ji\u2011won Lee, Compliance Director, jiwon.lee@haneul-robotics.kr, +82-2-000-0000; incident owner: Mr. Min",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY NON-PUBLIC \u2014 FSCMA Art.174; Embargo until 2026-07-15 09:00 KST \u2014 Haneul Robotics Co., Ltd. Board/IR Incident Note (Project BADA)\nOn 2026-07-10 03:40 KST, our edge-device OTA server (cluster \u201cYong-2\u201d) experienced unauthorized script injection; services auto-failed over within 12m, but logs indicate 1,482 customer support records were accessed.\nPreliminary forensics suggest limited exposure of contact fields; one staff profile contained partial resident-no. data (R RN: 8 9 0 7 2 2-1 2 3 X X X) and hashed payroll alias (acct: 110-XX-4920), which triggers PIPA breach assessment and 24h internal escalation.\nWe estimate immediate remediation at KRW 1.2 billion and a potential Q3 delivery slippage of ~2.8% of unit volumes; insurance deductible under CyberGuard-Plus is KRW 250 million.\nThis incident intersects with the pending Share Subscription Agreement (definitive) under Project BADA with Seojeong Capital Partners SPC, signed 2026-06-28; covenant 7.2 (No MAE) references \u201cmaterial adverse effect\u201d measured on consolidated revenue impact >5.0%.\nNo MAC/MAE shall be deemed to have occurred as of the date hereof based on current impact modeling; nonetheless, the investor has reserved rights to request a supplemental disclosure letter.\nRegulatory: notification draft to the competent authority and FSS cyber desk is prepared; if personal data impact is confirmed, we will file a PIPA notice within 72h and prepare a DART-style disclosure for our exchange segment.\nInvestor relations draft (v0.9) is attached; do not publish to https://ir.haneul-robotics.kr/notice?prj=BADA&emb=2026-07-15T09%3A00%2BKST prior to embargo; media holding statement contains the phrase \u201coperational anomaly under investigation.\u201d\nPer public-source context, Hanseo Daily (2024-01-12) covered a similar outage at an unrelated firm; that article is stale and should not be cited for current risk magnitude.\nPoint of contact: Ms. Ji\u2011won Lee, Compliance Director, jiwon.lee@haneul-robotics.kr, +82-2-000-0000; incident owner: Mr. Min\u2011jae Park (EID: HB-00A3-X9).\nFor avoidance of doubt, this memorandum is not a waiver of any rights under the SSA, and contains forward-looking statements subject to F S C M A safe-harbor interpretations.\nlowercase pm note: tbd root-cause RCA by 7/13; todo update deal checklist item 14(c); assign red team retest; get CFO sign-off on KRW reserve.\nThe board is informed that our employee wellness program continues as planned; the scheduled spa-day vouchers are unaffected by this event.\nIR Talking Points (internal only): emphasize 12m containment, <3% shipment risk, and that customer firmware integrity was verified by hash; embargo reinforced through 7/15 09:00 KST.\nIf the breach scope expands beyond 5% revenue effect or critical supplier telemetry is compromised, we will trigger the inverse termination provision and re-run MAC sensitivity under Annex 11.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

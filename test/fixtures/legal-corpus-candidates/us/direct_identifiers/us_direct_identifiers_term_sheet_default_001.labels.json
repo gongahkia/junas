@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -82,7 +90,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Confidential Term Sheet — Proposed $80,000,000 Series C Convertible Preferred financing and option to acquire Apex Community Clinics, LLC by Northbridge VitalCare, Inc.",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed $80,000,000 Series C Convertible Preferred financing and option to acquire Apex Community Clinics, LLC by Northbridge VitalCare, Inc.",
       "rule": "material_event"
     },
     {
@@ -249,7 +257,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Confidential Term Sheet — Proposed $80,000,000 Series C Convertible Preferred financing and option to acquire Apex Community Clinics, LLC by Northbridge VitalCare, Inc.",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed $80,000,000 Series C Convertible Preferred financing and option to acquire Apex Community Clinics, LLC by Northbridge VitalCare, Inc.",
       "rule": "material_event"
     },
     {
@@ -326,6 +334,18 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Sandoval, Managing Director, l.sandoval@meridianharbor.example, +1-212-555-0149.\nCompany contact: Mr. Darren Cole, CFO, d.cole@northbridgevitalcare.example, +1-415-555-0136.\nSecurity: Series C Convertible Preferred Stock (non-voting until conversion), initial conversion price $7.50; intended listing of underlying common on Mid-Atlantic Stock Exchange (symbol NBVC).\nPurchase Price and Funding: $80,000,000 wired to Issuer DDA 8394726154 at Outlook Ridge Bank, ABA 000000000, by 30-Sep-2026; Closing costs capped at $750,000.\nUse of Proceeds: expansion of care management platform; no Protected Health Information will be disclosed; any datasets delivered must be de-identified under 45 CFR 164.514.\nSelective Disclosure: any presentations to sell-side analysts will comply with Reg FD; material non-public information will be simultaneously furnished via public company disclosure channels.\nThe parties acknowledge that preliminary Q3 net revenue of $126.4m (unaudited) and draft margin guidance are MNPI; Investor agrees to wall-crossing restrictions and no trading until a cleansing disclosure.\nManagement Matters: retention bonuses for up to 12 key employees; no individual employee SSNs will be requested at signing (Form Field: [Insert SSN] is not to be completed).\nRepresentations: standard Rule 10b-5, no undisclosed liabilities exceeding $2m, and compliance with banking customer data safeguards (GLBA) for any shared account metadata.\nConditions Precedent: board approval; KYC/CIP including a copy of Mr. Darren Cole\u2019s U.S. Passport No. 712345674",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed $80,000,000 Series C Convertible Preferred financing and option to acquire Apex Community Clinics, LLC by Northbridge VitalCare, Inc.\nIssuer: Northbridge VitalCare, Inc., a Delaware corporation (EIN 58-7392014; DE SOS File No. 9215473) with principal offices at 1200 Alder Park, Suite 400, Newvale, DE 19950.\nInvestor: Meridian Harbor Bank, N.A. and affiliates (GLBA-regulated), contact: Ms. Lila Sandoval, Managing Director, l.sandoval@meridianharbor.example, +1-212-555-0149.\nCompany contact: Mr. Darren Cole, CFO, d.cole@northbridgevitalcare.example, +1-415-555-0136.\nSecurity: Series C Convertible Preferred Stock (non-voting until conversion), initial conversion price $7.50; intended listing of underlying common on Mid-Atlantic Stock Exchange (symbol NBVC).\nPurchase Price and Funding: $80,000,000 wired to Issuer DDA 8394726154 at Outlook Ridge Bank, ABA 000000000, by 30-Sep-2026; Closing costs capped at $750,000.\nUse of Proceeds: expansion of care management platform; no Protected Health Information will be disclosed; any datasets delivered must be de-identified under 45 CFR 164.514.\nSelective Disclosure: any presentations to sell-side analysts will comply with Reg FD; material non-public information will be simultaneously furnished via public company disclosure channels.\nThe parties acknowledge that preliminary Q3 net revenue of $126.4m (unaudited) and draft margin guidance are MNPI; Investor agrees to wall-crossing restrictions and no trading until a cleansing disclosure.\nManagement Matters: retention bonuses for up to 12 key employees; no individual employee SSNs will be requested at signing (Form Field: [Insert SSN] is not to be completed).\nRepresentations: standard Rule 10b-5, no undisclosed liabilities exceeding $2m, and compliance with banking customer data safeguards (GLBA) for any shared account metadata.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -77,12 +85,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Cross‑border transfers occur",
+      "matched_text": "Cross\u2011border transfers occur",
       "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "matched_text": "the requester indicated DOB 1988-02-03, residence area “Al Hamra, Jeddah”, employer “Tamkeen Energy Ltd”, role “Procurement Analyst”, company laptop tag TE-AT-00971, payroll account tail …6021, and masked Iqama ref KSA-IQ-77**-**-**21, which we linked to internal user code HR-FAKE-558",
+      "matched_text": "the requester indicated DOB 1988-02-03, residence area \u201cAl Hamra, Jeddah\u201d, employer \u201cTamkeen Energy Ltd\u201d, role \u201cProcurement Analyst\u201d, company laptop tag TE-AT-00971, payroll account tail \u20266021, and masked Iqama ref KSA-IQ-77**-**-**21, which we linked to internal user code HR-FAKE-558",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -92,7 +100,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "payroll account tail …6021",
+      "matched_text": "payroll account tail \u20266021",
       "rule": "bank_account"
     },
     {
@@ -127,7 +135,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "We do not solicit MNPI; price‑sensitive information is accepted only through issuer portals after a public filing or press release",
+      "matched_text": "We do not solicit MNPI; price\u2011sensitive information is accepted only through issuer portals after a public filing or press release",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -161,6 +169,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Rimal Advisory Holdings KSA LLC processes PDPL personal data solely for issuer onboarding and compliance with market\u2011conduct obligations in the Kingdom.\nWe support listings on the Kingdom Securities Exchange (fictional) and coordinate with the Capital Markets Oversight Bureau (fictional) under internal MNPI controls.\nWe do not solicit MNPI; price\u2011sensitive information is accepted only through issuer portals after a public filing or press release, and insider lists are maintained by the issuer.\nIdentifiers we may handle include masked national ID/Iqama entries, commercial registration references, corporate role titles, and audit logs; wherever feasible we use role mailboxes such as listings@rimaladvisory.example.\nOur standard forms contain labels like \u201cFull Name\u201d, \u201cDOB\u201d, \u201cCity\u201d, \u201cDevice ID\u201d, \u201cEmployee No.\u201d, and \u201cIBAN\u201d, but these fields do not identify any individual on their own.\nCross\u2011border transfers occur only with a valid SDAIA transfer permit or under an approved mechanism, via the national gateway and encryption in transit; otherwise, data remain localized in the Kingdom.\nFor issuers such as Tamkeen Energy Ltd (fictional) we store public CR placeholders (e.g., CR 2050-XYZ-1111) and a generic switchboard email, and we do not keep board minutes or draft price ranges.\nPositive DSAR example (intentional cluster): the requester indicated DOB 1988-02-03, residence area \u201cAl Hamra, Jeddah\u201d, employer \u201cTamkeen Energy Ltd\u201d, role \u201cProcurement Analyst\u201d, company laptop tag TE-AT-00971, payroll account tail \u20266021, and masked Iqama ref KSA-IQ-77**-**-**21, which we linked to internal user code HR-FAKE-558.\nOutside such verified matches, isolated attributes like \u201clives in Riyadh\u201d or \u201cuses Android phone\u201d are treated as non\u2011identifying by themselves and are not linked.\nAccess to issuer workspaces is restricted by OTP and device posture; any on\u2011screen device identifiers (e.g., IMEI TEST-000-000-000) in training screenshots are placeholders.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -219,7 +233,7 @@
     },
     {
       "concept": "data_minimisation_policy",
-      "matched_text": "public or already‑announced facts may remain in deal logs without personal data",
+      "matched_text": "public or already\u2011announced facts may remain in deal logs without personal data",
       "reason": "Data minimisation by excluding personal data is relevant but not explicitly a deletion/erasure marker in the allowed rules"
     }
   ]

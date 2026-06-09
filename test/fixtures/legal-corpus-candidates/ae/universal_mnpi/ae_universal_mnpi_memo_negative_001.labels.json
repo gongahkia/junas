@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -185,6 +193,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "scope: routine board update on disclosure hygiene; references are to public materials (sca rulebook, dfm/adx manuals, adgm/difc data protection guidance).\npublic status: the sustainability roadmap and 2024 strategy were announced on 15\u201102\u20112024 via dfm releases; any percentages cited below are sourced from those public documents.\nworking codename: project coral lantern \u2014 internal working title for planning calendars only; not used in any external communication.\nembargo: investor\u2011relations draft for the annual outlook should not be posted before 2026\u201101\u201120 09:00 gst to align with the planned public webcast.\nmac/mae: no material adverse change has been asserted or identified; the pro forma term sheet uses standard, negated mac language from publicly available precedent.\ndefinitive agreements: none are in draft; only a training template based on a public form is circulating for comments in the role mailbox legal@marhabadunes.example.\nmnpi filter: do not include non\u2011public revenue run\u2011rates, pipeline percentages, or customer names; use placeholders and cite only already\u2011announced metrics.\npdpl controls: we will not request or store emirates id, family\u2011origin data, or biometric attributes in the deal room; data minimisation applies to cv placeholders and vendor kyc.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

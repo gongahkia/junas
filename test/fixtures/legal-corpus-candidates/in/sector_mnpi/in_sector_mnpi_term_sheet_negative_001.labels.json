@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -242,6 +250,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Strategic Acquisition \u2014 Paarthiv GreenTech Limited / Vahana CyberSolar Systems Private Limited\nAcquirer: Paarthiv GreenTech Limited (listed on NSE; CIN: U00000ZZ2020PLC000001); Target: Vahana CyberSolar Systems Private Limited (CIN: U00000ZZ2018PTC000123).\nTransaction: Proposed acquisition of up to 74% of Vahana via primary infusion and secondary purchase, subject to SEBI, CCI and, if applicable, RBI approvals and applicable stock exchange requirements.\nConsideration: Combination of cash and share swap; exact ratio and pricing mechanics to be mutually agreed; no guidance or financial projections are provided in this document.\nBusiness overview: Vahana provides ESG analytics and cyber-resilience solutions for renewable microgrids; it operates an educational crypto-token simulator for staff training only (no treasury exposure or customer onboarding).\nData protection: All personal data sharing for diligence shall be purpose-limited and consent-based per the Digital Personal Data Protection Act, 2023; do not upload Aadhaar/PAN/GSTIN copies to the VDR\u2014use redacted samples only (e.g., PAN: XXXXX0000X; Aadhaar: 0000-1111-2222; GSTIN: 00ABCDE0000Z0Z0), and maintain a consent log.\nChildren\u2019s data: No processing of data relating to children (under 18) without verifiable parental consent; internship and campus outreach files to be excluded from pre-signing review.\nSEBI PIT controls: Parties shall implement insider lists, information-barriers, and a trading window blackout from Board intimation until 48 hours post NSE/BSE disclosure; staff must avoid tipping through webinars or marketing collateral.\nCyber materials: Cyber incident tabletop reports may be shared for operational benchmarking; these are generic playbooks and shall exclude system logs, credentials, or any customer PII.\nESG communications: Use of \u201cESG\u201d or climate metrics in brochures remains marketing-only; no commercial-term signals or forward-looking statements to be externally circulated prior to regulatory filings.\nPublic domain reference: Target\u2019s pilot with the Savitra Nagar Solar Mission was publicly announced on 15-Jan-2025 via municipal notice; references herein are limited to that public release.\nIntentional MNPI (1): The Board of Paarthiv has approved, subject to diligence, a non-public offer structure contemplating a 10\u201314% collar on the swap ratio; as of the date hereof, this has not been disclosed on NSE/BSE.\nIntentional MNPI (2): Vahana has identified, but not yet disclosed, a contained credential leak limited to an internal sandbox; remediation is complete and",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

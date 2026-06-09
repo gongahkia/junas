@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -319,6 +327,18 @@
       "category": "MNPI",
       "matched_text": "likely to impact",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts: Primary \u2014 Mr. Kento Wai (Director, Orchid Nebula), kento.wai@orchidnebula.example, +852 5X33 0O22; Secondary \u2014 Ms. R.Q. Yeung (Silver Quay Capital), rq.yeung@silverquay\u2011cap.example; courier label: Unit 1501, 12 Harbor Crescent, East Kowloon (fictional)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed voluntary general offer by Orchid Nebula Holdings Limited for JiaYun Robotics Limited (HKX\u2011listed, stock code 7Z09) \u2014 Project Jade\u2011Kite.\nOfferor: Orchid Nebula Holdings Limited; concert parties include Harbour Peak Fund SPC \u2014 Segregated Portfolio C (advised by Silver Quay Capital (HK) Limited, Type 9 under the Harbour Kong Securities & Futures Ordinance (SFO)).\nConsideration: HK$ 1 2 . 3 0 per Sh a re in cash; 23.4% premium to last c l o s e; escrow: Stellar Trustee (Asia) Limited; settlement T+5 via HKX\u2011Clear.\nFunding: Committed term facility from Lantau Rock Bank Ltd and equity from Harbour Peak Fund SPC; no financing out; no MAC triggered by general market indices.\nConditions Precedent: Minimum acceptance > 50% of disinterested Shares; compliance with the Harbour Kong Takeovers Code; no injunction; approval of circular per HKX Listing Rules 14 & 14A (if applicable).\nRegulatory & MNPI: Inside information handled per SFO Part XIV\u2011A; non\u2011public, specific information likely to impact price is MNPI; public\u2011source references (HKX announcements, press releases) shall not constitute MNPI for this Term Sheet.\nConfidentiality: No external release until joint announcement under Takeovers Code Rule 3.5\u2011like standard; drafts circulated via VDR only; URL: https://dealroom.orchidnebula.example/v/JRL?rid=ONH%2F7Z09&k=0O1i\u2011LAa (do not forward).\nKey Management/Disclosure Schedule: Mr. Adrian Lam (CFO, JiaYun Robotics) \u2014 health: Type 1 diabetes treated with an insulin pump; biometric: facial\u2011scan template registered for restricted lab access at Silver Bay campus; religious belief: practicing Taoist; contact: adrian.lam@jiayun\u2011robotics.example.\nEmployment & Union Undertakings: Ms. Celia Fong (Employee Representative) \u2014 union: elected officer of the Harbour Tech Union; Offeror agrees no adverse change to her elected status or consultation rights for 12 months post\u2011closing; contact: celia.fong@jiayun\u2011robotics.example.\nProduct & Benign Phrases: References to product names Nimbus 12 Pro, DragonGate X, and the metaphor \u201cpolitical football\u201d are marketing/colloquial only; the word \u201csex\u2011life\u201d appears in a wellness slogan and is not used to describe any individual\u2019s sex life.\nSports/Places (Non\u2011binding, do not announce): Community sponsorships (e.g., Kowloon Harbour Tigers, Silver Bay regatta) may continue in ordinary course and shall not trigger any MAC.\nDataroom Access Codes & Obfuscation: Access code A C C \u2011 7 1 8 9 \u2011 X X 3; internal tag PRJ\u2011J Y R L\u20112 0 2 6; doc ref TS\u201100I\u2011L; note potential OCR confusions between \u2018I\u2019, \u2018l\u2019, and \u20181\u2019 in legacy scans.\nClosing Timeline: Board approvals targeted by 2Q2026; long\u2011stop date 30 Sep 2026; lower\u2011case project\u2011management note: update gantt + circulate redlines by fri eod; closing venue: North Lantau, Silver Bay (non\u2011public).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -42,7 +50,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Term Sheet — Proposed Strategic Acquisition of Northlake Patient Systems LLC by Avenwell Health Bancorp, Inc. (US issuer listed on the Midland Exchange).",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Acquisition of Northlake Patient Systems LLC by Avenwell Health Bancorp, Inc. (US issuer listed on the Midland Exchange).",
       "rule": "material_event"
     },
     {
@@ -154,7 +162,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Term Sheet — Proposed Strategic Acquisition of Northlake Patient Systems LLC by Avenwell Health Bancorp, Inc. (US issuer listed on the Midland Exchange).",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Acquisition of Northlake Patient Systems LLC by Avenwell Health Bancorp, Inc. (US issuer listed on the Midland Exchange).",
       "rule": "material_event"
     },
     {
@@ -201,6 +209,18 @@
       "category": "MNPI",
       "matched_text": "1234567890",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts: Investor Relations mailbox ir@avenwell.example and Media Relations media@avenwell.example; responses will not be provided to personal email addresses.\nForm placeholders (not to be completed in this document): SSN ___-__-____ (example 000-12-3456 invalid), US Passport No. _________ (example 123456789 invalid), City Business License BL-000000 (template).\nTemplate remittance (invalid and for illustration only): ABA 000000000, Account 1234567890, Beneficiary Avenwell Escrow Department, Remit-to Address 100 Example Ave., Suite 200, Capital City, ZZ 99999",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Acquisition of Northlake Patient Systems LLC by Avenwell Health Bancorp, Inc. (US issuer listed on the Midland Exchange).\nParties: Avenwell Health Bancorp, Inc. (EIN 54-3216549) and Northlake Patient Systems LLC; no individual advisors or named persons are identified in this draft.\nStructure: All-stock merger; consideration, exchange ratio, and earn-out terms are TBD and will be disclosed, if any, via a public Form 8-K.\nRegulatory: Communications will comply with Reg FD and Rule 10b-5; no selective disclosure to analysts, lenders, employees, or other covered market actors.\nPublic information: This summary reflects only public, already-announced facts as of May 1, 2025 and does not contain material non-public information.\nFinancing: Anticipated revolving facility and bridge commitment subject to diligence; GLBA and HIPAA controls to be certified prior to signing.\nDiligence: No patient-level, consumer, or household PII will be shared pre-close; use de-identified datasets and aggregated KPIs in the data room.\nIntegration: Employee and benefits information to be shared only in anonymized form; no payroll, SSN, or account-level data will be requested before closing.\nApprovals: HSR filing, state health notifications, and customary banking supervisory non-objection required; closing targeted for Q4 2025.\nPublic channels: Investor webcast and slide deck to be posted at investors.avenwell.example/events and filed on EDGAR; dial-in via public helpline 800-555-0100.\nContacts: Investor Relations mailbox ir@avenwell.example and Media Relations media@avenwell.example; responses will not be provided to personal email addresses.\nForm placeholders (not to be completed in this document): SSN ___-__-____ (example 000-12-3456 invalid), US Passport No. _________ (example 123456789 invalid), City Business License BL-000000 (template).\nTemplate remittance (invalid and for illustration only): ABA 000000000, Account 1234567890, Beneficiary Avenwell Escrow Department, Remit-to Address 100 Example Ave., Suite 200, Capital City, ZZ 99999.\nBinding effect: Non-binding except for confidentiality and exclusivity placeholders; any definitive agreement will be announced through a broadly disseminated press release and Form 8-K.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -7,13 +7,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -27,13 +27,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -48,6 +48,31 @@
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 16,
     "new_must_detect_count": 8,
@@ -57,6 +82,14 @@
     "removed_must_not_detect": [],
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -76,7 +109,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal legal note re: Taman Kencana Berhad (Company No.: TK-00000) — compliance with PDPA, CMSA, and Bursa Listing Requirements for proposed financing and HR updates.",
+      "matched_text": "Internal legal note re: Taman Kencana Berhad (Company No.: TK-00000) \u2014 compliance with PDPA, CMSA, and Bursa Listing Requirements for proposed financing and HR updates.",
       "rule": "material_event"
     },
     {
@@ -158,7 +191,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal legal note re: Taman Kencana Berhad (Company No.: TK-00000) — compliance with PDPA, CMSA, and Bursa Listing Requirements for proposed financing and HR updates.",
+      "matched_text": "Internal legal note re: Taman Kencana Berhad (Company No.: TK-00000) \u2014 compliance with PDPA, CMSA, and Bursa Listing Requirements for proposed financing and HR updates.",
       "rule": "material_event"
     },
     {
@@ -170,6 +203,18 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee A (Staff ID EMP-77A) submitted a medical certificate disclosing a Type 1 diabetes condition; treat this as sensitive personal data under PDPA handling rules and restrict to HR-Legal only.\nNo biometric scans, genetic tests, union affiliation, religion, or political opinions are being collected in this exercise, despite references to \u201cWellness Fridays\u201d and \u201cstadium metaphors\u201d in the draft slides.\nThe Merak City shared office at Jalan Anggerik 9 is a venue descriptor only; no home addresses or geolocation logs are processed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal legal note re: Taman Kencana Berhad (Company No.: TK-00000) \u2014 compliance with PDPA, CMSA, and Bursa Listing Requirements for proposed financing and HR updates.\nThe non-binding term sheet with Bank Seruni Capital Sdn Bhd (draft ID: TNK-MEMO-0000-BETA) mirrors the public MoU announced on 04 Apr 2025 (Announcement Ref: TK-ANN-XY00), hence not MNPI under CMSA guidance.\nAny pricing, drawdown schedule, or security package remains TBC and excluded from board packs until sign-off; no selective disclosure to analysts or the Bukit Angkasa Falcons fan club.\nProduct names cited (Cloud Palm 2.0, Teh Tarik Spark, Selera Raya Bundle) are marketing placeholders and do not contain customer or supplier lists.\nPolicy names (Rainbow Inclusion Charter 2026, Safe Canteen Code, Green Sprint) are internal frameworks; generic DEI prose about belonging and allyship is not personal data.\nForm labels to appear in HR annex: NRIC/Passport [not collected], Residential Address [not collected], Bank Account No. [masked], Emergency Contact [role mailbox only].\nContact points for queries: governance@tamankencana.example and investor.relations@tamankencana.example; public helpline listed on the website footer.\nEmployee A (Staff ID EMP-77A) submitted a medical certificate disclosing a Type 1 diabetes condition; treat this as sensitive personal data under PDPA handling rules and restrict to HR-Legal only.\nNo biometric scans, genetic tests, union affiliation, religion, or political opinions are being collected in this exercise, despite references to \u201cWellness Fridays\u201d and \u201cstadium metaphors\u201d in the draft slides.\nThe Merak City shared office at Jalan Anggerik 9 is a venue descriptor only; no home addresses or geolocation logs are processed.\nFinancing note: covenant summaries may be circulated in aggregate; absence of amounts is intentional to avoid inadvertent MNPI prior to Bursa disclosure.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -305,30 +350,5 @@
       "matched_text": "medical certificate",
       "reason": "Indicates medical documentation; allowed rules focus on conditions/treatment rather than documents"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

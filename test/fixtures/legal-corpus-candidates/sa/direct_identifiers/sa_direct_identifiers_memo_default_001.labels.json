@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -129,12 +137,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "CMA Market Conduct Regulations apply: draft Board minutes include non-public Q2 FY27 revenue SAR 48.2m and an unannounced share buyback cap of 3.0% — this constitutes MNPI until the official filing.",
+      "matched_text": "CMA Market Conduct Regulations apply: draft Board minutes include non-public Q2 FY27 revenue SAR 48.2m and an unannounced share buyback cap of 3.0% \u2014 this constitutes MNPI until the official filing.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Caution: circulating the unaudited revenue figures or buyback cap outside the disclosure team prior to the Tadawul announcement may breach Articles 50–55 of the CMA regulations.",
+      "matched_text": "Caution: circulating the unaudited revenue figures or buyback cap outside the disclosure team prior to the Tadawul announcement may breach Articles 50\u201355 of the CMA regulations.",
       "rule": "material_event"
     },
     {
@@ -209,7 +217,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Caution: circulating the unaudited revenue figures or buyback cap outside the disclosure team prior to the Tadawul announcement may breach Articles 50–55 of the CMA regulations",
+      "matched_text": "Caution: circulating the unaudited revenue figures or buyback cap outside the disclosure team prior to the Tadawul announcement may breach Articles 50\u201355 of the CMA regulations",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -261,12 +269,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "CMA Market Conduct Regulations apply: draft Board minutes include non-public Q2 FY27 revenue SAR 48.2m and an unannounced share buyback cap of 3.0% — this constitutes MNPI until the official filing.",
+      "matched_text": "CMA Market Conduct Regulations apply: draft Board minutes include non-public Q2 FY27 revenue SAR 48.2m and an unannounced share buyback cap of 3.0% \u2014 this constitutes MNPI until the official filing.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Caution: circulating the unaudited revenue figures or buyback cap outside the disclosure team prior to the Tadawul announcement may breach Articles 50–55 of the CMA regulations.",
+      "matched_text": "Caution: circulating the unaudited revenue figures or buyback cap outside the disclosure team prior to the Tadawul announcement may breach Articles 50\u201355 of the CMA regulations.",
       "rule": "material_event"
     },
     {
@@ -288,6 +296,12 @@
       "category": "MNPI",
       "matched_text": "3.0%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mr. Saeed Al-Harbi (National ID 1034567891; Passport KS9876543) is appointed Disclosure Officer for the transaction and will coordinate issuer communications.\nPrimary contact: +966 55 812 3490; saeed.alharbi@alwusta-renewables.example; National Address: Bldg 4211, Unit 18, Al-Muhammadiyah Dist., Riyadh 13322-4411, KSA.\nCompany tax identifiers: ZATCA VAT 300123456700003; GAZT e-Services account alwusta.tax@example (internal reference only).\nCorporate treasury account (Al-Shamal Bank, fictional): IBAN SA11 8000 0000 0000 1234 5678 90 \u2014 noted INVALID checksum, for illustration in this draft only.\nCMA Market Conduct Regulations apply: draft Board minutes include non-public Q2 FY27 revenue SAR 48.2m and an unannounced share buyback cap of 3.0% \u2014 this constitutes MNPI until the official filing.\nIssuer workflow: pre-notification to Tadawul underway via Issuer Portal ticket IP-ARH-2027-044; insiders list to be updated within 24 hours of Board approval.\nData transfer: HR records sync to offshore payroll vendor requires SDAIA permit; Transfer Request TRF-24-0199 pending; no transmission of National ID images until permit issued.\nPDPL basis: processing of employee contact data (mobile, email) under employment contract; processing of National ID 1034567891 limited to mandatory regulatory filings only.\nPlease ignore the placeholder Iqama field \u201cID: 0000000000\u201d in the attached template; it is a generic label and not personal data.\nPublic helpline 800-919-0000 (group ethics line) is listed for general queries and is not an individual\u2019s contact.\nRole-only references (e.g., \u201cthe CFO\u201d and \u201cCompany Secretary\u201d) in the draft should be replaced with named individuals before submission to CMA.\nCaution: circulating the unaudited revenue figures or buyback cap outside the disclosure team prior to the Tadawul announcement may breach Articles 50\u201355 of the CMA regulations.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -301,7 +315,7 @@
     },
     {
       "matched_text": "800-919-0000",
-      "reason": "Public helpline number, not an individual’s contact"
+      "reason": "Public helpline number, not an individual\u2019s contact"
     },
     {
       "matched_text": "the CFO",

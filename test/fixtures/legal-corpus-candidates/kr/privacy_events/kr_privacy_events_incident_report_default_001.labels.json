@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -195,6 +203,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A DSAR from Ms. Seo Hye-jin (candidate) was received on 2026-05-27 and fulfilled on 2026-05-29 with confirmation sent via privacy@wonseongmaterials.example.\nAs part of DSAR fulfillment, her onboarding form was erased from the sandbox, and resident-number fields were never captured due to 2025 minimisation policy (HR-PII-MIN v2.1).\nOn 2026-05-31, Mr. Choi Min-kyu withdrew consent for cross-border payroll processing; export rules were updated to exclude his record and the suppression was logged.\nData Export Approval WM-DEX-2026-014 authorized limited HR data transfer to BlueHarbor Pensions Pte. Ltd. (SG) for benefits enrollment, with fields restricted to hashed employee-ID and plan selections under PIPA-compliant clauses.\nApproval WM-DEX-2026-013 in DPA Schedule 2 remains as a template only and lapsed on 2026-03-31 without any transmissions; the clause does not reflect current processing.\nRetention controls: IR draft files are on a 90-day retention schedule (PR-07), and the 2026-02 batch auto-deleted on 2026-05-28, verified by checksum logs.\nMinimisation controls: resident-number (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638) is collected only where legally required and is tokenised at ingestion; analytics and exports exclude this attribute.\nDeal room review: a non-binding term sheet stub (no counterparties, no figures) was found in /deal/2026_SLB; it contained no material information and was purged during cleanup.\nRegulator/exchange context: a courtesy notice was emailed to the Korean Financial Surveillance Service (KFSS) and Korea Securities Exchange Board (KSEB), and no public disclosure on the KSEB portal was required.\nVendor governance: the DPA with CloudPeaks Korea LLC includes Annex A transfer impact assessment, encryption at rest, and breach notification within 24 hours to dpo@wonseongmaterials.example.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

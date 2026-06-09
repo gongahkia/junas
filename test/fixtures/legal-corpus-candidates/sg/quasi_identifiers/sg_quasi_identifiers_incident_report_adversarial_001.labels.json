@@ -42,6 +42,22 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "2026-0514",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -264,6 +280,24 @@
       "category": "MNPI",
       "matched_text": "210812",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For legal queries: Ms. Leena Chia, Partner, Fern & Fox Law LLC (Singapore solicitors), leena.chia@fernfoxlaw.example, +65 6998 1234",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daniel Teo Wei Jian (b. 1987-05-03, approx. 39), contract systems analyst seconded from NexPillar Services Pte Ltd to Alto Meridian, accessed internal share \u201c/CorpFin/Capital Projects\u201d from AMH Bugis site during change window.\nCluster identifiers: AD user amhl\\dteowj, mailbox daniel.teo@nexpillar.example, Le n o v o T14 asset ALM-T14-0 5 9, temp VPN profile vp n-contr-117, one-time session \u201cSE SS-9a3d4f1\u201d (see https://sec.alto-meridian.example/audit?sid=SESS-9a3d4f1&user=amhl%5Cdteowj), HR contractor ID C0837.\nContent touched included a draft term sheet for Project Kestrel and a preliminary employee equity roll; if generally disclosed, such information could reasonably be expected to affect price/valuation (MNPI risk under SFA), although the download log shows only metadata views and a 16 kB thumbnail.\nBased on current facts, the event does not constitute a material adverse change (MAC) for the issuer and did not involve any external transmission; no trading by insiders has been detected during the blackout.\nPDPA assessment: business contact information (names, corporate emails, job titles) of approx. seven employees was visible; no NRIC, passport, biometric, or home addresses were collected or exported; \u201cdo not share passwords\u201d policy remains in force and was re-communicated.\nEmployment/M&A workflow: contractor NDA and vendor DPA in place; firmwide retention schedule applied; HR has logged a coaching note but no disciplinary action has been taken pending final forensics.\nListing obligations (LCE Listing Manual r.703) and SFA s.218 considerations reviewed; preliminary view is that no immediate announcement is required, subject to Board oversight and the absence of further indicators of compromise.\nSeparate weak identifiers not linked to any named person: DOB 02/1991, Tampines commuter, Android 12 build SP1A.210812.016, device serial NX-9G4K, card suffix **73 29, wifi SSID \u201coffice-guest\u201d, none of which is individually identifying.\nNote: a printed log line shows \u201cac c t: ** 7 3 2 9 / loc: TP Hub / dev: NX- 9 G 4 K\u201d, which appears as OCR artefacts from a scanned ticket; mac: n/a (this is not a MAC address string).\nOperational remediation completed: reset amhl\\dteowj credentials, disabled vp n-contr-117, tightened share permissions, rotated vendor OTP seed, and deployed SentriGuard v5.2 EDR policy AMH-EDR-Blue to contractor devices.\nPublic-source cross\u2011check: Q3 investor slides (public) already reference a \u201cpipeline platform expansion\u201d without pricing; this report does not add to the public narrative and contains no undisclosed revenue guidance.\nlowercase pm notes: triage complete, owners assigned, backlog item for dlp tuning, no blockers; next update to audit committee draft by fri eod.\nFor legal queries: Ms. Leena Chia, Partner, Fern & Fox Law LLC (Singapore solicitors), leena.chia@fernfoxlaw.example, +65 6998 1234.\nIssuer contact: security@alto-meridian.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "t (Lion City Exchange Main List issuer: Alto Meridian Holdings Ltd.), Singapore, 14 May 2026 22:15 SGT; context: ongoing M&A due diligence \u201cProject Kestrel\u201d and capital-markets blackout under the Securities and Futures Act.\nMr. Daniel Teo Wei Jian (b. 1987-05-03, approx. 39), contract systems analyst seconded from NexPillar Services Pte Ltd to Alto Meridian, accessed internal share \u201c/CorpFin/Capital Projects\u201d from AMH Bugis site during change window.\nCluster identifiers: AD user amhl\\dteowj, mailbox daniel.teo@nexpillar.example, Le n o v o T14 asset ALM-T14-0 5 9, temp VPN profile vp n-contr-117, one-time session \u201cSE SS-9a3d4f1\u201d (see https://sec.alto-meridian.example/audit?sid=SESS-9a3d4f1&user=amhl%5Cdteowj), HR contractor ID C0837.\nContent touched included a draft term sheet for Project Kestrel and a preliminary employee equity roll; if generally disclosed, such information could reasonably be expected to affect price/valuation (MNPI risk under SFA), although the download log shows only metadata views and a 16 kB thumbnail.\nBased on current facts, the event does not constitute a material adverse change (MAC) for the issuer and did not involve any external transmission; no trading by insiders has been detected during the blackout.\nPDPA assessment: business contact information (names, corporate emails, job titles) of approx. seven employees was visible; no NRIC, passport, biometric, or home addresses were collected or exported; \u201cdo not share passwords\u201d policy remains in force and was re-communicated.\nEmployment/M&A workflow: contractor NDA and vendor DPA in place; firmwide retention schedule applied; HR has logged a coaching note but no disciplinary action has been taken pending final forensics.\nListing obligations (LCE Listing Manual r.703) and SFA s.218 considerations reviewed; preliminary view is that no immediate announcement is required, subject to Board oversight and the absence of further indicators of compromise.\nSeparate weak identifiers not linked to any named person: DOB 02/1991, Tampines commuter, Android 12 build SP1A.210812.016, device serial NX-9G4K, card suffix **73 29, wifi SSID \u201coffice-guest\u201d, none of which is individually identifying.\nNote: a printed log line shows \u201cac c t: ** 7 3 2 9 / loc: TP Hub / dev: NX- 9 G 4 K\u201d, which appears as OCR artefacts from a scanned ticket; mac: n/a (this is not a MAC address string).\nOperational remediation completed: reset amhl\\dteowj credentials, disabled vp n-contr-117, tightened share permissions, rotated vendor OTP seed, and deployed SentriGuard v5.2 EDR policy AMH-EDR-Blue to contractor devices.\nPublic-source cross\u2011check: Q3 investor slides (public) already reference a \u201cpipeline platform expansion\u201d without pricing; this report does not add to the public narrative and contains no undisclosed revenue guidance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -358,14 +392,6 @@
       "concept": "listing obligations reference",
       "matched_text": "LCE Listing Manual r.703",
       "reason": "Material disclosure assessment reference; not an explicit MNPI marker in rules"
-    }
-  ],
-  "_strict_reconciliation_adjustments": [
-    {
-      "status": "removed_after_phone_precision_guard",
-      "rule": "phone_number",
-      "matched_text": "2026-0514",
-      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
     }
   ]
 }

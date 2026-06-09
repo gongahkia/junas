@@ -45,6 +45,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -217,6 +225,12 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "New Harbour Capital Holdings Limited (the Company) issues this Privacy and MNPI Notice under the PDPO and SFO for activities related to SEHK listing compliance, M&A, fund operations, and employment.\nCompany Registry No.: 2894432; Business Registration No.: 61234578-000-02-25-3; Registered office: Unit 1602, Jade Harbour Centre, 88 Harbour Crescent, Kowloon East, Hong Kong.\nWe collect personal data as defined under the PDPO for purposes including employee vetting, LP onboarding for New Harbour Capital Fund I LP, counterparty due diligence in acquisitions, and investor relations.\nCategories of data may include HKSAR Passport No. (e.g., KZ1234567), contact numbers, email addresses, payroll and tax details, residential addresses, and client account identifiers such as Investor Account No.: NHC-HK-009412.\nFor clarity, any HKID shown on sample forms (e.g., A123456(0)) is a placeholder with an invalid checksum and must not be submitted.\nWe may handle SFO-defined MNPI, including non-public term sheets and board materials relating to a proposed acquisition by the Company, with disclosure controls and trading blackouts overseen for HKEX compliance.\nWall-crossing consents will be obtained before disclosing transaction details to potential fund co-investors or SFC-licensed advisers, and recipients must maintain information barriers.\nPersonal data may be transferred to external counsel, auditors, and SFC-licensed intermediaries under engagement terms, and to cloud providers in Singapore subject to contractual safeguards consistent with DPPs and board-approved transfer protocols.\nRetention: AML/KYC records for fund investors are kept 7 years from cessation; HR unsuccessful applicant records 12 months; payroll and tax records 7 years to meet Inland Revenue requirements; M&A data room logs for 6 years post-closing.\nData subjects may request access and correction within 40 days under the PDPO by contacting our Data Protection Officer; requests requiring identity verification should not include originals of ID documents.\nThe general Public Enquiry Hotline listed on an old brochure (8000 0000) is not in service for DSARs and should not be used.\nPrimary contact: Ms. Leona T. Kwan, Data Protection Officer, privacy@nhc-hk.example, Tel: +852 0000 0000, Postal: DPO, New Harbour Capital Holdings Limited, at the re",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

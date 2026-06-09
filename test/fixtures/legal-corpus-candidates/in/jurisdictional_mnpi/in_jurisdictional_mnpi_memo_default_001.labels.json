@@ -44,6 +44,32 @@
     "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
     "status": "owner_approved_in_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -276,6 +302,18 @@
       "category": "MNPI",
       "matched_text": "50,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Internal compliance note: UPSI controls and personal data handling for Yatrion Energrid Limited (internal issuer code YEL), listed on recognised stock exchanges in India.\nA Board meeting is scheduled on 22-06-2026 to consider audited standalone and consolidated financial results for Q4 and FY26 and a final dividend; the trading window for designated persons is closed from 01-06-2026 until 48 hours after the outcome is disseminated to the stock exchanges in accordance with the PIT Regulations.\nUPSI currently includes the draft results pack, negotiation of a term sheet with Samudra Growth Fund I (Category II AIF) for a preferential issue up to INR 180 crore at an indicative price of INR 142 per equity share, and the proposed acquisition of Pavanika Wind Farms Private Limited; no selective disclosure is permitted and any Board-approved item will be disclosed within 30 minutes under Regulation 30(6) read with Schedule III of the LODR Regulations",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A Board meeting is scheduled on 22-06-2026 to consider audited standalone and consolidated financial results for Q4 and FY26 and a final dividend; the trading window for designated persons is closed from 01-06-2026 until 48 hours after the outcome is disseminated to the stock exchanges in accordance with the PIT Regulations.\nUPSI currently includes the draft results pack, negotiation of a term sheet with Samudra Growth Fund I (Category II AIF) for a preferential issue up to INR 180 crore at an indicative price of INR 142 per equity share, and the proposed acquisition of Pavanika Wind Farms Private Limited; no selective disclosure is permitted and any Board-approved item will be disclosed within 30 minutes under Regulation 30(6) read with Schedule III of the LODR Regulations.\nMateriality must be assessed relative to YEL\u2019s consolidated turnover/EBITDA as per the Materiality Policy; routine plant-level changes without issuer-level impact are ordinarily non-material.\nAll recipients of UPSI must be entered in the Structured Digital Database with name, organisation, purpose, and time of sharing; mask PAN (e.g., AXXXX1234Z), never circulate Aadhaar, and process GSTINs only for statutory invoicing.\nThe Q3 FY26 investor deck filed on 09-02-2026 and hosted on our website is public information and not UPSI; references to broad press coverage of renewable tariff guidelines in the Business Herald are also public and permissible.\nThe commissioning of the Phase-II 50 MW solar unit announced on 10-05-2026 under Regulation 30 is already public; do not treat those disclosed ramp-up metrics as UPSI unless there is a new material deviation.\nRumours about turbine blade supply constraints at vendor Trident AeroComposites Private Limited on industry blogs are unverified; no confirmation or denial should be provided, and any crystallised material impact will be first intimated to the stock exchanges.\nCSR scholarship applications may include children (under 18); under the DPDPA, obtain verifiable parental consent through the company\u2019s consent manager before processing and do not collect Aadhaar or biometrics for scholarships.\nWhere PAN is required for scholarship payouts above INR 50,000, collect it in masked form via the consent manager and retain only as long as necessary; vendor GSTINs captured on e-invoices shall not be repurposed for profiling or marketing.\nEmployee and KMP details (e.g., Mr. Devansh Talekar, CFO) and immediate relatives are designated persons; ensure pre-clearance, avoid contra trades, and adhere to blackout restrictions, with the current list maintained in the SDD.\nAnalyst/investor interactions during the blackout must be limited to publicly available information; the post-result call will have a simultaneous webcast and the presentation will be uploaded prior to the call to avoid selective disclosure.\nAny personal data breach involving data principals shall be escalated to the DPO within 6 hours; notification obligations under the DPDPA to the Data Protection Board and affected individuals will be evaluated case-by-case.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -296,7 +334,7 @@
   "uncertain": [
     {
       "concept": "consent requirement",
-      "matched_text": "obtain verifiable parental consent through the company’s consent manager before processing",
+      "matched_text": "obtain verifiable parental consent through the company\u2019s consent manager before processing",
       "reason": "Consent collection requirement is relevant under DPDPA but only a withdrawal marker is defined in allowed rules"
     },
     {
@@ -318,24 +356,6 @@
       "concept": "insider trading control",
       "matched_text": "contra trades",
       "reason": "Compliance control term is relevant to PIT but not covered by available rule categories"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

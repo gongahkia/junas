@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -155,6 +163,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Segregation: The client notice is ring-fenced under an information-barrier and only the designated advisory team has access; marketing and product units were not briefed.\nPDPL handling (limited positive finding): During the drill, a legacy backup folder was found to contain historical scans of Emirates ID cards for office visitors; files were quarantined and deleted, and a UAE Data Office notification template was prepared for legal review if required.\nPublic/stale items: Our 2026-04-01 service latency was previously posted on our website and to the status page and requires no insider treatment",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Entity: Sand Dunes Fintech Services LLC (DIFC Branch) \u2014 Ref: OIR-ADGM-26-009\nSummary: A tabletop cyber drill in the ADGM environment identified an inadvertently open file share; no production systems or client environments were accessed, and operations continued without interruption.\nPDPL note (training): Staff were reminded not to store Emirates ID images or family-origin details on shared drives; onboarding forms now default to minimal data capture.\nGeneric form labels (placeholders only): Name, Emirates ID [000-0000-0000000-0], Trade Licence [TL-AD-000000]; these fields were used in test datasets and do not relate to any individual or licensee.\nESG operations: The climate dashboard used publicly available emirate energy authority tariff tables and internal utility estimates for an educational display; it does not constitute investor guidance.\nCrypto education: Marketing circulated a \u201cCryptoSafe Academy\u201d primer that references VARA and SCA rulebooks with hypothetical tokens; no client identifiers or issuer specifics were included.\nConduct training: Weekly briefing covered insider-list hygiene, information-barrier rooms, blackout reminders, and anti-tipping scenarios using retail promotion examples; all scenarios were generic and already published in our staff handbook.\nNon-public client notice (restricted): Marhaba Logistics PJSC (ADX-listed, fictional) informed our DIFC advisory team of a detected cyber incident; pending SCA/ADX disclosure, we created an issuer insider list and imposed an internal trading blackout for personnel assigned to that mandate.\nSegregation: The client notice is ring-fenced under an information-barrier and only the designated advisory team has access; marketing and product units were not briefed.\nPDPL handling (limited positive finding): During the drill, a legacy backup folder was found to contain historical scans of Emirates ID cards for office visitors; files were quarantined and deleted, and a UAE Data Office notification template was prepared for legal review if required.\nPublic/stale items: Our 2026-04-01 service latency was previously posted on our website and to the status page and requires no insider treatment.\nCommercial terms (templates): Term sheet exemplars referenced \u201cperformance fee\u201d and \u201crebate\u201d headings without prices, amounts, dates, or counterparties; documents were used for tra",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

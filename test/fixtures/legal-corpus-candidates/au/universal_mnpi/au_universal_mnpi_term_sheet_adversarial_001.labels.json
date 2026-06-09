@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -6,14 +28,29 @@
   "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -53,7 +90,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "akm@redgum‑mobility.au",
+      "matched_text": "akm@redgum\u2011mobility.au",
       "rule": "email_address"
     },
     {
@@ -78,7 +115,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "873‑220",
+      "matched_text": "873\u2011220",
       "rule": "bank_account"
     },
     {
@@ -88,7 +125,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "≥ 75%",
+      "matched_text": "\u2265 75%",
       "rule": "financial_percentage"
     },
     {
@@ -98,7 +135,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non‑public",
+      "matched_text": "non\u2011public",
       "rule": "nonpublic_marker"
     },
     {
@@ -123,7 +160,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "18–22%",
+      "matched_text": "18\u201322%",
       "rule": "financial_percentage"
     },
     {
@@ -133,7 +170,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "7–8%",
+      "matched_text": "7\u20138%",
       "rule": "financial_percentage"
     },
     {
@@ -148,7 +185,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "12 33 55‑991",
+      "matched_text": "12 33 55\u2011991",
       "rule": "bank_account"
     },
     {
@@ -178,7 +215,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal board memo (non‑public, con fi den tial, 10 Jun 2026)",
+      "matched_text": "Internal board memo (non\u2011public, con fi den tial, 10 Jun 2026)",
       "rule": "nonpublic_marker"
     },
     {
@@ -188,7 +225,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "QUA N‑D ONG‑SID",
+      "matched_text": "QUA N\u2011D ONG\u2011SID",
       "rule": "bank_customer_reference"
     },
     {
@@ -337,6 +374,12 @@
       "category": "MNPI",
       "matched_text": "120,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 PROJECT QUANDONG (AUS) \u2014 Term Sheet \u2014 Embargo: 17 Jul 2026 09:00 AEST; not for ASX release before embargo.\nParties: Acquirer \u2014 Wattle Ridge Holdings Pty Ltd (ACN 913 552 481); Target \u2014 Redgum Mobility Ltd (ASX\u2011listed), contact Ms. Asha K. Merriweather, akm@redgum\u2011mobility.au.\nTransaction: Scheme of Arrangement under Part 5.1 Corporations Act; consideration A$182,000,000 cash plus 12.5% rollover equity in Wattle Ridge Holdings (unlisted).\nFunding: committed facilities from Nullarbor Credit Co. (Term Loan A AU$120,000,000; BSB 873\u2011220 acct 44 0099 118) and Ochre Quoll Capital Fund II equity.\nConditions: ASIC and ASX confirmations, FIRB no\u2011objection, independent expert opine fair and reasonable, shareholder approval \u2265 75%, no MAE; general industry slowdowns alone do not constitute a MAC.\nDefinitive documents: Scheme Implementation Deed and Transitional Services Agreement; long\u2011stop 30 Sep 2026; break fee 1.2% of equity value.\nInternal board memo (non\u2011public, con fi den tial, 10 Jun 2026): pipeline award \u201cProject Lattice\u201d expected to add A$14\u201318m revenue in FY27; not announced.\nIR draft (draft only, not for distribution): anticipated EBITDA uplift 18\u201322% via depot consolidation and procurement savings; synergy realisation by Q4 FY27.\nAnalyst research note (internal): model cost of debt at 6.7% vs public commentary 7\u20138%, reflecting covenant headroom and hedging schedule.\nEmployment and data: no forced redundancies for 6 months; employee health records to remain hosted in AU with KarriCloud Pty Ltd (ISO27001).\nTimetable: Scheme booklet lodgement with ASIC t\u20117 weeks; first court date t\u20116; ASX trading halt request to be drafted but not lodged before embargo.\ndeal checklist: sid v7 to external counsel; tax ruling draft to ato; asx timetable dry\u2011run; schedule diligence q&a for 11:30 aedt; circulate minutes.\nPublic\u2011source reference: see ASIC Regulatory Guides and ASX Listing Rule 3.1 (publicly available) for continuous disclosure baseline.\nNegative bait: friday spa\u2011day vouchers for depot staff remain a welfare initiative and are not material to this transaction or disclosure.\nContacts: Mr. T. Corben (Chair) +61 2 7010 9987; investor\u2011rela tio ns portal https://ir.wattleridge.au/d?a=v%3D9Q\u2011k7&ref=SID; desk code W\u2011R\u2011H\u2011026.\nWire details for escrow (placeholder only): Nullarbor Credit Co. settlement a/c 12 33 55\u2011991; narr: QUA N\u2011D ONG\u2011SID; if funds differ by >A$500k, trigger variance review.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -357,7 +400,7 @@
       "reason": "Defined-term style acronym not to be labeled as PII/MNPI"
     },
     {
-      "matched_text": "spa‑day",
+      "matched_text": "spa\u2011day",
       "reason": "False-positive bait unrelated to PII/MNPI"
     },
     {
@@ -373,47 +416,18 @@
   "uncertain": [
     {
       "concept": "internal_identifier",
-      "matched_text": "W‑R‑H‑026",
+      "matched_text": "W\u2011R\u2011H\u2011026",
       "reason": "Could be an internal desk or reference code; not clearly covered by allowed PII rules"
     },
     {
       "concept": "tracking_parameter",
-      "matched_text": "v%3D9Q‑k7",
+      "matched_text": "v%3D9Q\u2011k7",
       "reason": "Looks like a URL tracking/session parameter but not clearly mapped to an allowed PII rule"
     },
     {
       "concept": "internal_portal_url",
-      "matched_text": "https://ir.wattleridge.au/d?a=v%3D9Q‑k7&ref=SID",
+      "matched_text": "https://ir.wattleridge.au/d?a=v%3D9Q\u2011k7&ref=SID",
       "reason": "Internal IR portal link may imply access-controlled info but URLs are not an allowed category"
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

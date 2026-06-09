@@ -52,6 +52,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -264,6 +272,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Midoriyama Robotics K.K. \u2013 JP/APPI retention and transfer workflow for acquisition \u201cProject Tsubaki\u201d and securities window control, Tokyo Bay Securities Exchange listing.\nBoard workflows: undisclosed enumerated material facts and tender-offer facts under FIEA are restricted; insider list kept until 5 years after public disclosure.\nContact for DSAR and employee queries: privacy@midoriyama-kk.jp or https://midoriyama-kk.jp/pp?doc=ret&uid=emp%2F0x19A.\nAnchored special data: Mr. Kenji Matsuo (\u793e\u54e1ID E-MP_00X9-7Z, \u500b\u4eba\u756a\u53f7 91-**-3***-4021) enrolled in vein/fingerprint attendance (template hash vpr-3f:aa:00) and hypertension treatment records from 2025 Q4.\nFor accommodation purposes, Mr. Kenji Matsuo\u2019s declared religious observance (Shinto festival leave) is stored, and LGBTQ+ partner benefits status is marked \u201copt-in\u201d; Ke nji M a tsuo also provided voluntary genetic screening certificate number G-04xx-77.\nThese categories are collected strictly under APPI Art. 17-2 consent, and pseudonymously processed information is used for HR analytics where feasible.\nTransfers to Aoban Analytics Pte. Ltd. (SG) for payroll and to Kawayama Cloud K.K. for biometric device maintenance (Sunrise S-4000) occur with prior notice and consent; cross-border safeguards and joint use notices are recorded.\nRetention: My Number is deleted within 4 years after cessation; biometric templates rotate every 90 days; board pack MNPI for TOB \u201cProject Tsubaki\u201d retained until the Tokyo Bay Securities Exchange filing and 5-year archival expiry.\nSecurities workflows: dealing is blacked out for project insiders; we confirm no material adverse change has occurred as of 2026-06-01, based on public-source references only.\nBenign vocabulary note: our genetic algorithm module ORIGAMI-9 and the phrase sexual orientation appear in policy templates but do not describe any individual in investment memos.\nNegative/benign content: our unicorn strategy deck mentions Kawagiri Ward, the Hoshizora Meteors baseball club, and the \u201cFair Play Hiring Policy\u201d DEI tagline; these are not MNPI nor special-category personal data.\nDSAR scope: access, correction, suspension of use or third-party provision per APPI; send requests to dpo@midoriyama-kk.jp with identity proof (redacted scan is acceptable).\nInternal note (lowercase project-management prose): todo integrate aoban api; sprint-12 backlog; do not paste board minutes into chat tools; \u201cproject tsubaki\u201d room is restricted.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

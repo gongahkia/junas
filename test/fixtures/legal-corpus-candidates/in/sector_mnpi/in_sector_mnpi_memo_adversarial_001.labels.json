@@ -52,6 +52,32 @@
     "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
     "status": "owner_approved_in_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -95,7 +121,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Operations note (non‑market): the climate data pipeline backlog and endpoint patch window are routine IT tasks and not linked to any securities offering.",
+      "matched_text": "Operations note (non\u2011market): the climate data pipeline backlog and endpoint patch window are routine IT tasks and not linked to any securities offering.",
       "rule": "material_event"
     },
     {
@@ -287,7 +313,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Operations note (non‑market): the climate data pipeline backlog and endpoint patch window are routine IT tasks and not linked to any securities offering.",
+      "matched_text": "Operations note (non\u2011market): the climate data pipeline backlog and endpoint patch window are routine IT tasks and not linked to any securities offering.",
       "rule": "material_event"
     },
     {
@@ -339,6 +365,12 @@
       "category": "MNPI",
       "matched_text": "Information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board Audit Committee; From: Chief Compliance Officer, Ms. Rhea Kapur; contacts: r.kapur@asterbilt.in and compliance@asterbilt.in. \nUPSI\u2014Cyber: On 27 May, the CISO reported unauthorized access in our CloudEdge node at Auriga Data Services Pvt. Ltd.; ~2.1% revenue systems isolated; no SEBI, NSE, or BSE intimation issued yet. \nUPSI\u2014Crypto/VDA: Draft MoU with VarunaBit Digital Assets Pvt. Ltd. for sandbox VDA settlement is in con- fidential negotiation; proposed take\u2011rate 0.35% with minimum commitment \u20b912.5m/quarter and two\u2011year exclusivity. \nUPSI\u2014ESG/Climate: Preliminary FY26 climate audit shows a 14% variance vs disclosed Scope\u20112 factors; Board is considering a private green loan at SOFR+210 with a renewable\u2011intensity KPI; this has not been publicly disseminated. \nInsider list: maintain and circulate only to designated persons; add \u201cProject Mango\u2011Breeze\u201d (cyber remediation + VDA pilot) at https://intranet.asterbilt.in/insider?lid=BRX-IL-2026&uid=r.kapur%40asterbilt.in; do not forward. \nDPDPA: Processing of employee/vendor PII relies on explicit consent; sample records (masked) \u2014 P A N: Q T Z P S 8 4 3 1 F; A a d h a a r: 8 7 2 3  5 4 9 1  0 0 3 5; G S T I N: 27ASTRB1234Z9Q0; do not email unmasked data or store outside approved systems. \nChild data: one beneficiary (child <18) linked to Mr. Dev Malhotra for ESI reimbursement; guardian consent logged via Form\u2011C; no cross\u2011border transfer of child data without additional notice and purpose limitation. \nInformation barriers: Corporate Finance and Digital Assets teams remain on opposite sides of the wall; Research and Sales are walled off; external advisors to be briefed on clean\u2011team protocols and restricted\u2011list obligations. \nTrading window: closed for all designated persons from 01\u201106\u20112026 until 48 hours after outcome disclosures; no dealing, pledging, or derivatives; all pre\u2011clearance requests are to be recorded as denied during this window. \nSelective disclosure/tipping: do not brief VarunaBit, Auriga, or climate\u2011assurance consultants on price\u2011sensitive metrics beyond NDA scope; all analyst/media queries must route via investor.relations@asterbilt.in. \nNegative assurance: no material adverse change is presently asserted, and any figures cited from Daily Ledger or open\u2011source ESG repositories are public and non\u2011controlling. \nEducation/marketing only: the \u201cCrypto Wallet Basics\u201d campus brochure and the \u201cCyber Hygiene Week\u201d posters reuse terms like VDA, hacking, and green mining solely for training; they do not communicate UPSI, commercial terms, or rollout dates. \nOperations note (non\u2011market): the climate data pipeline backlog and endpoint patch window are routine IT tasks and not linked to any securities offering. \nRedaction protocol: redact PII in board packs (e.g., A a d h a a r digits and P A N) before uploading to https://dataroom.asterbilt.in/board?pkg=FY26_Q1&mask=pii\u2011on; replace names with role tags. \nRoutine PM: next steps \u2014 add to restricted list, draft SEBI intimation templates, rehearse ransomware DR playbook for \u201cAsterbilt Shield\u201d endpoints; owner: legal/compliance; due: 31 aug; q",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -405,24 +437,6 @@
       "concept": "transaction_codename_like",
       "matched_text": "Asterbilt Shield",
       "reason": "Internal initiative name not matching the 'Project <Name>' codename pattern."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

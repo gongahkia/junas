@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -375,6 +383,24 @@
       "category": "MNPI",
       "matched_text": "nonpublic",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under the Securities Law and CSRC guidance, the following items are inside information before public disclosure: preliminary FY2026 revenue targets, the unsigned supply agreement with Qiyu Components Ltd., and a potential land-use grant in Pingyun Science Park.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under the Securities Law and CSRC guidance, the following items are inside information before public disclosure: preliminary FY2026 revenue targets, the unsigned supply agreement with Qiyu Components Ltd., and a potential land-use grant in Pingyun Science Park.\nAccess to the MNPI above is limited to named roles; any tip or leak triggers trading bans; do not upload to personal drives; link: https://intra.luoquan.local/mnpi/view?rid=43012319900315123X&deal=IPO-SSE.\nPersonal information inventory (P I P L Articles 28\u201330): Mr. Han Zelin (R&D), Res.ID\uff1a43 0123 1990 0315 12 3X, processes health data (Type 1 diabetes treatment schedule and glucose logs) and biomet- ric templates (face/fingerprint) for gate access.\nSubtle contextual signal: his canteen profile shows fasting days aligning with temple observances, which may infer religious belief; restrict visibility to HR-only and do not export without CAC Standard Contract filing or security assessment.\nMinor-sensitive: Master Han Yuchen (age 12, dependent) is listed in the benefits file with school pickup contact and a documented peanut allergy; children\u2019s entries are tagged as sensitive PI under PIPL.\nCandidate workflow: Ms. Qiao Ruo (Finance applicant) provided union membership details (Bright Workers Union, card UN-7H9-2Q4-0) during background check; this special-category field must not be used for automated rejection.\nOverseas processing: selected CVs and biomet- ric vendor logs are mirrored to a testing node in Ningstrait Cloud, SG; initiate CAC cross-border filing, encrypt at rest, and bind Standard Contract terms with the processor; apply DSL data export risk scoring.\nFor avoidance of doubt, the note \u201cthere is no MAC under the SPA\u201d in the draft prospectus is legal boilerplate and not material nonpublic info; likewise, \u201cblue sky thinking\u201d in slides is metaphorical.\nProduct mention not related to personal data: RiverSpark Pro uses a genetic algorithm for sorting sensor data, but no genomic sequences or human samples are processed.\nDEI guidance remains generic: we value inclusion and equal opportunity; the phrase \u201csexual orientation policy\u201d in the handbook is descriptive and does not list any person\u2019s intimate life.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

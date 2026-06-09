@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -221,6 +229,24 @@
       "category": "MNPI",
       "matched_text": "8-K Item 1.05",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Based on current scoping, potential remediation and notification costs are estimated below $2 million and no consumer household banking data or patient-identifiable information were exfiltrated; this estimate is prelim and subject to change.\nIf we conclude the matter is material, we intend to issue a press release and furnish an Item 7.01 Form 8-K before market open pursuant to Nasdaq Listing Rule 5250(b)(1); otherwise, disclosure will be made in our next periodic report and on the upcoming earnings call.\nEmployees must route any media or investor inquiries to ir@ophirahealthbank.com; all technical updates should go to incidentdesk@ophirahealthbank.com and the on-call bridge administered by Dr. Lena Voss (CISO) and Mr. Calder Hoyt (General Counsel)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nadia Rell during a sandbox load test; key was revoked at 03:41 ET and access logs preserved (incident tickets PW-INC-22017 and SOC-3419).\nBased on current scoping, potential remediation and notification costs are estimated below $2 million and no consumer household banking data or patient-identifiable information were exfiltrated; this estimate is prelim and subject to change.\nIf we conclude the matter is material, we intend to issue a press release and furnish an Item 7.01 Form 8-K before market open pursuant to Nasdaq Listing Rule 5250(b)(1); otherwise, disclosure will be made in our next periodic report and on the upcoming earnings call.\nEmployees must route any media or investor inquiries to ir@ophirahealthbank.com; all technical updates should go to incidentdesk@ophirahealthbank.com and the on-call bridge administered by Dr. Lena Voss (CISO) and Mr. Calder Hoyt (General Counsel)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We have not concluded whether this incident is material to Ophira HealthBank; a materiality assessment under SEC Form 8-K Item 1.05 is in process and will be completed within the four-business-day window.\nPending public disclosure, this information constitutes MNPI under Rule 10b-5 and Reg FD; an immediate insider-trading blackout window applies to directors, Section 16 officers, and designated insiders until further notice.\nDo not discuss this incident with sell-side analysts, lenders, proxy advisors, or rating agencies absent a broad public communication; any necessary outreach must be coordinated by Investor Relations and Legal to avoid selective disclosure.\nAs disclosed in our April 15, 2026 press release and our Form 10-Q filed on May 8, 2026, we completed the CloudGraph 2.0 migration and SOC 2 Type II certification; those public items are unrelated and remain accurate but are not determinative of materiality here.\nA third-party processor, Velorum Switch LLC, reported a regional routing outage on June 3; that non-issuer operational update is not connected to this event and does not affect our core ledger.\nInitial root cause points to a temporary debug key inadvertently left active by Ms. Nadia Rell during a sandbox load test; key was revoked at 03:41 ET and access logs preserved (incident tickets PW-INC-22017 and SOC-3419).\nBased on current scoping, potential remediation and notification costs are estimated below $2 million and no consumer household banking data or patient-identifiable information were exfiltrated; this estimate is prelim and subject to change.\nIf we conclude the matter is material, we intend to issue a press release and furnish an Item 7.01 Form 8-K before market open pursuant to Nasdaq Listing Rule 5250(b)(1); otherwise, disclosure will be made in our next periodic report and on the upcoming earnings call.\nEmployees must route any media or investor inquiries to ir@ophirahealthbank.com; all technical updates should go to incidentdesk@ophirahealthbank.com and the on-call bridge administered by Dr. Lena Voss (CISO) and Mr. Calder Hoyt (General Counsel).\nFor clarity, last month\u2019s publicly posted ESG dashboard refresh and the benefits enrollment portal maintenance window do not relate to this incident and should not be referenced in analyst conversations.\nCustomer communications, if required under GLBA/FFIEC guidance, will be coordinated with Ophira PayWell, N.A., and any notifications will exclude test developer emails and avoid including personal identifiers beyond what is contractually required.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

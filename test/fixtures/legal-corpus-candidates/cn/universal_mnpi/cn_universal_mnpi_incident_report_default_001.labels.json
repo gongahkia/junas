@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -410,6 +418,18 @@
       "category": "MNPI",
       "matched_text": "Scope 2 emissions",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 NON-PUBLIC INSIDE INFORMATION (\u672a\u516c\u5f00\u4fe1\u606f) \u2014 Project Jade Lantern operational/cyber incident report for Board review only.\nIssuer: Qingyun Integrated Systems Co., Ltd. (\u7edf\u4e00\u793e\u4f1a\u4fe1\u7528\u4ee3\u7801/USCC 91Q0Z2X5K3M8R4T7P2), Shanghai Stock Exchange Main Board; CSRC pre-consultation accepted, SSE inquiry letter not yet public.\nEmbargo: do not disclose externally before 2026-07-15 09:00 CST; IR draft v5.2 retained offline per PIPL access minimization.\nOn 2026-07-03 22:14 CST, our Singapore backup vendor CloudRipple Pte. Ltd. detected unauthorized API access to a cross-border HR data bucket, causing exfiltration of 12,438 employment records.\nExposed fields include employee names, mobile numbers, and PRC Resident ID numbers (e.g., 510123199802152376), plus 3 dependents under 14 captured in benefits forms (sensitive PI under PIPL Art. 28).\nCross-border transfer triggers CAC outbound security assessment; SCC terms executed 2026-05-19; CSL/DSL incident severity preliminarily graded Level III; logs preserved and hashed.\nDeal context: Definitive Share Purchase Agreement dated 2026-06-28 to acquire 55% of Hainan BlueOrbit Robotics Co., Ltd. for RMB 420,000,000 (codename: Project Jade Lantern) remains unsigned by the seller\u2019s bank until KYC refresh.\nExternal PRC counsel advises the above event does not constitute a MAC/MAE under SPA \u00a79.2, but qualifies as a notifiable data incident requiring written notice to the seller within 3 business days.\nOperational impact: 2.6 hours of HRIS downtime; 18% of active employees affected; payroll run unaffected; no evidence of lateral movement into production ERP.\nBoard memo and term sheet addendum v3.1 circulated to Directors only; do not upload to the SSE i-Platform until embargo; draft sell-side research note circulation is withheld.\nPer our 2024 public CSR posted on the company website, Scope 2 emissions decreased 11%; that public disclosure is unrelated and unaffected by the present incident.\ntodo: finalize IR Q&A, book A502 for tabletop, update RACI; do not share slides outside the issuer portal until the embargo lifts.\nwellness note: friday spa afternoon at Lotus Springs remains on; optional attendance for staff.\nEmployment workflow mitigation: HR to notify 2,114 impacted staff by 2026-07-06; re-collect consent under PIPL with clarified purpose; mask Resident ID and bank last-4 before dispatch; training to include minors\u2019 PI handling.\nRegulatory actions: notify local CAC within 8 hours, file police report with Cybersecurity Administration office, and prepare CSL incident summary for MIIT; cross-border transfer suspension remains in place pending assessment outcome.\nContact: Ms. Zhao Lin (DPO) \u2014 dpo@qingyun-sys.cn; external counsel Mr. He Jun, Jun & Maple Law Offices \u2014 he.jun@junmaple-law.cn; queries to IR may be routed via",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

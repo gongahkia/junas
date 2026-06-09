@@ -15,13 +15,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -35,13 +35,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -57,6 +57,46 @@
     "post_us_uk_realign_source_report": "/tmp/kaypoh-candidates-after-us-uk-reviewed.json",
     "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
     "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -196,7 +236,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Project “Habagat-2”",
+      "matched_text": "Project \u201cHabagat-2\u201d",
       "rule": "transaction_codename"
     },
     {
@@ -221,7 +261,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Preliminary Q2 (unaudited) metrics accessed by Ms. Monteverde at 21:14 PHT show EBITDA PHP 312m vs prior guidance PHP 260m and a capex deferral for Project “Habagat-2”; this remains material non-public until the 17-C is posted to the PSE EDGE.",
+      "matched_text": "Preliminary Q2 (unaudited) metrics accessed by Ms. Monteverde at 21:14 PHT show EBITDA PHP 312m vs prior guidance PHP 260m and a capex deferral for Project \u201cHabagat-2\u201d; this remains material non-public until the 17-C is posted to the PSE EDGE.",
       "rule": "material_event"
     },
     {
@@ -268,7 +308,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Preliminary Q2 (unaudited) metrics accessed by Ms. Monteverde at 21:14 PHT show EBITDA PHP 312m vs prior guidance PHP 260m and a capex deferral for Project “Habagat-2”; this remains material non-public until the 17-C is posted to the PSE EDGE.",
+      "matched_text": "Preliminary Q2 (unaudited) metrics accessed by Ms. Monteverde at 21:14 PHT show EBITDA PHP 312m vs prior guidance PHP 260m and a capex deferral for Project \u201cHabagat-2\u201d; this remains material non-public until the 17-C is posted to the PSE EDGE.",
       "rule": "material_event"
     },
     {
@@ -305,6 +345,24 @@
       "category": "MNPI",
       "matched_text": "6.25%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Linkable quasi-identifier cluster for access control audit: Ms. Lira Monteverde, Treasury Supervisor at the Company, born 1991-07-03 (age 34), assigned at Barangay San Lorenzo, Makati, used device DGP-TP-17 (asset tag KASUYO-TP; s/n TP49B3), VPN session 10.18.34.77 at 21:14 PHT.\nHR file extract (Form 2316 and payroll profile) shows masked TIN 83*-***-**7-0*2, Kawayan Bank settlement sub-acct A c c t  N o . 9 4 - 3 3 2 - 1 1 8, and contact l.monteverde@daluyonggp.ph; these are PII under the Data Privacy Act when combined.\nSystem logs indicate URL-embedded session: http://intra.daluyonggp.ph/p o r t a l?uid=lmonteverde&sid=F0-2A-9B&loc=SAL-LO; please restrict this link in accordance with the Insider Trading Policy and IT-SEC-12",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For tax and payroll, HR may transmit only redacted PDFs; avoid embedding full account numbers or device IDs in subject lines, and use the DPO channel dpo.office@daluyonggp.ph for any data subject requests.\nBanking partners\u2019 KYC updates should reference the Company only; do not attach any employee\u2019s birthdate, barangay, or device serials\u2014generic descriptions (finance staff, Makati office) suffice.\nDraft 17-C narrative must exclude session references, internal issuer code \u201cDLGP-2026\u201d, and OCR artifacts like \u201cR e f  1 7 - C \u2014 0 5 - 2 2\u201d that appeared in scans of the board pack",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2013 Internal Legal & Compliance Memo (PH DPA and SRC), Daluyong Green Power Corporation (the \u201cCompany\u201d), to: Board/HR/Finance, from: Legal, date: 25 May 2026.\nThis memo addresses pending SEC Form 17-C timing for an unannounced increase in authorized capital and a sustainability bond term sheet (coupon 6.25%, size PHP 4.0bn), which constitutes MNPI under the SRC until disclosed to the PSE.\nFor handling MNPI, note that no material adverse change (no MAC) has occurred since the draft prospectus; public-source references (e.g., PSA labor data, BSP circulars) cited herein do not themselves contain MNPI.\nLinkable quasi-identifier cluster for access control audit: Ms. Lira Monteverde, Treasury Supervisor at the Company, born 1991-07-03 (age 34), assigned at Barangay San Lorenzo, Makati, used device DGP-TP-17 (asset tag KASUYO-TP; s/n TP49B3), VPN session 10.18.34.77 at 21:14 PHT.\nHR file extract (Form 2316 and payroll profile) shows masked TIN 83*-***-**7-0*2, Kawayan Bank settlement sub-acct A c c t  N o . 9 4 - 3 3 2 - 1 1 8, and contact l.monteverde@daluyonggp.ph; these are PII under the Data Privacy Act when combined.\nSystem logs indicate URL-embedded session: http://intra.daluyonggp.ph/p o r t a l?uid=lmonteverde&sid=F0-2A-9B&loc=SAL-LO; please restrict this link in accordance with the Insider Trading Policy and IT-SEC-12.\nPreliminary Q2 (unaudited) metrics accessed by Ms. Monteverde at 21:14 PHT show EBITDA PHP 312m vs prior guidance PHP 260m and a capex deferral for Project \u201cHabagat-2\u201d; this remains material non-public until the 17-C is posted to the PSE EDGE.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -333,7 +391,7 @@
       "reason": "Internal issuer code; not personal data"
     },
     {
-      "matched_text": "R e f  1 7 - C — 0 5 - 2 2",
+      "matched_text": "R e f  1 7 - C \u2014 0 5 - 2 2",
       "reason": "OCR artifact; not PII/MNPI"
     }
   ],
@@ -364,37 +422,5 @@
       "matched_text": "DGP-TP-17",
       "reason": "Device ID appears unique but may not be a serial number per the allowed rule set"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

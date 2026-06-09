@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -62,7 +70,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Regulatory notification: Processor will notify Controller within 24 hours of a suspected breach and maintain incident tickets sufficient for SEC Reg S‑ID and state breach laws.",
+      "matched_text": "Regulatory notification: Processor will notify Controller within 24 hours of a suspected breach and maintain incident tickets sufficient for SEC Reg S\u2011ID and state breach laws.",
       "rule": "material_event"
     },
     {
@@ -229,7 +237,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Regulatory notification: Processor will notify Controller within 24 hours of a suspected breach and maintain incident tickets sufficient for SEC Reg S‑ID and state breach laws.",
+      "matched_text": "Regulatory notification: Processor will notify Controller within 24 hours of a suspected breach and maintain incident tickets sufficient for SEC Reg S\u2011ID and state breach laws.",
       "rule": "material_event"
     },
     {
@@ -296,6 +304,12 @@
       "category": "MNPI",
       "matched_text": "analyst Q&A",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL \u2014 NON-PUBLIC \u2014 Embargo until 2026-08-15 08:30 ET \u2014 Project Marigold\nData Processing Addendum between Harborcrest Therapeutics, Inc. (US issuer; Controller) and Pioneer Meridian Bank, N.A. (Processor) for employee, patient, and investor-relations workflows.\nScope: processing of CCPA consumer/household data, HIPAA PHI under a Business Associate arrangement, and GLBA customer information for co-branded patient financing.\nMNPI segregation: Processor will maintain a restricted dataset for Project Marigold and IR draft materials to avoid selective disclosure under Reg FD.\nDefinitive Merger Agreement signed 2026-07-02; closing consideration up to $275,000,000 cash and stock, with a 12.5% earnout.\nMAC/MAE: ordinary-course declines in clinical trial enrollment are carved out and shall not constitute a material adverse change.\nPublic data exception: information already filed by Harborcrest Therapeutics, Inc. on EDGAR in its FY2025 Form 10\u2011K summary is not treated as MNPI.\nRetention: MNPI and PHI stored in US-only encrypted vaults; 7-year retention for GLBA records, 6-year HIPAA minimum, and 3-year deletion for marketing consents.\nAccess: only need-to-know bank analysts and Harborcrest IR staff; pre-briefing to sell-side analysts prohibited until the embargo lifts.\nData subject rights: DSAR requests (access, delete, correct, opt-out of sale/sharing) to privacy@harborcrestthera.com or 202-555-0143; verify identity via tokenized link.\nSubprocessors: Redwood ByteWorks LLC (log monitoring) and Vestry Cloud Rail, Inc. (ETL) are approved; no offshore transfers without a transfer impact assessment and written consent.\nRegulatory notification: Processor will notify Controller within 24 hours of a suspected breach and maintain incident tickets sufficient for SEC Reg S\u2011ID and state breach laws.\ngo-live checklist: update data map, confirm role-based access, coordinate with outside SEC counsel; schedule dry run before earnings blackout.\nMr. Alan K. Duarte, Chief Privacy Officer, confirms that the analyst Q&A deck and the Board memo are tagged \u201cNONPUBLIC \u2014 PROJECT MARIGOLD \u2014 DO NOT DISTRIBUTE\u201d.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

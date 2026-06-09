@@ -50,6 +50,14 @@
     "previous_must_detect_count": 16,
     "previous_must_not_detect_count": 6
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -377,6 +385,30 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed \u20ac180m senior unsecured convertible notes due 2031 and option to acquire SolvaBright s.r.l. (private) for \u20ac95\u2013\u20ac110m; not announced; inside information per MAR Art 7; d i s c l o s u r e delay intended under Art 17(4).\nIndicated coupon 3.00\u20133.50%, initial conversion premium 27\u201332%; price-sensitive if terms deviate >5% of last close; sole global coordinator: Brunn & Kelter Banque S.A",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Governance/Contacts: Chair: Dr. \u00c9va Markovic; CFO: Mr. Paolo Richter; contact: investor.relations@nuvoria-grid.eu; data room: https://docs.eu.example/f/term?deal=GLN-2026&trk=obf%2FZ9.\nIdentifiers (placeholders): LEI 0O00F1C T10N0LEI00000; proposed ISIN ZZ000-NUVO-2031-CNV; internal ref PRJ-LARK-\u03b1; soft wall-cross code: L4-R K;    b r o k e n   l i n e s",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Project LARK | EU Issuer: Nuvoria Grid Systems SE (Valmeron Paris Regulated Market) \u2014 Date: 06 Jun 2026\nProposed \u20ac180m senior unsecured convertible notes due 2031 and option to acquire SolvaBright s.r.l. (private) for \u20ac95\u2013\u20ac110m; not announced; inside information per MAR Art 7; d i s c l o s u r e delay intended under Art 17(4).\nIndicated coupon 3.00\u20133.50%, initial conversion premium 27\u201332%; price-sensitive if terms deviate >5% of last close; sole global coordinator: Brunn & Kelter Banque S.A.\nConditions precedent: approval of an EU prospectus by the home NCA (Autorit\u00e9 des March\u00e9s Hexagonaux, AMH); publication via the Officially Appointed Mechanism (OAM) prior to pricing (Valmeron portal); expected T+15 Paris trading days; closed period under MAR Art 19 runs 01\u201330 Jul (no dealings).\nMNPI controls: selective disclosure prohibited; wall-crossing only upon clean list sign-off; permanent and temporary insiders to be recorded per MAR Art 18; insider list section \u201c19\u2014Funding\u201d to be maintained.\nGDPR/Privacy: PII includes names, business emails, and limited health data (works council sick\u2011leave statistics) from SolvaBright; lawful basis Art 6(1)(f) and Art 9(2)(b); cross-border transfer to Datacelica Pvt Ltd (IN) under 2021 SCCs with transfer impact assessment.\nESG/Use of proceeds: CSRD-aligned capex taxonomy reporting; SFDR PAI metrics draft in data room; sustainability-linked step-up +25 bps if Scope 2 intensity not reduced \u226512% by FY2028; internal policy GRID-ESG-12 applies.\nRegulatory/Listing: Regulated Information to be disseminated via OAM and press wire; AMH and host NCA notifications; stabilization within Commission Delegated Regulation (EU) 2016/1052 safe harbour.\nPublic information (non-price-sensitive): 2025 Annual Report filed on 12 Apr 2026 in the OAM (public), and a 15 Apr 2026 press release on pilot product \u201cFluxBridge Mini\u201d remains historical and generic.\nAcquisition terms (confidential): exclusivity until 30 Aug 2026; draft SPA earn\u2011out \u20ac10m; 15% vendor rollover; no announcement planned before signing; if leak occurs, immediate ad hoc disclosure via OAM.\nCovenants/MAC: leverage covenant <3.0x net debt/EBITDA post-issue; no MAC shall be triggered by sector-wide carbon price volatility, routine supplier re\u2011tenders, or media speculation.\nGovernance/Contacts: Chair: Dr. \u00c9va Markovic; CFO: Mr. Paolo Richter; contact: investor.relations@nuvoria-grid.eu; data room: https://docs.eu.example/f/term?deal=GLN-2026&trk=obf%2FZ9.\nIdentifiers (placeholders): LEI 0O00F1C T10N0LEI00000; proposed ISIN ZZ000-NUVO-2031-CNV; internal ref PRJ-LARK-\u03b1; soft wall-cross code: L4-R K;    b r o k e n   l i n e s.\nNotes: This is not an offer; subject to Board approval on 24 Jun 2026; next sprint: draft q&a, align slides; earlier webshop update on spare inverters is operational and unrelated to securities.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

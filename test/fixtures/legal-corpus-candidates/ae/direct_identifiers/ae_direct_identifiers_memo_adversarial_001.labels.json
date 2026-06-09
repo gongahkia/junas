@@ -101,6 +101,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -313,6 +321,18 @@
       "category": "MNPI",
       "matched_text": "19B",
       "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Apt 19B, Al Bahar Residences, Marina Corniche, Al Saruq Emirate\nBank details (escrow): IBAN AE42 9910 0000 1234 5678 9012 [mod\u201197 check pending; placeholder]; account: Falcon Dunes Listing Escrow; do not circulate\nPublic/generic bait (exclude from PII scope): Helpdesk 800 0000; form label \u201cFull Name:\u201d and role\u2011only \u201cHead of Compliance\u201d entries",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "From: Ms. Layla Al\u2011Qamar, General Counsel; contact: compliance@falcon-dunes.ae; tel: +971 55 000 0009\nSubject: PDPL/MNPI controls for pre\u2011listing bridge financing and dual\u2011listing application under Al Dhafra Financial Zone (ADFZ) rules\nCompany IDs: DFZ Trade Licence DFZ\u2011LLC\u20119075312; ADFZ CRN 00\u2011098765; VAT TRN 100312345600000 (internal use)\nData sample for KYC (internal only): E m i r a t e s   I D : 7 8 4\u20112 0 0 7\u20111 2 3 4 5 6 7\u20110 (checksum flagged invalid) for Mr. Nadir Al\u2011Hafez, CFO\nPassport on file: AE U1234567; family origin (self\u2011declared): Al\u2011Hafez clan, Ras Al Manhal; residential address: Apt 19B, Al Bahar Residences, Marina Corniche, Al Saruq Emirate\nBank details (escrow): IBAN AE42 9910 0000 1234 5678 9012 [mod\u201197 check pending; placeholder]; account: Falcon Dunes Listing Escrow; do not circulate\nPublic/generic bait (exclude from PII scope): Helpdesk 800 0000; form label \u201cFull Name:\u201d and role\u2011only \u201cHead of Compliance\u201d entries\nMNPI: draft term sheet (not public) includes indicative price range AED 9.20\u20139.60 and Q3 EBITDA bridge; distribution restricted per ECMA Rulebook 6.2\nRegulator/exchange context: filings to Emirates Capital Markets Authority and ADFZ Registrar align with free\u2011zone market\u2011abuse guidance; issuer\u2011side info remains non\u2011public",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

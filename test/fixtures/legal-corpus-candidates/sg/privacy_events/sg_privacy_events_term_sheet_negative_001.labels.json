@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -214,6 +222,24 @@
       "category": "MNPI",
       "matched_text": "subject to shareholder approval",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation and retention: Personal data fields in diligence rooms are limited to role\u2011based contact points; retention for diligence artifacts is capped at 6 years per Policy PD\u2011RET\u201106, after which erasure procedures apply; these are policy statements and not notices of any breach.\nCross\u2011border transfer approval (intentional positive): A one\u2011time export of an employee contact directory to a regional HRIS vendor in Malaysia has been approved under internal Data Export Approval DE\u20112025\u20110145, with transfer restrictions and contractual clauses mapped in DPA Schedule 2",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Confidentiality and clean team: Only aggregated or role\u2011based data is accessible to Orchard\u2019s diligence team; no customer PII is shared and any MNPI review occurs after public disclosure or within a ring\u2011fenced clean team under Annex CT\u20111",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Investment in Ficus Marine Holdings Ltd. (SGX Mainboard; ticker: FMHL) by Orchard Venture Partners Pte. Ltd.\nPublic disclosure and MNPI: This summary aligns with the issuer\u2019s previously published SGXNET announcements and does not contain MNPI under the SFA or SGX Listing Rules.\nStructure: Primary issuance of new ordinary shares and a secondary purchase from existing non\u2011controlling shareholders, for an aggregate stake not exceeding approximately 12%, subject to shareholder approval; no price terms are set out in this summary.\nConditions precedent: SGX approval (if required), shareholders\u2019 approval at EGM, MAS/SFA compliance confirmations, completion of confirmatory due diligence limited to non\u2011price\u2011sensitive matters.\nData protection schedule: Schedule DPA\u20111 (Processor Terms) and Annex Privacy\u2011Ops form part of this term sheet; controls follow PDPA (Cap. 26) obligations on purpose limitation, notification, and accountability.\nMinimisation and retention: Personal data fields in diligence rooms are limited to role\u2011based contact points; retention for diligence artifacts is capped at 6 years per Policy PD\u2011RET\u201106, after which erasure procedures apply; these are policy statements and not notices of any breach.\nCross\u2011border transfer approval (intentional positive): A one\u2011time export of an employee contact directory to a regional HRIS vendor in Malaysia has been approved under internal Data Export Approval DE\u20112025\u20110145, with transfer restrictions and contractual clauses mapped in DPA Schedule 2.\nDSAR and consent withdrawal: There are no outstanding DSARs; the last two requests (ex\u2011employee access and marketing consent withdrawal) were completed and closed in accordance with Policy PD\u2011IND\u201103; this line records closure, not an open incident.\nErasure status: Routine quarterly erasure of obsolete applicant CVs in the diligence staging folder was completed and logged (Batch ER\u2011Q1\u20112025); no live erasure failures are reported.\nOnboarding forms and notices: Employee onboarding Form OF\u2011EMP\u20112025 includes PDPA collection notices and a plain\u2011language consent statement; unnecessary identity\u2011number fields are removed as part of minimisation.\nConfidentiality and clean team: Only aggregated or role\u2011based data is accessible to Orchard\u2019s diligence team; no customer PII is shared and any MNPI review occurs after public disclosure or within a ring\u2011fenced clean team under Annex CT\u20111.\nEmployment and integration: No automatic transfer of employment; any post\u2011completion hires will use the standard PDPA\u2011compliant onboarding process with privacy notices and optional marketing consent boxes unchecked by default.\nRepresentations: The issuer represents that, as at signing, it is not aware of any unresolved PDPA enforcement notices and has implemented a data breach response plan; references to \u201cerasure,\u201d \u201cDSAR,\u201d and \u201cconsent withdrawal\u201d in this term sheet reflect policy controls, not active incidents.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

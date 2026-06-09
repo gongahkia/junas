@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -310,6 +318,18 @@
       "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "To: Compliance Committee (Board) | From: Ms. Rania Al\u2011Qasri, General Counsel | contact: rania.alqasri@marhabaridge.ae; privacy.office@marhabaridge.ae\nThis note records UAE PDPL processing steps for client onboarding (DIFC/ADGM affiliates) and confirms MNPI controls under SCA/market\u2011abuse frameworks.\nCross\u2011border transfer: DPA Schedule 3 approved exporting limited KYC fields to Raqeem Analytics Ltd (Port Zaafir, MU); approval ID EXP\u2011MAU\u201120 26\u201107; h t t p s : / / portal.marhabaridge.ae/export/approve?ref=EXP\u2011MAU\u20112026\u201107&eid=7X4\u201119X7\u201112X4X67\u2011X",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal memo \u2014 Marhaba Ridge Capital PJSC \u2014 PDPL & MNPI handling update (31 May 2026)\nTo: Compliance Committee (Board) | From: Ms. Rania Al\u2011Qasri, General Counsel | contact: rania.alqasri@marhabaridge.ae; privacy.office@marhabaridge.ae\nThis note records UAE PDPL processing steps for client onboarding (DIFC/ADGM affiliates) and confirms MNPI controls under SCA/market\u2011abuse frameworks.\nCross\u2011border transfer: DPA Schedule 3 approved exporting limited KYC fields to Raqeem Analytics Ltd (Port Zaafir, MU); approval ID EXP\u2011MAU\u201120 26\u201107; h t t p s : / / portal.marhabaridge.ae/export/approve?ref=EXP\u2011MAU\u20112026\u201107&eid=7X4\u201119X7\u201112X4X67\u2011X.\nMinimisation: onboarding forms no longer request full Emir ates ID; we store hashed suffix only (EID ****\u2011****\u2011****\u20116 7) and redacted Trade Licence TL\u2011DIFC\u201100987F copies.\nDSAR: ticket R1\u20112 9 9 1 received from Mr. Faris N. via dsar@marhabaridge.ae; consent withdrawal for biometric verification acknowledged within 3 business days.\nErasure: biometric templates for this profile were deleted on 28\u201105\u20112026; evidence log DLT\u2011ER\u2011A213 filed; retention record updated in Data Inventory Register.\nRetention: KYC files retained 6 years per DIFC/ADGM policy; ephemeral cache in the onboarding app \u2018SifrGate\u2019 auto\u2011deletes after 30 days; audit hash 0x3f\u2011c2 noted.\nCompleted control (negative): no active payroll cross\u2011border transfer exists, so transfer impact assessment policy applies but is not triggered for payroll data.\nMNPI: deal team \u2018Project Manara\u2019 re an unannounced private placement of Ajwaq Logistics PJSC on a DIFC MTF has info barriers; only public\u2011source references were shared with IT vendors.\nInsider list closed and archived on 29\u201105\u20112026; no live wall\u2011crossings; clean\u2011team NDA with Nahr Exchange MTF sandbox concluded; do not treat this as a",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

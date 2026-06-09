@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -311,6 +319,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This Data Processing Addendum and MNPI Handling Notice is between AlKhaleej Ventures JSC (CR 2050007774; Qasirah City HQ) as Controller and Rimal Securities Brokerage LLC as Processor for issuer operations on Al-Najm Exchange.\nFor PDPL purposes, personal data includes national ID/Iqama details, contact and employment data, and special-category personal data; MNPI refers to non-public issuer information relevant to securities markets and market-conduct follow-up under Capital Markets Assembly rules (fictional).\nNamed-subject processing: Mr. Nasser Al-Qattan (Iqama No. 204-55-9876543, fictional) submits a health treatment claim for a cardiac checkup and provides a fingerprint template for PalmGuard Biometric Vault access to the DuneTel JSC insider room.\nWe also record his voluntary mosque attendance preference and union dues status for shift scheduling, and guardian consent for Master Sami Al-Qattan (minor, age 15) to access the internship trading simulator.\nProcessing purposes: onboarding insiders, maintaining issuer insider lists, pre-earnings lockups, DSAR responses, and compliance with market-conduct investigations by the Capital Markets Assembly Market Surveillance Unit (fictional).\nData minimization and retention: health and biometric records for the named subject are retained 5 years post-termination per DesertShield Data Minimization Policy and Sahara Retention Map, then anonymized and archived in Falcon Ledger.\nCross-border transfer: any export of national ID or special-category data requires prior written approval from the Supreme Data Applications Inspection Authority (SDAIA, fictional), documented via Oasis Transfer Gateway permit TP-09-7123 and recorded in the SDAIA Transfer Logbook.\nMNPI safeguards: pre-disclosure financial models of DuneTel JSC, draft prospectus content, and insider calendars are segregated; access is logged, and trading is restricted to prevent moving the goalposts for staff performance metrics.\nSecurity measures: encryption at rest, multi-factor authentication, biometric templates hashed with HBS-512 inside PalmGuard, and access reviews by the Qasirah Risk Committee.\nLawful basis: performance of contract with the data subject, legal obligation under capital market rules, and explicit consent for health and biometric processing for Mr. Nasser Al-Qattan.\nRights: data subjects may access, correct, delete, or port their data and object to automated decision-making; submit DSARs to privacy@alkhaleej-ventures.sa or via the DEI & Privacy Portal at https://portal.alkhaleej-ventures.sa/requests (fictional).\nWe do not collect information about anyone\u2019s sexual orientation for marketing; however, our DEI charter includes inclusive language about sexual orientation as a benign policy topic.\nBenign context: references to religion in our company newsletter (e.g., holiday schedules) do not describe any individual\u2019s beliefs, and product names such as Falcon Ledger or Genetic Canvas are metaphors only.\nCommunity and culture: AlKhaleej Ventures sponsors the Qasirah Sandhawks FC youth league, and our DEI statement promotes fairness across gender, age, and background without affecting PDPL rights.\nContacts and complaints: write to the Data Protection Officer, Ms. Lujain Al-Muqbil, dpo@alkhaleej-ventures.sa, or escalate to the Capital Markets Assembly Ombud (fictional) for MNPI concerns.\nSubprocessors: CloudPalm Hosting FZE (Rimal District zone) receives pseudonymized logs; no direct identifiers or MNPI leave KSA without SDAIA permit renewal.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

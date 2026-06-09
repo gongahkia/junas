@@ -1,165 +1,226 @@
 {
-  "doc_id": "th_sector_mnpi_privacy_notice_negative_001",
-  "document_type": "generic",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dsar@lotusreef.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Retention: HR records 6 years post-employment; cybersecurity event logs 12 months unless escalated; marketing consent logs 24 months; then securely deleted or anonymized."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Cross-border transfer: limited backups to BambooCloud Data Services Sdn Bhd (MY) under contractual safeguards consistent with PDPC guidance; no onward sale of personal data."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barrier"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_sector_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dsar@lotusreef.co.th"
+      "matched_text": "dsar@lotusreef.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Retention: HR records 6 years post-employment; cybersecurity event logs 12 months unless escalated; marketing consent logs 24 months; then securely deleted or anonymized."
+      "matched_text": "Retention: HR records 6 years post-employment; cybersecurity event logs 12 months unless escalated; marketing consent logs 24 months; then securely deleted or anonymized.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Cross-border transfer: limited backups to BambooCloud Data Services Sdn Bhd (MY) under contractual safeguards consistent with PDPC guidance; no onward sale of personal data."
+      "matched_text": "Cross-border transfer: limited backups to BambooCloud Data Services Sdn Bhd (MY) under contractual safeguards consistent with PDPC guidance; no onward sale of personal data.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barrier"
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@lotusreef.co.th"
+      "matched_text": "privacy@lotusreef.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we collect only required identifiers and avoid unnecessary copies"
+      "matched_text": "we collect only required identifiers and avoid unnecessary copies",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer: limited backups to BambooCloud Data Services Sdn Bhd (MY) under contractual safeguards consistent with PDPC guidance; no onward sale of personal data"
+      "matched_text": "Cross-border transfer: limited backups to BambooCloud Data Services Sdn Bhd (MY) under contractual safeguards consistent with PDPC guidance; no onward sale of personal data",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "an insider list is maintained"
+      "matched_text": "an insider list is maintained",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "SEA blackout"
+      "matched_text": "SEA blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Data subject requests"
+      "matched_text": "Data subject requests",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we will verify using system metadata rather than sensitive documents"
+      "matched_text": "we will verify using system metadata rather than sensitive documents",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we do not capture National ID images for marketing webinars"
+      "matched_text": "we do not capture National ID images for marketing webinars",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not include sensitive identifiers in your email"
+      "matched_text": "do not include sensitive identifiers in your email",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "undisclosed cyber remediation"
+      "matched_text": "undisclosed cyber remediation",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_protocol_event_marker",
-      "matched_text": "beta crypto rewards module"
+      "matched_text": "beta crypto rewards module",
+      "rule": "dpt_protocol_event_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@lotusreef.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: HR records 6 years post-employment; cybersecurity event logs 12 months unless escalated; marketing consent logs 24 months; then securely deleted or anonymized.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfer: limited backups to BambooCloud Data Services Sdn Bhd (MY) under contractual safeguards consistent with PDPC guidance; no onward sale of personal data.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: HR records 6 years post-employment; cybersecurity event logs 12 months unless escalated; marketing consent logs 24 months; then securely deleted or anonymized.\nCross-border transfer: limited backups to BambooCloud Data Services Sdn Bhd (MY) under contractual safeguards consistent with PDPC guidance; no onward sale of personal data.\nCrypto note (operational): our \u201cToken Orchard\u201d loyalty demo issues non-transferable points for training; no trading, no KYC, and no blockchain wallets are provisioned to consumers.\nESG/climate note (educational): public workshops and a sustainability microsite reuse already-announced climate targets and do not include individual-level data.\nCyber note (tabletop): simulated incident runbooks and phishing drills use dummy accounts only; reports exclude live customer content.\nInsider-controls (training): e-learning covers insider lists, information barriers, blackout windows, and anti-tipping obligations under the Securities and Exchange Act; materials are generic.\nCommercial terms (templates): sample NDAs and SaaS trials carry placeholder pricing and 0.00 figures, not binding commercial terms or forecasts.\nSharing with processors: we engage SkyLime Advisory Co., Ltd. for PDPA training and audit; access is role-based and logged.\nPositive MNPI carve-out: an insider list is maintained for an undisclosed cyber remediation affecting a beta crypto rewards module; processing is restricted to Compliance and subject to SEA blackout until the Thai SEC disclosure is made.\nFor that carve-out only, transfers are blocked, records are segregated behind an information barrier, and files are tagged under project reference IR-TEST-07.\nExcept for the carve-out, all references to crypto, ESG, cyber, insider lists, and commercial terms herein are operational, educational, or public, and are not reasonably likely to affect securities prices.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -196,64 +257,17 @@
       "reason": "Product/demo name; not a 'Project <Name>' transaction codename"
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "IR-TEST-07",
       "concept": "internal project reference",
+      "matched_text": "IR-TEST-07",
       "reason": "May be an internal identifier for MNPI handling, but not covered by a specific allowed rule (e.g., not a 'Project <Name>' codename)"
     },
     {
-      "matched_text": "ticket reference only",
       "concept": "customer/support ticket identifier",
+      "matched_text": "ticket reference only",
       "reason": "Implies use of an internal identifier but no actual value present; could map to customer_account_number, yet not explicitly covered by allowed rules here"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

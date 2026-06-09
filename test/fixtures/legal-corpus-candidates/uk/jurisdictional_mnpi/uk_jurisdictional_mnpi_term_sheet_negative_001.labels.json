@@ -50,6 +50,14 @@
     "previous_must_detect_count": 9,
     "previous_must_not_detect_count": 3
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -152,6 +160,12 @@
       "category": "MNPI",
       "matched_text": "\u00a30.01",
       "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed Strategic Share Subscription by Casterfell Holdings Ltd in Northbridge Quanta plc (UK)\nIssuer: Northbridge Quanta plc, incorporated in England and Wales, Main Market of the London Stock Exchange; FCA-registered issuer under DTR and UK MAR.\nSecurities: New ordinary shares of \u00a30.01 each (ISIN: GB00NQ000001 \u2014 draft/reference only; not a valid code), to be admitted to the Official List and to trading on the Main Market.\nSize: Within existing shareholder authorities granted at the 2025 AGM (as referenced in RNS dated 08 March 2025), not exceeding standard non-pre-emptive limits.\nConsideration/pricing: Price to be determined in line with market practice and Listing Rules; no pricing range has been approved and no discount outside prevailing guidelines will be sought.\nUse of proceeds: General corporate purposes and integration of Heliotrope Insights Ltd, an acquisition previously announced by RNS on 12 January 2024; no change to previously disclosed strategy.\nConditions precedent: Admission to listing and trading, confirmations under the Companies Act 2006 ss551/561, and, if required, FCA approval of a prospectus under the UK Prospectus Regulation.\nDisclosure and announcement: The parties intend to release an RNS at 07:00 (London time) on or around 28 June 2026 regarding the subscription; this timing and counterparty identity are not public at the date of this draft.\nRegulatory: The issuer will comply with UK MAR, the Listing Rules, and DTR 5; any major holdings notifications (TR-1) will be made following completion if thresholds are crossed.\nDealings and closed periods: PDMR dealing procedures apply and closed periods will be observed in accordance with UK MAR; no request for pre-clearance outside policy will be made.\nGovernance: No change to board composition, no shareholder agreements creating concert party obligations, and no intention to seek a waiver under Rule 9 of the Takeover Code.\nFinancial information: No profit forecast is made; this term sheet relies on public information contained in the 2025 Annual Report (published 30 April 2026) and the trading update posted to the issuer\u2019s website on 01 May 2026.\nExclusivity and break fee: No exclusivity or break fee is offered; discussions are non-binding and may be terminated without liability by either party.\nSettlement and registrar: Settlement via CREST following admission; the company\u2019s registrar details are as set out in the Annual Report and on the website; no new account details are requested in this term sheet.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

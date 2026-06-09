@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -280,6 +288,24 @@
       "category": "MNPI",
       "matched_text": "1234567890123",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2-11-4 Yamazora, Aozato Ward, Kikyo City, Hoshimi Prefecture 415-8734, Japan (fictional); Hojin Bango (Corporate Number): 6029384756102.\nCorporate Number sample (invalid checksum, do not use): 1234567890123; public helpline (non-PII): 0120-000-000.\nScope covers board acquisition diligence, employee HR workflows, and issuer securities disclosures under APPI and FIEA",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hanae Kuroda; contact privacy@sakura-industrial.example.jp; tel 03-6090-4821 (Kikyo City office).\nRegistered address: 2-11-4 Yamazora, Aozato Ward, Kikyo City, Hoshimi Prefecture 415-8734, Japan (fictional); Hojin Bango (Corporate Number): 6029384756102.\nCorporate Number sample (invalid checksum, do not use): 1234567890123; public helpline (non-PII): 0120-000-000.\nScope covers board acquisition diligence, employee HR workflows, and issuer securities disclosures under APPI and FIEA.\nFor HR onboarding and equity grants, we collect employee My Number 3210-6543-2109 (masked at rest), Passport No. TR1234567, and mobile 090-1455-6620.\nLocal government withholding data: Aozato Ward payer code AZ-104-5582 and resident tax notice ref RW-22-77194 (fictional) transmitted via encrypted channel.\nRemittances: Midorigawa Bank (fictional) code 1731, Branch 284, Account 4765021; beneficiary Mr. Satoshi Hinata; payroll contact hr@sakura-industrial.example.jp.\nMNPI under FIEA includes undisclosed board resolutions on the proposed tender offer (TOB) for Hoshizora Materials KK and unannounced quarterly KPIs; access limited to the Acquisition Committee.\nEnumerated material facts and tender-offer facts are notified to the Nansei Securities Oversight Council (fictional regulator) and HGE only after public disclosure; draft TOB schedules stored in the board portal.\nRetention: board minutes and TOB working papers kept 7 years; HR My Number copies deleted within 4 years after separation per APPI; access logs retained 2 years.\nDSAR: requests for access/correction/deletion may be sent to dsar@sakura-industrial.example.jp",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privacy Officer: Ms. Hanae Kuroda; contact privacy@sakura-industrial.example.jp; tel 03-6090-4821 (Kikyo City office).\nRegistered address: 2-11-4 Yamazora, Aozato Ward, Kikyo City, Hoshimi Prefecture 415-8734, Japan (fictional); Hojin Bango (Corporate Number): 6029384756102.\nCorporate Number sample (invalid checksum, do not use): 1234567890123; public helpline (non-PII): 0120-000-000.\nScope covers board acquisition diligence, employee HR workflows, and issuer securities disclosures under APPI and FIEA.\nFor HR onboarding and equity grants, we collect employee My Number 3210-6543-2109 (masked at rest), Passport No. TR1234567, and mobile 090-1455-6620.\nLocal government withholding data: Aozato Ward payer code AZ-104-5582 and resident tax notice ref RW-22-77194 (fictional) transmitted via encrypted channel.\nRemittances: Midorigawa Bank (fictional) code 1731, Branch 284, Account 4765021; beneficiary Mr. Satoshi Hinata; payroll contact hr@sakura-industrial.example.jp.\nMNPI under FIEA includes undisclosed board resolutions on the proposed tender offer (TOB) for Hoshizora Materials KK and unannounced quarterly KPIs; access limited to the Acquisition Committee.\nEnumerated material facts and tender-offer facts are notified to the Nansei Securities Oversight Council (fictional regulator) and HGE only after public disclosure; draft TOB schedules stored in the board portal.\nRetention: board minutes and TOB working papers kept 7 years; HR My Number copies deleted within 4 years after separation per APPI; access logs retained 2 years.\nDSAR: requests for access/correction/deletion may be sent to dsar@sakura-industrial.example.jp; we may request identity verification (e.g., passport last 2 characters only).\nTransfers to our processor Hanashiro Analytics Ltd. (Minami Archipelago, fictional) occur under standard contractual measures; datasets exclude full My Number and resident record codes.\nSecurity: identifiers tokenized before analytics; the role-only label \"CFO\" appears in certain audit logs and is not PII; the label \"Legal Dept.\" in samples is generic.\nTemplates contain benign placeholders such as \"Name: ______\" and \"Address: ______\"; these annexes do not include actual personal data.\nEscalation: suspected MNPI leaks (e.g., misdirected to mna@haruhoshi-advisory.example.jp) are escalated to the Board Chair within 2 hours and a trading blackout is im",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

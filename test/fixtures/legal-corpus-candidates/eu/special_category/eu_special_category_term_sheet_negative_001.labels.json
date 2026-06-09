@@ -50,6 +50,14 @@
     "previous_must_detect_count": 13,
     "previous_must_not_detect_count": 10
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -192,6 +200,12 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Counterparties: Brighthold Capital Sarl and Opal Bridge Holdings BV propose a minority strategic investment with an exclusive call option for a further stake in the issuer.\nScope: non-binding term sheet for equity subscription and commercial partnership relating to the LumenEdge platform and AuroraFlux cells (product names only).\nPublic information: structure and indicative timetable align with the issuer\u2019s already announced Strategic Pathway Update dated 03\u201101\u20112025 available on the public website.\nEU MAR: no inside information will be provided until wall-crossing; any delayed disclosure under Article 17 will be recorded and managed per the internal MAR Policy \u201cNorth Star Playbook.\u201d\nGDPR: personal data processing limited to deal execution; special-category data will be minimised and redacted; cross-border transfers outside the EEA rely on SCCs with a transfer impact assessment filed in the Data Room.\nData Subject (special category): HR Record Employee Ref EZ-0441 (R&D technician) has a documented oncology treatment accommodation; any such health data will be excluded from cross-border disclosure and replaced with functional anonymisation.\nSustainability: parties target alignment with the issuer\u2019s CSRD double materiality assessment and self-declared SFDR Art. 8 product framework \u201cAtlas GreenBond Framework,\u201d without representations as to taxonomy alignment.\nRegulatory approvals: completion is subject to clearance from the Fictional National Competition Authority and a non-controlling foreign investment review at the Veldhaven Economic Council (both fictional bodies).\nGovernance: no board changes at signing; observer rights only, and no access to undisclosed quarterly management packs prior to cleansed wall-crossing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

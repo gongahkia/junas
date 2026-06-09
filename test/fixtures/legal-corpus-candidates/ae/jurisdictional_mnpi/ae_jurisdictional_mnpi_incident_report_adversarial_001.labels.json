@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -275,6 +283,24 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Initial forensic review (ticket it-ops-1329) indicates limited exfiltration of a contractor roster incl. names, work emails, handset numbers, and one Emirates ID; affected record: Ms. Hana Al Badri, Operations Supervisor, Emirates ID 784 - 1991 - 654 3213 - 6.\nThe roster file schema includes a family-origin field; that column was present but not populated in the extracted sample, and no payroll bank IBANs were stored.\nUnder PDPL we treat this as personal data exposure; notification to the UAE Data Office will be submitted within 72 hours, and data subjects informed via hr@rimalports.ae",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Incident Notice \u2014 Rimal Ports PJSC \u2014 Non-public inside information until ADX/SCA disclosure determination.\nIssuer: Rimal Ports PJSC (Abu Dhabi Trade Licence CN-5827413), ADX ticker RMLP; ADGM subsidiary Ghadir Marine SPV Ltd (ADGM Comml Lic No. 00078412), with a DIFC branch for treasury ops.\nOn 2026-06-04 22:30 GST, unauthorized access via vendor VPN to the OT monitoring segment at Mina Al Saha terminal triggered a 3-hour preventive shutdown of 4 RTG cranes; no vessel incident occurred.\nInitial forensic review (ticket it-ops-1329) indicates limited exfiltration of a contractor roster incl. names, work emails, handset numbers, and one Emirates ID; affected record: Ms. Hana Al Badri, Operations Supervisor, Emirates ID 784 - 1991 - 654 3213 - 6.\nThe roster file schema includes a family-origin field; that column was present but not populated in the extracted sample, and no payroll bank IBANs were stored.\nUnder PDPL we treat this as personal data exposure; notification to the UAE Data Office will be submitted within 72 hours, and data subjects informed via hr@rimalports.ae.\nFrom an issuer perspective, we are in a closed period ahead of Q2 results (blackout window 15 Jun\u201318 Jul); selective disclosure is prohibited and an insider list has been opened per SCA/ADX rules.\nManagement preliminarily assesses a throughput impact of \u22641.5% for June; this may be material for RMLP depending on cumulative quarterly performance and therefore qualifies as inside information unless publicly announced.\nIR should prepare the ADX immediate disclosure template for filing on T+1 if impact exceeds internal threshold; this communication is not an announcement and not for dissemination outside need-to-know.\nReference: our prior ADX clarification dated 2026-05-12 (RMLP/CL/2026/0512, https://adx.ae/ann?ref=RMLP%2F20 26%2F0512) related to a separate labour matter and remains accurate but is not relevant to this cyber event.\nExternal noise: Al Khabra Systems LLC posted a general blog on \u201czero impact\u201d for its clients; that is a public vendor claim and should not be treated as issuer disclosure.\nFinancing workflow note: we continue documentation for the senior sukuk tap via Nasdaq Dubai advisors; today\u2019s event does not constitute a material adverse change under the draft terms and no covenant breach is expected.\nGovernance: restrict communications during blackout; do not brief analysts or suppliers on non-public operational details; investor queries to Mr. Kareem bin Taha (Head of Compliance), kareem.taha@rimalports.ae, +971 50 123  47  89.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

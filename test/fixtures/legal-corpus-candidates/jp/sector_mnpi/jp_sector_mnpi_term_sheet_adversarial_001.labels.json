@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -415,6 +423,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Project A m a n o g a w a (Japan) for the proposed acquisition of MidoriNet Cloud K.K. by Hoshizora Robotics K.K.\nParties: Buyer\u2014Hoshizora Robotics K.K.; Seller\u2014Sumire Ventu res G.K.; Target\u2014MidoriNet Cloud K.K. (Nanase Exchange Growth, \u201cNXG\u201d, code: MNC \u2014 fictional).\nStructure: Acquisition of 67% of outstanding shares via negotiated block purchase with potential follow-on tender offer; timeline and pricing windows are confidential under FIEA; no TOB notice has been filed as of the date hereof.\nConsideration: JPY 12,400,000,000 in cash plus up to 3,000,000 GreenNode Token (DPT) issued by Aoi Digital Trust K.K., subject to a price collar and 18\u2011month lockup; see https://deal.hoshizora.example/term?tx=0x00af-ESG.\nESG Earn\u2011out: Up to JPY 850,000,000 contingent on FY2027 Scope 2 intensity \u2264 28 kgCO2e/MWh and publication of a climate scenario analysis consistent with NXG guidance; failure reduces earn\u2011out to zero and is not a MAC.\nCyber Diligence: Non\u2011public investigation of a credential\u2011stuffing incident dated 2026\u201105\u201128 (no exfiltration confirmed); remediation reserve of JPY 120,000,000 to be accrued; disclosure limited to clean team.\nInformation Controls: Clean team access only via https://dataroom.hoshizora.example/room?id=NXG-21 7&key=z3-p r o; strict information barriers implemented; no selective disclosure to trading personnel.\nInsider List & Blackout: Maintain FIEA\u2011compliant insider list; add Ms. Keiko Aramaki (\u8352\u7267\u69d8) and Mr. Shunpei Akagawa; tipping prohibited; buyer and target employees are in blackout until T+2 after formal NXG announcement.\nAPPI/My Number: No \u201cIndividual Number\u201d will be transferred; employee data will be pseudonymised (e.g., EID\u2011**73x9, EID\u2011**64y2; sample mask: ****\u2011****\u2011****); processing limited to domestic servers; cross\u2011border transfers require opt\u2011in consent.\nConditions Precedent: Board approvals (buyer/target), NXG disclosure clearance, DPT transfer permit from Hoshizora Financial Services Bureau (fictional regulator), and absence of undisclosed tender\u2011offer facts.\nCommercial Terms: Reps & warranties include absence of material cyber incidents other than disclosed; ordinary\u2011course covenants; no material adverse change shall be deemed to result from general crypto market volatility, public\u2011source ESG taxonomy summaries, or climate policy shifts.\nIntegration & Barriers: Establish \u201cProject River\u201d info\u2011barrier policy; segregate DPT trading desk at Oboro Capital Markets K.K. from the deal team; insider\u2011wall log ref IL\u20110 04; communicat",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

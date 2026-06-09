@@ -55,6 +55,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -362,6 +370,24 @@
       "category": "MNPI",
       "matched_text": "145,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data protection: All personal data processed under Federal Decree\u2011Law No. 45 of 2021 (PDPL); data room will mask minor-shareholder details (Ms. Layla bint Noura, born 2010, guardian Dr. Nasser Al\u2011Fadhli) and genetic test references unrelated to employment fitness; biometric templates stored onshore only.\nListing/Regulatory: The Issuer targets admission to trading on the Gulf Crescent Exchange (a recognized MTF in a free\u2011zone financial centre) in H1 2027; timetable and cornerstone allocations are non\u2011public and subject to UAE market\u2011abuse controls applicable in free\u2011zone and onshore contexts",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Series B Preference Shares \u2014 Sandglow Optronics FZ-LLC (U.A.E.), non-binding save for confidentiality, exclusivity, governing law, and costs, intended to be PDPL-compliant.\nParties: Issuer \u2014 Sandglow Optronics FZ-LLC (Trade Licence Tr a d e  L i c e n c e: TL-57-2049-FZX), Investors \u2014 Palm Reef Holdings Ltd and Crescent Bay Partners SPC; Contact: Ms. Hana Al\u2011Shehri, Chief Legal Officer, hana.al\u2011shehri@sandglow.ae, +971-50-123-8890.\nRound: AED 60,000,000 Series B at pre-money AED 145,000,000; securities to be convertible into ordinary shares upon a qualified listing; intended Shari\u2019a review customary for the U.A.E.\nUse of proceeds: manufacturing scale-up in Dubai Industrial City; product roadmap includes FalconShield v2.1 and a \u201cgenetic firewall\u201d analytics module (term used for software only), plus regional sales hires; this sentence is not market guidance.\nConditions precedent: KYC/AML on founders, PDPL consents, and verification of identifiers including E m i r a t e s   I D and family-origin records; Mr. Kareem Al\u2011Jouri (Emirates ID 784-22-9876-543210-9, fictional) disclosed controlled Type 1 diabetes and uses bio\u2011 metric facial-scan access at the Ras Al Khaimah facility; Friday scheduling reflects his congregational commitments.\nGovernance: Board to include 1 Investor Director and 1 Independent nominated by H.E. Dr. Munir Al\u2011Barakah (Chair); Mr. Al\u2011Jouri confirms membership in the Gulf Tech Workers Council (fictional union) with no collective bargaining rights binding the Issuer.\nData protection: All personal data processed under Federal Decree\u2011Law No. 45 of 2021 (PDPL); data room will mask minor-shareholder details (Ms. Layla bint Noura, born 2010, guardian Dr. Nasser Al\u2011Fadhli) and genetic test references unrelated to employment fitness; biometric templates stored onshore only.\nListing/Regulatory: The Issuer targets admission to trading on the Gulf Crescent Exchange (a recognized MTF in a free\u2011zone financial centre) in H1 2027; timetable and cornerstone allocations are non\u2011public and subject to UAE market\u2011abuse controls applicable in free\u2011zone and onshore contexts.\nMNPI: Attached Annex A contains non\u2011public revenue pipeline for government tenders and a confidential customer win-rate model; until announcement, treat all Issuer data as inside information; references to public sources and product brochures are carved out.\nCovenants: No MAC closing condition and no MAE bring\u2011down at completion; PDPL audit within 120 days post\u2011close; founders\u2019 lock\u2011up 180 days from any listing; related\u2011party transactions limited to arms\u2019 length supply agreements.\nRepresentations: Trade licence TL\u201157\u20112049\u2011FZX accurate; Al\u2011Maryah free\u2011zone certificate current; E m i r a t e s I D and passport copies reviewed in a PDPL-compliant data room; no sanctions or debarments; political risk screening applies at country level only (not to any person\u2019s political opinions).\nFunds flow: Closing via escrow at Desert Pearl Bank PJSC (fictional), IBAN AE12 3456 7890 1234 5678 901 (fictional); payment of AED 2,000,000 break fee for willful breach of exclusivity only; no earn\u2011out tied to market price.\nExclusivity/Timing: 60\u2011day exclusivity; target signing within 30 business days subject to confirmatory tax and legal due diligence; anticipated completion 15 business days thereafter; admission advisor to be appointed within 45 days.\nprocess: next steps include compiling dd requests, drafting spa, updating cap table, and booking external counsel; see link for draft schedules: https://docs.sandglow.example/f/TS-045?eid=784-22-9876-543210-9&tl=TL-57-2049-FZX.\nThis document mentions health-checks for servers, biometric pipeline benchmarks, and a diversity & inclusion policy without referring to any individual\u2019s health, religion, sexual orientation, or politics; \u201cThe Red Nomads are on a winning streak\u201d is sports chatter and not transaction guidance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

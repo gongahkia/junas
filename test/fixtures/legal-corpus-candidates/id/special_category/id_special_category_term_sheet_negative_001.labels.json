@@ -1,125 +1,186 @@
 {
-  "doc_id": "id_special_category_term_sheet_negative_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "ID",
-  "destination_jurisdiction": "ID",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@nusantarafintek.example"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "60%"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_special_category_term_sheet_negative_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@nusantarafintek.example"
+      "matched_text": "legal@nusantarafintek.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "60%"
+      "matched_text": "60%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "~60%"
+      "matched_text": "~60%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "informasi material non-publik"
+      "matched_text": "informasi material non-publik",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EID-4772"
+      "matched_text": "EID-4772",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "Karyawan-ID EID-4772 pada entitas target tercatat sebagai anggota serikat pekerja internal"
+      "matched_text": "Karyawan-ID EID-4772 pada entitas target tercatat sebagai anggota serikat pekerja internal",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "hanya dibagikan dalam bentuk teragregasi dan teranonymisasi"
+      "matched_text": "hanya dibagikan dalam bentuk teragregasi dan teranonymisasi",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "corpsec@selarasdata.example"
+      "matched_text": "corpsec@selarasdata.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "000-0000000"
+      "matched_text": "000-0000000",
+      "rule": "bank_account"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "RUPS Luar Biasa"
+      "matched_text": "RUPS Luar Biasa",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "RUPSLB"
+      "matched_text": "RUPSLB",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "transaksi material"
+      "matched_text": "transaksi material",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "perubahan kegiatan usaha"
+      "matched_text": "perubahan kegiatan usaha",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@nusantarafintek.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet Usulan Transaksi Strategis antara PT Nusantara Fintek Arunika Tbk (Perseroan, calon pembeli) dan PT Selaras Data Mandiri (calon target) untuk akuisisi saham mayoritas.\nStruktur: Perseroan bermaksud mengakuisisi ~60% saham target melalui kombinasi pembayaran tunai dan penerbitan saham baru Perseroan; harga final akan ditentukan berdasarkan formula EV/EBITDA FY2025 (diaudit) dengan mekanisme penyesuaian modal kerja; tidak ada jumlah nominal yang dinyatakan pada term sheet ini.\nPendanaan: kas internal dan fasilitas kredit sindikasi non-ikatan dari PT Bank Fiktif Nusantara; tidak ada kewajiban penawaran tender wajib selama struktur memenuhi ambang batas POJK yang berlaku.\nSyarat Tunda (Conditions Precedent): persetujuan RUPS Luar Biasa Perseroan dan target; pemenuhan ketentuan POJK dan SEOJK terkait transaksi material dan perubahan kegiatan usaha; clearance keterbukaan informasi kepada OJK dan Bursa Efek Indonesia (BEI).\nKeterbukaan Informasi: para pihak akan melakukan pengumuman ringkas sesuai POJK keterbukaan paling lambat 2 Hari Bursa setelah penandatanganan SPA; informasi bersifat operasional akan disampaikan secara bertahap sesuai kebutuhan uji tuntas.\nPernyataan MNPI: dokumen ini tidak memuat informasi material non-publik selain yang telah diumumkan sebelumnya di situs BEI/ keterbukaan publik Perseroan; setiap data tambahan yang bersifat material akan diumumkan sebelum penutupan transaksi.\nUji Tuntas & Privasi: data personal karyawan dan pengguna layanan ArunikaPay serta portofolio pinjaman Selaras MicroLend hanya dibagikan dalam bentuk teragregasi dan teranonymisasi; akses data mentah tunduk pada perjanjian NDA dan UU PDP.\nCatatan SDM (terbatas lingkup uji tuntas): Karyawan-ID EID-4772 pada entitas target tercatat sebagai anggota serikat pekerja internal; rencana integrasi harus mencakup konsultasi bipartit sesuai peraturan ketenagakerjaan.\nKebijakan DEI: penerapan Kebijakan Keberagaman & Inklusi 2024 tetap berlaku tanpa perubahan; naskah ini memuat pernyataan umum kesejahteraan karyawan dan tidak mencantumkan data kesehatan individu, keyakinan, atau biometrik.\nSinergi Produk: integrasi API antara ArunikaPay, fitur scoring \u201cArunika Prism\u201d, dan modul \u201cSelaras MicroLend Lite\u201d direncanakan pada kuartal berikut; usulan ini bersifat non-binding dan tidak memengaruhi valuasi.\nPemasaran: wacana sponsor komunitas \u201cGaruda Tigers\u201d di Kota Pusaka hanya contoh ilustratif; analogi \u201cstrategi full-court press\u201d digunakan sebagai metafora dan tidak mengandung komitmen bisnis.\nFakta Publik: ekspansi target ke Jalur Pesisir telah diumumkan dalam siaran pers tanggal 01/01/2026; tidak ada proyeksi keuangan prospektif yang dicantumkan di sini.\nPersetujuan Korporasi: target timeline RUPSLB adalah 30 Hari Bursa sejak penerimaan draf SPA final; kegagalan mendapatkan kuorum akan menunda penutupan tanpa penalti.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -176,99 +237,52 @@
       "reason": "Venue/forum name; not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "ID",
   "uncertain": [
     {
-      "matched_text": "UU PDP",
       "concept": "privacy_law_reference",
+      "matched_text": "UU PDP",
       "reason": "Data protection law reference is relevant to privacy but not covered by an allowed rule."
     },
     {
-      "matched_text": "NDA",
       "concept": "confidentiality_agreement_reference",
+      "matched_text": "NDA",
       "reason": "Confidentiality agreement mentioned but no specific allowed rule covers it."
     },
     {
-      "matched_text": "ID-FAKE-000-TEST",
       "concept": "security_identifier",
+      "matched_text": "ID-FAKE-000-TEST",
       "reason": "ISIN-like identifier is relevant in securities context but not in allowed MNPI rules."
     },
     {
+      "concept": "security_ticker",
       "matched_text": "NFAA",
-      "concept": "security_ticker",
       "reason": "Ticker symbol may be sensitive contextually but not an allowed rule."
     },
     {
+      "concept": "security_ticker",
       "matched_text": "SDM1",
-      "concept": "security_ticker",
       "reason": "Ticker symbol may be sensitive contextually but not an allowed rule."
     },
     {
-      "matched_text": "TS-NFAA-SDM-2026-01",
       "concept": "internal_reference",
+      "matched_text": "TS-NFAA-SDM-2026-01",
       "reason": "Internal transaction reference may be sensitive but not covered by allowed rules."
     },
     {
-      "matched_text": "2 Hari Bursa",
       "concept": "disclosure_timeline",
+      "matched_text": "2 Hari Bursa",
       "reason": "Disclosure deadline is compliance-relevant but not among specified embargo markers."
     },
     {
-      "matched_text": "penutupan transaksi",
       "concept": "closing_event",
+      "matched_text": "penutupan transaksi",
       "reason": "Refers to closing but does not use explicit 'Closing Date' marker."
     },
     {
-      "matched_text": "Keterbukaan Informasi",
       "concept": "disclosure_compliance",
+      "matched_text": "Keterbukaan Informasi",
       "reason": "Disclosure section title is MNPI-related context but not mapped to a specific allowed rule."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

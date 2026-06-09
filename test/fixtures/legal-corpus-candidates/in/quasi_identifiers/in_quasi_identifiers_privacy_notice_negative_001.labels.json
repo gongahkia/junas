@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -157,6 +165,12 @@
       "category": "PII",
       "matched_text": "Child data",
       "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Processing Addendum for Sutradhar Fincloud Services Private Limited (India) covering research, investor relations, and vendor onboarding.\nScope and roles under the Digital Personal Data Protection Act, 2023: Sutradhar acts as Data Fiduciary; appointed vendors act as Data Processors for limited, documented purposes.\nUPSI handling for listed-company engagements (e.g., Mangalika Metals Limited): segregated research teams, event lists, and trading-window closures per applicable PIT Regulations; materials already posted on a stock exchange website are not UPSI",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

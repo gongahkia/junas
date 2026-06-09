@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -260,6 +268,24 @@
       "category": "MNPI",
       "matched_text": "40,000,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "FSS review",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "713-84-20957 (S e o n g r i m Tax O f f i c e); Registered Address: 12F, Namgye Plaza, Songrim-dong, Seongrim-si, Gyeonggi-do 17400.\nInvestor: Crescent Capital Partners L.P.; Contact: Ms. Hana Jang, IR Lead; email: h.jang@crescentcap.co.kr; phone: +82-10-8455-0032.\nTransaction: Purchase of 8,200,000 common shares and KRW 40,000,000,000 convertible bonds at KRW 4,880 per share, subject to FSCMA compliance and KRX consent; closing conditions apply.\nUse of proceeds: expansion of Aurora-Line batteries (product name), working capital; no change to employment terms; Compliance Officer (role-only) to monitor KR labor law impacts.\nBank details for Closing: Gyeongcheon Bank account 452-771-009312 (beneficiary: Seonghae Microsystems); SWFT: GCBKKR22 (label only, not an actual SWIFT).\nKey Person: Mr. Joon-ki Ryu (CTO); Resident registration no.: 920101-1 23 4567 (invalid checksum, HR onboarding mockup only, not for DART filing); KR passport: AL7902331",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Equity and CB Investment in Seonghae Microsystems Co., Ltd. (KR issuer) \u2014 draft for FSC/FSS review and KRX listing committee consideration.\nIssuer: Seonghae Microsystems Co., Ltd.; Company BRN (\uc0ac\uc5c5\uc790\ub4f1\ub85d\ubc88\ud638): 713-84-20957 (S e o n g r i m Tax O f f i c e); Registered Address: 12F, Namgye Plaza, Songrim-dong, Seongrim-si, Gyeonggi-do 17400.\nInvestor: Crescent Capital Partners L.P.; Contact: Ms. Hana Jang, IR Lead; email: h.jang@crescentcap.co.kr; phone: +82-10-8455-0032.\nTransaction: Purchase of 8,200,000 common shares and KRW 40,000,000,000 convertible bonds at KRW 4,880 per share, subject to FSCMA compliance and KRX consent; closing conditions apply.\nUse of proceeds: expansion of Aurora-Line batteries (product name), working capital; no change to employment terms; Compliance Officer (role-only) to monitor KR labor law impacts.\nBank details for Closing: Gyeongcheon Bank account 452-771-009312 (beneficiary: Seonghae Microsystems); SWFT: GCBKKR22 (label only, not an actual SWIFT).\nKey Person: Mr. Joon-ki Ryu (CTO); Resident registration no.: 920101-1 23 4567 (invalid checksum, HR onboarding mockup only, not for DART filing); KR passport: AL7902331 (fictional); home office: 17-2 Baekchon-gil, Seongrim-si, Gyeonggi-do 17402.\nRegulatory filings: FSC/FSS pre-review, DART submission before Closing; information herein constitutes MNPI until posted on DART and acknowledged by KRX.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

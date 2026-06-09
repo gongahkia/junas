@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -6,14 +28,29 @@
   "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -143,7 +180,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Incident Report — Cybersecurity and Operational Impact relating to ASX disclosure obligations",
+      "matched_text": "Incident Report \u2014 Cybersecurity and Operational Impact relating to ASX disclosure obligations",
       "rule": "cyber_incident_pre_disclosure"
     },
     {
@@ -163,7 +200,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Primary contact: Ms Alina Gerrity, Company Secretary — alina.gerrity@warrinup.com.au — +61 2 9155 0843",
+      "matched_text": "Primary contact: Ms Alina Gerrity, Company Secretary \u2014 alina.gerrity@warrinup.com.au \u2014 +61 2 9155 0843",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -193,7 +230,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Incident Report — Cybersecurity and Operational Impact relating to ASX disclosure obligations",
+      "matched_text": "Incident Report \u2014 Cybersecurity and Operational Impact relating to ASX disclosure obligations",
       "rule": "material_event"
     },
     {
@@ -203,7 +240,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Concurrent access occurred to internal board materials containing non-public Q4 EBITDA guidance and an unsigned termination notice from Fernhaven Energy Co‑op; this is inside information (MNPI) not generally available under Corporations Act s1042A.",
+      "matched_text": "Concurrent access occurred to internal board materials containing non-public Q4 EBITDA guidance and an unsigned termination notice from Fernhaven Energy Co\u2011op; this is inside information (MNPI) not generally available under Corporations Act s1042A.",
       "rule": "material_event"
     }
   ],
@@ -265,7 +302,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Incident Report — Cybersecurity and Operational Impact relating to ASX disclosure obligations",
+      "matched_text": "Incident Report \u2014 Cybersecurity and Operational Impact relating to ASX disclosure obligations",
       "rule": "material_event"
     },
     {
@@ -275,7 +312,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Concurrent access occurred to internal board materials containing non-public Q4 EBITDA guidance and an unsigned termination notice from Fernhaven Energy Co‑op; this is inside information (MNPI) not generally available under Corporations Act s1042A.",
+      "matched_text": "Concurrent access occurred to internal board materials containing non-public Q4 EBITDA guidance and an unsigned termination notice from Fernhaven Energy Co\u2011op; this is inside information (MNPI) not generally available under Corporations Act s1042A.",
       "rule": "material_event"
     },
     {
@@ -292,6 +329,30 @@
       "category": "MNPI",
       "matched_text": "not yet public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms Alina Gerrity, Company Secretary \u2014 alina.gerrity@warrinup.com.au \u2014 +61 2 9155 0843\nOn 31 May 2026, anomalous activity was detected on our HR and vendor portals; containment began within 90 minutes and OAIC Notifiable Data Breach steps commenced.\nExposed PII may include staff addresses, mobile numbers, TFNs, and AU passport scans (example: Mr Darius Kelm \u2014 TFN 745 839 512; Passport No: AU-KK1982457); health assessment forms were accessed for pre-employment checks.\nTwo supplier bank records were viewed: Redgum Analytics Pty Ltd \u2014 BSB 823-119, Account 19482573; Corktree Logistics Pty Ltd \u2014 BSB 734-002, Account 66791304.\nConcurrent access occurred to internal board materials containing non-public Q4 EBITDA guidance and an unsigned termination notice from Fernhaven Energy Co\u2011op; this is inside information (MNPI) not generally available under Corporations Act s1042A.\nESG datasets (emissions intensity tables and draft scope 2 reconciliation) for our 2026 Sustainability Update were also accessed and are not yet public.\nA trading halt request was lodged with ASX pending verification of data integrity and to manage potential market impact; ASIC has been notified of suspected unauthorised access to MNPI.\nRegistered office: Level 21, 360 Hinkler Street, Parramatta NSW 2150; vendor inquiries via vendor.support@warrinup.com.au.\nA phishing lure cited \u201cACN 123 456 789\u201d and a public helpline 1300 000 000; recipients should disregard those details as they appeared in the hoax message.\nSome attachments included generic form labels (\u201cApplicant Name:\u201d, \u201cPassport No:\u201d, \u201cTFN:\u201d) and role-only references (\u201cthe CFO\u201d, \u201cthe HR Administrator\u201d) rather than named signatories.\nCustomer support FAQs remained available; no biometric data is collected or stored by Warrinup systems.\nFor employees seeking assistance, contact hr.care@warrinup.com.au or +61 4 6712 5584",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity and Operational Impact relating to ASX disclosure obligations\nWarrinup Data Services Pty Ltd (ABN 78 904 532 619; ACN 812 371 906), Australia-based data processing and analytics provider\nDate/Time: 02 Jun 2026 09:40 AEST; prepared for Corporations Act s674 and ASX Listing Rule 3.1 considerations\nPrimary contact: Ms Alina Gerrity, Company Secretary \u2014 alina.gerrity@warrinup.com.au \u2014 +61 2 9155 0843\nOn 31 May 2026, anomalous activity was detected on our HR and vendor portals; containment began within 90 minutes and OAIC Notifiable Data Breach steps commenced.\nExposed PII may include staff addresses, mobile numbers, TFNs, and AU passport scans (example: Mr Darius Kelm \u2014 TFN 745 839 512; Passport No: AU-KK1982457); health assessment forms were accessed for pre-employment checks.\nTwo supplier bank records were viewed: Redgum Analytics Pty Ltd \u2014 BSB 823-119, Account 19482573; Corktree Logistics Pty Ltd \u2014 BSB 734-002, Account 66791304.\nConcurrent access occurred to internal board materials containing non-public Q4 EBITDA guidance and an unsigned termination notice from Fernhaven Energy Co\u2011op; this is inside information (MNPI) not generally available under Corporations Act s1042A.\nESG datasets (emissions intensity tables and draft scope 2 reconciliation) for our 2026 Sustainability Update were also accessed and are not yet public.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -346,34 +407,5 @@
       "matched_text": "Q4 EBITDA guidance",
       "reason": "Earnings guidance is market sensitive MNPI but not a specific rule type beyond nonpublic markers"
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

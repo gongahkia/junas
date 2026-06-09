@@ -50,6 +50,14 @@
     "previous_must_detect_count": 16,
     "previous_must_not_detect_count": 3
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -242,6 +250,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For MNPI, inside information under UK MAR is any precise, non\u2011public information relating to Ravensmere Capital plc or its securities that, if made public, would likely have a significant effect on the price, assessed relative to the issuer\u2019s scale and volatility profile.\nNon\u2011public status ends upon public disclosure \u201cwithout delay\u201d via Regulatory News Service (RNS) of the Albion Exchange or equivalent broad dissemination, or upon loss of precision or materiality per UK MAR Art. 17.\nPublic reference: RNS 04\u2011Feb\u20112026 \u201cCFO Appointment and Share Option Grant\u201d (public) at https://rns.albionex.example/notice?id=RM-2 0 2 6 -02-04&issuer=RAV E N S; information in that notice is already public and not MNPI.\nSelective disclosure is prohibited; any wall\u2011crossing of potential investors or lenders for Project Latchkey (internal code: LAT C H /24) requires NDA execution, insider\u2011list entry, and a cleanliness confirmation recorded in DealLog ID: DL-** 1 9 7.\nBlackout windows: PDMRs and persons closely associated must not deal during closed periods (30 calendar days before publication of interim or year\u2011end reports) and any ad hoc MAR\u2011triggered closed periods notified by the Company Secretariat.\nIssuer\u2011relative materiality: operational or strategic items reasonably expected to move Ravensmere Capital plc\u2019s price (e.g., \u22651% revenue impact, changes to dividend policy, or a credible offer for Norwood Analytics Ltd under Project Latchkey) are treated as inside information until RNS publication.\nNegative controls: no \u201cmaterial adverse change\u201d representation is given by this DPA; press reports that are widely disseminated and accurate, and stale public information (>12 months) from the Albion Exchange archive, are not MNPI.\nOperational updates unrelated to the issuer (e.g., Craydon Advisory Ltd patch cycles or Nimbus CRM UI changes) are not MNPI; such items may be processed as ordinary vendor management records only.\nData subject rights: submit DSARs to Ms. Leona Hathers (DPO) at dpo@ravensmerecap.example; we will respond within 1 month (extendable once); identity verification may require ref: HT R-9 0 1 and partial date-of-birth digits.\nInternational transfers: limited support tickets may be routed to Northshore Compute Ltd in Belvaren (non\u2011adequate); transfers will use the UK IDTA with supplementary encryption and key management hosted in U K \u2011region vaults.\nRetention: insider lists (primary and event\u2011based) are retained for 5 years from the last update; HR files are retained for 6 years post\u2011termination; deal room artifacts not constituting public records are purged 180 days after RNS disclosure or deal abandonment.\nSecurity: role\u2011based access, dual\u2011control for MNPI folders, and audit logging (LogRef: AU D\u2011 0 3 3) apply; processor shall notify the Company of personal data breaches without undue delay and cooperate with notifications to the UK competent authority.\nAlready\u2011announced reference: see Ravensmere Capital plc 18\u2011Nov\u20112025 Interim Results (public) at https://rns.albionex.example/notice?id=IR\u20112025\u201111\u201118; subsequent clarifications that add precision may still be MNPI until publication.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

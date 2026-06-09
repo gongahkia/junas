@@ -57,6 +57,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "MY",
@@ -214,6 +222,12 @@
       "category": "MNPI",
       "matched_text": "70%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed strategic acquisition by Orion Accretive Berhad (Main Market, Bursa Malaysia) of 70% equity in Kelana Digital Utilities Sdn Bhd via subscription and purchase.\nScope and basis: Indicative and non-binding (save for exclusivity and confidentiality); references only public/stale information already announced on Bursa LINK on 14 May 2026 (Ref: OAB/IA/0000).\nConsideration and structure: Final price mechanism to be determined by audited FY2024 EBITDA and customary completion accounts; no price-sensitive figures are set out herein.\nConditions precedent: Shareholders\u2019 approval, compliance with Bursa Listing Requirements, any required notifications to the Securities Commission Malaysia, and no material adverse change.\nNo undisclosed MNPI: Parties confirm compliance with CMSA insider trading prohibitions; data room excludes unpublished price-sensitive financial projections and contains only redacted, policy-level materials.\nPDPA framework: Data Processing Addendum (Schedule PDPA-1) applies, incorporating data minimisation and purpose limitation; onboarding forms collect only necessary fields (e.g., Name, NRIC/Passport, role, start date).\nRetention and erasure policy: Records retained under documented schedules (7 years or as required by Malaysian law); erasure workflows exist but there are no pending erasure requests as at this term sheet date.\nDSAR handling: Access/correction requests are processed via dpo@orionaccretive.my with standard SLAs; no open DSARs affect the Target or Completion.\nData export approval: Cross-border transfer of limited HR/payroll fields to a group processor outside Malaysia has been approved by the Company\u2019s Data Governance Committee under PDPA s129 safeguards (Approval DX-0000, dated 02/2026).\nConsent withdrawal: Where consent is relied upon, the withdrawal mechanism in Schedule PDPA-2 applies; no consent withdrawals impacting diligence have been received.\nDPA schedules: Annex A (permitted data categories), Annex B (authorised recipients/sub-processors), Annex C (retention triggers); no live deviations or waivers have been granted.\nSecurity and audits: No known personal data breach or leak has been identified in public audit summaries for the last 24 months; this statement is not an admission of liability.\nEmployment and notices: No transfer of employment is triggered on Completion; existing PDPA notices remain valid and will be refreshed post-Completion as a policy update only.\nFinancing: Facilities to be arranged by Blue Parakeet Bank Berhad; no bank account numbers or payment identifiers are provided or required by this term sheet.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

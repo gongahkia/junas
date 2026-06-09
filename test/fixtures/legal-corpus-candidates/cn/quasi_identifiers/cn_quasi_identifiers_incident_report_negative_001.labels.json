@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -143,11 +151,6 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "undisclosed",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "004512",
       "rule": "large_number"
     },
@@ -160,6 +163,12 @@
       "category": "MNPI",
       "matched_text": "990105199001019999",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The issuer is listed on the SSE STAR Market; this notice summarizes already disclosed operational impacts and does not contain undisclosed inside information under the Securities Law.\nOn 2026-05-29 03:20 CST, automated login attempts targeted the employee self-service portal and a shared service mailbox it-helpdesk@qilinharbor.cn.\nNo production systems, trading interfaces, or investor relations platforms were compromised; the event has been reported to the CSRC liaison and the exchange per CSL/DSL incident handling procedures.\nPreliminary forensics show password spraying from rotating CN and SG IP ranges; logs indicate failures across generic usernames (e.g., \"ap_admin\", \"guest\", \"temp1\").\nData categories potentially exposed are limited to salted hashes and device metadata; no bank card numbers, no precise addresses, and no resident ID full strings were accessed.\nOne affected profile shows a warehouse technician born 1990-07, stationed at Qinghe Bay District, Yongtai City, Huannan Province, using device hostname WH-QH-038 and internal payroll ID 004512, with a masked resident ID shown as 9900001990****22X.\nA separate log entry lists \"DOB: 1975-**-**; Role: shift supervisor; City: coastal prefecture\" without any name or full ID, which is insufficient to identify a natural person alone.\nHR onboarding templates found on the file share included blank fields (Name: _______, ID No.: _______, Bank: _______); no filled forms were exfiltrated.\nThe string 990105199001019999 appears in a test CSV as a dummy pattern for validation only and does not correspond to any real resident ID under PIPL.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

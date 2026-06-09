@@ -1,110 +1,206 @@
 {
-  "doc_id": "id_jurisdictional_mnpi_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "ID",
-  "destination_jurisdiction": "ID",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr@finsera.co.id"
+      "decision": "approve",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
     },
     {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_jurisdictional_mnpi_memo_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr@finsera.co.id"
+      "matched_text": "hr@finsera.co.id",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investor-relations@finsera.co.id"
+      "matched_text": "investor-relations@finsera.co.id",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-publik"
+      "matched_text": "non-publik",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "rencana akuisisi"
+      "matched_text": "rencana akuisisi",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "belum ada keputusan final"
+      "matched_text": "belum ada keputusan final",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "belum diumumkan di BES"
+      "matched_text": "belum diumumkan di BES",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Blackout reguler pra-laporan"
+      "matched_text": "Blackout reguler pra-laporan",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "jangan membahas rencana akuisisi di luar tim terkait"
+      "matched_text": "jangan membahas rencana akuisisi di luar tim terkait",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "sedang menegosiasikan"
+      "matched_text": "sedang menegosiasikan",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "PT Karya Paynet Nusantara (perseroan tertutup)"
+      "matched_text": "PT Karya Paynet Nusantara (perseroan tertutup)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "bukan rujukan publik"
+      "matched_text": "bukan rujukan publik",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "telah berakhir pada 25/04/2026"
+      "matched_text": "telah berakhir pada 25/04/2026",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "perjanjian pengikatan (SPA)"
+      "matched_text": "perjanjian pengikatan (SPA)",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "dialihkan ke investor-relations@finsera.co.id"
+      "matched_text": "dialihkan ke investor-relations@finsera.co.id",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr@finsera.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nai peluncuran dompet digital FinseraLite dan kerja sama dengan bank pembayar telah dipublikasikan; informasi tersebut sudah umum dan bukan MNPI.\nKeputusan RUPS Tahunan 2025 terkait program opsi karyawan telah diunggah di laman keterbukaan OJN; tidak ada tindakan tambahan saat ini.\nTemplate formulir \u201cData Karyawan\u201d dan \u201cNomor Rekening\u201d di SOP HR hanya contoh tanpa data; pertanyaan dapat dialihkan ke hr@finsera.co.id (role mailbox).\nMNPI: Direksi sedang menegosiasikan rencana akuisisi non-publik atas PT Karya Paynet Nusantara (perseroan tertutup); belum ada keputusan final dan belum diumumkan di BES; informasi ini kemungkinan material bagi PT Finsera Aruna Tbk.\nMengacu POJN No. 31/POJN.04/2025 dan Peraturan Bursa BES No. I-E, apabila disetujui, keterbukaan wajib paling lambat 2 Hari Bursa sejak keputusan Direksi; hingga diumumkan, perlakukan sebagai MNPI.\nUntuk menghindari selective disclosure, seluruh permintaan informasi dari vendor, kandidat karyawan, atau media harus dialihkan ke investor-relations@finsera.co.id; jangan membahas rencana akuisisi di luar tim terkait.\nCatatan internal: kode saham simulasi FZRA dan ISIN XX-FZRA-000000 hanya untuk uji sistem; tidak valid untuk transaksi dan bukan rujukan publik.\nJadwal publik: Laporan Keuangan Semester I 2026 akan dipublikasikan mengikuti kalender BES pada minggu ketiga Juli (jadwal ini sudah tersedia di situs BES); tidak ada blackout tambahan hanya karena jadwal.\nBlackout reguler pra-laporan untuk seluruh Insan Perseroan telah berakhir pada 25/04/2026; kebijakan perdagangan tetap berlaku umum.\nPembaruan operasional non-emiten: migrasi payroll ke penyedia PT Bening Solusi Jaya telah selesai; ini tidak berdampak material pada pemegang saham dan tidak memerlukan keterbukaan.\nHasil pilot fitur paylater dengan 200 merchant uji coba telah dirangkum di blog perusahaan bulan lalu; data bersifat agregat dan publik.\nJika terjadi penandatanganan perjanjian pengikatan (SPA), lakukan keterbukaan paling lambat 2 Hari Bursa dan koordinasi potensi UMA dengan BES bila diperlukan; draf pengumuman telah disiapkan di",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -133,109 +229,27 @@
       "reason": "Generic role noun; not PII"
     }
   ],
+  "source_jurisdiction": "ID",
   "uncertain": [
     {
-      "matched_text": "2 Hari Bursa",
       "concept": "OJK/BES disclosure deadline",
+      "matched_text": "2 Hari Bursa",
       "reason": "Disclosure timing is compliance-relevant MNPI handling but not covered by a listed rule"
     },
     {
-      "matched_text": "UMA",
       "concept": "Market-surveillance coordination",
+      "matched_text": "UMA",
       "reason": "UMA mention relates to market activity management but not an explicit allowed MNPI rule"
     },
     {
-      "matched_text": "bukan MNPI",
       "concept": "Negative MNPI status",
+      "matched_text": "bukan MNPI",
       "reason": "Indicates information is public/non-material; relevant for MNPI classification but not an allowed positive marker"
     },
     {
-      "matched_text": "perseroan tertutup",
       "concept": "Private company status of counterparty",
+      "matched_text": "perseroan tertutup",
       "reason": "Counterparty being private supports non-public nature of deal; useful context but not an explicit rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_agent_review": {
-    "status": "strict_tier_cleaned_owner_approved",
-    "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
-    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
-  },
-  "_owner_acceptance": {
-    "status": "owner_approved_id_stage_a_for_internal_benchmarking",
-    "accepted_by": "gongahkia",
-    "accepted_at_utc": "2026-05-29T08:19:15Z",
-    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
-    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "status": "approved",
-      "decision": "approve",
-      "reviewer": "gongahkia-project-owner-chat-approval",
-      "reviewed_at_utc": "2026-05-29T08:19:15Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
-    },
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

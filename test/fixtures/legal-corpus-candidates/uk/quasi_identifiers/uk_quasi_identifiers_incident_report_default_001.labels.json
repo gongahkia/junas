@@ -50,6 +50,14 @@
     "previous_must_detect_count": 17,
     "previous_must_not_detect_count": 7
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 5,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -297,6 +305,36 @@
       "category": "MNPI",
       "matched_text": "unauthorised access to internal",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Summary: On 13 May 2026, a phishing-led account takeover targeted our Operations Analyst Ms. Lydia Carr (DOB 14/09/1988), resulting in unauthorised access to internal files.\nMs. Carr is a Senior Operations Analyst in Treasury, based at New Alderwick Service Centre (Southshire), using laptop asset NBM-ALD-4321 and cloud mail ID lydia.carr@northbridgemercantile.co.uk.\nBetween 07:42\u201308:16 BST, session SESS-ALDW-8842 from private IP 10.24.61.88 synced folders tagged \"Q3 Pre-Close\" and \"Project Heather\" to an unknown endpoint",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Carr is a Senior Operations Analyst in Treasury, based at New Alderwick",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Summary: On 13 May 2026, a phishing-led account takeover targeted our Operations Analyst Ms. Lydia Carr (DOB 14/09/1988), resulting in unauthorised access to internal files.\nMs. Carr is a Senior Operations Analyst in Treasury, based at New Alderwick Service Centre (Southshire), using laptop asset NBM-ALD-4321 and cloud mail ID lydia.carr@northbridgemercantile.co.uk.\nBetween 07:42\u201308:16 BST, session SESS-ALDW-8842 from private IP 10.24.61.88 synced folders tagged \"Q3 Pre-Close\" and \"Project Heather\" to an unknown endpoint.\nThe accessed materials include a draft trading update and a non-binding term sheet concerning a potential acquisition of Farlane Advisory Ltd; both documents are non-public and considered inside information under UK MAR.\nWe have initiated containment (password reset, device quarantine via our device management system, revoke tokens) and notified the UK Markets and Conduct Authority (UMCA) Market Oversight desk on a precautionary basis.\nTrading in Northbridge Mercantile plc on the Albion Securities Exchange (Main List) continues; we have no evidence of dissemination of MNPI or of disorderly trading.\nTechnical indicators show a malicious login using a \"NewAlderwick-Guest\" SSID and a Chromium-based browser build 121; no malware has been detected on the endpoint.\nSeparately, an unnamed 29-year-old contractor in the Northshire region reported a lost Android handset last month; that device had no access to treasury files and is not connected to this incident.\nHR notes that Ms. Carr joined in 2023 and is on a flexible schedule; these facts alone do not identify her to the market, but combined with the above could create quasi-identifiers.\nWe have reminded staff that sharing a job title and business location, without names or exact dates of birth, is generally low-risk when isolated.\nA generic example from another team: a 34-year-old analyst in a coastal office using a personal iOS device is not sufficient to identify a natural person in itself.\nCompliance has frozen access to the \"Project Heather\" channel and will restrict distribution of the draft trading update to the Insider List (Ref: INS-NBM-2026-05).\nAny external communications must route through the Company Secretary, Mr. Owen Bramwell, at cosec@northbridgemercantile.co.uk or 0208 555 0143",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: On 13 May 2026, a phishing-led account takeover targeted our Operations Analyst Ms. Lydia Carr (DOB 14/09/1988), resulting in unauthorised access to internal files.\nMs. Carr is a Senior Operations Analyst in Treasury, based at New Alderwick Service Centre (Southshire), using laptop asset NBM-ALD-4321 and cloud mail ID lydia.carr@northbridgemercantile.co.uk.\nBetween 07:42\u201308:16 BST, session SESS-ALDW-8842 from private IP 10.24.61.88 synced folders tagged \"Q3 Pre-Close\" and \"Project Heather\" to an unknown endpoint.\nThe accessed materials include a draft trading update and a non-binding term sheet concerning a potential acquisition of Farlane Advisory Ltd; both documents are non-public and considered inside information under UK MAR.\nWe have initiated containment (password reset, device quarantine via our device management system, revoke tokens) and notified the UK Markets and Conduct Authority (UMCA) Market Oversight desk on a precautionary basis.\nTrading in Northbridge Mercantile plc on the Albion Securities Exchange (Main List) continues; we have no evidence of dissemination of MNPI or of disorderly trading.\nTechnical indicators show a malicious login using a \"NewAlderwick-Guest\" SSID and a Chromium-based browser build 121; no malware has been detected on the endpoint.\nSeparately, an unnamed 29-year-old contractor in the Northshire region reported a lost Android handset last month; that device had no access to treasury files and is not connected to this incident.\nHR notes that Ms. Carr joined in 2023 and is on a flexible schedule; these facts alone do not identify her to the market, but combined with the above could create quasi-identifiers.\nWe have reminded staff that sharing a job title and business location, without names or exact dates of birth, is generally low-risk when isolated.\nA generic example from another team: a 34-year-old analyst in a coastal office using a personal iOS device is not sufficient to identify a natural person in itself.\nCompliance has frozen access to the \"Project Heather\" channel and will restrict distribution of the draft trading update to the Insider List (Ref: INS-NBM-2026-05).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

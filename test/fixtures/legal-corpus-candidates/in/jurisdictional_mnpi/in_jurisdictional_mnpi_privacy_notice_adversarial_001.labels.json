@@ -38,6 +38,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -265,6 +273,24 @@
       "category": "MNPI",
       "matched_text": "84%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Vihara Logistics Limited (CIN: L99999KA2020PLC123456) \u2014 Privacy & UPSI Handling Notice (India) \u2014 Effective 30-Jun-2026; this notice applies to our listed-company workflows on NSE/BSE and our Indian operations under the Digital Personal Data Protection Act, 2023 (DPDPA).\nAs Data Fiduciary, we collect business contact data, device logs, and limited KYC (masked PAN, masked Aadhaar last 4, GSTIN of sole proprietors) for onboarding, compliance, and investor-relations; we do not require full Aadhaar and will reject scans that include full 12 digits",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To exercise DSAR rights (access, correction, portability, erasure, grievance), contact Ms. Parvati Menon (Grievance & Compliance Officer) at dpo@vihara-logistics.in or use https://privacy.vihara-logistics.in/dsar?ref=IR%2F2026%2FQ1&token=VLLX-9f%2A%2A\n%2A-77 with your preferred consent manager credentials.\nVerification for DSARs uses OTP and last-4 match (e.g., PAN PAXXP1234X, Aadhaar XXXX-XXXX-6217); do not email full IDs; we may request a masked KYC extract; children\u2019s requests must be initiated by guardians.\nRetention: KYC and contract records 7 years post relationship, call logs 180 days, investor queries 2 years, and SEBI PIT structured digital database (SDD) entries for 8 years or until completion of proceedings, whichever is later.\nCross-border transfers: processing occurs in India and Singapore with Ajmera Compute Pte. Ltd. (SG) and Thar Data Grid Pvt. Ltd. (IN) as processors under DPA and audit rights; transfers are based on contractual safeguards and any Central Government notifications under DPDPA.\nUPSI handling: as per SEBI (Prohibition of Insider Trading) Regulations, 2015, \u201cunpublished price sensitive information\u201d includes financial results, dividends, mergers, and key expansion plans; selective disclosure is prohibited and sharing is allowed only on a Legitimate Purpose basis recorded in the SDD.\nTrading window: for Designated Persons (including certain vendor staff with SDD access), the window is closed from quarter-end until 48 hours after dissemination of Board-approved results to N SE / B SE and public release; \u201cgenerally available information\u201d is deemed upon stock exchange upload and after at least 24 hours of broad dissemination.\nIf inadvertent selective disclosure occurs, we will promptly and uniformly disseminate the same under Regulation 30 of SEBI LODR (within 30 minutes of Board outcome where applicable), update our IR page (ir.vihara-logistics.in/reg30), and record recipients in the SDD.\nFor the avoidance of doubt, this notice itself does not contain UPSI; see already-public BSE filing VLL/SEC/2025-26/014 and our press release dated 28-Apr-2026 on \u201cFleetPulse 2.0\u201d (Q4FY25 deck archived) \u2014 these are stale public references and not new disclosures.\nA third-party operational bulletin by OrchID Supply LLP regarding its NovaLedger patch is not an issuer update and is not material to our listed securities; we do not treat such vendor notices as our UPSI.\nContacts: Ms. Parvati Menon (Company Secretary & Compliance Officer), Mr. Rohan Bhat (Head\u2013Investor Relations); investor queries at ir@vihara-logistics.in; DSAR hotline +91 80 5555 0909 (10:00\u201318:00 IST, business days).\nSecurity & controls: encryption, role-based access, SDD on segregated instance \u201clotus_supp-kr03\u201d with time-stamped entries; reference to \u201cProject Lotus Supply\u201d here is contextual and not a price signal.\nIdentifiers (masked/obfuscated examples): Customer Ref VLLx-ACCT-7F/9a; GSTIN 29-V I H A R A-000-T E S T; PAN P4N9X8Q1Z2 (placeholder format); invoice URL https://billing.vihara-logistics.in/i/2026/04/INV-%E2%84%9611  \u2014 line-breaks/spaces are OCR artifacts.\nThis document does not constitute, and expressly negates, any material adverse change (MAC) representation, does not solicit investment, and includes general policy text for guidance only under Indian law.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

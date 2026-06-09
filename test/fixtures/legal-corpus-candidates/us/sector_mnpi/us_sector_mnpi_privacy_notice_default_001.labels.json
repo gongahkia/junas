@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -241,11 +249,23 @@
       "category": "MNPI",
       "matched_text": "Scope 2 emissions",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Avery Dune, corpsec@harborlinehb.example.\nNo selective disclosure or tipping to analysts, lenders, market makers, or digital asset venues; earnings and ESG/climate metrics are disclosed via simultaneous public channels.\nEmployees on the insider list are subject to trading blackout windows and pre-clearance, including for any crypto-related instruments issued by Harborline Digital Vaults LLC.\nSuspected cyber incidents (e.g., credential stuffing affecting patient portals) are logged as security events and treated as MNPI until publicly disclosed; breach notifications follow applicable state health privacy and financial sector rules.\nConsumers, patients, and employees may submit DSARs for access, correction, or deletion at privacy@harborlinehb.example or 1-833-555-0198, and requests will not elicit MNPI beyond the requester\u2019s own records.\nRetention: insider-list entries for deal stages retained seven years after public disclosure; system logs for cyber alerts retained 18 months; de-identified analytics retained as permitted under HIPAA de-identification standards.\nCross-border transfers to BluePine Cloud Services, Inc. (subprocessor) occur in U.S.-based data centers only; no transfer of patient financial account numbers or biometric templates without encryption at rest and in transit.\nCommercial terms: per Statement of Work #NV-047, the climate risk scoring module includes a 10% rebate if Scope 2 emissions reporting is independently verified, and deliverables exclude forward-looking guidance.\nOur ESG and crypto literacy webinars explain climate risk scoring and distributed ledger custody concepts for education and marketing only and do not contain MNPI or investment recommendations.\nOperations note: the word \u201cblackout\u201d in our help center describes scheduled app maintenance windows and is unrelated to securities trading restrictions.\nAccess to research notes referencing non-public contract terms requires dual-approval and watermarking; emails to external analysts are pre-cleared and logged for Reg FD compliance.\nQuestions may be directed to Chief Privacy Officer Dr. Selene Mora at cpo@harborlinehb.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI includes material non-public information under Rule 10b-5 and Regulation FD and may arise in healthcare, banking, and digital asset workstreams handled for Harborline.\nProcessor will maintain information barriers segregating advisory/banking teams from research/analyst services, with strict need-to-know controls, chaperoned meetings, and audit trails.\nHarborline will maintain an insider list for deal-stage items (e.g., tokenized deposit pilot, hospital network contract renegotiation) curated by Corporate Secretary Ms. Avery Dune, corpsec@harborlinehb.example.\nNo selective disclosure or tipping to analysts, lenders, market makers, or digital asset venues; earnings and ESG/climate metrics are disclosed via simultaneous public channels.\nEmployees on the insider list are subject to trading blackout windows and pre-clearance, including for any crypto-related instruments issued by Harborline Digital Vaults LLC.\nSuspected cyber incidents (e.g., credential stuffing affecting patient portals) are logged as security events and treated as MNPI until publicly disclosed; breach notifications follow applicable state health privacy and financial sector rules.\nConsumers, patients, and employees may submit DSARs for access, correction, or deletion at privacy@harborlinehb.example or 1-833-555-0198, and requests will not elicit MNPI beyond the requester\u2019s own records.\nRetention: insider-list entries for deal stages retained seven years after public disclosure; system logs for cyber alerts retained 18 months; de-identified analytics retained as permitted under HIPAA de-identification standards.\nCross-border transfers to BluePine Cloud Services, Inc. (subprocessor) occur in U.S.-based data centers only; no transfer of patient financial account numbers or biometric templates without encryption at rest and in transit.\nCommercial terms: per Statement of Work #NV-047, the climate risk scoring module includes a 10% rebate if Scope 2 emissions reporting is independently verified, and deliverables exclude forward-looking guidance.\nOur ESG and crypto literacy webinars explain climate risk scoring and distributed ledger custody concepts for education and marketing only and do not contain MNPI or investment recommendations.\nOperations note: the word \u201cblackout\u201d in our help center describes scheduled app maintenance windows and is unrelated to securities trading restrictions.\nAccess to research notes referencing non-public contract terms requires dual-approval and watermarking; emails to external analysts are pre-cleared and logged for Reg FD compliance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "“blackout”",
+      "matched_text": "\u201cblackout\u201d",
       "reason": "Operational maintenance term, not a trading blackout reference"
     },
     {

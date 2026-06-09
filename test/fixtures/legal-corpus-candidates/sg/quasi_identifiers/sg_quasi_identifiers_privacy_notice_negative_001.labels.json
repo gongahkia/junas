@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -139,6 +147,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbour Quill Law LLC acts as data intermediary and controller (as applicable) for Pine Meridian Holdings Ltd., a company listed on the Lion City Exchange (Mainboard), under Singapore\u2019s PDPA and the Securities and Futures Act.\nThis note covers M&A due diligence, employment onboarding, and capital-markets filings; we limit personal data to what is reasonable for those purposes.\nUnless required by law, we do not collect full NRIC/FIN; forms may display labels such as \u201cNRIC/FIN:\u201d or \u201cPassport No:\u201d but applicants should provide masked or last-4 only in initial submissions.\nFor LCE disclosures, we handle draft announcements as MNPI until publicly released on the issuer\u2019s website and LCE newsfeed; already-published board changes and historical share issues are treated as public.\nGeneric trade metadata (e.g., ISIN: ZZ0000000000, Trade ID: 00000000, Board Lot: N/A) is stored for template validation only and does not reference any live security.\nAccess controls restrict MNPI to the deal team; role-based mailboxes (e.g., dpo@harbourquill.sg, filings@pinemeridian.com.sg) are used to avoid personal accounts.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

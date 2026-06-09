@@ -50,6 +50,14 @@
     "previous_must_detect_count": 14,
     "previous_must_not_detect_count": 10
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -357,6 +365,24 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Designated contact (clustered identifiers): Dr. Elina Vor\u010dek (DOB 1990-04-16), Head of Compliance at Nordalis Renewables SE, based in Port Vistala (PL-88-880), corporate email elina.vorcek@nordalisse.eu, internal chat handle ivk_90@nrse, assigned tablet NR-SE-Tab-14 (MAC aa-b4-19-**-7c-3f), currently on VPN session eu-hub-3814; office at Pier 7, Baltika Park (no home address collected).\nSeparated weak identifiers (non-attributive examples): sample birth date 1978-02-05, generic handset tag 'alpha-42', session tag 'beta-sess-009', and location label 'Nordic region' appear in templates only and are not linked to any identified person",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Timeline & closing: signing targeted for 22 July 2026, long-stop 31 December 2026; completion conditional on works council outcomes and cross-border data transfer readiness reviews; pre-completion integration workstreams (lowercase: finance, hr, it) proceed without exchanging customer-level PII.\nGoverning law & dispute resolution: Dutch law; exclusive jurisdiction of the Amstelhaven Commercial Court; transfer of shares by notarial deed; listing and prospectus matters coordinated with the NSS and AmsTerra Exchange Amstelhaven; no ad-hoc announcement will be made prior to EU MAR Article 17 disclosure",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed acquisition of HeliosGrid BV by Nordalis Renewables SE (EU issuer) \u2014 Project AL D E R \u2014 governed by Dutch law.\nIssuer/Buyer: Nordalis Renewables SE (listed on AmsTerra Exchange Amstelhaven; home competent authority: Netherlands Securities Supervisor (NSS)), Seller: Alderlight Holdings S\u00e0rl, Target: HeliosGrid BV (NL-incorporated).\nConsideration: EUR 182,500,000 cash and E U R O  27,500,000 in newly issued green convertible bonds (internal code HLG-CB-2026); pricing mechanics and conversion cap are precise non-public terms likely to affect the Buyer\u2019s share price under EU MAR.\nFinancing: underwritten bridge by Sylvan Bank A/S (fictional) to be refinanced with an SFDR Article 9 instrument; bank accounts to be opened with Eurcanopy Bank Europe (fictional), subject to KYC onboarding.\nConditions precedent: Union Competition Directorate (fictitious) clearance (Phase I), Dutch works council consultation, NSS market notification protocols, no suspension by AmsTerra Exchange Amstelhaven; seller warranties include no sanctions breaches and no special categories of data processing other than permitted under GDPR Art 9(2)(b),(g).\nMAR compliance: Buyer to maintain insider lists under Article 18, operate a closed period from signing to Article 17 disclosure; PDMR dealings prohibited; leak procedures will follow internal Union market abuse workflows.\nConfidentiality & MNPI: all deal materials hosted at https://deal.nordalisse.eu/room/HLG?id=NRSE%2F2026%2FQ3&sess=eu-hub-3814 and file ref ALD-ER-13; access via VPN session eu-hub-3814 and device policy 'NR-MDM v5.4'.\nData protection: cross-border transfer of due diligence data may occur to processors in the UK and Serbia; Standard Contractual Clauses and transfer impact assessments will be executed; only aggregated workforce health metrics (no raw medical files) processed for CSRD; any Art 9 data will be minimised and rely on explicit consent where necessary.\nESG/CSRD/SFDR covenants: post-closing the Target will align with EU Taxonomy KPIs and publish CSRD-compliant ESRS E1\u2013S1 disclosures; Buyer will report PAI indicators at consolidated level and maintain product-level SFDR Article 9 classifications for 'VerdiFlow 2.0' and 'HelioFlex-Edge'.\nPayment mechanics: escrow at Eurcanopy Bank Europe under acc o u nt EU-XX00 0000 0000 0000 0000 00; wire refs 'ALD-2026-TR1'; working capital peg \u20ac12,400,000; settlement timetable T+3; sample URL with embedded ref https://pay.example.eu/x/ALD-2026-TR1?bank=EUB-01.\nDesignated contact (clustered identifiers): Dr. Elina Vor\u010dek (DOB 1990-04-16), Head of Compliance at Nordalis Renewables SE, based in Port Vistala (PL-88-880), corporate email elina.vorcek@nordalisse.eu, internal chat handle ivk_90@nrse, assigned tablet NR-SE-Tab-14 (MAC aa-b4-19-**-7c-3f), currently on VPN session eu-hub-3814; office at Pier 7, Baltika Park (no home address collected).\nSeparated weak identifiers (non-attributive examples): sample birth date 1978-02-05, generic handset tag 'alpha-42', session tag 'beta-sess-009', and location label 'Nordic region' appear in templates only and are not linked to any identified person.\nMarket standard protections: there has been no material adverse change between 31 March and Signing; for the avoidance of doubt, ordinary-course seasonal churn and public-source analyst estimates do not trigger MAC or any price adjustment.\nTimeline & closing: signing targeted for 22 July 2026, long-stop 31 December 2026; completion conditional on works council outcomes and cross-border data transfer readiness reviews; pre-completion integration workstreams (lowercase: finance, hr, it) proceed without exchanging customer-level PII.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

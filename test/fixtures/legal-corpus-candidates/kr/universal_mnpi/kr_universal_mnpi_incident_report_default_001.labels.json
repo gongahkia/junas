@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -315,6 +323,12 @@
       "category": "MNPI",
       "matched_text": "lateral movement",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY NON-PUBLIC \u2014 \ub0b4\ubd80\uc815\ubcf4 \u2014 Embargo until 2026-06-10 09:00 KST \u2014 Project Snow Lantern\nHaneul Robotics Co., Ltd. (HanRiver Exchange issuer) \u2014 Board memo, incident summary, and IR draft\nOn 2026-06-03, our CSIRT detected unauthorized access via credential phishing; lateral movement was contained to the R&D network within three hours.\nMr. Min-kyu Seo, R&D engineer, had his domain account misused; resident-number is on file and verified but no resident-number data was accessed; contact: csirt@haneulrobotics.example.\nScope assessment: approximately 2.7% of internal design repositories were accessed; preliminary loss estimate is KRW 3.2 billion; no customer PII exfiltration has been confirmed.\nPursuant to FSCMA Article 174, this constitutes material, non-public information; a K-Disclosure portal draft has been prepared but will not be released until the embargo lifts.\nConcurrently, we are negotiating the Definitive Share Purchase Agreement for Project Pine Crane with Taeyang Capital Partners Ltd.; contemplated investment is KRW 48.0 billion for 15% newly issued shares.\nPer Section 8.1 (MAE) of the signed term sheet, the incident as currently scoped is not a MAC/MAE event and does not trigger any termination or walk-away rights.\nBoard action requested for 2026-06-05: approve KRW 1.1 billion remediation budget and authorize limited vendor notifications; Ms. Ara Kim (CFO) to execute.\nInvestor-relations draft: operational impact expected to be below 1.0% of FY2025 revenue; no change to guidance; announcement to be issued after embargo expiry stated above.\nPublic-source reference: our 2021 sustainability report disclosed the location of the former Gwangdeok data room; that information is stale and unrelated to this incident.\nInsider controls: non-public markers and the insider blackout list remain in force until the embargo lapses; do not discuss outside authorized channels.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

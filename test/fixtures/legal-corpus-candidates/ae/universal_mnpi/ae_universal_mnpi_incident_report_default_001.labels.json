@@ -51,6 +51,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -328,6 +336,24 @@
       "category": "MNPI",
       "matched_text": "78654321",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Under UAE PDPL, data subjects will be notified if forensic analysis confirms access to identified or indirectly identifiable personal data.\nBoard briefing with Mr. Sami Al Qasimi (Chair) and Ms. Ranya Dabbagh (Audit Committee) set for 05 Jun 2026; IR to prepare draft Q&A for potential ADX inquiries.\nDeal team to confirm whether SPA reps on cybersecurity require a specific indemnity or disclosure schedule update; MAC carve-outs to be reconfirmed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact: Dr. Nabil Faroukh, CISO, +971-00-0000-1234, ciso@sirajoasis.ae; alternate: esg@sirajoasis.ae",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 MNPI \u2014 Operational/Cyber Incident Report for Siraj Oasis Utilities PJSC (DIFC branch) \u2014 Project Palm Dune\nOn 03 Jun 2026 02:10 GST, credentials of a facilities HVAC subcontractor were abused, causing a 27\u2011minute outage on the ADGM data mirror and potential read\u2011only access to limited HR and vendor folders.\nPotentially impacted PDPL data categories include Emirates ID scans, onshore trade licence attachments for contractors, user emails, and voluntary family-origin survey responses used for ESG reporting.\nThis occurred while negotiating a definitive Share Purchase Agreement (SPA) under Project Palm Dune to acquire 12.5% of Shamal Radiant Holdings LLC for AED 420,000,000.\nEmbargoed until 18 Jul 2026 10:00 GST; no external communications without CFO and Company Secretary approval; IR list restricted.\nPreliminary assessment: this does not constitute a Material Adverse Change (MAC) or MAE under the SPA, subject to bring-down at signing.\nWe will brief the SCA and, for DIFC operations, the DFSA; ADGM FSRA notification threshold appears unmet given <0.5% revenue impact and zero safety incidents.\nOur 2024 sustainability report, publicly available on sirajoasis.ae, already outlines HVAC network segmentation and vendor risk management.\nUnder UAE PDPL, data subjects will be notified if forensic analysis confirms access to identified or indirectly identifiable personal data.\nBoard briefing with Mr. Sami Al Qasimi (Chair) and Ms. Ranya Dabbagh (Audit Committee) set for 05 Jun 2026; IR to prepare draft Q&A for potential ADX inquiries.\nDeal team to confirm whether SPA reps on cybersecurity require a specific indemnity or disclosure schedule update; MAC carve-outs to be reconfirmed.\nContact: Dr. Nabil Faroukh, CISO, +971-00-0000-1234, ciso@sirajoasis.ae; alternate: esg@sirajoasis.ae.\ntodo: circulate draft to internal comms, legal, and ops; keep Saffron Hammam team spa-day vouchers active unless Compliance objects.\nForensics log: accessed paths include HR/onboarding/emirates-id.pdf, vendor/trade-licence-78654321.pdf, payroll/addresses.csv (headers only); no database writes detected.\nNot for release; disclosure to insurers under cyber tower No. SOU-CT-0098 permitted post-NDA; any equity research note drafts must reflect \u201cno change to guidance\u201d.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

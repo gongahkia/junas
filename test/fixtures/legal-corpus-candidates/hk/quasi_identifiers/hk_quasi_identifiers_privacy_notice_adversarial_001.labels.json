@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -194,6 +202,24 @@
       "category": "MNPI",
       "matched_text": "confidential",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data relating to living individuals whose identity is directly or indirectly ascertainable, and we segregate material non-public information (specific corporation information not generally known and price-material) from public-source content.\nMr. Rowan Tse, DOB 1986-09-14, M&A Associate at HJC (Sheung Wan office), device: Samsung SM\u2011G9910, last login 2026-05-31 21:07 HKT, session sid=hk-tealbanyan-042, custody acct HJ-3220 (client sandbox), access point \"HJC-5G-19\", location approx. 22.280N/114.150E.\nProject codename Teal Banyan; matter ref MA/2026/TEAL; link https://portal.harborjade.example.com/matters/teal?sid=hk%2Dtealbanyan%2D042 for access by approved data users.\nWe do not collect MAC addresses for marketing; security logs may store a truncated device identifier (e.g., 98-3A-**-**-C7) and browser fingerprint hash \u201cb3 f1  9d  0a\u201d.\nUnder PDPO, data users may transfer to processors (e.g., Citrine Trustees (Asia) Ltd., CloudWorks Pearl DC) subject to written safeguards and cross-border transfer assessments for storage in Jurong and Taipei.\nFor access/correction requests (DSAR), contact our DPO at dpo@harborjade.example.com; we acknowledge within 2 working days and aim to respond within 40 days, subject to permitted exemptions.\nEmployment candidates: we may collect CV data and references; generic descriptions such as \u201cfemale, 30s, Mid-Levels resident\u201d alone are not used to identify a person and do not trigger enhanced review.\nNegative bait: a line like \u201cborn 03/1992, junior auditor, iPhone 11, Quarry Bay, acct TST-9912\u201d without a name is insufficient to single out any living individual in our systems.\nMNPI handling: inside information relating to a specific corporation (e.g., draft term sheets, unaudited revenue) not generally known and likely price-sensitive is ring-fenced; staff must not share it externally until authorised disclosure.\nMr. Tse\u2019s OCR scan appears as M r .  R o w a n   T s e; reconcile with HR master where employee no. EJ\u20114102 is stored separately from trading logs and fund subscription records.\nRetention: M&A data rooms (Teal Banyan) 7 years; recruitment records 2 years; device telemetry 90 days; anonymisation by hashing then truncating, with deletion logs maintained.\nTransfers to auditors and counsel (e.g., Jade Peak Legal, Azure Reef Partners) occur under engagement letters; no bank account numbers or payment transactions are transmitted for this matter.\noperational note: update the dpia after pilot, do not upload marketing brochures, and avoid marking Wikipedia excerpts as confidential\u2014public-source material is outside S F O MNPI scope.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

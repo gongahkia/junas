@@ -50,6 +50,14 @@
     "previous_must_detect_count": 9,
     "previous_must_not_detect_count": 18
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -217,6 +225,18 @@
       "category": "MNPI",
       "matched_text": "Information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Valtara Systems Ltd by Alderbank Capital plc (UK Main Market issuer); summary prepared for diligence coordination and does not introduce new inside information for UK MAR purposes.\nParties: Buyer \u2014 Alderbank Capital plc; Seller \u2014 Kestrel Ridge Holdings SPV Ltd; Target \u2014 Valtara Systems Ltd; transaction structure: share purchase of 100% of issued share capital.\nConsideration and headline terms remain as previously announced via Alderbank RNS dated 05/03/2025; no price-sensitive updates are included in this document and no wall-crossing is effected by receipt of it.\nRegulatory: FCA Listing Rules and Disclosure Guidance and Transparency Rules compliance to be maintained; any change in control notifications in respect of Valtara\u2019s regulated subsidiary to be filed if required; CMA filings assessed as not required based on public turnover thresholds.\nMarket abuse controls: insider list procedures and clean team protocol per Compliance Memo CM-UKMAR-17 (appended); no selective disclosure, and no MNPI is needed for this phase.\nData protection: Schedule 3 Data Processing Addendum (DPA) to govern HR, payroll, and client file processing; data minimisation applied \u2014 only fields listed in Onboarding Form Template F-ONB-001 will be shared.\nPrivacy status: no outstanding DSARs, erasure requests, or consent withdrawal notices affecting Target systems as at the date of this term sheet; retention schedules adopted (POL-RET-05) and confirmed in an internal compliance memo referencing ICO guidance.\nIntentional positive: one cross-border transfer for VDR mirroring is approved under the UK IDTA to a non-UK processor (BrinkCloud Norland SA), Data-Export Approval REF: UK-DEX-041; scope limited to redacted financials, org charts, and policy registers.\nOnboarding materials: sample Employee Onboarding Form (blank) circulated for process review only; fields include [First Name], [Last Name], [Work Email], [Sort Code XX-XX-XX], [Account No 00000000], [NINO AAA000A]; no live PII will be uploaded.\nEmployment: TUPE not expected; fitness and propriety attestations for regulated roles to be collected during integration; queries via hr-compliance@valtara.example.\nInformation barriers: clean team members only; anonymised or aggregated client datasets used; any receipt of MNPI will trigger withdrawal procedures and Listing Rule notifications where applicable.\nRecords management: retention \u2014 transactional files to be held for six years post-completion; auto-deletion controls are enabled and tested; this is a policy statement and does not indicate a pending erasure event.\nConditions precedent: execution of DPA schedules, confirmation that any prior DSARs were closed with no further action required, and receipt of standard third-party consents; no financing condition precedent beyond committed facilities.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

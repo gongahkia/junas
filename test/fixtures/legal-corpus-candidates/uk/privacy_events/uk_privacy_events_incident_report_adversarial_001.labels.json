@@ -50,6 +50,14 @@
     "previous_must_detect_count": 9,
     "previous_must_not_detect_count": 3
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -197,6 +205,12 @@
       "category": "MNPI",
       "matched_text": "Policy\u2011only note: the MAC clause in the facility agreement was not invoked, and no go/no\u2011go gate or financing covenant was affected.",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Northshard Capital plc \u2014 Operational & Privacy Incident Report (UK issuer; oversight under UKMA guidance and CEX\u2011Lon listing context)\n04/06/2026 18:05 BST: SFTP payload for a vendor regression test was routed to an external sandbox during credential rotation; the event implicated UK GDPR controls but no unauthorised party accessed live systems.\nInvolved dataset: 27 employment onboarding forms and 4 client KYC packs; all were template\u2011redacted and did not include bank details; no MNPI or precise non\u2011public issuer information was present.\nDSAR: Mr. Darius Ruskin (ex\u2011analyst) submitted DSAR #RSK\u201188 on 05/06/2026 via privacy@northshard.capital; we provided a copy of his personnel file and processing log on 06/06/2026.\nConsent withdrawal and erasure: Mr. Ruskin withdrew consent for marketing; non\u2011mandatory contact fields were erased on 06/06/2026; core HR records are retained per schedule HR\u2011RET\u20115Y (legitimate interests/contract).\nCross\u2011border transfer: temporary sandbox in Lydonia at Greyharbor Processing Pte operated under DPA\u2011UK\u2011014 Schedule 3 with UK IDTA; Data Export Approval DEA/UK/24-0 7# was signed by Ms. Tamsin Greaves (DPO) prior to the test.\nMarket abuse controls: no STOR was filed and the UK MAR test was documented as \u201cnot triggered\u201d because the files contained no issuer\u2011level, price\u2011sensitive detail.\nAudit trail: IR\u201124\u2011073; export log 17:43\u201317:44 BST; FileID NSC_KYC_Redact_v3.zip (hash 0x7e2a\u2026b9); UserID eID:R1-7 4Z9; change ticket CHG\u201122041 closed.\nPolicy\u2011only note: the MAC clause in the facility agreement was not invoked, and no go/no\u2011go gate or financing covenant was affected.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

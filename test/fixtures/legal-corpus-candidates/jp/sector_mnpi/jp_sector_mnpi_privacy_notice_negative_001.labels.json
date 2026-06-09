@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -220,6 +228,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Climate/ESG metrics used for our Sustainability Day webinars rely on figures already posted on our public IR site and do not include earnings guidance or unpublished KPIs.\nCybersecurity tabletop exercises may simulate vendor breach alerts with synthetic data; no real customer or employee records are used in such drills.\nRetention: insider-list entries are kept only for the duration required by the Financial Instruments and Exchange Act and exchange rules; My Number data is segregated and disposed of promptly after the legal retention period tied to payroll filings ends.\nCross-border transfers: for outsourced processing to Shirabe Data Services GK and its Singapore affiliate, we execute data transfer agreements ensuring equivalent measures under APPI and provide information on foreign data protection systems upon request.\nData subject rights (APPI Arts. 33\u201335): submit access/correction/deletion requests via the privacy portal or the role mailbox privacy-office@aobamaterials.example.jp; we may verify identity through HR records without collecting unnecessary individual codes.\nBlackout calendars and pre-clearance procedures are standard internal controls; scheduling notices use generic descriptors and should not be interpreted as signals of material events.\nWe follow TSE timely disclosure practice; undisclosed facts that meet \u201cmaterial facts\u201d under FIEA are communicated strictly on a need-to-know basis and are not discussed in open channels.\nPositive control: until the Board resolves and TSE timely disclosure is made, the non-public intention to commence a tender offer for Kitanami Labs K.K. is restricted to the insider list and subject to information-wall requirements.\nCommercial terms in the \u201cGreenBond-ESG Report Pack\u201d marketing brochure (e.g., list pricing and service tiers) are public and not MNPI.\nFor complaints, you may contact our Privacy Office or consult guidance from the Personal Information Protection Commission; this notice does not amend employment terms or constitute investment advice.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

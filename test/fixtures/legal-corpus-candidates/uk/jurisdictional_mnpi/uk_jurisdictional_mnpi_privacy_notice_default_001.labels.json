@@ -50,6 +50,14 @@
     "previous_must_detect_count": 15,
     "previous_must_not_detect_count": 3
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -232,6 +240,24 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Northwick Capital plc is a UK\u2011listed financial services issuer; this Employee Privacy and MNPI Handling Notice applies to staff and contractors.\nWe process personal data under UK GDPR (information relating to an identified or identifiable person), including names, work emails, trade approvals, device IDs, and access logs.\nLawful bases include contract, legal obligation (market\u2011abuse, listing and transparency rules), and legitimate interests in compliance monitoring; DPO: Mr. Edwin Mallory, dpo@northwickcap.co.uk.\nInside information under UK MAR means precise, non\u2011public matters that, if made public, would be likely to have a significant effect on Northwick Capital plc\u2019s share price.\nExamples include draft half\u2011year results, unannounced board succession, and proposed placing terms; information already released via our RNS on 12 March 2026 (\u201cCloud Platform Update\u201d, Ref: NWCP/2026/0312) is public.\nIf inside information is selectively disclosed to any analyst, investor, or journalist, notify the Company Secretary immediately; an announcement must be made as soon as possible, and an insider list update maintained.\nClosed periods for PDMRs run for 30 calendar days before publication of year\u2011end and half\u2011year results; dealing in company securities requires pre\u2011clearance via compliance@northwickcap.co.uk.\nWe retain insider lists and delay\u2011of\u2011disclosure rationales for at least five years (UK MAR Art 18/17), and pre\u2011clearance records for six years from decision.\nPersonal data may be transferred to processors in the EEA and elsewhere; where outside the UK, we use the UK IDTA or the UK Addendum to SCCs with vendors such as Tallow Data Services Ltd.\nYou may submit a data subject access request to privacy@northwickcap.co.uk; we will verify identity and respond within one month, extendable by two months for complexity.\nCalendar invites or file metadata referencing \u201cProject HARRIER\u201d with tentative pricing grids constitute MNPI even if the invite body is vague; use approved secure folders and do not email externals.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

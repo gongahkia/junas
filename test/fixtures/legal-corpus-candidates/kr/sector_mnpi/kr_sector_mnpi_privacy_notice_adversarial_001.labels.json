@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -260,6 +268,18 @@
       "category": "MNPI",
       "matched_text": "Information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subject rights (access, correction, deletion, and processing suspension) may be exercised by contacting Ms. Seo Min\u2011ji (DPO) at privacy@daramun\u2011ecotech.example or 02\u20110000\u20119911.\nFor complaints, you may contact the Frontier Securities Council (FSC\u2011Korea) or the Financial Safeguards Service (FSS\u2011Korea) at https://fsc\u2011korea.example/complaints?ref=ir%2F9 (fictional bodies for this notice).\nTraining and marketing materials may reference \u201ccrypto,\u201d \u201cinsider list,\u201d and \u201cblackout window\u201d purely as glossary terms for general awareness, and these materials do not describe or imply any current deal",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We collect and use such data for pre\u2011deal diligence and internal approvals in connection with Project Haneul (digital asset custody MOU) and Project Bidulgi (renewable PPA and climate metrics), which are not publicly disclosed.\nInsider lists are maintained for these projects and circulated only to cleared persons; employees on the lists are subject to blackout windows and must not engage in tipping or selective disclosure.\nInformation barriers are implemented between Digital Assets Strategy and IR/Research, including separate drives, access controls, and redaction before any K\u2011announcement draft leaves the deal room.\nIn relation to a contained cyber incident on 2026\u201103\u201111 affecting our test validator cluster, we may process forensic logs and device IDs to meet breach notification duties without revealing data beyond the need\u2011to\u2011know group.\nDraft commercial terms for an NDAB listing of the \u201cShinwol Note\u201d utility token (price collar, lock\u2011up 90 days, MFN triggers) are stored in a sealed folder and are treated as MNPI until board approval.\nTransfers may occur to Hanrim Advisory LLC (KR), NeoSeoul Digital Asset Board (NDAB), and CloudMirai SG Co. for cloud processing; cross\u2011border transfers use standard safeguards and explicit consent where required.\nLegal grounds include consent, employment/contract necessity, and statutory obligations under the FSCMA\u2011KR; this notice is informational and does not create or constitute a material adverse change (MAC).\nRetention: HR files up to 5 years after separation; insider\u2011list entries retained until public announcement plus 6 months; public\u2011source IR items may be archived longer if scraped from https://ir.daramun.example/notice?id=9f_a23&src=public.\nData subject rights (access, correction, deletion, and processing suspension) may be exercised by contacting Ms. Seo Min\u2011ji (DPO) at privacy@daramun\u2011ecotech.example or 02\u20110000\u20119911.\nFor complaints, you may contact the Frontier Securities Council (FSC\u2011Korea) or the Financial Safeguards Service (FSS\u2011Korea) at https://fsc\u2011korea.example/complaints?ref=ir%2F9 (fictional bodies for this notice).\nTraining and marketing materials may reference \u201ccrypto,\u201d \u201cinsider list,\u201d and \u201cblackout window\u201d purely as glossary terms for general awareness, and these materials do not describe or imply any current deal.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

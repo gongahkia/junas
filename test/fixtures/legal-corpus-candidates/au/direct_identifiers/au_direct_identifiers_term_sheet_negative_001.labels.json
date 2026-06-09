@@ -48,6 +48,14 @@
     "status": "post_cn_ae_precision_realign_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AU",
@@ -205,6 +213,18 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "00 123 456 789 \u2013 invalid), Registered Office: Level 15, 77 Harbour Arcade, Sydney NSW 2000; Investor\u2014Harbourline Capital Partners Pty Ltd (ACN 123 456 788 \u2013 invalid), Principal Office: Level 8, 9 Mint Lane, Melbourne VIC 3000.\nJurisdiction and listing context: Governed by Australian law; intended to comply with APX Listing Rules and AICA regulatory guidance (fictional exchange/regulator reflecting Australian practice).\nTransaction overview: Subscription for unsecured convertible notes and a strategic cooperation option; consideration, coupon, and conversion price to be agreed and released via a public market announcement before execution of binding documents.\nConditions precedent: Board approvals of both parties, any AICA relief (if required), APX waiver (if any), and receipt of an independent expert\u2019s report consistent with the Corporations Act 2001 (Cth).\nFunding and escrow: Investor funds to be deposited to Company escrow at First Interior Bank (BSB 000-000; Account 12345678 \u2013 placeholder only) pending satisfaction of conditions; no trust or fiduciary relationship is created by this term sheet.\nDisclosure and MNPI: The parties confirm this summary reflects already-announced intentions and does not contain information that would reasonably be expected to have a material effect on financial products.\nNo shop/standstill: Non-binding moral commitment only; the Company may continue to explore alternatives, including a pro-rata placement to existing holders on APX.\nKey undertakings: Use of proceeds for Australian R&D grant co-funding; appointment of a non-executive observer nominated by the Investor (role-only title, no personal details included herein).\nCompany identifiers: ABN 00 000 000 000 and ACN 000 000 000 shown in form fields are placeholders and may not pass checksum validation; do not rely on them for any filing.\nContact and notices: Company\u2014transactions@bronzewattle.com.au; Investor\u2014governance@harbourline.com.au; AUREG Public Infoline 1300 555 014 (for general regulatory guidance only).\nForm labels for execution (placeholders): Name: [Authorised Signatory], Title: [Company Secretary], Date: [DD/MM/YYYY], Address: [Level/Floor, Street, Suburb, Postcode].\nIdentity verification for execution (one-off): Authorised Signatory (Passport No: XN1234567",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Proposed Strategic Investment in Bronzewattle Technologies Pty Ltd by Harbourline Capital Partners Pty Ltd (Australia)\nParties: Company\u2014Bronzewattle Technologies Pty Ltd (ABN 00 123 456 789 \u2013 invalid), Registered Office: Level 15, 77 Harbour Arcade, Sydney NSW 2000; Investor\u2014Harbourline Capital Partners Pty Ltd (ACN 123 456 788 \u2013 invalid), Principal Office: Level 8, 9 Mint Lane, Melbourne VIC 3000.\nJurisdiction and listing context: Governed by Australian law; intended to comply with APX Listing Rules and AICA regulatory guidance (fictional exchange/regulator reflecting Australian practice).\nTransaction overview: Subscription for unsecured convertible notes and a strategic cooperation option; consideration, coupon, and conversion price to be agreed and released via a public market announcement before execution of binding documents.\nConditions precedent: Board approvals of both parties, any AICA relief (if required), APX waiver (if any), and receipt of an independent expert\u2019s report consistent with the Corporations Act 2001 (Cth).\nFunding and escrow: Investor funds to be deposited to Company escrow at First Interior Bank (BSB 000-000; Account 12345678 \u2013 placeholder only) pending satisfaction of conditions; no trust or fiduciary relationship is created by this term sheet.\nDisclosure and MNPI: The parties confirm this summary reflects already-announced intentions and does not contain information that would reasonably be expected to have a material effect on financial products.\nNo shop/standstill: Non-binding moral commitment only; the Company may continue to explore alternatives, including a pro-rata placement to existing holders on APX.\nKey undertakings: Use of proceeds for Australian R&D grant co-funding; appointment of a non-executive observer nominated by the Investor (role-only title, no personal details included herein).\nCompany identifiers: ABN 00 000 000 000 and ACN 000 000 000 shown in form fields are placeholders and may not pass checksum validation; do not rely on them for any filing.\nContact and notices: Company\u2014transactions@bronzewattle.com.au; Investor\u2014governance@harbourline.com.au; AUREG Public Infoline 1300 555 014 (for general regulatory guidance only).\nForm labels for execution (placeholders): Name: [Authorised Signatory], Title: [Company Secretary], Date: [DD/MM/YYYY], Address: [Level/Floor, Street, Suburb, Postcode].\nIdentity verification for execution (one-off): Authorised Signatory (Passport No: XN1234567) will be verified via the Company\u2019s third-party KYC portal; no copies will be retained in this term sheet.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -245,6 +253,12 @@
       "category": "MNPI",
       "matched_text": "55%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed Strategic Acquisition \u2014 Green Dunes Holding PJSC (DFM) to acquire a majority stake in Sahar Vault Digital Ltd (ADGM).\nStructure: Acquisition of 55% of issued share capital; price mechanics to be finalized post diligence; no market-sensitive amounts are included in this draft.\nRegulatory: Transaction subject to UAE SCA market-abuse regime, ADGM FSRA approvals, and any DIFC cross-border marketing notices if applicable.\nPDPL/PII: Parties will comply with UAE PDPL; no Emirates ID copies or family-origin data to be shared; KYC placeholders to use masked formats (EID ****-****-****-****; Trade Licence TL-000-ABC-999).\nCrypto business scope: References to \u201ccrypto wallet\u201d and \u201ctoken custody\u201d herein relate to sandbox demo and educational environments used for marketing materials and user onboarding guides.\nESG/climate: The parties will align public ESG/climate disclosures to SCA sustainability guidance; statements limited to website FAQs and investor education content.\nCyber readiness: Target conducts quarterly tabletop cyber incident drills and public webinars on ransomware hygiene; these are operations-only resources and do not describe live incidents.\nInsider-controls: Both parties maintain a generic insider-list template and an information-barrier policy used in staff training; examples exclude live deal names, blackout calendars, or tipping alerts.\nGovernance: Post-closing board composition and reserved matters to be agreed; no changes to customer pricing or employee terms are announced at this stage.\nConditions precedent: FSRA fit-and-proper, SCA acknowledgment, validation of Trade Licence status, and confirmation that no DIFC branch conducts regulated activity without permits.\nPositive MNPI: Buyer diligence notes a recent, non-public cyber incident at Target involving an HSM firmware flaw confined to internal test keys; remediation plan agreed and insurer notified under NDA.\nCommercial terms signal: Earn-out may be adjusted if Target\u2019s affiliate receives, on a non-public basis, in-principle approval for an ADGM MTF token listing; no such approval has been announced.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

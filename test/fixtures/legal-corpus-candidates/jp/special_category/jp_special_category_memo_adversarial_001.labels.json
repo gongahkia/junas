@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -80,12 +106,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "union membership: Sakura Vertex Workers Council ID SV-WC 0 3 4 ■■",
+      "matched_text": "union membership: Sakura Vertex Workers Council ID SV-WC 0 3 4 \u25a0\u25a0",
       "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "matched_text": "fingerprint template hash fp: a9c3: 00—  17 z",
+      "matched_text": "fingerprint template hash fp: a9c3: 00\u2014  17 z",
       "rule": "biometric_identifier"
     },
     {
@@ -95,7 +121,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Genetic screening: Ms. Fujikawa’s voluntary BRCA panel result recorded as “negative”",
+      "matched_text": "Genetic screening: Ms. Fujikawa\u2019s voluntary BRCA panel result recorded as \u201cnegative\u201d",
       "rule": "genetic_data"
     },
     {
@@ -145,12 +171,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "¥2,450",
+      "matched_text": "\u00a52,450",
       "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "matched_text": "Board resolution to launch TOB at ¥2,450 per share",
+      "matched_text": "Board resolution to launch TOB at \u00a52,450 per share",
       "rule": "material_event"
     },
     {
@@ -357,7 +383,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "¥2,450",
+      "matched_text": "\u00a52,450",
       "rule": "financial_amount"
     },
     {
@@ -369,6 +395,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential\u2014\u793e\u5185\u9650\u308a\u2014Board/Compliance Memo | Sakura Vertex K.K. (Keihin Prime Segment) | Date: 2026-05-30\nSubject: Proposed acquisition of Midoriyama Analytics Co., Ltd. via tender offer; APPI/My Number handling; FIEA MNPI controls\nUndisclosed enumerated facts under FIEA Art. 166/167 include Board resolution to launch TOB at \u00a52,450 per share, synergies from NebulaOS product integration, and planned delisting of the target; do not disclose externally.\nEmployee data touchpoints: For Ms. Emi Fujikawa-san (HR, Tokyo), medical condition: Type 1 diabetes, union membership: Sakura Vertex Workers Council ID SV-WC 0 3 4 \u25a0\u25a0, and fingerprint template hash fp: a9c3: 00\u2014  17 z; treat as special-category personal data per APPI.\nMinor-dependent note: her son Hiroto Fujikawa (age 12) requires workplace access scheduling around pediatric treatment; no access to trading windows; mn masked \u500b\u4eba\u756a\u53f7 token: 77xx-43xx-20xx (not a government ID).\nReligious accommodation: Mr. Ryohei Natsume-san (R&D, Osaka) observes Buddhist holidays; do not map creed to securities permissions; sexual orientation disclosure is not solicited and should not be recorded.\nGenetic screening: Ms. Fujikawa\u2019s voluntary BRCA panel result recorded as \u201cnegative\u201d; storage limited to occupational health file; biometric program funding continues, but the word \u201cgenetic\u201d in our machine-learning roadmap refers to algorithms, not human data.\nMy Number handling: collect and retain only where statutory payroll uses require; for Ms. Fujikawa use encrypted field mn:: e4-  1 9 \u2014k   (line-broken OCR copy), purge after lawful purpose achieved; contact compliance@sakuravertex.co.jp.\nMNPI wall-crossing: deal team (Akasaka Room) includes Mr. Kenta Hayashi-san and Ms. Ayumi Hori-san; grant insider status via URL https://intra.sakuravertex.co.jp/c/TOB?id=sv-  091&sec=mnpi and log acceptance; no trading until public notice.\nThis memo does not constitute a Material Adverse Change or an offer to sell securities; media references to \u201cpublic rankings\u201d and sports scores from the Sendai Solar Foxes are irrelevant.\nExchange disclosure cadence: we will file a kabunushi notice and extraordinary report after Board approval; until then, \u201cMidoriyama\u201d and codename \u201cDragon Gate\u201d (metaphor) and the place name \u201cShibuya Station\u201d in schedules are project placeholders.\nEmployee onboarding: project-management notes are lowercase; we value inclusion and diversity per Workplace Harmony Charter and Open Office Hours Policy, but this generic DEI text does not affect MNPI or special-category handling.\nTender-offer facts include intended offer period and funding from KoiCloud Finance SPV; enumerate only on internal sheets r e f: SVK\u20140 0 7 1; any public-source rumors are not confirmation.\nOperational safeguards: restrict access to insider lists, health files, and biometric templates; rotate passwords; insider training continues under NebulaOS Release 9, but that product name does n",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -429,41 +461,23 @@
   "uncertain": [
     {
       "concept": "masked My Number token",
-      "matched_text": "mn masked 個人番号 token: 77xx-43xx-20xx (not a government ID)",
+      "matched_text": "mn masked \u500b\u4eba\u756a\u53f7 token: 77xx-43xx-20xx (not a government ID)",
       "reason": "Looks like a My Number-like token but explicitly masked and not a government ID; not clearly covered by jp_my_number or other allowed rules"
     },
     {
       "concept": "encrypted My Number field",
-      "matched_text": "mn:: e4-  1 9 —k   (line-broken OCR copy)",
+      "matched_text": "mn:: e4-  1 9 \u2014k   (line-broken OCR copy)",
       "reason": "Appears to be an internal encrypted/tokenized field referencing My Number; not clearly covered by allowed identifier rules"
     },
     {
       "concept": "internal reference code",
-      "matched_text": "r e f: SVK—0 0 7 1",
+      "matched_text": "r e f: SVK\u20140 0 7 1",
       "reason": "Internal project/reference identifier; may be sensitive operational code but not mapped to any allowed identifier rule"
     },
     {
       "concept": "insider portal URL",
       "matched_text": "https://intra.sakuravertex.co.jp/c/TOB?id=sv-  091&sec=mnpi",
       "reason": "Internal MNPI portal link; URLs are not covered by allowed PII/MNPI rules though operationally sensitive"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

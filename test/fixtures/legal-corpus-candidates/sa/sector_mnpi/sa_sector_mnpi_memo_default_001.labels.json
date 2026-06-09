@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -274,7 +282,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Scope 1–3 emissions baselines",
+      "matched_text": "Scope 1\u20133 emissions baselines",
       "rule": "esg_climate_pre_disclosure"
     },
     {
@@ -423,6 +431,18 @@
       "category": "MNPI",
       "matched_text": "lateral movement",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For queries, contact Dr. Laila Al-Shammari, Head of Compliance, at compliance@hanifacapital.sa or +966-11-801-4400",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This memo is confidential under CMA Market Conduct Regulations and internal to the Board, Legal, and Clean Energy desk; do not circulate externally.\nFalaj Power JSC (CR 2043321990) is evaluating a private PPA and a climate-linked sukuk, with draft Scope 1\u20133 emissions baselines and verifier comments not yet disclosed on Saudi Exchange (Tadawul), and therefore treated as MNPI.\nConcurrently, the issuer\u2019s OT vendor, Vault Oasis WLL, reported a cyber incident on 28 Sha'ban 1448H involving suspected credential theft and lateral movement; no public notice has been made and this remains non-public operational risk information.\nMr. Yasser Al-Hadidi (CFO, Iqama 2087319456) shared bank term sheets reflecting a 135 bps sustainability margin ratchet and a 5-year SAIBOR cap with step-down triggers; these commercial terms are MNPI until an approved Tadawul announcement is posted.\nPreliminary conversations with Nafith Digital Assets LLC (CR 1017782209) on a tokenized REC/crypto custody pilot under the CMA FinTech Lab are exploratory only and must stay within the Clean Energy desk; no outreach to counterparties or media.\nInformation barriers: segregate Renewables Origination from Hanifa Trading; restrict shared drives and chat channels; add Mr. Al-Hadidi and Ms. Reem Al-Qadi (Company Secretary) to the insider list effective 15 Dhul-Qadah 1448H.\nBlackout window: prohibit Falaj insiders and Hanifa deal team from trading Falaj Power securities or derivatives from 15 Dhul-Qadah 1448H until two full trading days after cyber and financing disclosures appear on Tadawul.\nSelective disclosure/tipping: route all external queries to Investor Relations; breaches may trigger CMA sanctions for unlawful disclosure and market abuse.\nPDPL handling: Mr. Al-Hadidi\u2019s Iqama (2087319456), mobile (+966-55-019-4472), and email y.alhadidi@falajpower.sa are personal data; store encrypted in KSA with retention of 3 years, and any cross-border processing requires a SDAIA-approved transfer mechanism.\nNo copies of vendor logs with device IDs, access tokens, or employee identifiers shall be exported to non-KSA cloud regions without a SDAIA transfer assessment and execution of SDAIA model contractual clauses with the processor.\nOperations-only note: the internal training titled \u201cIntroduction to Crypto Custody Controls\u201d uses public, anonymized examples and does not include client or issuer MNPI.\nMarketing caution: draft materials claiming \u201cmarket-leading ESG performance\u201d must remove forward-looking claims until emissions re-baselining is finalized and attested by the external assurer.\nData minimization: remove national ID scans from the deal room; if indexing is required, retain only last 4 digits of Iqama and redact contact numbers from PDFs.\nIncident response: Cyber team to provide a sanitized timeline to the Board Risk Committee; raw IOC lists may contain staff PII and vendor secrets and should remain restricted.\nAll insider list updates will be maintained by the Company Secretary and made available to CMA on request.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

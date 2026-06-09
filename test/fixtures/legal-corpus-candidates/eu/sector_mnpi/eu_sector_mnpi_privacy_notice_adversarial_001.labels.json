@@ -50,6 +50,14 @@
     "previous_must_detect_count": 18,
     "previous_must_not_detect_count": 2
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -322,6 +330,18 @@
       "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subject rights: access/erasure/restriction/objection available via https://portal.nordland\u2011mtf.eu/dsar?doc=QzNSRC1kcmFmdA%3D%3D or by writing to Dr. Selina Harvonen, DPO, dpo@nordichelix.eu, 4 Quay Lane, Lysmark, LY\u20111042",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Nordic Helix SE (EU issuer) \u2014 Data Processing & MNPI Handling Notice (GDPR, EU MAR, CSRD/SFDR), Nordland Growth MTF context, v2026\u201106\u201106.\nPurpose and lawful basis: Art 6(1)(c),(f) for regulatory obligations (MAR, CSRD/SFDR) and legitimate interests; Art 9(2)(b),(g) for workforce diversity programme and whistleblowing.\nCategories: identification (names, roles, corporate email), in si der list fields (home address, birth date), crypto\u2011wallet aliases for issuer treasury trials, and limited Art 9 data (trade\u2011union membership where volunteered).\nMNPI: pre\u2011announcement evaluation of the HelixNote tokenisation pilot and a green\u2011convertible term sheet (fee rebates and m a r k e t\u2011m a ke r spreads) is precise, non\u2011public, and likely to affect Nordic Helix securities admitted on Nordland Growth MTF.\nInsider list workflow: entries (e.g., Ms. Tira Rains\u2011\u00d8st, Mr. D. \u0160olt) + NHX:EID=E U\u201149 3 1\u2011x, timestamps, and personal phone stored encrypted; blackout window 2026\u201107\u201101\u20132026\u201107\u201115; no tipping or selective disclosure permitted.\nInformation\u2011barrier controls: Project FIRN materials are sealed in a restricted VDR; research and IR teams sit behind an info rmation\u2011ba rri er; any wall\u2011crossing requires e\u2011consent and audit.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

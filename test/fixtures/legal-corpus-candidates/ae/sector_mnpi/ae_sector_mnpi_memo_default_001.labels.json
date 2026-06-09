@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -460,6 +468,18 @@
       "category": "MNPI",
       "matched_text": "lateral movement",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "To: Board of Noukhada Energy PJSC; From: Mr. Kareem Al Sahri, General Counsel; Date: 31 May 2026\nThis memo addresses non-public, market-sensitive matters (MNPI) and personal data handling under the UAE federal PDPL, including a cyber incident and a contemplated digital-asset custody partnership; distribution is strictly need-to-know.\nOn 28 May, our OT monitoring flagged unauthorized lateral movement in the Al Mahjar solar cluster; one inverter string was isolated and patched, with no physical damage, but remediation is ongoing and incident forensics are not yet public",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal & Compliance Memo \u2014 Subject: Project Saffron (MNPI/PDPL controls; cyber and DPT partnership)\nTo: Board of Noukhada Energy PJSC; From: Mr. Kareem Al Sahri, General Counsel; Date: 31 May 2026\nThis memo addresses non-public, market-sensitive matters (MNPI) and personal data handling under the UAE federal PDPL, including a cyber incident and a contemplated digital-asset custody partnership; distribution is strictly need-to-know.\nOn 28 May, our OT monitoring flagged unauthorized lateral movement in the Al Mahjar solar cluster; one inverter string was isolated and patched, with no physical damage, but remediation is ongoing and incident forensics are not yet public.\nPreliminary impact is an estimated 6\u20138% reduction in Q2 output guidance pending restoration, which could be material for Noukhada Energy PJSC once disclosed on QCMX; no media engagement is authorized.\nConcurrently, we have a non-binding term sheet with Sand Dune Digital Custody Ltd (incorporated in Al Sirr Free Finance Centre) to support a pilot Dirham-pegged token programme and retail custody via \u201cNakhla Wallet,\u201d with a 3-month fee holiday and Emirate-only exclusivity during the pilot.\nSeparately, our ESG team proposes a restatement of baseline Scope 1/2 figures due to metering corrections at the Al Saffa site, which may require adjustment to the sustainability-linked sukuk KPI trajectory by 2027 and is not yet for external release.\nInsider list must be updated immediately for Project Saffron to include: Mr. Kareem Al Sahri (GC), Ms. Rasha Al Qayt (Head of Cyber Risk), Dr. Faisal Murqab (Treasury), and external counsel at Zahra Counsel LLC; do not circulate Emirates ID scans or family-origin details for any listed person beyond the secure vault, and retain only minimal PII consistent with PDPL.\nEffective immediately, a blackout window applies for directors and covered employees from this memo date until two full QCMX trading days after public disclosure of both the cyber incident and the DPT partnership; all dealing requires written pre-clearance.\nA clean team will be formed for diligence with Sand Dune Digital Custody Ltd; maintain information barriers between Project Saffron and the IR/sales functions, avoid selective disclosure, and any suspected tipping must be reported to compliance within one hour.\nWe will notify the Ruby Palm Securities Authority (onshore) and the Al Sirr Financial Services Regulator (free zone) post-initial containment and upon counsel sign-off; draft holding statements are approved internally only and must not be forwarded.\nCommercial terms in the draft DPT custody agreement (subject to Board approval) include a 0.15% AUC fee post-holiday, 12-month exclusivity subject to a 90-day break for service breaches, and service credits tied to 99.9% wallet availability; disclosure prior to signing is prohibited.\nKYC documentation for counterparties will include trade licence copies stored in the restricted KYC vault; no Emirates ID numbers, family origin, or home addresses should appear in the term sheet or emails unless strictly required and redacted for circulation.\nOur employee newsletter may run a generic explainer on cyber hygiene and ESG definitions to support awareness training; it will not reference our incident, DPT plans, output guidance, or issuer performance.\nFor queries or to request pre-clearance, contact compliance at compliance@noukhadaenergy.example; store all materials under Legal/Restricted/Project Saffron with access limited to the insider list.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

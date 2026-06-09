@@ -1,210 +1,281 @@
 {
-  "doc_id": "ph_jurisdictional_mnpi_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63-28-777-0044"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Isagani"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Pilar"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Material non‑public information (MNPI) means information a reasonable investor would deem important in deciding to trade LHHI securities and that is not yet available on the EDGE portal or via our current reports; examples include draft Q2 results, unannounced follow‑on offering on the Bayan Stock Exchange (BSE), or a signed but unannounced credit line with Isla Rural Bank."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Issuer‑relative materiality: operational updates at LHHI’s small logistics subsidiary (≤3% revenue) generally do not constitute MNPI unless the impact crosses internally set significance levels or alters our earnings guidance trajectory."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Balangay MOU"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "disposition": "Resolved during PH Stage B strict-tier reconciliation. Cleaner warnings were invalid-rule, category-normalization, or non-verbatim span drops; deterministic strict labels are now sourced from PreSendReviewEngine and LLM breadth remains in ideal_must_detect.",
+      "resolved_at_utc": "2026-06-03T07:07:36Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@lakanharbor.ph"
+      "matched_text": "dpo@lakanharbor.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63-28-777-0044"
+      "matched_text": "+63-28-777-0044",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "Acct No: 23‑xx‑**98"
+      "matched_text": "Acct No: 23\u2011xx\u2011**98",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "E m p ‑ 0 7 3 1 ‑ 9 X"
+      "matched_text": "E m p \u2011 0 7 3 1 \u2011 9 X",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacydesk@lakanharbor.ph"
+      "matched_text": "privacydesk@lakanharbor.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Isagani R. Velasco"
+      "matched_text": "Mr. Isagani R. Velasco",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Pilar J. Tiamzon"
+      "matched_text": "Ms. Pilar J. Tiamzon",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure is prohibited"
+      "matched_text": "Selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall‑crossed"
+      "matched_text": "wall\u2011crossed",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Blackout"
+      "matched_text": "Blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Subscription Term Sheet"
+      "matched_text": "Subscription Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfers"
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Celina R. Ocampo"
+      "matched_text": "Atty. Celina R. Ocampo",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unannounced"
+      "matched_text": "unannounced",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet available"
+      "matched_text": "not yet available",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "draft Q2 results"
+      "matched_text": "draft Q2 results",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "follow‑on offering"
+      "matched_text": "follow\u2011on offering",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "credit line"
+      "matched_text": "credit line",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list entries"
+      "matched_text": "insider-list entries",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout windows"
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Balangay MOU"
+      "matched_text": "Project Balangay MOU",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "MOU"
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3%"
+      "matched_text": "3%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Isagani"
+      "matched_text": "Mr. Isagani",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Pilar"
+      "matched_text": "Ms. Pilar",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Material non‑public information (MNPI) means information a reasonable investor would deem important in deciding to trade LHHI securities and that is not yet available on the EDGE portal or via our current reports; examples include draft Q2 results, unannounced follow‑on offering on the Bayan Stock Exchange (BSE), or a signed but unannounced credit line with Isla Rural Bank."
+      "matched_text": "Material non\u2011public information (MNPI) means information a reasonable investor would deem important in deciding to trade LHHI securities and that is not yet available on the EDGE portal or via our current reports; examples include draft Q2 results, unannounced follow\u2011on offering on the Bayan Stock Exchange (BSE), or a signed but unannounced credit line with Isla Rural Bank.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Issuer‑relative materiality: operational updates at LHHI’s small logistics subsidiary (≤3% revenue) generally do not constitute MNPI unless the impact crosses internally set significance levels or alters our earnings guidance trajectory."
+      "matched_text": "Issuer\u2011relative materiality: operational updates at LHHI\u2019s small logistics subsidiary (\u22643% revenue) generally do not constitute MNPI unless the impact crosses internally set significance levels or alters our earnings guidance trajectory.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+63-28-777-0044",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Isagani",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pilar",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material non\u2011public information (MNPI) means information a reasonable investor would deem important in deciding to trade LHHI securities and that is not yet available on the EDGE portal or via our current reports; examples include draft Q2 results, unannounced follow\u2011on offering on the Bayan Stock Exchange (BSE), or a signed but unannounced credit line with Isla Rural Bank.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer\u2011relative materiality: operational updates at LHHI\u2019s small logistics subsidiary (\u22643% revenue) generally do not constitute MNPI unless the impact crosses internally set significance levels or alters our earnings guidance trajectory.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Balangay MOU",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data subject rights (access/correct/erase/port/complain) may be exercised by writing Mr. Isagani R. Velasco, Privacy Officer, via privacydesk@lakanharbor.ph; we target acknowledgment within 5 working days and completion within 15, subject to lawful exemptions.\nCross-border transfers (e.g., to LHHI Shared Services Sdn. in Eastmark for payroll engines and to BayanCloud OPC for secure archival) occur under National Privacy Directorate\u2013recognized clauses and vendor DPAs; NPD Ref: N P D / P H / 2 0 2 6 \u2011 0 0 9.\nRetention: payroll and benefits records 5 years from separation; treasury KYC files 7 years from account close; insider-list entries 7 years from last update; secure deletion certificates logged in VaultTrack.\nMaterial non\u2011public information (MNPI) means information a reasonable investor would deem important in deciding to trade LHHI securities and that is not yet available on the EDGE portal or via our current reports; examples include draft Q2 results, unannounced follow\u2011on offering on the Bayan Stock Exchange (BSE), or a signed but unannounced credit line with Isla Rural Bank.\nWe make immediate disclosure through the BSE EDGE portal and a Current Report (Form 17\u2011R) within the prescribed period on the same trading day where required by PSC/BSE rules; after such posting, the information is public for trading/comms purposes.\nBlackout: directors, officers, and covered staff may not trade LHHI shares from 14 calendar days before quarter\u2011end until two trading days after our EDGE posting of results; ad\u2011hoc blackout windows apply for significant transactions as determined by the Compliance Office.\nSelective disclosure is prohibited: no sharing of MNPI with analysts, lenders, or counterparties unless wall\u2011crossed with NDA approval from the Corporate Secretary (Ms. Pilar J. Tiamzon) and recorded on the insider list with time\u2011stamped access.\nPublic-status precision: the 01 Mar 2026 EDGE filing on \u201cProject Balangay MOU\u201d (h t t p s : / / e d g e . b s e . p h / f i l i n g / 1 7 R ? c = L H H I & d = 2 0 2 6 0 3 0 1) is already public; referencing that filing or its press release summary is not MNPI, but draft term sheets not in that filing remain MNPI.\nNegative/benign note for precision: no material adverse change clause is triggered in the Subscription Term Sheet (draft v3); generic marketing copy for HarborPay Lite and the 2024\u2011Q4 investor day deck are public\u2011source and stale; sprint notes (\u201cmove baybayin app launch to q4; update icons\u201d) are operational and not issuer\u2011level material absent quantitative thresholds.\nIssuer\u2011relative materiality: operational updates at LHHI\u2019s small logistics subsidiary (\u22643% revenue) generally do not constitute MNPI unless the impact crosses internally set significance levels or alters our earnings guidance trajectory.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -217,7 +288,7 @@
       "reason": "Public-source marketing reference; non-MNPI per text."
     },
     {
-      "matched_text": "2024‑Q4 investor day deck",
+      "matched_text": "2024\u2011Q4 investor day deck",
       "reason": "Public-source and stale per text; non-MNPI."
     },
     {
@@ -225,99 +296,42 @@
       "reason": "Operational sprint notes; not issuer-level material per text."
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "Retention: payroll and benefits records 5 years from separation; treasury KYC files 7 years from account close; insider-list entries 7 years from last update; secure deletion certificates logged in VaultTrack",
       "concept": "retention marker",
+      "matched_text": "Retention: payroll and benefits records 5 years from separation; treasury KYC files 7 years from account close; insider-list entries 7 years from last update; secure deletion certificates logged in VaultTrack",
       "reason": "Retention/erasure policy is a privacy-event marker but no explicit retention rule is listed in allowed rules."
     },
     {
-      "matched_text": "Data subject rights (access/correct/erase/port/complain)",
       "concept": "DSAR rights marker",
+      "matched_text": "Data subject rights (access/correct/erase/port/complain)",
       "reason": "Data subject rights language signals DSAR/erasure/portability; not directly mapped to an allowed rule name."
     },
     {
-      "matched_text": "N P D / P H / 2 0 2 6 ‑ 0 0 9",
       "concept": "regulatory reference number",
+      "matched_text": "N P D / P H / 2 0 2 6 \u2011 0 0 9",
       "reason": "Regulatory reference ID may be sensitive operationally but is not covered by a listed PII/MNPI rule."
     },
     {
-      "matched_text": "Clearing ID: I R B ‑ 0 4 2",
       "concept": "bank clearing code",
+      "matched_text": "Clearing ID: I R B \u2011 0 4 2",
       "reason": "Bank clearing identifier may be sensitive operational detail but no matching allowed rule."
     },
     {
-      "matched_text": "J O B S ‑ 2 0 2 6 ‑ P R",
       "concept": "internal system/audit trail id",
+      "matched_text": "J O B S \u2011 2 0 2 6 \u2011 P R",
       "reason": "Internal system/audit identifier could be sensitive but no explicit rule for internal system IDs."
     },
     {
-      "matched_text": "ITRF‑4X7‑22Z",
       "concept": "internal tax reference identifier",
+      "matched_text": "ITRF\u20114X7\u201122Z",
       "reason": "Looks like a personal/internal identifier but not clearly mapped to any specific allowed PII rule."
     },
     {
-      "matched_text": "suspected incidents are reported within 72 hours to NPD",
       "concept": "breach notification timeline",
+      "matched_text": "suspected incidents are reported within 72 hours to NPD",
       "reason": "Incident notification policy is privacy-relevant, but there is no specific allowed rule for this marker."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_resolved_label_warnings": [
-    {
-      "warnings": [
-        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
-        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
-      ],
-      "resolved_at_utc": "2026-06-03T07:07:36Z",
-      "reviewer": "Codex GPT-5.5",
-      "disposition": "Resolved during PH Stage B strict-tier reconciliation. Cleaner warnings were invalid-rule, category-normalization, or non-verbatim span drops; deterministic strict labels are now sourced from PreSendReviewEngine and LLM breadth remains in ideal_must_detect."
-    }
-  ],
-  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T07:07:36Z",
-    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

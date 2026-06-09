@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -255,6 +263,24 @@
       "category": "MNPI",
       "matched_text": "5%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR: to request disclosure/correction/deletion, contact Mr. Daichi Kameda at dpo@seishin-mobility.co.jp; we verify via registered email and HR profile only; we will not request or store raw \u500b\u4eba\u756a\u53f7.\nPublic reference that should not trigger MNPI controls: the 2025/06 sustainability brochure and product roadmap for \u201cAozora Drive Lite\u201d are already posted on https://www.seishin-mobility.co.jp/products?ver=2025 and are stale",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Seishin Mobility Holdings Kabushiki Kaisha (STX Growth) \u2014 Privacy & MNPI Handling Note for Board/Acquisition Workflows (JP)\nScope: APPI compliance for employee/board PII (names, emails, payroll IDs) and securities workflows; My Number is not stored in raw form and is processed only as mn_token: MN-****-A1B2 and hash: a9f3\u2026 (example only), with individual codes handled per \u500b\u4eba\u60c5\u5831\u4fdd\u8b77\u6307\u91dd.\nData items captured include EmpID: SY-0Q-9__7, carded visitor logs, option grant ledgers, and draft TOB docs for Project \u201cShiosai\u201d; these drafts and board decks are \u672a\u516c\u8868\u91cd\u8981\u4e8b\u5b9f under FIEA Art. 166/167 until Timely Disclosure via the STX Timely Disclosure Portal (TDP) occurs.\nPublic-status check: as of 2026/05/20, Q4 results were \u516c\u8868\u6e08\u307f via TDP (https://ir.seishin-mobility.co.jp/timely?ref=TDP-42A0) and EDIRIS summary EDI-9ZK3 with the Shuto Regional Finance Office; press coverage by Hokusei Shimbun is non-selective and therefore public; no other Shiosai elements are public.\nSelective disclosure control: under the Fair Disclosure Rule (selective disclosure ban), no pre-briefing to analysts or major shareholders; any external sharing requires simultaneous TDP posting or later; private NDAs do not cure this restriction.\nBlackout window: directors, officers, and employees who are \u77e5\u308b\u8005 from T-5 business days before the board resolution until the morning after TDP posting may not trade issuer securities or place off-hours crossing orders; equity award activity by Ms. Hanako Mori-san (EmpID SY-0Q-9__7) is paused.\nIssuer-relative materiality: items exceeding approx. 5% of consolidated assets or affecting the \u201cAozora Drive\u201d e-axle program are treated as material even if not individually priced; purely operational updates (e.g., warehouse repainting) are not material.\nPersonal data transfer: intra-group transfers to Seishin Mobility Europe GmbH are based on data-subject consent and adequacy status; outsourcing to Sato Data Processing G.K. is under \u59d4\u8a17 with appropriate supervision per APPI, no third-party provision without consent.\nRetention: board minutes and resolutions\u201410 years; draft TOB calculations\u2014destroy within 30 days after \u516c\u8868 or abort; payroll archives\u20147 years; mn_token mappings\u2014deleted without delay after legal basis lapses; backups purge on a 90-day rolling cycle.\nDSAR: to request disclosure/correction/deletion, contact Mr. Daichi Kameda at dpo@seishin-mobility.co.jp; we verify via registered email and HR profile only; we will not request or store raw \u500b\u4eba\u756a\u53f7.\nPublic reference that should not trigger MNPI controls: the 2025/06 sustainability brochure and product roadmap for \u201cAozora Drive Lite\u201d are already posted on https://www.seishin-mobility.co.jp/products?ver=2025 and are stale.\nNegative covenant note: this note expressly states that the contemplated acquisition is not expected to result in a material adverse change, and routine supplier price updates are handled under normal procurement policy.\nAccess logging: records include user ids like ka.mori and masked IPs 203.0.113.*; audit hash: 1f:2a: 9c :b4 (OCR-like), s y s t e m   g e n   seq=00012.\nException routing: if the exchange requires a correction to a TDP timing (selective disclosure risk), escalate within 30 minutes to Board Secretariat and Legal; else, follow normal ticket: project shiosai > disclosure > tdp prep.\nFor avoidance of doubt, public investor FAQs and broad press-releases may be shared externally after posting; unpublished term sheets, offer price brackets, and board voting intentions remain \u672a\u516c\u8868 and are handled on a need-to-know basis.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

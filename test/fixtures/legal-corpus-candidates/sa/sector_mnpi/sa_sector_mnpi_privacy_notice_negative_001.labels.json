@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -131,6 +139,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AlNaql Holding KSA \u2014 Retention and Transfer Workflow Note (PDPL context, issuer operations)\nScope: We process limited PII under KSA PDPL (e.g., role names, role emails, masked National ID/Iqama tokens, and Commercial Registration (CRN) references) for issuer-portal operations at Rimal Securities Exchange (RSE).\nFor onboarding, we record CRN placeholders (e.g., CRN: KSA-CR-77X-000-ALN) and hash any ID/Iqama digits (e.g., ID: 2XX-XX-XXXX), which are stored separately from deal folders.\nEducational/marketing materials may reference crypto custody, ESG scoring, cyber hygiene, insider-list management, information barriers, blackout windows, and anti-tipping policies strictly as training content without trading or deal signals.\nDSAR: Data subjects may submit requests via the role mailbox privacy.office@alnaqlholding.example; we will not require live account numbers and will verify using masked ID tokens only.\nCross-border transfer workflow: exports of issuer-admin metadata to processors in the Gulf are paused pending gateway clearance by the Suhail Data Authority for Information Assurance (SDAIA) under our model clauses; until approval, only redacted test datasets move through the \u201cNakhla\u201d pipeline.\nRetention: routine issuer logs (access, wall-crossing attestations, training completion) are kept 3 years; marketing ESG survey responses are anonymized within 90 days; crypto sandbox telemetry is rotated every 30 days.\nInformation-barrier controls: corporate finance and research systems are segregated; insider-list registries for tabletop drills use role codes (e.g., CF-01, SEC-04) and do not include personal emails.\nOperational example (benign): our \u201cSouqToken\u201d demo shows how a custody API signs test transactions using fictional wallets and public/stale keys, with no link to any listing timetable.\nPublic/stale fact handling: if an ESG milestone or cyber bulletin is already announced on the RSE issuer page, we tag it as public and move it to the open archive within 24 hours.\nPositive MNPI perimeter (rare): we may retain, in encrypted form, a temporary insider list for an unannounced RSE filing by an AlNaql affiliate regarding a planned climate-linked sukuk framework; access is restricted to the market-conduct team until disclosure.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

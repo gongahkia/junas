@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -165,6 +173,12 @@
       "category": "MNPI",
       "matched_text": "110105199912120019",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "One QA test string resembling a resident identity number appeared: CN Resident ID 110105199912120019 (checksum intentionally invalid).\nNo actual employee PI, payroll accounts, tax filing numbers, or hukou scans were present; no minors under 14 are implicated per PIPL.\nInternal references included: HR workflow ID WF-EMP-2026-051, service account svc-hr-onboard, and company settlement account alias FIN-SET-0043 (non-bank internal code).\nUnder PIPL/CSL/DSL classification, the materials are ordinary business data; not important data or core data and not a personal information system.\nAs an issuer on the Huadong Stock Exchange Growth Board, we assessed MNPI exposure and confirm no undisclosed operating metrics, financing arrangements, or trading plans were included; contents mirror publicly posted ESG training summaries.\nNotifications were sent to the Shenghai New District Human Resources Bureau and the municipal cyberspace authority; no cross-border transfers occurred and no cross-border security assessment filing is triggered.\nPublic helpline numbers referenced in staff FAQs are non-personal: municipal service 12045 and capital markets investor line 12086; these are not employee contacts.\nRoot cause: an employment workflow script bypassed the network segment allowlist on a test subnet during change window CHG-2026-05-28-A.\nRemediation by 09:56 CST included rollback of ACL, credential rotation, and log preservation; external hits accessed only the onboarding checklist and a generic cybersecurity awareness poster.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -126,6 +134,12 @@
       "category": "MNPI",
       "matched_text": "analyst call",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "retention + disclosure workflow note \u2014 novamed bank & health services, inc. (us issuer; ir/compliance)\nscope: we apply ccpa/hipaa/glba principles to information reasonably linkable to a consumer, household, or patient; employee and analyst interactions are governed by us policy NBHS-IR-17\ndsar intake: submit via portal at novamedbank.example/privacy or email privacy@novamedbank.example with [form: request type], [form: state], and [form: proof]; we do not accept screenshots of ids; examples in training use invalid shapes like ssn XXX-XX-0000 or aba 000000000\nprocessors: pinecap analytics llc (vendor id V-0421, fictional) processes de-identified website metrics under a dpa; no glba \u201ccustomer information\u201d is transferred to pinecap for advertising\nretention: analyst call recordings retained 24 months; marketing cookies 13 months; operational logs 18 months; a 7% sample is reviewed for qa; deletion holds apply during sec inquiries or audits\nhipaa boundary: ir scripts must not include phi; patient anecdotes must be aggregated or sourced from public cms/nih reports; mrn and claim ids are not collected in ir workflows\nreg fd: communications use only public-source or already-announced facts (e.g., form 8-k filed 2024-02-01 and archived on sec.gov); if a question seeks mnpi, staff must defer to ir@novamedbank.example\nembargo: do not publish the q2 investor faq to ir.novamedbank.example before 2026-09-30 08:00 ET to align with reg fd web disclosure timing\ncontract note (negated mac language): our standard vendor dpa states \u201cno material adverse effect shall be deemed to arise from general economic conditions\u201d; this boilerplate is not a transaction signal\nprecision reminder: phrases like \u201cdeal,\u201d \u201cdefinitive,\u201d or \u201cmaterial\u201d in template clauses or news summaries do not by themselves indicate mnpi; use the decision tree in NBHS-IR-17 appx. b\nfalse-positive bait disclaimer: training files may include masked tokens such as acct 0000-XX-1234 or card 41XX XXXX XXXX 1111; these are dummies and never stored in production systems\nemployee wellness: spa-day vouchers for the wellness pilot are tracked only as aggregated usage counts and are unrelated to securities disclosures\nsecurity + access: role mailboxes (analyst@novamedbank.example, privacy@novamedbank.example) are used for processing; access logs store hashed ids like USR-XX-0000 only\ndsar response: verify requestors via two-factor challenge and last interaction timestamp; respond within 45 days; glba-covered \u201ccustomer information\u201d is exempt from sale opt-out while still honoring access and deletion where permitted\nescalation: suspected mnpi or phi exposure should be paused and routed to compliance@novamedbank.example; see the public hotline at novamedbank.example/help for gener",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -176,7 +190,7 @@
     },
     {
       "concept": "GLBA data classification",
-      "matched_text": "glba-covered “customer information”",
+      "matched_text": "glba-covered \u201ccustomer information\u201d",
       "reason": "Legally significant category of personal financial information but not a specific allowed PII rule in this taxonomy"
     }
   ]

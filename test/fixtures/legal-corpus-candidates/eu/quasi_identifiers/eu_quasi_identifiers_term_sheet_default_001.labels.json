@@ -50,6 +50,14 @@
     "previous_must_detect_count": 25,
     "previous_must_not_detect_count": 3
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -477,6 +485,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet (MAR wall-crossing) \u2014 AlpenNord Renewables SE (EU issuer; Project Helion).\nProposed transaction: acquisition of 85% of Solistra Grid GmbH for \u20ac218m, funded by \u20ac150m senior unsecured green notes due 2033 and an \u20ac80m convertible loan from Vistaro Capital S.\u00e0 r.l.; settlement in cash at completion.\nListing/issuer context: issuer shares listed on EuroCentral Exchange (ECX), Prime Green Segment; the proposed financing will not be admitted to trading; information herein is precise and non-public until formal announcement.\nFinancial impact (MNPI): expected FY2027 pro forma EBITDA uplift 22\u201326% with \u20ac14\u201318m annual run-rate cost synergies; integration costs \u20ac9\u201312m; guidance not yet disclosed under EU MAR.\nConditions precedent: merger clearances in Velmark and Ostland; lender consent; completion of CSRD double-materiality assessment for the combined group; sustainability KPIs calibrated to an SFDR Article 9-aligned framework; long stop 30 Sept 2026.\nConfidentiality and process: recipients are wall-crossed and must maintain insider lists; clean team protocol for competitively sensitive data; data room session keys (e.g., DRS-8812-Q4) are system-generated and not personal.\nGDPR and special categories: no special category data (GDPR Art 9) will be shared, save for aggregated workforce diversity percentages required for CSRD/SFDR PAI; no health or biometric information to be collected or processed.\nCross-border personal data transfers: processing primarily within the EEA; limited transfer to CloudArc Analytics Ltd (Aurinia, non-EEA) for model hosting under EU SCCs with encryption at rest and pseudonymisation; transfer impact assessment completed and available on request.\nPrimary treasury contact (operational PII cluster): Ms. Lara Vost (born 12.03.1984; Head of Treasury, AlpenNord Renewables SE; based in Nordstadt, Velmark; l.vost@alpennord.eu; corporate device ID ANR-LTP-9931; remote session reference TS-2026-04-ECX; settlement account IBAN XY34 1234 5678 9012 3456 78).\nGeneric operational note (non-identifying): target\u2019s field technicians are typically mid-30s and use Galeon 10 handsets across Nordport and Eastvale depots; this demographic/device information is aggregated and does not identify any individual.\nEconomics: indicative coupon on notes 5.10\u20135.40% p.a.; use of proceeds 100% EU Taxonomy-eligible grid upgrades and digital substations; predicted net leverage post-close 3.2x with deleveraging to \u22642.5x in 18 months.\nCovenants and protections: change-of-control put at 101%; gross leverage covenant \u22643.5x; restricted payments blocked until NFD/EBITDA <2.5x for two consecutive quarters; MAC includes loss of Velmark grid concession or revocation of Ostland interconnection rights.\nTiming and disclosure: target signing 14 June 2026; announcement planned for 17 June 2026 at 07:30 CET via ECX Regulated News Service; inside information controls in place; leakage protocol and standstill undertakings agreed.\nSanctions/AML/KYC: standard EU AML checks to apply to investors; no onboarding of high-risk third countries; politically exposed person screening performed at fund level with no individual data shared beyond legal basis.\nNotices and contacts: financing queries to dealdesk@vistaro-cap.eu and IR queries to ir@alpennord.eu; do not print if accessed via device ANR-LTP-9931 kiosk mode; handling of personal data per GDPR and confidentiality per MAR until publication.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

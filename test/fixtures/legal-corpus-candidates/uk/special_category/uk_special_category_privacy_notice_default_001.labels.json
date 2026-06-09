@@ -50,6 +50,14 @@
     "previous_must_detect_count": 19,
     "previous_must_not_detect_count": 7
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -302,6 +310,24 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "42 Farlan Court, Halesbury, HQ12 3AB",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "42 Farlan Court, Halesbury, HQ12 3AB, United Kingdom; contact privacy@auravale.co.uk.\nWe process personal data under UK GDPR for employment, compliance with the FCA, insider list maintenance, and market-abuse controls.\nSpecial category example: Mr. Lewis Bramcote (Equities Analyst) notified us of Crohn\u2019s disease for reasonable adjustments, and we record his Northbank Finance Staff Union membership for payroll deductions; his daughter\u2019s age (12) is held for family benefit eligibility.\nBiometric example: Ms. Priya Ashdown (Deal Team) uses an encrypted facial geometry template for secure room access; the template is stored separately with strict role-based controls.\nUnder UK MAR, insider lists may include MNPI such as non\u2011public draft earnings, term sheets for Project Thistle, and preliminary impairment assumptions likely to affect Auravale Holdings plc\u2019s share price if disclosed.\nOur lawful bases include legal obligation (UK MAR and related FCA rules), contract of employment, and legitimate interests; we sometimes use harmless metaphors like \u201cgreen shoots\u201d in board packs, but not to profile individuals.\nWe do not sell personal data; our Rainbow Inclusion Policy encourages plain, respectful DEI prose that does not influence trading decisions.\nSecurity measures include UK-hosted data rooms in London and Halesbury protected by the Bramley Rovers firewall and the Silver Quill endpoint agent; product names are illustrative only.\nWhere we transfer PII or MNPI to service providers (e.g., Cromar & Sons Capital Ltd and Purplegate Registrars Ltd), we apply the UK IDTA and keep records of FCA-reportable disclosures.\nRetention: insider list entries for Ms. Ashdown and Mr. Bramcote are kept for at least five years after the end of the relevant deal; HR health and union records are retained up to six years post-employment.\nData subject rights: access, rectification, restriction, objection, and portability may be exercised by emailing dsar@auravale.co.uk or writing to the DPO at the address above.\nTo verify a DSAR, we may request a scan of an Auravale ID card and a live match to the building-access biometric template; we will never ask for your National Insurance number by email.\nWe may limit rights where disclosure would prejudice an FCA investigation into suspected market abuse (for example, spread\u2011betting on non\u2011public trading metrics), documenting the legal justification.\n\u201cPolitical risk\u201d in our reports describes macro factors and does not indicate anyone\u2019s political opinions; we also run periodic system health checks unrelated to medical data.\nQueries can be sent to governance@auravale.co.uk or by phone on +44 20 0000 6123",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data under UK GDPR for employment, compliance with the FCA, insider list maintenance, and market-abuse controls.\nSpecial category example: Mr. Lewis Bramcote (Equities Analyst) notified us of Crohn\u2019s disease for reasonable adjustments, and we record his Northbank Finance Staff Union membership for payroll deductions; his daughter\u2019s age (12) is held for family benefit eligibility.\nBiometric example: Ms. Priya Ashdown (Deal Team) uses an encrypted facial geometry template for secure room access; the template is stored separately with strict role-based controls.\nUnder UK MAR, insider lists may include MNPI such as non\u2011public draft earnings, term sheets for Project Thistle, and preliminary impairment assumptions likely to affect Auravale Holdings plc\u2019s share price if disclosed.\nOur lawful bases include legal obligation (UK MAR and related FCA rules), contract of employment, and legitimate interests; we sometimes use harmless metaphors like \u201cgreen shoots\u201d in board packs, but not to profile individuals.\nWe do not sell personal data; our Rainbow Inclusion Policy encourages plain, respectful DEI prose that does not influence trading decisions.\nSecurity measures include UK-hosted data rooms in London and Halesbury protected by the Bramley Rovers firewall and the Silver Quill endpoint agent; product names are illustrative only.\nWhere we transfer PII or MNPI to service providers (e.g., Cromar & Sons Capital Ltd and Purplegate Registrars Ltd), we apply the UK IDTA and keep records of FCA-reportable disclosures.\nRetention: insider list entries for Ms. Ashdown and Mr. Bramcote are kept for at least five years after the end of the relevant deal; HR health and union records are retained up to six years post-employment.\nData subject rights: access, rectification, restriction, objection, and portability may be exercised by emailing dsar@auravale.co.uk or writing to the DPO at the address above.\nTo verify a DSAR, we may request a scan of an Auravale ID card and a live match to the building-access biometric template; we will never ask for your National Insurance number by email.\nWe may limit rights where disclosure would prejudice an FCA investigation into suspected market abuse (for example, spread\u2011betting on non\u2011public trading metrics), documenting the legal justification.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

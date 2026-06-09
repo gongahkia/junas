@@ -50,6 +50,14 @@
     "previous_must_detect_count": 13,
     "previous_must_not_detect_count": 0
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -207,6 +215,12 @@
       "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A con sent with drawal for marketing from Ms. Bruna Setti (applicant) was received 2026\u201106\u201103 and honoured before the incident; suppression list ID su\u2011pp\u2011348 remains active.\nA DSAR from Mr. Oskar Nylen (employee) was logged as DSAR\u2011EU\u20111907; access copy delivered 2026\u201106\u201105 and no cross\u2011border copies were retained.\nErasure ticket ERA\u20111140 closed 2026\u201106\u201105 for the two Art. 9 files; HR onboarding retention for Kavaria DataWorks was reduced from 30 to 7 days effective immediately.\nMNPI check (EU MAR): the same SFTP folder held a draft CSRD ESRS E1 Scope\u20113 KPI and SFDR PAI table for H1 (project \u201cGreenBeam\u2011R3\u201d), precise and not yet public, potentially price\u2011sensitive.\nInsider list VLRN\u2011IL\u2011A12 was updated and delay of disclosure logged; logs show no access by non\u2011insiders and no exfiltration, so no immediate ad\u2011hoc disclosure is required under issuer policy.\nNo MAC addresses, IMEIs, or device fingerprints were captured in these transfers; a public factsheet on 2025 emissions already exists and is not in scope here.\nOperational fix completed: the cross\u2011border route was disabled at 23:02 CET and the vendor onboarding form (Onboard\u2011KAV\u201122B) was corrected to default EU storage; Compliance Memo CM\u2011PII\u201177 filed 2026\u201106\u201105; this is a completed control, not a live risk.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

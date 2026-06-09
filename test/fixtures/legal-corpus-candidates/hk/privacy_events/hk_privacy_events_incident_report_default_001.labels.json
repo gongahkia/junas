@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -154,6 +162,12 @@
       "category": "PII",
       "matched_text": "Ms. Yvonne Cho",
       "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Affected data under the Personal Data (Privacy) Ordinance included employee names, corporate emails, and probation letters; no full identification numbers were displayed, and salary fields were masked per our minimisation controls.\nSeparately, two investor KYC packets for Harbour Growth Fund I LP were stored in the same folder; these were accessed only by internal users, and a post-incident review confirmed no external download.\nAn automated backup briefly replicated the folder index to LotusEdge SG\u20111 (Singapore) at 12:14 HKT; cross-border log export was authorised under Data\u2011Export Approval DTE\u20112026\u2011044 for forensics",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

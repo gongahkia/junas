@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -224,6 +232,24 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Azure Banyan Capital (HK) Limited \u2013 Privacy and Data Retention Notice (Hong Kong PDPO and SFO context)\nWe collect and process personal data (PD) relating to a living individual whose identity is directly or indirectly ascertainable under the PDPO, including role titles, business contact details, and KYC identifiers submitted via generic forms (e.g., \u201cHKID/Passport No (optional): ABC123456(0)\u201d), only where lawful and necessary.\nPD is used for HR and recruitment, investor onboarding for our Type 9 asset management activities, vendor diligence, and to deliver opt\u2011in updates about our research on crypto policy, ESG/climate disclosures, and cyber incident tabletop exercises; such materials are educational and not deal-stage.\nWe implement information barriers and maintain an insider list; staff training covers blackout procedures and anti\u2011tipping expectations in line with SFC/HKEX guidance.\nWhere Azure Banyan receives non\u2011public, price\u2011sensitive materials (e.g., a draft term sheet for a contemplated acquisition of Orchid Reef Renewables Limited), such records are restricted under Part XIVA SFO inside information procedures, logged on the insider list, and excluded from marketing circulation.\nWe do not sell PD; we share PD with processors (e.g., fund administrators and IT vendors such as Harbor Quill Services Limited) under written data processing agreements aligned to the PDPO\u2019s Data Protection Principles.\nCross\u2011border transfers may occur to service providers in Singapore and the United Kingdom pursuant to contractual safeguards consistent with PCPD guidance; MNPI and confidential commercial terms are not transferred to advertising or analytics vendors.\nRetention: KYC and fund records are kept for not less than seven years to meet SFC record\u2011keeping requirements; HR files follow statutory limits; insider list entries are retained until relevant information is public and for at least seven years thereafter.\nSecurity: we apply layered controls, including access restriction, audit logging, and incident response; references to \u201cinsider list\u201d, \u201cblackout\u201d, \u201ctipping\u201d, \u201ccrypto custody\u201d, or \u201cESG scoring\u201d on our website are generic descriptors used in compliance training.\nData subject rights: you may make a data access or correction request under sections 18 and 22 of the PDPO and DPP6 using our DSAR Form (fields: Name, Relationship to Azure Banyan, Request Scope, ID Ref [e.g., XYZ000000(1)]); we may charge a reasonable fee for access.\nWe may redact or refuse DSAR items where disclosure would reveal another person\u2019s PD, legal privilege, or inside information not generally known and likely to be price\u2011sensitive, or where a request is manifestly unfounded or excessive.\nPublic sources: ESG/climate examples in newsletters cite already\u2011announced sustainability reports and SFC circulars; no unpublished token listing intentions, cyber playbooks, or deal pipelines are described in public materials.\nThis notice does not create any contract with website visitors and does not announce any transaction; training case studies using crypto, cyber, or information\u2011barrier scenarios are hypothetical.\nContact: please email privacy@azurebanyan.example or write to \u201cData Protection Officer, Azure Banyan Capital (HK) Limited, Unit 1901, Level 19, Fiction Tower, Kowloon East, Hong Kong\u201d.\nIf you are a job applicant, PD will be used only for recruitment and destroyed after the retention period unless you opt in to talent pool retention; operational emails to hr@azurebanyan.example accept attachments without sensitive MNPI.\nInvestor queries about dealing blackouts should be directed to compliance@azurebanyan.example; general helpdesk: support@azurebanyan.example (no trade instructions accepted).\nThis notice is reviewed annually and may be updated to reflect changes in PCPD guidance, SFC/HKEX rules, or our internal information\u2011barrier standards.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -315,6 +323,12 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board Compliance Committee, Yunqiao Robotics Co., Ltd. (USCC: 93Z1-AB78-3K20-940Q); From: Ms. Qiu Ran, Acting CCO, qiu.ran@yunqiao-robotics.cn.example; Date: 2026-05-30\nSubject: PIPL/CSL/DSL compliance memo re issuer workflows for planned Beiyun Growth Exchange (BGX) listing and cross-border data arrangements under national measures\nCross-border transfer: approval YR-EXPORT-2026-017 granted by Hai\u2019an Cyberspace Commission (HCC) on 2026-05-12; no live transfers occur without this approval, and prior pilot transfers have been fully ceased\nDSAR: employee access request E-DSAR-044 responded within 15 days; onboarding form copy supplied and HR summaries minimised to role, grade, and start date only\nConsent withdrawal: Mr. Liang Guowen withdrew marketing consent on 2026-05-08; erasure of non-payroll contact fields completed (ticket HR-ERASE-332), retention holds on payroll data remain per Schedule 4\nSensitive PI: no data of minors under 14 is processed; a stray campus intern profile detected in import batch 3 was anonymised and then deleted, guardians were not contacted because no identifiers were retained\nResident ID handling: onboarding forms capture Resident ID in masked format only (e.g., 44 1x 9910 12 34 5x 7x), with automatic redaction applied at 90 days; HR systems do not store MAC addresses or device IMEIs\nDPA Schedule 2 (HR Processors): updated to include Hongjing Talent Services Ltd. (USCC: 92A5-JK10-6M77-210V); subprocessors certify minimisation and localised storage under Article 55-like terms\nData-export notice: file manifest for payroll sample contained only hashed IDs and department codes; see https://export.yunqiao-robotics.cn.example/form?rid=44%201x%209910&org=93Z1AB783K20940Q and internal QR doc img shows o c r line breaks\nRetention: recruitment records are kept 2 years post-closure per Policy HR-R-02; no blanket exceptions are active, and purge job R-CRON-7 completed on 2026-05-01\nSecurities/MNPI: insider list IL-BGX-03 maintained by Issuer Office; draft prospectus price-sensitivity flags retained internally only and not disclosed on any exchange bulletin; public-source market comps were used\nCompleted control: \u201cRemote dev logs contain MNPI\u201d was a historical risk; as of 2026-04-20 logs are scrubbed and access segmented; mnpi=false in dev task skylamp-boards is a label, not a data field\nEmployment workflows: standard background form F-EMP-014 no longer requests household registry pages; fields for spouse name removed; consent banner records are versioned; withdrawal does not affect contract performance\nCross-border filing supplement: HCC asked for clarifications on encryption keys; key escrow is now hosted in Beiyun; we are not transmitting source code, only payroll metadata to Chengdao PEO Pte., Ltd. (SG affiliate)\nIssuer readiness: public communications will omit any pricing ranges; insider wall-crossing procedures logged in BGX-WC-02; training for MNPI handling completed for finance and HR on 2026-05-22\nContact: for DSAR or withdrawal, email privacy@yunqiao-robotics.cn.example; for issuer matters, internal portal http://intra.yunqiao.local/dealroom?mnpi=false&sec=bgx; do not submit resident IDs via chat",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

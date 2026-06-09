@@ -48,6 +48,14 @@
     "status": "post_cn_ae_precision_realign_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AU",
@@ -285,6 +293,24 @@
       "category": "MNPI",
       "matched_text": "Scope 2 emissions",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 Kalari Lane, New Concord NSW 2129",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a contained cyber incident affecting our inverter telemetry and custodian API keys (no customer funds accessed) and proposed restatement of Scope 2 emissions factors; access is restricted to an insider list (ListRef: INS\u2013ZX9\u20134B5) and the board\u2011approved blackout window applies until the ASX release is posted.\nDeal-stage crypto matters: preliminary commercial terms for listing the \u201cHarbourLeaf\u2011C\u201d digital token on the TerraQuay DAX are under NDA; selective disclosure is prohibited and all staff must observe information\u2011barrier (in for ma tion barrier) \u201cProject Kookaburra\u201d protocols.\nClean team segregation applies (no analysts on the token valuation model may view emissions restatement drafts), and physical/virtual rooms are segmented; any suspected tipping must be escalated to the Company Secretary within 2 hours.\nCross\u2011border transfers (APP 8) to our processors in Wellington and Singapore use contract clauses and technical controls (AES\u2011256, HSM key\u2011wrapping), with logs retained at https://portal.meridian-harbour.au/audit?rid=AU%2DGL3%2D90K&v=1.7.\nData subject requests: individuals may access or correct records via dpo@meridian\u2011harbour.au or the portal https://intra.meridian\u2011harbour.au/dsar?req=ID%3DZX9-4B5; we will verify via StaffTag or ClientRef (e.g., CRef: MH\u2013\u03b819\u201377) and respond within 30 days unless an APP exception applies.\nRetention: insider lists and cyber forensic artefacts are kept for 7 years from final ASX disclosure; HR medical notes are destroyed after 12 months unless a workers\u2019 compensation law requires longer; credit assessment snapshots are retained for 24 months from decision date.\nIncident response: we will assess notifiable data breaches under the NDB scheme and, where appropriate, notify OAIC; ASX/ASIC market disclosure will be handled separately, with any delay only where Listing Rule carve\u2011outs for incomplete proposals or reasonable confidentiality are met.\nWe apply trading blackouts for \u201cHarbourLeaf\u2011C\u201d and Meridian Harbour securities during due diligence, and all staff are reminded that internal chat about \u201cpricing curves\u201d or \u201cmint schedules\u201d may be MNPI even if phrased operationally.\nEducational/marketing note: our public webinar titled \u201cInformation Barriers in Crypto and Climate Ops\u201d uses generic case studies and publicly sourced ASIC materials and does not include any current transaction details or inside information.\nThis document does not contain a material adverse change clause and does not vary any public disclosures; references to regulatory concepts are for policy clarity and are drawn from publicly available sources.\nContact: Mr. Dorian K. Selwyn, Chief Privacy & Compliance Officer (StaffTag: AU\u2013CP\u20135R\u2013SEL), 12 Kalari Lane, New Concord NSW 2129, dpo@meridian\u2011harbour.au; a co",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

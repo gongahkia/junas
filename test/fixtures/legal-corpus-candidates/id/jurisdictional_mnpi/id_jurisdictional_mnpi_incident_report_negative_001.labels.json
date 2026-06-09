@@ -1,80 +1,141 @@
 {
-  "doc_id": "id_jurisdictional_mnpi_incident_report_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "ID",
-  "destination_jurisdiction": "ID",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cs@arunafinansia.co.id"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Satu hal yang masih bersifat internal: evaluasi awal menunjukkan konfigurasi aturan anti-fraud secara sementara memperketat skor risiko sehingga memengaruhi rasio keberhasilan otorisasi, dan temuan ini belum disertakan dalam keterbukaan BEI sambil menunggu verifikasi."
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cs@arunafinansia.co.id"
+      "matched_text": "cs@arunafinansia.co.id",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Satu hal yang masih bersifat internal: evaluasi awal menunjukkan konfigurasi aturan anti-fraud secara sementara memperketat skor risiko sehingga memengaruhi rasio keberhasilan otorisasi, dan temuan ini belum disertakan dalam keterbukaan BEI sambil menunggu verifikasi."
+      "matched_text": "Satu hal yang masih bersifat internal: evaluasi awal menunjukkan konfigurasi aturan anti-fraud secara sementara memperketat skor risiko sehingga memengaruhi rasio keberhasilan otorisasi, dan temuan ini belum disertakan dalam keterbukaan BEI sambil menunggu verifikasi.",
+      "rule": "material_event"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investor.relations@arunafinansia.co.id"
+      "matched_text": "investor.relations@arunafinansia.co.id",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "masa blackout"
+      "matched_text": "masa blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "pengungkapan selektif"
+      "matched_text": "pengungkapan selektif",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "masih bersifat internal"
+      "matched_text": "masih bersifat internal",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "belum disertakan dalam keterbukaan BEI"
+      "matched_text": "belum disertakan dalam keterbukaan BEI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "menunggu verifikasi"
+      "matched_text": "menunggu verifikasi",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "akan dirilis minggu depan"
+      "matched_text": "akan dirilis minggu depan",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "larangan pengungkapan selektif"
+      "matched_text": "larangan pengungkapan selektif",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "ambang materialitas"
+      "matched_text": "ambang materialitas",
+      "rule": "material_event"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "ID transaksi internal"
+      "matched_text": "ID transaksi internal",
+      "rule": "internal_session_id"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cs@arunafinansia.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Satu hal yang masih bersifat internal: evaluasi awal menunjukkan konfigurasi aturan anti-fraud secara sementara memperketat skor risiko sehingga memengaruhi rasio keberhasilan otorisasi, dan temuan ini belum disertakan dalam keterbukaan BEI sambil menunggu verifikasi.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Latar belakang: keterlambatan transaksi pada kanal e-money selama 09:10\u201310:05 WIB, disebabkan antrean API vendor PT Samudra Data Sentra; tidak ada pelanggaran data pribadi terdeteksi.\nSesuai ketentuan keterbukaan informasi OJK, Perseroan telah menyampaikan pengumuman melalui IDXNet pada 15 Mei 2026 (kategori Operasional); salinan siaran pers tersedia di situs Perseroan.\nBerdasarkan penilaian awal, tidak terdapat dampak material terhadap kinerja keuangan kuartal berjalan; per definisi OJK, insiden ini tidak memenuhi ambang materialitas bagi emiten kami.\nTidak ada pengumpulan KTP, NPWP, data biometrik, atau kredensial pengguna; log yang tersimpan berupa token anonim dan ID transaksi internal berkode seperti TX-ARF-0000X (bukan identitas nasabah).\nPihak ketiga PT Lumbung Cloud Nusantara telah mengonfirmasi pemulihan dan menyampaikan RCA publikasi umum akan dirilis minggu depan; SLA tidak berubah.\nInformasi publik terkait kebijakan ESG dan peta jalan dekarbonisasi (diumumkan Desember 2024) tidak terpengaruh oleh peristiwa ini.\nIstilah \u201cprivate placement\u201d, \u201cakuisisi\u201d, dan \u201clock-up\u201d disebutkan hanya dalam pedoman tata kelola yang bersifat umum dan telah tersedia di situs Perseroan sejak 2023.\nTidak ada perubahan pada jadwal RUPS atau prospektus obligasi berwawasan lingkungan yang telah diumumkan; prospektus bersifat final dan telah dipublikasikan ke BEI.\nUntuk pelanggan, peringatan layanan telah dipublikasikan melalui media sosial resmi dan pusat bantuan (cs@arunafinansia.co.id); tidak ada nomor kontak pribadi yang digunakan.\nTim kepatuhan mengingatkan kembali kebijakan larangan pengungkapan selektif; setiap pertanyaan eksternal diarahkan ke investor.relations@arunafinansia.co.id.\nSatu hal yang masih bersifat internal: evaluasi awal menunjukkan konfigurasi aturan anti-fraud secara sementara memperketat skor risiko sehingga memengaruhi rasio keberhasilan otorisasi, dan temuan ini belum disertakan dalam keterbukaan BEI sambil menunggu verifikasi.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -95,69 +156,22 @@
       "reason": "Generic term in governance materials; not MNPI in this context."
     }
   ],
+  "source_jurisdiction": "ID",
   "uncertain": [
     {
-      "matched_text": "TX-ARF-0000X",
       "concept": "transaction_id (internal ID)",
+      "matched_text": "TX-ARF-0000X",
       "reason": "Potential pseudonymous internal identifier that could link to a person in context, but no explicit allowed rule category for transaction IDs."
     },
     {
-      "matched_text": "token anonim",
       "concept": "pseudonymous token",
+      "matched_text": "token anonim",
       "reason": "May function as a pseudonymous identifier; not clearly covered by allowed PII rules like cookie_id/advertising_id."
     },
     {
-      "matched_text": "Tidak ada pengumpulan KTP, NPWP, data biometrik, atau kredensial pengguna",
       "concept": "data minimisation marker",
+      "matched_text": "Tidak ada pengumpulan KTP, NPWP, data biometrik, atau kredensial pengguna",
       "reason": "Indicates minimisation/no collection, but phrased as a negation; labeling may conflict with rule caution on negated controls."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -166,6 +174,12 @@
       "category": "MNPI",
       "matched_text": "Signing Date",
       "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Strategic Investment and Data Partnership between Sable Harbor Health Systems, Inc. (Delaware; GRX-listed) and Pioneer Ridge Bankcorp, N.A. (U.S. bank)\nStructure: Proposed PIPE of convertible preferred and commercial data-sharing alliance; economic terms to be finalized (no pricing disclosed herein to comply with Reg FD)\nRegulatory context: U.S. issuer; SEC Rule 10b-5 and Reg FD apply; SEC File No.: 00-ABCDEF (invalid placeholder); no selective disclosure of material terms\nPublic disclosure: Parties will issue a joint press release and file a Form 8-K summarizing this non-binding term sheet; analysts receive only concurrently posted materials; IR mailbox: investorrelations@SableHarbor.example\nData protection: DPA Schedule A (HIPAA BAA + GLBA addendum) is incorporated by reference; data minimization and purpose limitation apply to any employee, customer, or patient datasets\nCross-border transfer approval: One-time export of de-identified operational metrics to Northlake Analytics Ltd. (Halifax, Canada) under Data-Export Approval ID CBX-2025-01; no PHI or nonpublic personal information included\nConsent/opt-out handling: No outstanding consent withdrawals; prior marketing opt-outs have been fully actioned and suppression lists updated as of the Signing Date",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

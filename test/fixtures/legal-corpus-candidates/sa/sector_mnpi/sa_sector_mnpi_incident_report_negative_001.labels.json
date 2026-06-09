@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -191,6 +199,12 @@
       "category": "MNPI",
       "matched_text": "information barrier",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Third-party \u201cFalaj Digital Custody LLC\u201d SFTP endpoint was used only for synthetic ESG payloads in a sandbox; the term \u201ccrypto wallet\u201d in related training refers to loyalty token custody and is not an investment product.\nStaff will attend \u201cInformation Barriers 101\u201d and \u201cInsider-List Hygiene\u201d refreshers; the slides are generic and do not include issuer-sensitive content or deal codenames.\nThe climate-risk explainer deck prepared for our website describes public scenario methodologies and stale 2023 figures already announced; there is no forward-looking KPI disclosure.\nXDR license renewal and SOC retainer commercial terms are in procurement review using redlined templates; these operations-only terms are not price sensitive for NE-listed securities.\nIssuer workflow checkpoints (draft\u2192QA\u2192NE Issuer Portal) remain in place; suspected access came via a temporary admin token for a service user \u201csvc-esg-reporter,\u201d now rotated.\nAny MNPI arising from this event will be confined to the Sustainability and Security functions per our information barrier standard, with additions to the insider list managed by compliance.ops@horizon-oasis.example.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

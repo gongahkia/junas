@@ -8,13 +8,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -28,13 +28,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -48,6 +48,57 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
     "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_resolved_label_warnings": [
+    {
+      "disposition": "Resolved during PH Stage B QA cleanup. Unsupported peso price-range label was already dropped by the label cleaner and PH Stage A owner approval remains unchanged.",
+      "resolved_at_utc": "2026-06-03T07:09:57Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Php12.40\u201313.10 per share'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Php12.40\u201313.10 per share'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -197,7 +248,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "“restricted” list",
+      "matched_text": "\u201crestricted\u201d list",
       "rule": "information_barrier_marker"
     },
     {
@@ -316,6 +367,12 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lakanbay Holdings, Inc. \u2014 Internal Legal & Compliance Memo re: Project Sibol (Strictly Confidential; MNPI/PII; Philippines).\nProposed primary share placement on the PSE remains non-public; preliminary commercial terms include Php12.40\u201313.10 per share, a 180-day lock-up on principal shareholders, and a 15% over-allotment option with Sampaguita Securities, Inc. as sole bookrunner.\nUse-of-proceeds includes microgrid solar retrofits and resilience upgrades; per SEC PH Sustainability Reporting Guidelines, draft KPI covenants and external assurance terms are for deal team only and not to be circulated.\nOur subsidiary Lakanbay Digital Wallet Corp. (VASP registration pending with BSP) is preparing the closed beta of the PisoLink token rewards program; this is MNPI given potential revenue impact and is covered by the current blackout window.\nIncident Response notes that on 27 May, a credential-stuffing attack against the wallet staging environment exposed hashed test emails; no customer funds moved; details are not yet disclosed to the market and must be escalated to BSP and the SEC only through approved channels.\nInformation barriers: Maintain the Project Sibol clean room; no forwarding of HR payroll files or BIR TIN datasets to the deal dataroom; only the \u201crestricted\u201d list may access paying-agent drafts from BayanSure Bank, Inc.\nInsider list and blackout: The Insider List (SRC Rule 12.1) currently includes Atty. Lucia Benitez (Chief Legal), Ms. Pilar Ong (CFO), and Mr. Ramon Villaceran (IT Security Lead); all insiders remain on trading blackout until two full trading days after any Form 17-C disclosure.\nSelective disclosure/tipping: Do not share pricing talk or ESG covenant terms with prospective cornerstone investors unless wall-crossed under NDA; family members and suppliers are expressly out of scope.\nEducational reuse (benign): The crypto wallet tutorial used in staff onboarding references \u201cwallets,\u201d \u201cstable tokens,\u201d and \u201cgas fees\u201d purely for training and does not access live keys or include MNPI.\nMarketing reuse (benign): The ESG microsite draft uses generic illustrations of \u201ccarbon credits\u201d and \u201cclimate risk\u201d and contains no issuer-specific targets, forecasts, or commercial terms.\nHR/tax PII handling: Employee name lists, work emails, and payroll bank account placeholders in the SEC Form 17-A annexes are personal data under the Data Privacy Act and must be pseudonymised before sharing with underwriters not yet cleared for the wall.\nBanking ops: The draft trust and paying-agent agreement with BayanSure Bank, Inc. sets a provisional 25 bps fee grid and early redemption mechanics; these commercial terms are MNPI until finalised.\nGovernance: Any outreach to research analysts must route through Compliance to preserve information barriers; no participation in non-deal roadshows until the trading window reopens.\nFiling triggers: Prepare but do not file a Form 17-C; counsel to assess materiality thresholds under the SRC given the cyber event and VASP launch timing; if thresholds are met, coordinate immediate disclosure to the PSE and the SEC.\nContact: Direct questions to Atty. Lucia Benitez at lucia.benitez@lakanbay-holdings.example or Compliance at compliance@lakanbay-holdings.example; hard copies are restricted to Board-only packets.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -366,48 +423,5 @@
       "matched_text": "BIR TIN datasets",
       "reason": "References Philippine TIN data but no actual identifiers present for ph_tin detection"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_resolved_label_warnings": [
-    {
-      "warnings": [
-        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Php12.40–13.10 per share'",
-        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Php12.40–13.10 per share'"
-      ],
-      "resolved_at_utc": "2026-06-03T07:09:57Z",
-      "reviewer": "Codex GPT-5.5",
-      "disposition": "Resolved during PH Stage B QA cleanup. Unsupported peso price-range label was already dropped by the label cleaner and PH Stage A owner approval remains unchanged."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

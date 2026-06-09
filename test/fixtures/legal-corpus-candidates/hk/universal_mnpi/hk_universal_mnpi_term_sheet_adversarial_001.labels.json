@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -299,6 +307,18 @@
       "category": "MNPI",
       "matched_text": "120,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY PRIVATE & CONFIDENTIAL \u2014 PROJECT LANTERN \u2014 Embargo until 18 Jul 2026 08:00 HKT.\nProposed acquisition term sheet between Orchid Harbour Holdings Limited (listed in Hong Kong) and Bright Span Metals Co., Ltd.; contact: Ms. L. Ko, boardsec@orchidharbour.example.\nTransaction: acquire 55% of the issued shares of Bright Span Metals for HK$1,280,000,000, funded by internal cash and a placing to professional investors.\nClassification: expected very substantial acquisition; announcement and shareholder circular to be cleared by the Exchange under Main Board rules.\nConsideration adjustments: customary completion NAV adjustment; earn-out of up to HK$120,000,000 on 2027 EBITDA targets (cap 10% of base price).\nDefinitive agreements: S h a r e   P u r c h a s e   A g r e e m e n t (S P A) and Shareholders\u2019 Agreement; longstop date 31 Oct 2026; governing law: Hong Kong.\nConditions precedent: Board and EGM approvals, Exchange clearance of circular, third-party consents, no injunction, whitewash waiver if required.\nMAC/MAE: closing conditional on no target-specific material adverse change; for avoidance of doubt, general industry downturns, epidemics, or HK$ volatility shall not constitute a MAC.\nNon-public: this term sheet contains information that is not generally known and may be price-sensitive; recipients must maintain confidentiality and comply with applicable securities laws.\nPublic-source note: benchmarking based on The Coral Street Index 2024 (public) and sector reports; these references are illustrative and not forward-looking guidance.\nIndicative timetable: sign SPA by 30 Aug 2026, dispatch circular within 60 days of Exchange comments, EGM within 30 days thereafter, completion in Q4 2026.\nIR draft (do not release): \u201cOrchid Harbour agrees to acquire controlling stake in advanced alloys platform to accelerate regional expansion.\u201d",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

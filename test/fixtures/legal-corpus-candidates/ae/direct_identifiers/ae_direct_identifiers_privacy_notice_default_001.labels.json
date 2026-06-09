@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -235,6 +243,18 @@
       "category": "MNPI",
       "matched_text": "Project Palm",
       "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subject contact and accountability: DPO Mr. Karim Al Badri, dpo@rimaloasis.ae; registered office Unit 1708, Marina Dunes Tower, Al Seef District, Dubai, UAE",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: processing PDPL personal data and SCA-relevant MNPI in connection with DFM/ADX issuer due diligence, financing, and listing readiness.\nCategories: Emirates ID 784-2028-6543210-3 (example only), passport copy, stated family origin (optional KYC field), corporate registry extracts, and contact details for Ms. Samira Al Qudra, CFO, samira.alqudra@rimaloasis.ae, +971-50-555-0123.\nLegal basis and purpose: PDPL Art. 4(1)(a) consent and contractual necessity; MNPI handled under SCA market conduct rules; DIFC/ADGM equivalents apply in free zone hosting.\nTransfers: default UAE residency; limited cross-border transfer to vetted vendors under SCC-style clauses and ADGM DPR 2021 adequacy; no onward transfer without written approval.\nSubprocessors: Oryxon Cloud Services LLC (Sharjah Free Zone) for hosting; Falak Analytics DMCC for data rooms; full list available on request.\nRetention: Emirates ID and trade licence copies retained 5 years post-transaction; MNPI in \u201cProject Palm\u201d folders deleted 30 days after public disclosure on DFM/ADX.\nSecurity: role-based access, audit logging in DIFC-compliant systems, encryption at rest/in transit, and segregation of MNPI workspaces for deal teams only.\nDSAR: submit to privacy@rimaloasis.ae or +971 4 555 0100; we will verify identity by checking Emirates ID or passport details without retaining unnecessary pages.\nNote: public helpline 800-0000 is not a verification channel and generic form fields (Full Name: ______; Email: ______; Role: Compliance Officer) are non-binding placeholders.\nPayment of DSAR postage/fees: provide UAE IBAN AE12 0000 1234 5678 9012 345 for refunds to Rimal Oasis Holdings PJSC; alternative accounts require written confirmation.\nInvalid examples: Passport No. P0000000 and Emirates ID 784-0000-0000000-0 in sample forms are placeholders with invalid checksums and will be rejected.\nData subject contact and accountability: DPO Mr. Karim Al Badri, dpo@rimaloasis.ae; registered office Unit 1708, Marina Dunes Tower, Al Seef District, Dubai, UAE.\nComplaints: contact the UAE Data Office or the DIFC Commissioner of Data Protection; suspected market abuse or MNPI breaches escalated to SCA and the issuer\u2019s compliance lead.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

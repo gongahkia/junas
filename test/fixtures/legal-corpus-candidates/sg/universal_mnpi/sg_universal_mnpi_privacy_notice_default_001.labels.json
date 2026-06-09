@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -314,6 +322,18 @@
       "category": "MNPI",
       "matched_text": "5,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Client: Silver Heron Technologies Ltd. (Mainboard-listed on City Exchange (Singapore)); Target: Azure Banyan Pte. Ltd.; internal file SH-AB/2026",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC \u2014 MNPI/PDPA \u2014 Embargo until 2026-07-15 09:00 SGT.\nTamarin Legal LLP (Singapore) \u2014 Data Processing & Retention Workflow Note: Project Durian (M&A).\nClient: Silver Heron Technologies Ltd. (Mainboard-listed on City Exchange (Singapore)); Target: Azure Banyan Pte. Ltd.; internal file SH-AB/2026.\nMaterials covered: board memo v5, term sheet TS-02, and investor-relations draft v2; content includes personal data identifying employees/directors and non-public financials constituting MNPI under the SFA and listing rules.\nDefinitive agreement status: draft Share Purchase Agreement (SPA) dated 2026-06-28; headline purchase price S$120,000,000 with 28.5% equity rollover by founders.\nClosing conditions include customary MAE; for clarity, this note does not constitute, and shall not be construed as, a MAC/MAE notice or trigger.\nDisclosure control: no external circulation prior to Listing Rule 7.03 announcement; embargoed IR draft to be submitted for pre-clear by 2026-07-12.\nPDPA processing summary: purpose\u2014transaction due diligence and integration; lawful basis\u2014notification/consent under PDPA; retention\u20147 years post-completion or 1 year post-termination, whichever earlier.\nData subjects may submit access/correction requests to Mr. Adrian Lo, Data Protection Officer, at dpo@tamarinlegal.example; acknowledgment within 5 working days and response within 30 days.\nCategories of data: employment records, remuneration bands, email logs, and device identifiers; minimise collection and mask salary outliers in working papers.\nOverseas transfers: documents stored in \u201cCloudStow SGP\u201d and mirrored to \u201cCloudStow HKG\u201d under written contractual obligations and a transfer impact assessment; apply encryption at rest and in transit.\nAccess controls: need-to-know lists maintained by Ms. Celeste Ong (Partner), audit trail exported weekly; delete local copies within 48 hours of updated dataroom uploads.\nAccording to Silver Heron\u2019s public 2024 annual report on its website, the dividend policy remains unchanged; that information is not MNPI.\nPost-signing comms: draft Q2 research note for analysts to issue after the embargo lifts; no forward-looking statements beyond those cleared by the board.\nInternal tracker: any change to SPA consideration +/- S$5,000,000 or to rollover percentage +/- 2% requires legal sign-off and CFO approval.\ntodo: circulate clean SPA draft to Mr. Lo by eod; ok if monday.\nFor the avoidance of doubt, spa day bookings this Friday are personal and unrelated to the transaction; ignore for MNPI screening.\nBreach protocol: suspected leak to be escalated within 2 hours to deal counsel and CCO; preserve logs and escalate further if PDPA notification thresholds are met.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

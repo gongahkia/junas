@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
     "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 5,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -185,7 +211,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Harbour Nova (Main Board issuer) has entered exclusive talks to acquire 51% of Tidecrest Robotics Limited; this may be a discloseable transaction under Chapter 14 and could trigger a “possible offer” disclosure under the Takeovers Code.",
+      "matched_text": "Harbour Nova (Main Board issuer) has entered exclusive talks to acquire 51% of Tidecrest Robotics Limited; this may be a discloseable transaction under Chapter 14 and could trigger a \u201cpossible offer\u201d disclosure under the Takeovers Code.",
       "rule": "material_event"
     },
     {
@@ -262,7 +288,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Harbour Nova (Main Board issuer) has entered exclusive talks to acquire 51% of Tidecrest Robotics Limited; this may be a discloseable transaction under Chapter 14 and could trigger a “possible offer” disclosure under the Takeovers Code.",
+      "matched_text": "Harbour Nova (Main Board issuer) has entered exclusive talks to acquire 51% of Tidecrest Robotics Limited; this may be a discloseable transaction under Chapter 14 and could trigger a \u201cpossible offer\u201d disclosure under the Takeovers Code.",
       "rule": "material_event"
     },
     {
@@ -299,6 +325,36 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Yeung is a dues-paying member of the Progressive Transport Staff Union and notified HR of canvassing for the Harbour District Reform Council; both union and political data must not be placed in any data room.\nMs. Natalie Poon (Assistant PM) registered her same-sex partner for dependent medical coverage; no reference to this should appear in diligence lists or integration slides.\nDr. Kelvin Tsui (R&D) observes Buddhist fasting days; rostering must respect the Harbour Nova Equal Access Charter 2026 without recording religious affiliation in any deal materials",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privileged and confidential \u2014 Board Compliance Memo (Harbour Nova Holdings Limited) regarding PDPO/SFO handling for Project Reef.\nHarbour Nova (Main Board issuer) has entered exclusive talks to acquire 51% of Tidecrest Robotics Limited; this may be a discloseable transaction under Chapter 14 and could trigger a \u201cpossible offer\u201d disclosure under the Takeovers Code.\nThe approach and pricing model constitute inside information under Part XIVA SFO not generally known to likely dealers; if confidentiality deteriorates, a trading halt request to HKEX may be required.\nAccess is restricted to the \u201cReef Room\u201d; no forwardable emails, and no uploads to the Seaglass Growth Fund (Type 9 RA) workspaces or LycheeCloud CRM until cleansing and wall-crossing are approved.\nHR records contain PDPO special-category data: Mr. Alex Yeung (Operations Analyst) disclosed ongoing HIV treatment at Kingfisher Clinic for medical benefits and enrolled in the fingerprint-based time clock at the Sai Ying Wai office.\nMr. Yeung is a dues-paying member of the Progressive Transport Staff Union and notified HR of canvassing for the Harbour District Reform Council; both union and political data must not be placed in any data room.\nMs. Natalie Poon (Assistant PM) registered her same-sex partner for dependent medical coverage; no reference to this should appear in diligence lists or integration slides.\nDr. Kelvin Tsui (R&D) observes Buddhist fasting days; rostering must respect the Harbour Nova Equal Access Charter 2026 without recording religious affiliation in any deal materials.\nBiometric templates (fingerprint minutiae) are stored hashed and segregated; only Facilities (Mr. Owen Lau) can reconcile identities, and no biometric files may be exported to the Project Reef VDR.\nCommunications plan: pre-clear any analyst or vendor interactions; avoid \u201cmoonshot\u201d or \u201ciceberg\u201d metaphors and do not showcase hypothetical integration products (e.g., SilverRidge smartwatch, HarborPeak Aura) before any Rule 3.5 announcement.\nThe Kowloon Kestrels football team winning the charity shield is irrelevant to PDPO or MNPI and should not feature in briefings.\nData minimisation: redact minor identifiers (e.g., Mr. Yeung\u2019s past student volunteer record) and purge any legacy genetic screening outputs inadvertently retained from the wellness pilot.\nOur DEI statement lists religion, sexual orientation, and union status as protected characteristics; this policy language is generic and not a basis for data collection.\nIf a leak is suspected, prepare a holding announcement compliant with Listing Rule 13.09 and consult SFC\u2019s Inside Information Guidelines; legal contact: Ms. Yvonne Chow, yvonne.chow@harbournova.com.hk.\nAll uploads to be sent only via Project Reef VDR (reef.vdr@harbournova.hk); the Harbour Nova Data Boundary Protocol prohibits transfer of personal data to Tidecrest systems.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -369,24 +425,6 @@
       "concept": "contingent MNPI disclosure planning",
       "matched_text": "prepare a holding announcement",
       "reason": "Pre-drafted disclosure is relevant but not covered by a specific allowed rule"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

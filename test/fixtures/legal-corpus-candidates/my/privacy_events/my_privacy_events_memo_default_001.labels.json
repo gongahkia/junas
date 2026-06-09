@@ -7,13 +7,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -27,13 +27,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -48,6 +48,31 @@
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 29,
     "new_must_detect_count": 15,
@@ -57,6 +82,14 @@
     "removed_must_not_detect": [],
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -101,7 +134,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Aurora Meridian Berhad — Internal Compliance Memorandum re PDPA/CMSA handling for Q2 onboarding, financing, and vendor transfers.",
+      "matched_text": "Aurora Meridian Berhad \u2014 Internal Compliance Memorandum re PDPA/CMSA handling for Q2 onboarding, financing, and vendor transfers.",
       "rule": "material_event"
     },
     {
@@ -248,7 +281,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Aurora Meridian Berhad — Internal Compliance Memorandum re PDPA/CMSA handling for Q2 onboarding, financing, and vendor transfers.",
+      "matched_text": "Aurora Meridian Berhad \u2014 Internal Compliance Memorandum re PDPA/CMSA handling for Q2 onboarding, financing, and vendor transfers.",
       "rule": "material_event"
     },
     {
@@ -285,6 +318,24 @@
       "category": "MNPI",
       "matched_text": "Restricted List",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "To: Board Risk Committee; From: Dr. Liyana Rahmat, Head of Compliance; Contact: dpo@aurorameridian.my, +60 3-6600 1234",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: Proposed export of payroll attributes to OrbitPay Systems Pte. Ltd. (SG) under Data Export Approval DEA-2026-017; transfer is not active and will not commence until DPA Schedule 2 (Transfer Mechanisms) is countersigned and encryption-at-rest keys are confirmed resident in MY.\nFor avoidance of doubt, no personal data has been transferred outside Malaysia in Q2; a prior pilot with CloudHarbor APAC Sdn Bhd ran solely on the Kuala Selasih region node.\nDPA Schedule 3 (Retention and Minimisation) caps candidate data at 24 months and payroll records at 7 years; purge job PJ-24A completed and logged in the disposal register on 18 May 2026",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aurora Meridian Berhad \u2014 Internal Compliance Memorandum re PDPA/CMSA handling for Q2 onboarding, financing, and vendor transfers.\nTo: Board Risk Committee; From: Dr. Liyana Rahmat, Head of Compliance; Contact: dpo@aurorameridian.my, +60 3-6600 1234.\nListing context: Aurora Meridian Berhad (Main Board, Bayu Securities Exchange) under CMSA insider trading provisions and BSE Listing Requirements overseen by the Malaysian Capital Oversight Commission (MCOC).\nEmployment onboarding forms collected only role-necessary data (minimisation), and NRIC copies are no longer retained; legacy scans were erased on 15 May 2026 per Retention Schedule 3.\nPolicy-only note: while the onboarding template mentions fingerprint timekeeping consent, no biometric systems are deployed and no biometric data is collected or stored.\nDSAR: Pn. Farah Syafika requested access and correction on 3 May 2026; fulfilled within the statutory period, with redaction of third-party identifiers and confirmation of erasure of recruitment duplicates.\nConsent withdrawal: En. Hazriq Naim withdrew consent for optional wellness data on 20 April 2026; processing ceased and his HRIS profile fields were set to null.\nCross-border transfer: Proposed export of payroll attributes to OrbitPay Systems Pte. Ltd. (SG) under Data Export Approval DEA-2026-017; transfer is not active and will not commence until DPA Schedule 2 (Transfer Mechanisms) is countersigned and encryption-at-rest keys are confirmed resident in MY.\nFor avoidance of doubt, no personal data has been transferred outside Malaysia in Q2; a prior pilot with CloudHarbor APAC Sdn Bhd ran solely on the Kuala Selasih region node.\nDPA Schedule 3 (Retention and Minimisation) caps candidate data at 24 months and payroll records at 7 years; purge job PJ-24A completed and logged in the disposal register on 18 May 2026.\nFinancing: draft term sheet with Pacific Zenith Capital Sdn Bhd includes covenant ratios and pricing triggers; as non-public information likely to affect value, it is treated as MNPI until announcement via the Exchange portal.\nInsider controls: the Restricted List is updated and dealing by named insiders paused; the employee share scheme for non-insiders continues under Policy 4.2 without triggering a trading window closure.\nAudit: quarterly DLP review shows no outbound attachments to personal emails; seven stale access tokens were revoked, and least-privilege mappings were applied to the JV data room.\nReporting: current privacy workflows do not cross BSE/MCOC notification thresholds; this statement is descriptive and not an indicator of unresolved risk.\nFor DSARs and erasure requests contact privacy@aurorameridian.my; for MNPI/insider matters contact mnpi.office@aurorameridian.my; vendor approvals via vendor.compliance@aurorameridian.my.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -337,30 +388,5 @@
       "matched_text": "Data Export Approval DEA-2026-017",
       "reason": "Governance identifier for cross-border transfer approval; not covered by an allowed rule"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

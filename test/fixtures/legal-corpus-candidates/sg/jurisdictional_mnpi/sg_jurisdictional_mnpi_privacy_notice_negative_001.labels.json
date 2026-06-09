@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -134,6 +142,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Orchid Bridge Law LLC \u2014 PDPA Privacy Notice and DSAR/Retention Workflow (Singapore)\nWe process personal data (PDPA) relating to employees, candidates, opposing counsel, and issuer contacts (work email, business phone, job title, signed engagement data); NRIC numbers are not routinely collected and will only be requested where permitted by PDPC guidelines.\nPurpose: to advise Mainboard-listed clients such as Helios Straits Holdings Ltd on M&A, employment, and capital-markets work in compliance with the SFA and SGX Listing Rules.\nSources: information you provide, client instructions, and public records (e.g., SGXNet announcements dated 02 Mar 2024 and 14 Sep 2023; MAS public registers); we do not scrape social media.\nMNPI handling: we maintain issuer-relative materiality assessments under Listing Rule 703 and prohibit selective disclosure; public dissemination occurs via the issuer\u2019s SGXNet filings and press releases.\nDSAR: submit \u201cForm HR-DSAR-000X\u201d to dpo@orchidbridgelaw.example; we will verify identity using reference tokens (not full NRIC) and respond within 30 days per PDPA.\nCross-border transfers (PDPA Transfer Limitation): where processors in Malaysia or the Philippines are engaged, we use contract terms ensuring comparable protection and conduct transfer impact assessments.\nRetention: capital-markets and M&A files are retained for 6 years from matter close (aligned with Limitation Act) unless a legal hold applies; recruitment records are purged after 12 months.\nDisclosures: we may share with SGX-ST or MAS only through client-authorised channels; we never announce on behalf of issuers and will refer media queries to publicly available SGXNet postings.\nReference bait: SGXNet \u201cnotice of results\u201d ref HXH/2023/PR-000 and \u201ccompletion of placement\u201d ref CAT/2022/ANN-XYZ were public and are stale; these do not create any current blackout.\nInternal notice to staff with access to Helios Straits Holdings Ltd files: a trading blackout window applies from 01\u201314 Jul 2026 pending not-yet-announced 1H2026 results on SGXNet; do not trade its securities.\nSecurity: MNPI and PD are segregated by matter, with access logs, two-factor authentication, and quarterly audits; breach notifications will be made to PDPC and affected individuals when required.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

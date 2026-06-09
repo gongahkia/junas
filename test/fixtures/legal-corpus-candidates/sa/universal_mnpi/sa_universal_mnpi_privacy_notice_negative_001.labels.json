@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -176,6 +184,12 @@
       "category": "MNPI",
       "matched_text": "definitive agreement",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "scope: issuer support and investor-relations drafts on dse rules; compliance aligned with cmoc guidance, pdpl art. basics (identifying a natural person directly or indirectly)\ndata categories: iqama/national id labels, commercial registration (crn), role mailboxes, investor helpline transcripts; no personal mobile numbers collected\nexample placeholders only: iqama: 12-XX-0000-0000 (invalid), national id: XXXX-9999-XXXX, crn: 0000000000; these fields are masked on entry\nsources: public prospectus dated 2023-05 on our website, stale research notes, supplier onboarding forms; board memo and term-sheet drafts stored in restricted drive\nretention: iqama/crn scans retained 180 days post-verification then redacted; ir drafts 90 days then archived without pii; logs 12 months\ntransfers: limited export to kingdom data authority sandbox (kda-xfr-0000 placeholder) for compliance testing; standard contractual clauses adapted to local pdpl and internal adequacy checklists\npm note: internal codename field is blank by design; non-public issuer language is flagged and routed to legal before circulation\npositive span: a draft investor-relations note references a definitive agreement under review, marked non-public until embargo date 2026-12-31 08:00 AST",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

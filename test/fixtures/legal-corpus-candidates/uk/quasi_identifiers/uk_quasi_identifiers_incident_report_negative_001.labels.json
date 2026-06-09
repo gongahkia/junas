@@ -50,6 +50,14 @@
     "previous_must_detect_count": 4,
     "previous_must_not_detect_count": 7
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -167,6 +175,12 @@
       "category": "MNPI",
       "matched_text": "We have notified the ICO via the standard breach webform as a precaution and will update the FCA Market Watch contact point if any MAR\u2011relevant facts emerge; currently none do.",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary view: the event is not material under UK MAR Article 7; no trading systems or order management platforms were affected; LSE ticker placeholder \u201cAF00\u201d and SEDOL \u201c0000000\u201d are used for illustration only.\nA previously published RNS on 2 May announced the portal\u2019s retirement; today\u2019s incident does not change guidance and does not require a further RNS at this stage.\nWe reviewed two shared mailboxes\u2014servicedesk@amberwickfinance.co.uk and deals@amberwickfinance.co.uk\u2014and found no targeted spear\u2011phishing beyond generic spam.\nData rooms for ongoing M&A discussions are hosted on a segregated platform with separate credentials; logs show no access attempts and no downloads.\nNo accounts payable data, payroll records, or customer sort codes were accessed; strings resembling account numbers (e.g., 00-00-00/00000000) in logs are test placeholders.\nThe social\u2011media \u201cleak\u201d referenced a legacy sandbox and an invalid ISIN \u201cXX0000000000\u201d; these are non\u2011production artefacts not used for trading or disclosure.\nWe have notified the ICO via the standard breach webform as a precaution and will update the FCA Market Watch contact point if any MAR\u2011relevant facts emerge; currently none do.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

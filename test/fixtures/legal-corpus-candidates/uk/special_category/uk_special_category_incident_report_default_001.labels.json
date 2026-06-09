@@ -50,6 +50,14 @@
     "previous_must_detect_count": 19,
     "previous_must_not_detect_count": 11
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -292,6 +300,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market abuse risk: an unreleased draft regulatory announcement and board pack detailing a proposed placing of c.12% new ordinary shares at a floor price of 268p and a downgrade of H1 net interest income by ~17% were accessed; this is precise, non\u2011public information under UK MAR and likely to affect our share price.\nPersonal data exposed included HR and access control folders for Ashfield Wharf (HQ), and a zipped export of the Blue Finch Policy site and the NimbusPay product wiki.\nMs. Priya Menon (Head of Settlements, employee ID CW\u20114821) appears in Occupational Health notes describing Type 1 diabetes management and reasonable adjustments, and her FinServe Workers Union membership file and fingerprint template (turnstile biometric enrolment) were in the same directory.\nMr. Julian Parris (Analyst) had a benefits form naming his husband as next of kin and a calendar note about Ramadan fasting hours; the file set also contained a generic DEI banner about sexual orientation and religion that does not relate to any identified person.\nWe also identified routine content such as a caf\u00e9 menu, a Northchester Mariners fixtures poster, and a \u201cmoving the goalposts\u201d meme, none of which are material to this incident.\nPreliminary containment: compromised accounts disabled, conditional access tightened, and external sharing revoked; Silvermere Markets LLP tokens revoked and IPs from West Brambleton blocked.\nGiven the MNPI exposure, we have treated the information as inside information; PDMR and employee dealing is restricted pending a potential regulatory announcement via a clean team; market soundings paused.\nNo client assets or payment instructions in NimbusPay were altered, and there is no indication of data reaching dark web venues at the time of writing.\nWe remind colleagues that under the Blue Finch Policy and the Staff Dealing Standard, forwarding draft announcements or board papers to personal devices breaches company rules and may contravene UK MAR.\nSeparate to this incident, the board reiterates our commitment to diversity, equity, and inclusion across Crownwick Capital plc.\nRegulatory next steps: assess whether a delay in disclosure remains justified, prepare a call note for the UK financial regulator, and document the MAR insider list (including Ms. Menon and Mr. Parris where relevant).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

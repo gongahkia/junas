@@ -8,13 +8,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -28,13 +28,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -50,6 +50,13 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
     "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
   },
   "_stage_readiness": {
     "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
@@ -71,6 +78,8 @@
   ],
   "_strict_reconciliation": {
     "basis": "AU Stage B precision guards created five cross-jurisdiction strict misses. Codex manually audited the fixture contexts and found the current deterministic suppressions defensible for strict mode: template email alias format, defined-term MNPI statements, or generic MNPI references. Existing project-owner Stage A readiness approval is preserved; this is internal benchmark maintenance, not legal advice.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "removed_strict_expectations": [
       {
         "category": "MNPI",
@@ -80,9 +89,15 @@
     ],
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-candidates-after-au-stage-b-reconciled.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -246,6 +261,12 @@
       "category": "MNPI",
       "matched_text": "MNPI controls: Draft ICX offering timetable and unaudited Q2 results remain restricted; no trading window has been opened and no external sharing has occurred.",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DSAR: On 12 May, Mr. Jeric Valencia submitted an access request seeking his 2023 equity grant details and timekeeping logs; response acknowledged within 72 hours, full extract queued for release by 19 May.\nConsent withdrawal: Ms. L. Yatco withdrew consent for marketing emails on 5 May; marketing lists were updated and her records flagged for suppression; no payroll processing is affected.\nErasure: Following exit of Ms. Yatco from the talent pool, candidate profile deletion was completed on 20 May across ATS and shared drives; audit trail retained per Schedule B.\nMNPI controls: Draft ICX offering timetable and unaudited Q2 results remain restricted; no trading window has been opened and no external sharing has occurred.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],
@@ -296,12 +317,5 @@
       "matched_text": "No special cross-border transfers of customer loan files occurred in May",
       "reason": "Negated cross-border transfer mention is privacy-relevant context but should not trigger a live transfer marker."
     }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

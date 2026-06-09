@@ -41,6 +41,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -308,6 +316,12 @@
       "category": "MNPI",
       "matched_text": "35,00,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY PRIVATE & CONFIDENTIAL \u2014 UPSI \u2014 Embargo until 30-06-2026 09:00 IST; Subject: Cyber Incident and Deal Readiness Update (Project Banyan)\nTo: Board of Aarohan Components Limited (proposed NSE symbol: AROH), from: Mr. Devendra Kulkarni, Company Secretary, cs@aarohancomponents.in\nOn 02-06-2026 22:15 IST, SecOps detected unauthorized access to our vendor portal; preliminary scope limited to hashed login credentials and contact fields for 3,214 users on aarohancomponents.in.\nData review indicates limited exposure to names, email, and mobile numbers; child accounts (under 18) totaled 47 and were collected with guardian consent under DPDPA, which remains valid and revocable.\nNo A a d h a a r numbers or PAN were stored in production; legacy test artifacts included tokenized GST1N placeholders (e.g., 99-FAKE-000-ZZ1) and PAN ref PN-7ZQ9K (token only, not a government identifier).\nExample artifacts: ClientRef c|0|3-77-XY; invoice i d: G5- 77 2; and link https://secops.aarohancomponents.in/i/INC-00421?pii=redacted&u=R3S3T.\nWe are concurrently negotiating Project Banyan, a 15% primary investment in Pravaah Renewables Limited for cash consideration of INR 240 crore, with SSA/SHA definitive agreements targeted for execution on 05-07-2026.\nCounsel advises the incident, as currently assessed, does not constitute a MAC/MAE under the draft SSA or SEBI LODR materiality thresholds.\nIn accordance with SEBI PIT Regulations, classify this note as UPSI; trading window for designated persons remains closed until the embargo date and completion of cyber forensics.\nDraft IR note for post-embargo disclosure has been prepared for NSE/BSE submission and website posting; no financial guidance will be updated until the Q1 call.\nReference: public CERT-In advisory on password rotations (stale 2023 guidance) will be cited for general hygiene, but we will not include any non-public specifics in the press release.\nInternal research note indicates less than 0.25% revenue impact; vendor settlement cap under MSA at INR 35,00,000 with 10% retention on disputed invoices.\ntodo: align with infosec and facilities by friday eod; wellness spa-day coupons for employee appreciation week remain unaffected.\nDeal checklist items outstanding: CPs include CCI green channel filing, KYC refresh for promoters (masked IDs only), DPDPA consent logs export, and NSE intimation draft; signatories: Ms. Kavya Iyer (DPO) and Mr. Varun Mehta (CFO).\nContact: dpo@aarohancomponents.in; hotline 1800-00-AROH; backup channel https://chat.aarohancomponents.in/room/board-ops?m=0x7f_FA.\nNote: information herein is non-public; any external communication before 30-06-2026 09:00 IST is prohibited and may attract SEBI enforcement.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

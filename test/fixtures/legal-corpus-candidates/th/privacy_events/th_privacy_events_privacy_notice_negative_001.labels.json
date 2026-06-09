@@ -1,120 +1,181 @@
 {
-  "doc_id": "th_privacy_events_privacy_notice_negative_001",
-  "document_type": "generic",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-0000-0000"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "SCCs executed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope: Applies to Thai-listed Aurora Siam and its processors for investor relations, group financing support, and employment onboarding; excludes handling of MNPI."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Retention: IR mailing list entries are retained for 3 years from last contact; financing records and SET disclosures are archived for 7 years per policy; earlier deletion occurs where not legally required."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Miscellaneous: This schedule does not modify financing covenants; it evidences completed controls and does not signal a live breach or unapproved transfer."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_privacy_events_privacy_notice_negative_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-0000-0000"
+      "matched_text": "+66-0000-0000",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "SCCs executed"
+      "matched_text": "SCCs executed",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope: Applies to Thai-listed Aurora Siam and its processors for investor relations, group financing support, and employment onboarding; excludes handling of MNPI."
+      "matched_text": "Scope: Applies to Thai-listed Aurora Siam and its processors for investor relations, group financing support, and employment onboarding; excludes handling of MNPI.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Retention: IR mailing list entries are retained for 3 years from last contact; financing records and SET disclosures are archived for 7 years per policy; earlier deletion occurs where not legally required."
+      "matched_text": "Retention: IR mailing list entries are retained for 3 years from last contact; financing records and SET disclosures are archived for 7 years per policy; earlier deletion occurs where not legally required.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Miscellaneous: This schedule does not modify financing covenants; it evidences completed controls and does not signal a live breach or unapproved transfer."
+      "matched_text": "Miscellaneous: This schedule does not modify financing covenants; it evidences completed controls and does not signal a live breach or unapproved transfer.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@aurorasiam.example"
+      "matched_text": "privacy@aurorasiam.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer approval"
+      "matched_text": "Cross-border transfer approval",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation policy"
+      "matched_text": "minimisation policy",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "BayLink Analytics Pte. Ltd. (Singapore)"
+      "matched_text": "BayLink Analytics Pte. Ltd. (Singapore)",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "BayLink Analytics Pte. Ltd. (SG)"
+      "matched_text": "BayLink Analytics Pte. Ltd. (SG)",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "a limited transfer of IR role contacts to BayLink Analytics Pte. Ltd. (Singapore) was approved"
+      "matched_text": "a limited transfer of IR role contacts to BayLink Analytics Pte. Ltd. (Singapore) was approved",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrawal may be requested"
+      "matched_text": "withdrawal may be requested",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "collection is limited to necessity"
+      "matched_text": "collection is limited to necessity",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+66-0000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SCCs executed",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: Applies to Thai-listed Aurora Siam and its processors for investor relations, group financing support, and employment onboarding; excludes handling of MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: IR mailing list entries are retained for 3 years from last contact; financing records and SET disclosures are archived for 7 years per policy; earlier deletion occurs where not legally required.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Miscellaneous: This schedule does not modify financing covenants; it evidences completed controls and does not signal a live breach or unapproved transfer.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aurora Siam Holdings PCL \u2014 Thailand PDPA Data Processing Addendum Schedule and Privacy Transfer Memo (SEC/SET context)\nScope: Applies to Thai-listed Aurora Siam and its processors for investor relations, group financing support, and employment onboarding; excludes handling of MNPI.\nData categories: employee onboarding fields, vendor due diligence files, IR mailing lists; government-issued identifiers are not requested in these forms; collection is limited to necessity per minimisation policy.\nRoles: Aurora Siam Holdings PCL is the Data Controller; processors include Nakhon Data Services Co., Ltd. (TH) and BayLink Analytics Pte. Ltd. (SG); no sub-processing without prior written notice.\nCross-border transfer approval: On 2026-03-12, a limited transfer of IR role contacts to BayLink Analytics Pte. Ltd. (Singapore) was approved under PDPA Section 28 with transfer impact assessment and ASEAN SCCs executed.\nNote: No payroll or HR medical data is transferred outside Thailand; recruitment records are hosted in-country.\nConsent: Marketing communications rely on consent; withdrawal may be requested via privacy@aurorasiam.example or the self-service portal; no active consent withdrawals are pending.\nDSAR and erasure: DSAR-TH-2026-004 for erasure of a former contractor profile was fulfilled on 2026-05-01; an audit trail is retained for SEC recordkeeping and does not include salary details.\nRetention: IR mailing list entries are retained for 3 years from last contact; financing records and SET disclosures are archived for 7 years per policy; earlier deletion occurs where not legally required.\nSecurity controls: pseudonymisation for analytics, access on a need-to-know basis, encryption at rest and in transit; annual DPIA completed; no open incidents.\nDisclosure and MNPI: This processing concerns publicly announced SET filings; no undisclosed price-sensitive data is ingested or shared under this DPA.\nData export log: Ticket REF-EXP-TH-SEC-0007 is closed; exports are logged by date, category, destination, and legal basis; no exports to high-risk jurisdictions.\nIndividual rights: Access, correction, portability, objection, and erasure are available; responses are provided within 30 days unless extended per PDPA; helpline: +66-0000-0000 (placeholder).\nMiscellaneous: This schedule does not modify financing covenants; it evidences completed controls and does not signal a live breach or unapproved transfer.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -139,109 +200,62 @@
       "reason": "Negated sensitive PII; not present"
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "DSAR and erasure",
       "concept": "DSAR/erasure marker",
+      "matched_text": "DSAR and erasure",
       "reason": "Data-subject request and erasure referenced but no explicit allowed rule for DSAR/erasure markers"
     },
     {
-      "matched_text": "DSAR-TH-2026-004",
       "concept": "DSAR ticket reference",
+      "matched_text": "DSAR-TH-2026-004",
       "reason": "Ticket ID potentially identifying an individual request; no specific allowed rule for such IDs"
     },
     {
-      "matched_text": "was fulfilled on 2026-05-01",
       "concept": "erasure completion timestamp",
+      "matched_text": "was fulfilled on 2026-05-01",
       "reason": "Indicates completion of a DSAR erasure; not covered by an allowed rule"
     },
     {
-      "matched_text": "Retention",
       "concept": "retention marker",
+      "matched_text": "Retention",
       "reason": "Retention policy heading; no allowed retention-marker rule provided"
     },
     {
+      "concept": "retention duration",
       "matched_text": "retained for 3 years",
-      "concept": "retention duration",
       "reason": "Specifies retention period; not covered by an allowed rule"
     },
     {
+      "concept": "retention duration",
       "matched_text": "archived for 7 years",
-      "concept": "retention duration",
       "reason": "Specifies retention period; not covered by an allowed rule"
     },
     {
-      "matched_text": "earlier deletion occurs where not legally required",
       "concept": "erasure condition",
+      "matched_text": "earlier deletion occurs where not legally required",
       "reason": "Early deletion condition is an erasure/retention control; not mapped to an allowed rule"
     },
     {
-      "matched_text": "Data export log",
       "concept": "export governance marker",
+      "matched_text": "Data export log",
       "reason": "Indicates cross-border/export logging; governance signal not explicitly mapped to an allowed rule"
     },
     {
-      "matched_text": "exports are logged by date, category, destination, and legal basis",
       "concept": "transfer logging practice",
+      "matched_text": "exports are logged by date, category, destination, and legal basis",
       "reason": "Describes transfer/export logging; no specific allowed rule"
     },
     {
-      "matched_text": "annual DPIA completed",
       "concept": "DPIA completion marker",
+      "matched_text": "annual DPIA completed",
       "reason": "Privacy assessment control; not mapped to an allowed rule"
     },
     {
-      "matched_text": "pseudonymisation for analytics",
       "concept": "privacy-enhancing technique",
+      "matched_text": "pseudonymisation for analytics",
       "reason": "Technique relevant to data protection but not mapped to an allowed rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -385,6 +393,18 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Under UAE PDPL and the federal market-abuse regime, we classify data as personal or MNPI for Project Falcon (free zone practice aligned with regional standards).\nMs. Salma R. Al Mansoori, Head of Treasury at Barq Energy PJSC (trade licence TL-BAQ-2026-00931, Rimal Free Zone), DoB 1990-04-17, based at Nour City Creative Quarter Bldg C3, email salma.al_mansoori@barqenergy.ae",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential board memo \u2014 PDPL/MNPI handling for proposed AMX listing by Barq Energy PJSC.\nUnder UAE PDPL and the federal market-abuse regime, we classify data as personal or MNPI for Project Falcon (free zone practice aligned with regional standards).\nMs. Salma R. Al Mansoori, Head of Treasury at Barq Energy PJSC (trade licence TL-BAQ-2026-00931, Rimal Free Zone), DoB 1990-04-17, based at Nour City Creative Quarter Bldg C3, email salma.al_mansoori@barqenergy.ae.\nHer current SSO session http://intra.barqenergy.ae/sso?sid=SESS-9f3a2c1-7d and device be-lt14-luna (serial BE-T14-0 0 9 7), plus internal ext 4421, form a quasi-identifier cluster.\nAdministrative note: E I D ref \"X84-00A-FAKE-9021\" recorded as salted hash; mobile 058-xxx-4217, and treasury alias TR-GL-2219 in the TMS; this is not a bank a/c.\nShe logs in from Al Sarab Tower, Nour City (floor 23), using \"Pearl A2\" handset over VPN; the handset M A C is not recorded; geo-IP shows Al Qamar Emirate gateway.\nFamily-origin disclosure: from a Ras Al Hajar lineage; do not collect or store this attribute as it is not required for the purpose.\nDraft prospectus sections (timetable and earnings guidance) are non-public and price-sensitive for AMX admission; restrict to board and counsel until formal filing.\nNo material adverse change (MAC) is triggered by current supplier delays; the MAC definition in the draft SPA remains uninvoked and is only for closing conditions.\nFor onboarding, sight Emirates ID only; store checksum of EID (EID# X84-00A-FAKE-9021) and trade licence copy for Barq Energy PJSC; do not retain biometrics.\nContact: Mr. Nabil F. Haddad, Compliance Officer, nabil.haddad@barqenergy.ae, tel +97x-5x-123-8891; escalation channel: compliance@amx-regtech.example.\nGeneric, non-linked demographics for planning: age ~34, mid-level analyst, near metro corridor, device class \"Pearl A2\", logs from Zone 2\u2014no name or employer attached.\nDetached identifiers: DoB 1985-11-02; device id tms-22-ax4; emirate: Al Qamar; URL https://rimalfz.example/track?u=U-99AB; not tied to a specific person here.\npublic relations note: route only press clips and RFZ bulletin to vendors; do not circulate draft term sheet or AMX code-name \"Falcon\" outside need-to-know.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

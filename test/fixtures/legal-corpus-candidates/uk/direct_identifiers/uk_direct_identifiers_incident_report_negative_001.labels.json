@@ -50,6 +50,14 @@
     "previous_must_detect_count": 1,
     "previous_must_not_detect_count": 12
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -87,6 +95,18 @@
       "category": "MNPI",
       "matched_text": "Contacts for stakeholders: public incident helpline 0800 000 0000 and mailbox cybersecurity@northwayft.example; please do not send personal documents to these addresses.",
       "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12345678",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_company_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Company details: Northway FinTech plc (Main Market, London), Registered Office: 4 Ash Lane, Lonton, ZY1 4ZZ, Companies House No. 12345678.\nVendor action: CloudArc UK Ltd will provide a written attestation confirming segregation of customer data from the sandbox workspace by 21 June 2026.\nContacts for stakeholders: public incident helpline 0800 000 0000 and mailbox cybersecurity@northwayft.example; please do not send personal documents to these addresses.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

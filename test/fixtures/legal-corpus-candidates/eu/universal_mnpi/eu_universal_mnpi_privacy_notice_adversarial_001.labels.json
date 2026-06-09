@@ -50,6 +50,14 @@
     "previous_must_detect_count": 17,
     "previous_must_not_detect_count": 5
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -302,6 +310,24 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Issuer: Orion Linens SE (Helios Exchange HEU: ORNX); Board memo approved by Dr. Elara Voss, Chair; contact privacy@orionlinens.eu, tel:+352-000-0214.\nDPA Addendum with CloudLoom B.V. (Processor) signed 2026-06-05; definitive Share Purchase Agreement for 12.5% of Looma Threads AG at EUR 245,000,000; Long Stop Date 2026-10-31.\nMAC/MAE clause (negated): no ma terial ad verse ch ange shall be deemed to have occurred due to general market conditions, currency movements, or pandemics",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed investors",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC \u2014 Project Ivy retention & transfer note; EU MAR Art.17 delay justification; Embargo until 2026-09-30 07:00 CET.\nIssuer: Orion Linens SE (Helios Exchange HEU: ORNX); Board memo approved by Dr. Elara Voss, Chair; contact privacy@orionlinens.eu, tel:+352-000-0214.\nDPA Addendum with CloudLoom B.V. (Processor) signed 2026-06-05; definitive Share Purchase Agreement for 12.5% of Looma Threads AG at EUR 245,000,000; Long Stop Date 2026-10-31.\nMAC/MAE clause (negated): no ma terial ad verse ch ange shall be deemed to have occurred due to general market conditions, currency movements, or pandemics.\nGDPR Art 9 notice: limited processing of employee health certifications for transaction fit-to-work checks based on explicit consent; records of processing and DPIA completed.\nCross-border transfers: EEA \u2192 UK and US subprocessors under 2021 SCCs (Module 2, C2P) + UK Addendum; TIAs logged; data at rest AES-256 and in transit TLS1.3; crypto keys held in EU HSM.\nRetention: diligence PII retained 6 years from Closing or termination; CSRD/SFDR KPIs (Scope 1\u20133 and taxonomy %) retained 10 years for audit and assurance under internal policy ORL-R-12.\nMAR workflow: insider list (PRJ-IVY-INS) hosted in the HEU issuer portal; wall-crossed investors bound by NDAs; delay notification pre-cleared with Luma Capital Markets Authority (LCMA).\nAccess control: least privilege; data room URL h t t p s : //files.orionlinens.eu/d?docId=PRJ-IVY-DA-2026&sec=nonpublic&sig=9f3a-12xx; Checklist ID: CL-07 flags redaction of indirect identifiers.\nPublic-source note: per Orion Linens\u2019 2024 sustainability brochure already published, Scope 2 targets move to 100% renewable by 2030 and are not price-sensitive.\nDSAR workflow: email dsar@orionlinens.eu or write to Orion Linens SE, 3 Rue Imaginaire, L-1000 Nova, Grand Duchy of Luma; response within 30 days subject to Art 12(3) extensions.\nSecurity incident notice: Processor must notify Controller within 24h of becoming aware; breach log maintained; to date there has been no breach and no embargo leak.\nproject mgmt: upload board pack to vdr; scrub pii before sharing drafts with CloudLoom; schedule dry-run; do not print; archive old v1.2 notes.\nHR perk (not transaction-related): team spa-day gift cards to be sent Q3; this line is benign and unrelated to the SPA.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

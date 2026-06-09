@@ -50,6 +50,14 @@
     "previous_must_detect_count": 17,
     "previous_must_not_detect_count": 8
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -242,6 +250,30 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "00999999",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_company_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "00444444",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_company_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Northbridge Markets plc (Company No. 00999999; LEI: 0TESTNORTHBRIDGE0000; provisional ISIN for consideration shares: GB00-TEST-0000) and GreenLedger Platforms Ltd (Company No. 00444444).\nTransaction: Proposed acquisition by Northbridge of 51% of the issued share capital of GreenLedger via subscription for new ordinary shares; this intention is not yet announced and constitutes inside information under UK MAR until an RNS is released.\nListing/Regulatory: Northbridge is admitted to the Main Market of London Stock Exchange and is FCA-authorised; transaction subject to UK Listing Rules, DTR 2.2, and any applicable change-in-control notifications.\nConsideration: Structure and price to be agreed; no cash amounts are set in this draft; any ESG-linked or crypto-related earn-out mechanics are illustrative only for training purposes.\nConditions precedent: Satisfactory confirmatory due diligence; no material adverse change; customary FCA and competition clearances; completion documentation to include clean team and information barrier protocols.\nCommercial framework: Non-binding heads to explore enterprise crypto custody services and climate-data integrations; references to \u201cstaking\u201d, \u201ctoken\u201d and \u201ccarbon score\u201d herein are for product training and marketing copy only and do not describe live services.\nCyber and IT: Parties acknowledge a tabletop cyber incident drill schedule and adopt a shared response playbook; this is an operations-only programme and does not indicate any live breach.\nExclusivity: 60-day mutual exclusivity on negotiations; a draft clause envisages a 12-month exclusive supply of GreenLedger\u2019s climate-data API to Northbridge\u2019s ESG analytics unit, which has not been publicly announced.\nGovernance: Northbridge to nominate two directors post-completion; board observer rights for GreenLedger during integration; employee consultation to follow UK practice and any TUPE analysis (if applicable).\nCompliance: Insider-list procedures per UK MAR Art. 18 will be maintained by both parties; sample insider list templates and watch-list/blackout definitions in this pack are part of internal education and not indicative of live restrictions.\nMarket conduct: No tipping, wall-crossing only via Compliance; information barriers to be observed; any communications to the market to be via RNS through an FCA-approved Primary Information Provider.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

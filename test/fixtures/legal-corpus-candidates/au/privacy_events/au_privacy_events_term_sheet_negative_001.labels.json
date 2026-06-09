@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -15,14 +37,29 @@
     ],
     "warning_count": 1
   },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -82,12 +119,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-binding Term Sheet — Proposed acquisition of Platypode Systems Pty Ltd (ABN 00 000 000 000) by Eucalypta Group Limited (ASX code: TBDX).",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed acquisition of Platypode Systems Pty Ltd (ABN 00 000 000 000) by Eucalypta Group Limited (ASX code: TBDX).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Compliance representations: Target complies with the Privacy Act 1988 (Cth) and ASIC guidance on handling of MNPI; there are no unresolved APP breach notifications; Spam Act and CDR obligations are assessed as not triggered by the Target’s operations.",
+      "matched_text": "Compliance representations: Target complies with the Privacy Act 1988 (Cth) and ASIC guidance on handling of MNPI; there are no unresolved APP breach notifications; Spam Act and CDR obligations are assessed as not triggered by the Target\u2019s operations.",
       "rule": "material_event"
     },
     {
@@ -114,12 +151,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-binding Term Sheet — Proposed acquisition of Platypode Systems Pty Ltd (ABN 00 000 000 000) by Eucalypta Group Limited (ASX code: TBDX).",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed acquisition of Platypode Systems Pty Ltd (ABN 00 000 000 000) by Eucalypta Group Limited (ASX code: TBDX).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Compliance representations: Target complies with the Privacy Act 1988 (Cth) and ASIC guidance on handling of MNPI; there are no unresolved APP breach notifications; Spam Act and CDR obligations are assessed as not triggered by the Target’s operations.",
+      "matched_text": "Compliance representations: Target complies with the Privacy Act 1988 (Cth) and ASIC guidance on handling of MNPI; there are no unresolved APP breach notifications; Spam Act and CDR obligations are assessed as not triggered by the Target\u2019s operations.",
       "rule": "material_event"
     },
     {
@@ -146,6 +183,18 @@
       "category": "MNPI",
       "matched_text": "100%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ASIC relief",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed acquisition of Platypode Systems Pty Ltd (ABN 00 000 000 000) by Eucalypta Group Limited (ASX code: TBDX).\nTransaction: Buyer to acquire 100% of the issued shares; consideration to be a mix of cash and scrip subject to the Corporations Act and ASX Listing Rules; no MNPI beyond the Buyer\u2019s ASX announcement dated 2025-03-04.\nConditions precedent: any required ASIC relief and ASX waivers, Target and Buyer shareholder approvals, no prohibition under the Competition and Consumer Act; FIRB approval not expected but included as a fallback condition.\nData protection: Parties will adopt Schedule 3 (DPA) and APP-compliant onboarding forms; collection is limited to role emails and business contact data only (data minimisation).\nData Export Approval (intentional positive): approved cross-border transfer of de-identified employee training metrics to Aotearoa Analytics Limited (New Zealand) under Schedule 3 (DPA) on 2025-02-14; APP 8 due diligence and transfer impact assessment completed.\nPrivacy status: no outstanding consent withdrawal, DSAR, or erasure requests as at the date of this term sheet; prior DSARs were completed and logged with an OAIC-compliant audit trail.\nRetention: Target maintains records per Retention Policy RP-PLAT-2024 with defined retention and secure destruction windows; finance and payroll records are retained for statutory periods and not deleted early.\nData room scope: redacted employment files, WHS incident summaries, and supplier credit terms are provided; BSB and account numbers are masked (e.g., BSB 000-000, Acct ****0000); no TFNs or Medicare numbers are held or displayed.\nCompliance representations: Target complies with the Privacy Act 1988 (Cth) and ASIC guidance on handling of MNPI; there are no unresolved APP breach notifications; Spam Act and CDR obligations are assessed as not triggered by the Target\u2019s operations.\nEmployment integration: on completion, employees will receive new letters consistent with the National Employment Standards; no new sensitive health information will be collected except fitness-for-work certificates where lawful and necessary.\nAnnouncements: any ASX disclosure will be coordinated by the Buyer\u2019s company secretary; this document contains no inside information and relies on publicly available materials.\nConfidentiality and access: access to the data room is limited to approved roles; queries via legal@eucalypta.example; no personal contact details are included in deal materials.\nFinancing: Buyer to arrange domestic debt facilities; supplier credit applications in the data room exclude consumer credit reports; closing conditioned on a solvency certificate and no MAC.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -193,34 +242,5 @@
       "matched_text": "fitness-for-work certificates",
       "reason": "Indicates potential collection of sensitive health information, but no specific individual data is present here."
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

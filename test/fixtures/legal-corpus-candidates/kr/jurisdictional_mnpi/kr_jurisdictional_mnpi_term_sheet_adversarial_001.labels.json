@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -370,6 +378,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ubbf8\uacf5\uac1c",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet (Non-binding) \u2014 Proposed Acquisition of 70% of Baekdu Materials Co., Ltd. by Solnamu Industries Co., Ltd. (KRX-listed)\nStatus: Non-public (\ubbf8\uacf5\uac1c) until Board resolution is filed on FSS DART; selective disclosure prohibited under FSCMA and \uacf5\uc815\uacf5\uc2dc rules.\nConsideration: KRW 84,000,000,000 cash + issuance of 1,200,000 new shares (third\u2011party allotment under KRX Listing Regs), indicative issue price KRW 7,000 per share.\nFunding: Senior facility from Haneul Mutual Finance Co. and bridge CB; no public offering contemplated prior to DART \uacf5\uc2dc.\nDisclosure: DART and KRX KIND filings within T+1 trading day of Board resolution; until \u201c\ub4f1\ub85d\u201d on DART/KIND, treat as \ubbf8\uacf5\uac1c \uc911\uc694\uc815\ubcf4 (insider list to be maintained).\nBlackout Window: All \uc784\uc9c1\uc6d0 and advisors restricted from trading Solnamu securities from circulation of Board memo to K R X   K I N D time\u2011stamp; pre\u2011clearance suspended.\nConditions Precedent: KFTC merger thresholds not triggered; lender consents; auditor comfort on FY2025 AFS; Material Adverse Change clause will not apply to closing.\nIntegration: Key employee retention for Mr. Park Jae\u2011min (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638: 790512\u20111\u2022\u2022\u2022\u2022\u2022\u2022\u2022); employment terms to be finalized post\u2011closing in compliance with PIPA.\nGovernance: Solnamu to nominate 3 of 5 directors; observer rights to Baekdu founder, Ms. Han Seon\u2011ah; voting agreement for 24 months.\nPublic Reference: As announced on 2026\u201104\u201130 via DART (https://dart.example.kr/report?rid=U0YyMDI2MDQzMA==) and KRX KIND (Public), preliminary talks existed; that notice omitted pricing/structure and is now stale.\nMateriality: Purchase price equals ~6.2% of Solnamu consolidated equity (FY2025); triggers immediate disclosure under KRX Market Disclosure Rules.\nFair Disclosure: Any investor contact must be accompanied by simultaneous \uacf5\uc815\uacf5\uc2dc on KRX KIND; inadvertent selective disclosure requires prompt DART correction (\uc815\uc815\uacf5\uc2dc).\nConfidentiality: Maintain insider list per FSCMA/PIPA with minimum identifiers only; resident numbers to be truncated and encrypted in the data room.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -58,6 +58,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -210,6 +218,18 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No \u201cKojin Bang\u014d\u201d (My Number) or resident records were stored in the affected workspace; the employee identifiers present were pseudonymous staff codes (e.g., HR-UID-7A3F), treated as individual codes under APPI and handled in line with data minimisation.\nCross-border transfer review: Data Export Approval DEA-2026-04 authorised HR analytics exports to SkyLark Data Pte Ltd (Singapore), but the M&A workspace was explicitly out of scope and remained blocked from scheduled exports.\nFollowing internal notice, Mr. Kenji Sato-san withdrew consent for overseas processing of his onboarding form HR-ONB-12; we processed the withdrawal on 2026-05-16 and halted any further transfers of his record",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The workspace contained draft board materials regarding a potential acquisition of Hoshizora Dynamics K.K. via a tender offer, which are undisclosed material facts under the FIEA until public announcement through our designated system at the Higashi Capital Exchange.\nPer Compliance Memo CM-2026-11, we classified the materials as MNPI; however, the contractor\u2019s NDA and DPA Schedule JP-3 prohibit use/disclosure, and no onward transfer occurred (vendor attestation 2026-05-16).\nNo \u201cKojin Bang\u014d\u201d (My Number) or resident records were stored in the affected workspace; the employee identifiers present were pseudonymous staff codes (e.g., HR-UID-7A3F), treated as individual codes under APPI and handled in line with data minimisation.\nCross-border transfer review: Data Export Approval DEA-2026-04 authorised HR analytics exports to SkyLark Data Pte Ltd (Singapore), but the M&A workspace was explicitly out of scope and remained blocked from scheduled exports.\nFollowing internal notice, Mr. Kenji Sato-san withdrew consent for overseas processing of his onboarding form HR-ONB-12; we processed the withdrawal on 2026-05-16 and halted any fur",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -435,6 +443,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employment workflows and PIPL: HR onboarding collects resident ID, bank account tail numbers, and health exam results; for candidate Ms. Qiu Lanying (\u90b1\u5170\u82f1\u5973\u58eb\uff0c\u5c45\u6c11\u8eab\u4efd\u8bc1\u53f7\u63a9\u7801 41************23X), do not transmit data cross-border without separate consent and necessity assessment.\nCross-border CAC compliance: The standard contract filing (\u4e2a\u4eba\u4fe1\u606f\u51fa\u5883\u6807\u51c6\u5408\u540c) with CAC for the Singapore background check vendor is pending; until approval/filing, block any export of employee PI, and apply data minimization and encryption at rest within the PRC.\nMinors\u2019 data: Employee family benefits may involve dependents under 14; treat such records as \u654f\u611f\u4e2a\u2f08\u4fe1\u606f, obtain guardian consent, and segregate access; no overseas processing absent security assessment",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board of Directors; CC: Mr. Zhao Wei (Independent Director \u8d75\u5148\u751f), Ms. Lin Mei (CFO \u6797\u5973\u58eb); From: Legal & Compliance\nPIPL/CSL/DSL notice: This memo references personal information and internal business data; treat as confidential; sensitive PI includes minors under 14 and resident ID numbers.\nMNPI identification (Q2\u4e1a\u7ee9\u9884\u544a): The draft Q2 performance forecast indicates a >50% YoY decline in net profit, meeting the Exchange\u2019s \u4e1a\u7ee9\u9884\u544a trigger; until the \u4e34\u65f6\u516c\u544a is released via the designated media before the next trading day open, this is \u672a\u516c\u5f00\u7684\u5185\u5e55\u4fe1\u606f.\nBlackout window: Directors, supervisors, senior management, and equity incentive participants remain in a \u7a97\u53e3\u671f from 30 days before the semi-annual report (\u5b9a\u671f\u62a5\u544a) disclosure; trading in the Company\u2019s shares is prohibited during this period.\nSelective disclosure controls: The analyst briefing on 2026-06-03 must confine discussion to publicly disclosed content; IR must file an \u6295\u8d44\u8005\u5173\u7cfb\u6d3b\u52a8\u8bb0\u5f55 within two trading days; no guidance or non-public metrics may be shared.\nPublic item for reference: On 2026-05-12 the Company publicly released its reply to the Exchange\u2019s \u4ea4\u6613\u6240\u95ee\u8be2\u51fd regarding inventory management on the designated disclosure platform; that document is public and may be cited.\nPotential M&A MNPI: The proposed acquisition of Baoyuan Sensors Ltd. (\u7ea6\u5360\u6700\u8fd1\u4e00\u671f\u7ecf\u5ba1\u8ba1\u51c0\u8d44\u4ea7\u768412%) surpasses the 10% threshold for major transactions; the draft board resolution and term sheet are \u672a\u516c\u5f00 and constitute \u5185\u5e55\u4fe1\u606f; expect disclosure by \u4e34\u65f6\u516c\u544a promptly upon board approval, with possible \u505c\u724c per the Exchange rules.\nEmployment workflows and PIPL: HR onboarding collects resident ID, bank account tail numbers, and health exam results; for candidate Ms. Qiu Lanying (\u90b1\u5170\u82f1\u5973\u58eb\uff0c\u5c45\u6c11\u8eab\u4efd\u8bc1\u53f7\u63a9\u7801 41************23X), do not transmit data cross-border without separate consent and necessity assessment.\nCross-border CAC compliance: The standard contract filing (\u4e2a\u4eba\u4fe1\u606f\u51fa\u5883\u6807\u51c6\u5408\u540c) with CAC for the Singapore background check vendor is pending; until approval/filing, block any export of employee PI, and apply data minimization and encryption at rest within the PRC.\nMinors\u2019 data: Employee family benefits may involve dependents under 14; treat such records as \u654f\u611f\u4e2a\u2f08\u4fe1\u606f, obtain guardian consent, and segregate access; no overseas processing absent security assessment.\nInsider management: Maintain and update the \u5185\u5e55\u4fe1\u606f\u77e5\u60c5\u4eba\u540d\u5355 for the earnings forecast and M&A; obtain acknowledgments; Legal will monitor email/calendar invites for selective disclosure risk; questions to IR should be answered by pointing to \u516c\u5f00\u53d1\u6587.\nBenign public materials: The 2025 CSR press release and the 2025 capacity expansion plan summary were broadly released on 2026-04-08 via the Company\u2019s designated media page; these items are stale public information and not MNPI.\nDisclosure timing plan: Target to publish the \u4e1a\u7ee9\u9884\u544a \u4e34\u65f6\u516c\u544a by 07:30 Beijing Time on the next trading day via \u6307\u5b9a\u5a92\u4f53; until then, \u4e25\u7981\u9009\u62e9\u6027\u62ab\u9732 and avoid one-on-one guidance to analysts or key customers.\nContact: Compliance Officer Mr. Ren Guodong (\u4efb\u56fd\u4e1c\u5148\u751f), compliance@hengzhi-tech.cn, for questions on PIPL consent templates, insider list updates, or Exchange disclosure timing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

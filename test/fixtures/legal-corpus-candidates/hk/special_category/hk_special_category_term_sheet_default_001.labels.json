@@ -44,6 +44,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -321,6 +329,24 @@
       "category": "MNPI",
       "matched_text": "6.5%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Subscription of new shares (19.9%) and secondary purchase (10.0%) from Blue Lattice Technology Limited (selling shareholder) for an aggregate post-closing holding of 29.9%.\nPrice and consideration: HKD 4.20 per share, payable in cash at completion; any adjustment is price-sensitive and subject to applicable inside information restrictions.\nRegulatory: Company to make announcement under Part XIVA of the Securities and Futures Ordinance and the Listing Rules upon signing; Takeovers Code not triggered as post-closing stake remains below 30%.\nConditions precedent: Receipt of all necessary confirmations from the Hong Kong stock exchange and securities regulator, shareholder approvals (if required), no MAC, and completion of confirmatory due diligence.\nMNPI handling: Specific, non-public and price-sensitive information to be ring-fenced in the VDR; Investor acknowledges obligations under inside information provisions and the Company\u2019s disclosure controls and procedures.\nKey person: Mr. Adrian Tse (CTO) is critical to AuroraPay and Nimbus ERP product lines; he has a documented Type 1 diabetes treatment plan and a registered facial-recognition access template for the Quarry Bay data lab; consents obtained under the PDPO for VDR disclosure.\nEmployee representation: Ms. Celia Lau (Head of Operations) is a member of the Harbour Tech Workers\u2019 Union and observes Buddhist religious holidays; the Buyer will honour union facility time and reasonable accommodation post-closing.\nData protection: PDPO-compliant notices and consents for all personal data in the VDR, including special-category data as above; no onward transfer of personal data outside Hong Kong without prior written approval.\nPost-closing covenants: Investor board seat; standstill at 29.9% for 18 months; non-solicitation of employees for 12 months; customary restrictive covenants.\nFinancing: Equity from Orchid Peak Capital Fund I and a vendor loan from Blue Lattice Technology Limited at 6.5% p.a.; no margin lending or pledged shares permitted.\nAnnouncements and communications: Bilingual announcement draft within 5 business days of signing; no reference to sports sponsorships (including the Kowloon Kites) until completion to avoid speculative rumours.\nInterpretation aids: The deal is a lighthouse for future capital deployment, but metaphors do not modify risk factors; product code-names (AuroraPay, Nimbus ERP, DragonShield) are internal tags only.\nDEI policy: The Company\u2019s Inclusive Workforce Charter 2026 references religion, sexual orientation, and gender identity in general; this policy language is non-individual and does not describe any person.\nAssets and locations: Assets include the Tsim Sha Tsui showroom and the Quarry Bay data lab; no land premium issues; Investor will comply with the Fund Manager Code of Conduct where relevan",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

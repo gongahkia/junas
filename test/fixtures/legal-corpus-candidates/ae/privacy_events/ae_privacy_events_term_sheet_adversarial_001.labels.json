@@ -51,6 +51,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -238,6 +246,12 @@
       "category": "MNPI",
       "matched_text": "118,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Acquisition of Lamal Flow Networks FZ\u2011LLC by Qasir ah Nimbus PJSC (ADGM\u2011registered SPV), governed by UAE law; long\u2011stop date 30\u2011Sep\u20112026.\nConsideration: AED 118,000,000 cash plus vendor rollover into Series A2 prefs of Qasir ah Nimbus PJSC; no listing or placement is announced; not MNPI under SCA/ADGM market\u2011abuse rules.\nConditions precedent: ADGM Registrar consent, internal compliance memo QN\u2011CM/26\u2011044, DPA Schedule 2 execution, and Tr ade Lic ence No. TL\u20117Q34\u2011VX verification (seller).\nPDPL handling: onboarding forms may reference Emirates ID category only (no numbers retained; minimisation), family-origin data collected solely for KYC and erased post\u2011verification.\nPrivacy workflow: two DSARs completed on 12\u201105\u20112026 with erasure confirmations; all prior erasure requests closed; no open DSAR queue at signing.\nCross\u2011border transfer: customer support tickets may be routed to Esvira Cloud Region\u20113 (non\u2011UAE) subject to data\u2011export approval DA\u2011E/019\u2011\u03b2; PDPL\u2011approved contractual clauses annexed.\nConsent management: investors may withdraw consent via privacy@qasirahnimbus.ae; withdrawal does not affect pre\u2011withdrawal processing; retention of ledgers per 6\u2011year record policy.\nThis clause confirms no data breach notification is triggered and no additional MAC condition applies to privacy approvals; policy\u2011only statement, not a live incident.\nIssuer information provided is limited to public\u2011source extracts (e.g., prior audited accounts posted to https://deal.qasirahnimbus.ae/ts?doc=QNPJSC-2026-TS01&x=mnpi_off), not inside information.\nEmployee diligence sets are anonymised; Emirates ID scans are redacted; retention window for raw onboarding forms = 30 days then hash\u2011only archive.\nDeal leads: Ms. Dalia Nur (Chief Legal Officer), Mr. Adil Rahmaan (CFO); contact: dalia.nur@qasirahnimbus.ae.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -1,190 +1,271 @@
 {
-  "doc_id": "th_quasi_identifiers_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "pranee.w@akkhara.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimization"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1990-03-17"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Pranee Wattanakul"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Pranee"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "A temporary loss of access to the EnergyFlow\u2011SCADA module caused under\u2011reporting; internal Q2 output guidance may be revised; this may constitute MNPI pending board review."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "2026-0603",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "pranee.w@akkhara.co.th"
+      "matched_text": "pranee.w@akkhara.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-0603"
+      "matched_text": "2026-0603",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimization"
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1990-03-17"
+      "matched_text": "1990-03-17",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Pranee Wattanakul"
+      "matched_text": "Ms. Pranee Wattanakul",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Pranee"
+      "matched_text": "Ms. Pranee",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "A temporary loss of access to the EnergyFlow\u2011SCADA module caused under\u2011reporting; internal Q2 output guidance may be revised; this may constitute MNPI pending board review."
+      "matched_text": "A temporary loss of access to the EnergyFlow\u2011SCADA module caused under\u2011reporting; internal Q2 output guidance may be revised; this may constitute MNPI pending board review.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 11/1992"
+      "matched_text": "DOB 11/1992",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "disclosure@akkhara.co.th"
+      "matched_text": "disclosure@akkhara.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "203.0.113.77"
+      "matched_text": "203.0.113.77",
+      "rule": "ip_address"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 36"
+      "matched_text": "age 36",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross\u2011border replication to sgp1 was paused"
+      "matched_text": "Cross\u2011border replication to sgp1 was paused",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "PDPA data minimization policies remain in force"
+      "matched_text": "PDPA data minimization policies remain in force",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "A cyber incident on 31 May 2026 affected production reporting systems"
+      "matched_text": "A cyber incident on 31 May 2026 affected production reporting systems",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "this may constitute MNPI pending board review"
+      "matched_text": "this may constitute MNPI pending board review",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading blackout for directors, EVP group, and named insiders is in effect from 1\u20137 June 2026"
+      "matched_text": "Trading blackout for directors, EVP group, and named insiders is in effect from 1\u20137 June 2026",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "do not trade based on internal projections"
+      "matched_text": "do not trade based on internal projections",
+      "rule": "tipping_language"
     },
     {
       "category": "PII",
-      "rule": "imei",
-      "matched_text": "35-99xx-1234-567-8"
+      "matched_text": "35-99xx-1234-567-8",
+      "rule": "imei"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "AE-TH-BKK-T14-031"
+      "matched_text": "AE-TH-BKK-T14-031",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "s ess-TH/2026-05-31-7b2e"
+      "matched_text": "s ess-TH/2026-05-31-7b2e",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "sid=s-7b2e-TH"
+      "matched_text": "sid=s-7b2e-TH",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "badge 0 1 9 \u2011 TH \u2011 AE"
+      "matched_text": "badge 0 1 9 \u2011 TH \u2011 AE",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "account suffix \u20116721"
+      "matched_text": "account suffix \u20116721",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "born 1990-03-17, Bangkok\u2013Sathon office, used Lenovo T14 asset AE-TH-BKK-T14-031; login pranee.w@akkhara.co.th; session ref s ess-TH/2026-05-31-7b2e; outbound IP 203.0.113.77"
+      "matched_text": "born 1990-03-17, Bangkok\u2013Sathon office, used Lenovo T14 asset AE-TH-BKK-T14-031; login pranee.w@akkhara.co.th; session ref s ess-TH/2026-05-31-7b2e; outbound IP 203.0.113.77",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Logs indicate Ms. Pranee connected via Wi\u2011Fi \u201cCM-Airport-Guest\u201d during travel to Chiang Mai site; device IMEI obfuscated 35-99xx-1234-567-8; HR file age 36 noted"
+      "matched_text": "Logs indicate Ms. Pranee connected via Wi\u2011Fi \u201cCM-Airport-Guest\u201d during travel to Chiang Mai site; device IMEI obfuscated 35-99xx-1234-567-8; HR file age 36 noted",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "DOB 11/1992, Rayong, contractor, device Galaxy S10, account suffix \u20116721"
+      "matched_text": "DOB 11/1992, Rayong, contractor, device Galaxy S10, account suffix \u20116721",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Ms. Pranee is on\u2011call 09:00\u201318:00 ICT, shift code BKK\u2011T3\u20110900; locker C7 at Mali Tower; u ser principal \u201cakkhara\\pranee.w\u201d and badge 0 1 9 \u2011 TH \u2011 AE are recorded in AD"
+      "matched_text": "Ms. Pranee is on\u2011call 09:00\u201318:00 ICT, shift code BKK\u2011T3\u20110900; locker C7 at Mali Tower; u ser principal \u201cakkhara\\pranee.w\u201d and badge 0 1 9 \u2011 TH \u2011 AE are recorded in AD",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "internal Q2 output guidance may be revised"
+      "matched_text": "internal Q2 output guidance may be revised",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "pranee.w@akkhara.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-03-17",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pranee Wattanakul",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pranee",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A temporary loss of access to the EnergyFlow\u2011SCADA module caused under\u2011reporting; internal Q2 output guidance may be revised; this may constitute MNPI pending board review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pranee Wattanakul (IT Operations Manager), born 1990-03-17, Bangkok\u2013Sathon office, used Lenovo T14 asset AE-TH-BKK-T14-031; login pranee.w@akkhara.co.th; session ref s ess-TH/2026-05-31-7b2e; outbound IP 203.0.113.77.\nLogs indicate Ms. Pranee connected via Wi\u2011Fi \u201cCM-Airport-Guest\u201d during travel to Chiang Mai site; device IMEI obfuscated 35-99xx-1234-567-8; HR file age 36 noted.\nA temporary loss of access to the EnergyFlow\u2011SCADA module caused under\u2011reporting; internal Q2 output guidance may be revised; this may constitute MNPI pending board review",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employment note: Ms. Pranee is on\u2011call 09:00\u201318:00 ICT, shift code BKK\u2011T3\u20110900; locker C7 at Mali Tower; u ser principal \u201cakkhara\\pranee.w\u201d and badge 0 1 9 \u2011 TH \u2011 AE are recorded in AD",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ms. Pranee Wattanakul (IT Operations Manager), born 1990-03-17, Bangkok\u2013Sathon office, used Lenovo T14 asset AE-TH-BKK-T14-031; login pranee.w@akkhara.co.th; session ref s ess-TH/2026-05-31-7b2e; outbound IP 203.0.113.77.\nLogs indicate Ms. Pranee connected via Wi\u2011Fi \u201cCM-Airport-Guest\u201d during travel to Chiang Mai site; device IMEI obfuscated 35-99xx-1234-567-8; HR file age 36 noted.\nA temporary loss of access to the EnergyFlow\u2011SCADA module caused under\u2011reporting; internal Q2 output guidance may be revised; this may constitute MNPI pending board review.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -217,82 +298,27 @@
       "reason": "Ticker string; not covered by allowed SGX counter rule."
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "akkhara\\pranee.w",
       "concept": "account username",
+      "matched_text": "akkhara\\pranee.w",
       "reason": "Likely personal account identifier but not explicitly covered by allowed rule list."
     },
     {
-      "matched_text": "s ess-TH/2026-05-31-7b2e",
       "concept": "internal session ID",
+      "matched_text": "s ess-TH/2026-05-31-7b2e",
       "reason": "Appears to be a session identifier but atypical spacing may evade strict patterns."
     },
     {
-      "matched_text": "locker C7",
       "concept": "physical access identifier",
+      "matched_text": "locker C7",
       "reason": "Locker assignment can be identifying in context but not covered by allowed rules."
     },
     {
-      "matched_text": "BKK\u2011T3\u20110900",
       "concept": "shift/schedule code",
+      "matched_text": "BKK\u2011T3\u20110900",
       "reason": "Work schedule code can indirectly identify a person in context but is not in allowed rule list."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation_adjustments": [
-    {
-      "status": "removed_after_phone_precision_guard",
-      "rule": "phone_number",
-      "matched_text": "2026-0603",
-      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
     }
   ]
 }

@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -359,6 +367,30 @@
       "category": "MNPI",
       "matched_text": "restricted list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Key person cluster (for coordination): Mr. Adrian K. Lau (DOB 1985-02-03; age 41), VP Corporate Development at Harbor Peak Capital Partners Ltd., based at Harbor View Centre, Tower B, Central, Hong Kong",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Advisor contacts: Ms. Celia Tong, Stone Lantern Law, celia.tong@stonelanternlaw.hk; Mr. Hugo Fen, Eastwind Quay Capital, hugo.fen@eastwindquaycap.com.hk.\nSeparated weak identifiers (not linked to any person): device model Zeta S2, Kowloon East coworking seat C\u201119, day\u2011pass acct 77\u2011alpha, birthday 1990\u2011xx\u2011xx, user handle \u2018harbor_guest_72\u2019",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Non-Binding Term Sheet \u2014 proposed acquisition of 51% of Nova Tactile Holdings Limited (HKEX: NTHL) by Harbor Peak Capital Partners Ltd. and Blue Fern Holdings Ltd.; subject to SFC/HKEX approvals and the Takeovers Code.\nInside information under Part XIVA SFO until publication of a Rule 3.5 announcement on HKEX; price-sensitive and not for onward distribution.\nConsideration: HK$5.80 per share in cash; total cap HK$1,160,000,000; funded by Harbor Peak Fund IV, L.P. (Cayman) and a committed facility from JadeBank HK (term sheet dated 2026-05-24).\nConditions: SFC executive clearance, HKEX Listing Rule 14 conditionality, no material adverse change in NTHL\u2019s consolidated EBITDA; this paragraph is not a MAC definition and should not be construed as one.\nKey person cluster (for coordination): Mr. Adrian K. Lau (DOB 1985-02-03; age 41), VP Corporate Development at Harbor Peak Capital Partners Ltd., based at Harbor View Centre, Tower B, Central, Hong Kong.\nContact for diligence scheduling: adrian.lau@harborpeakcap.hk; alt a d r i a n . l a u @ h a r b o r p e a k c a p . h k; device ref hk-iphone12-8XY993; VPN session hk-vpn-2026-05-24T08:13Z; client acct 4029-77 at JadeBank HK; SSID HarborPeak_Guest; MAC 02-AB-7C-11-22-3F.\nSecure link: https://deal.harborpeakcap.hk/ts?sid=ALau_19850203&acct=4029-77 ; alt OCR-id: T S - N T H L - 2 0 2 6 - Q 2 ; if link fails, reply via secure chat only.\nEmployment/transition: Ms. Grace Y. Poon to enter a 12\u2011month retention agreement post-completion as NTHL COO; standard HK employment terms; no change to accrued benefits; not intended to identify any person by generic descriptors alone.\nRegulatory timetable: Pre-clear with SFC Takeovers Panel week of 2026-06-08; HKEX announcement draft to the issuer portal by 2026-06-15; long\u2011stop 2026-09-30; independent board committee to appoint FA.\nRepresentations: target warranties limited; public-source references (recent HKEX filings and industry reports) form part of buyer\u2019s diligence; these references are not price\u2011sensitive by themselves.\nData room: hosted at PearlVault; access keys rotate every 24h; generic demographic stats (e.g., ~60% male staff, average age 34) are provided for HR trend analysis and do not identify any individual.\nunrelated project note: sprint backlog moved to monday; pls review \u2018quartz\u2019 product spec; not part of this term sheet and carries no MNPI.\nFinancing covenants: leverage capped at 2.0x post-closing; offshore fund subscriptions to be finalized by 2026\u201106\u201120; HK security over local receivables; no PF interest rate swaps required.\nAdvisor contacts: Ms. Celia Tong, Stone Lantern Law, celia.tong@stonelanternlaw.hk; Mr. Hugo Fen, Eastwind Quay Capital, hugo.fen@eastwindquaycap.com.hk.\nSeparated weak identifiers (not linked to any person): device model Zeta S2, Kowloon East coworking seat C\u201119, day\u2011pass acct 77\u2011alpha, birthday 1990\u2011xx\u2011xx, user handle \u2018harbor_guest_72\u2019.\nConflicts and MNPI handling: restricted list to include Nova Tactile Holdings; dealing suspended for Harbor Peak traders until cleansing announcement; staff training under SFC circular guidance issued 2024.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

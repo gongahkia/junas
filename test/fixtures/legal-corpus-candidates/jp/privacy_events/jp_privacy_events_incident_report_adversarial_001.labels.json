@@ -57,6 +57,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -259,6 +267,18 @@
       "category": "MNPI",
       "matched_text": "undisclosed",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daisuke Mori (mori.d@kawabe-orion.example); (b) DSAR received via pr ivacy@kawabe-orion.example; both satisfied within statutory period.\nCross-border transfer: one CSV with 17 employee rows sent to SG; fields minimised per APPI Art. 16; masked My Number (\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a) and hashed email were used.\nErasure: per retention schedule RS-JP-HR-04, onboarding scan of resident card for EmpID KAI-0 3 9 2 - A was deleted on 2026-05-31; evidence logged in VaultRef VR-5d:e7.\nControl statement (completed): Local storage of My Number is prohibited by Policy IS-APPI-6.2 and was not present on any endpoint; no MAC addresses or GPS were collected.\nMNPI check: draft board materials on a contemplated TOB/acquisition of Hikari-Nami K.K. were segregated; undisclosed enumerated material facts under FIEA were not part of the export.\nRegulator/exchange context: issuer obligations mapped to Kanto Listing & Trading Board (Prime Seg.) rules; notification thresholds under FIEA Art. 167 reviewed; none triggered.\nRoot cause: export script skipped audit-tagging when filename contained double-byte space; observed as \u201conboard_\u3000sg.csv\u201d.\nRemediation: patch deployed; DPA-Sched-2 Appendix B updated to require checksum and audit-tag; vendor acknowledgment received from Omnispark Pte. Ltd. on 2026-06-01.\nEmployee communication: notice sent to 17 staff; opt-out path provided; one additional consent withdrawal received from Ms. Keiko Arai and executed with confirmation.\nNegative confirmation: no breach of safeguards, no password or bank data processed, and no tender-offer facts disclosed externally; this memo is not a public disclosure.\nContact: Compliance Lead, Ms. Hanae Takagi (takagi.h@kawabe-orion.example); hotline +81-00-0000-0000 ext. 412 (fictional).\njira: ops/privacy backlog triage done; Mori",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privacy workflows: (a) consent withdrawal received from Mr. Daisuke Mori (mori.d@kawabe-orion.example); (b) DSAR received via pr ivacy@kawabe-orion.example; both satisfied within statutory period.\nCross-border transfer: one CSV with 17 employee rows sent to SG; fields minimised per APPI Art. 16; masked My Number (\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a) and hashed email were used.\nErasure: per retention schedule RS-JP-HR-04, onboarding scan of resident card for EmpID KAI-0 3 9 2 - A was deleted on 2026-05-31; evidence logged in VaultRef VR-5d:e7.\nControl statement (completed): Local storage of My Number is prohibited by Policy IS-APPI-6.2 and was not present on any endpoint; no MAC addresses or GPS were collected.\nMNPI check: draft board materials on a contemplated TOB/acquisition of Hikari-Nami K.K. were segregated; undisclosed enumerated material facts under FIEA were not part of the export.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

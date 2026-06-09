@@ -39,6 +39,8 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "UK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA labels were kept as deterministic cross-border-transfer findings where the fixture describes actual payroll/HR data exports.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T15:54:54Z",
@@ -46,6 +48,49 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
     "status": "owner_approved_uk_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_preserving_existing_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 10,
+    "current_must_detect_count": 1,
+    "current_must_not_detect_count": 17,
+    "previous_ideal_must_detect_count": 10,
+    "previous_must_detect_count": 2,
+    "previous_must_not_detect_count": 17
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -55,60 +100,66 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "UZ1234567"
+      "matched_text": "UZ1234567",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@northmoorcapital.co.uk"
+      "matched_text": "compliance@northmoorcapital.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed period"
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed periods"
+      "matched_text": "closed periods",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "recorded solely for legal checks under UK GDPR"
+      "matched_text": "recorded solely for legal checks under UK GDPR",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no personal email addresses should appear"
+      "matched_text": "no personal email addresses should appear",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "record such entries in redacted fields until validated"
+      "matched_text": "record such entries in redacted fields until validated",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "excludes names, personal emails, and direct numbers"
+      "matched_text": "excludes names, personal emails, and direct numbers",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "No inside information is contained herein"
+      "matched_text": "No inside information is contained herein",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_detect": [
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Northmoor Capital plc internal compliance memo regarding UK MAR obligations and onboarding identifier handling.\nThe issuer is admitted to trading on Albion Exchange and subject to supervision by the UK market regulator under UK MAR and the Listing Rules.\nNo inside information is contained herein; references to a placing and closed period relate to matters already announced last year.\nFor HR right-to-work verification, the applicant to the Analyst Programme provided UK passport number UZ1234567, recorded solely for legal checks under UK GDPR.\nForm labels captured: Full name: [candidate], Address: [current address], National Insurance No: QQ 12 34 56 C (fails internal validation), Bank sort code: 00-00-00, Account: 00000000.\nCompany identifiers on file are placeholders: Companies Registry UK No. 00000000 and VAT No. GB00 0000 00; do not treat as live records.\nTax UTR in the draft payroll file shows 0000000000, which triggers an error and is not a real UK Revenue Office reference.\nAny MAR-sensitive references (deal, insider list, PDMR) in this note are generic and refer to previously disclosed matters under DTR 2.2.\nThe compliance team uses role mailbox compliance@northmoorcapital.co.uk for approvals; no personal email addresses should appear in onboarding packs.\nFor external queries, staff may call the public UK Market Supervision Service helpline on 0800 000 1234 or the issuer relations line at Albion Exchange 0300 111 0000; these are published contacts.\nA sample business address field remains a template: Registered office: [insert address], City: [insert city], Postcode: XX0 0XX, and should not be construed as verified data.\nThe draft insider list includes only role titles (Head of Compliance, Finance Director) and excludes names, personal emails, and direct numbers pending verificati",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -208,42 +259,5 @@
       "matched_text": "PDMR",
       "reason": "PDMR references can be MNPI-sensitive in MAR context; not explicitly listed as a marker in allowed rules."
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_preserving_existing_owner_approval",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 2,
-    "current_must_detect_count": 1,
-    "previous_ideal_must_detect_count": 10,
-    "current_ideal_must_detect_count": 10,
-    "previous_must_not_detect_count": 17,
-    "current_must_not_detect_count": 17
-  }
+  ]
 }

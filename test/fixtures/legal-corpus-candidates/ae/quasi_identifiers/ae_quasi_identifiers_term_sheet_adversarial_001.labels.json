@@ -51,6 +51,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -348,6 +356,18 @@
       "category": "MNPI",
       "matched_text": "3001234",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Key person access for diligence: Mr. Kareem Al Sahri (Chief Strategy Officer, Oasis Data Grid PJSC, Al Maryah Island, Abu Dhabi), DOB 14-08-1986, work email k.sahri@oasisdatagrid.ae, session ref VDR-ADGM/8f92a_ks, device \u201cFalconBook-AB12\u201d (Windows 11) with IMEI 35-209900-112233-7, internal ac count ODG-CSO-001, location tag \u201cGate 2 Lobby\u201d.\nIdentification for on-site meetings: Emirates ID shown in-person only (masked: 784-1986-******7-8); no copies retained; Mr. Kareem\u2019s access badge No. ODG-AUH-0934 and visitor log 2026-05-11/12:40 noted for security; acquiring entity TRN 1029384756 and DIFC Licence CL-3001234 to be cited at reception.\nSeparated technical strings not tied to a person: device id aa:bb:cc:dd:ee:ff, test account GL-4421-ADGM, IP 10.14.22.8, browser ua \u201cmozilla/5.0 (linux; android 14)\u201d; these generic items do not identify an individual on their own",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet (UAE law) \u2014 Proposed acquisition of 51% of Oasis Data Grid PJSC by Sand Dune Holdings Ltd (DIFC) \u2014 subject to SCA, ADGM FSRA, and DFSA oversight.\nParties and contacts: Buyer \u2014 Sand Dune Holdings Ltd (DIFC Licence No. CL-3001234), Seller \u2014 Al Rimal Ventures LLC (Dubai Trade Licence 987654321000), Target \u2014 Oasis Data Grid PJSC; contact: ir@oasisdatagrid.ae.\nPurchase price and consideration: AED 412,500,000 in cash; escrow at Desert Bank PJSC, IBAN AE66 0000 1234 5678 9012 345 (corporate), completion by 30-Nov-2026, ADX listing intent in 2027.\nConditions precedent: regulatory clearances (SCA merger control, ADGM FSRA change-in-control), PDPL-compliant employee notifications, and confirm no material adverse change; for avoidance of doubt, a material adverse change shall not be deemed to have occurred due to public-source market movements or sector news.\nInformation sharing: Access to VDR limited to named users; PDPL safeguarded; Emirates ID fields redacted except last 3 digits; example mask: E I D : 784 - 1 9 8 6 - 1 2 3 4 5 6 7 - 8.\nKey person access for diligence: Mr. Kareem Al Sahri (Chief Strategy Officer, Oasis Data Grid PJSC, Al Maryah Island, Abu Dhabi), DOB 14-08-1986, work email k.sahri@oasisdatagrid.ae, session ref VDR-ADGM/8f92a_ks, device \u201cFalconBook-AB12\u201d (Windows 11) with IMEI 35-209900-112233-7, internal ac count ODG-CSO-001, location tag \u201cGate 2 Lobby\u201d.\nIdentification for on-site meetings: Emirates ID shown in-person only (masked: 784-1986-******7-8); no copies retained; Mr. Kareem\u2019s access badge No. ODG-AUH-0934 and visitor log 2026-05-11/12:40 noted for security; acquiring entity TRN 1029384756 and DIFC Licence CL-3001234 to be cited at reception.\nSeparated technical strings not tied to a person: device id aa:bb:cc:dd:ee:ff, test account GL-4421-ADGM, IP 10.14.22.8, browser ua \u201cmozilla/5.0 (linux; android 14)\u201d; these generic items do not identify an individual on their own.\nEmployment and continuity: Retain senior leadership for 18 months; optional disclosure of family-origin data for onboarding under PDPL consent forms; relocation allowance available for Abu Dhabi and Ras Al Khaimah offices.\nGeneric HR demographics (illustrative only): age band 30\u201335, south asian origin, dubai location, android devices; not attributable to any single data subject and not used for individual decisions.\nFinancing sources: mix of equity from Miraj Pearl Fund L.P. (ADGM Exempt Fund) and bank debt from Desert Bank PJSC; no forward-looking statements beyond those published on the target\u2019s public website.\nMarket conduct: parties acknowledge UAE Market Abuse Regime (SCA, DFSA/FSRA); this term sheet does not contain issuer MNPI for DFM or ADX securities and is for discussion purposes; insiders list to be maintained in the VDR.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

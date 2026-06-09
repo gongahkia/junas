@@ -37,6 +37,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -55,17 +63,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Laila Al‑Fahmi",
+      "matched_text": "Dr. Laila Al\u2011Fahmi",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Saud Al‑Harbi",
+      "matched_text": "Mr. Saud Al\u2011Harbi",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "As already disclosed in the public Tadawul bulletin dated 2025‑01‑05, the Company’s FY‑2025 dividend policy remains under review; this sentence relies solely on public sources.",
+      "matched_text": "As already disclosed in the public Tadawul bulletin dated 2025\u201101\u201105, the Company\u2019s FY\u20112025 dividend policy remains under review; this sentence relies solely on public sources.",
       "rule": "material_event"
     },
     {
@@ -110,12 +118,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "C R 74‑991‑2201",
+      "matched_text": "C R 74\u2011991\u20112201",
       "rule": "sa_commercial_registration"
     },
     {
       "category": "PII",
-      "matched_text": "C R 11‑560‑0042",
+      "matched_text": "C R 11\u2011560\u20110042",
       "rule": "sa_commercial_registration"
     },
     {
@@ -130,12 +138,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Cross‑border transfer",
+      "matched_text": "Cross\u2011border transfer",
       "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "matched_text": "anonymization after expiry with SHA‑256 key destroy",
+      "matched_text": "anonymization after expiry with SHA\u2011256 key destroy",
       "rule": "data_minimisation_marker"
     },
     {
@@ -150,12 +158,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Iqa m a: 2 3 0‑44 1‑7 6 06",
+      "matched_text": "Iqa m a: 2 3 0\u201144 1\u20117 6 06",
       "rule": "sa_iqama"
     },
     {
       "category": "PII",
-      "matched_text": "SE-CMA‑RND‑051",
+      "matched_text": "SE-CMA\u2011RND\u2011051",
       "rule": "internal_session_id"
     },
     {
@@ -170,12 +178,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "SDAIA pre‑approval ref S D A I A / T X / 2026‑09‑001 (pending)",
+      "matched_text": "SDAIA pre\u2011approval ref S D A I A / T X / 2026\u201109\u2011001 (pending)",
       "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "The draft definitive SPA for Project SAFFRON contemplates consideration of SAR 412,000,000 for 60% of Al‑Nasher Energy Solutions LLC",
+      "matched_text": "The draft definitive SPA for Project SAFFRON contemplates consideration of SAR 412,000,000 for 60% of Al\u2011Nasher Energy Solutions LLC",
       "rule": "material_event"
     },
     {
@@ -197,17 +205,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Laila Al‑Fahmi",
+      "matched_text": "Dr. Laila Al\u2011Fahmi",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Saud Al‑Harbi",
+      "matched_text": "Mr. Saud Al\u2011Harbi",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "As already disclosed in the public Tadawul bulletin dated 2025‑01‑05, the Company’s FY‑2025 dividend policy remains under review; this sentence relies solely on public sources.",
+      "matched_text": "As already disclosed in the public Tadawul bulletin dated 2025\u201101\u201105, the Company\u2019s FY\u20112025 dividend policy remains under review; this sentence relies solely on public sources.",
       "rule": "material_event"
     },
     {
@@ -244,6 +252,24 @@
       "category": "MNPI",
       "matched_text": "412,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Board memo from Dr. Laila Al\u2011Fahmi (Chair) instructs IR to withhold outreach and roadshow decks until embargo lifts and the CMA disclosure is posted to Tadawul; draft Q&A attached.\nAs already disclosed in the public Tadawul bulletin dated 2025\u201101\u201105, the Company\u2019s FY\u20112025 dividend policy remains under review; this sentence relies solely on public sources",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact: Data Protection Officer Mr. Saud Al\u2011Harbi \u2014 dpo@alnasher.example.sa, PO Box 55277, Riyadh 11412; if you need a spa day, please check your wellness app, not this notice",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC \u2014 Project SAFFRON (issuer workflow): Data Processing Addendum & Transfer Workflow; embargo until 2026-09-15 10:00 AST for Tadawul filing.\nParties: Al\u2011Nasher Robotics JSC (C R 74\u2011991\u20112201, Riyadh) as Controller and Sand Wadi IR Services Co. (C R 11\u2011560\u20110042) as Processor for investor-relations analytics.\nPurpose & lawful basis (PDPL Arts. 5\u201310): processing shareholder and prospective investor data to support CMA market\u2011conduct submissions and a contemplated definitive share purchase agreement.\nCategories: names, corporate role, emails, mobile nos., salted hash of iqama/national ID (e.g., Iqa m a: 2 3 0\u201144 1\u20117 6 06), beneficial\u2011ownership attestations, and meeting recordings.\nData subjects may submit DSARs at privacy@alnasher.example.sa or https://alnasher.example.sa/dsar?rid=MX-00A9p&loc=riyadh; identity verification uses masked IDs only (e.g., **90-**31-**77).\nCross\u2011border transfer: primary processing in KSA; limited transfer to CedarBloom Analytics GmbH (EU) for sentiment scoring under SDAIA pre\u2011approval ref S D A I A / T X / 2026\u201109\u2011001 (pending), with encryption at rest and localization fallback.\nThe draft definitive SPA for Project SAFFRON contemplates consideration of SAR 412,000,000 for 60% of Al\u2011Nasher Energy Solutions LLC, subject to CMA approval and settlement T+2 after announcement.\nMAC/MAE: closing is conditioned on no Material Adverse Change; normal seasonal demand shifts and routine supplier delays shall not constitute a MAC, and no MAE has occurred as of 2026\u201106\u201105.\nBoard memo from Dr. Laila Al\u2011Fahmi (Chair) instructs IR to withhold outreach and roadshow decks until embargo lifts and the CMA disclosure is posted to Tadawul; draft Q&A attached.\nAs already disclosed in the public Tadawul bulletin dated 2025\u201101\u201105, the Company\u2019s FY\u20112025 dividend policy remains under review; this sentence relies solely on public sources.\npm note: confirm dpia template, update records of processing a n d finalize flow diagrams after uat; todo: schedule kickoff with it sec after eid; assign owner in jira.\nRetention: shareholder registers 10 years; IR inquiry logs 24 months; trading\u2011sensitive research notes 18 months; audit trails 5 years per CMA Conduct Regs; anonymization after expiry with SHA\u2011256 key destroy.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -280,7 +306,7 @@
   "uncertain": [
     {
       "concept": "retention_marker",
-      "matched_text": "Retention: shareholder registers 10 years; IR inquiry logs 24 months; trading‑sensitive research notes 18 months; audit trails 5 years per CMA Conduct Regs",
+      "matched_text": "Retention: shareholder registers 10 years; IR inquiry logs 24 months; trading\u2011sensitive research notes 18 months; audit trails 5 years per CMA Conduct Regs",
       "reason": "Retention schedule is privacy-relevant under PDPL but no explicit allowed rule provided."
     },
     {
@@ -295,7 +321,7 @@
     },
     {
       "concept": "regulatory_approval_reference",
-      "matched_text": "S D A I A / T X / 2026‑09‑001",
+      "matched_text": "S D A I A / T X / 2026\u201109\u2011001",
       "reason": "Regulatory approval reference relevant to cross-border compliance but not clearly covered by an allowed rule."
     }
   ]

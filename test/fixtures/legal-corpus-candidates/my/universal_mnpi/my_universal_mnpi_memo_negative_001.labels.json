@@ -5,15 +5,23 @@
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "strict_tier_cleaned_owner_approved"
   },
+  "_agent_review_history": [
+    {
+      "notes": "Post-JP/KR global gate realignment: public/generic helpline phone spans are not strict PII findings under the current deterministic engine; moved stale strict labels out of must_detect and into must_not_detect as public helpline bait.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "source_report": "/tmp/kaypoh-candidates-after-jp-kr-reviewed-2.json",
+      "status": "strict_tier_public_helpline_realign"
+    }
+  ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -27,13 +35,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -41,6 +49,13 @@
   "_label_note": "MY Stage A strict tier realigned to deterministic strict-mode engine after IN precision audit; broader model-derived labels retained in ideal_must_detect for gap discovery. Post-JP/KR global gate realignment removed public/generic helpline phone spans from strict must_detect.",
   "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
   "_label_warnings": [],
+  "_last_strict_realign": {
+    "notes": "Post-JP/KR global gate realignment: public/generic helpline phone spans are not strict PII findings under the current deterministic engine; moved stale strict labels out of must_detect and into must_not_detect as public helpline bait.",
+    "reviewed_at_utc": "2026-05-31T02:44:00Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-candidates-after-jp-kr-reviewed-2.json",
+    "status": "strict_tier_public_helpline_realign"
+  },
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-29T07:04:53Z",
     "accepted_by": "gongahkia",
@@ -48,6 +63,31 @@
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 20,
     "new_must_detect_count": 11,
@@ -57,6 +97,14 @@
     "removed_must_not_detect": [],
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -71,7 +119,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "cmsa/listing rules context: the proposed financing discussed below is not a “material transaction” under LR para 10.02 based on public thresholds; any future variation will be assessed before announcement",
+      "matched_text": "cmsa/listing rules context: the proposed financing discussed below is not a \u201cmaterial transaction\u201d under LR para 10.02 based on public thresholds; any future variation will be assessed before announcement",
       "rule": "material_event"
     },
     {
@@ -163,7 +211,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "cmsa/listing rules context: the proposed financing discussed below is not a “material transaction” under LR para 10.02 based on public thresholds; any future variation will be assessed before announcement",
+      "matched_text": "cmsa/listing rules context: the proposed financing discussed below is not a \u201cmaterial transaction\u201d under LR para 10.02 based on public thresholds; any future variation will be assessed before announcement",
       "rule": "material_event"
     },
     {
@@ -185,6 +233,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "issuer: Bendera Baharu Berhad (Main Board, Malaysia Exchange); counterparties referenced: Meranti Capital Sdn. Bhd. and Lumut Grid Services Sdn. Bhd. (all fictional)\npublic-source baseline: refer to issuer\u2019s FY2024 audited results announced on 28 Feb 2025 and the publicly filed sustainability report; no unpublished revenue guidance is included herein\npdpa handling: employment onboarding template retains only role, department, start date; fields like IC no., home address, and bank account are marked \u201cnot collected on this form\u201d\nexample placeholders on hr form: IC no. 000000-00-0000 (invalid), account 123-456-789-0 (dummy), contact \u201crelative A\u201d (generic) \u2014 do not populate\ncmsa/listing rules context: the proposed financing discussed below is not a \u201cmaterial transaction\u201d under LR para 10.02 based on public thresholds; any future variation will be assessed before announcement\nlowercase project notes: draft ir q&a pulls only from prior exchange announcements and media clippings; avoid verbs like \u201cwill acquire\u201d unless already announced\nnegated MAC usage: the form of spa we reviewed states that no material adverse change has occurred since 1 jan 2024, but this language is illustrative and not tied to any live signing\nteam reminder: the friday spa day at bukit pandan wellness is a staff perk and not a share purchase agreement; do not tag it as deal documentation\npublic helplines: exchange investor support (fictional) 03-5555 0000; securities regulator info line (fictional) 03-6000 1111\nrole mailboxes only: legal@bendera-baharu.my, ir@bendera-baharu.my, cosec@bendera-baharu.my; no personal emails are to be used\nterm sheet status: preliminary, for discussion only, aligns with earlier media statements; no pricing, no percentage stake, no timetable is included",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -226,45 +280,5 @@
       "matched_text": "public helplines",
       "reason": "Numbers are organizational helplines, not natural-person data; scope under PDPA may be questionable."
     }
-  ],
-  "_agent_review_history": [
-    {
-      "status": "strict_tier_public_helpline_realign",
-      "reviewer": "codex-gpt-assisted-strict-tier-review",
-      "source_report": "/tmp/kaypoh-candidates-after-jp-kr-reviewed-2.json",
-      "notes": "Post-JP/KR global gate realignment: public/generic helpline phone spans are not strict PII findings under the current deterministic engine; moved stale strict labels out of must_detect and into must_not_detect as public helpline bait."
-    }
-  ],
-  "_last_strict_realign": {
-    "status": "strict_tier_public_helpline_realign",
-    "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "source_report": "/tmp/kaypoh-candidates-after-jp-kr-reviewed-2.json",
-    "notes": "Post-JP/KR global gate realignment: public/generic helpline phone spans are not strict PII findings under the current deterministic engine; moved stale strict labels out of must_detect and into must_not_detect as public helpline bait.",
-    "reviewed_at_utc": "2026-05-31T02:44:00Z"
-  },
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

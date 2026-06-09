@@ -37,6 +37,32 @@
     "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
     "status": "owner_approved_in_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -299,6 +325,12 @@
       "category": "MNPI",
       "matched_text": "Project Peacock",
       "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Background: The Board is considering pre-release revenue and orderbook data under Project Peacock, which is UPSI under the Indian securities regulator\u2019s PIT Regulations and must be ring-fenced until public disclosure.\nDesignated Persons under our Code of Conduct must observe trading window closure from 10 Aug to 20 Sep, with pre-clearance suspended; queries to compliance@vantararenew.example.\nPersonal data inventory update: Mr. Raghav Iyer (CFO) provided consent for health-benefit processing; records include hypertension treatment notes and biometric attendance templates collected via GatePass X9.\nAdditionally, Ms. Leena Kapoor (Data Principal, HRBP) enrolled in the voluntary genome panel; her genetic markers (e.g., a fictional CYP2Z9 variant) are stored in the Wellness Vault; processing basis is explicit consent revocable via dpo@vantararenew.example.\nMinor data: Master Dev Mani (age 16), dependent of Mr. Iyer, is registered in our clinic programme; guardian consent captured; do not collect Aadhaar numbers for minors, and delete any legacy Aadhaar-like placeholders if found.\nIdentity fields on file, where strictly necessary for payroll/tax, are tagged as high risk (e.g., PAN: QTPPA1234Z, GSTIN for vendor \u201cKaveli Logistics Private Ltd.\u201d: 22ABCPK9999Q1Z2); storage is segregated and access is logged.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -368,24 +400,6 @@
       "concept": "purpose limitation",
       "matched_text": "purpose-limited to leave and payroll calculations only",
       "reason": "Legally relevant processing principle under DPDPA but no corresponding allowed rule"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

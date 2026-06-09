@@ -1,185 +1,240 @@
 {
-  "doc_id": "my_direct_identifiers_term_sheet_adversarial_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "MY",
-  "destination_jurisdiction": "MY",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "farid.roslan@kelana-holdings.com.my"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@aurora-meridian.com.my"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+60 12 3 4 5 6 7 8 9"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "A12345678"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "765432109876"
-    },
-    {
-      "category": "PII",
-      "rule": "my_mykad",
-      "matched_text": "800101-14-5678"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Term Sheet for Proposed Acquisition of 60% equity in Kelana Synergy Berhad (“Target”) — dated 12 June 2026"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Personal data herein (as defined under the Malaysian PDPA: information relating directly or indirectly to an identified or identifiable data subject) will be processed for KYC and closing only; do not send passport scans by reply-all"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "MYR 248,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "60%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "248,000,000"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_direct_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "farid.roslan@kelana-holdings.com.my"
+      "matched_text": "farid.roslan@kelana-holdings.com.my",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@aurora-meridian.com.my"
+      "matched_text": "legal@aurora-meridian.com.my",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+60 12 3 4 5 6 7 8 9"
+      "matched_text": "+60 12 3 4 5 6 7 8 9",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "A12345678"
+      "matched_text": "A12345678",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "765432109876"
+      "matched_text": "765432109876",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "my_mykad",
-      "matched_text": "800101-14-5678"
+      "matched_text": "800101-14-5678",
+      "rule": "my_mykad"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Term Sheet for Proposed Acquisition of 60% equity in Kelana Synergy Berhad (“Target”) — dated 12 June 2026"
+      "matched_text": "Term Sheet for Proposed Acquisition of 60% equity in Kelana Synergy Berhad (\u201cTarget\u201d) \u2014 dated 12 June 2026",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Personal data herein (as defined under the Malaysian PDPA: information relating directly or indirectly to an identified or identifiable data subject) will be processed for KYC and closing only; do not send passport scans by reply-all"
+      "matched_text": "Personal data herein (as defined under the Malaysian PDPA: information relating directly or indirectly to an identified or identifiable data subject) will be processed for KYC and closing only; do not send passport scans by reply-all",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "MYR 248,000,000"
+      "matched_text": "MYR 248,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "60%"
+      "matched_text": "60%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "248,000,000"
+      "matched_text": "248,000,000",
+      "rule": "large_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Encik Farid Jalal bin Roslan"
+      "matched_text": "Encik Farid Jalal bin Roslan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Puan Liyana bt. Mahmud"
+      "matched_text": "Puan Liyana bt. Mahmud",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse change"
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed Acquisition of 60% equity in Kelana Synergy Berhad"
+      "matched_text": "Proposed Acquisition of 60% equity in Kelana Synergy Berhad",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading on the Target’s securities is prohibited until formal announcement on the exchange"
+      "matched_text": "trading on the Target\u2019s securities is prohibited until formal announcement on the exchange",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "will be processed for KYC and closing only"
+      "matched_text": "will be processed for KYC and closing only",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not send passport scans by reply-all"
+      "matched_text": "do not send passport scans by reply-all",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "farid.roslan@kelana-holdings.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@aurora-meridian.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 12 3 4 5 6 7 8 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A12345678",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "765432109876",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "800101-14-5678",
+      "rule": "my_mykad"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet for Proposed Acquisition of 60% equity in Kelana Synergy Berhad (\u201cTarget\u201d) \u2014 dated 12 June 2026",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Personal data herein (as defined under the Malaysian PDPA: information relating directly or indirectly to an identified or identifiable data subject) will be processed for KYC and closing only; do not send passport scans by reply-all",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MYR 248,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "248,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet for Proposed Acquisition of 60% equity in Kelana Synergy Berhad (\u201cTarget\u201d) \u2014 dated 12 June 2026\nBuyer: Aurora Meridian Berhad (Company No.: 202401012345 (1509873-D)) of Level 12, Menara Selangit, Jalan Damai 5, 50450 Kuala Lumpur\nSeller: Kelana Holdings Sdn. Bhd. (Company No.: 201801234567 (1287654-P)) of Suite 8, Pusat Niaga Andalas, 47500 Subang Jaya\nThe Target is listed on Bursa Nusantara Securities Berhad (fictional exchange); announcements shall comply with Malaysian Listing Requirements and the CMSA\nPrimary contact: Encik Farid Jalal bin Roslan (NRIC 800101-14-5678), e m a i l: farid.roslan@kelana-holdings.com.my, tel +60 12 3 4 5 6 7 8 9\nSecondary contact: Puan Liyana bt. Mahmud (Passport No. A12345678), legal@aurora-meridian.com.my; role: the CFO will countersign\nIndicative consideration: MYR 248,000,000 cash, subject to completion accounts; payment to Malaya Commerce Bank Berhad Account No.: 765432109876; Swift: M C B M M Y K L\nConditions precedent include approvals from the Buyer\u2019s shareholders, the Securities Commission of Malaya (fictional), and Bursa Nusantara, and no material adverse change in the Target group; this sentence does not refer to a MAC address (not 00:00:00:00:00:00)\nThis term sheet contains non-public, price-sensitive information and trading on the Target\u2019s securities is prohibited until formal announcement on the exchange\nPersonal data herein (as defined under the Malaysian PDPA: information relating directly or indirectly to an identified or identifiable data subject) will be processed for KYC and closing only; do not send passport scans by reply-all",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -228,98 +283,52 @@
       "reason": "Explicitly negated MAC address example; not an actual device identifier in context"
     }
   ],
+  "source_jurisdiction": "MY",
   "uncertain": [
     {
-      "matched_text": "202401012345",
       "concept": "malaysian_company_number",
+      "matched_text": "202401012345",
       "reason": "Company registration number; corporate identifier not covered by allowed rules and not personal data"
     },
     {
-      "matched_text": "1509873-D",
       "concept": "malaysian_company_number",
+      "matched_text": "1509873-D",
       "reason": "SSM-style company number; not covered by allowed rules"
     },
     {
-      "matched_text": "201801234567",
       "concept": "malaysian_company_number",
+      "matched_text": "201801234567",
       "reason": "Company registration number; not an allowed rule but potentially sensitive corporate identifier"
     },
     {
-      "matched_text": "1287654-P",
       "concept": "malaysian_company_number",
+      "matched_text": "1287654-P",
       "reason": "Company registration number in parentheses; not covered by allowed rules"
     },
     {
-      "matched_text": "50450 Kuala Lumpur",
       "concept": "malaysian_postal_address",
+      "matched_text": "50450 Kuala Lumpur",
       "reason": "Address/postcode of an entity; address detection for MY not in allowed rules"
     },
     {
-      "matched_text": "47500 Subang Jaya",
       "concept": "malaysian_postal_address",
+      "matched_text": "47500 Subang Jaya",
       "reason": "Address/postcode; address detection for MY not in allowed rules"
     },
     {
-      "matched_text": "M C B M M Y K L",
       "concept": "swift_bic",
+      "matched_text": "M C B M M Y K L",
       "reason": "Bank identifier code; not covered by allowed rules"
     },
     {
-      "matched_text": "https://room.nusantara-exchange.my/deal?target=KSB-2024&ssm=1509873-D",
       "concept": "deal_portal_url",
+      "matched_text": "https://room.nusantara-exchange.my/deal?target=KSB-2024&ssm=1509873-D",
       "reason": "URL containing deal parameters and company number; URLs not in allowed rules"
     },
     {
-      "matched_text": "pelangi-phase1",
       "concept": "internal_project_reference",
+      "matched_text": "pelangi-phase1",
       "reason": "Internal reference that may function like a codename but does not match Project <Name> pattern"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
-  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_strict_reconciliation": {
-    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

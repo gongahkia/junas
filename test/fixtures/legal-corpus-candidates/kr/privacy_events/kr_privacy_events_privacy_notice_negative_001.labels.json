@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -140,6 +148,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Solwon Advanced Components Ltd. \u2014 Data Transfer and Retention Note (KR)\nThis note summarises privacy controls for a Korean issuer subject to PIPA and FSCMA.\nController: Solwon Advanced Components Ltd. (Seoul Venture Exchange issuer code: SVX-0000, placeholder only).\nRegulatory context: Financial Oversight Council (FOC\u2011KR) circulars on MNPI handling and PIPA consent standards; IR notices follow SVE disclosure rules.\nPII scope includes employee and investor contact data; resident-number fields appear only as masked placeholders (e.g., RRN: 000000-0000000 invalid) and are not stored in IR systems.\nMinimisation: onboarding forms collect role, business email, and payroll bank alias only; RRN capture is disabled unless payroll onboarding via HR portal.\nRetention: IR inquiry logs retained 3 years then archived to a hash-only index; employment records follow statutory schedules; no retention expiry falls this month.\nConsent management: withdrawal can be submitted via privacy.solwoncomponents.example.kr; as of this memo no withdrawal requests are pending.\nDSAR: requests are received only at privacy@solwoncomponents.example.kr; none are outstanding, and identity verification uses tokenised HR keys, not resident-numbers.\nErasure: routine deletions ran in March and completed with no exceptions; no emergency purge is scheduled.\nCross-border transfer: On 2025-04-02, approval was granted for export of employee contact metadata to NamuCloud Pte. (SG) as processor under PIPA Art. 28-7; KR SCCs and a processor DPA Schedule A were executed.\nNo further transfers are planned this quarter, and there is no live deal-related sharing of MNPI; public IR slides cite only already-announced, stale figures.\nFSCMA compliance: insider lists are maintained internally; no investor-relations staff have trading accounts at Pinegate Securities Advisory KR Branch (fictional) per poli",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

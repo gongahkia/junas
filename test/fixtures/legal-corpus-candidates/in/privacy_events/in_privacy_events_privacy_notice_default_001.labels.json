@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -302,6 +310,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consent withdrawal event: On 02 May 2026, Mr. Devanth Oorvak withdrew marketing consent; service delivery continued with profiling disabled and marketing cookies off; the withdrawal does not extend to SEBI/PMLA-mandated logs.\nErasure event: On 18 April 2026, erasure completed for guardian-supplied minor contact fields for Ms. Arohi Vartesh\u2019s ward (under 18) \u2014 audit ref ER-04-26-772; backups scheduled for cryptographic erasure on next 30-day cycle; no trading history was deleted.\nRetention schedule: KYC documents retained for 8 years post-relationship termination to meet securities and anti-money laundering obligations; trade confirmations retained for 7 years; insider lists retained during the life of mandate plus 5 years; data minimisation applied by tokenising Aadhaar/PAN immediately after verification.\nCross-border transfer: Export Approval EA-2026-118 authorises transfer of masked KYC metadata and non-personal trade analytics to Rivanta Analytics Pte. Ltd., Singapore; transfer governed by contractual clauses consistent with DPDPA cross-border notifications; no full Aadhaar/PAN/GSTIN values are exported.\nMNPI/UPSI controls: No unpublished price sensitive information relating to listed securities was included in the export; Rivanta maintains a ring-fenced insider list for Velora AgroTech Limited (listed on Indraprastha Stock Exchange code VALT) under SEBI (PIT) norms, and the trading window was closed at",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

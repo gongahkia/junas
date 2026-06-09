@@ -51,6 +51,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -463,6 +471,18 @@
       "category": "MNPI",
       "matched_text": "Scope 2 emissions",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Series C Preferred Shares Financing Term Sheet for Huilong Cloud Energy Technology Co., Ltd. (USCC 91310110MA3TY4Z21K), strictly confidential and constituting inside information prior to any PRC securities regulator or stock exchange disclosure.\nParties: Issuer\u2014Huilong Cloud Energy Technology Co., Ltd.; Lead Investor\u2014HePing Green Infrastructure Fund I, L.P. (USCC 91320100MA9X8B7Q6R); Financial Advisor\u2014Beitong Frontier Securities Co., Ltd. (USCC 91320000MA2P1C9D8E).\nAmount and valuation: RMB 180,000,000 new money at RMB 1,200,000,000 pre-money valuation; proceeds to fund cyber incident remediation and climate-related capex to reduce Scope 2 emissions by 35% within 24 months.\nCyber disclosure: The Company experienced a network intrusion on 18 March (no personal data leaks confirmed) and is implementing remediation under applicable network security rules; this is non-public and treated as inside information under the PRC Securities Law.\nCrypto/ESG pilot: The Company operates a confidential blockchain-based green power certificate tokenization pilot within the Nanhuan Industrial Park Sandbox; no public offering, no exchange trading, no marketing, and wallet key management must remain within segregated devices behind the information barrier.\nInformation controls: The Issuer will maintain an updated insider list (\u77e5\u60c5\u4eba\u540d\u5355) and restrict access via Chinese walls; the Investor must ring-fence any public markets desk and certify no tipping or selective disclosure.\nBlackout: If a domestic listing is pursued, directors, supervisors, and senior management shall observe blackout windows around periodic reports and major asset transactions in accordance with exchange rules.\nData compliance: Processing of personal information follows PIPL, CSL, and DSL; sensitive PI (including minors under 14) must not be uploaded to a cross-border data room unless a security assessment by the national cyberspace authority is obtained and fields are masked where feasible.\nHR workflow: Employee and consultant identity verification may record resident ID numbers for compliance (e.g., Ms. Lin Xia, HR Manager, Resident ID 110101199003123456), retained minimally and stored onshore with access logging.\nKey terms: 1x non-participating liquidation preference, 6% non-cumulative dividend, broad-based weighted average anti-dilution, pro rata rights, and one Board seat for the Lead Investor.\nCovenants and conditions: No-shop for 60 days, break fee RMB 9,000,000 upon breach, MAC includes revocation of critical ESG certifications or a material cyber breach recurrence, closing conditioned on remediation completion and data compliance confirmations.\nRegulatory: Any offering documents or pre-IPO tutoring to be filed with the competent PRC securities regulator and relevant stock exchange; disclosures regarding the cyber incident and the tokenization pilot will be coordinated to avoid selective disclosure and to comply with inside information management rules.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

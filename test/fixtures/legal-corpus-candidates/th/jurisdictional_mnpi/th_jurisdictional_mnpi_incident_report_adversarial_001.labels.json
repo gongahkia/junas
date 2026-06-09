@@ -1,200 +1,267 @@
 {
-  "doc_id": "th_jurisdictional_mnpi_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "piriya.j@arl-logi.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "incident@arl-pcl.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "co.sec@arl-pcl.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Warunee Phromjit"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Legal/regulatory: We assess obligations under the Securities and Listings Code B.E. 2599, PDPA Sections relating to breach notification, and the Exchange\u2019s immediate disclosure rules; a draft report to the Commission will be prepared for pre-clearance."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "quiet period"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3%"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "piriya.j@arl-logi.co.th"
+      "matched_text": "piriya.j@arl-logi.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "incident@arl-pcl.co.th"
+      "matched_text": "incident@arl-pcl.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "co.sec@arl-pcl.co.th"
+      "matched_text": "co.sec@arl-pcl.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Warunee Phromjit"
+      "matched_text": "Ms. Warunee Phromjit",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Legal/regulatory: We assess obligations under the Securities and Listings Code B.E. 2599, PDPA Sections relating to breach notification, and the Exchange\u2019s immediate disclosure rules; a draft report to the Commission will be prepared for pre-clearance."
+      "matched_text": "Legal/regulatory: We assess obligations under the Securities and Listings Code B.E. 2599, PDPA Sections relating to breach notification, and the Exchange\u2019s immediate disclosure rules; a draft report to the Commission will be prepared for pre-clearance.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-public"
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "quiet period"
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
+      "matched_text": "5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3%"
+      "matched_text": "3%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Khun Piriya Janthana"
+      "matched_text": "Khun Piriya Janthana",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EID E-7 4 2 1 1"
+      "matched_text": "EID E-7 4 2 1 1",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Khun Chanin Rattapong"
+      "matched_text": "Khun Chanin Rattapong",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@arl-pcl.co.th"
+      "matched_text": "ir@arl-pcl.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border processing"
+      "matched_text": "cross-border processing",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information not yet disseminated via SSENews"
+      "matched_text": "inside information not yet disseminated via SSENews",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "internal trading blackout remains in force through the quiet period until Q2 results and MD&A are released"
+      "matched_text": "internal trading blackout remains in force through the quiet period until Q2 results and MD&A are released",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure"
+      "matched_text": "Selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "permitted selective disclosure (no broad release)"
+      "matched_text": "permitted selective disclosure (no broad release)",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "ransomware encryption disrupted WMS and invoicing"
+      "matched_text": "ransomware encryption disrupted WMS and invoicing",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "~3\u20135%"
+      "matched_text": "~3\u20135%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "The blackout window is extended to directors, executives, and Section 60 persons of the issuer and subsidiaries"
+      "matched_text": "The blackout window is extended to directors, executives, and Section 60 persons of the issuer and subsidiaries",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "issuer-assessed materiality under SLA pending"
+      "matched_text": "issuer-assessed materiality under SLA pending",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "if margin impact exceeds the internal 3% threshold, we will disclose sooner via SSENews"
+      "matched_text": "if margin impact exceeds the internal 3% threshold, we will disclose sooner via SSENews",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "ransomware encryption disrupted WMS and invoicing at Bangkok Distribution Hub"
+      "matched_text": "ransomware encryption disrupted WMS and invoicing at Bangkok Distribution Hub",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Section 60 persons"
+      "matched_text": "Section 60 persons",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "do not post externally"
+      "matched_text": "do not post externally",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse change clause"
+      "matched_text": "material adverse change clause",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "any selective communications must use the template \u201cARL-IR-Note-INC/2569-05A\u201d and be tracked in the log"
+      "matched_text": "any selective communications must use the template \u201cARL-IR-Note-INC/2569-05A\u201d and be tracked in the log",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "under NDA"
+      "matched_text": "under NDA",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "piriya.j@arl-logi.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incident@arl-pcl.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "co.sec@arl-pcl.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Warunee Phromjit",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Legal/regulatory: We assess obligations under the Securities and Listings Code B.E. 2599, PDPA Sections relating to breach notification, and the Exchange\u2019s immediate disclosure rules; a draft report to the Commission will be prepared for pre-clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Arunchai Logistics Public Company Limited (SSE: ARL) \u2014 Cyber/Operational Incident Report (Non-public) \u2014 19/05/2569, 21:40 ICT\nSummary: On 18\u201319 May 2569, ransomware encryption disrupted WMS and invoicing at Bangkok Distribution Hub; estimated downtime 11 hours; preliminary impact ~3\u20135% of consolidated Q2/2569 revenue and potential margin effect; issuer-assessed materiality under SLA pending.\nPublic-status: This constitutes inside information not yet disseminated via SSENews; per the Exchange Disclosure Manual, we intend to lodge an immediate report within T+1 business day or earlier if the threshold is met; internal trading blackout remains in force through the quiet period until Q2 results and MD&A are released.\nSelective disclosure: Information is shared only with lenders and rating advisors under NDA as permitted selective disclosure (no broad release), including Mekhong Bank PCL and Naga Ratings Co., Ltd., solely to support covenant discussions.\nPersonal data exposure (PDPA context): 17 employee records may have been accessed; affected include Khun Piriya Janthana (EID E-7 4 2 1 1; email: piriya.j@arl-logi.co.th); no national ID scans or biometric templates were found in exfiltration logs.\nSystems and scope: Attack vector tied to third-party courier API; asset ID HUB-03-WIN-CAGE; sample filenames INV-2 5 6 9 0 1 4.pdf and route_\u2014_1A.csv; backup vault remained intact; customer bank a/c numbers were not stored in the impacted segment.\nCountermeasures: Isolation completed; decryption in progress without paying ransom; vendor TigerShield Cyber Defense Co., Ltd. retained under MSA TSCD-2024-017; cross-border processing at LotusGate Cloud Pte. Ltd. (ap-sea-1) under DPA Addendum \u00a74 was suspended.\nLegal/regulatory: We assess obligations under the Securities and Listings Code B.E. 2599, PDPA Sections relating to breach notification, and the Exchange\u2019s immediate disclosure rules; a draft report to the Commission will be prepared for pre-clearance.\nPublic references for context: As already announced in ARL\u2019s SSENews No. ARL 006/2569 dated 01/05/2569 re \u201cSolar Rooftop Pilot\u201d and in Form 56-1X One Review FY2568 filed on 31/03/2569, our ESG roadmap and hub expansion are public and unaffected by this incident.\nFinancing and covenants: Current preliminary estimate does not trigger a material adverse change clause, and no drawstop is anticipated; working capital facilities remain undrawn; this sentence is generic policy text and is not price-sensitive by itself.\nDeal/ops note: This incident does not alter the publicly disclosed logistics tariffs; unrelated third-party press releases about barcode scanner models and toner schedules have no bearing here.\nInsider controls: The blackout window is extended to directors, executives, and Section 60 persons of the issuer and subsidiaries; any selective communications must use the template \u201cARL-IR-Note-INC/2569-05A\u201d and be tracked in the log.\nTracking and URLs: Incident case https://ir.arl-pcl.co.th/sse?doc=ARL-IR-Note-INC%2F2569%2F05A&v=1 and vault ref VLT-9x-\u2014-BKK; screenshot hash b3d1:9c0e::7f:\u2026; helpline: incident@arl-pcl.co.th.\nNext steps and timing: We expect service normalization by 20/05/2569 06:00 ICT; if margin impact exceeds the internal 3% threshold, we will disclose sooner via SSENews and include details in Q2/2569 financial statements and MD&A.\nContact: Ms. Warunee Phromjit, Company Secretary, co.sec@arl-pcl.co.th, +66-2-6x4-45x8; for IR: Khun Chanin Rattapong, ir@arl-pcl.co.th; do not post externally; project",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -219,89 +286,42 @@
       "reason": "Generic role noun; not PII/MNPI."
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "+66-2-6x4-45x8",
       "concept": "phone_number",
+      "matched_text": "+66-2-6x4-45x8",
       "reason": "Partially masked phone number may not be reliably caught by strict detectors."
     },
     {
-      "matched_text": "b3d1:9c0e::7f:\u2026",
       "concept": "ip_address",
+      "matched_text": "b3d1:9c0e::7f:\u2026",
       "reason": "Truncated IPv6-like string with ellipsis; not a full address."
     },
     {
-      "matched_text": "ARL-IR-Note-INC/2569-05A",
       "concept": "internal_session_id",
+      "matched_text": "ARL-IR-Note-INC/2569-05A",
       "reason": "Internal tracking/document ID; category fit is plausible but not explicit."
     },
     {
-      "matched_text": "VLT-9x-\u2014-BKK",
       "concept": "internal_session_id",
+      "matched_text": "VLT-9x-\u2014-BKK",
       "reason": "Vault reference appears to be an internal system ID; unclear if it should be labeled."
     },
     {
-      "matched_text": "asset ID HUB-03-WIN-CAGE",
       "concept": "device_serial_number",
+      "matched_text": "asset ID HUB-03-WIN-CAGE",
       "reason": "Asset identifier may be a device ID, but not clearly a serial number or person-linked."
     },
     {
-      "matched_text": "customer bank a/c numbers were not stored in the impacted segment",
       "concept": "data_minimisation_marker",
+      "matched_text": "customer bank a/c numbers were not stored in the impacted segment",
       "reason": "Indicates data minimisation/segregation but phrased as a negative statement."
     },
     {
-      "matched_text": "ap-sea-1",
       "concept": "cross_border_transfer_marker",
+      "matched_text": "ap-sea-1",
       "reason": "Region code implying cross-border cloud region; ambiguous without the broader phrase."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -50,6 +50,14 @@
     "previous_must_detect_count": 24,
     "previous_must_not_detect_count": 5
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -457,6 +465,18 @@
       "category": "MNPI",
       "matched_text": "tCO2e",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms (non\u2011binding save for confidentiality/exclusivity/costs) for the proposed acquisition of Hexmere Crypto Custody Ltd (UK) by Aurelian Harbour plc (UK issuer listed on the Alder Exchange), project code AH/HEX/2026/TS\u2011\u03b4 (Project \u201cKITE\u20117q\u201d).\nConsideration: \u00a382,000,000 (cash \u00a360,000,000; vendor loan notes \u00a322,000,000 at 7.25% p.a., 36\u2011month maturity; earn\u2011out up to \u00a38,000,000 linked to ESG KPIs set out below).\nStructure & timing: share purchase of 100% issued share capital; locked\u2011box date 31\u2011Mar\u20112026; completion targeted within 90 days of signing, subject to FCA change\u2011in\u2011control non\u2011objection and cryptoasset registration confirmation for the combined group.\nRegulatory/market: the Parties acknowledge this term sheet may constitute inside information under UK MAR; the Buyer will control disclosure via RNS on the Alder Exchange; no announcement without mutual consent except as required by law or the FCA.\nInsider management: an i n s i d e r list will be created and maintained contemporaneously (template in Schedule 1), updated within 24 hours of changes and available for FCA inspection; information barriers (\u201cChinese walls\u201d) will be implemented between Aurelian Harbour plc advisory and principal investment desks; no tipping or selective disclosure is permitted.\nDealing restrictions: Buyer and Target employees on the restricted list shall observe a blackout window from signature until public announcement and for 2 trading days thereafter; no dealing in Aurelian Harbour plc shares or in tokens under Hexmere custody during this period.\nCyber & operational warranties: Target represents no material cyber incident undisclosed to Buyer; a 17\u2011Apr\u20112026 intrusion attempt (no data exfiltration) is summarised in Schedule 3 (non\u2011public) with remedial penetration\u2011testing results; Buyer may require a pre\u2011completion red\u2011team assessment.\nCrypto asset safeguards: completion conditional on (i) cold\u2011storage policy with 4\u2011of\u20117 key sharding evidenced, (ii) SOC 2 Type II report dated within 12 months, and (iii) segregation of client wallets confirmed; any transfer of seed materials to Buyer will occur via the secure handover protocol recorded off\u2011line.\nESG/climate earn\u2011out: \u00a32,000,000 of earn\u2011out tranches depend on achieving Scope 2 emissions intensity \u22640.9 tCO2e/\u00a3m revenue by FY2027 and verified renewable\u2011energy procurement for two data centres; failure to report via third\u2011party assurance nullifies related tranches.\nEmployment/retention: Buyer to institute a \u00a33,500,000 retention pool for key crypto security engineers and compliance staff (to vest over 24 months post\u2011completion), with standard UK restrictive covenants; TUPE\u2011style protections not applicable but equivalent protections to be included in SPAs.\nConfidentiality & controls: all draft materials tagged \u201cMAR\u2011restricted\u201d; internal circulation limited to named individuals on the i n s i d e r list; data room watermarks will embed user IDs; any external sharing requires Buyer Legal approval; \u201cselective disclosure\u201d strictly prohibited.\nMAC: There is no Material Adverse Change condition to completion; however, warranties and indemnities will address specific cyber, custody, and AML matters; public\u2011source excerpts from Hexmere\u2019s 2025 sustainability brochure are illustrative only and do not modify this term sheet.\nExclusivity & break fee: 60\u2011day exclusivity from countersignature; no\u2011shop and no\u2011talk covenants on Target; break fee of \u00a31,200,000 payable by Target upon breach of exclusivity; costs each party bears own expenses.\nContacts: Ms. Saira Quinn (Group Counsel, Aurelian Harbour plc), s.quinn@aurelianharbour.co.uk; Mr. Idris Hale (Head of Compliance, Hexmere Crypto Custody Ltd), i.ha",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

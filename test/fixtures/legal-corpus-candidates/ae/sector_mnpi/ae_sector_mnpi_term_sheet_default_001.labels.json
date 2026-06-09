@@ -57,6 +57,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -429,6 +437,18 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KYC/PDPL: copies of Emirates ID for key signatories to be verified in a secure data room (numbers not shared by email); trade licence details to be provided (GreenDunes TL-ON-472910-AE, Sahara TL-AD-90721-XY); personal data processed per UAE PDPL with data minimisation and purpose limitation",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Investment by GreenDunes Renewables PJSC (UAE) into Sahara Custody Technologies Ltd (Abu Dhabi free-zone company), for a 55% equity stake to support tokenised carbon-credit infrastructure and digital asset safekeeping.\nGoverning law: laws of the United Arab Emirates; oversight intended under the UAE federal securities authority and the relevant Abu Dhabi free-zone financial regulator; any listing-related matters to align with the rules of a UAE onshore exchange (e.g., Palm Creek Exchange).\nPurchase price: AED 142,000,000 at signing, plus an earn-out of up to AED 38,000,000 tied to (i) issuance of a crypto custody service approval in the free zone and (ii) onboarding of 3 ESG-linked corporate clients for carbon unit safekeeping within 9 months post-completion.\nESG/climate linkage: margin ratchet of +50 bps on the vendor note if Sahara fails to achieve net-zero data-centre power procurement by Q4 (PPA with a 30 MW solar array), and \u221225 bps if verified climate targets are met by an accredited UAE verifier.\nCyber warranty: Sahara confirms no material customer data exfiltration; however, a contained cyber incident on 14 May (non-public) affecting a testnet enclave is under third-party forensic review; completion conditional upon remediation plan sign-off.\nMNPI protocols: an insider list will be opened for this transaction; tipping is strictly prohibited; information barriers will be maintained between the acquirer\u2019s treasury/trading and deal teams; a blackout window on GreenDunes securities applies from signature until public announcement.\nDisclosure controls: no selective disclosure; external communications only via coordinated releases cleared by the competent UAE authority and free-zone regulator; breach is a termination right and triggers AED 5,000,000 liquidated damages.\nKYC/PDPL: copies of Emirates ID for key signatories to be verified in a secure data room (numbers not shared by email); trade licence details to be provided (GreenDunes TL-ON-472910-AE, Sahara TL-AD-90721-XY); personal data processed per UAE PDPL with data minimisation and purpose limitation.\nBeneficial ownership: Sahara\u2019s ultimate controller is Ms. Lulwa Al Hizam (Emirati, Al Hizam family origin), holding 62% pre-closing; she will roll 20% and provide a 24-month lock-up; board observer rights granted to H.E. Mr. Rami Al Qudra.\nConditions precedent: free-zone crypto custody approval filed (application reference SCT-VAULT-22Z; status confidential), cyber remediation complete, ESG procurement contract executed, no material adverse change, and no sanctions or PEP flags in onboarding.\nExclusivity and timing: 60-day exclusivity from term sheet date; target signing within 30 days; long-stop date 120 days; break fee AED 3,000,000 if seller consummates a superior proposal during exclusivity.\nCommercial terms: representations include clean title to wallet infrastructure IP, climate data audit rights, and notification covenants for any cyber incident; escrow of 10% purchase price for 12 months; governing language English with Arabic convenience translation.\nContact and notices: GreenDunes \u2014 Attn: Dr. Yara Al Naimi, General Counsel, yaralnaimi@greendunes.ae; Sahara \u2014 Attn: Mr. Sami Barakat, CEO, s.barakat@saharacustody.ae; data room access via secure portal only.\nFor educational purposes, GreenDunes\u2019 marketing team may run general webinars on cyber hygiene, insider awareness, and crypto custody concepts that avoid transaction specifics and do not include MNPI or any insider list content.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

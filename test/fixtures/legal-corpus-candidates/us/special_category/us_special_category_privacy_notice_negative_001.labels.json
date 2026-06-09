@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -141,6 +149,12 @@
       "category": "MNPI",
       "matched_text": "nonpublic",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lakeshore Health & Finance Corp. US Privacy and Reg FD Notice\nThis notice covers processing of personal information under a US patchwork (CCPA-like standards for consumer/household data; HIPAA for patients; GLBA for financial accounts).\nWe process contact details, device logs, and customer service metadata for the PulseBridge Portal and VistaLedger Core; we do not collect biometric templates, genetic profiles, or union membership records for marketing.\nIntentional special-category example: Patient Case \u201cBlue-204\u201d includes a disclosed Type 1 diabetes condition used solely for care coordination and claims; access is restricted and audited.\nFor DSARs (access, deletion, correction), contact privacy@lshf.example.com or 833-000-4242; we verify via ticket IDs (e.g., REQ-17A-0000) and will not ask for Social Security numbers or account PINs.\nGLBA-covered financial records and HIPAA-protected medical records may be exempt from certain state rights, but non-exempt data will be fulfilled within 45 days where permitted by law.\nOur Retention Schedule Maple-7 keeps bank statement images for 7 years and clinical audit logs for 10 years, after which files are de-identified or securely destroyed.\nSponsorships (e.g., River City Rockets youth night, Redwood County Wellness Fair) collect only aggregate attendance stats; no precise geolocation is stored.\nRegulation FD Addendum: employees must not selectively disclose material nonpublic information to sell-side analysts, lenders, or rating advisors; covered topics include unannounced earnings, trial endpoints, or model loss rates.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -178,7 +192,7 @@
     },
     {
       "concept": "pseudonymous_patient_id",
-      "matched_text": "Patient Case “Blue-204”",
+      "matched_text": "Patient Case \u201cBlue-204\u201d",
       "reason": "Case code could function like a patient identifier but does not map cleanly to listed ID rules."
     },
     {

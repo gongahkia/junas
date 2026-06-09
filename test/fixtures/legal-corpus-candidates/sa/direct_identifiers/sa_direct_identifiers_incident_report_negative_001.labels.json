@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -151,6 +159,12 @@
       "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The message went to a vendor relay domain operated by a third-party processor in Manama used for test routing, invoking PDPL transfer review under the SDAIA framework.\nIncluded attachments were a supplier on-boarding template with placeholders only (Name: ___, ID: ___, Account: ___) and an outdated vendor fact sheet.\nExample fields observed: CR No. 101234567X (checksum invalid), IBAN: SA00 0000 0000 0000 0000 0000 (invalid), Passport: KSA-PASS-0000000 (dummy).\nEmail headers show sender/recipient role mailboxes: ir@nafudhco.example to relay.support@waslbridge.example (test), cc: privacy@nafudhco.example; no personal inboxes.\nOne audit-trail line contained a Saudi National ID: 1023456789 for a former courier badge issuance, inadvertently appended to the template; no name was present.\nNo customer records, payroll data, phone numbers, or emails of natural persons were transmitted; public helplines (CMA 9200-000-000, Company 800-111-000) appear only in the footer.\nMNPI assessment: content matched an announcement already published via the exchange portal at 08:55 AST; no draft results, guidance, or undisclosed contracts included.\nCMA market-conduct follow-up was notified through the usual channel; preliminary view: no non-public issuer information was shared and no trading risk is expected.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

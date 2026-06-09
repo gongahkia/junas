@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -82,7 +90,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "fields marked “optional” are suppressed",
+      "matched_text": "fields marked \u201coptional\u201d are suppressed",
       "rule": "data_minimisation_marker"
     },
     {
@@ -107,7 +115,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "On 2025-03-15, Controller approved export of pseudonymized uptime telemetry to Processor’s EU facility using the 2021 SCCs with supplemental encryption",
+      "matched_text": "On 2025-03-15, Controller approved export of pseudonymized uptime telemetry to Processor\u2019s EU facility using the 2021 SCCs with supplemental encryption",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -141,6 +149,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: Processor Pinnacle Data Works LLC provides analytics tooling for employee training and investor-relations sites; no direct marketing; no sale or sharing under CCPA.\nCategories of data: hashed customer IDs (e.g., HB-000-AX9), de-identified patient event metrics, GLBA customer service notes with redactions; no Social Security numbers, no live PHI transmission to Processor.\nMNPI controls: analyst portals contain only public, already-announced information; no selective disclosure under Reg FD; training uses synthetic securities examples (Ticker: MGB:NC-HB is a non-tradable placeholder).\nRetention: Processor stores logs for 18 months, then auto-deletes via retention policy; Controller retains investor FAQ submissions for 12 months in minimized fields.\nCross-border transfer approval: On 2025-03-15, Controller approved export of pseudonymized uptime telemetry to Processor\u2019s EU facility using the 2021 SCCs with supplemental encryption.\nConsent withdrawal handling: employee and consumer choices are recorded in a do-not-process flag; no adverse action is taken on withdrawal, and services remain available where lawful.\nDSAR workflow: On 2025-04-02, a household access and erasure request was fulfilled; decommissioned records were removed from active systems and from backups via the standard purge window.\nSecurity and minimization: only role-based access; fields marked \u201coptional\u201d are suppressed; data dictionaries prevent collection of free text that could include MNPI or health details.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

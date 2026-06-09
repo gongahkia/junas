@@ -1,115 +1,175 @@
 {
-  "doc_id": "my_universal_mnpi_privacy_notice_negative_001",
-  "document_type": "generic",
-  "source_jurisdiction": "MY",
-  "destination_jurisdiction": "MY",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "mac/mae: this note does not constitute, and expressly negates, any mac/mae trigger under financing or m&a documents"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargoed"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_universal_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "mac/mae: this note does not constitute, and expressly negates, any mac/mae trigger under financing or m&a documents"
+      "matched_text": "mac/mae: this note does not constitute, and expressly negates, any mac/mae trigger under financing or m&a documents",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargoed"
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@cemerlangsynergy.example"
+      "matched_text": "privacy@cemerlangsynergy.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@cemerlangsynergy.example"
+      "matched_text": "compliance@cemerlangsynergy.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargoed until 14/09/2026 17:00 myt"
+      "matched_text": "embargoed until 14/09/2026 17:00 myt",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "no external circulation before the embargo expiry"
+      "matched_text": "no external circulation before the embargo expiry",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not collect nric unless mandatory by law"
+      "matched_text": "do not collect nric unless mandatory by law",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "store only masked form “xxxxxx-xx-xxxx”"
+      "matched_text": "store only masked form \u201cxxxxxx-xx-xxxx\u201d",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "training sets must use synthetic data"
+      "matched_text": "training sets must use synthetic data",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not include live account numbers like “0000-0000-0000”"
+      "matched_text": "do not include live account numbers like \u201c0000-0000-0000\u201d",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no external circulation before the embargo expiry"
+      "matched_text": "no external circulation before the embargo expiry",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "no personal emails"
+      "matched_text": "no personal emails",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "do not paste extracts into messaging channels or unmanaged notes"
+      "matched_text": "do not paste extracts into messaging channels or unmanaged notes",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mac/mae: this note does not constitute, and expressly negates, any mac/mae trigger under financing or m&a documents",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "controller: cemerlang synergy berhad (main market issuer on the fictional bursa kencana); processor: kilang data sdn bhd (payroll + investor relations mailing)\nlawful basis: employment contract and notice to employees; legal obligation for continuous disclosure under local capital markets rules; consent where required by pdpa\ndata types: staff ids, role emails, role phone extensions; do not collect nric unless mandatory by law; if collected, store only masked form \u201cxxxxxx-xx-xxxx\u201d\npublic vs non-public: this workflow covers operational drafts and published materials; rely on public sources (e.g., fy2024 annual report already on our website) for research notes\nir draft circulation: distribution of ir draft v0.3 is embargoed until 14/09/2026 17:00 myt for website posting; no external circulation before the embargo expiry\nmac/mae: this note does not constitute, and expressly negates, any mac/mae trigger under financing or m&a documents\ntransfers: no cross-border transfers; backups remain in my cloud zone operated by the processor; apply internal \u201cmy data transfer addendum\u201d (template dta-ckb-01) before any future overseas move\nretention: ir drafts 3 years; payroll and statutory records 7 years; delete via change ticket \u201cret-ir-2026-001\u201d with processor sign-off and audit capture\ndsar handling: submit \u201cdsar-form-my\u201d to privacy@cemerlangsynergy.example; acknowledge within 7 days and respond within 21 days per internal sla; appeal mailbox: compliance@cemerlangsynergy.example\nsecurity: access restricted to role accounts; no personal emails; do not paste extracts into messaging channels or unmanaged notes\nlisting context: references to \u201cdeal\u201d are generic project management notes for bursa kencana listing requirements timetable and are not price-sensitive on their own\npublic-source references: use published analyst briefings dated 2024-03-15 and newsroom posts; exclude non-public valuation models or draft percentages",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -130,73 +190,27 @@
       "reason": "Wellbeing note; not a Share Purchase Agreement (SPA) reference."
     }
   ],
+  "source_jurisdiction": "MY",
   "uncertain": [
     {
-      "matched_text": "0000-0000-0000",
       "concept": "bank account placeholder",
+      "matched_text": "0000-0000-0000",
       "reason": "Looks like a bank/account number format but explicitly an illustrative non-live example."
     },
     {
-      "matched_text": "xxxxxx-xx-xxxx",
       "concept": "masked national ID format",
+      "matched_text": "xxxxxx-xx-xxxx",
       "reason": "Resembles masked MyKad/NRIC pattern; not an actual identifier."
     },
     {
-      "matched_text": "ret-ir-2026-001",
       "concept": "internal change ticket ID",
+      "matched_text": "ret-ir-2026-001",
       "reason": "Internal reference may be sensitive but no specific allowed rule category fits."
     },
     {
-      "matched_text": "dsar-form-my",
       "concept": "DSAR process marker",
+      "matched_text": "dsar-form-my",
       "reason": "Relates to DSAR handling but there is no explicit DSAR marker category in allowed rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
-  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_strict_reconciliation": {
-    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

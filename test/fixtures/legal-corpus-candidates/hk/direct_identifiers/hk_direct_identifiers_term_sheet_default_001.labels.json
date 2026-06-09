@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -314,6 +322,30 @@
       "category": "MNPI",
       "matched_text": "1,200,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employment and retention: Key management (Dr. Ryan Chan, CFO, Tel +852 0000 2468) to enter 24\u2011month service contracts with non-compete and change-of-control terms",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition and Subscription for 60% of Gold Meridian Technologies Limited (HK Main Board-listed) by Harbour Peak Capital SPC \u2013 Fund I SP.\nBuyer: Harbour Peak Capital SPC \u2013 Fund I SP (managed by Port Jade Asset Management (Asia) Limited, SFC CE No. BZZ123); Seller: Prosper Dragon Holdings Limited (CR No. 3123456; BR No. 67654321-000-01-01-5).\nTarget: Gold Meridian Technologies Limited, Hong Kong incorporated, registered office at Unit 1203, 12/F, South Quays Tower, 88 King Wan Road, Kowloon, Hong Kong.\nStructure: Purchase of 120,000,000 existing shares and subscription for 80,000,000 new shares; post-completion holding approximately 60%.\nPrice: HKD 1,200,000,000 cash, subject to completion accounts adjustment and HKEX requirements.\nFunding: Equity from Fund I and a HK secured facility from Jade Coast Bank Limited; drawdown to escrow account no. 128-889944-001 at Harbor City Bank, SWIFT HCBKHKHX.\nBuyer contact: Mr. Kelvin Tso, Director, Tel +852 6800 4321, email kelvin.tso@harbourpeak.example.\nSeller contact: Ms. Ada Leung (HKID Z654321(0); HKSAR Passport K9876543), Tel +852 6900 0000, email ada.leung@prosperdragon.example.\nConditions precedent: SFC Takeovers Code whitewash waiver (Rule 26), HKEX approval of shareholder circular and transaction (Listing Rules Ch. 14), and compliance with SFO Part XIVA.\nInside information: FY2026 revenue guidance of HKD 2.3bn and a contemplated divestment of the IoT module unit are not generally known and may be price-sensitive; announcement to be made per SFO s.307B on signing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

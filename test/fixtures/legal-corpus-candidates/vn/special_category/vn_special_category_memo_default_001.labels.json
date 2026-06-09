@@ -17,13 +17,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -37,13 +37,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -57,6 +57,46 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
     "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -96,7 +136,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "require NDA 08‑PP/2026 for Blue Banyan Advisors Co",
+      "matched_text": "require NDA 08\u2011PP/2026 for Blue Banyan Advisors Co",
       "rule": "information_barrier_marker"
     },
     {
@@ -106,7 +146,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "HR‑EMP‑0147",
+      "matched_text": "HR\u2011EMP\u20110147",
       "rule": "employee_id"
     },
     {
@@ -131,7 +171,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "HR‑EMP‑0229",
+      "matched_text": "HR\u2011EMP\u20110229",
       "rule": "employee_id"
     },
     {
@@ -156,7 +196,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "self‑identified as Catholic on a voluntary HR form",
+      "matched_text": "self\u2011identified as Catholic on a voluntary HR form",
       "rule": "religious_belief"
     },
     {
@@ -171,17 +211,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "HR‑EMP‑0302",
+      "matched_text": "HR\u2011EMP\u20110302",
       "rule": "employee_id"
     },
     {
       "category": "PII",
-      "matched_text": "voluntarily disclosed that he is gay in DEI self‑ID",
+      "matched_text": "voluntarily disclosed that he is gay in DEI self\u2011ID",
       "rule": "sexual_orientation"
     },
     {
       "category": "PII",
-      "matched_text": "handle via Special Data Lockbox under Policy 27/QD‑DataShield",
+      "matched_text": "handle via Special Data Lockbox under Policy 27/QD\u2011DataShield",
       "rule": "data_minimisation_marker"
     },
     {
@@ -191,17 +231,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "15‑year‑old daughter’s vaccination certificate",
+      "matched_text": "15\u2011year\u2011old daughter\u2019s vaccination certificate",
       "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "matched_text": "15‑year‑old daughter’s vaccination certificate",
+      "matched_text": "15\u2011year\u2011old daughter\u2019s vaccination certificate",
       "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "matched_text": "15‑year‑old",
+      "matched_text": "15\u2011year\u2011old",
       "rule": "age_reference"
     },
     {
@@ -246,7 +286,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "BambooPay test wallet IDs (merchant test‑99)",
+      "matched_text": "BambooPay test wallet IDs (merchant test\u201199)",
       "rule": "crypto_wallet_address"
     },
     {
@@ -266,7 +306,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Disclosure: File preliminary notice with SSC‑VT before launch and coordinate with SCX on any trading halt if covenant breach triggers under Securities Law provisions.",
+      "matched_text": "Disclosure: File preliminary notice with SSC\u2011VT before launch and coordinate with SCX on any trading halt if covenant breach triggers under Securities Law provisions.",
       "rule": "material_event"
     },
     {
@@ -348,7 +388,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Disclosure: File preliminary notice with SSC‑VT before launch and coordinate with SCX on any trading halt if covenant breach triggers under Securities Law provisions.",
+      "matched_text": "Disclosure: File preliminary notice with SSC\u2011VT before launch and coordinate with SCX on any trading halt if covenant breach triggers under Securities Law provisions.",
       "rule": "material_event"
     },
     {
@@ -370,6 +410,12 @@
       "category": "MNPI",
       "matched_text": "22%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI: Unaudited Q2 shows 22% revenue decline and potential breach of Lotus River Bank leverage covenant; non-public and likely to have significant price impact on SCX.\nEmployee special data inventory (Decree 13) notes that Mr. Le Quoc Thinh (HR\u2011EMP\u20110147; thinh.le@tph.example.vn) enrolled fingerprint and retina templates for facility access; storage is limited to access control purposes.\nHealth data: Ms. Pham Thu Giang (HR\u2011EMP\u20110229) submitted oncology screening results and chemo treatment dates to HR; copy must not be placed in the deal room.\nReligious/union data: Mr. Tran Huy Kiem (Finance Controller; kiem.tran@tph.example.vn) self\u2011identified as Catholic on a voluntary HR form, and calendar invites show his role as union steward for TPH Workers Union Chapter 3.\nSexual\u2011orientation data: Mr. Nguyen Bao Long (HR\u2011EMP\u20110302) voluntarily disclosed that he is gay in DEI self\u2011ID; handle via Special Data Lockbox under Policy 27/QD\u2011DataShield.\nMinor data: Ms. Giang also uploaded her 15\u2011year\u2011old daughter\u2019s vaccination certificate to the health portal; remove child names from any SCX submission or investor datasite.\nBanking and transactions: Supplier payment packs include BambooPay test wallet IDs (merchant test\u201199) and a draft Gio Bien Plastics settlement; scrub before circulation to bookrunners.\nThe phrase \u201cbiometric edge\u201d in the marketing deck is metaphorical and not a reference to any individual\u2019s biometrics.\nSponsorship copy about the Thanh Phuc Tigers at Quan Nam Stadium is unrelated to personal data or MNPI and can remain in the prospectus.\nControls: Restrict MNPI to Project Bamboo Bridge room on BambooRoom VDR, require NDA 08\u2011PP/2026 for Blue Banyan Advisors Co., and encrypt all workpapers.\nDisclosure: File preliminary notice with SSC\u2011VT before launch and coordinate with SCX on any trading halt if covenant breach triggers under Securities Law provisions.\nIncident on 05 May: Mr. Thinh mistakenly sent unaudited capex schedules to sales@giobien.example.vn; no confirmed leakage of MNPI, but retraining and warning issued.\nEscalation: Report suspected MNPI or privacy breaches to compliance@tph.example.vn and DPO Ms. Hoang My Linh (+84 90 000 1234); do not transmit medical documents over email.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -402,7 +448,7 @@
       "reason": "Product name; not PII or MNPI by itself"
     },
     {
-      "matched_text": "Policy 27/QD‑DataShield",
+      "matched_text": "Policy 27/QD\u2011DataShield",
       "reason": "Policy name; not PII or MNPI"
     }
   ],
@@ -410,7 +456,7 @@
   "uncertain": [
     {
       "concept": "crypto wallet identifier",
-      "matched_text": "BambooPay test wallet IDs (merchant test‑99)",
+      "matched_text": "BambooPay test wallet IDs (merchant test\u201199)",
       "reason": "Wallet ID is referenced but does not resemble a standard blockchain address format"
     },
     {
@@ -420,40 +466,8 @@
     },
     {
       "concept": "agreement identifier",
-      "matched_text": "NDA 08‑PP/2026",
+      "matched_text": "NDA 08\u2011PP/2026",
       "reason": "Confidentiality agreement reference that may serve as an information barrier control but not covered by a specific rule"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

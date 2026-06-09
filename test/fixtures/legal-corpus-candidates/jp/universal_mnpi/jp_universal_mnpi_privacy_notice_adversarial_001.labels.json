@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -365,6 +373,30 @@
       "category": "MNPI",
       "matched_text": "12,500,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u975e\u516c\u958b",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nao Kirisame/\u6850\u96e8 \u76f4 \u69d8, CPO)\nBoard Memo extract (2026-07-30): approval to enter Share Purchase Agreement (definitive) to acquire 62.5% of Shizuku Tech KK for \u00a512,500,000,000; settlement mechanics and escrow at 8.0% agreed, subject to customary CPs\nMAC/MAE clause (negated): execution of this DPA and the SPA shall not, in itself, constitute a Material Adverse Change; no MAE has occurred as of signing, carve-outs include general market conditions and epidemic events\nFIEA note: the above constitutes \u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f until embargo; tender-offer timing and board recommendation are undisclosed and will be posted via TDnet upon embargo expiry and JFSA notification\nTerm sheet & deal checklist cross-ref: TS \u00a73.4 KPIs; IR draft Q&A v2 notes no earnings forecast revision prior to 2026-09-15; research note cites only sector averages and does not include non-public performance metrics\nRetention: employment records retained per tax law up to 7 years; \u500b\u4eba\u756a\u53f7 is deleted promptly after purpose completion and in any case within 2 years of offboarding; access logs kept 2 years; backups overwrite on a 30-day rolling basis\nCross-border transfer: limited to CloudLattice Pte. Ltd. (SG) for encrypted eDiscovery; prior notice and consent obtained under APPI Art. 28; safeguards include encryption-at-rest, SCC-equivalent clauses, and PPC-referenced safeguards\nSecurity controls: role-based access, vaulting of \u500b\u4eba\u756a\u53f7 with split-key HSM, quarterly audits; identifiers masked in analytics (e.g., Employee ID E-9X4*73 and Vendor Code VND-0O1l)\nPublic-source carve-out: according to Shizuku Tech\u2019s 2024-02-01 website press archive and a 2025-12-20 Nikkei sector piece (public), industry R&D spend averages were used in our research note; no non-public revenue data is included\nLowercase project note: todo \u2014 align dsar template with jp-language form, finish sop v1.1, and book team spa day after close; also ping ir for the q3 placeholder page\nContact for board secretariat: Mr. Keita Moroi (\u5b88\u4e95 \u6176\u592a \u69d8), Board Sec., keita.moroi@hoshinova.co.jp",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u975e\u516c\u958b/CONFIDENTIAL \u2014 Deal Codename: Project Kikka \u2014 DPA & Retention Workflow (APPI/\u500b\u4eba\u756a\u53f7\u6cd5, FIEA) \u2014 Embargo until 2026-09-15 09:00 JST\nController: Hoshinova Robotics KK (\u6771\u8a3c\u30d7\u30e9\u30a4\u30e0\u4e88\u5b9a) and Processor: Midoriyama Capital Advisory GK \u2014 scope includes employee, board, and securities workflows during acquisition of Shizuku Tech KK\nFor APPI compliance, we process \u201c\u500b\u4eba\u60c5\u5831\u201d (incl. \u500b\u4eba\u756a\u53f7) of living individuals limited to HR-payroll onboarding for integration; purposes are notified and consent is obtained for \u5916\u56fd\u7b2c\u4e09\u8005\u63d0\u4f9b where required under \u500b\u4eba\u60c5\u5831\u4fdd\u8b77\u59d4\u54e1\u4f1a\u30ac\u30a4\u30c9\u30e9\u30a4\u30f3\nData subject rights (\u958b\u793a\u30fb\u8a02\u6b63\u30fb\u5229\u7528\u505c\u6b62\u7b49) may be exercised via privacy@hoshinova.co.jp or https://h o s h i n o v a . j p /privacy/DSAR?req=Kikka_v3 (\u62c5\u5f53: Ms. Nao Kirisame/\u6850\u96e8 \u76f4 \u69d8, CPO)\nBoard Memo extract (2026-07-30): approval to enter Share Purchase Agreement (definitive) to acquire 62.5% of Shizuku Tech KK for \u00a512,500,000,000; settlement mechanics and escrow at 8.0% agreed, subject to customary CPs\nMAC/MAE clause (negated): execution of this DPA and the SPA shall not, in itself, constitute a Material Adverse Change; no MAE has occurred as of signing, carve-outs include general market conditions and epidemic events\nFIEA note: the above constitutes \u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f until embargo; tender-offer timing and board recommendation are undisclosed and will be posted via TDnet upon embargo expiry and JFSA notification\nTerm sheet & deal checklist cross-ref: TS \u00a73.4 KPIs; IR draft Q&A v2 notes no earnings forecast revision prior to 2026-09-15; research note cites only sector averages and does not include non-public performance metrics\nRetention: employment records retained per tax law up to 7 years; \u500b\u4eba\u756a\u53f7 is deleted promptly after purpose completion and in any case within 2 years of offboarding; access logs kept 2 years; backups overwrite on a 30-day rolling basis\nCross-border transfer: limited to CloudLattice Pte. Ltd. (SG) for encrypted eDiscovery; prior notice and consent obtained under APPI Art. 28; safeguards include encryption-at-rest, SCC-equivalent clauses, and PPC-referenced safeguards\nSecurity controls: role-based access, vaulting of \u500b\u4eba\u756a\u53f7 with split-key HSM, quarterly audits; identifiers masked in analytics (e.g., Employee ID E-9X4*73 and Vendor Code VND-0O1l)\nPublic-source carve-out: according to Shizuku Tech\u2019s 2024-02-01 website press archive and a 2025-12-20 Nikkei sector piece (public), industry R&D spend averages were used in our research note; no non-public revenue data is included\nLowercase project note: todo \u2014 align dsar template with jp-language form, finish sop v1.1, and book team spa day after close; also ping ir for the q3 placeholder page\nContact for board secretariat: Mr. Keita Moroi (\u5b88\u4e95 \u6176\u592a \u69d8), Board Sec., keita.moroi@hoshinova.co.jp; escalation path to Audit & Supervisory Committee on request\nLink & OCR artifact: see ht tps://intra.hoshinova.jp/sec/retent ion?doc=Kikka_v3 and \\\\hsk-share01\\IR\\Kik ka\\DPA_final_v4.pdf for the signed processor terms (stamp: HN-3*2*7)\nDo not distribute externally; this draft combines internal board memo, IR draft, and deal checklist excerpts for review under legal privilege and does not amend the SPA or any disclosure controls policy",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

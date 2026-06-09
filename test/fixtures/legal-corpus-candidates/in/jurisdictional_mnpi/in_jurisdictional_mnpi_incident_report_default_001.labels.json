@@ -39,6 +39,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -266,6 +274,18 @@
       "category": "MNPI",
       "matched_text": "expected to impact",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Incident Owner: Mr. Arnav K. Mehta, Interim CISO, with support from the Data Protection Officer, Dr. Sanya Pillai (privacy@auroragrid.example.in); hotline +91-22-0000-0000 for data principal queries",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AuroraGrid Systems Limited (the \u201cCompany\u201d), listed on the Indica Stock Exchange, reports a cybersecurity incident discovered on 04 June 2026 at 09:20 IST in the Bengaluru Data Hub operated by our vendor Skyloom Networks Pvt. Ltd.\nNature of incident: unauthorized API key use led to selective access of a customer lookup table containing contact details and limited KYC metadata for approximately 18,430 individuals, including 217 child users of our LearnPower app.\nData elements at risk under the DPDPA: names, mobile numbers, email IDs, and masked identifiers (Aadhaar last 4, PAN last 3, and GSTIN first 2), with no full Aadhaar/PAN/GSTIN, passwords, or payment instrument data stored in that table.\nTwo employee records of designated persons under the Insider Trading Code included HR emails and consent logs; no salary or bank account data were accessed.\nAs per Indian PIT Regulations, the incident assessment indicates potential UPSI because it may reasonably be expected to impact cybersecurity expenditures and service SLAs in the near term for the issuer; the trading window for designated persons is closed with immediate effect until public disclosure.\nThis notice is shared internally on a strict need-to-know basis; selective disclosure to analysts or investors is prohibited, and external communications must route through the Company Secretary, Ms. Rhea Talwar (cs@auroragrid.example.in).\nPublic status: An initial intimation of service latency was already published via press release on 02 June 2026 and uploaded to the stock exchange portal; that statement did not include any personal data details and remains in the public domain.\nMateriality: current best estimate of remediation cost is INR 78\u201395 lakh (under 1.5% of FY26 consolidated EBITDA), which may be immaterial relative to the issuer; however, if forensic outcomes expand, the assessment will be re-evaluated under Regulation 30 of the LODR.\nThe Audit Committee will convene on 06 June 2026 at 17:00 IST to evaluate materiality and determine whether an exchange intimation is warranted.\nTo comply with DPDPA obligations, we are activating the incident response plan: data principal notice templates prepared, consent registry checks enabled, and parental/guardian contact validation for the 217 affected minors.\nNo full identity numbers are being processed for notification; any reference to Aadhaar/PAN/GSTIN will be tokenised and truncated, and age flags will be verified against declared DOB with parental consent metadata.\nPursuant to our Code of Practices, any Board briefing and Q&A material will be embargoed until uniform public disclosure is filed with the exchanges; any interaction with research analysts will be via a recorded channel after dissemination.\nThe root cause traces to a misconfigured allowlist on a staging API; systems serving our renewable microgrid platform were not impacted, and no operational outages occurred on customer premises.\nFor clarity, our November 2025 investor presentation already disclosed generic cybersecurity enhancement plans and is stale for the purposes of UPSI; do not treat that deck as current disclosure of this event.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -152,7 +160,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "acct suffix ••4821",
+      "matched_text": "acct suffix \u2022\u20224821",
       "rule": "customer_account_number"
     },
     {
@@ -162,7 +170,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "acct ending ••0391",
+      "matched_text": "acct ending \u2022\u20220391",
       "rule": "customer_account_number"
     },
     {
@@ -172,7 +180,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Clustered identifiers for Mr. Carrow: a.carrow@nbhc-ficta.example, empId N B H C - 0 0 4 1 9, session sso:tkn_1q2w-3e4r, acct suffix ••4821, and DOB 1987-04-09 (age 38)",
+      "matched_text": "Clustered identifiers for Mr. Carrow: a.carrow@nbhc-ficta.example, empId N B H C - 0 0 4 1 9, session sso:tkn_1q2w-3e4r, acct suffix \u2022\u20224821, and DOB 1987-04-09 (age 38)",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -266,11 +274,23 @@
       "category": "MNPI",
       "matched_text": "18%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1-855-555-0142; we do not sell personal information, and we do not collect or store full device MAC addresses.\nFor employee and analyst workflows, any material non-public information will be disclosed only via public earnings webcasts and current reports; no selective disclosure to Frostridge Analytics LLC or any broker-dealer is permitted.\nProcessing purpose: claims adjudication, patient billing, card issuance, and investor relations; retention 7 years for GLBA records and 6 years for HIPAA-designated record sets.\nMr. Aiden Carrow, Senior Clinical Billing Analyst at Northbank Heritage, based near 5th & Kline, Brimwood, OR 97200, uses device NBHC-CLN-104 (Win10) and VPN profile \"brimwood-west\".\nClustered identifiers for Mr. Carrow: a.carrow@nbhc-ficta.example, empId N B H C - 0 0 4 1 9, session sso:tkn_1q2w-3e4r, acct suffix \u2022\u20224821, and DOB 1987-04-09 (age 38).\nAccess logs show OAuth redirect at https://intra.nbhc.example/dsar?req=ZXMtMTIwOA==&acct=****4821 and print job PJ- 2  9  7 at 03:14 PT in Ward 3B; this is routine operations metadata.\nNegative statement: this paragraph contains only generic demographics (age 30\u201340, zip 941xx, device model \"SlatePro\") and should not be treated as identifying a specific person.\nDe-identification and aggregation apply for analytics, and public-source references (e.g., industry indices, published reimbursement rates) are not MNPI.\nTransfers to sub-processors (e.g., CloudHarbor Health Data, FictaTrust Card Switch) occur under HIPAA BAAs, GLBA vendor due diligence, and SCCs if applicable to non-U.S. regions.\nConsumers and patients may submit a DSAR via https://rights.nbhc.example/submit or mail Northbank Heritage Privacy Office, 101 Pine Arc, Brimwood, OR 97200, attn: DSAR Team.\nWe verify requestors via two-factor link codes and last interaction date; no biometric templates are stored, and we prevent combining DSAR data with trading models.\nTo minimize MNPI risk, pre-release clinical utilization trends are shared only in aggregated form; private emails to analysts like Ms. Rhea Vega",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For employee and analyst workflows, any material non-public information will be disclosed only via public earnings webcasts and current reports; no selective disclosure to Frostridge Analytics LLC or any broker-dealer is permitted.\nProcessing purpose: claims adjudication, patient billing, card issuance, and investor relations; retention 7 years for GLBA records and 6 years for HIPAA-designated record sets.\nMr. Aiden Carrow, Senior Clinical Billing Analyst at Northbank Heritage, based near 5th & Kline, Brimwood, OR 97200, uses device NBHC-CLN-104 (Win10) and VPN profile \"brimwood-west\".\nClustered identifiers for Mr. Carrow: a.carrow@nbhc-ficta.example, empId N B H C - 0 0 4 1 9, session sso:tkn_1q2w-3e4r, acct suffix \u2022\u20224821, and DOB 1987-04-09 (age 38).\nAccess logs show OAuth redirect at https://intra.nbhc.example/dsar?req=ZXMtMTIwOA==&acct=****4821 and print job PJ- 2  9  7 at 03:14 PT in Ward 3B; this is routine operations metadata.\nNegative statement: this paragraph contains only generic demographics (age 30\u201340, zip 941xx, device model \"SlatePro\") and should not be treated as identifying a specific person.\nDe-identification and aggregation apply for analytics, and public-source references (e.g., industry indices, published reimbursement rates) are not MNPI.\nTransfers to sub-processors (e.g., CloudHarbor Health Data, FictaTrust Card Switch) occur under HIPAA BAAs, GLBA vendor due diligence, and SCCs if applicable to non-U.S. regions.\nConsumers and patients may submit a DSAR via https://rights.nbhc.example/submit or mail Northbank Heritage Privacy Office, 101 Pine Arc, Brimwood, OR 97200, attn: DSAR Team.\nWe verify requestors via two-factor link codes and last interaction date; no biometric templates are stored, and we prevent combining DSAR data with trading models.\nTo minimize MNPI risk, pre-release clinical utilization trends are shared only in aggregated form; private emails to analysts like Ms. Rhea Vega at Frostridge must not include forecasts.\nExample of non-personal operational tags: device NBHC-POS-778, acct ending \u2022\u20220391, 30307, Q2 backlog 18%, 10.0.9.14; these values are not linked to any named individual.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "age 30–40",
+      "matched_text": "age 30\u201340",
       "reason": "Generic age range; not identifying on its own"
     },
     {

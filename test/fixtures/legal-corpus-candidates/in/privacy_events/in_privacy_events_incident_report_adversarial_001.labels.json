@@ -43,6 +43,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -210,6 +218,12 @@
       "category": "MNPI",
       "matched_text": "3B",
       "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pte. (Singapore) triggered a cross-border transfer; the export ran via https://xprt.aravalli-orbit.example/xpt?req=DE-24-0615&ref=E U-TRN-7 3B though India-only routing was intended.\nDataset elements: names, corporate emails, masked PAN (P AN\u2011XXZ P9 1 0 3 Q), truncated Aadhaar (**** **** 9 9 8 1), and redacted GSTIN (G S T I N: XX\u2011XX\u2011XXXX\u2011XX), no bank a/c, no card, and no passwords.\nA child applicant (self\u2011declared 17) applied to our campus ambassador onboarding; guardian consent recorded in the form and withdrawn on 01-Jun-2026 via ds ar portal, prompting immediate action.\nPrivacy workflow executed: DSAR ACK #DS-26-0611 sent 01-Jun-2026 10:12 IST; consent withdrawal CN-26-0612 honoured; minimisation applied to the batch and extraneous fields dropped.\nErasure completed for the child record and 2 adult applicants at 14:40 IST 01-Jun-2026; Erasure Cert E\u2011RS/24/0612 archived; retention tag DPA_S2_RET90 was not applied post\u2011erasure.\nCross-border transfer covered by DPA Schedule 2 (Cross\u2011Border Transfer) executed 19\u2011May\u20112026 and Data Export Approval DE\u201124\u20110615; TI PIA\u2011IN\u201124\u20110518 shows residual risk \u201cLow\u201d and has been closed.\nFor avoidance of doubt, no UPSI under SEBI (PIT) Regulations, 2015 was part of the dataset; board note \u201cProject Indigo capex revision\u201d remained ring\u2011fenced in a separate repository and trading window closure procedures were already in force.\nSecurity review indicates no credentials, no MAC addresses, and no device identifiers were collected; firewall logs show \u201csrc\u2011mac: 00\u201100\u201100\u201100\u201100\u201100\u201d placeholders only, which should not be treated as live data.\nWe also attached public\u2011source investor presentation (downloaded from the exchange website) and generic policy text; these are not personal data nor price\u2011sensitive.\nControl status: configuration drift ticket SEC\u20112416 is closed and the SSO\u2011based export control is implemented; this is not an ongoing breach and no further customer notification is required under DPDPA.\nMateriality review completed by Mr. Rajiv S. Menon (CISO) and Ms. Meera K. Vyas (DPO), with PIT compliance note filed to the Company Secretary for N S E/B S E context; no exchange d",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

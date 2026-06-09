@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -350,6 +358,12 @@
       "category": "MNPI",
       "matched_text": "5,000,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed Convertible Bond and Strategic Alliance Transaction \u2014 Republic of Hanseong (Draft for internal review; contains important non-public information under SCMAS)\nParties: Issuer \u2014 Darae Quantum Motors Co., Ltd. (\u201cCompany\u201d), listed on the Hanguk Growth Exchange (HGX) Mainboard; Investor \u2014 Girin Lake Holdings SPC (\u201cInvestor\u201d)\nInstrument/Size: KRW 48,000,000,000 unsecured convertible bonds, 3-year tenor, 3.25% coupon, initial conversion price at a 12% discount to the 30-trading-day VWAP on HGX\nStrategic Component: 5-year exclusive supply MoU for the Company\u2019s \u201cOrchidCell U9\u201d power module and \u201cSeastar OS\u201d drivetrain controller, with quarterly joint roadmaps\nUse of Proceeds: Capex for the Guryang City Pilot Line 2 and working capital; sponsorship of the Seonam Meteors youth program is excluded and unrelated to this financing\nConditions Precedent: Private placement notice to the Seohae Financial Commission (SFC) and supervisory review by the Seohae Supervisory Service (SSS); HGX listing eligibility confirmation per HGX Rulebook 2025\nConfidentiality/MNPI: Each party acknowledges receipt of important, non-public information as defined under the Securities and Capital Markets Act of Seohae (SCMAS), will maintain trading restrictions until the Company\u2019s pre-disclosure is posted on the HanSeong Disclosure Portal, and notes this draft was circulated to IR for internal pre-brief only\nKey Employee Retention: Mr. Jae-ho Park (CFO; resident-number 901231-2345678) shall execute a 24-month retention agreement; he is enrolled in the Guryang Tech Workers Union and currently receives outpatient care for type-2 diabetes; Company facilities use retina-scan template ID RST-4475 for his access credential; his minor child (age 16) remains eligible under the Company health plan\nPIPAH Compliance: The Company will process resident-number and biometric records solely for HR and facility access in accordance with the Personal Information Protection Act of Hanseong (PIPAH) and internal SOP \u201cAmber Crane,\u201d with data minimization and domestic retention only\nClosing Mechanics: Target signing within 20 business days of SFC/SSS acknowledgements; closing at escrow agent Mugeon Trust Co. under clean-room protocol \u201cSigma-12\u201d; failure to close by the long-stop date triggers a KRW 500,000,000 expense reimbursement cap\nInvestor Rights: 12-month lock-up; anti-dilution (full ratchet for 6 months thereafter); board observer right for Ms. Soyeon Kim (Investor designee), contact: ir@darae-quantum.co.kr, +82-2-555-0199\nRepresentations: The Company confirms no undisclosed borrowings above KRW 5,000,000,000, no sanctions issues, and no material changes to employment terms except the K-Resilience retention plan; \u201cmoving mountains\u201d in marketing materials is a metaphor only, and references to a \u201cgenetic blueprint for growth\u201d are non-scientific slogans\nPublic Communications: All releases shall use Hanseong-local disclosure conventions; statements about the fictional Green Horizon 2040 Policy and generic diversity, equity, and inclusion commitments are aspirational and not transaction terms\nMiscellaneous: Governing law \u2014 Republic of Hanseong; disputes to the Hanseong Southern District Court; this term sheet is non-binding except for confidentiality, exclusivity (30 days), costs, and governing law",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -300,6 +308,24 @@
       "category": "MNPI",
       "matched_text": "lateral movement",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Impacted data types: employee files with partial resident-number (RRN), biometric time-clock templates, and limited health insurance claim codes.\nMr. Dong-hyun Seo (EmpID: OPS- 2 0 1 9 4, Line Ops) had a fingerprint template hash (sha256: 3af8c9e1...c0b1) and union membership in \"Seoryu Electronics Workers Union\" exposed; medical code HI-072 (asthma checkup) also present.\nMs. Yeri Chae (Contractor, EmpID: CT-0551) file included RRN 83****-1****** and a note about volunteering with the Doram Peace Fellowship (religious charity); no sexual-orientation data stored",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Impacted data types: employee files with partial resident-number (RRN), biometric time-clock templates, and limited health insurance claim codes.\nMr. Dong-hyun Seo (EmpID: OPS- 2 0 1 9 4, Line Ops) had a fingerprint template hash (sha256: 3af8c9e1...c0b1) and union membership in \"Seoryu Electronics Workers Union\" exposed; medical code HI-072 (asthma checkup) also present.\nMs. Yeri Chae (Contractor, EmpID: CT-0551) file included RRN 83****-1****** and a note about volunteering with the Doram Peace Fellowship (religious charity); no sexual-orientation data stored.\nScope: 214 staff records (KR-HQ: Haedeok-gu campus) and 3 vendor forms; customers were not affected; logs did not include MAC addresses, IMEI, or bank accounts.\nTechnical detail: exfil path via OCR'd export \"emp_fo rm_2025.pdf\" and archive \"KSLE-OPS-2 0 1 9 4.zip\"; time window 01:12\u201302:03 KST; device id \"neb-42\".\nControls: AuroraGate WAF and Sapphire Sentinel XDR detected lateral movement under the radar; Data Minimization Policy v3.2 and Clean-Room Handling SOP enforced.\nPolicy: we remain committed to diversity, equity, and inclusion and union neutrality while tightening third-party risk oversight.\nInvestor-relations note: handling of possibly material yet non-public operational data continues under blackout; disclosure will follow FSCMA and KSLE Listing Rules after verification.\nNotifications: KSLE Market Surveillance Center and the CMSB Incident Desk received preliminary filings; public advisory to be posted at https://ir.seoryudynamics.kr/notice?doc=INC%2F2026-06A.\nContact: Ms. Hae-lin Kwon, DPO, dpo@seoryudynamics.kr; IR hotline +82-2-110-0029; incidentdesk@seoryudynamics.kr for employees and vendors.\nClarifications: no faceprints, genetic-sequencing data, or children\u2019s medical charts are stored in any Seoryu system; the phrase sexual-orientation appears in training materials only and is irrelevant here.\nCommunity/press context: references to Hanseo Meteors and Namcheon Park in social posts are unrelated; our 2025 Sustainability Report and KSLE Fair Disclosure page remain the public source of truth.\ninternal pm: we will triage logs, rotate keys, and schedule a postmortem, tbd; follow-up sprint \"constellation\" is blocked pending vendor patch ETA; okr remains unchanged.\nFor avoidance of doubt, Dr. Jin",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: unauthorized access via supplier portal \"NebulaBridge\" to HR archive; potential MNPI identified; this notice is not a MAC and not an earnings forecast.\nImpacted data types: employee files with partial resident-number (RRN), biometric time-clock templates, and limited health insurance claim codes.\nMr. Dong-hyun Seo (EmpID: OPS- 2 0 1 9 4, Line Ops) had a fingerprint template hash (sha256: 3af8c9e1...c0b1) and union membership in \"Seoryu Electronics Workers Union\" exposed; medical code HI-072 (asthma checkup) also present.\nMs. Yeri Chae (Contractor, EmpID: CT-0551) file included RRN 83****-1****** and a note about volunteering with the Doram Peace Fellowship (religious charity); no sexual-orientation data stored.\nScope: 214 staff records (KR-HQ: Haedeok-gu campus) and 3 vendor forms; customers were not affected; logs did not include MAC addresses, IMEI, or bank accounts.\nTechnical detail: exfil path via OCR'd export \"emp_fo rm_2025.pdf\" and archive \"KSLE-OPS-2 0 1 9 4.zip\"; time window 01:12\u201302:03 KST; device id \"neb-42\".\nControls: AuroraGate WAF and Sapphire Sentinel XDR detected lateral movement under the radar; Data Minimization Policy v3.2 and Clean-Room Handling SOP enforced.\nPolicy: we remain committed to diversity, equity, and inclusion and union neutrality while tightening third-party risk oversight.\nInvestor-relations note: handling of possibly material yet non-public operational data continues under blackout; disclosure will follow FSCMA and KSLE Listing Rules after verification.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

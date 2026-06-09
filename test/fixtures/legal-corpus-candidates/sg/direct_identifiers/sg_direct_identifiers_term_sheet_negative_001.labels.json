@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -179,6 +187,12 @@
       "category": "MNPI",
       "matched_text": "15%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Proposed Strategic Investment by Tembusu Horizon Limited (a company listed on the SGX Mainboard) in LionForge Robotics Pte. Ltd.\nBuyer: Tembusu Horizon Limited, Registered Office: 99 Quanta Drive #42-01, Singapore 049999; UEN: 201912345Z (invalid placeholder).\nTarget: LionForge Robotics Pte. Ltd., Registered Office: 12 Circuit Crescent #05-01, Singapore 129999; UEN: 201800000Z (invalid placeholder).\nBackground: The Buyer\u2019s Board has publicly announced a non-binding MOU on 1 May 2026; this term sheet reflects previously disclosed, illustrative parameters and contains no MNPI.\nStructure: Subscription for new ordinary shares representing approximately 10\u201315% post-issuance; final pricing to be determined by independent valuation and subject to SGX Listing Manual Rule 703 disclosures.\nConditions precedent: satisfactory legal/financial due diligence, CCCS clearance (if applicable), and internal approvals; any equity fundraise by the Buyer will rely on SFA prospectus exemptions and comply with SGX-ST rules.\nEmployment matters: key staff to be offered retention arrangements; PDPA compliance applies\u2014no NRIC/passport collection except where legally required (e.g., MAS AML/CFT onboarding).\nPayment mechanics: completion monies to be placed into escrow with Lion City Bank Ltd. (fictional), Client A/C: 888-000-123456 (placeholder only; not a live account).\nNotices (Buyer): Legal Department, Tembusu Horizon Limited, legal@tembusu-hz.example.com; Tel (public helpline): +65 1800 000 0000.\nNotices (Target): Company Secretary, LionForge Robotics Pte. Ltd., cosec@lionforge.example.com; Switchboard: +65 1800 111 1111.\nSecurities references are illustrative only; any code (e.g., \u201cSG-TEST-0000\u201d) is a non-functional placeholder and not a live ISIN or stock code.\nWarranties and exclusivity: customary terms for a 60-day exclusivity period; nothing herein constitutes financial advice, a forecast, or an offer of securities.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -227,6 +235,18 @@
       "category": "MNPI",
       "matched_text": "Chinese walls",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ne Harbor Capital LLP (Investor) and Saffron Kites Technologies Limited (Company), an Indian company intending to list on NSE and BSE; this term sheet is non-binding except for confidentiality, exclusivity, and governing law.\nTransaction: Primary subscription to Series F compulsorily convertible preference shares and a secondary purchase from existing shareholders, subject to the Companies Act, 2013 and SEBI ICDR regulations; no live deal codename is used.\nConsideration: Pricing to be finalised per Regulation 164 of SEBI ICDR using a public-computation formula; no unpublished price sensitive information (UPSI) will be shared outside a SEBI PIT-compliant clean room.\nDiligence: Scope includes material contracts, litigation, data protection policies, Aadhaar/PAN/GSTIN collection practices, product security for \u201cMonsoon Ledger\u201d and \u201cLotusPay Neo,\u201d and optional biometric authentication controls; identifier samples to be masked (e.g., Aadhaar 0000 1111 2222, PAN ZZZPQ9999Z, GSTIN 00ZZZPQ9999Z1Z9).\nData protection: The Company shall obtain explicit consent under the Digital Personal Data Protection Act, 2023, enable opt-outs, and avoid processing data of children under 18 without verifiable parental consent and purpose limitation.\nSpecial-category data handling: Individual A (a voluntary declarant) informs the Company of a chronic kidney condition for workplace accommodation; such health data will be ring-fenced, minimised, processed solely on consent, and excluded from investment decisioning.\nEmployment/DEI: The Company\u2019s Harmony & Belonging Charter covers religion, sexual orientation, union membership, and political opinions only in abstract policy terms; no employee is required or encouraged to disclose such attributes, and general wellness initiatives (e.g., yoga breaks) are offered without collecting sensitive particulars.\nInformation sharing: Access to any UPSI will be limited to a need-to-know list maintained under the SEBI (Prohibition of Insider Trading) Regulations, 2015, with Chinese walls, structured digital access logs, and audit trails.\nConditions precedent: RBI and CCI approvals if applicable, shareholder resolutions under Sections 42 and 62, stock exchange in-principle approvals, and a no-default certificate from lenders.\nClosing mechanics: Funds flow via an escrow with Indigo Banyan Trusteeship Services Pvt Ltd (fictional), with share allotment and filings of PAS-3 and FC-GPR as applicable within statutory timelines.\nRepresentations: The Company represents that public announcements about its \u201cCricket City\u201d rollout in Dharapura and sponsorship of the Dharapura Dynamos were previously disclosed via stock exchange intimations and do not constitute UPSI.\nMiscellaneous: The term sheet uses plain-English metaphors like \u201copen the batting\u201d and \u201cfield the risks\u201d for illustration only, and generic product references such as \u201cAzure Mango\u201d are marketing names without technical claims.\nNotices: Notices shall be sent to legal@kites.example and deals@citrineharbor.example; no personal emails or phone numbers are used in this document.\nGoverning law and forum: This term sheet is governed by the laws of India, with courts at New Kalinga, Maharashtra having non-exclusive jurisdiction; this sentence is intentionally",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

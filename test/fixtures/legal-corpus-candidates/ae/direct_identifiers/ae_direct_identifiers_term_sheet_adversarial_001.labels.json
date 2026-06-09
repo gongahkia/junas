@@ -51,6 +51,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -228,6 +236,12 @@
       "category": "MNPI",
       "matched_text": "148,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Strategic Acquisition of Falcon Oasis Holdings PJSC by Green Dunes Capital SPV Ltd (AGMZ free zone).\nSeller: Falcon Oasis Holdings PJSC (Dubai Department of Enterprise Trade Licence 921345; TRN 100123456700003; DIFQ CR No. DIFQ-CR-0012398), HQ: Unit 1402, Suhail Tower, Finance Quarter (DIFQ), Dubai, UAE.\nBuyer: Green Dunes Capital SPV Ltd (AGMZ Registration AGMZ-LIC-00078912), Registered Office: 1603 Qasr Heights Tower, Harbor Finance Plaza, Abu Dhabi.\nPrimary contact: Mr. Hisham Al Kareem, CEO; email h.kareem@falconoasis.example.ae; phone +971 50 123 9482; dataroom https://dataroom.example.ae/ts?ref=AGMZ-LIC-00078912&eid=784-2099-6543217-3.\nEscrow details: IBAN A E 0 7 0 3 3 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 (UAE, bank code 033); check digits intentionally invalid for draft review only.\nAuthorised Signatory (Seller): Ms. Laila Haddad, Emirates ID 7 8 4 - 2 0 9 9 - 6 5 4 3 2 1 7 - 3; Passport (fictional) No. NQ8590132; contact: laila.h@falconoasis.example.ae.\nConsideration AED 148,000,000; cash on completion; potential post-closing combination and future listing on DMX/ADSH; note: unaudited Q2 trading update not yet public (treat as MNPI).\nConditions precedent: approvals by Emirates Capital Authority (ECA), FRD (DIFQ), and FRA (AGMZ); confirm absence of sanctions; for clarity, no material adverse change (MAC) condition is asserted.\nData governance: UAE PDPL applies; personal data (including family origin and ID images) to be redacted in VDR; do not email Emirates ID scans to shared team lists; use secure upload only.\nLogistics: meetings wed 3pm; draft circulated in word; not a privacy notice; jira task gd-acq-17 open; product names are placeholders; internal chat notes kept out of the deal file.\nSignatures and roles: Authorised Signatory (Buyer): CFO, Green Dunes Capital; Signatory (Seller): Chair, Falcon Oasis; generic form fields Name: ______, Email: ______, Mobile: ______.\nPublic references: ECA Rulebook is publicly available; Public helpline (non-PII): 800 5555; do not treat investor-relations@public.example.ae as confidential; media release draft pending.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

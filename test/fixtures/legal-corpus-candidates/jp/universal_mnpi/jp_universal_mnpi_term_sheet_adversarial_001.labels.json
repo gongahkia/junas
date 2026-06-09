@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -450,6 +458,18 @@
       "category": "MNPI",
       "matched_text": "100,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u975e\u516c\u958b",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential / \u975e\u516c\u958b \u2014 Project Mikan Term Sheet (draft for board memo), Embargo until 2026-07-15 09:00 JST.\nParties: Buyer\u2014Hoshizora Robotics K.K.; Seller\u2014Midorikawa Systems K.K.; Co-investor\u2014Harborline Capital GK (minority).\nStructure: Negotiated acquisition of 51% of Midorikawa Systems K.K. via secondary share purchase; designed to avoid mandatory TOB unless thresholds are triggered under FIEA.\nConsideration: JPY 8,400,000,000 cash at closing; purchase-price adjustment for net debt/working capital; contingent earn-out up to JPY 600,000,000 over 24 months.\nDefinitive agreements: Sh a re P ur c h a se A g r e e m e n t (SPA), Shareholders\u2019 Agreement, Transition Services Agreement; signing target 2026-07-20; closing target 2026-09-30.\nConditions precedent: Buyer board approval; Seller shareholder approval; customary filings/notifications in line with FIEA and Sakura Growth Market listing rules (fictional); no third-party consents requiring public disclosure at signing.\nMAC/MAE: No Material Adverse Effect between signing and closing; industry-wide changes, changes in laws, and seasonal variances shall not constitute a MAC; this sentence is intentionally negated: no material adverse change is expected.\nConfidentiality & APPI: Personal data access limited to need-to-know; example employee code HX-7Q-314 and masked my-number ***-***-**** only for HR integration under DPA; no sensitive identifiers to be exported outside Japan.\nFunding: Internal cash plus senior term loan from Seifu Credit Partners YK (commitment letter non-binding); debt-to-equity \u2264 60%; no security over core R&D assets until post-closing integration.\nGovernance: Post-closing board of 5 (3 Buyer nominees, 2 Seller nominees); Chair to be Mr. Daichi Kurose; observer seat for Harborline; IR draft prepared for contingency but not authorized for external release.\nRegulatory/tender-offer context: No TOB filing has been made or announced; if post-closing holdings exceed 33.3%, Buyer will consult the (fictional) Kanto Securities Panel prior to any incremental acquisitions.\nNon-public markers: Internal circulation only; board pack codename \u201cMikan_v12\u201d; h t t p : / / intra.hoshizora.local/deal?prj=m1kan&doc=ts_v1 (restricted) is the working link to the model and diligence folders.\nPublic reference (benign): for reference only, Hinode Policy Institute Corporate Governance Guidelines (2019, public) and generic vendor manuals for \u201cShiro-Cloud v12\u201d backup; neither source discloses this transaction.\nCovenants: Ordinary-course operations; no dividends, share issuances, or capex > JPY 100,000,000 without Buyer consent; employee retention bonuses capped at 5% of FY2026 payroll; no SPA covenant is intended to trigger a MAC solely due to market index movement.\nIR/communications: Draft investor-relations Q&A and press outline embargoed until the Embargo Date; any leak will delay announcement and may require supplemental disclosure under FIEA.\nproject notes: todo\u2014route redlines; push v3.2 to dataroom; note spa-day bait for team after signing\u2014aromatherapy vouchers, not material.\nContacts: Ms. Ayumi Nakada (Corporate Dev), ayumi.nakada@hoshizora-kk.local; internal chat \u201c#mikan-ts\u201d for comments; all comments to be consolidated in research note \u201cProject Citrus\u201d (v5 shows 12.5% IRR; EBITDA margin target 22% by FY2028).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

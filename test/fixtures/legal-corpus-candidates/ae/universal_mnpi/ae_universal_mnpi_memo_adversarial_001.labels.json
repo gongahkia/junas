@@ -107,6 +107,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -369,6 +377,24 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consideration: AED 182,500,000 for 83.0% equity; seller rollover for Mr. Karim Haddad (E I D: 7 8 4\u2011xx87\u201113 34 567\u20115) retaining 17.0%, subject to ADGM/DIFC fit\u2011and\u2011proper.\nTrade licence (Dubai): TL\u2013DXB\u20132O24\u201300I2 (legacy scan shows O/0 transposition), reg. office: Unit 1402, Marasim North Tower, Al Qaws Free Zone, RAK.\nThese materials are non\u2011public and price\u2011sensitive; no external circulation until ADX disclosure; IR draft to be staged only post\u2011embargo",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Non\u2011Public \u2014 Inside Information \u2014 UAE PDPL/SCA \u2014 Project Falcon \u2014 Board Briefing (DIFC) \u2014 Embargo until 17 July 2026 09:00 GST.\nIssuer: Al Noor Logistics PJSC (ADGM registration ADGM\u2013A1O3X), Target: Blue Palm Warehousing LLC (Dubai), definitive Share Purchase Agreement (SPA) scheduled for execution on 24 June 2026.\nConsideration: AED 182,500,000 for 83.0% equity; seller rollover for Mr. Karim Haddad (E I D: 7 8 4\u2011xx87\u201113 34 567\u20115) retaining 17.0%, subject to ADGM/DIFC fit\u2011and\u2011proper.\nTrade licence (Dubai): TL\u2013DXB\u20132O24\u201300I2 (legacy scan shows O/0 transposition), reg. office: Unit 1402, Marasim North Tower, Al Qaws Free Zone, RAK.\nThese materials are non\u2011public and price\u2011sensitive; no external circulation until ADX disclosure; IR draft to be staged only post\u2011embargo.\nMAC/MAE: no material adverse change will be deemed to arise from seasonal throughput variance, FX moves within \u00b15%, or published public\u2011health advisories; pandemics and regional conflicts are carved out.\nFor the avoidance of doubt, the parties confirm that no MAC has occurred as at the date hereof.\nChair: H.E. Ms. Laila Al Rashid; contact: laila.rashid@al-noor.example for board queries and clean\u2011team access.\nFunding mix: AED 120,000,000 secured murabaha plus AED 62,500,000 deferred seller note; pro forma net leverage 3.1x; earn\u2011out up to AED 25,000,000 tied to FY27 EBITDA.\nConditions precedent include renewal of 5 key MOAs with top shippers and SCA/ADX notification; draft disclosure prepared, not filed.\nPublic\u2011source context only: see 2023 ADGM discussion paper on M&A transparency and the DFM issuer guide (stale; last updated 2021).\nlowercase project\u2011management: move docs to the dataroom by monday, tag \u2018falcon\u2011ir\u2019, and ping nadim when the cp checklist hits 90%.\nData room: https://vault.al-noor.example/falcon/index.html?emb=17-07-2026&uid=PRJ%2F-FALC0N%2FQ%CE%9FE; refer to folder 04\\Fin\\QoE\\ver\u20112 for scanned ids.\nPDPL handling: restrict access to Emirates ID scans, family\u2011origin notes for the Haddad household, and HR visa files to the legal clean team only.\nCompliance: DFSA MAR and ADGM FSMR market\u2011abuse prohibitions apply; maintain insider lists; do not discuss over non\u2011secure channels; embargo notice posted 3 June 2026.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

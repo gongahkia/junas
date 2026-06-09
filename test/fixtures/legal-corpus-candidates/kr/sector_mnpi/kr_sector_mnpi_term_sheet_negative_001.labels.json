@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -195,6 +203,12 @@
       "category": "MNPI",
       "matched_text": "Information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed RCPS investment in Orion Slope Co., Ltd. (Republic of Korea) by Sereon Pacific Partners Co., Ltd.\nTransaction overview: Investor to subscribe for redeemable convertible preferred shares (RCPS) of the Company; target closing in Q4 [Year]; consideration KRW [TBD], subject to FSCMA compliance.\nUse of proceeds: expansion of grid analytics and climate-adaptive software; ESG climate reporting tooling branded \u201cClimatePath Lite\u201d (marketing brochure only).\nRegulatory: FSC and FSS notifications as applicable; MRFTA filing if thresholds met; any KRX rules to be addressed if the Company pursues a KOSDAQ listing (already publicly noted in a 2025-03-10 press release).\nCommercial terms (illustrative): dividend rate and conversion ratio to be set at signing; no change-of-control rights before KRX eligibility; sample term definitions appended for education only.\nInformation barriers and insider list: employees to follow standard training; a generic insider-list template is attached; no resident-number fields will be collected (use Employee ID format EMP-0000).\nBlackout and tipping: routine blackout calendar for quarterly reporting and a do-not-tipping reminder poster will be circulated to staff; these materials are operational and not deal-specific.\nCrypto reference: the Company\u2019s \u201cOrion CryptoLab\u201d is an internal sandbox demonstrated at university job fairs; no token issuance or customer onboarding is planned under this term sheet.\nCyber incident tabletop: an annual drill is scheduled with the IT vendor; outcomes are for awareness only and will not alter commercial terms absent board approval.\nNon-public note: the Company has identified a recent cyber incident affecting a legacy API endpoint with limited data exposure; remediation is in progress and no public disclosure has been made as of the date hereof.\nExclusivity: 60-day negotiation window; during this period the Company will finalize a non-public pilot integration with a domestic VASP for cold-storage workflows (subject to NDA).\nConditions precedent: customary due diligence, confirmation of no material adverse change, and delivery of board and shareholder resolutions; Business Registration No. [000-00-00000] placeholder only.\nEmployment and privacy: no collection of resident registration numbers; any onboarding forms will use masked fields and role mailboxes (e.g., ir@orionslope.example.kr).\nInvestor relations: for public queries, direct to the website FAQ and the general hotline (example) 000-0000-0000; this term sheet is non-binding and for discussion under Korean law.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

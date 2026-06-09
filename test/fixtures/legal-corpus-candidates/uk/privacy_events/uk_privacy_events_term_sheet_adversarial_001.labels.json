@@ -50,6 +50,14 @@
     "previous_must_detect_count": 15,
     "previous_must_not_detect_count": 5
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -337,6 +345,24 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent management: employee onboarding form OF\u20112026\u201117 captured optional marketing consent; Ms. N. Vale withdrew consent on 19\u2011May\u20112026 and suppression is complete.\nEmployment & onboarding: no TUPE transfer is expected on a share sale; FCA\u2011regulated roles to be re\u2011papered with onboarding forms and SMCR attestations within 30 days post\u2011Completion.\nConfidentiality & privacy controls (policy\u2011only): policy prohibits exporting HR data via email; to be clear, no cross\u2011border transfer is taking place under this term sheet, and any prior sandbox datasets were de\u2011identified",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1 9 8 2 7).\nContacts: Ms. Rhea Forton (Head of Corp Dev) rhea.forton@larkmere.example; Mr. Idris Keane (Seller) idris.keane@grayshore.example; tel +44 020 0000 0000.\nStructure & consideration: Larkmere to acquire 100% of the ordinary shares for \u00a384,750,000 cash; intended LSE Main Market announcement post\u2011signing subject to FCA guidance.\nConditions precedent: FCA change\u2011in\u2011control approval under s.178 FSMA; no MAC (for the avoidance of doubt, a general market downturn shall not trigger MAC); Larkmere shareholder approval; completion by 31\u2011Aug\u20112026.\nUK MAR and MNPI: Clean Team access only; insider lists maintained; Compliance Memo CM\u2011UK\u20119473 (https://docs.example/memo/CM-UK-9473?sig=ab12__cd) governs data rooms; no announcement obligation is triggered by this draft.\nData protection & DPA: DPA Schedule 2 (controller\u2013processor) attached; data minimisation in diligence (initials + job title only; no passport scans); Records Retention Policy RP\u2011LME\u201106 fixes 6\u2011year retention.\nCross\u2011border transfers: Data\u2011Export Approval DEA\u2011GB/SG\u2011003 granted 03\u2011Jun\u20112026 for payroll sub\u2011processor in Singapore; despite approval, no live PII transfers will occur before Closing and prior test files were synthetic.\nDSAR/erasure events: DSAR\u201119273 satisfied on 14\u2011Apr\u20112026; erasure request ER\u2011117 completed 01\u2011May\u20112026 with audit log retained; these closed items do not require further action.\nConsent management: employee onboarding form OF\u20112026\u201117 captured optional marketing consent; Ms. N. Vale withdrew consent on 19\u2011May\u20112026 and suppression is complete.\nEmployment & onboarding: no TUPE transfer is expected on a share sale; FCA\u2011regulated roles to be re\u2011papered with onboarding forms and SMCR attestations within 30 days post\u2011Completion.\nConfidentiality & privacy controls (policy\u2011only): policy prohibits exporting HR data via email; to be clear, no cross\u2011border transfer is taking place under this term sheet, and any prior sandbox datasets were de\u2011identified",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "C o n f i d e n t i a l Term Sheet \u2014 Proposed acquisition of Grayshore Capital Markets Ltd by Larkmere Analytics plc (Ref: T/ S H \u2014 1 9 8 2 7).\nContacts: Ms. Rhea Forton (Head of Corp Dev) rhea.forton@larkmere.example; Mr. Idris Keane (Seller) idris.keane@grayshore.example; tel +44 020 0000 0000.\nStructure & consideration: Larkmere to acquire 100% of the ordinary shares for \u00a384,750,000 cash; intended LSE Main Market announcement post\u2011signing subject to FCA guidance.\nConditions precedent: FCA change\u2011in\u2011control approval under s.178 FSMA; no MAC (for the avoidance of doubt, a general market downturn shall not trigger MAC); Larkmere shareholder approval; completion by 31\u2011Aug\u20112026.\nUK MAR and MNPI: Clean Team access only; insider lists maintained; Compliance Memo CM\u2011UK\u20119473 (https://docs.example/memo/CM-UK-9473?sig=ab12__cd) governs data rooms; no announcement obligation is triggered by this draft.\nData protection & DPA: DPA Schedule 2 (controller\u2013processor) attached; data minimisation in diligence (initials + job title only; no passport scans); Records Retention Policy RP\u2011LME\u201106 fixes 6\u2011year retention.\nCross\u2011border transfers: Data\u2011Export Approval DEA\u2011GB/SG\u2011003 granted 03\u2011Jun\u20112026 for payroll sub\u2011processor in Singapore; despite approval, no live PII transfers will occur before Closing and prior test files were synthetic.\nDSAR/erasure events: DSAR\u201119273 satisfied on 14\u2011Apr\u20112026; erasure request ER\u2011117 completed 01\u2011May\u20112026 with audit log retained; these closed items do not require further action.\nConsent management: employee onboarding form OF\u20112026\u201117 captured optional marketing consent; Ms. N. Vale withdrew consent on 19\u2011May\u20112026 and suppression is complete.\nEmployment & onboarding: no TUPE transfer is expected on a share sale; FCA\u2011regulated roles to be re\u2011papered with onboarding forms and SMCR attestations within 30 days post\u2011Completion.\nConfidentiality & privacy controls (policy\u2011only): policy prohibits exporting HR data via email; to be clear, no cross\u2011border transfer is taking place under this term sheet, and any prior sandbox datasets were de\u2011identified.\nFinancing & funds flow: deposit \u00a34,000,000 into escrow at Exchange House Escrows Ltd; account ref ESCROW\u2011GB\u2011LME\u20110X9q; url\u2011based instruction https://portal.example/tx/AX9\u2011LME\u20110X9q.\nRegulatory undertakings: notify FCA and LSE as required; PDMR Dealing Code and closed period restrictions apply; insider list per MAR Art. 18 to be maintained by Larkmere\u2019s Company Secretary.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -50,6 +50,14 @@
     "previous_must_detect_count": 4,
     "previous_must_not_detect_count": 2
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -152,6 +160,12 @@
       "category": "MNPI",
       "matched_text": "share purchase agreement",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "heads of terms \u2014 proposed acquisition of Sablebrook Analytics Ltd by Brindle Arc Technologies plc, premium-listed on the LSE and supervised by the FCA.\nscope: purchase of the entire issued share capital; consideration to be a mix of cash and vendor loan note, ranges and final pricing tbd under the board\u2019s previously announced adjacency strategy.\npublic-source context: see Brindle Arc 2025 annual report (already published) and Moorfell Research note dated 12 Jan 2026 (public) describing the sector rationale.\nconditions precedent: customary UK approvals and UK MAR compliance; for clarity, no MAE termination right arises from changes in law, tax policy, or general market indices.\ndefinitive documentation: subject to negotiation and execution of a share purchase agreement and a transitional services agreement; long stop date 31 Dec 2026 for drafting purposes.\nembargo: hold any RNS release until 07:00 BST on 15 Nov 2026 unless a leak requires earlier announcement under UK MAR obligations.\ngovernance: target to operate as a wholly owned subsidiary with reserved matters; no parent-level board appointments are expected at completion.\nfinancing: internal cash and existing facilities previously disclosed; any equity component is illustrative only and would require separate approvals in line with Listing Rules.\ntimetabling: internal review checkpoints in november; external signing/completion windows remain tbd and subject to change.\nbreak fee and costs: no break fee proposed; each party to bear its own costs; no binding exclusivity in this draft.\nwarranties/indemnities: standard private M&A terms to market practice; optional warranty and indemnity insurance may be explored but is not a condition.\nintegration: uk-only focus and customer migration planning; any synergy figures are preliminary and not for guidance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

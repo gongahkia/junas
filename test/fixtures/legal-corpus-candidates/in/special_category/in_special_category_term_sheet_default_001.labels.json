@@ -39,6 +39,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -416,6 +424,24 @@
       "category": "MNPI",
       "matched_text": "51%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Identifier handling: Where strictly necessary for regulatory filings, partial identifiers may be used, e.g., Mr. Menon\u2019s Aadhaar ending 2211 and PAN suffix PMQ (fictional), with storage restricted to encrypted, access\u2011logged systems in India only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Noor Sheikh is a member of the TechWorks Bengaluru Union and has voluntarily disclosed that she is bisexual",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Acquisition of 51% of Zeronix Labs Limited by Aurora Vector Private Limited (India law governed).\nTransaction: Combination of secondary share purchase from promoters and preferential issue; Target is a listed public company on an Indian national stock exchange (scrip code \u201cZXLTD\u201d is fictional and for reference only).\nConsideration: Indicative valuation INR 820 crore; consideration in cash at Closing; escrow to be maintained with HarborTrust Custodial Services LLP (fictional).\nConditions precedent: Shareholder approval (special resolution), stock exchange observations, competition/sectoral approvals as applicable, and internal compliance under the Indian securities regulator\u2019s PIT Regulations concerning UPSI.\nUPSI/Insider controls: From Signing until Closing, trading window closure applies; insiders list to be maintained; wall\u2011crossing notices and confidentiality undertakings to be executed by all recipients before access to the data room.\nData protection: The Parties shall process personal data per the Digital Personal Data Protection Act, 2023 (DPDPA); explicit consent is required for special\u2011category personal data; child means under 18; apply data minimisation, purpose limitation, and deletion within 90 days post\u2011Closing.\nKYC identifiers: For diligence and KMP onboarding, PAN, Aadhaar, and GSTIN details may be viewed in masked form only (e.g., last 4 digits/letters); no copying or external processing; all identifiers referenced are fictional placeholders.\nSpecial-category data (anchored): CFO Mr. Raghav Menon\u2019s wellness file includes a genetic\u2011trait screen indicating thalassemia carrier status and a declaration of Jain religious affiliation; this data will be redacted unless Mr. Menon provides explicit consent.\nMinor data (anchored): Intern Master Aarav Pillai (age 17, minor) has disclosed asthma treatment details for workplace accommodation; any access requires parent/guardian consent and shall be segregated and deleted following onboarding review.\nAdditional sensitive data (anchored): Senior engineer Ms. Noor Sheikh is a member of the TechWorks Bengaluru Union and has voluntarily disclosed that she is bisexual; neither fact is material to the Transaction and will not be included in the data room absent informed written consent.\nIdentifier handling: Where strictly necessary for regulatory filings, partial identifiers may be used, e.g., Mr. Menon\u2019s Aadhaar ending 2211 and PAN suffix PMQ (fictional), with storage restricted to encrypted, access\u2011logged systems in India only.\nBenign policies: The Target\u2019s Lotus Inclusion Charter states the company values diversity, equity, and inclusion; a biometric lock protects the server room, but no individual\u2019s biometric template will be shared in the data room.\nUnrelated references: Mentions of the beverage line \u201cCrimson Kettle,\u201d the Mumbai Strikers sports team, and the metaphor \u201cthis deal is a marathon, not a sprint\u201d are unrelated to pricing or UPSI and are not financial advice.\nCommunications: Each Party represents that no UPSI shared will include unpublished financials beyond Q4 working drafts and non\u2011binding vendor term sheets; no off\u2011platform communications (including Signal/WhatsApp) without logging via dataroom@auroravector.example.\nContacts: Primary contact\u2014Ms. Shreya Banerjee, Company Secretary, cs@zeronixlabs.example; Acquirer legal\u2014Mr. Vedant Kulkarni, General Counsel, legal@auroravector.example.\nMiscellaneous: Governing law\u2014laws of India; disputes by arbitration seated in Bengaluru; this non\u2011binding term sheet is subject to definitive documentation and customary conditions precedent.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

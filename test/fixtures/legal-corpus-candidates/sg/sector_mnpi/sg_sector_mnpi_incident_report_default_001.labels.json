@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -344,6 +352,12 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privileged and confidential \u2013 Incident Report (Cyber/Operational) for Pinnacle Fintide Ltd., a Singapore Mainboard issuer on the Seaglass Exchange.\nOn 01 Jun 2026 03:40 SGT, our monitoring flagged anomalous API calls on a staging environment at our DPT custodian subsidiary, Fintide Vault Pte. Ltd., leading to exposure of a rotated hot\u2011wallet key and limited data exfiltration.\nPreliminary triage indicates the intrusion vector arose via a misconfigured connector on our sustainability reporting dashboard (Clearsky Carbon Metrics beta), which bridged to a vendor SFTP used for DPT settlements.\nContainment actions taken include isolating affected subnets, revoking the staging key, transferring the hot\u2011wallet float to a quarantined cold vault, and pausing DPT withdrawals for up to 24 hours (estimated exposure S$1.2m equivalent; no loss confirmed).\nAn information barrier has been activated between the \u201cProject Tamarin\u201d M&A team and Operations; only persons recorded on Insider List IL\u20112026\u201106\u201101 (maintained by Corporate Secretariat) may access incident materials.\nA trading blackout for all Designated Persons takes immediate effect until the Board\u2019s materiality assessment is concluded under the Seaglass Exchange Listing Manual (Rule 703\u2011equivalent) and Singapore securities law.\nNon\u2011public commercial terms potentially impacted include the pre\u2011conditional SPA for the proposed acquisition of Neptune Node Pte. Ltd., where the MAC and earn\u2011out grid are linked to DPT AUM thresholds and regulator review timelines.\nNo NRIC numbers, full card PANs, or biometric data are stored in the affected systems; however, names, work emails, and mobile numbers of approximately 212 corporate counterparties (PDPA personal data) may have been accessed.\nWe will notify the Singapore data protection authority as required under the PDPA and make a confidential approach to Seaglass RegCo; a holding announcement will only be made if materiality is met and verification is complete.\nTo prevent tipping or selective disclosure, only pre\u2011cleared statements will be shared with banks, market makers, or analysts, and incident specifics are restricted to the insider list until a public announcement (if any).\nThe intrusion may delay our half\u2011year sustainability assurance pack by up to two weeks, which could subtly affect timing of ESG index inclusion reviews, and a recovery plan will prioritise restoration of the climate\u2011data dashboard.\nOperationally, cyber insurance has been engaged, with a S$500k retention; vendor contracts with BlueKite Forensics (SEA) Pte. Ltd. and Arden & Kwan LLC include a fee cap and 15\u2011day response SLA that remain in force.\nFor employment matters, all staff remain bound by confidentiality and information\u2011handling clauses; a mandatory refresher on insider lists and information barriers will be conducted, using only hypothetical scenarios and no MNPI.\nOur ESG and DPT webinar next week is purely educational and marketing in nature; it will cover general crypto custody and climate reporting concepts and will not discuss this incident or any non\u2011public information.\nPoint of contact: Ms. Serene Koh (Chief Risk Officer), risk@pinnaclefintide.sg; for investor queries, please email Mr. Daven Lim (Head of IR) at ir@pinnaclefintide.sg.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

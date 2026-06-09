@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -145,6 +153,12 @@
       "category": "MNPI",
       "matched_text": "undisclosed",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: employee onboarding forms, issuer board support records, and post-acquisition integration of Hato Solutions K.K.; this schedule supplements the master services agreement with processors.\nCategories: HR profiles, work contact details, and limited director registry items for filings; no My Number is used in securities or investor-relations workflows.\nMy Number (\u500b\u4eba\u756a\u53f7): stored in a segregated payroll vault, collected only for statutory purposes, not combined with other identifiers, and not exported; deletion follows completion of statutory retention.\nData minimisation: onboarding forms collect only required fields (examples: Name (kana), Department Code, Start Date, DummyID: XXX-YYY-ZZZ), and optional fields are clearly marked.\nTransfers: no ongoing cross-border transfers of HR master data; policy prohibits exporting individual codes, including My Number, in capital-markets contexts.\nOne-time cross-border transfer approval was granted on 2026-05-10 for anonymised employee engagement metrics to Orion Analytics Pte. Ltd. (processor), subject to contractual safeguards and a transfer impact assessment consistent with APPI guidelines.\nDSAR status: zero open requests as of month-end; one access request was completed on 2026-04-22 after identity verification; no erasure requests were received in Q2.\nConsent management: there are no pending consent withdrawals for optional benefits; historical opt-outs are logged and applied to internal newsletters only.\nRetention: recruiting records 3 years; payroll/tax 7 years; board materials containing personal data 10 years per internal policy; automated erasure timers were validated in April and are functioning as designed.\nSecurities/MNPI: this note does not include undisclosed enumerated material facts or tender-offer facts under FIEA; the acquisition of Hato Solutions K.K. was publicly announced on 2026-03-15, and no tender offer is contemplated.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

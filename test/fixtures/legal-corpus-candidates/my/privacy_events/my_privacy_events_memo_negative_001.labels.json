@@ -15,13 +15,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -44,13 +44,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -65,6 +65,31 @@
     "source_report": "/tmp/kaypoh-candidates-after-ph-reviewed.json",
     "status": "owner_approved_post_ph_precision_realign_for_internal_benchmarking"
   },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 19,
     "new_must_detect_count": 4,
@@ -74,6 +99,14 @@
     "removed_must_not_detect": [],
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -192,6 +225,18 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Sensitive personal data (health, religious belief, biometric) is not collected by the HR SaaS; medical certificates remain on-prem per policy HR-RET-06.\nCross-border transfer: data-export approval DEX-TRB/2026-01 granted under PDPA s.129 for pseudonymised audit logs to Cloudhatch Pte Ltd (SG) via Awan Kinetik; encryption-at-rest and keys retained in MY, with onward-transfer contract controls.\nTransfer Impact Assessment TIA/2026-04 completed; no NRIC, passport, or bank account numbers leave Malaysia; this approval supersedes DEX-TRB/2025-03 and requires no further consent",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purpose: record completed privacy controls for vendor onboarding and confirm absence of MNPI under CMSA and Bursa disclosure regime.\nMNPI status: the financing mandate with Saujana Capital Bank Berhad and the acquisition of Lembah Utara Solar Sdn Bhd were announced via Bursa on 3 Apr 2026; this note contains no unpublished price-sensitive information.\nDPA Schedule 1 with Awan Kinetik Sdn Bhd (HR SaaS) executed on 15 May 2026; fields limited to Staff ID, role, work email alias, department, payroll bank name (masked), and emergency contact category only (data minimisation applied).\nEmployee Onboarding Form (HRF-ONB/2026) labels updated: \u201cStaff ID\u201d, \u201cDepartment\u201d, \u201cWork Email\u201d, \u201cNRIC (if legally required) \u2014 collect as masked e.g., XX-XXXX-XX-XXXX\u201d, \u201cAccount No. (payroll) \u2014 masked 0000-XXXXXX-0\u201d; placeholders are invalid and for format only.\nSensitive personal data (health, religious belief, biometric) is not collected by the HR SaaS; medical certificates remain on-prem per policy HR-RET-06.\nCross-border transfer: data-export approval DEX-TRB/2026-01 granted under PDPA s.129 for pseudonymised audit logs to Cloudhatch Pte Ltd (SG) via Awan Kinetik; encryption-at-rest and keys retained in MY, with onward-transfer contract controls.\nTransfer Impact Assessment TIA/2026-04 completed; no NRIC, passport, or bank account numbers leave Malaysia; this approval supersedes DEX-TRB/2025-03 and requires no further consent.\nDSAR and erasure handling: channel dpo@tamanrayaenergy.my monitored; DSAR-2026-014 was fulfilled and closed on 12 May 2026 with erasure of redundant CV attachments, and no items remain pending.\nConsent withdrawal: revised HR privacy notice includes withdrawal mechanism; as at the date hereof, there are zero active withdrawal requests and no processing continues without a lawful basis.\nRetention: HR profile data retained 7 years from termination; recruitment logs 24 months; automated deletion tested in UAT and promoted to PROD on 10 May 2026; no retention exceptions open.\nFinancing and deal files: lender KYC annexes contain only entity-level identifiers; no customer PII is shared with financiers or advisers, and no insider list entries remain active for the announced transactions.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -242,30 +287,5 @@
       "matched_text": "pseudonymised audit logs",
       "reason": "Privacy technique relevant under PDPA but not mapped to an allowed detection rule"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

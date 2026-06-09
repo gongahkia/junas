@@ -50,6 +50,14 @@
     "previous_must_detect_count": 5,
     "previous_must_not_detect_count": 2
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -147,6 +155,18 @@
       "category": "MNPI",
       "matched_text": "subject to Board sign-off",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident summary: third-party outage at Quayside Cloud Ltd affecting the non-production reporting environment on 7 June 2026, 02:10\u201303:05 BST.\nImpact: brief latency on test dashboards; no customer onboarding, payments, investment dealing, or market access systems were affected in production.\nData: logs indicate only anonymised synthetic test datasets were accessed; no names, addresses, account numbers, or government identifiers are processed in that environment.\nControls: access was via a previously revoked API key; Quayside Cloud Ltd has rotated all keys; our SOC case ref INC-ALB-007241 is closed pending supplier RCA.\nPublic status: this vendor incident and our continuity measures were already noted at high level in our RNS dated 12 May 2026 and on the investor relations page; see \u201cOperational Resilience Update\u201d (public).\nMateriality: based on FCA Handbook and Listing Rule guidance, the event is assessed as not material to the Group; no guidance changes contemplated.\nMarket abuse considerations: staff are reminded that stale or public information about third-party outages is not inside information and may be discussed in the normal course.\nCustomer communications: a general FAQ has been posted on sablethorpefinancial.co.uk/support; no targeted notifications were necessary.\nIdentifiers: internal ticket INC-000-FAKE-9201 and supplier case QCL-TEST-8842; any strings resembling IBANs, NI numbers, or card PANs in the logs were placeholders.\nPoint of contact: security@sablethorpefinancial.co.uk and vendor.management@sablethorpefinancial.co.uk (role mailboxes).\nDraft disclosure plan: subject to Board sign-off, a brief RNS clarification on supplier controls is targeted for 08:00 BST on 21 June 2026; until release, treat the planned timing as inside information under UK MAR.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -39,6 +39,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -346,6 +354,24 @@
       "category": "MNPI",
       "matched_text": "Chinese walls",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Investor KYC (fictional): Vistron Ventures Private Limited, PAN PQRST9876L, GSTIN 22PQRST9876L1Z2, Registered Office: 88/3 Chaitanya Park, South Phase, New Lakshmi Nagar, Bengaluru 560128, Karnataka, India",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Unpublished Price Sensitive Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet for Proposed Strategic Investment in NovaSagar Technologies Limited (the Issuer) by Vistron Ventures Private Limited (the Investor), India.\nStructure: Preferential allotment of 12,000,000 equity shares at INR 142 per share (aggregate INR 170.4 crore) and a secondary purchase of 3% from SuryaKamal Holdings LLP, capping post-deal holding at 19.9%.\nPricing: Floor price to comply with SEBI ICDR Regulations (26-week/2-week VWAP), with any premium payable in cash; no warrants or convertibles.\nApprovals and disclosure: Board approval and shareholder special resolution required; intimation under Regulation 30 of SEBI (LODR) Regulations, 2015 to be made to NSE and BSE as soon as possible and not later than 24 hours from the Board decision.\nUPSI: Until disseminated on the stock exchange websites, this term sheet and any negotiations constitute Unpublished Price Sensitive Information under SEBI (PIT) Regulations; selective disclosure is prohibited and wall-crossing acknowledgments are required.\nTrading window/blackout: The Issuer\u2019s trading window shall remain closed from circulation of this document until 48 hours after dissemination of the Reg 30 outcome; pre-clearance and contra trade restrictions apply per the Issuer\u2019s Code of Conduct.\nMateriality: Disclosure timing and content will be assessed against the Issuer\u2019s board-approved materiality policy (including quantitative thresholds and event-based triggers) and issuer-relative impact on turnover, profitability, or net worth.\nPublic references not UPSI: The Issuer\u2019s FY2023\u201324 audited results press release dated 30 May 2025 and the widely disseminated corporate announcement on a Bengaluru R&D lease filed on 18 January 2026 are already public and should not be treated as UPSI.\nAdversarial clarification: A general industry article about semiconductor incentives quoted in press last week is not an Issuer update and must not be used to infer trading cues.\nDPDPA compliance: PAN/GSTIN details may be processed for KYC with explicit consent; Aadhaar, if voluntarily provided, shall be masked/verified via offline XML only and not retained; no data of a child (under 18) will be processed without verifiable guardian consent.\nInvestor KYC (fictional): Vistron Ventures Private Limited, PAN PQRST9876L, GSTIN 22PQRST9876L1Z2, Registered Office: 88/3 Chaitanya Park, South Phase, New Lakshmi Nagar, Bengaluru 560128, Karnataka, India.\nData handling: Personal data will be stored in India, used solely for this transaction, and deleted or anonymised within 90 days of closing or termination; data principals may withdraw consent via dpo@novasagartech.in.\nControls: Parties shall maintain a structured digital database of insiders as per PIT Regulations; onward sharing only on a strict need-to-know basis under NDA and subject to Chinese walls and clean team protocols.\nConditions subsequent: In-principle approvals from stock exchanges, filing of allotment return, and if any change results in crossing 25% voting rights, an open offer under SEBI (SAST) Regulations shall be triggered with a public announcement; long stop date 90 days from signing.\nContact: Ms. Kavya Daramith, Company Secretary & Compliance Officer, NovaSagar Technologies Limited, email compliance@novasagartech.in; for Investor, Mr. Rohen Veladi,",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

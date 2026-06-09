@@ -1,325 +1,345 @@
 {
-  "doc_id": "ph_universal_mnpi_privacy_notice_default_001",
-  "document_type": "generic",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Ramon"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope includes board memos, internal research notes, investor‑relations drafts, deal checklist trackers, and the signed Term Sheet (02 Jun 2026) and Definitive Share Purchase Agreement for Project TAAL (deal codename) re acquisition of 62.5% of Isla Nova Power Corp. from LapuLapu Capital Bank."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Universal MNPI items under hold: consideration PHP 2,750,000,000 cash plus 10% earn‑out tied to FY2027 EBITDA, closing window Q4 2026, long‑stop 30 Sep 2026."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Public‑source reference (stale): see SEC Philippines FAQs updated 2019 and NPC Advisory 2021‑01; this workflow note is internal guidance and does not amend any public policy."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Destruction and audit: 12 months after closing and completion of external audit, securely delete redundant drafts and chat exports; IT to issue a deletion certificate and retain logs for 3 years."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project TAAL"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargoed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 2,750,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "62.5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "10%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "2,750,000,000"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargoed until 30 Sep 2026 09:00 PHT"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "not for PSE/SEC disclosure prior to embargo"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project TAAL"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Definitive Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "PHP 2,750,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "10%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "62.5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non‑public markers"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@aurorapacific.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@aurorapacific.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Isadora M. Quinto"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Ramon G. Feliciano"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross‑border transfer"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "securely delete redundant drafts and chat exports"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAC/MAE"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "Material Adverse Effect"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "access limited to Board, Treasury, and external counsel Bayani & Pinpin Law via SFTP"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Ramon"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope includes board memos, internal research notes, investor‑relations drafts, deal checklist trackers, and the signed Term Sheet (02 Jun 2026) and Definitive Share Purchase Agreement for Project TAAL (deal codename) re acquisition of 62.5% of Isla Nova Power Corp. from LapuLapu Capital Bank."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Universal MNPI items under hold: consideration PHP 2,750,000,000 cash plus 10% earn‑out tied to FY2027 EBITDA, closing window Q4 2026, long‑stop 30 Sep 2026."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Public‑source reference (stale): see SEC Philippines FAQs updated 2019 and NPC Advisory 2021‑01; this workflow note is internal guidance and does not amend any public policy."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Destruction and audit: 12 months after closing and completion of external audit, securely delete redundant drafts and chat exports; IT to issue a deletion certificate and retain logs for 3 years."
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargoed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "2,750,000,000"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "wellness spa‑day raffle",
-      "reason": "False‑positive bait; not sensitive PII/MNPI"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "Retention triggers",
-      "concept": "retention_marker",
-      "reason": "Retention/archival rules are legally relevant but there is no explicit allowed rule for retention markers."
-    },
-    {
-      "matched_text": "retain until public filing of Form 17‑C is posted on PSE EDGE, then keep for 6 years for audit/BIR purposes; HR exit files retained 5 years post‑separation",
-      "concept": "retention_marker",
-      "reason": "Specifies record‑retention durations; useful for privacy compliance but not covered by an allowed rule label."
-    },
-    {
-      "matched_text": "retain logs for 3 years",
-      "concept": "retention_marker",
-      "reason": "Retention duration is relevant but not explicitly covered by an allowed rule."
-    },
-    {
-      "matched_text": "DSAR handling",
-      "concept": "dsar_marker",
-      "reason": "Data subject rights handling is relevant but there is no specific allowed DSAR rule label."
-    },
-    {
-      "matched_text": "no actual TIN or government ID images stored in the deal room",
-      "concept": "data_minimisation_marker",
-      "reason": "Indicates minimisation via non‑collection; phrased as a negated presence, which strict rules avoid labeling."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T07:07:36Z",
-    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
   "_stage_b_approval": {
     "approved_at_utc": "2026-06-03T13:20:58Z",
     "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_universal_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed until 30 Sep 2026 09:00 PHT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for PSE/SEC disclosure prior to embargo",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project TAAL",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 2,750,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non\u2011public markers",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@aurorapacific.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@aurorapacific.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Atty. Isadora M. Quinto",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon G. Feliciano",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "securely delete redundant drafts and chat exports",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Effect",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "access limited to Board, Treasury, and external counsel Bayani & Pinpin Law via SFTP",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope includes board memos, internal research notes, investor\u2011relations drafts, deal checklist trackers, and the signed Term Sheet (02 Jun 2026) and Definitive Share Purchase Agreement for Project TAAL (deal codename) re acquisition of 62.5% of Isla Nova Power Corp. from LapuLapu Capital Bank.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Universal MNPI items under hold: consideration PHP 2,750,000,000 cash plus 10% earn\u2011out tied to FY2027 EBITDA, closing window Q4 2026, long\u2011stop 30 Sep 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public\u2011source reference (stale): see SEC Philippines FAQs updated 2019 and NPC Advisory 2021\u201101; this workflow note is internal guidance and does not amend any public policy.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Destruction and audit: 12 months after closing and completion of external audit, securely delete redundant drafts and chat exports; IT to issue a deletion certificate and retain logs for 3 years.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,750,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope includes board memos, internal research notes, investor\u2011relations drafts, deal checklist trackers, and the signed Term Sheet (02 Jun 2026) and Definitive Share Purchase Agreement for Project TAAL (deal codename) re acquisition of 62.5% of Isla Nova Power Corp. from LapuLapu Capital Bank.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Universal MNPI items under hold: consideration PHP 2,750,000,000 cash plus 10% earn\u2011out tied to FY2027 EBITDA, closing window Q4 2026, long\u2011stop 30 Sep 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public\u2011source reference (stale): see SEC Philippines FAQs updated 2019 and NPC Advisory 2021\u201101; this workflow note is internal guidance and does not amend any public policy.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Destruction and audit: 12 months after closing and completion of external audit, securely delete redundant drafts and chat exports; IT to issue a deletion certificate and retain logs for 3 years.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project TAAL",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 2,750,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,750,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR handling: acknowledge within 5 business days and substantively respond within 15 working days; verify requestor via corporate email match and supervisor affirmation by Mr. Ramon G. Feliciano.\nPublic\u2011source reference (stale): see SEC Philippines FAQs updated 2019 and NPC Advisory 2021\u201101; this workflow note is internal guidance and does not amend any public policy",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 MNPI \u2014 Embargoed until 30 Sep 2026 09:00 PHT; not for PSE/SEC disclosure prior to embargo.\nRetention Workflow Note (Philippines): Aurora Pacific Holdings, Inc. \u2014 Data Privacy Act (RA 10173) and SRC alignment for HR, tax, banking, and capital\u2011markets records.\nData Protection Officer: Atty. Isadora M. Quinto; contact: privacy@aurorapacific.ph; for DSAR escalations cc: compliance@aurorapacific.ph.\nScope includes board memos, internal research notes, investor\u2011relations drafts, deal checklist trackers, and the signed Term Sheet (02 Jun 2026) and Definitive Share Purchase Agreement for Project TAAL (deal codename) re acquisition of 62.5% of Isla Nova Power Corp. from LapuLapu Capital Bank.\nUniversal MNPI items under hold: consideration PHP 2,750,000,000 cash plus 10% earn\u2011out tied to FY2027 EBITDA, closing window Q4 2026, long\u2011stop 30 Sep 2026.\nMAC/MAE (negated) for the SPA: general market movements, weather advisories, or changes in PSE Listing Rules shall not constitute a Material Adverse Effect for purposes of walk\u2011away rights.\nNon\u2011public markers: board voting tally, draft 17\u2011C, bidder Q&A log, and pre\u2011close bank covenant waivers; access limited to Board, Treasury, and external counsel Bayani & Pinpin Law via SFTP.\nData types processed: employee payroll summaries, work emails, tax withholding certificates (no actual TIN or government ID images stored in the deal room), vendor bank references, and cap table extracts.\nRetention triggers: retain until public filing of Form 17\u2011C is posted on PSE EDGE, then keep for 6 years for audit/BIR purposes; HR exit files retained 5 years post\u2011separation.\nCross\u2011border transfer: if required, transmit redacted financial models to APH Singapore Rep Office under NPC\u2011compliant data sharing agreement and SCCs; encryption at rest and in transit.\nDSAR handling: acknowledge within 5 business days and substantively respond within 15 working days; verify requestor via corporate email match and supervisor affirmation by Mr. Ramon G. Feliciano.\nPublic\u2011source reference (stale): see SEC Philippines FAQs updated 2019 and NPC Advisory 2021\u201101; this workflow note is internal guidance and does not amend any public policy.\nlower priority: hold pending gc sign\u2011off; update folder taxonomy; do not circulate outside the deal team until monday cob.\nFriendly note: employees may opt into the wellness spa\u2011day raffle next month; this perk is unrelated to the transaction and contains no MNPI.\nDestruction and audit: 12 months after closing and completion of external audit, securely delete redundant drafts and chat exports; IT to issue a deletion certificate and retain logs for 3 years.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "wellness spa\u2011day raffle",
+      "reason": "False\u2011positive bait; not sensitive PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention triggers",
+      "reason": "Retention/archival rules are legally relevant but there is no explicit allowed rule for retention markers."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retain until public filing of Form 17\u2011C is posted on PSE EDGE, then keep for 6 years for audit/BIR purposes; HR exit files retained 5 years post\u2011separation",
+      "reason": "Specifies record\u2011retention durations; useful for privacy compliance but not covered by an allowed rule label."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retain logs for 3 years",
+      "reason": "Retention duration is relevant but not explicitly covered by an allowed rule."
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR handling",
+      "reason": "Data subject rights handling is relevant but there is no specific allowed DSAR rule label."
+    },
+    {
+      "concept": "data_minimisation_marker",
+      "matched_text": "no actual TIN or government ID images stored in the deal room",
+      "reason": "Indicates minimisation via non\u2011collection; phrased as a negated presence, which strict rules avoid labeling."
+    }
+  ]
 }

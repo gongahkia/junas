@@ -1,160 +1,221 @@
 {
-  "doc_id": "th_universal_mnpi_incident_report_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-0518-01"
-    },
-    {
-      "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "0001"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "investor-relations draft cites public-source advisories from the office of the sec (thailand) and set guidance on cyber hygiene"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "we note that the phrase takeover, insider, or undisclosed deal in third-party blogs relates to old rumors; there is no active m&a term sheet tied to this incident"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "sell-side research notes from krung-deep analytics co., ltd. (fictional) repeat the public summary and assign no impact to fy2026 guidance"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "definitive agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "0.1%"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_universal_mnpi_incident_report_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-0518-01"
+      "matched_text": "2026-0518-01",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "0001"
+      "matched_text": "0001",
+      "rule": "customer_account_number"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "investor-relations draft cites public-source advisories from the office of the sec (thailand) and set guidance on cyber hygiene"
+      "matched_text": "investor-relations draft cites public-source advisories from the office of the sec (thailand) and set guidance on cyber hygiene",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "we note that the phrase takeover, insider, or undisclosed deal in third-party blogs relates to old rumors; there is no active m&a term sheet tied to this incident"
+      "matched_text": "we note that the phrase takeover, insider, or undisclosed deal in third-party blogs relates to old rumors; there is no active m&a term sheet tied to this incident",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "sell-side research notes from krung-deep analytics co., ltd. (fictional) repeat the public summary and assign no impact to fy2026 guidance"
+      "matched_text": "sell-side research notes from krung-deep analytics co., ltd. (fictional) repeat the public summary and assign no impact to fy2026 guidance",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "definitive agreement"
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "0.1%"
+      "matched_text": "0.1%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@cp-utilities.example"
+      "matched_text": "ir@cp-utilities.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@cp-utilities.example"
+      "matched_text": "compliance@cp-utilities.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1800-000-cpu"
+      "matched_text": "1800-000-cpu",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "bank_customer_reference",
-      "matched_text": "th-bank-000-9999"
+      "matched_text": "th-bank-000-9999",
+      "rule": "bank_customer_reference"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border data processing is limited to anonymized telemetry routed via sg-west-2"
+      "matched_text": "cross-border data processing is limited to anonymized telemetry routed via sg-west-2",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no personal data was processed"
+      "matched_text": "no personal data was processed",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "securities trading blackout"
+      "matched_text": "securities trading blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo expired on 2025-12-01 09:00 ict"
+      "matched_text": "embargo expired on 2025-12-01 09:00 ict",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "working draft"
+      "matched_text": "working draft",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "draft"
+      "matched_text": "draft",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "does not constitute a mac/mae under existing financing agreements"
+      "matched_text": "does not constitute a mac/mae under existing financing agreements",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "<0.1%"
+      "matched_text": "<0.1%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "2026-0518-01",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0001",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "investor-relations draft cites public-source advisories from the office of the sec (thailand) and set guidance on cyber hygiene",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "we note that the phrase takeover, insider, or undisclosed deal in third-party blogs relates to old rumors; there is no active m&a term sheet tied to this incident",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side research notes from krung-deep analytics co., ltd. (fictional) repeat the public summary and assign no impact to fy2026 guidance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "on 2026-05-18 at 02:40 ict, a planned data center switchover with our singapore vendor caused a 27-minute scada telemetry delay\nthis was already clarified on the set current report system on 2026-05-20 and referenced in the 56-1 one report (fy2025) draft\nper pdpa assessment, no personal data was processed; device logs contained only hashed ids like th-id:0000-xx99-test, which are not linked to individuals\ninvestor-relations draft cites public-source advisories from the office of the sec (thailand) and set guidance on cyber hygiene\nboard memo (working draft) states the event does not constitute a mac/mae under existing financing agreements and no definitive agreement requires amendment\nfor precision: do not escalate; jira task cpuc-1421 remains open; see checklist: incident triage > containment > report > closeout\npublic helpline: 1800-000-cpu (recorded); role mailboxes: ir@cp-utilities.example and compliance@cp-utilities.example\nno securities trading blackout is in effect because the facts are already announced; embargo expired on 2025-12-01 09:00 ict for the initial statement\nno customers, employees, or suppliers were individually identified; service account labels such as ops-acct-0001 are system-generated\nwe note that the phrase takeover, insider, or undisclosed deal in third-party blogs relates to old rumors; there is no active m&a term sheet tied to this incident\nsell-side research notes from krung-deep analytics co., ltd. (fictional) repeat the public summary and assign no impact to fy2026 guidance\nesg context: no environmental discharge occurred; diesel backup was not activated; scope 2 emissions unchanged, estimated delta <0.1% (not material)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -175,74 +236,27 @@
       "reason": "System-generated service account label; not personal data"
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "th-id:0000-xx99-test",
       "concept": "internal identifier",
+      "matched_text": "th-id:0000-xx99-test",
       "reason": "Hashed device/log ID; could be device_serial_number or internal_session_id but ambiguous and stated not linked to individuals"
     },
     {
-      "matched_text": "cpu-inc-2026-0518-01",
       "concept": "incident identifier",
+      "matched_text": "cpu-inc-2026-0518-01",
       "reason": "Internal incident/ticket reference; may fall under internal_session_id but not clearly defined in allowed rules"
     },
     {
-      "matched_text": "cpuc-1421",
       "concept": "internal ticket reference",
+      "matched_text": "cpuc-1421",
       "reason": "Jira task ID; could be an internal_session_id or employee/project reference but not directly covered"
     },
     {
-      "matched_text": "sg-west-2",
       "concept": "cross-border region code",
+      "matched_text": "sg-west-2",
       "reason": "Cloud region indicating international data routing; relevant to cross-border processing though detectors may rely on explicit 'cross-border' phrasing"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -50,6 +50,14 @@
     "previous_must_detect_count": 7,
     "previous_must_not_detect_count": 0
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -202,6 +210,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfers: limited support data may be sent to CloudPort Lydavia Inc. (Lydavia) under 2021 SCCs and transfer impact assessments; contact dpo@riverglass.example.\nRetention: insider-list entries preserved for 5 years after last update per Union market abuse rules; training rosters 12 months; cyber incident drill notes 90 days.\nInformation barriers: we operate segregated mailboxes and access controls; simulated blackout windows are used in e-learning to explain internal dealing prohibitions and anti-tipping practices.\nCrypto and cybersecurity references in brochures (e.g., token custody \u201chow it works\u201d, incident response \u201cplaybook\u201d) are educational only and do not describe live systems or events.\nESG/climate data for CSRD/SFDR are aggregated or anonymised; no investor profiling for automated decisions is performed.\nDSAR: to access, rectify, or erase data, submit via https://privacy.riverglass.example or write to the DPO Office, P.O. Box 410, 1000 AB Eurocity.\nCommercial terms shown in onboarding demos (e.g., \u201cnet 30\u201d, \u201crebate up to X%\u201d) are examples and are not binding offers nor reflective of any ongoing negotiation.\nTraining artefacts for \u201cInsider-List Essentials\u201d use synthetic roles and initials only; no real staff records are exposed.\nLive MAR control: a not-yet-public vendor breach affecting our renewable certificates registry connector is under assessment; an event insider list is active pending disclosure.\nReferences to \u201ctipping\u201d, \u201cblackout\u201d, \u201cinsider list\u201d, or \u201cinformation barrier\u201d in our CryptoSafe Academy materials are intended to raise awareness and have no market impact.\nDraft CSRD Scope 2 recalculation that may alter prior KPIs is in internal review and not approved for external release; staff are reminded of MAR obligations.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

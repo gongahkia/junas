@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -82,12 +90,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "we discourage inclusion of personal numbers such as SSN: 666-00-0000 (invalid) or “State License ID: NY-000-000-0000” (placeholder)",
+      "matched_text": "we discourage inclusion of personal numbers such as SSN: 666-00-0000 (invalid) or \u201cState License ID: NY-000-000-0000\u201d (placeholder)",
       "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "matched_text": "Do not transmit passports or full account strings; any “US Passport No.: 000000000” or “Acct: 0000-0000-0000-0000” entries will be rejected as invalid or unnecessary",
+      "matched_text": "Do not transmit passports or full account strings; any \u201cUS Passport No.: 000000000\u201d or \u201cAcct: 0000-0000-0000-0000\u201d entries will be rejected as invalid or unnecessary",
       "rule": "data_minimisation_marker"
     },
     {
@@ -131,6 +139,12 @@
       "category": "MNPI",
       "matched_text": "3456783",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For tax reporting, Alluvion CareBank, N.A. may disclose its own EIN 12-3456783 to vendors via W-9; no consumer tax IDs are requested in this workflow.\nDo not transmit passports or full account strings; any \u201cUS Passport No.: 000000000\u201d or \u201cAcct: 0000-0000-0000-0000\u201d entries will be rejected as invalid or unnecessary.\nDSAR intake for California consumers is via privacy@alluvioncarebank.example; submissions to personal inboxes or verbal requests to branch staff are not processed.\nRequest forms accept only role labels (Requester Name: [Consumer]), last-4 verification (Account Last4: ####), and ticket IDs; we never ask for full SSN/driver license images.\nRetention: GLBA-regulated records are kept 7 years; HIPAA designations and BAAs 6 years; de-identified analytics logs 12 months; investor-relations inquiry logs 24 months.\nDeletion holds: where applicable to broker-dealer affiliates, SEC Exchange Act Rule 17a-4 retention and state banking examiner freezes override deletion until lifted.\nCross-border transfer: processors must host regulated data in US regions; any export uses encryption-in-transit and is limited to de-identified datasets with Data Use Agreements.\nReg FD controls: employee or contractor responses to analysts use only public information (e.g., prior Form 8-Ks and posted press releases); no selective disclosure is permitted.\nRule 10b-5 safeguards: employees may not tip MNPI; preclear all external communications through Investor Relations and Compliance; do not reference patient-level outcomes or unannounced earnings.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -139,19 +153,19 @@
       "reason": "Invalid placeholder; not real PII"
     },
     {
-      "matched_text": "“State License ID: NY-000-000-0000”",
+      "matched_text": "\u201cState License ID: NY-000-000-0000\u201d",
       "reason": "Placeholder example; not a real identifier"
     },
     {
-      "matched_text": "“US Passport No.: 000000000”",
+      "matched_text": "\u201cUS Passport No.: 000000000\u201d",
       "reason": "Placeholder example; not a real identifier"
     },
     {
-      "matched_text": "“Acct: 0000-0000-0000-0000”",
+      "matched_text": "\u201cAcct: 0000-0000-0000-0000\u201d",
       "reason": "Placeholder example; not a real identifier"
     },
     {
-      "matched_text": "“ABA: 000000000 (invalid)”",
+      "matched_text": "\u201cABA: 000000000 (invalid)\u201d",
       "reason": "Invalid placeholder; not a real banking identifier"
     },
     {

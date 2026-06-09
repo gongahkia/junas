@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -174,6 +182,18 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Strategic Investment and JV (Hong Kong)\nParties: Bay Lotus Holdings Limited (HK Co. No.: BLH-000X), Jade Harbour Digital Infrastructure Limited (HKEX: JHD0; ISIN: XX0000000000), and Green Pearl Capital SPC (Segregated Portfolio \u201cAurora\u201d).\nTransaction: Proposed acquisition by Bay Lotus of up to 12% existing shares of Jade Harbour and formation of a HK JV to develop ESG climate-data tooling for issuers and asset managers.\nStatus: Non-binding (save for confidentiality, exclusivity, and costs); governed by Hong Kong law; subject to SFC codes and HKEX Listing Rules as applicable.\nConsideration: Range to be agreed; no cash amounts disclosed in this sheet; paid in HKD via escrow account ref 000-XYZ-123 at a licensed custodian (placeholder only).\nConditions precedent: HKEX Chapter 14 notifiable transaction thresholds review; SFC licence considerations for any digital asset custody component; no material adverse change.\nRegulatory/Takeovers: If triggered, compliance with the Codes on Takeovers and Mergers; any class tests and disclosure to be coordinated with HKEX prior to announcement.\nInformation controls: Use of established information barriers, insider-list maintenance on a role-basis, and blackout calendars are required; this line is a policy reminder for staff training.\nCyber & resilience: Parties to perform a tabletop cyber incident drill and review SOC reports; this is an operations-only exercise and not a notice of any breach.\nCrypto/virtual asset scope: Any pilot with \u201cZentoCoin\u201d demo wallets is for product education; no client assets or trading will be undertaken before approvals.\nESG/climate scope: JV to build a voluntary disclosure dashboard using public emissions baselines; this marketing pilot does not create reporting obligations.\nPublic references: Jade Harbour\u2019s unaudited Q3 operations update was announced on 2025-03-31 (HKEX announcement ref QX-00000), which is a publicly available document.\nGovernance & employment: Any secondees to the JV will remain employed by their home entity under HK employment ordinances; no change to benefits; role mailbox for queries: hr@baylotus.example.\nPositive MNPI flag: The parties have agreed a non-public price collar and board pre-approval for the 12% share purchase, with signing targeted before the next blackout; this information is not generally known and may be price-sensitive under the SFO.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

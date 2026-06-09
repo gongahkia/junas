@@ -51,6 +51,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -328,6 +336,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Example PII observed: \u201cEID: 784\u20112 0**\u2011**5678\u20111\u201d for Mr. Sami Al\u2011Murad (Head of DPT), \u201corigin: Al\u2011Qamar family, Ras Al Noor\u201d; phone: 050\u2011***\u20119 4 2; sales deck avatar only, no biometrics.\nNon\u2011public deal context impacted: draft commercial terms for our green DPT offering (OTC pre\u2011commit floor AED 3.20, 90\u2011day lock\u2011up, tranche sizes) and a provisional PDX listing timetable for Q3 were in the same directory.\nBlackout window began 2026\u201106\u201101; insider list v.7 (internal ref IL\u2011FPDH\u201107) was circulated under in for ma tion bar rier protocols; any external sharing could constitute tipping under Emirates Markets Authority rules",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Incident Notice \u2014 Falcon Palm Digital Holdings PJSC (Free Zone Reg. TL\u2011RAN\u201125\u20110098765) \u2014 Emirati PDPL handling required.\nDate: 2026\u201106\u201105 11:20 GST; Contact: Ms. Laila Farouq, Compliance Officer, laila.farouq@falconpalm.ae, +971\u20115X\u2011***\u2011**83.\nA vendor phishing\u2011led mailbox takeover at Mirdan Tech Services LLC led to a one\u2011time SFTP pull of our KYC folder for token investors (files included partial Emirates ID scans, family\u2011origin notes, and IBAN redactions).\nExample PII observed: \u201cEID: 784\u20112 0**\u2011**5678\u20111\u201d for Mr. Sami Al\u2011Murad (Head of DPT), \u201corigin: Al\u2011Qamar family, Ras Al Noor\u201d; phone: 050\u2011***\u20119 4 2; sales deck avatar only, no biometrics.\nNon\u2011public deal context impacted: draft commercial terms for our green DPT offering (OTC pre\u2011commit floor AED 3.20, 90\u2011day lock\u2011up, tranche sizes) and a provisional PDX listing timetable for Q3 were in the same directory.\nBlackout window began 2026\u201106\u201101; insider list v.7 (internal ref IL\u2011FPDH\u201107) was circulated under in for ma tion bar rier protocols; any external sharing could constitute tipping under Emirates Markets Authority rules.\nMr. Rami Nasser (CFO) and two treasury analysts were added to the insider list due to knowledge of selective\u2011disclosure risk from the cyber triage; their Emirates ID numbers are stored hashed (sha256) and masked in the tracker.\nContainment: cloud keys rotated, vendor access revoked, audit trail sealed; no funds moved, and this is not expected to constitute a material adverse change for financing or listing eligibility at this time.\nNotification: internal notice only for now; threshold assessment against RIFC financial\u2011centre guidance and EMA breach criteria ongoing; a draft form\u2011CIR is prepared but not filed.\nESG angle: a draft climate KPI annex (Scope\u20112 grid factor for Ras Al Noor solar tie\u2011in) was attached to the same folder but remains a modeling worksheet and not a public commitment.\nEducation/marketing reuse (benign): our ESG brochure and crypto wallet explainer describe insider lists, cyber hygiene, and token custody at a high level for training and contain no issuer\u2011specific MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

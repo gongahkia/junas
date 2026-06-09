@@ -1,180 +1,251 @@
 {
-  "doc_id": "my_special_category_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "MY",
-  "destination_jurisdiction": "MY",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data Minimisation"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Preliminary assessment (non-public) anticipates a 8–10% reduction in Q3 throughput and potential breach of a leverage covenant under the RM50m revolving credit with Bintang Bank Sdn Bhd; waiver discussions have commenced."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Bamboo Shield"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "10%"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 3,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM50m'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM50m'",
+      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_special_category_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data Minimisation"
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Preliminary assessment (non-public) anticipates a 8–10% reduction in Q3 throughput and potential breach of a leverage covenant under the RM50m revolving credit with Bintang Bank Sdn Bhd; waiver discussions have commenced."
+      "matched_text": "Preliminary assessment (non-public) anticipates a 8\u201310% reduction in Q3 throughput and potential breach of a leverage covenant under the RM50m revolving credit with Bintang Bank Sdn Bhd; waiver discussions have commenced.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Bamboo Shield"
+      "matched_text": "Project Bamboo Shield",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "10%"
+      "matched_text": "10%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Puan Mei Ling Tan"
+      "matched_text": "Puan Mei Ling Tan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Encik Rizal Hamka"
+      "matched_text": "Encik Rizal Hamka",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "17"
+      "matched_text": "17",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint minutiae templates"
+      "matched_text": "fingerprint minutiae templates",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "current chemotherapy"
+      "matched_text": "current chemotherapy",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "lymphoma"
+      "matched_text": "lymphoma",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "religious affiliation noted as Buddhist"
+      "matched_text": "religious affiliation noted as Buddhist",
+      "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "One minor’s profile, Amirul Faiz (intern, 17)"
+      "matched_text": "One minor\u2019s profile, Amirul Faiz (intern, 17)",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "vaccination status attachment"
+      "matched_text": "vaccination status attachment",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@tualangnextech.example"
+      "matched_text": "dpo@tualangnextech.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investor-relations@tualangnextech.example"
+      "matched_text": "investor-relations@tualangnextech.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "8–10%"
+      "matched_text": "8\u201310%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout period"
+      "matched_text": "blackout period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "my_mykad",
-      "matched_text": "MyKad numbers"
+      "matched_text": "MyKad numbers",
+      "rule": "my_mykad"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "bank accounts"
+      "matched_text": "bank accounts",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric data"
+      "matched_text": "biometric data",
+      "rule": "biometric_identifier"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "8–10% reduction in Q3 throughput"
+      "matched_text": "8\u201310% reduction in Q3 throughput",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "potential breach of a leverage covenant"
+      "matched_text": "potential breach of a leverage covenant",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "potential breach of a leverage covenant"
+      "matched_text": "potential breach of a leverage covenant",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "Incident Report — Cyber and Operational Event"
+      "matched_text": "Incident Report \u2014 Cyber and Operational Event",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "unauthorised encryption activity"
+      "matched_text": "unauthorised encryption activity",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data Minimisation SOP"
+      "matched_text": "Data Minimisation SOP",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary assessment (non-public) anticipates a 8\u201310% reduction in Q3 throughput and potential breach of a leverage covenant under the RM50m revolving credit with Bintang Bank Sdn Bhd; waiver discussions have commenced.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Bamboo Shield",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nt minutiae templates for Encik Rizal Hamka (Engineer) from the TA-300 scanners (biometric data) were present in a staging backup stored on Project Bamboo Shield; templates are salted and encrypted.\nOne minor\u2019s profile, Amirul Faiz (intern, 17), included a vaccination status attachment; this is quarantined and notification to guardian will follow under PDPA requirements.\nPreliminary assessment (non-public) anticipates a 8\u201310% reduction in Q3 throughput and potential breach of a leverage covenant under the RM50m revolving credit with Bintang Bank Sdn Bhd; waiver discussions have commenced.\nPursuant to our Continuous Disclosure Policy and the Listing Requirements of the Exchange in Malaysia, the Board will determine materiality and, if required, make an immediate announcement via the issuer e\u2011lodgement portal.\nDirectors, principal officers, and designated employees are reminded of CMSA prohibitions on insider trading and the Company\u2019s blackout period; any trading while in possession of MNPI is strictly prohibited.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -247,89 +318,32 @@
       "reason": "Generic DEI prose; not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "MY",
   "uncertain": [
     {
-      "matched_text": "Data Minimisation SOP",
       "concept": "data_minimisation_marker",
+      "matched_text": "Data Minimisation SOP",
       "reason": "References a minimisation policy rather than a live minimisation event; borderline marker"
     },
     {
-      "matched_text": "dated 2 June 2026",
       "concept": "embargo_marker",
+      "matched_text": "dated 2 June 2026",
       "reason": "Date is present but not one of the specific embargo/signing/closing/effective marker terms"
     },
     {
-      "matched_text": "insider trading",
       "concept": "insider_compliance",
+      "matched_text": "insider trading",
       "reason": "Legally relevant compliance reminder but not covered by allowed MNPI rule tokens"
     },
     {
-      "matched_text": "MyKad numbers and bank accounts were not accessed",
       "concept": "PII categories negated",
+      "matched_text": "MyKad numbers and bank accounts were not accessed",
       "reason": "Mentions PII categories without values and explicitly negated; contextually relevant but outside strict detectors"
     },
     {
-      "matched_text": "unauthorised encryption activity",
       "concept": "cyber_incident_pre_disclosure",
+      "matched_text": "unauthorised encryption activity",
       "reason": "Security incident description likely market-sensitive but not a standardized marker token"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": {
-    "count": 3,
-    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM50m'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM50m'",
-      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
-    ]
-  },
-  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
-  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_strict_reconciliation": {
-    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

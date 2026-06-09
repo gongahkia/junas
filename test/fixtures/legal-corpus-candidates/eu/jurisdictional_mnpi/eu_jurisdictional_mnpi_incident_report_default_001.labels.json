@@ -50,6 +50,14 @@
     "previous_must_detect_count": 24,
     "previous_must_not_detect_count": 5
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -277,6 +285,18 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The event disrupted our EU asset monitoring platform for onshore wind sites, with preliminary internal revenue impact estimated at \u20ac4.8\u2013\u20ac6.2m for Q3 (non\u2011public, subject to validation).\nWe assess this as inside information under EU MAR (Article 7) and have decided to delay disclosure under Article 17(4) given ongoing containment and a legitimate interest in avoiding prejudice to negotiations with our insurer.\nDissemination via an approved information service will occur without delay once confidentiality can no longer be ensured or on/before 14 June 2026, in line with AME Issuer Guidance 5.2.\nSelective disclosure controls are in place; no briefing of analysts or suppliers is permitted, and any market sounding will require wall\u2011crossing and inclusion on the insider list (liste d\u2019initi\u00e9s).\nDuring the current PDMR closed period (blackout window) preceding our H1 results announcement planned for 30 July 2026, all PDMR dealings remain prohibited except under MAR Article 19(12) exemptions.\nThe incident originated from a compromised third\u2011country processor (CirrusLyte Pte Ltd, SG) used for log aggregation; cross\u2011border transfers rely on SCCs with a documented TIA; emergency routing to EU\u2011only processors is underway.\nAffected datasets include limited HR files for 212 staff (employee IDs VR\u201144721\u2014VR\u201144903, emails, phone numbers) and a subset containing \u201chealth leave category\u201d and works\u2011council affiliation, triggering GDPR Article 9 processing safeguards.\nNo payment card or government ID data are involved; operational control systems were not breached, according to current forensic telemetry.\nData subjects to be notified under GDPR Articles 33\u201334 within 72 hours; Data Protection Officer Mr. Adrien Kovacs (dpo@verdantis\u2011renew.eu) is coordinating with the competent supervisory authority.\nPer CSRD internal control policies, the temporary loss of metering inputs may affect Scope 2 KPIs and SFDR PAI indicators for Q2; if metrics change by >5%, this may be material for issuer\u2011specific sustainability targets.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

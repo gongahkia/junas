@@ -39,6 +39,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -331,6 +339,18 @@
       "category": "MNPI",
       "matched_text": "Chinese wall",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Unpublished Price Sensitive Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential: Incident Report \u2014 Unpublished Price Sensitive Information under SEBI (PIT) Regulations 2015 for Navprabha Digital Infra Limited (NSE: NVDL; fictional), not for external circulation.\nOn 03-Jun-2026 21:10 IST, NDIL detected unauthorized access to the customer KYC repository via a compromised vendor VPN, indicating a credential-stuffing cyber incident.\nExposed fields may include name, mobile, email, masked bank IFSC, PAN, and Aadhaar; example records: Ms. Tanvi Kulkarni, +91-98765-43210, tanvi.kulkarni@samplemail.in, PAN: QWERT1234Z, Aadhaar: 8426 1919 0303.\nOne affected individual is a child under 18 (Master Rohan Verma, 17), contact: guardian Smt. Asha Verma, asha.verma@samplemail.in; consent records under DPDPA are being verified.\nPreliminary scope: 3,248 profiles including 112 designated employees; no funds movement observed; CERT-In notification draft prepared; data not yet disclosed to exchanges under LODR Reg 30.\nThis incident intersects with a not-yet-announced pilot with Trishul Crypto Markets Pvt. Ltd. for virtual digital asset custody; draft term sheet includes a minimum revenue guarantee of INR 1.6 crore and a 0.15% vaulting fee.\nThe above pilot and the breach are UPSI; the trading window for designated persons is closed until two trading days after public disclosure; Chinese wall between Operations and Treasury has been re-briefed.\nInsider list created today includes Mr. Arvind Rao (CFO), Ms. Neha Kapoor (Company Secretary), Dr. Rishi Dev (CISO), and Shri Gautam Iyer (Independent Director); acknowledgments tracked in ILMS; contact: compliance@navprabha.example.com.\nDo not tip any external party, analysts, or channel partners; investor FAQs and a holding statement are in legal review; draft NSE/BSE intimation and press release are embargoed until Board approval.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

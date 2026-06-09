@@ -36,6 +36,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -93,6 +101,12 @@
       "category": "MNPI",
       "matched_text": "For MNPI controls: no material nonpublic information regarding forecasts, client pipelines, or financing plans was created or disclosed, and Reg FD procedures were followed.",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For MNPI controls: no material nonpublic information regarding forecasts, client pipelines, or financing plans was created or disclosed, and Reg FD procedures were followed.\nInvestor Relations used the public FAQ and ir@riveroak.example; no selective disclosure to analysts or other covered market actors occurred.\nThe incident log includes placeholder fields (e.g., CUSIP 000-XXX-000 and Account 1234-0000-VOID) used for testing; these are invalid identifiers and are not linked to real securities or consumers.\nPrivacy assessment under CCPA/HIPAA/GLBA concluded no PHI or customer NPI left controlled environments, and minimisation rules (Policy MIN-4) were applied.\nRetention timers per Schedule R-7 were verified and no early deletion or unexpected hold occurred; one planned purge remains scheduled for 2027-01-31.\nNo open DSARs or consent-withdrawal requests were impacted, and prior erasure requests (ticket ER-019) were completed months before this event.\nVendor \u201cBlueKestrel Cloud LLC\u201d onboarding forms (INTAKE-V-221) and the Business Associate Addendum were previously approved; no new processing purposes were added.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

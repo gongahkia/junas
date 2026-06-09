@@ -1,260 +1,4 @@
 {
-  "doc_id": "kr_jurisdictional_mnpi_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "KR",
-  "destination_jurisdiction": "KR",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2 0 2 6  05 18"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seung"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ji"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Yoon Ji"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seung"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Subject: MNPI (중요한 미공개정보) handling under FSCMA and PIPA; alignment with GSFC/GFOS guidance and HSE 공시 규정."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "900512"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "2,800,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "10,500"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "if approved"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seung‑ho Kim"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ji‑won Chae"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Yoon Ji‑eun"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@hanseongmaterials.example.kr"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "02‑0000‑9900"
-    },
-    {
-      "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "900512‑2*** **"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "010‑***‑4 9 2 0"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "HSM‑ 00 ** 78 9 9 3"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "ensure PIPA data (RRN, phone, bank Acct HSM‑ 00 ** 78 9 9 3) are masked in drafts"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "중요한 미공개정보"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "비공개"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "선택적공시"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "선택적 교신"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "avoid 선택적공시 by limiting recipients to deal team only"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not email MNPI externally"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "do not lift blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Planned private placement to Junma Capital SPC and Growth Board supplement will be resolved at the 2026‑06‑08 board"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Draft board materials show tentative issuance of 2,800,000 shares at ₩9,000–₩10,500"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "pricing window 2026‑06‑05~06"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "issuer‑material"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "are not official 공시"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "2,800,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout from 2026‑06‑03 18:00 KST until 공시 완료"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2 0 2 6  05 18"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seung"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ji"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Yoon Ji"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Subject: MNPI (중요한 미공개정보) handling under FSCMA and PIPA; alignment with GSFC/GFOS guidance and HSE 공시 규정."
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "900512"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "10,500"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "if approved"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "issuer",
-      "reason": "Role-noun label, not PII or MNPI"
-    },
-    {
-      "matched_text": "MAC",
-      "reason": "Negated mention; rule excludes 'no MAC' contexts"
-    },
-    {
-      "matched_text": "RRN",
-      "reason": "Generic category label, not an actual identifier"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "pine‑gate",
-      "concept": "transaction codename (nonstandard)",
-      "reason": "Functions as a project code but does not match 'Project <Name>' pattern required by the rule"
-    },
-    {
-      "matched_text": "T+1 of resolution",
-      "concept": "disclosure timing marker",
-      "reason": "Material KR disclosure timing guidance under HSE but not covered by current embargo_marker list"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for “Ms. Hana Park” was rejected because the text is an actual named-person reference.",
   "_agent_review": {
     "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -280,6 +24,11 @@
     "reviewer": "gongahkia-project-owner-chat-approval",
     "status": "approved"
   },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for \u201cMs. Hana Park\u201d was rejected because the text is an actual named-person reference.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T02:34:00Z",
     "accepted_by": "gongahkia",
@@ -287,32 +36,303 @@
     "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
     "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
   },
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
   "_resolved_label_warnings": [
     {
       "basis": "Legacy approved Stage A auto-label warnings were resolved during JP/KR Stage B cleanup; strict tier was already manually reconciled/approved, and broader coverage remains in ideal_must_detect.",
       "resolved_at": "2026-06-04T04:34:12Z",
       "warnings": [
-        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='₩9,000–₩10,500'",
-        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='₩9,000–₩10,500'"
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='\u20a99,000\u2013\u20a910,500'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='\u20a99,000\u2013\u20a910,500'"
       ]
+    }
+  ],
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_jurisdictional_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Seung\u2011ho Kim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ji\u2011won Chae",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yoon Ji\u2011eun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@hanseongmaterials.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02\u20110000\u20119900",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "900512\u20112*** **",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "010\u2011***\u20114 9 2 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HSM\u2011 00 ** 78 9 9 3",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ensure PIPA data (RRN, phone, bank Acct HSM\u2011 00 ** 78 9 9 3) are masked in drafts",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\uc911\uc694\ud55c \ubbf8\uacf5\uac1c\uc815\ubcf4",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ube44\uacf5\uac1c",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\uc120\ud0dd\uc801\uacf5\uc2dc",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\uc120\ud0dd\uc801 \uad50\uc2e0",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid \uc120\ud0dd\uc801\uacf5\uc2dc by limiting recipients to deal team only",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not email MNPI externally",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not lift blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Planned private placement to Junma Capital SPC and Growth Board supplement will be resolved at the 2026\u201106\u201108 board",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft board materials show tentative issuance of 2,800,000 shares at \u20a99,000\u2013\u20a910,500",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pricing window 2026\u201106\u201105~06",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "issuer\u2011material",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "are not official \uacf5\uc2dc",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,800,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout from 2026\u201106\u201103 18:00 KST until \uacf5\uc2dc \uc644\ub8cc",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 0 2 6  05 18",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Seung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ji",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yoon Ji",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: MNPI (\uc911\uc694\ud55c \ubbf8\uacf5\uac1c\uc815\ubcf4) handling under FSCMA and PIPA; alignment with GSFC/GFOS guidance and HSE \uacf5\uc2dc \uaddc\uc815.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900512",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10,500",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if approved",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "2 0 2 6  05 18",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Seung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ji",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yoon Ji",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Seung",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: MNPI (\uc911\uc694\ud55c \ubbf8\uacf5\uac1c\uc815\ubcf4) handling under FSCMA and PIPA; alignment with GSFC/GFOS guidance and HSE \uacf5\uc2dc \uaddc\uc815.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900512",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,800,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10,500",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if approved",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ubbf8\uacf5\uac1c",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: MNPI (\uc911\uc694\ud55c \ubbf8\uacf5\uac1c\uc815\ubcf4) handling under FSCMA and PIPA; alignment with GSFC/GFOS guidance and HSE \uacf5\uc2dc \uaddc\uc815.\nPlanned private placement to Junma Capital SPC and Growth Board supplement will be resolved at the 2026\u201106\u201108 board; pricing window 2026\u201106\u201105~06, status \ube44\uacf5\uac1c, issuer\u2011material.\nUnder HSE \uc218\uc2dc\uacf5\uc2dc rules, disclosure is due T+1 of resolution; officer trading blackout from 2026\u201106\u201103 18:00 KST until \uacf5\uc2dc \uc644\ub8cc, including IR team.\nMr. Seung\u2011ho Kim (IR VP) and Ms. Ji\u2011won Chae (Legal) have received non\u2011binding indications; avoid \uc120\ud0dd\uc801\uacf5\uc2dc by limiting recipients to deal team only.\nEmployee onboarding packet for Ms. Yoon Ji\u2011eun (HR analyst) includes Resident No. 900512\u20112*** **, mobile 010\u2011***\u20114 9 2 0; handle per PIPA; file: \\\\hr\\YJieun\\2026\\of fer.pdf.\nPublic reference: 2026\u201105\u201118 FY2025 earnings \uc790\uc728\uacf5\uc2dc and press release were posted on HEDS (https://ir.hanseongmaterials.exa/hse/heds/ notice?docId= 2 0 2 6  05 18\u2011AA9); those figures are \uacf5\uac1c and stale.\nNegative bait: there is no material adverse change (MAC) trigger from the vendor warehouse relocation; not issuer\u2011operational MNPI; ignore for trading restrictions.\nDraft board materials show tentative issuance of 2,800,000 shares at \u20a99,000\u2013\u20a910,500; treat as \uc911\uc694\uc0ac\ud56d until \uc218\uc2dc\uacf5\uc2dc, with possible \uc815\uc815\uacf5\uc2dc depending on bookbuild.\nEmployment status update for Mr. Seung\u2011ho Kim was filed on 2026\u201105\u201125 via HEDS; this item is already \uacf5\uac1c and may be referenced in investor FAQs.\nContact channels: ir@hanseongmaterials.example.kr; compliance line 02\u20110000\u20119900; project code: pine\u2011gate; product sku: Solunex\u2011L; standard policy: do not email MNPI externally.\nSubtle risk note: message\u2011board rumors about \u201cnew investor\u201d are not official \uacf5\uc2dc and do not lift blackout; defer investor meetings until \uac70\ub798\ud655\uc815 or \uc608\ube44\uacf5\uc2dc.\nFor GSFC review and GFOS audit, ensure PIPA data (RRN, phone, bank Acct HSM\u2011 00 ** 78 9 9 3) are masked in drafts; upload only via HSE secure portal; no open links.\nTiming: if approved on 2026\u201106\u201108, issuer must post \uc218\uc2dc\uacf5\uc2dc by 2026\u201106\u201109 12:00 KST on HEDS/HSE; IR to prepare \uacf5\uac1c\uc790\ub8cc; refrain from \uc120\ud0dd\uc801 \uad50\uc2e0, including one\u2011to\u2011one cal",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Role-noun label, not PII or MNPI"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated mention; rule excludes 'no MAC' contexts"
+    },
+    {
+      "matched_text": "RRN",
+      "reason": "Generic category label, not an actual identifier"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "transaction codename (nonstandard)",
+      "matched_text": "pine\u2011gate",
+      "reason": "Functions as a project code but does not match 'Project <Name>' pattern required by the rule"
+    },
+    {
+      "concept": "disclosure timing marker",
+      "matched_text": "T+1 of resolution",
+      "reason": "Material KR disclosure timing guidance under HSE but not covered by current embargo_marker list"
     }
   ]
 }

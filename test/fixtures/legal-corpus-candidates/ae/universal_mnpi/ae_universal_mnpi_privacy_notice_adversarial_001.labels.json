@@ -51,6 +51,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -433,6 +441,18 @@
       "category": "MNPI",
       "matched_text": "428,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Point of contact: Ms. Leila Al Qamar, DPO, c/o P.O. Box 000123, Red Dunes District, Umm Qamar, UAE; hotline +971 5X 123 45 67",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC \u2014 Data Processing & Retention Addendum (UAE PDPL context) for Al Sarab Logistics PJSC \u2014 Project Sand Dune \u2014 Embargo until 2026-07-14 08:00 GST.\nController: Al Sarab Logistics PJSC (Trade Licence: TL-9O1-7ZB-3), Processor: Nakhla Renewables FZ-LLC (Free Zone: Noor Financial Centre), contact e m a i l: privacy@alsarab-pjsc.example.\nPoint of contact: Ms. Leila Al Qamar, DPO, c/o P.O. Box 000123, Red Dunes District, Umm Qamar, UAE; hotline +971 5X 123 45 67.\nPurpose: due diligence, investor-relations drafts, board memos, and a definitive share purchase agreement for a 19.9% minority stake, aggregate consideration AED 428,000,000.\nMNPI handling: files marked \"internal-only\" and \"do not circulate\" including term sheet v5, deal checklist, and SPA exhibits, with access restricted under the Mainland Markets Authority rulebook.\nPD categories: identification data (obfuscated Emirates ID 784-1 9 8 7-0X0X-000-0), trade licence scans, professional CVs, and data revealing family origin as defined under federal decree-law.\nTransfers: allowed to vetted advisors in free zones with equivalent safeguards (NFC-style adequacy), Standard Contractual Clauses analogue annexed at http://ir.alsarab-pjsc.example/dpa?ref=mnpi%2Fproj-sand-dune.\nRetention: IR drafts and board papers kept 6 years post-closing; raw diligence destroyed 30 days after signing; embargoed research note v2 not published before 2026-07-14.\nMAC/MAE: for clarity, no Material Adverse Effect has occurred as of the date hereof; nothing in this notice constitutes or announces a MAC.\nData Subject Rights: DSAR replies within 30 days; submit requests to dsar@nakhla-renewables.example including reference code RQ-2X9-ALSRB; we may need to verify via masked Emirates ID.\nSecurity: Desert Breeze CRM system with role-based access; audit trail IDs A-LS-2026-0O7, checksum 9f:a3:2c:\u2014 line run s pl i t due to OCR.\npublic-source reference: PDPL overview derived from an open portal and the free zone circulars; this sentence is generic policy and not market-sensitive.\ntodo: align ir draft with board memo v3; check dpia with outside counsel; schedule team spa day next thursday 3pm; not relevant to market disclosure.\nInvestor communications: \"Project Sand Dune\" slides are NOT FOR DISTRIBUTION until the market announcement is cleared by the competent regulator, and any leak triggers a clean team review.\nOn revocation or failure to sign the definitive agreement, all MNPI must be returned or destroyed within 5 business days, and embargoed percentages and amounts remain confidential.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

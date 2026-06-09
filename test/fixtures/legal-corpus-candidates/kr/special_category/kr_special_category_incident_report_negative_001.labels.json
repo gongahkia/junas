@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -115,6 +123,12 @@
       "category": "MNPI",
       "matched_text": "20260518",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ms. Seo Hye\u2011jin, HR Assistant at Yuji Robotics, reported clicking a mock payroll link and completed a credential reset the same day.\nNo access to customer records, employee resident-number data, or deal materials occurred, and no \u201cimportant information\u201d under FSCMA was exposed.\nResident-number (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638) field on a legacy onboarding PDF displayed the placeholder 000000-0000000; system logs confirm no valid numbers were stored.\nSystems affected: Dragon Shield Endpoint Suite and AsterX Cloud SSO; mitigated per Clean Harbor Data Policy v3.1 and Zero Downtime 2.0.\nWe posted an IR update on the KRSX FairNotice portal (KIND-F) on 2026-05-20 summarizing the above; this mirrors the 2026-05-22 public press note.\nThe previously announced MOU with Gyeonhwa Capital Partners (disclosed 2026-04-30) is unchanged; no term sheets or listing drafts resided in affected mailboxes.\nFor stakeholder queries, please contact security@yuji-robotics.example or ir@yuji-robotics.example; these role inboxes are monitored during business hours.\nDiversity & inclusion training (Harmony@Work and Sunrise Inclusion Charter) was reassigned to all staff; this is general DEI content and not health or biometric data.\nOur response was a full\u2011court press rather than a slow walk by the Han River, and there was no operational downtime at the Gwangjin\u2011gu office or Jeju test track.\nNo biometric, genetic, treatment, union, religion, sexual\u2011orientation, or political data was processed in relation to this event per PIPA definitions.\nA voluntary notice was filed via the supervisory cyber portal of the Korea Market Oversight Office (fictional), with no requirement for separate filings at this time.\nThis report is for awareness and investor relations; it contains no MNPI, and the internal reference is YJ-INC-20260518-CYB.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

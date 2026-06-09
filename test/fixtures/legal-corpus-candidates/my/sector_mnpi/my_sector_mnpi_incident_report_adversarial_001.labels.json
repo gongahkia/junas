@@ -1,245 +1,315 @@
 {
-  "doc_id": "my_sector_mnpi_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "MY",
-  "destination_jurisdiction": "MY",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "amirul.hashman@solarpacific.my"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr@solarpacific.my"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "corpcomms@solarpacific.my"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Amirul Hashman"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Employee assistance: HR contact hr@solarpacific.my; PDPA notices will be issued only if the breach assessment crosses the notification threshold per s.9 and related advisory."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lahar"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "3.0m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "0B"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "2.45%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 2,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM180m'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM180m'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_sector_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "amirul.hashman@solarpacific.my"
+      "matched_text": "amirul.hashman@solarpacific.my",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr@solarpacific.my"
+      "matched_text": "hr@solarpacific.my",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "corpcomms@solarpacific.my"
+      "matched_text": "corpcomms@solarpacific.my",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Amirul Hashman"
+      "matched_text": "Mr. Amirul Hashman",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Employee assistance: HR contact hr@solarpacific.my; PDPA notices will be issued only if the breach assessment crosses the notification threshold per s.9 and related advisory."
+      "matched_text": "Employee assistance: HR contact hr@solarpacific.my; PDPA notices will be issued only if the breach assessment crosses the notification threshold per s.9 and related advisory.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Restricted"
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lahar"
+      "matched_text": "Project Lahar",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "3.0m"
+      "matched_text": "3.0m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "0B"
+      "matched_text": "0B",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "2.45%"
+      "matched_text": "2.45%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2"
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. N. Qistina Razali"
+      "matched_text": "Ms. N. Qistina Razali",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Encik Farouk Naim"
+      "matched_text": "Encik Farouk Naim",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout window for all Restricted Persons from 03/06 to T+2 after announcement"
+      "matched_text": "blackout window for all Restricted Persons from 03/06 to T+2 after announcement",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "do not tip vendors"
+      "matched_text": "do not tip vendors",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet announced to the Exchange"
+      "matched_text": "not yet announced to the Exchange",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "until public disclosure"
+      "matched_text": "until public disclosure",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "is ring‑fenced"
+      "matched_text": "is ring\u2011fenced",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "a targeted ransomware attempt (variant: “Tamarind‑7”) affected our SCADA gateways at Pahang and Mukim Semarak sites"
+      "matched_text": "a targeted ransomware attempt (variant: \u201cTamarind\u20117\u201d) affected our SCADA gateways at Pahang and Mukim Semarak sites",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "causing 6.5 hours of curtailed generation"
+      "matched_text": "causing 6.5 hours of curtailed generation",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "Management to consider immediate announcement under LR 9.03(1) if duration exceeds 12 h"
+      "matched_text": "Management to consider immediate announcement under LR 9.03(1) if duration exceeds 12 h",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_protocol_event_marker",
-      "matched_text": "an internal pilot for tokenised Renewable Energy Certificates (code: RECx) uses a test wallet (0xFA..0B)"
+      "matched_text": "an internal pilot for tokenised Renewable Energy Certificates (code: RECx) uses a test wallet (0xFA..0B)",
+      "rule": "dpt_protocol_event_marker"
     },
     {
       "category": "PII",
-      "rule": "crypto_wallet_address",
-      "matched_text": "0xFA..0B"
+      "matched_text": "0xFA..0B",
+      "rule": "crypto_wallet_address"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "temporary outage may delay Scope 2 reporting"
+      "matched_text": "temporary outage may delay Scope 2 reporting",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "draft financing term sheet"
+      "matched_text": "draft financing term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "log ref 7G‑⧉‑k9"
+      "matched_text": "log ref 7G\u2011\u29c9\u2011k9",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "server id: “S‑PB‑app‑17”"
+      "matched_text": "server id: \u201cS\u2011PB\u2011app\u201117\u201d",
+      "rule": "device_serial_number"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no selective disclosure"
+      "matched_text": "no selective disclosure",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "amirul.hashman@solarpacific.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@solarpacific.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpcomms@solarpacific.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Amirul Hashman",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee assistance: HR contact hr@solarpacific.my; PDPA notices will be issued only if the breach assessment crosses the notification threshold per s.9 and related advisory.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lahar",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.0m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.45%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SolarPacific Berhad \u2014 Incident Report (Confidential; CMSA s.188 handling) \u2014 04/06/2026 MYT\nPrepared by: Mr. Amirul Hashman, Chief Risk Officer; contact: amirul.hashman@solarpacific.my | +60-3-88xx-21 34\nSummary: On 03/06, a targeted ransomware attempt (variant: \u201cTamarind\u20117\u201d) affected our SCADA gateways at Pahang and Mukim Semarak sites, causing 6.5 hours of curtailed generation; not yet announced to the Exchange.\nPreliminary financial sensitivity: estimated Q2 revenue impact RM2.1\u20133.0m; Management to consider immediate announcement under LR 9.03(1) if duration exceeds 12 h.\nPersonal data: limited employee e\u2011mails and salted NRIC hashes in a training snapshot were accessed; no plain NRIC or bank a/c numbers exposed per PDPA assessment ref: PDPA\u2011CR\u201121\u2011\u00f81.\nCrypto/DPT adjacency: an internal pilot for tokenised Renewable Energy Certificates (code: RECx) uses a test wallet (0xFA..0B); keys stored offline; no customer DAX exposure.\nESG/climate ops: temporary outage may delay Scope 2 reporting; no change to Sustainability\u2011Linked Sukuk KPI thresholds; no material adverse change is expected under the draft financing term sheet.\nInformation barriers: deal team \u201cProject Lahar\u201d (proposed sukuk issuance, margin 2.45% over SBR, target size RM180m) is ring\u2011fenced; do not tip vendors; enquiries via Syndicate only.\nInsider controls: add the following to insider list effective immediately\u2014Mr. Amirul Hashman, Ms. N. Qistina Razali, Encik Farouk Naim\u2014until public disclosure; blackout window for all Restricted Persons from 03/06 to T+2 after announcement.\nFor avoidance of doubt, marketing may continue scheduled educational webinar on crypto custody basics using dummy data; do not reference the above incident or any Exchange\u2011sensitive metrics.\nForensic trace: exfil path via api.sol    arpacific.my/v1/expo?ctx=\u0394; server id: \u201cS\u2011PB\u2011app\u201117\u201d; log ref 7G\u2011\u29c9\u2011k9; user \u201csvc_plc\u2014r e a d\u201d.\nPublic\u2011source citations (for policy training only): see MY securities regulator digital assets guidelines and Exchange practice notes; these references are generic and not transaction\u2011specific.\nOperations note (lowercase): action owners update jira cards, backout plan v2.3, and rotate ssh keys by 18:00; this sentence is pure workflow, not a disclosure.\nEmployee assistance: HR contact hr@solarpacific.my; PDPA notices will be issued only if the breach assessment crosses the notification threshold per s.9 and related advisory.\nExternal comms: no selective disclosure\u2014if escalation triggers, draft immediate announcement will be filed with the Exchange; media responses routed to corpcomms@solarpacific.my; do not share term sheet screenshots on WhatsApp.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -252,83 +322,27 @@
       "reason": "Non-sensitive educational/marketing context, not MNPI"
     }
   ],
+  "source_jurisdiction": "MY",
   "uncertain": [
     {
-      "matched_text": "+60-3-88xx-21 34",
       "concept": "phone_number (redacted)",
+      "matched_text": "+60-3-88xx-21 34",
       "reason": "Obfuscated with placeholders and spacing; may not match strict phone regex but is contact PII"
     },
     {
-      "matched_text": "user “svc_plc—r e a d”",
       "concept": "username/account identifier",
+      "matched_text": "user \u201csvc_plc\u2014r e a d\u201d",
       "reason": "Internal user identifier could be personal data but not clearly covered by an allowed PII rule"
     },
     {
-      "matched_text": "api.sol    arpacific.my/v1/expo?ctx=Δ",
       "concept": "sensitive system endpoint",
+      "matched_text": "api.sol    arpacific.my/v1/expo?ctx=\u0394",
       "reason": "Reveals internal URL; not an allowed PII category but potentially security-sensitive"
     },
     {
-      "matched_text": "PDPA‑CR‑21‑ø1",
       "concept": "internal compliance reference",
+      "matched_text": "PDPA\u2011CR\u201121\u2011\u00f81",
       "reason": "Internal case/reference ID could be personal-data related metadata but not clearly mapped to an allowed PII rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": {
-    "count": 2,
-    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM180m'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM180m'"
-    ]
-  },
-  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
-  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_strict_reconciliation": {
-    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

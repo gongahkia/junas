@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -429,6 +437,30 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We will notify affected individuals, including Mr. Kho and Ms. Lim, and offer credit monitoring; letters will be posted to the last known address records (e.g., 20 Circuit Crescent #05-01, Singapore S(000000))",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We will notify affected individuals, including Mr. Kho and Ms. Lim, and offer credit monitoring; letters will be posted to the last known address records (e.g., 20 Circuit Crescent #05-01, Singapore S(000000)).\nContainment status: reset of vendor credentials, revocation of stale VPN profiles, EDR scans completed, and forensic image preserved (hash: awr-0x77fa\u20269c); no evidence of persistence post 30 May.\nContact channels: Data Protection Office dpo@aspenwave.example, Investor Relations ir@aspenwave.example, tel +65 6000 0000",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Named subject: Mr. Daryl Kho Chen Wei (EmpID: AWR-7l0O-993-x), Senior Engineer, had a medical claim revealing Type 1 diabetes and an access badge fingerprint template compromised; HR records also show declared religion: Buddhist (for festival leave scheduling) and union membership with payroll deduction of 1.5%.\nNamed subject: Ms. Aisha Lim Mei Fen (EmpID: AWR-4Q2-5i1-z), Project Manager, had a prenatal claim referencing gestational hypertension and a benefits attachment noting thalassaemia trait; her dependent, Meera Lim (age 9), was listed for clinic reimbursements (minor data).\nBiometric timekeeping images (face-scan jpgs) for the above named persons were cached in /bi o /cache/2026_05; logs indicate 31 files viewed and 7 copied.\nSeparately, a draft term sheet \u201cTRX-NOVA-2026-05\u201d for a proposed acquisition of NovaDock Systems Pte. Ltd. and preliminary Q3 revenue guidance were found in the same share; this information is not generally available and would be expected to materially affect the price of Aspenwave shares on the MSX.\nAccordingly, this content is restricted under the Securities and Futures Act (Singapore) and the MSX Listing Rules; escalation to MSX RegCo for guidance on immediate disclosure (Rule 7.03 analogue) is in progress and insider lists have been updated.\nFor clarity, this incident report does not constitute a material adverse change representation, an earnings pre-announcement, or an offer of securities; our general policy prohibits discrimination on religion, sexual orientation, or union status.\nOperational note: consumer product names Orchid Cloud and LionCity Pro were unaffected; the office five-a-side team \u201cNeon Tigers\u201d also remains unaffected by the network containment.\nPublic-source references used: Monetary Authority of Merlion (MAM) TRM Circular 2025-RSK-11 (public), and Infocomm & Data Protection Agency (IDPA) advisory on ransomware (public); these do not disclose any individual\u2019s sensitive data.\nPartial identifiers observed: pay acct \u201c88  341-XX-29\u201d, contractor domain \u201cnovadock-vpn[.]example\u201d, and URL h t t p s : / / i r . a s p e n w a v e . e x a m p l e /doc?id=TRX-NOVA-2 0 2 6 % 2 F 05&dl=1 (now access-revoked).\nWe will notify affected individuals, including Mr. Kho and Ms. Lim, and offer credit monitoring; letters will be posted to the last known address records (e.g., 20 Circuit Crescent #05-01, Singapore S(000000)).\nContainment status: reset of vendor credentials, revocation of stale VPN profiles, EDR scans completed, and forensic image preserved (hash: awr-0x77fa\u20269c); no evidence of persistence post 30 May.\nContact channels: Data Protection Office dpo@aspenwave.example, Investor Relations ir@aspenwave.example, tel +65 6000 0000; please do not forward MNPI outside need-to-know.\nNote: the phrase \u201cbiometric security\u201d below refers to a control category in training materials and not to any person\u2019s sensitive attributes.\nnext steps: create jira epic \u201cmsx-703-incident\u201d, prepare PDPA breach notification within 3 calendar days, stage but do not publish market update pending msx regco advice, and schedule union liaison briefing for transparency without tipping MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

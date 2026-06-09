@@ -50,6 +50,14 @@
     "previous_must_detect_count": 19,
     "previous_must_not_detect_count": 3
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -337,6 +345,24 @@
       "category": "MNPI",
       "matched_text": "ransomware deployment",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Insider list action (MAR Art. 18): add Dr. Martea Kovak (DPO), Mr. Tiago Drag\u0103n (Head of Crypto Ops), and Ms. Lidia Portero (Sustainability Analytics Lead); list id INS\u2011LST/2026/0 6\u20111 2; contact compliance@vestra\u2011renewables.eu to confirm entries within 24h",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly confidential \u2014 this document contains inside information within the meaning of EU MAR; do not distribute beyond the addressees or store outside approved repositories.  \nVestra Renewables SE (EU issuer; Mercurion Paris MTF) \u2014 Incident Report re: cyber intrusion and sustainability data integrity; supervising NCA notified on a no-names basis pending MAR Art. 17 delay assessment.  \nOn 05 Jun 2026 02:14 CET our SOC detected lateral movement attributed to a credential stuffing attack against a third\u2011party SSO connector; two application clusters were isolated and a limited ransomware deployment (\u201cNeroLock\u2011R2\u201d, variant unknown) was blocked pre\u2011encryption.  \nPreliminary review indicates potential access to a payroll archive (circa 4,200 records) including GDPR Art. 9 fields (medical leave codes and recorded union dues status); data subjects are EU\u2011based employees and contractors.  \nA subset of access logs and 32 sample records were auto\u2011synced to MetricWave Pte. Ltd. (SG) for anomaly scoring under 2021 Standard Contractual Clauses; cross\u2011border transfer was suspended at 06:03 CET and a DPIA addendum with supplementary encryption is in draft due to Schrems II risk.  \nOur crypto treasury pilot \u201cEurLumen (ELM)\u201d on AuroraChain shows a potential hot\u2011wallet key exposure; address 0xE3fA7c\u202691d (t a g: Treasury\u2011Ops) holds 17,300 ELM; a redacted key fragment appeared in a dev ticket (JIRA\u2011C R Y P T O\u2011144), and a freeze request has been filed with the custodian node operator; no on\u2011chain movement observed.  \nESG/CSRD impact: provisional recalculation suggests 2025 Scope 2 emissions rise by 11\u201314% due to revised grid factors; this may trigger a 25 bps coupon step\u2011up under the sustainability\u2011linked loan with NordPraxis Bank and could affect SFDR Article 9 product alignment for two mandates \u2014 this information is not public and is considered precise.  \nCommercial terms: draft PPA amendment with GreenNord Stadtwerke GmbH would revise the floor price from \u20ac41 to \u20ac49/MWh effective Q4 2026; counterparty review is ongoing under NDA and any leak may be deemed selective disclosure.  \nInsider list action (MAR Art. 18): add Dr. Martea Kovak (DPO), Mr. Tiago Drag\u0103n (Head of Crypto Ops), and Ms. Lidia Portero (Sustainability Analytics Lead); list id INS\u2011LST/2026/0 6\u20111 2; contact compliance@vestra\u2011renewables.eu to confirm entries within 24h.  \nClosed period: a 30\u2011day blackout will apply from 15 Jun 2026 until H1 results; PDMRs and closely associated persons must refrain from transactions in Vestra securities; no sounding or wall\u2011crossing without Compliance pre\u2011clearance.  \nInformation\u2011barrier alert: a Tokenization Lab engineer cross\u2011posted wallet\u2011risk details into Corporate Finance Slack #cf\u2011mna at 08:22 CET; Novazero Capital SICAV analysts were being pre\u2011sounded under clean\u2011team protocols \u2014 potential barrier breach and tipping risk under review.  \nRegulatory workflow: MAR Art. 17(4) delay grounds recorded (issuer legitimate interest; confidentiality reasonably ensured); DPA notification draft prepared for filing within 72h; data at rest was AES\u2011256 encrypted but payroll exports included plaintext \u201cleave_reason\u201d fields.  \nFor avoidance of doubt, the ESG academy webinar \u201cInside information & crypto wallets\u201d scheduled next week is an educational session and contains generic policy content only; it does not disclose issuer\u2011specific data or constitute a market communication.  \nThis internal notice does not constitute a profit warning, does not state or imply any material adverse change, and references to public ESMA Q&A are for background only (see public guidance on MAR delay mechanics); operational remediation proceeds under BAU workstreams.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

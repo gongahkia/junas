@@ -45,6 +45,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -227,6 +235,24 @@
       "category": "MNPI",
       "matched_text": "80%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Examples of data we process (anchored to specific individuals): Mr. Gavin Lok (Plant Supervisor, EmpID EM P\u20133 4 1) \u2014 biometric access template (hashed fingerprint) and occupational health record (lumbar disc treatment dated 2025\u201102) for site safety compliance.\nMs. Raina Chu (Analyst, clean team) \u2014 union membership (Harbour Office Staff Federation no. U\u201319 8) and declared Buddhist religion for leave arrangements; no sexual\u2011orientation data is required for her role.\nFor minors\u2019 data, Mr. Gavin Lok\u2019s dependent child ref c h l d:CX-7 0 had a genetic screening report mistakenly uploaded to the diligence room; it has been quarantined and is scheduled for purge within 72 hours.\nWe may process identity data, payroll account aliases, and contact numbers such as +852 6 3 9 8 7 2 0 1; copies of local identity cards are not collected in the clean room unless strictly necessary and proportionate.\nInside information controls: specific corporation information not generally known to persons who are accustomed to or would be likely to deal in the issuer\u2019s securities and reasonably expected to be price\u2011sensitive (Part XIVA, SFO) is ring\u2011fenced; DSAR responses may omit or defer such MNPI in line with exemptions.\nM&A codename: Project Sea Lantern; systems used include NebulaFlow CRM and Eideron Cloud; mention of the Kaiyu City Mariners (sports) is illustrative only and is not inside information, and a metaphorical tiger does not hunt here.\nNothing in this notice constitutes, or shall be deemed to constitute, a Material Adverse Change, and any reference to public\u2011source filings relies on information already available on issuer announcements and news.\nData retention: payroll and health surveillance records are kept for 7 years from cessation; biometric templates rotate every 90 days; union and religion preferences are retained only for HR purposes and can be withdrawn through the DSAR channel.\nDSAR & correction: submit at https://portal.oriole-delta.com/dsar?ref=cl%2Fhk%2Fma-017&u=EM%20P%E2%80%93341 or pr ivacy@oriole-delta.com; upon verification, we aim to respond within 40 days in accordance with PDPO requirements.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

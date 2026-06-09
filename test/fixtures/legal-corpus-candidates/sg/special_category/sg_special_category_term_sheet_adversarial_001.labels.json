@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -294,6 +302,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed acquisition of 60% of the issued shares in Lumina Reef Pte. Ltd. by Heliotrope Holdings Ltd., a Mainboard issuer on S G X - S T.\nConsideration: S$118,000,000 in cash and new Heliotrope shares (no security code assigned; issuance subject to SFA and SGX Listing Rules), with a completion payment adjustment tied to audited FY2026 EBITDA.\nConditions precedent: MAS/SGX approvals, no injunction, vendor board approval, PDPA consents from target staff, and notification of any inside information considered MNPI under the SFA; a voluntary trading halt may be requested under LR 703.\nConfidentiality and MNPI: Parties acknowledge information herein is not generally available and likely to materially affect price/value; disclosure restricted to advisors; carve-out for matters already in Lumina Reef\u2019s 31 Mar 2026 annual report (public source).\nKey individual retention: Mr. Daven Koh (CTO, 34) will sign a three-year service agreement; with his written consent, the acquirer may process data on his Type 1 diabetes for reasonable workplace accommodation and his union membership (Tech Workers Union\u2013SG) for payroll deductions.\nSensitive data notice: Mr. Daven Koh has disclosed that he identifies as bisexual and practises Sikhism; access to the cleanroom will continue to rely on bi ometric gate controls (fingerprint template hash, not images), and the acquirer shall not use genetic test results for employment decisions.\nHR compliance: Ms. Alina Quek, Head of People, will coordinate P D P A   consents and update the religious holiday policy and biometric time-clock notices; contact: ms.quek@heliotrope.exa mple.sg; alt: dealroom://heliotrope.sg/deal?tx=LUM%2F60&rol=eC0a.\nWarranty/MAC: Ordinary course covenants apply; announcement of the \u201cOrchid OS\u201d product roadmap, loss of the Katong Kings FC sponsorship, or media metaphors about \u201cpaper tigers\u201d do not constitute and shall not be deemed a Material Adverse Change.\nPublic communications: Any SGX-ST announcement will be coordinated with the issuer\u2019s sponsor and legal counsel; references to sustainability targets follow the publicly available \u201cOpen Hands 2.0\u201d DEI policy and do not create binding obligations.\nApprovals and timing: Target EGM within 30 days; long-stop date 31 Oct 2026; if required, a whitewash resolution will be sought; completion to occur in Singapore; next steps: circulate clean draft, align with finance, chase comments by eod fri.\nRegulatory: Any sharing of MNPI with research analysts must comply with SFA s.218 and SGX Practice Note 7.1; insider lists will be maintained; a clean team will handle data rooms containing special-category data.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

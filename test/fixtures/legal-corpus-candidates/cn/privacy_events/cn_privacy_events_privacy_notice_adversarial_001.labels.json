@@ -58,6 +58,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -280,6 +288,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller: Novatera Robotics (Shenzhen) Co., Ltd., USCC: 93A0-XY**-710024-9Z; Processor: Quanyun Data Services (Hangzhou) Ltd., USCC: 7K-P9-00**68-HT2; effective 2026-06-01.\nScope per PIPL/CSL/DSL: em ployee onboarding in PRC, resident-ID verification, payroll, and issuer support for CSRC/SSE disclosures; minors under 14 are not processed.\nOnboarding form fields: name, contact, bank acct tail ****1234, Resident ID 51****1992  08  30  123X (masked), and USCC copy for corporate contractors; data minimisation applied (no unnecessary photos collected).\nDSAR 2026-05-20: Mr. Han Ruiming requested copy and erasure of attendance logs via privacy@novatera-cn.example; fulfilled on 2026-05-23 with confirmation ticket NVT-DSAR-20 26  0523.\nConsent withdrawal 2026-04-28: Ms. Zhao Mulan withdrew consent for wellness data; processing stopped, re cord s quarantined; no further profiling executed.\nErasure: upon offboarding, personnel files (excluding statutory payroll vouchers) are deleted within 30 days; exception logs retained for 3 years per PRC tax rules.\nRetention schedule v2.1 (policy-only update, no live purge executed in Q2): resident-ID images 90 days then hash-only; access badges 18 months; minimisation review completed 2026-05-10; pm note: next sprint closes nebula-dpa v1.4, not a new data flow.\nCross-border transfer: R&D ticketing metadata exported to Novatera Pte. (SG) under CAC \u6807\u51c6\u5408\u540c (Standard Contract) signed 2026-04-10; export permit https://xport.novatera.example/cac?doc=SC-CN%2F2026-04-010&sig=7f:ab:99.\nSecurity control status: AES-256 key rotation completed 2026-05-01 for HR vault; this completion does not indicate any outstanding privacy risk or ongoing transfer.\nMNPI handling: Pre-announcement term sheets for issuer \u2018BluePeak Circuits\u2019 STAR Market application are ring-fenced; insider list maintained, trading blackout triggered per Securities Law before public disclosure.\nNegative carve-out: no device MAC addresses are collected from visitors; finance uses only public price feeds and not non-public broker tips when preparing board packs.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

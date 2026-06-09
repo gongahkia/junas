@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -180,6 +188,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI gating under FSCMA: IR exports exclude unaudited financials and transaction timetables; this memo contains no important information not publicly disclosed.\nCross\u2011border transfer approval granted by DPO Mr. Han Jae\u2011min on 2026\u201101\u201115; route: KR\u2192SG\u2192EU via TLS1.3; no transfer of resident\u2011number fields was approved.\nConsent withdrawal: request from Ms. Seo Min\u2011kyung (former IR analyst) was completed on 2026\u201102\u201102; processing status=closed and SG export tokens revoked.\nDSAR intake channel: privacy@samwontesseract.co.kr and https://privacy.samwontesseract.co.kr/dsar?req=REQ-7f2b%2D** with identity check via employee code EM-4A7F-**12.\nErasure log: HR sandbox purge finished 2026\u201102\u201105 for EM-4A7F-**12; no live system replicas remained; exception noted for statutory payroll retention under local law.\nRetention schedule (policy only): IR contact data 3 years from last interaction, HR onboarding records 5 years; auto\u2011deletion job DISPATCH_MINI runs monthly.\nMinimisation: re s i d e n t - n u m b e r stored only in segregated vault; production CRM uses dummy field \u201cRRN_HASH=H**8a\u201d and exports null values to SG/EU environments.\nCompleted control: FSS notification of outsourced processing was filed 2026\u201101\u201120; FSC pre\u2011clearance not required because no customer account or trading data is processed.\nNegative statement: no cross\u2011border transfer of insider lists occurred during Q1; any draft \u201cKRX\u2011IPO\u20112 0 2 6 \u2011 A 1\u201d entries were deleted before sync to PrismAtlas.\nPublic\u2011source reliance: IR summaries reference KRX disclosure portal and our newsroom; social media handles and scraped web data are not ingested.\nResident\u2011number (masked): X X X X X X \u2011 X X X X X X X (policy placeholder), not collected in IR systems; OCR note: legacy PDFs may show \u201cr e g - n o\u201d artefacts without live identifiers.\nInternal contact: DPO Office, Attn: Mr. Han Jae\u2011min, dpo@samwontesseract.co.kr; escalation to Audit Committee Chair available for MNPI gate reviews only.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

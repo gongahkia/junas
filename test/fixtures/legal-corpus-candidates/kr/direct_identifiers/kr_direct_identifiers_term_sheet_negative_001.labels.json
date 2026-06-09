@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -225,6 +233,12 @@
       "category": "MNPI",
       "matched_text": "51%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Investment Term Sheet between Dusim Robotics Co., Ltd. (KR issuer) and Haneul Materials Co., Ltd. (target), non-binding and subject to definitive agreements.\nStructure: Dusim Robotics to acquire approximately 51% of Haneul Materials via a combination of secondary share purchase and primary issuance; consideration and price mechanics to be finalized post confirmatory diligence.\nPublic disclosure: A summary of this proposed transaction was announced on KRX KIND on 2025-03-10 and a voluntary disclosure was filed on DART; no material non-public information will be exchanged except under NDA consistent with FSCMA fair disclosure.\nRegulatory: Any KFTC merger control filings (if thresholds are met) and post-closing DART reports will be made; the parties will comply with FSC/FSS guidance on fair disclosure and insider trading restrictions (FSCMA).\nConditions precedent: Board and (if required) shareholder approvals; absence of injunctions; no delisting or trading halt under KRX Listing Rules; audited K-IFRS financials delivery (public versions acceptable).\nEmployee & data: No immediate workforce reductions; any employee information transfer will follow PIPA principles (minimization and masking); resident-number and passport details will not be collected unless legally required for director registration.\nGovernance: Dusim Robotics to nominate two directors (including one outside director) and one statutory auditor post-closing, subject to Articles of Incorporation and KRX Corporate Governance Code.\nCovenants: Ordinary course of business undertakings; no dividends, share buybacks, or related-party transactions above customary thresholds without investor consent until closing.\nClosing: Targeted within 120 days of signing, subject to regulatory timing; long-stop date to be set in the definitive share purchase agreement.\nIR and inquiries: Investor Relations mailbox for Dusim Robotics is ir@dusimrobotics.co.kr; general public questions may be directed to the FSS Call Center at 1332 (public helpline).\nForm labels for signatories (for execution page, not for public filing): Name (print) ______; Title ______; Company Chop/Seal ______; Date ______.\nKorean Resident Registration No. (if required for domestic director registration; example only): 800101-1234567 [invalid checksum sample, do not use].\nPassport No. (non-resident signatory, if applicable): __________; Nationality: __________.\nBusiness Reg. No. (company use, if required for stamping): __________; Address (registered office): __________.\nGoverning law: Laws of the Republic of Korea; disputes to be resolved by arbitration seated in Seoul under KCAB rules; this term sheet creates no obligation to consummate the transaction until definitive agreements are executed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

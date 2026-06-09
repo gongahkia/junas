@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -307,6 +315,18 @@
       "category": "MNPI",
       "matched_text": "Chinese walls",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Anchored example: Mr. Vimal Rao provided explicit consent for processing his fingerprint scans (biometric) and Type 2 diabetes treatment records (health) to activate our Peacock Ledger account.\nHe also disclosed membership in the Alloy Makers Union (union affiliation) and that he identifies as bisexual; he declined to state political opinions and stated his religion as Jain, which we record only where strictly necessary.\nAnchored child data: Ms. Reema Iqbal consented on behalf of her son Master Kabir Iqbal (age 16) to process spirometry reports related to asthma (health) for insurance servicing in our MonsoonCard program.\nFor listed-company workflows, we handle unpublished price sensitive information (UPSI) relating to Kalyan Orbit Systems Limited (listed on the Dakshin Stock Exchange), maintain insider lists, and enforce pre-clearance/trading-window controls under Indian PIT norms.\nUPSI and KYC data are segregated by role-based access and logical Chinese walls; employees on Project Neemleaf may not access VantageCore analytics that could correlate client trades.\nTransfers: personal data may be processed by Petalpulse Analytics Pte and CloudOrchid Systems outside India under contractual safeguards, with Aadhaar/PAN tokenisation and field-level encryption; we do not transfer UPSI to vendors without board-approved purpose.\nRetention: KYC and ledger records are kept for 8 years post relationship or longer if required by applicable law; child data are reviewed annually, and biometric templates are deleted 30 days after account termination.\nRights and DSAR: Access, correction, erasure, portability, and grievance may be exercised by writing to privacy@indoedge.example or via the Safedvara consent manager; we respond within timelines set by the DPDPA and applicable securities rules.\nGrievance Officer: Ms. Naina Deshpande, grievance@indoedge.example; you may escalate to the competent authority under the DPDPA if unresolved.\nOur brand names (Peacock Ledger, MonsoonCard) and the Varnagar Tigers fan club updates are marketing fluff only; like a monsoon cloud over Navapur Tech Park, they should not be read as legal commitments.\nWe value diversity, equity, and inclusion across religion, caste, gender identity, and sexual orientation, but this sentence is generic and does not describe any person\u2019s sensitive data.\nPolicies referenced: Insider List Policy v3.0, UPSI Handling Standard, Children\u2019s Data Charter, Vendor KYC & GSTIN Onboarding, and Data Retention Schedule\u2014Dakshin Region; pl",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

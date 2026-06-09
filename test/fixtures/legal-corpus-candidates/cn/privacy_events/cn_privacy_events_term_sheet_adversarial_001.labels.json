@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -340,6 +348,18 @@
       "category": "MNPI",
       "matched_text": "60,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts: Mr. Chen Huai, Chief Compliance Officer, +86-09-2888-7000 ext 931; chen.huai@qincheng-ne.example.cn; postal Tower 9, Jinghai New District, Linghai (fictional)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Investment and Partial Acquisition between Zheyu SkyBridge Holdings (Linghai) Co., Ltd. (Unified Social Registry Code: 9L3Q0ZB3T1K90012X) and Qincheng Novel Energy Tech Co., Ltd. (Unified Social Registry Code: 5Y1Z0LQ3D7F88006M), with an option over Yucheng Sensors (Linghai) Co., Ltd.\nTransaction: Investor subscribes CNY 180,000,000 of Series C Preferred Shares in the Issuer at a pre-money valuation of CNY 1,200,000,000; call option for 60% of Yucheng Sensors at 8x FY2027 audited net profit.\nConditions precedent: internal DPA schedule approval, Linghai Market Order Bureau filing (competition), and completion of data localisation checks per DSL/CSL; onboarding form review to confirm masking of res i d e n t  I D fields.\nInside information/MNPI: the Parties confirm no inside information remains following a pre-disclosure circular filed with Haihua Exchange (fictional) on 2026-05-28; no Material Adverse Change has occurred since 2026 Q1 management accounts, and \u201cMAC\u201d expressly excludes completed privacy notice rollouts.\nCross-border transfer: pseudonymised device telemetry to Yongzhou Analytics Cloud (Seaqiong) proceeded under Central Cyberspace Directorate of Linghai filing No. LH-CAC-2025-\u03b17; standard contract lodged and approval memo dated 2025-12-10 is on file.\nPrivacy workflows: two employee DSARs (refs: DSAR-2044 and DSAR-2045) answered within 15 working days; erasure executed for ex-intern Ms. Lan Ziran (ID: 41*************18) on 2026-04-22 under ticket ER-\u0394-3F4A, with audit log retained 6 months.\nConsent withdrawal: one customer withdrew consent for cross-border telemetry on 2026-05-03; exports for that profile halted and local-only processing enabled; retention shortened to 90 days for derived metrics tied to that profile.\nNegative control statement: no minors\u2019 personal information (<14) is processed in this transaction scope; any child-related templates in the DPA are policy-only and do not indicate live processing.\nEmployment workflows: HRIS \u201cRenHe Gate v4.2\u201d collects role, team, and contact only; bank info stored as alias tokens; onboarding forms include referee contacts and masked resident IDs (e.g., 37*************65); retention per HR-2026-07 is 3 years post-termination; minimisation checks completed monthly.\nData export approvals: Approval Memo LHCAD/CBT/2026/009 appended; note\u2014control is policy-only for payroll, and payroll data is not exported outside mainland PRC.\nIT note: device MAC addresses are not collected by default and \u201cnot a MAC capture workflow\u201d applies; investor deck relies on public-source product materials and excludes MNPI.\nData localisation: DSL-compliant storage confirmed for mapping caches (geo_cache_cn) in Linghai Region Node A; network routes for analytics mirroring use anonymised IDs only.\nPayment and milestones: Tranche A CNY 120,000,000 at closing; Tranche B CNY 60,000,000 upon customer acceptance of \u201cproject qingyao alpha\u201d; option exercise window closes 24 months after Tranche A.\nRepresentations: Issuer warrants PIPL-compliant notices presented to employees and customers; data subject rights channel active at privacy@qincheng-ne.example.cn and via portal https://datahub.qne-ex.example.cn/dsar?req=\u0394-2045.\nAccess to schedules: DPA Schedule available at https://dealroom.haihua-ex.example.cn/dpa?v=4.1&org=QNE-9L3Q0ZB3T1K90012X&sid=TS-2026-\u0394; Standard Contract and cross-border filings archived in folder \u201cCBT-\u03b17\u201d.\nIdentifiers and obfuscation: project code YN-\u03b2-7712; staff code uSER_00l-O; hashed issuer ID 77c1::ab9f::440e; file tag TS/QNE/ZSH/2026/\u03a3; USCC refs: 9L3Q0ZB3T1K90012X and 5Y1Z0LQ3D7F88006M.\nClarification for precision: no ongoing cross-border transfers occur for employee resident IDs; any historical export was completed and purged per ER-\u0394-204, and this sentence does not indicate a current privacy risk.\nContacts: Mr. Chen Huai, Chief Compliance Officer, +86-09-2888-7000 ext 931; chen.huai@qincheng-ne.example.cn; postal Tower 9, Jinghai New District, Linghai (fictional).\nLegal: This term sheet is non-binding except for confidentiality, data handling, governing law (Linghai Province), and dispute resolution before the Yunhe Arbitration Commission (fictional); closing targeted within 60 days of CP satisfaction.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

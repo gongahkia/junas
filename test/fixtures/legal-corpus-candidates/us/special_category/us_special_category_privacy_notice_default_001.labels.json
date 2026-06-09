@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -216,6 +224,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mr. Dorian Hale (Employee No. CH-7425) enrolled in iris-scan door access and disclosed a Type 1 diabetes treatment plan to our on-site clinic for accommodation purposes.\nMr. Hale also requested a Friday prayer accommodation as part of the Faith & Fellowship employee resource group; such religious data is restricted to HR and the clinic.\nAnalyst and investor workflows prohibit selective disclosure of material non-public information; pre-release clinical or earnings content must be disseminated broadly under Regulation FD-compliant channels.\nEmployees in Investor Relations and the Treasury Desk must place drafts of earnings decks, drug safety updates, and bank credit metrics in the Aurora Vault until public posting; do not brief sell-side analysts at Orbital Peak Securities LLC or the Northpoint Wolves fan forum.\nIf a lapse occurs (e.g., a mistaken pre-release revenue email), we will issue simultaneous public notice and trading blackouts to mitigate Rule 10b-5 risk and will notify our Audit Committee.\nPatient lending and HSA workflows combine HIPAA PHI and GLBA NPI; access is role-based and logged via badge and keystroke biometrics.\nCalifornia residents and other US consumers may submit access, deletion, or correction requests by emailing privacy@clearwellharbor.example; verified responses exclude trade secrets and MNPI.\nWe transfer data to Pine Borough Cloud Services LLC (US) and to HarborLink Research Ltd. (UK/EEA) under appropriate contracts; any onward disclosure to underwriters or exchanges occurs only after public dissemination.\nRetention: biometric templates are deleted within 3 years after last use; health accommodation records are retained 7 years; MNPI incident logs are retained 5 years or longer if litigation holds apply.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

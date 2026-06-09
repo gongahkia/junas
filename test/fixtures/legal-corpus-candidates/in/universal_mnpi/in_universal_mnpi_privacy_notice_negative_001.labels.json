@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -142,6 +150,18 @@
       "category": "MNPI",
       "matched_text": "definitive agreement",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Trinetra Composites Limited \u2014 privacy and retention workflow (India, DPDPA 2023) for investor relations and board materials.\nAs Data Fiduciary, we process minimal data from Data Principals contacting IR, and consent is recorded via an auditable form.\nWe do not request Aadhaar, PAN, or GSTIN; any examples like Aadhaar 0000-1111-2222 or PAN PANNOTVALID appearing in emails are treated as redactions and deleted.\nChild data: we do not knowingly process information about individuals under 18; DSARs from guardians follow the DPDPA grievance route.\nDSAR and consent withdrawal can be initiated via privacy@trinetra.example or the consent manager portal listed on our website.\nSEBI (PIT) compliance: the IR queue excludes UPSI, trading-window closure notices are posted to insiders, and research notes cite only public BSE/NSE releases.\nThe May 2024 investor release carried an embargo until 20 May 2024 09:00 IST, which has passed and is no longer unpublished price-sensitive information.\nBoard memo templates include negated MAC language: no MAC/MAE has occurred or is expected as of Q4 FY24 based on public disclosures.\nAny reference to a definitive agreement in IR drafts pertains to the already-announced alloy plant divestment to Anantya Metals Private Limited per BSE filing LZ-2024-0510, and no",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

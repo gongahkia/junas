@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -199,6 +207,30 @@
       "category": "MNPI",
       "matched_text": "confidential",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR: On 2026\u201105\u201119, we received a data subject access request from Ms. Yvette Ho (ex\u2011analyst, DR ref: DSAR\u20112026\u2011HK\u20111z) seeking copies of HR processing records; acknowledgment was sent within 2 business days and the dataset was delivered on 2026\u201105\u201121 with redactions applied per PDPO s.20(2)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Erasure: The single staged file was remotely purged from SG at 09:10 HKT on 2026\u201105\u201120 with deletion certificate NAD\u2011DEL\u20112026\u2011051; local cache copies (\\\\sjg\u2011dataroom\u201101\\m&a\\acq_orchid\\DR\\) were wiped via secure erase v2, completed 2026\u201105\u201120 10:03 HKT",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Artifacts: https://exports.seaportjade.com.hk/permits/CBT?id=hk\u20112026\u201105\u201118&sig=ab12f19\u2026, job log: ord\u2011ref M&A\u2011DR\u20112026//cbt\u201101, user trace: u:hk\u2011onb\u2011xx4 (o c r read: \u201ch k \u2011 o n b \u2011 x x 4\u201d)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026\u201105\u201120, an operational misconfiguration in Atlas HR Onboard v4 caused one onboarding form to be queued for a cross\u2011border transfer to our Singapore processor, Nimbus Apex Data Pte. Ltd., during setup of the M&A clean room for the proposed acquisition of Orchid Reef Systems Limited by Harbor Frontier Capital Fund I LP.\nThe queued dataset was limited by minimisation controls to name initials, corporate email, job title, and start month; no MAC addresses, device IMEI, GPS, face images, or ID card scans were collected or exported.\nUnder PDPO, the record constituted personal data; the transfer pipeline executed once at 02:14 HKT and moved a single file \u201cOnboard_Form_v3 (scrn).pdf\u201d (hash: 9f:2a:hk:\u2026:77) to a staging bucket outside HK before automatic quarantine triggered.\nConsent withdrawal: Mr. Adrian Lau (Emp Num: E3  7  9*HK) lodged withdrawal of consent for overseas payroll processing on 2026\u201105\u201118; his data was excluded from the export by rule \u201cCBT\u2011EX\u2011HR\u2011MIN\u201104,\u201d and logs confirm zero fields for his profile were transmitted.\nDSAR: On 2026\u201105\u201119, we received a data subject access request from Ms. Yvette Ho (ex\u2011analyst, DR ref: DSAR\u20112026\u2011HK\u20111z) seeking copies of HR processing records; acknowledgment was sent within 2 business days and the dataset was delivered on 2026\u201105\u201121 with redactions applied per PDPO s.20(2).\nErasure: The single staged file was remotely purged from SG at 09:10 HKT on 2026\u201105\u201120 with deletion certificate NAD\u2011DEL\u20112026\u2011051; local cache copies (\\\\sjg\u2011dataroom\u201101\\m&a\\acq_orchid\\DR\\) were wiped via secure erase v2, completed 2026\u201105\u201120 10:03 HKT.\nRetention: Access logs retained for 90 days under Schedule R.90 and then aggregated; personal identifiers in logs are masked (e.g., A**n L**), and any residual raw events are set to auto\u2011delete at day 91.\nDPA schedule: Nimbus Apex operates under DPA Schedule 2 (Subprocessors) and Schedule 4 (Cross\u2011Border Transfer Safeguards); a data\u2011export approval (Permit CBT\u2011HK\u20112026\u201105\u201118) exists for fund operations, but onboarding HR forms are out of scope and the permit was revoked post\u2011incident.\nWe reviewed SFO implications: no MNPI concerning Seaport Jade Group Limited or Orchid Reef Systems Limited was included; the dataset did not contain financial forecasts, deal terms, or inside information likely to be price\u2011sensitive under Part X I V A SFO.\nHKEX Listing Rules consideration (H K E X  \u2013  L R 13.09): given the limited scope, prompt containment, and absence of market\u2011sensitive content, we determined no disclosure obligation arose; SFC informal consultation (tel. log ref: SFC\u2011IC\u20112026\u201105\u201122) noted no further action.\nPublic\u2011source content in the clean room (board biographies from the target\u2019s website) was present but is non\u2011confidential; the phrase \u201ctransfer all HR records\u201d appears only in a deprecated policy excerpt and did not occur in fact.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

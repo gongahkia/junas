@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -106,6 +114,12 @@
       "category": "MNPI",
       "matched_text": "8-K Item 1.05",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As publicly disclosed on 05/02/2025 via Form 8-K Item 1.05 and a same-day press release, services were restored and controls enhanced.\nThis report aligns with the disclosure previously posted to ir.northharborhb.example and the Q1 Form 10-Q risk factor updates filed 05/10/2025.\nData impact assessment (public): logs contained only placeholders such as SSN: 000-00-0000, Acct#: 0000000000, and MRN: MRN-TEST-000; no consumer, household, or patient data were compromised.\nInternal references: Policy PD-INS-000 (quarterly insider trading blackout), SOP-CYB-014 (third-party outage triage); these policies are longstanding and not event-specific.\nMateriality: management determined the outage immaterial to issuer results and customer harm; this conclusion was communicated in the 05/02/2025 public statement.\nCommunications log (public): customer notice posted on 04/19/2025; investor FAQ published 05/03/2025; role mailbox for inquiries remains ir@northharborhb.example.\nVendor corrective action (non-issuer operational update): GreyPine Networks rotated DNS keys and added change-control gates on 04/20/2025.\nCoverage context: obligations assessed under U.S. Rule 10b-5 standards and Regulation FD; disclosure timing followed 8-K Item 1.05 and Regulation S-K Item 106 guidance.\nIntentionally flagged for review: on 04/29/2025, prior to the 05/02 Form 8-K, a draft Q&A noting the 38-minute duration was emailed to two sell-side firms (Ridgetop Securities LP and Elmcrest Research LLC); potential selective disclosure risk under Reg FD.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

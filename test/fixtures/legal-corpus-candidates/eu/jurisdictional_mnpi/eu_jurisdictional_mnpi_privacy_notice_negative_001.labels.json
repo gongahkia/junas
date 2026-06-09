@@ -50,6 +50,14 @@
     "previous_must_detect_count": 7,
     "previous_must_not_detect_count": 8
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -187,6 +195,18 @@
       "category": "MNPI",
       "matched_text": "confidential",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfers outside the EEA occur to Processoria Ltd (Fictionland) under 2021 Standard Contractual Clauses with a transfer impact assessment on file.\nAccess to analytics uses role-based controls, and personal data fields are minimised or pseudonymised for CSRD/SFDR reporting and assurance.\nReferences to CSRD KPIs rely on the 2025-01-15 press release and the 2024 BFSA-registered Universal Registration Document, both public and stale.\nEMEX issuer page and the BFSA-recognised OAM contain the 2023 Sustainability Report; this document does not include unpublished ESG targets or supplier-specific metrics.\nIssuer identifiers: LEI 0000AURSE-FAKE, EMEX ticker AURSX (illustrative), ISIN EU000AURSE01 (invalid and non-assignable).\nAd hoc announcements are released via EMEX Official List and the OAM within required timeframes; selective disclosure to analysts or investors is prohibited.\nUntil ad hoc disclosure under MAR Article 17 is made, the Q3 wind output deviation above guidance for Aureliant Renewables SE remains inside information likely to significantly affect the AURSX price.\nThe term \u201cblackout\u201d appears in staff training, but the current PDMR dealing window follows the published financial calendar and is not specified here.\nSupplier due diligence for SFDR uses only company-level public data and excludes natural-person PII and any Article 9 data.\nNo live deal codenames, confidential amounts, or individual employee records are contained in this workflow note.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

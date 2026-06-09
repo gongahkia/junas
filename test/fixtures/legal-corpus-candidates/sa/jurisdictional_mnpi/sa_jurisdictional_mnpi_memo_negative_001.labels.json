@@ -91,6 +91,14 @@
       "status": "public_role_mailbox_demoted_from_strict"
     }
   ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -213,6 +221,12 @@
       "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: This note consolidates public disclosures and PDPL practices; only one item below is restricted information.\nPublic/stale items: The 12 Jumada I 1446H press release on the Al-Mithaq warehouse opening was posted on the REX Issuers\u2019 Portal and remains on record.\nPublic/stale items: The board\u2019s dividend policy update of 3 Ramadan 1446H was filed through the portal within 30 minutes per KMA Listing Rules and is already archived.\nPublic/stale items: The share repurchase programme completed on 20 Shawwal 1446H was announced and the final report uploaded; no ongoing authorisation remains.\nPDPL (KSA) housekeeping: Supplier onboarding and HR forms must use fields limited to purpose; examples only \u2014 NIN 1234-XXXX-5678-000, Iqama 98A-12B3-4567, CR 101-XX-7654321 \u2014 are placeholders and must not be stored as live records.\nPDPL transfers: Any cross-border processing shall flow via the Data & AI Authority of the Kingdom (DAAK) transfer gateway using standard contractual terms; processor \u201cSahara Compute Ltd\u201d acts on our documented instructions.\nData minimisation: Remove legacy scans of IDs older than five years from the shared drive; do not email copies through external channels; use the secure vault.\nIssuer workflow (public): The 1446H audited financial statements, auditor\u2019s report, and AGM minutes are published and referenced by the REX ticker page.\nInsider list hygiene (benign): Maintain role-based entries only; use formats \u201cName (role)\u201d and generic mailboxes (e.g., governance@nisco.example), not personal emails.\nIntentional MNPI: Finance has circulated preliminary, unaudited Q2 results to the Audit Committee indicating a potentially material variance; until our scheduled REX Portal submission by 10 Dhu al-Qa\u2018dah 1447H, this remains non-public and subject to the closed period for designated insiders.\nSelective disclosure reminder (general): External communications must be routed through Investor Relations; do not discuss draft numbers with analysts or suppliers.\nExternal references (benign): Media coverage on 1 Rabi\u2018 II 1446H summarised the public MOU with Zawiyah Ports Co.; operational updates since then are non-price sensitive and not issuer-level.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -245,7 +259,7 @@
   "uncertain": [
     {
       "concept": "disclosure timing",
-      "matched_text": "scheduled REX Portal submission by 10 Dhu al-Qa‘dah 1447H",
+      "matched_text": "scheduled REX Portal submission by 10 Dhu al-Qa\u2018dah 1447H",
       "reason": "Indicates a specific future disclosure schedule relevant to blackout/timing controls but not an explicit Embargo/Signing/Closing/Effective Date marker."
     }
   ]

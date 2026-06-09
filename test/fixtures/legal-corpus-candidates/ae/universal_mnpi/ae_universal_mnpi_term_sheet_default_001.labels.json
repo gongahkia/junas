@@ -55,6 +55,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -417,6 +425,30 @@
       "category": "MNPI",
       "matched_text": "90,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Confidentiality/PDPL: personal data will be processed in accordance with UAE PDPL; contact for data queries \u2014 Ms. Leila Naser, Chief Legal Officer, Emirates ID 784-1987-1234567-1 (fictional), leila.naser@alrimalholdings.example; note: Mr. Jamil Al-Bajouri represents the founding family, and family-origin disclosure has been consented to for due diligence only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 UAE MARKET ABUSE INSIDE INFORMATION \u2014 Project Palm Oasis Term Sheet; embargo until 30 Sep 2026, 08:00 GST.\nParties: Buyer \u2014 Al Rimal Holdings DIFC Ltd. (Trade Licence TL-982317, DIFC), Target \u2014 Crescent Dunes Utilities PJSC (intended ADX listing Q2 2027), Seller \u2014 Noor Coast Investments LLC (Dubai, TL-771204).\nTransaction: Acquisition of 35% of Crescent Dunes Utilities PJSC for AED 185,000,000 cash; proceeds to fund Phase II desalination capex; indicative valuation implies AED 528,000,000 post-money.\nStructure: Secondary purchase plus new share subscription; settlement via onshore escrow at Al Safa Settlement Services Ltd.; filings anticipated with SCA; DFSA-notified at HoldCo level for inside information governance.\nConditions precedent: regulatory clearances (SCA no-objection, sectoral approvals), DIFC HoldCo board approval, and no Material Adverse Change; for clarity, changes in UAE laws, IFRS updates, industry indices or pandemics declared prior to Signing shall not constitute a MAC.\nDefinitive agreements: Share Purchase Agreement, Subscription Agreement, and Shareholders\u2019 Agreement (collectively the \u201cDefinitive Agreements\u201d); target signing 20 Oct 2026, long-stop date 31 Jan 2027; 2% reverse break fee if cornerstone financing fails.\nGovernance: Buyer board nomination right proportional to stake (minimum 1 seat); observer rights for Seller until full earn-out satisfied; reserved matters list per ADGM market practice.\nConfidentiality/PDPL: personal data will be processed in accordance with UAE PDPL; contact for data queries \u2014 Ms. Leila Naser, Chief Legal Officer, Emirates ID 784-1987-1234567-1 (fictional), leila.naser@alrimalholdings.example; note: Mr. Jamil Al-Bajouri represents the founding family, and family-origin disclosure has been consented to for due diligence only.\nFunding: Buyer equity from Al Rimal Growth Fund I LP (Cayman feeder mirrored in ADGM SPV), and AED 90,000,000 bridge from Sand Pearl Capital PSC at EIBOR+350 bps.\nUse of proceeds: expand Ras Al Noor plant to 180k m3/day; 12% expected IRR uplift; preliminary research note (internal) indicates tariff resilience under regulated framework; not for external distribution.\nInvestor relations draft (non-public): Q4 call to reference \u201cstrategic water security alignment\u201d without naming Target until after embargo; code name to be used in internal calendars only.\nPublic reference: as per publicly available SCA disclosure guidance, any future announcement will follow ADX timetable and will exclude pricing until signing; nothing in this term sheet constitutes an offer to the public.\nRepresentations and warranties: standard UAE law capacity and title; no undisclosed liens; tax matters limited to onshore VAT; warranty cap 15% of Consideration; survival 18 months; DIFC law and ADGM Arbitration Regulations seat.\nClosing/Checklist: KYC for all shareholders (including Emirates ID verification and trade licence extracts), completion of environmental permits transfer, and registration of pledge over subscription shares; closing mechanics per Annex A (internal checklist).\nEmployee matters: no redundancies planned; retention pool equal to 1.5% fully diluted for key managers; for avoidance of doubt, routine headcount changes due to seasonality shall not be a MAC.\ntodo: circulate clean spa to counsel by eod; align signing room logistics; and yes, book team spa day post-closing (not a transaction cost).\nNon-reliance: this term sheet is non-binding except for confidentiality, costs, exclusivity (45 days), and governing law; any stale data in third-party databases should",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -177,6 +185,12 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Preferential Allotment and Strategic Collaboration between PrismArc Ventures LLP (Investor) and DharmaGrid Retail Limited (listed on Bharat Capital Exchange).\nPublic background: The Company\u2019s MoU and intent to raise capital were disclosed via BCX filing dated 12-Jan-2025 and reiterated in the FY24 Annual Report available on the Company website and media release of 18-Jan-2025.\nTransaction structure: Subscription to equity shares by way of preferential issue under Indian company law and listing obligations; price to be determined per the 90/10 VWAP formula prescribed by the listing regulations and announced through the stock exchange.\nUse of proceeds (illustrative only, non-binding): store refurbishments and working capital as previously described in public disclosures; no new business line is being announced herein.\nUPSI control (intentional positive): As of the date hereof, the Board of DharmaGrid Retail Limited has scheduled, without prior public notice, a meeting on 18-Jul-2026 to consider the preferential issue to the Investor; until disclosure to BCX is made, this constitutes UPSI under the Indian PIT framework and the trading window for designated persons remains closed, with materiality assessed relative to the Company\u2019s size per its policy on determination of materiality.\nDisclosure timing: Any Board approval outcome will be intimated to the stock exchange within 30 minutes of meeting conclusion and accompanied by a same-day press release; if any selective leak occurs, a promptly verified and simultaneous exchange disclosure will follow.\nStandstill and compliance: The Investor will not trade in the Company\u2019s securities while in possession of UPSI; insider lists and wall-crossing acknowledgements will be maintained under the Company\u2019s Code of Conduct for Prevention of Insider Trading.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

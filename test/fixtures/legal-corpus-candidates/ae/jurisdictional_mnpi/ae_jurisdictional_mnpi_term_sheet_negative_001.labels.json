@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -170,6 +178,12 @@
       "category": "MNPI",
       "matched_text": "SPA",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Term Sheet: Strategic share-based acquisition of Wahat Marine FZ-LLC by Amarat Logistics PJSC (ESE-listed, fictional).\nThis summary reflects the non-binding proposal publicly posted on the Emirates Securities Exchange (ESE) portal on 2025-01-20 and reiterated in a widely distributed press release; commercial figures are omitted as stale.\nParties: Buyer: Amarat Logistics PJSC (Mainland UAE); Seller: Sahan Capital SPC; Target: Wahat Marine FZ-LLC (incorporated in Al Sidir Free Zone, an ADGM-like jurisdiction, reg. no. ASZ-00-12345-invalid).\nStructure: All-share combination via issuance of new Amarat Logistics PJSC shares to Seller at an exchange ratio to be fixed upon completion of confirmatory due diligence and ESA clearance; no cash component envisaged.\nConditions precedent include ESA no-objection, ESE approval to list consideration shares, ASZ registrar consent, and shareholder resolutions at a general assembly previously flagged in ESE calendar notices.\nAny binding SPA will be announced through the ESE Disclosure Portal within market hours in accordance with ESA Market Conduct and Market Abuse Guidelines; no selective briefings permitted.\nPositive control information: the issuer\u2019s Board approved an exclusivity period and an indicative share exchange range that are not yet public, and insiders are in a trading blackout window until the first ESE announcement of definitive terms.\nPDPL compliance: no Emirates ID numbers will be collected in drafts; any mandatory KYC at closing will use masked fields (e.g., EID 000-0000-0000000-0 invalid) and trade licence copies (e.g., TL-00999Z invalid) processed via role-based access.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

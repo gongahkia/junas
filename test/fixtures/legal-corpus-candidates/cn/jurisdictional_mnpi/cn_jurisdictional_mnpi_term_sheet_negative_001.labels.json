@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -150,6 +158,18 @@
       "category": "MNPI",
       "matched_text": "110000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Investment Term Sheet \u2014 between Xingzhou Advanced Optics Co., Ltd. (the Issuer) and Jinhai CloudWare Technology Co., Ltd. (the Investor).\nParties: Issuer USCC: XAO\u2011FAKE\u20110000\u2011TEST18; Investor USCC: JCW\u2011XYZ\u20111234\u2011INVALID; both PRC\u2011incorporated limited companies.\nListing/Status: The Issuer is an A\u2011share company listed on the Haicheng Stock Exchange (HCSE) Main Board; its 2023 annual report and a 2024 Q1 operations update were publicly disclosed on the HCSE issuer bulletin on 2024\u201103\u201130 and 2024\u201104\u201128.\nTransaction: Proposed private placement of onshore ordinary A shares to the Investor, with pricing to be determined per HCSE Main Board rules and final registration with the National Securities and Futures Office (NSFO).\nUse of Proceeds: General working capital and R&D under the already\u2011announced OptiCore 3.0 program and expansion of a publicly disclosed assembly line in Xingzhou New District; no proceeds will be used for acquisitions requiring separate shareholder approval.\nConditions Precedent: Issuer board and shareholder approvals, HCSE review and NSFO registration, antimonopoly notification if threshold is met, and compliance with PRC PIPL, CSL, and DSL.\nRegulatory Filings & Timing: The Issuer will (i) convene a shareholders\u2019 meeting within 30 days of board approval; (ii) make public announcements in accordance with HCSE Listing Rules within two trading days of each resolution; (iii) submit NSFO filing within 10 working days after shareholder approval.\nPersonal Information & Data: No collection of minors\u2019 (<14) personal information; employee data processed on a minimum\u2011necessary basis with consent and purpose notice, and any HR file transfers follow PIPL and internal retention schedules; cross\u2011border transfers are not contemplated, and if later required, standard contracts and (if applicable) CDSC security assessment will be completed before export.\nEmployment Workflows: Background checks limited to lawful, public sources; resident IDs will not be stored except where legally required and in masked form (example placeholder: Resident ID ****110000\u201119**\u2011****\u2011123X).\nPublic/Non\u2011Issuer Information: References to supplier delivery slippages and logistics constraints are based on third\u2011party industry bulletins and the Issuer\u2019s 2024\u2011Q1 public update; Investor operational changes unrelated to the placement are outside the Issuer\u2019s disclosure scope.\nDisclosure History: The Issuer publicly filed a strategic framework announcement on 2024\u201102\u201110 and a general press release summarizing potential cooperation; media Q&A transcripts are available on the HCSE issuer bulletin and the Issuer\u2019s IR page.\nInsider Information Control (intentional positive): As of 2026\u201106\u201105, the Issuer\u2019s specific board resolution for this private placement has not been published on HCSE; the Parties acknowledge this is inside information under PRC Securities Law and will observe an insider trading blackout until the Issuer\u2019s \u4e34\u65f6\u516c\u544a is posted within two trading days.\nSelective Disclosure Controls: No investor meetings will discuss non\u2011public performance metrics; all external communications will route through role mailboxes (ir@xao.example.cn; media@jcw.example.cn) and the public hotline (400\u2011123\u2011FAKE), and draft disclosures will be synchronized with HCSE\u2011mandated templates.\nEffect & Governing Law: This term sheet is non\u2011binding (except confidentiality and exclusivity for 30 days) and terminates if NSFO registration is not obtained by 2026\u201112\u201131; gove",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

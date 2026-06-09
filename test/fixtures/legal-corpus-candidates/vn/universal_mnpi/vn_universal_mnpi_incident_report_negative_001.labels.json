@@ -1,110 +1,178 @@
 {
-  "doc_id": "vn_universal_mnpi_incident_report_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "VN",
-  "destination_jurisdiction": "VN",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ops@binhanlogistics.vn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "finance@binhanlogistics.vn"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Binh An Logistics JSC \u2014 operational cyber incident report for VN issuer context, HOSE listing maintained and SSC guidance observed."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Definitive agreement status: no amendments or waivers are being executed; the deal checklist item is marked n/a."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Definitive agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "0.8%"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "1900-0000",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_universal_mnpi_incident_report_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ops@binhanlogistics.vn"
+      "matched_text": "ops@binhanlogistics.vn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "finance@binhanlogistics.vn"
+      "matched_text": "finance@binhanlogistics.vn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1900-0000"
+      "matched_text": "1900-0000",
+      "rule": "phone_number"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet public"
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo date 15/07/2026"
+      "matched_text": "embargo date 15/07/2026",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "0.8%"
+      "matched_text": "0.8%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "bank_customer_reference",
-      "matched_text": "account ref 000-XYZ-123"
+      "matched_text": "account ref 000-XYZ-123",
+      "rule": "bank_customer_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Securities disclosure: draft IR note for HOSE posting is not yet public"
+      "matched_text": "Securities disclosure: draft IR note for HOSE posting is not yet public",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Binh An Logistics JSC \u2014 operational cyber incident report for VN issuer context, HOSE listing maintained and SSC guidance observed."
+      "matched_text": "Binh An Logistics JSC \u2014 operational cyber incident report for VN issuer context, HOSE listing maintained and SSC guidance observed.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Definitive agreement status: no amendments or waivers are being executed; the deal checklist item is marked n/a."
+      "matched_text": "Definitive agreement status: no amendments or waivers are being executed; the deal checklist item is marked n/a.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Definitive agreement"
+      "matched_text": "Definitive agreement",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ops@binhanlogistics.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "finance@binhanlogistics.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Binh An Logistics JSC \u2014 operational cyber incident report for VN issuer context, HOSE listing maintained and SSC guidance observed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive agreement status: no amendments or waivers are being executed; the deal checklist item is marked n/a.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Binh An Logistics JSC \u2014 operational cyber incident report for VN issuer context, HOSE listing maintained and SSC guidance observed.\nIncident window: 28\u201329/06/2026; public notice placed on company website; this extract is compiled from a board memo and operations summary.\nSummary: phishing-themed emails exploited a legacy vendor portal; role mailboxes ops@binhanlogistics.vn and finance@binhanlogistics.vn showed abnormal login attempts from external networks.\nImpact: temporary lock on treasury interface at Thien Bao Bank; fake invoice references INV-0000-XY appeared; no funds moved; account ref 000-XYZ-123 is invalid and never used for real transactions.\nData review under Decree 13: no personal data fields (full name, ID card, phone) accessed; only role mailboxes and test distribution lists were touched.\nOperations: warehouse processing paused for 90 minutes; uptime impact approximately 0.8%; route tracking and customs filings remained stable.\nPublic-source references: VNISA advisory Q1/2025 on business email compromise and CERT Vietnam bulletin 12/2024 were relied upon for mitigation steps.\nESG note: supplier training reminder and community outreach remain on schedule; team spa day on friday stays in place.\nlowercase project tasks: sync with it ops, update patch list, close the jira ticket, document playbook in confluence.\nSecurities disclosure: draft IR note for HOSE posting is not yet public; embargo date 15/07/2026 pending chair approval.\nNegated MAC language: the incident does not and will not constitute a MAC/MAE under our already-announced loan facility term sheet with Hien Phu Finance.\nDefinitive agreement status: no amendments or waivers are being executed; the deal checklist item is marked n/a.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -133,76 +201,22 @@
       "reason": "Spa-day bait; not legally relevant PII/MNPI."
     }
   ],
+  "source_jurisdiction": "VN",
   "uncertain": [
     {
-      "matched_text": "operational cyber incident report",
       "concept": "cyber_incident_pre_disclosure",
+      "matched_text": "operational cyber incident report",
       "reason": "Issuer cyber incident details in an internal memo could be market-sensitive if not fully public; public notice exists but extent of disclosure is unclear."
     },
     {
-      "matched_text": "board memo",
       "concept": "selective_disclosure_risk",
+      "matched_text": "board memo",
       "reason": "Reference to internal board materials may indicate nonpublic market-sensitive information without explicit marker."
     },
     {
-      "matched_text": "HOSE Form CBTT-05",
       "concept": "selective_disclosure_risk",
+      "matched_text": "HOSE Form CBTT-05",
       "reason": "Preparation of exchange disclosure forms suggests pre-disclosure status but not directly covered by an explicit MNPI marker rule."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T13:05:14Z",
-    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation_adjustments": [
-    {
-      "status": "removed_after_phone_precision_guard",
-      "rule": "phone_number",
-      "matched_text": "1900-0000",
-      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
     }
   ]
 }

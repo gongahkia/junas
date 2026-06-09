@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -314,6 +322,18 @@
       "category": "MNPI",
       "matched_text": "information barrier",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Strategic Investment Term Sheet between Blue Peak Horizons Holdings Limited (a Main Board issuer in Hong Kong) and Juniper Harbour Capital Fund I, L.P. regarding a minority investment and associated M&A.\nInvestor to subscribe HK$420,000,000 in senior unsecured convertible notes to fund Blue Peak Horizons\u2019 acquisition of Harborstone Digital Assets Ltd (HK) and GreenTide Renewables (HK) Limited, subject to applicable securities regulator and exchange requirements.\nConvertible notes: 4.25% cash coupon; initial conversion price at 20% premium to last close; adjustment grid tied to internal FY2027 EBITDA forecast (not in any published guidance) and Harborstone\u2019s VATP licence milestone; negative pledge and change\u2011of\u2011control put.\nUse of proceeds: expansion of a licensed virtual asset OTC desk and a tokenised carbon credit platform pilot with two unnamed licensed counterparties; details remain confidential until an announcement is made and pricing is fixed.\nConditions precedent: no unresolved cyber incident beyond the previously disclosed 12 May 2026 intrusion within Harborstone\u2019s staging environment; independent cyber review and remediation plan to the Investor\u2019s satisfaction.\nDue diligence: clean\u2011team access only to customer wallet\u2011flow aggregates and emissions baselines; no direct personal data extraction; PDPO\u2011compliant notices and information barriers maintained within Juniper Harbour Capital.\nInsider governance: the Issuer will maintain and update an Insider List for all wall\u2011crossed persons (names, roles, office numbers, and masked emails), access\u2011controlled and retained under PDPO\u2011compliant protocols.\nDealing restrictions: no dealings by directors or the Investor in issuer securities during blackout windows under the Model Code and until a formal exchange announcement; all parties acknowledge SFO inside information obligations.\nDisclosure controls: no selective disclosure to non\u2011wall\u2011crossed banks or analysts; any external briefings require pre\u2011clearance by the Issuer\u2019s compliance team and confirmation that recipients are within the information barrier.\nAnnouncements: an announcement under the Listing Rules will be made upon signing or when terms are fixed and price\u2011sensitive; draft disclosure to be settled by the Issuer and its compliance adviser before release via the exchange\u2019s platform.\nExclusivity and fees: 60\u2011day exclusivity; no shop/no talk; break fee of HK$12,600,000 payable if the Issuer accepts a superior proposal prior to the long stop date; long stop date 30 September 2026.\nEmployment and retention: Ms. Aria Cheung (Head of VA Products) to enter a 24\u2011month retention agreement with a climate\u2011linked KPI bonus up to 30% of base; non\u2011solicit and non\u2011poach for key ESG and cyber personnel for 18 months.\nContacts and data room: Ms. Aria Cheung, aria.cheung@bluepeakhorizons.example; Mr. Daven Yip, d.yip@juniperharbour.example; all materials to be exchanged via the Issuer\u2019s secure data room with multi\u2011factor authentication.\nFor staff education and client marketing only, the company\u2019s ESG and crypto glossaries explain terms such as tokenisation, insider list, and cyber hygiene at a high level and contain no deal\u2011specific or price\u2011sensitive information.\nThis term sheet is non\u2011binding (save for confidentiality, exclusivity, governing law, and costs) and governed by Hong Kong law; any tipping or informal bri",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -140,6 +148,12 @@
       "category": "MNPI",
       "matched_text": "999999",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-05-25, vendor Hoshizora Data Services G.K. reported a short-lived access control misconfiguration in the board/exec document portal.\nThe exposed folder contained training materials: board pack templates, acquisition workflow checklists, and HR onboarding form samples.\nOne scanned HR form inadvertently contained an actual \u500b\u4eba\u756a\u53f7 (My Number): 7531-6420-1984; we are treating this as APPI personal data.\nAll other fields were samples: \u6c0f\u540d: ______, \u4f4f\u6240: [Hanagawa-ken Nishisaka-shi 1-2-3], \u90e8\u7f72: ______, \u96fb\u8a71: 0120-777-000 (public helpline), \u30e1\u30fc\u30eb: hr@midori-devices.jp (role mailbox).\nCompany/tax identifiers present were non-production: \u6cd5\u4eba\u756a\u53f7 0000000000000 (test), \u767b\u9332\u756a\u53f7 T0000000000000 (dummy), \u8acb\u6c42\u5148\u30b3\u30fc\u30c9: C-TEST-001.\nTravel and banking fields were also placeholders: \u65c5\u5238\u756a\u53f7 AA0000000 (template), \u652f\u5e97\u30b3\u30fc\u30c9 000, \u53e3\u5ea7\u756a\u53f7 000-0000000 (sample only).\nThe M&A references were to the already-announced share acquisition of Hinode Analytics K.K., disclosed on 2026-04-30 via KPX Growth and our website.\nAccordingly, no undisclosed enumerated material facts or tender-offer (TOB) facts under the FIEA were present in the exposed materials.\nThe misconfiguration allowed read-only access from a restricted test IP range for approximately 46 minutes; no downloads were logged by external addresses.\nWe have notified employees via the intranet and the public inquiry line at 0120-555-555; do not email personal documents in response to this notice.\nA voluntary incident notice will be filed with the Kanto Markets Supervision Office, and a courtesy update sent to listings@kpx-growth.example.jp (exchange liaison mailbox).\nThe Board Risk Committee met on 2026-05-26 and determined the overall PII exposure to be low, subject to APPI handling of the single \u500b\u4eba\u756a\u53f7 image.\nRemediation completed: vendor key rotation, deletion of sample files, replacement of dummy identifiers with clearly marked \u201cTRAINING USE ONLY\u201d watermarks.\nLocal government and address placeholders included LG-999999 (fictional ward code) and \u3012000-0000 Hanagawa-ken Nishisaka-shi Aza Ume 1-2-3; these are not real locations.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

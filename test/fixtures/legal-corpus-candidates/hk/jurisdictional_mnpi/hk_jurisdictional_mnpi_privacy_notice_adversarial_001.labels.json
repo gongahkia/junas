@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -279,6 +287,24 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Unit 1903, 19/F, Meridian Forge Tower, 88 Kata Street, Kowloon\u2014this address is fictional and for notice only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Jade Harbour Robotics Limited (an HKEX-listed issuer) \u2014 Privacy & MNPI Handling Workflow for M&A, fund interactions, and employment data under PDPO and SFO.\nScope: PDPO personal data (data relating to a living individual whose identity is directly or indirectly ascertainable) and \u201cinside information\u201d under Part XIVA of the SFO and the HKEX Listing Rules; selective disclosure is prohibited and public release must be made as soon as reasonably practicable via hkexnews.hk.\nCollection: HR records for applicants and employees (ref# JHRL-EMP-0O1-\u039e7), VDR materials for Project teal\u2011satin (proposed acquisition with Azure Peak Capital (HK) Limited), and fund LP contact details; generic website telemetry is anonymised.\nProcessing purposes: recruitment and payroll, vendor onboarding for HKEX fee settlement, and evaluation of the Amber Reef Autonomics Ltd target; no MAC is anticipated and no forward\u2011looking revenue guidance is provided in this workflow note.\nRetention: recruitment data 12 months, employee data 7 years post\u2011cessation, deal\u2011room logs 6 years; destruction by cryptographic erasure; non\u2011issuer operational updates (e.g., office Wi\u2011Fi maintenance) are logged but not considered price\u2011sensitive.\nMNPI classification: draft term sheet dated 2025\u201105\u201118 and unaudited Q2 pipeline metrics are non\u2011public and issuer\u2011material; disclosure deferral may apply under safe harbours for incomplete negotiations, with closed\u2011period restrictions for directors during the Model Code \u201cblackout\u201d (1 month before interim/annual results).\nPublic\u2011status precision: the 2024 sustainability report and the 2025\u201104\u201115 announcement already published on hkexnews.hk (URL: https://www.hkexnews.hk/listedco/listconews/SEHK/2025/0415/LTN2025-0415-JHRL.pdf) are treated as public and therefore not MNPI, notwithstanding stale content.\nSelective disclosure control: any analyst or fund briefing by Ms. Irisa Ko Yuen\u2011ning (Company Secretary) must use slides concurrently uploaded to hkexnews.hk and our website; if leakage is suspected, Compliance will request a trading halt and submit an inside information announcement without delay.\nCross\u2011border transfers: personal data and deal documents may be hosted in \u201cap\u2011southeast\u2011\u0394\u201d with access by Silver Kestrel Partners GP Ltd; transfers are subject to contractual safeguards and PCPD guidance on comparable protection; dataset tag: D\u039b\u2011 1 4 3 \u2011hk.\nData subject rights: access/correction/erasure requests may be lodged at dpo@jadeharbour.example.hk or via https://privacy.jadeharbour.example.hk/req?id=UHk-2 9 a; identity may be verified against employee No. e8\u2011 4 2 \u2011hk; fees only where permitted by PDPO.\nThird\u2011party sharing: payroll vendor (Lintel Wave Systems (Asia) Ltd), background checker (Mosslight Screening HK), and external counsel (Oriole & Tang Solicitors) receive only necessary personal data; fund LP lists sourced from public press releases and directories are not confidential.\nTiming and governance: inside information is escalated to the Disclosure Committee within 2 hours of awareness and, absent a safe harbour, announced as soon as reasonably practicabl",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -21,13 +21,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -50,13 +50,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -72,6 +72,57 @@
     "post_us_uk_realign_source_report": "/tmp/kaypoh-candidates-after-us-uk-reviewed.json",
     "source_report": "/tmp/kaypoh-candidates-after-ph-reviewed.json",
     "status": "owner_approved_post_ph_precision_realign_for_internal_benchmarking"
+  },
+  "_resolved_label_warnings": [
+    {
+      "basis": "Stale Azure auto-label normalization warnings remained on owner-approved Stage A labels. The current strict evaluation is clean; warnings are retained here as provenance while the active _label_warnings field is cleared for Stage B QA reporting.",
+      "resolved_at": "2026-06-03T03:31:09Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='THB1.2bn'",
+        "drop uncertain: text not verbatim text='BNY-\\x00\\x00/2569'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -385,6 +436,18 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Subject: Pre-announcement MNPI on (i) THB private placement of sustainability-linked notes and (ii) cross-border acquisition of a licensed digital asset broker; deal code P r o j e c t   B a n y a n (BNY-\u0394/2569).\nMNPI scope\u2014Unpublished terms with Sandpiper Holdings SPC and Anchora Capital (S) Pte Ltd; SEC Thailand approval pending; dual-track disclosure via SET Portal and e-Meeting board resolution not yet filed.\nCommercial terms (strictly internal): size THB 1,200,000,000; coupon 3M-THOR + 175 bps; 10 bps SPT step-up on Scope 2 miss; long-stop 31/08/2569; no MAC triggered by climate scenario analysis",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential\u2014Legal & Compliance Note (Thai PDPA/SEA context) | Onnex Green Public Company Limited (SET: OGX) | 29 May 2569 BE\nSubject: Pre-announcement MNPI on (i) THB private placement of sustainability-linked notes and (ii) cross-border acquisition of a licensed digital asset broker; deal code P r o j e c t   B a n y a n (BNY-\u0394/2569).\nMNPI scope\u2014Unpublished terms with Sandpiper Holdings SPC and Anchora Capital (S) Pte Ltd; SEC Thailand approval pending; dual-track disclosure via SET Portal and e-Meeting board resolution not yet filed.\nCommercial terms (strictly internal): size THB 1,200,000,000; coupon 3M-THOR + 175 bps; 10 bps SPT step-up on Scope 2 miss; long-stop 31/08/2569; no MAC triggered by climate scenario analysis.\nCyber event (contained) at vendor KlongCoder Co., Ltd. on 27/05: limited ransomware encryption; one service account accessed a test shard-map for pilot DPT wallet segregation under SathornPay PoC; no PDPA-sensitive customer records identified.\nDigital asset/crypto angle\u2014we have signed a non-binding term sheet to purchase 60% of Monsoon Digital Broker Co., Ltd. (SEC digital asset broker licence No. DAX-xx00x, placeholder only); any leak may materially affect OGX price given DPT adjacency.\nInsider list maintained (v3.1 hash a9f0-xx-22): Khun Pailin Mahasri (Company Secretary), Mr. Veera Thavorn (CFO), Ms. Jariya N., and external counsel at Thara & Chan LLP; do not forward outside the clean team.\nInformation barriers\u2014Research, IR, and operations are walled off; only Clean Room \u2018CR-OGX-BNY\u2019 users may view draft term sheets; internal chat rooms auto-archived; accidental tipping to sell-side analysts will be treated as selective disclosure.\nBlackout\u2014Employees on the insider list are under a trading blackout from 29/05\u201315/06/2569 until 24h after SET disclosure; SEA s.241/242 insider-trading prohibitions reiterated.\nSelective disclosure risk\u20141:1 with Anchora in Singapore on 03/06 uses a cleansed deck; do not reference cyber artefacts, DPT wallet architecture, or pricing grids; the anchor investor will execute NDA v2.3 before diligence.\nPDPA hygiene\u2014minimise personal data in deal rooms, replace names with role codes (e.g., \u2018Treasury-Lead S-**91-L\u2019), and avoid cross-border transfer until DPA addendum with Monsoon Digital is countersigned.\nOperations-only note: the cybersecurity awareness webinar titled \u201cWallets, Whales, and Walls\u201d is for staff education and does not disclose any ongoing incident or insider information.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],
@@ -400,48 +463,5 @@
       "matched_text": "DAX-xx00x",
       "reason": "Thai SEC digital-asset broker licence number may be sensitive but no explicit rule category covers Thai licence IDs."
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_resolved_label_warnings": [
-    {
-      "resolved_at": "2026-06-03T03:31:09Z",
-      "reviewer": "Codex GPT-5.5",
-      "basis": "Stale Azure auto-label normalization warnings remained on owner-approved Stage A labels. The current strict evaluation is clean; warnings are retained here as provenance while the active _label_warnings field is cleared for Stage B QA reporting.",
-      "warnings": [
-        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='THB1.2bn'",
-        "drop uncertain: text not verbatim text='BNY-\\x00\\x00/2569'"
-      ]
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

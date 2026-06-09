@@ -50,6 +50,14 @@
     "previous_must_detect_count": 12,
     "previous_must_not_detect_count": 1
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -207,6 +215,12 @@
       "category": "MNPI",
       "matched_text": "Project Alder",
       "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7 June 2026 08:45 BST; Incident ID RCM-OPS-2026-061; reported by Mr. Alistair Kent (Ops).\nDuring an overnight SFTP patch, a vendor manifest misrouted a batch of HR onboarding forms to an internal quarantine folder; no external exfiltration observed in firewall or SFTP logs.\nThe batch comprised 23 employee onboarding forms containing names, work emails, job titles, and start dates; no national insurance numbers or payroll bank details were ingested due to minimisation control G-DP-12.\nA DSAR from ex-employee Mr. Howard Pike (received via privacy@brackenridgecap.example) was fulfilled using canonical HR sources; his erasure request dated 3 June 2026 was executed at 10:12 BST with deletion records stored in Vault UK-E3.\nA previously approved cross-border transfer (Data Export Approval UKX-2041) of trade surveillance alerts to Orbicrest Analytics Pvt Ltd (Bengaluru) proceeded under the UK IDTA and encryption policy KMS-UK-5; the misrouted HR batch was expressly excluded from that export.\nMarketing consent for candidate Ms. Eliza Rowan was withdrawn on 12 May 2026; her profile remained tagged \u201cdo-not-contact\u201d and was not processed for talent pooling or CRM outreach.\nHR retention schedule R-EMP-6 applied: onboarding forms are retained for 6 years; the quarantined duplicates were logged and purged from staging within 2 hours in accordance with DPP-RET-04.\nA restricted folder labelled \u201cProject Alder\u201d (issuer-side deal materials) resides on the same file server; monitoring confirms no access to that MNPI and no disclosure in contravention of UK MAR.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

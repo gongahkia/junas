@@ -39,6 +39,8 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "UK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA labels were kept as deterministic cross-border-transfer findings where the fixture describes actual payroll/HR data exports.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T15:54:54Z",
@@ -46,6 +48,49 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
     "status": "owner_approved_uk_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_preserving_existing_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 26,
+    "current_must_detect_count": 12,
+    "current_must_not_detect_count": 5,
+    "previous_ideal_must_detect_count": 26,
+    "previous_must_detect_count": 13,
+    "previous_must_not_detect_count": 5
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -55,195 +100,201 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "insider.list@brindlegate.example"
+      "matched_text": "insider.list@brindlegate.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance.ops@brindlegate.example"
+      "matched_text": "compliance.ops@brindlegate.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "uses role IDs only and no personal data is processed beyond HR records"
+      "matched_text": "uses role IDs only and no personal data is processed beyond HR records",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information-barrier operations"
+      "matched_text": "Information-barrier operations",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Restricted List"
+      "matched_text": "Restricted List",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider lists"
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Blackout windows"
+      "matched_text": "Blackout windows",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "dealing blackouts"
+      "matched_text": "dealing blackouts",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout dates"
+      "matched_text": "blackout dates",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "Tipping and wall-crossing"
+      "matched_text": "Tipping and wall-crossing",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "outside the Core Deal Team"
+      "matched_text": "outside the Core Deal Team",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "draft term sheet"
+      "matched_text": "draft term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "planned green bond"
+      "matched_text": "planned green bond",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "unannounced climate transition targets"
+      "matched_text": "unannounced climate transition targets",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no inside information should be communicated"
+      "matched_text": "no inside information should be communicated",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "recorded wall-crossing"
+      "matched_text": "recorded wall-crossing",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Restricted List tool"
+      "matched_text": "Restricted List tool",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Cyber tabletop: the CY-UK-DRILL-19 exercise next week is a simulation only; do not treat drill scenarios as live incidents, and do not circulate simulated breach narratives beyond the tabletop participants."
+      "matched_text": "Cyber tabletop: the CY-UK-DRILL-19 exercise next week is a simulation only; do not treat drill scenarios as live incidents, and do not circulate simulated breach narratives beyond the tabletop participants.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Restricted"
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Restricted List"
+      "matched_text": "Restricted List",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "insider.list@brindlegate.example"
+      "matched_text": "insider.list@brindlegate.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance.ops@brindlegate.example"
+      "matched_text": "compliance.ops@brindlegate.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Cyber tabletop: the CY-UK-DRILL-19 exercise next week is a simulation only; do not treat drill scenarios as live incidents, and do not circulate simulated breach narratives beyond the tabletop participants."
+      "matched_text": "Cyber tabletop: the CY-UK-DRILL-19 exercise next week is a simulation only; do not treat drill scenarios as live incidents, and do not circulate simulated breach narratives beyond the tabletop participants.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Restricted"
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Restricted List"
+      "matched_text": "Restricted List",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider lists"
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal memo: Compliance guidance for UK MAR and FCA conduct at BrindleGate Capital plc\nThis note reiterates operational protocols around crypto, ESG/climate communications, cyber tabletop exercises, insider lists, and information barriers; it does not introduce new commercial terms or pricing.\nCrypto marketing: the Retail Products team may reference our HexaVault Crypto Custody service in public brochures and webinars, provided FCA consumer risk warnings are included and no issuer-specific performance claims are made.\nESG/climate: the Sustainability Desk may promote the Aurora ESG Index Notes training series; materials must stick to public data and avoid forward-looking issuer estimates or unannounced climate transition targets.\nCyber tabletop: the CY-UK-DRILL-19 exercise next week is a simulation only; do not treat drill scenarios as live incidents, and do not circulate simulated breach narratives beyond the tabletop participants.\nInformation-barrier operations: maintain strict separation between Research and Corporate Advisory; use the Restricted List tool and pre-clear any cross-team touchpoints with Compliance.\nInsider lists: additions must use Form IL-UK/2026 and be submitted to insider.list@brindlegate.example; placeholders such as \u201cISIN: ZZ0000000000\u201d are acceptable in training forms only.\nBlackout windows: quarterly dealing blackouts are set by reference to our publicly announced financial calendar; staff communications on blackout dates may be posted on the intranet.\nPublic/stale facts may be used in thought leadership pieces (e.g., sector-level crypto market volatility in Q1 last year) so long as the source is cited and not tied to any unannounced issuer event.\nCommercial terms: Procurement\u2019s sample clauses (service credits, termination options, non-price incentives) are generic and must not be represented as negotiated terms with any specific counterparty.\nPositive MNPI control: do not share the draft term sheet for NimbusTech plc\u2019s planned green bond with anyone outside the Core Deal Team; this is non-public and potentially price-sensitive until the issuer announces via a regulatory information service.\nTipping and wall-crossing: any approach to investors must follow approved scripts, and no inside information should be communicated without prior Compliance approval and recorded wall-crossing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -285,42 +336,5 @@
       "matched_text": "unannounced issuer event",
       "reason": "Implies non-public status without using an explicit nonpublic marker term."
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_preserving_existing_owner_approval",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 13,
-    "current_must_detect_count": 12,
-    "previous_ideal_must_detect_count": 26,
-    "current_ideal_must_detect_count": 26,
-    "previous_must_not_detect_count": 5,
-    "current_must_not_detect_count": 5
-  }
+  ]
 }

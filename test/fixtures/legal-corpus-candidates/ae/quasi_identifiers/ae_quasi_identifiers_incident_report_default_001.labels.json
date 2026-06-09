@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -260,6 +268,18 @@
       "category": "MNPI",
       "matched_text": "5.2%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kareem Al\u2011Hamdan (Incident Response Analyst, Rimal Horizon Energy PJSC, Abu Dhabi HQ), DOB 1991-04-17 (age 33), work email k.alhamdan@rimhorizon.ae, VPN account rhamdan_uae with session SID-ABDX-7732, accessing via corporate laptop RH-LAP-0417, public IP 203.0.113.45, mobile IMEI IMEI-FIC-90210.\nLog artifacts referencing his profile included Emirates ID ref EID-TEST-91A4-ABU-0417, internal HR card HRP-RH-2291, payroll ledger LA-ESG-00987, and event index i-ADX-124; trade licence for the issuer appears as TL-RH-100234-AD (masked).\nAccess was initiated from the Abu Dhabi HQ and during a brief visit to the Dubai project office; AuthAxis event AX-AD-55772 and NetSentra alert NS-ABU-441 correlate with the same session",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential incident report prepared for Rimal Horizon Energy PJSC Board Risk Committee; jurisdiction: UAE PDPL, SCA, ADX, ADGM/DIFC coordination in scope.\nOn 2026-05-29, a credential-phishing event led to unauthorized access to a limited HR metadata index and a deal subfolder within the sustainability-linked sukuk VDR for a prospective ADX listing; the information is non-public and market-sensitive.\nThe exposed deal notes included draft coupon range 4.9\u20135.2%, an indicative Q4 window, and preliminary underwriter shortlists (Falaj Securities LLC; Pearl Dunes Capital Ltd.), none of which has been disclosed to the market.\nMr. Kareem Al\u2011Hamdan (Incident Response Analyst, Rimal Horizon Energy PJSC, Abu Dhabi HQ), DOB 1991-04-17 (age 33), work email k.alhamdan@rimhorizon.ae, VPN account rhamdan_uae with session SID-ABDX-7732, accessing via corporate laptop RH-LAP-0417, public IP 203.0.113.45, mobile IMEI IMEI-FIC-90210.\nLog artifacts referencing his profile included Emirates ID ref EID-TEST-91A4-ABU-0417, internal HR card HRP-RH-2291, payroll ledger LA-ESG-00987, and event index i-ADX-124; trade licence for the issuer appears as TL-RH-100234-AD (masked).\nAccess was initiated from the Abu Dhabi HQ and during a brief visit to the Dubai project office; AuthAxis event AX-AD-55772 and NetSentra alert NS-ABU-441 correlate with the same session.\nSeparately, a log line reads \"male, early 40s, warehouse foreman in Fujairah, smartphone model A12, alias foreman_02\" with no names or linkable IDs; standing alone, such descriptors should not identify a natural person.\nNo scanned Emirates ID images or passport pages were exfiltrated; a family-origin field in an HR form (\"Ras Al Qamar lineage\") was toggled during access but the value did not leave the system.\nPearl Gate Capital Limited (DIFC Branch) was notified as transaction advisor; SCA Market Surveillance has been pre-briefed, and an ADGM FSRA courtesy notice was logged due to ADGM-hosted data room infrastructure.\nESG registers and emissions baselines were unaffected; however, CSR sub-ledger CSR-ACCT-774 recorded a failed login from 198.51.100.31 which appears unrelated and is being tracked separately.\nContact: incidents@rimhorizon.ae or +971-600-555-021 (Incident Desk at Sand Dhow Response FZ-LLC, retained cyber advisor).\nUnder UAE PDPL, the weak identifiers above form PD under certain combinations; this report avoids full Emirates ID numbers and bank IBANs by design.\nThe draft term sheet for Rimal Horizon Energy PJSC and internal revenue guidance for Q3 FY2026 remain non-public; onward sharing may constitute market abuse under SCA and exchange rules.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

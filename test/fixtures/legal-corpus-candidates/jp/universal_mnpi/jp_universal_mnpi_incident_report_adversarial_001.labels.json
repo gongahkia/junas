@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -345,6 +353,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u3010\u6975\u79d8/\u672a\u516c\u8868\u3011Incident & Transaction Update: Project Mokusei (\u30e2\u30af\u30bb\u30a4) \u2014 JP issuer: Nansei Robotics K.K.\nSummary: 2026-06-02 detection of unauthorized access to dev VPN; potential exposure of diligence room for target Aoba Systems Co., Ltd., impacting SPA execution.\nBoard memo excerpt (\u53d6\u7de0\u5f79\u4f1a\u8cc7\u6599, draft): approval to sign definitive Share Purchase Agreement on 2026-06-20 for \u00a54.8b cash; expected stake 35% post-closing; TOB threshold analysis concluded not triggered under FIEA; disclosure after embargo.\nIR draft (\u793e\u5916\u5411\u3051\u539f\u7a3f, \u975e\u958b\u793a): embargo until 2026-07-15 09:00 JST; ENSEX timely disclosure planned; placeholder URL h t t p s : / / i r . nansei-robotics.jp / notice ? id = IR-2026-017\nDeal checklist (ver. r2): confirm insider list under \u91d1\u878d\u5546\u54c1\u53d6\u5f15\u6cd5; codename-only emails; vendor due diligence; MAC clause definition aligned; see Section 7.\nTerm sheet (\u8981\u70b9\u5408\u610f, attached): purchase price adjustment \u00b13%; earn-out up to \u00a5500m; MAE clause expressly excludes cyber incidents that are remediated within 30 days (negated MAC trigger).\nResearch note (\u793e\u5185\u8abf\u67fb\u30e1\u30e2): threat actor accessed two non-production repos; no evidence of source code exfiltration; vendor Aoba\u2019s data room logs show 07:32 JST anomalies.\nOperational impact: three employee records viewed (names masked); Employee eID: J-9X3**-042; My Number \u500b\u4eba\u756a\u53f7: 51**-****-**** (fictional); contact: cib-compliance@n a n s e i - r o b o t i c s . j p\nContact: Mr. Shunpei Takada \u69d8 (CISO), takada@nansei-robotics.jp, ext. 4109; please route FIEA Art. 166 queries to legal@nansei-robotics.jp.\nRegulatory context: SMA\u2011J circular 2024\u201103\u201101 and ENSEX Listing Rules consulted (public); no unpublished third\u2011party financials referenced; this memo integrates public risk taxonomy.\nwe still need to align gaant dates with aoba and finalize checklists; update the tracker before noon; postpone the sprint retro.\nNote: product \u2018Suiren Edge Controller v2.3\u2019 unaffected; field firmware rollout continues as planned; marketing to keep spa-day vouchers internal and unrelated to SPA.\nSecurity log excerpt (OCR): usr: k.tanaka, dev_vpn  s e s s i o n  i d = f9-2b-**-77; repo URL: https://git.nansei.local/r/aoba?path=/d i l i g e n c e%2F2026\nCounsel memo: enumerated material facts include the SPA date, consideration, % stake, and embargo; treat as \u672a\u516c\u8868\u60c5\u5831 until EN\u2011NET filing; insiders to attest on Form NRS-JP.\nRisk assessment: likelihood to trigger MAE under SPA is low; the incident, as currently contained, does not constitute an MAE.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

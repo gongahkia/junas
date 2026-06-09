@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -141,6 +149,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public indicators of compromise, vendor patch ETAs, and device inventories are restricted to the insider list and will be shared only within the information-barrier perimeter until mitigation completes.\nESG/climate note (public/stale): Our 2024 Scope 2 methodology and climate scenario ranges were disclosed in the April Sustainability Update and match what appears on our website.\nOperational communications: A routine blackout period for voluntary employee trading remains scheduled for quarter-end; this notice is advisory and not a trading instruction.\nCommercial terms (education): Sample term-sheet language used in analyst training references \u201cvolume rebates\u201d and \u201cminimum uptime,\u201d but these are templates and not live counterparty commitments.\nRegulatory coordination: We do not anticipate a Form 8-K cyber item based on current materiality thresholds; any future SEC or exchange communications will be made broadly and contemporaneously.\nA draft addendum with CareVista Clinics on climate-resilience metrics is in internal review and not yet public; distribution is limited to the deal team wall-crossed under policy FIN-IB-12.\nContacts: For general questions email ir@oakridgehb.example or call our public helpline at 1-833-000-0000; for security notifications use security-ops@oakridgehb.example.\nDisclaimer: This report may reuse terms like insider list, tipping, and MNPI in a training context; it contains only public or non-attributable information and excludes patient, consumer, or employ",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

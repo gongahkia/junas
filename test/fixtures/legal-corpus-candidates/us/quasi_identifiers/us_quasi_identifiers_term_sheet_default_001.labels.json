@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -267,7 +275,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Darion K. Vale (DOB 1983-07-22, age 42), SVP, Treasury Operations at Laurel Oaks HealthBank, based in Cedar Ridge, CO 80***, corporate email dvale@laureloaksbank.com, device tag “LOHB-Laptop-4472,” internal treasury account “TR-8841,” recent VPN session “MFA-SN88-0420 07:31 MT,” responsible for cash pooling and wire controls",
+      "matched_text": "Mr. Darion K. Vale (DOB 1983-07-22, age 42), SVP, Treasury Operations at Laurel Oaks HealthBank, based in Cedar Ridge, CO 80***, corporate email dvale@laureloaksbank.com, device tag \u201cLOHB-Laptop-4472,\u201d internal treasury account \u201cTR-8841,\u201d recent VPN session \u201cMFA-SN88-0420 07:31 MT,\u201d responsible for cash pooling and wire controls",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -451,6 +459,18 @@
       "category": "MNPI",
       "matched_text": "12,500,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darion K. Vale to chair the Finance Integration Committee; an employee retention pool of up to $18,000,000 will be implemented at closing.\nKey person (quasi-identifier cluster): Mr. Darion K. Vale (DOB 1983-07-22, age 42), SVP, Treasury Operations at Laurel Oaks HealthBank, based in Cedar Ridge, CO 80***, corporate email dvale@laureloaksbank.com, device tag \u201cLOHB-Laptop-4472,\u201d internal treasury account \u201cTR-8841,\u201d recent VPN session \u201cMFA-SN88-0420 07:31 MT,\u201d responsible for cash pooling and wire controls.\nAccess/Blackout: employees with roles in revenue analytics, device prefix \u201cLOHB-Workstation-2**,\u201d or accounts beginning \u201cBI-\u201d are in trading blackout until two business days after the 8-K; all analyst interactions must occur via public webcast or broadly disseminated materials.\nIntegration: Target patient billing data will be aggregated and de-identified; no PHI will be transferred without BAAs; bank-side customer NPI will be handled per GLBA; vendor \u201cOrchid Analytics\u201d will provide tokenization and vault services.\nClosing conditions: HSR clearance; state health department approvals; customary bring-down; minimum cash $180,000,000; MAC clause tied to the loss of the top-3 clinic payor contract.\nNo-shop and termination: 45-day no-shop with fiduciary out; $12,500,000 termination fee; fairness opinion from Evermont Partners required prior to signing.\nContact: Ms. Hattie Quyen, Director of Investor Relations, hquyen@laureloaksbank.com, +1-303-555-7714; media queries to press@laureloaksbank.com.\nBenign demographic reference (non-identifying): surveys indicate roughly 60% of users are aged 30",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed Strategic Combination between Laurel Oaks HealthBank Holdings, Inc. (Delaware) and Virelia Care Clinics, LLC (Texas).\nIssuer: Laurel Oaks HealthBank Holdings, Inc. (US healthcare-fintech), Regulation FD applies; this document is for discussion only and not an offer to sell securities.\nTransaction: Acquisition of Virelia Care Clinics, LLC via cash-and-stock merger; consideration: $420,000,000 cash plus 3,200,000 shares of Class A common stock, subject to customary adjustments and escrow.\nFinancing: $250,000,000 senior secured term loan B committed by Pine Cove Capital Markets LLC and $75,000,000 revolving credit facility from Granite Mesa Bank N.A.; no securities identifiers are assigned at this time.\nPreliminary, non-public metrics (MNPI): unaudited Q2 net revenue range $142\u2013148 million for the PulseBridge clinical payments platform serving Redwood Clinics; selective disclosure is prohibited under Rule 10b-5 and Regulation FD.\nListing/Regulatory: Issuer intends to apply for NYSE listing (proposed ticker \u201cLOHB\u201d); SEC filings on Form S-4 and 8-K will be made upon signing; HIPAA and GLBA diligence covenants are included.\nGovernance: Board to expand to 9 directors; Mr. Darion K. Vale to chair the Finance Integration Committee; an employee retention pool of up to $18,000,000 will be implemented at closing.\nKey person (quasi-identifier cluster): Mr. Darion K. Vale (DOB 1983-07-22, age 42), SVP, Treasury Operations at Laurel Oaks HealthBank, based in Cedar Ridge, CO 80***, corporate email dvale@laureloaksbank.com, device tag \u201cLOHB-Laptop-4472,\u201d internal treasury account \u201cTR-8841,\u201d recent VPN session \u201cMFA-SN88-0420 07:31 MT,\u201d responsible for cash pooling and wire controls.\nAccess/Blackout: employees with roles in revenue analytics, device prefix \u201cLOHB-Workstation-2**,\u201d or accounts beginning \u201cBI-\u201d are in trading blackout until two business days after the 8-K; all analyst interactions must occur via public webcast or broadly disseminated materials.\nIntegration: Target patient billing data will be aggregated and de-identified; no PHI will be transferred without BAAs; bank-side customer NPI will be handled per GLBA; vendor \u201cOrchid Analytics\u201d will provide tokenization and vault services.\nClosing conditions: HSR clearance; state health department approvals; customary bring-down; minimum cash $180,000,000; MAC clause tied to the loss of the top-3 clinic payor contract.\nNo-shop and termination: 45-day no-shop with fiduciary out; $12,500,000 termination fee; fairness opinion from Evermont Partners required prior to signing.\nContact: Ms. Hattie Quyen, Director of Investor Relations, hquyen@laureloaksbank.com, +1-303-555-7714; media queries to press@laureloaksbank.com.\nBenign demographic reference (non-identifying): surveys indicate roughly 60% of users are aged 30\u201340 in the Midwest and use common Android devices; a ZIP code alone (e.g., 303**) or a birth month without a name is not sufficient to identify a person.\nAdditional weak identifiers presented out of context (not tied to an individual): device nickname \u201cTablet-09,\u201d session code \u201cWEB-113-A,\u201d and the town name \u201cLark Falls\u201d appear in sample logs solely to illustrate format.\nConfidentiality and Reg FD: recipients agree not to trade or tip on MNPI and to route all questions to the open investor call; no selective disclosure to sell-side analysts, lenders, or employees outside the wall.\nThis term sheet is non-binding except for confidentiality, exclusivity, and expenses; governed by New York law; execution versions to follow via DocuSign s",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -505,7 +525,7 @@
     },
     {
       "concept": "potential MNPI",
-      "matched_text": "proposed ticker “LOHB”",
+      "matched_text": "proposed ticker \u201cLOHB\u201d",
       "reason": "Pre-listing ticker could be material if non-public, but not clearly covered by a specific allowed MNPI rule."
     }
   ]

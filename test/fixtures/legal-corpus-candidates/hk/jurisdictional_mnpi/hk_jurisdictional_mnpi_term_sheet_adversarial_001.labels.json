@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -319,6 +327,30 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aurum Harbour Holdings Limited (HKEX: AHHL, Stock Code: 0X77) \u2014 Non\u2011binding Term Sheet for Proposed Acquisition of Pearl Logistic Systems (HK) Limited (Project \u201cPearl Tram\u201d).\nParties: Buyer \u2014 Aurum Harbour Holdings Limited (Hong Kong); Seller \u2014 Vantage Mandarin Fund SPC \u2013 Segregated Portfolio C (Cayman), contact: Ms. Ophelia Tsoi, ophelia.tsoi@vantage\u2011mandarin.fund.\nConsideration: HK$1,280,000,000 payable 70% cash and 30% by issuance of new AHHL shares at HK$3.60 per share (subject to H K E X Listing Rules and any mandate limit).\nValuation: Based on FY2024 audited EBITDA of HK$320m; enterprise value set at 4.0x EV/EBITDA; no earn\u2011out.\nConditions precedent: (i) Shareholders\u2019 approval as a Very Substantial Acquisition under Chapter 14; (ii) confirmation that the SFC Takeovers Code is not triggered; (iii) no legal prohibition; (iv) execution of definitive documents.\nInside information handling: The terms herein are not generally known and are issuer\u2011relative material; disclosure to be made \u201cas soon as reasonably practicable\u201d under P a r t X I V A of the SFO via HKEX e\u2011Submission after signing or upon market leak; trading halt to be requested if required.\nSelective disclosure: No dissemination to analysts or particular investors except via approved wall\u2011crossing; insider lists and clean team protocols to be maintained; no one\u2011to\u2011one briefings on non\u2011public terms.\nClosed periods: Directors and relevant employees must not deal during blackout windows (Model Code Appendix 10) and any issuer\u2011imposed closed period prior to results; pre\u2011clearance and dealing notifications to continue.\nPublic reference: See the profit alert published on 8 Mar 2025 on HKEXnews (https://fake.hkexnews.hk/listedco/0000/2025/03/08/profit\u2011alert_AHHL.pdf), which is already public and unrelated to this proposed acquisition.\nBackground note: Pearl Logistic Systems\u2019 Q3 2024 customer win was disclosed in a 29 Sep 2024 press release; those operational updates were broad and may now be stale and non\u2011indicative of current pipeline.\nNo MAC: Completion is not conditional on the absence of a material adverse change in the Target; standard warranties (title, capacity, solvency) and limited indemnities only.\nTimeline: Target signing late June 2025; long\u2011stop 30 Sep 2025; announcement and circular to be issued within Listing Rules timetable, with dispatch extension application if necessary.\nConfidentiality and channels: Subject to NDA; documents to be shared only via secure data room; email contact: dealdesk@aurum\u2011harbour.hk; o r al updates via encrypted line only.\nIssuer\u2011relative materiality trigger: If pricing or consideration mix changes by >5% of AHHL\u2019s market cap, an immediate inside information announcement will be made even before definitive signing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

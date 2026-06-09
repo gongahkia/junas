@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -89,17 +97,17 @@
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "matched_text": "public references only: q4 2025 revenue range “mid‑single‑digit growth” as stated on 02/10/26 earnings call transcript.",
+      "matched_text": "public references only: q4 2025 revenue range \u201cmid\u2011single\u2011digit growth\u201d as stated on 02/10/26 earnings call transcript.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "negated mac language: per prior s‑4 for the 2024 inland beacon merger, no “material adverse effect” occurred through closing; do not extrapolate to current quarter.",
+      "matched_text": "negated mac language: per prior s\u20114 for the 2024 inland beacon merger, no \u201cmaterial adverse effect\u201d occurred through closing; do not extrapolate to current quarter.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8‑k before market open.",
+      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8\u2011k before market open.",
       "rule": "material_event"
     },
     {
@@ -119,7 +127,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non‑public",
+      "matched_text": "non\u2011public",
       "rule": "nonpublic_marker"
     },
     {
@@ -151,23 +159,29 @@
   "must_detect": [
     {
       "category": "MNPI",
-      "matched_text": "public references only: q4 2025 revenue range “mid‑single‑digit growth” as stated on 02/10/26 earnings call transcript.",
+      "matched_text": "public references only: q4 2025 revenue range \u201cmid\u2011single\u2011digit growth\u201d as stated on 02/10/26 earnings call transcript.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "negated mac language: per prior s‑4 for the 2024 inland beacon merger, no “material adverse effect” occurred through closing; do not extrapolate to current quarter.",
+      "matched_text": "negated mac language: per prior s\u20114 for the 2024 inland beacon merger, no \u201cmaterial adverse effect\u201d occurred through closing; do not extrapolate to current quarter.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8‑k before market open.",
+      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8\u2011k before market open.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
       "matched_text": "definitive agreement",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "public references only: q4 2025 revenue range \u201cmid\u2011single\u2011digit growth\u201d as stated on 02/10/26 earnings call transcript.\nnegated mac language: per prior s\u20114 for the 2024 inland beacon merger, no \u201cmaterial adverse effect\u201d occurred through closing; do not extrapolate to current quarter.\nlowercase project plan: update analyst deck, remove draft columns, keep footnote \u201cforward\u2011looking statements\u201d and sec safe harbor.\nform labels: ir_qa_template_v3; fields: analyst_firm, coverage_universe, last_contact_date, notes_public_only.\nbanking workflow reminder: glba/hipaa screen; do not include phi, account numbers, or loan ids beyond masked form \u201cacct ****67\u201d or \u201cloan id XX\u2011000\u201d.\ninvalid identifiers allowed as placeholders only: \u201ccusip XXX\u2011000\u2011YYY\u201d, \u201cticker: VHHX\u201d (not listed), \u201caba 000000000\u201d \u2014 do not treat as real.\nembargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8\u2011k before market open.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -176,7 +190,7 @@
       "reason": "Negated MAC/MAE context; rule excludes negated occurrences."
     },
     {
-      "matched_text": "spa‑day",
+      "matched_text": "spa\u2011day",
       "reason": "False-positive bait for SPA (Share Purchase Agreement); this refers to a wellness event."
     },
     {
@@ -192,11 +206,11 @@
       "reason": "Masked placeholder example; not a real bank account number."
     },
     {
-      "matched_text": "loan id XX‑000",
+      "matched_text": "loan id XX\u2011000",
       "reason": "Placeholder example; not a real bank customer reference."
     },
     {
-      "matched_text": "cusip XXX‑000‑YYY",
+      "matched_text": "cusip XXX\u2011000\u2011YYY",
       "reason": "Placeholder identifier; not real and not PII."
     },
     {

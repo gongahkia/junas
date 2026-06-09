@@ -1,202 +1,38 @@
 {
-  "doc_id": "th_privacy_events_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2569 (2026"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Thanapol Chinnawat"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lalita Wongjai"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "To avoid inadvertent disclosure of MNPI, references to Project Mango River (a confidential financing initiative) were redacted from internal tickets before escalation to the audit committee."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "An MD&A note will be included in Q2/2569 (2026) reporting; no forward-looking guidance has changed and no selective disclosure occurred during the market silent period."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Mango River"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2569 (2026"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Thanapol Chinnawat"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lalita Wongjai"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "To avoid inadvertent disclosure of MNPI, references to Project Mango River (a confidential financing initiative) were redacted from internal tickets before escalation to the audit committee."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "An MD&A note will be included in Q2/2569 (2026) reporting; no forward-looking guidance has changed and no selective disclosure occurred during the market silent period."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Mango River"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@siammeridian.example"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-Border Processing"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "consent withdrawal"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "market silent period"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Khun Siriporn Jantasiri"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Data Export Approval DX-AP-03"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "credential-stuffing attempt"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "the Company",
-      "reason": "Defined-role term not PII/MNPI"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "Khun Siriporn Jantasiri",
-      "concept": "named_person (non-standard honorific)",
-      "reason": "Thai honorific 'Khun' may not be recognized by strict honorific-based detectors."
-    },
-    {
-      "matched_text": "credential-stuffing attempt",
-      "concept": "cyber_incident_pre_disclosure",
-      "reason": "Describes a cyber event pre-disclosure but does not use the exact keyword 'cyber incident'."
-    },
-    {
-      "matched_text": "confidential financing initiative",
-      "concept": "nonpublic_marker",
-      "reason": "Indicates nonpublic nature via 'confidential' which may be too generic for strict matching."
-    },
-    {
-      "matched_text": "Data Export Approval DX-AP-03",
-      "concept": "cross_border_transfer_marker",
-      "reason": "Evidence of cross-border governance/approval but not an explicit 'transfer' phrase."
-    },
-    {
-      "matched_text": "not material under the Securities and Exchange Act B.E. 2535 (as amended)",
-      "concept": "material_event determination",
-      "reason": "Materiality conclusion is negative; unclear mapping to 'material_event' rule for MNPI tagging."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
   "_resolved_label_warnings": [
     {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
       "resolved_at": "2026-06-03T03:27:55Z",
       "reviewer": "Codex GPT-5.5",
-      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
       "warnings": [
         "drop must_detect: invalid rule 'DSAR' text='DSAR'",
         "drop must_detect: invalid rule 'erasure' text='erasure'",
@@ -207,45 +43,223 @@
       ]
     }
   ],
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
   "_stage_b_approval": {
     "approved_at_utc": "2026-06-03T03:42:46Z",
     "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_privacy_events_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "2569 (2026",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Thanapol Chinnawat",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lalita Wongjai",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To avoid inadvertent disclosure of MNPI, references to Project Mango River (a confidential financing initiative) were redacted from internal tickets before escalation to the audit committee.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "An MD&A note will be included in Q2/2569 (2026) reporting; no forward-looking guidance has changed and no selective disclosure occurred during the market silent period.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Mango River",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@siammeridian.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-Border Processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market silent period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Siriporn Jantasiri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Export Approval DX-AP-03",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "credential-stuffing attempt",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "2569 (2026",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Thanapol Chinnawat",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lalita Wongjai",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To avoid inadvertent disclosure of MNPI, references to Project Mango River (a confidential financing initiative) were redacted from internal tickets before escalation to the audit committee.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "An MD&A note will be included in Q2/2569 (2026) reporting; no forward-looking guidance has changed and no selective disclosure occurred during the market silent period.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Mango River",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "One DSAR from Mr. Thanapol Chinnawat (employee) was received and fulfilled within 10 days, and one consent withdrawal from Ms. Lalita Wongjai for optional analytics cookies was recorded and actioned.\nFollowing risk assessment, we executed targeted erasure of redundant log fields and tightened retention in line with Retention Matrix FIN-HR-07 to 90 days for candidate IP addresses.\nData minimisation has been applied to onboarding forms by removing collection of birth time; no biometric data is collected by this system.\nTo avoid inadvertent disclosure of MNPI, references to Project Mango River (a confidential financing initiative) were redacted from internal tickets before escalation to the audit committee.\nThe event did not interrupt operations, did not impact production systems, and the Board determined it is not material under the Securities and Exchange Act B.E. 2535 (as amended).\nAn MD&A note will be included in Q2/2569 (2026) reporting; no forward-looking guidance has changed and no selective disclosure occurred during the market silent period.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Defined-role term not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "named_person (non-standard honorific)",
+      "matched_text": "Khun Siriporn Jantasiri",
+      "reason": "Thai honorific 'Khun' may not be recognized by strict honorific-based detectors."
+    },
+    {
+      "concept": "cyber_incident_pre_disclosure",
+      "matched_text": "credential-stuffing attempt",
+      "reason": "Describes a cyber event pre-disclosure but does not use the exact keyword 'cyber incident'."
+    },
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "confidential financing initiative",
+      "reason": "Indicates nonpublic nature via 'confidential' which may be too generic for strict matching."
+    },
+    {
+      "concept": "cross_border_transfer_marker",
+      "matched_text": "Data Export Approval DX-AP-03",
+      "reason": "Evidence of cross-border governance/approval but not an explicit 'transfer' phrase."
+    },
+    {
+      "concept": "material_event determination",
+      "matched_text": "not material under the Securities and Exchange Act B.E. 2535 (as amended)",
+      "reason": "Materiality conclusion is negative; unclear mapping to 'material_event' rule for MNPI tagging."
+    }
+  ]
 }

@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -260,6 +268,18 @@
       "category": "MNPI",
       "matched_text": "2%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ubbf8\uacf5\uac1c",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Haneul BioSystems Co., Ltd. Privacy and MNPI Handling Notice (Korea)\nScope: employment, deal execution, and investor-relations records processed under PIPA and the Company\u2019s Fair Disclosure Policy.\nCategories of personal data: employee/candidate names, emails, mobile numbers, and resident-number (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638) captured only as truncated or hashed tokens; no storage of full resident-number except where legally required and then minimized.\nMNPI definition: \u201c\ubbf8\uacf5\uac1c \uc911\uc694\uc815\ubcf4\u201d under the Company\u2019s Capital Markets Compliance Code; examples include unannounced earnings, draft merger term sheets, significant board resolutions, and undisclosed changes in key suppliers.\nPublic-status and timing: information remains non-public until \u201c\uacf5\uc2dc\u201d is posted on the HanRiver Exchange issuer portal (HREX) or the DORY electronic disclosure system; if any selective disclosure occurs, simultaneous \u201c\uacf5\uc815\uacf5\uc2dc\u201d will be made without delay and no later than the same business day.\nBlackout windows: all insiders are restricted from trading Company securities from 14 days before quarter-end until HREX \uacf5\uc2dc at 09:00 KST on results day, and during any ad hoc event until the relevant DORY filing is live.\nIssuer-relative materiality: information reasonably expected to influence investor decisions, including items exceeding 5% of prior-year consolidated revenue, is treated as MNPI even if preliminary or internal.\nNon-MNPI examples: cafeteria menu rotations and a vendor\u2019s office relocation notice are operational updates and not \u201c\uc911\uc694\uc815\ubcf4\u201d.\nPublic reference: as already announced via DORY on 2025-02-10, the K-Panel product recall and remediation plan is public and not MNPI; press summaries may be shared broadly.\nProcessing and retention: deal-room access logs, IR Q&A lists, and whistleblower files are retained for 5 years; resident-number tokens for pre-employment checks are deleted within 30 days of decision; access is role-based and encrypted in our HRIS and data vault.\nTransfers: for cross-border diligence, data may be transferred to Seorak Capital Advisors Pte. Ltd. and other processors under KR-compliant safeguards and contractual clauses; resident-number data does not leave Korea.\nSelective disclosure controls: investor meetings with Mr. Jin-woo Seo (IR Head) require pre-cleared scripts and attendee logs; any material deviation triggers immediate DORY \u201c\ub3d9\uc2dc\uacf5\uc2dc\u201d.\nSubtle note: an internal budget re-forecast reducing OPEX by 2% is not treated as MNPI unless paired with external performance guidance or timing indications before \uacf5\uc2dc.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

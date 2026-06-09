@@ -50,6 +50,14 @@
     "previous_must_detect_count": 11,
     "previous_must_not_detect_count": 4
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -212,6 +220,18 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "aset to processor Novalink Systems S.A. in Galenia (non\u2011adequate third country) approved under 2021 SCCs with TIAs, (ii) DSAR received from Mr. Anders Vilhelm (Art. 15) and erasure request upheld for legacy badge logs (Art. 17).\nConsent withdrawal: Ms. Petra Nov\u00e1k withdrew consent for direct marketing on 12 May; CRM suppression list updated and retention shortened to 6 months for related records.\nMinimisation and retention: onboarding forms revised to remove national ID scan fields, and a 24\u2011month retention cap reaffirmed in the DPA Schedule 2 with Novalink.\nData\u2011export approval ID AEG\u2011DX\u20110441 recorded by the Export Council; transfer delayed until encryption\u2011at\u2011rest keys rotated and EU\u2011only back\u2011ups verified.\nIncident containment: misrouted SFTP keys revoked within 90 minutes; no evidence of exfiltration, access logs show only internal service account queries, and no notification to the supervisory authority was required under GDPR Art. 33.\nMAR workflow: preliminary, non\u2011public Q2 yield shortfall at the Nordholm wind cluster identified as inside information; disclosure delay under MAR Art. 17(4) documented, insider list updated, and the competent authority notified post\u2011remediation.\nWe confirm no investor\u2011facing guidance has been changed and no external dissemination of inside information occurred.\nCSRD/SFDR impact assessment: temporary unavailability of Scope 2 data feeds may affect KPI publication timetables but does not alter taxonomy\u2011eligibility calculations; fallback methodology note prepared.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

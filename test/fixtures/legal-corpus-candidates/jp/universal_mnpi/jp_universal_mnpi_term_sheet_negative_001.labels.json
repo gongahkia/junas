@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -165,6 +173,12 @@
       "category": "MNPI",
       "matched_text": "subject to board approvals",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet (non-binding): Strategic Alliance and Minority Investment \u2014 Japan jurisdiction\nParties: Hinode Robotics K.K. (fictional; TSE Standard, placeholder code 0000Z) and Kokoro Analytics Inc. (unlisted, Tokyo)\nTransaction overview: formation of a commercial partnership for edge-AI modules and a minority, non-controlling primary share subscription; no tender offer (TOB) contemplated under FIEA\nDocumentation: target signing of a definitive Share Subscription Agreement on 2026-09-15, subject to board approvals and customary conditions\nEmbargo: do not disclose externally before 2026-08-31 17:00 JST; internal IR calendar only, then standard TSE Timely Disclosure procedures apply\nRegulatory/Disclosure: structured to avoid TOB thresholds; if closing occurs, file under TSE Timely Disclosure and submit any required FIEA notices; reference public mid-term plan only\nAPPI/My Number: no collection or sharing of \u201cMy Number\u201d or other individual codes; only anonymized KPI datasets and role-based contacts will be exchanged\nEmployee/HR: no workforce transfer; any future secondment optional and subject to separate agreements; employee spa-day/wellness offsite in Q3 is unrelated and not material to this term sheet\nClosing conditions: board approvals of both companies; no Material Adverse Effect closing condition is requested, and no MAC termination right will be included",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -47,22 +55,22 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "For GLBA nonpublic personal information and HIPAA protected health information, we collect and process only for account servicing, care coordination, and fraud monitoring; we do not “sell” personal information as that term is used in California statutes.",
+      "matched_text": "For GLBA nonpublic personal information and HIPAA protected health information, we collect and process only for account servicing, care coordination, and fraud monitoring; we do not \u201csell\u201d personal information as that term is used in California statutes.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Identity verification requires two matching data points and a one-time code; do not transmit images of IDs—upload via the secure portal with redaction guidance (e.g., show last 2 digits only).",
+      "matched_text": "Identity verification requires two matching data points and a one-time code; do not transmit images of IDs\u2014upload via the secure portal with redaction guidance (e.g., show last 2 digits only).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Positive MNPI note: preliminary Q3 payer reimbursement rate changes and internal net charge‑off trend slides remain non‑public and may be material to PrairieBridge; do not discuss with analysts or investors before the scheduled earnings call is publicly webcast.",
+      "matched_text": "Positive MNPI note: preliminary Q3 payer reimbursement rate changes and internal net charge\u2011off trend slides remain non\u2011public and may be material to PrairieBridge; do not discuss with analysts or investors before the scheduled earnings call is publicly webcast.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "False‑positive bait control: consumer submissions containing strings like 123‑45‑6789, “CUSIP: NOT‑A‑CUSIP,” or “MRN: XX‑0000” are treated as examples and redacted; inclusion of the words “insider,” “leak,” or “earnings” does not convert a DSAR into a securities inquiry.",
+      "matched_text": "False\u2011positive bait control: consumer submissions containing strings like 123\u201145\u20116789, \u201cCUSIP: NOT\u2011A\u2011CUSIP,\u201d or \u201cMRN: XX\u20110000\u201d are treated as examples and redacted; inclusion of the words \u201cinsider,\u201d \u201cleak,\u201d or \u201cearnings\u201d does not convert a DSAR into a securities inquiry.",
       "rule": "material_event"
     },
     {
@@ -72,7 +80,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Questions may be directed to compliance@prairiebridge.example; we also maintain a US toll‑free helpline listed on our public website, which provides general guidance but does not accept sensitive identifiers.",
+      "matched_text": "Questions may be directed to compliance@prairiebridge.example; we also maintain a US toll\u2011free helpline listed on our public website, which provides general guidance but does not accept sensitive identifiers.",
       "rule": "material_event"
     },
     {
@@ -107,7 +115,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non‑public",
+      "matched_text": "non\u2011public",
       "rule": "nonpublic_marker"
     },
     {
@@ -142,7 +150,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "intentional disclosures are made via broad distribution or a Form 8‑K concurrently",
+      "matched_text": "intentional disclosures are made via broad distribution or a Form 8\u2011K concurrently",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -172,7 +180,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "internal net charge‑off trend slides",
+      "matched_text": "internal net charge\u2011off trend slides",
       "rule": "material_event"
     }
   ],
@@ -189,22 +197,22 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "For GLBA nonpublic personal information and HIPAA protected health information, we collect and process only for account servicing, care coordination, and fraud monitoring; we do not “sell” personal information as that term is used in California statutes.",
+      "matched_text": "For GLBA nonpublic personal information and HIPAA protected health information, we collect and process only for account servicing, care coordination, and fraud monitoring; we do not \u201csell\u201d personal information as that term is used in California statutes.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Identity verification requires two matching data points and a one-time code; do not transmit images of IDs—upload via the secure portal with redaction guidance (e.g., show last 2 digits only).",
+      "matched_text": "Identity verification requires two matching data points and a one-time code; do not transmit images of IDs\u2014upload via the secure portal with redaction guidance (e.g., show last 2 digits only).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Positive MNPI note: preliminary Q3 payer reimbursement rate changes and internal net charge‑off trend slides remain non‑public and may be material to PrairieBridge; do not discuss with analysts or investors before the scheduled earnings call is publicly webcast.",
+      "matched_text": "Positive MNPI note: preliminary Q3 payer reimbursement rate changes and internal net charge\u2011off trend slides remain non\u2011public and may be material to PrairieBridge; do not discuss with analysts or investors before the scheduled earnings call is publicly webcast.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "False‑positive bait control: consumer submissions containing strings like 123‑45‑6789, “CUSIP: NOT‑A‑CUSIP,” or “MRN: XX‑0000” are treated as examples and redacted; inclusion of the words “insider,” “leak,” or “earnings” does not convert a DSAR into a securities inquiry.",
+      "matched_text": "False\u2011positive bait control: consumer submissions containing strings like 123\u201145\u20116789, \u201cCUSIP: NOT\u2011A\u2011CUSIP,\u201d or \u201cMRN: XX\u20110000\u201d are treated as examples and redacted; inclusion of the words \u201cinsider,\u201d \u201cleak,\u201d or \u201cearnings\u201d does not convert a DSAR into a securities inquiry.",
       "rule": "material_event"
     },
     {
@@ -214,7 +222,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Questions may be directed to compliance@prairiebridge.example; we also maintain a US toll‑free helpline listed on our public website, which provides general guidance but does not accept sensitive identifiers.",
+      "matched_text": "Questions may be directed to compliance@prairiebridge.example; we also maintain a US toll\u2011free helpline listed on our public website, which provides general guidance but does not accept sensitive identifiers.",
       "rule": "material_event"
     },
     {
@@ -231,23 +239,29 @@
       "category": "MNPI",
       "matched_text": "undisclosed",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PrairieBridge HealthBank Corporation US Privacy Notice and DSAR Workflow Summary\nWe define PII to include information reasonably linkable to a consumer, household, or patient (CCPA/HIPAA/GLBA), including names, device IDs, household banking preferences, and de-identified data only when re-identification is reasonably possible.\nFor GLBA nonpublic personal information and HIPAA protected health information, we collect and process only for account servicing, care coordination, and fraud monitoring; we do not \u201csell\u201d personal information as that term is used in California statutes.\nDSAR intake relies on a web form and role mailbox (privacy@prairiebridge.example); acceptable fields include CustomerID (format PB-####), PatientPortalID (HBC-####), and billing ZIP; we never request full SSN or account/routing numbers by email.\nIdentity verification requires two matching data points and a one-time code; do not transmit images of IDs\u2014upload via the secure portal with redaction guidance (e.g., show last 2 digits only).\nData transfers are limited to US-based processors bound by BAAs and GLBA 314 Guidelines; cross-border transfers, if any, use standard contractual terms and vendor due diligence.\nRetention: GLBA records are retained 7 years, HIPAA-designated records 6 years from creation, and marketing consents until revocation or 24 months of inactivity, whichever is earlier.\nPublic information policy: responses may reference already-filed Forms 10\u2011K/10\u2011Q and press releases archived on our investor site (e.g., the January 2024 telehealth pilot announcement); we do not include pipeline forecasts in consumer responses.\nReg FD/Rule 10b\u20115: we prohibit selective disclosure to market professionals; intentional disclosures are made via broad distribution or a Form 8\u2011K concurrently, and non-intentional disclosures are cured promptly (no later than 24 hours or before the next trading day on our listing exchange).\nPositive MNPI note: preliminary Q3 payer reimbursement rate changes and internal net charge\u2011off trend slides remain non\u2011public and may be material to PrairieBridge; do not discuss with analysts or investors before the scheduled earnings call is publicly webcast.\nInsider trading safeguards: employees observe pre-announced blackout windows and pre-clear trades through preclearance@prairiebridge.example; these windows are routine and not tied to any undisclosed event.\nFalse\u2011positive bait control: consumer submissions containing strings like 123\u201145\u20116789, \u201cCUSIP: NOT\u2011A\u2011CUSIP,\u201d or \u201cMRN: XX\u20110000\u201d are treated as examples and redacted; inclusion of the words \u201cinsider,\u201d \u201cleak,\u201d or \u201cearnings\u201d does not convert a DSAR into a securities inquiry.\nDisclosures to service providers include minimum necessary data; we require audit rights and breach notices, and we document all onward transfers in our internal registry.\nQuestions may be directed to compliance@prairiebridge.example; we also maintain a US toll\u2011free helpline listed on our public website, which provides general guidance but does not accept sensitive identifiers.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "123‑45‑6789",
+      "matched_text": "123\u201145\u20116789",
       "reason": "False-positive bait example string; not actual PII in context"
     },
     {
-      "matched_text": "CUSIP: NOT‑A‑CUSIP",
+      "matched_text": "CUSIP: NOT\u2011A\u2011CUSIP",
       "reason": "False-positive bait; not a valid security identifier or MNPI"
     },
     {
-      "matched_text": "MRN: XX‑0000",
+      "matched_text": "MRN: XX\u20110000",
       "reason": "False-positive bait example; not a real medical record number"
     },
     {
-      "matched_text": "Forms 10‑K/10‑Q",
+      "matched_text": "Forms 10\u2011K/10\u2011Q",
       "reason": "Public filing references; not MNPI"
     },
     {
@@ -259,7 +273,7 @@
       "reason": "Public press release reference; not MNPI"
     },
     {
-      "matched_text": "Form 8‑K",
+      "matched_text": "Form 8\u2011K",
       "reason": "Public disclosure channel reference; not MNPI itself"
     }
   ],

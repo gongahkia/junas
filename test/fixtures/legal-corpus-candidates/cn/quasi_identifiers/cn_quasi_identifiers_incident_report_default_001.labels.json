@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -235,6 +243,30 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A data loss prevention alert flagged unauthorized copying of pre-disclosure financial materials belonging to issuer applicant Luhai Smart Components Co., Ltd. (client USCC: 9240YJ88MA1R9B2F7Q) scheduled for review by the Lingnan Securities Exchange (LNX) Issuer Supervision Office\nMr. Pan Yichen (DOB 1991-08-23, age 34), Senior Data Engineer, Yunhe Data Systems (Linghai R&D Center, Zone C, Level 9), signed in as pan_yc; email yichen.pan@yunhe-ds.example.cn; internal ext. 6623\nHis masked resident ID 42************381X and payroll unit YDS-ENG-04 were present in the same audit artifacts alongside device asset LH-NB-0421 (MAC 4E:19:AA:02:3C:77) and VPN session S-LH-7F49A1",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Root cause: employment offboarding workflow failure for an internal transfer\u2014Mr. Pan moved from Issuer Services to Core Platform on 2026-05-20 but retained legacy read access; privileged access review ticket YDS-IAM-4472 remained pending\nNon-named weak identifiers elsewhere in the same share include a profile \u201cborn 1987-02, QA role, East Park office, device CT-TAB-11, Android 12, account qa_ops_02,\u201d which by itself does not identify a specific natural person\nAdditional generic demographics in training materials (\u201cfemale, 30s, north district, shift B\u201d) are non-identifying and not treated as PI under PIPL absent linkage",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Containment actions: account pan_yc suspended 2026-06-04 09:20; device LH-NB-0421 isolated; shared folder permissions on \\\\files.linghai.yds\\issuer narrowed; DR sync job to \"yunhe-dr-nanhua\" paused and subject to LCDA security assessment filing",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Cybersecurity and MNPI Exposure \u2014 Yunhe Data Systems Co., Ltd. (USCC: 9136YJ00MA8K2L1Q3X), Linghai City, Yunjiang Province\nReport ID YDS-IR-2026-061, detected 2026-06-03 21:42 CST, reported 2026-06-04 09:15 CST\nA data loss prevention alert flagged unauthorized copying of pre-disclosure financial materials belonging to issuer applicant Luhai Smart Components Co., Ltd. (client USCC: 9240YJ88MA1R9B2F7Q) scheduled for review by the Lingnan Securities Exchange (LNX) Issuer Supervision Office\nMr. Pan Yichen (DOB 1991-08-23, age 34), Senior Data Engineer, Yunhe Data Systems (Linghai R&D Center, Zone C, Level 9), signed in as pan_yc; email yichen.pan@yunhe-ds.example.cn; internal ext. 6623\nHis masked resident ID 42************381X and payroll unit YDS-ENG-04 were present in the same audit artifacts alongside device asset LH-NB-0421 (MAC 4E:19:AA:02:3C:77) and VPN session S-LH-7F49A1\nLogs show Mr. Pan\u2019s account accessed \\\\files.linghai.yds\\issuer\\Luhai\\2026H1_draft\\pre_earnings.xlsx and attempted to sync to an offshore backup endpoint \"yunhe-dr-nanhua\" at 22:03 via client agent v3.9.4\nThe network path indicates the DR target is hosted in Nanhu Special Administrative Region, invoking cross-border transfer rules under PIPL, CSL, and DSL, and the security assessment filing requirements of the Cyberspace and Data Administration of Linghai\nPreliminary review suggests MNPI was viewed and copied before public disclosure; no onshore posting occurred, and no financial transactions by Yunhe personnel have been det",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

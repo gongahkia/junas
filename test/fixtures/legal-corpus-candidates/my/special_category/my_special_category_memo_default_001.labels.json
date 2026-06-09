@@ -7,13 +7,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -27,13 +27,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -48,6 +48,42 @@
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
+  "_resolved_label_warnings": {
+    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
+    "count": 2,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120 million'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120 million'"
+    ]
+  },
+  "_resolved_label_warnings_history": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 35,
     "new_must_detect_count": 12,
@@ -57,6 +93,14 @@
     "removed_must_not_detect": [],
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -81,7 +125,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Auric Harvest Berhad — Internal Compliance Memo re PDPA and MNPI controls for financing/employment matters (BDE context), 29 May 2026.",
+      "matched_text": "Auric Harvest Berhad \u2014 Internal Compliance Memo re PDPA and MNPI controls for financing/employment matters (BDE context), 29 May 2026.",
       "rule": "material_event"
     },
     {
@@ -91,7 +135,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Board Pack v0.3 (uncirculated) contains a forecast indicating Q2 EBITDA is 8–10% below internal guidance and contemplates a dividend timetable adjustment; treat both items as MNPI pending formal announcement.",
+      "matched_text": "Board Pack v0.3 (uncirculated) contains a forecast indicating Q2 EBITDA is 8\u201310% below internal guidance and contemplates a dividend timetable adjustment; treat both items as MNPI pending formal announcement.",
       "rule": "material_event"
     },
     {
@@ -201,7 +245,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "8–10%",
+      "matched_text": "8\u201310%",
       "rule": "financial_percentage"
     },
     {
@@ -231,7 +275,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Q2 EBITDA is 8–10% below internal guidance",
+      "matched_text": "Q2 EBITDA is 8\u201310% below internal guidance",
       "rule": "material_event"
     },
     {
@@ -258,7 +302,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Auric Harvest Berhad — Internal Compliance Memo re PDPA and MNPI controls for financing/employment matters (BDE context), 29 May 2026.",
+      "matched_text": "Auric Harvest Berhad \u2014 Internal Compliance Memo re PDPA and MNPI controls for financing/employment matters (BDE context), 29 May 2026.",
       "rule": "material_event"
     },
     {
@@ -268,7 +312,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Board Pack v0.3 (uncirculated) contains a forecast indicating Q2 EBITDA is 8–10% below internal guidance and contemplates a dividend timetable adjustment; treat both items as MNPI pending formal announcement.",
+      "matched_text": "Board Pack v0.3 (uncirculated) contains a forecast indicating Q2 EBITDA is 8\u201310% below internal guidance and contemplates a dividend timetable adjustment; treat both items as MNPI pending formal announcement.",
       "rule": "material_event"
     },
     {
@@ -300,6 +344,12 @@
       "category": "MNPI",
       "matched_text": "10%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Auric Harvest Berhad \u2014 Internal Compliance Memo re PDPA and MNPI controls for financing/employment matters (BDE context), 29 May 2026.\nFor PDPA purposes, treat any information relating directly or indirectly to an individual as personal data; for capital markets, information that is not generally available and likely to affect price/value constitutes MNPI under the local CMSA and the Bursa Darul Exchange (BDE) Listing Requirements.\nEncik Hariz Firdaus (Head of Procurement, staff ID AHB-EMP-0442) disclosed ongoing insulin therapy for Type 2 diabetes and confirmed current membership in the Metal & Machinery Workers Union of Seri Nusa; his fingerprint templates and facial-recognition vectors are stored in the Nebula HRIS access logs.\nDo not include the foregoing health, biometric, or union details in any BDE announcement, investor deck, or analyst briefing; access is strictly need-to-know with PDPA-compliant consent records maintained by HR.\nPuan Aina Latif (Finance Manager) volunteered that she observes fasting for religious reasons; this is not required for employment processing and must not be circulated beyond HR without explicit justification and consent.\nThe draft term sheet with Selat Bayu Capital Sdn Bhd for a RM120 million sukuk/term facility and the preliminary proposal to acquire Nusacane Foods Sdn Bhd (Project Tebu) are price-sensitive and non-public; disclosure controls under Para 9.03 of the BDE LR apply.\nBoard Pack v0.3 (uncirculated) contains a forecast indicating Q2 EBITDA is 8\u201310% below internal guidance and contemplates a dividend timetable adjustment; treat both items as MNPI pending formal announcement.\nSeparate matter: the Open Horizons Hiring Policy and Fair Play Gifts & Hospitality Policy remain in force; these policy names do not alter PDPA obligations and should not be read as approvals for wider data sharing.\nMarketing references to MoonLotus ERP, SunRay Router, and BlueKite Analytics are benign product names; mentioning them here is illustrative and not indicative of any undisclosed contract.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -324,7 +374,7 @@
       "reason": "Product name; not PII/MNPI"
     },
     {
-      "matched_text": "kick the hornet’s nest",
+      "matched_text": "kick the hornet\u2019s nest",
       "reason": "Metaphor bait; not PII/MNPI"
     },
     {
@@ -371,41 +421,5 @@
       "matched_text": "circulate to Board and Exco only",
       "reason": "Suggests restricted circulation; borderline with information barrier marker but not explicitly listed in allowed rules"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_resolved_label_warnings_history": [],
-  "_resolved_label_warnings": {
-    "count": 2,
-    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120 million'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120 million'"
-    ]
-  },
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

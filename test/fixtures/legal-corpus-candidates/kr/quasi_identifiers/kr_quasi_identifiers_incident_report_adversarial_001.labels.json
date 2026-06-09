@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -280,6 +288,18 @@
       "category": "MNPI",
       "matched_text": "860304",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Affected user cluster: Mr. Han Jun-yeol (IR Manager, DOB 1986-03-04), Seoul HQ 11F, device S M - G 9 9 1 N enrolled in MDM, internal account \"ir-han-jy\", sess ion ref kr-IR- 2 0 2 6 0 5 31 - 7 f 3 c",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-05-31 22:40 KST, anomalous access to the IR authoring portal from Incheon airport Wi\u2011Fi resulted in a brief account takeover.\nAffected user cluster: Mr. Han Jun-yeol (IR Manager, DOB 1986-03-04), Seoul HQ 11F, device S M - G 9 9 1 N enrolled in MDM, internal account \"ir-han-jy\", sess ion ref kr-IR- 2 0 2 6 0 5 31 - 7 f 3 c.\nURL artifact observed: https://ir.neo-aurora.example.kr/login?u=han.jy%40neo-aurora.example.kr&sid=7f3c9b2d; OCR log shows \u201cHan Jun-ye ol\u201d due to spacing.\nDuring 2 minutes of exposure, draft investor-relations materials included preliminary Q3 margin guidance (\u22121.5pp vs prior), and a draft term sheet for Project Halla CB, pending board resolution on 2026-06-10 (potential MNPI under FSCMA).\nNo payroll bank accounts were exposed; a masked resident-number string 860304-1****** appeared in a debug entry tied to employment verification, not the full identifier.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

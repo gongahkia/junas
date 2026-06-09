@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -364,6 +372,18 @@
       "category": "MNPI",
       "matched_text": "8,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 Project Meranti \u2014 Term Sheet for proposed acquisition of 60% of Lattice BioSystems Ltd. by Coralline Harbour Holdings Ltd.\nThis draft is not generally available and subject to SGX disclosure embargo until 26 Jun 2026, 08:30 SGT.\nTransaction value: S$128,000,000 cash consideration plus up to S$12,000,000 earn-out (10%) based on FY2027 EBITDA.\nDefinitive agreements: Share Purchase Agreement and Shareholders\u2019 Agreement under Singapore law; target board memo ref LB-TS-2026-04 to be annexed.\nConditions precedent include: SGX Mainboard Chapter 10 shareholder approval (relative figures estimated at 45%), no MAS objections for ancillary payment services held by target, and completion of due diligence.\nMaterial Adverse Change: customary MAE definition with carve-outs for general market conditions; for clarity, Buyer will not rely on a MAC condition to terminate solely due to sector-wide valuation declines.\nLong-stop date: 30 Sep 2026; completion expected within 5 business days thereafter; break fee S$3,200,000 (2.5%).\nNon-compete and non-solicit: 24 months for founders; employment terms for Dr. Reyna Chua to include a 3-year service agreement.\nContact: Ms. Mei Lin Koh, Partner, Veridian & Howe LLC, meilin.koh@veridianhowe.sg; Mr. Daryl Ong, CFO, Coralline Harbour Holdings Ltd., daryl.ong@corallineharbour.asia.\nData room contains personal data processed in accordance with PDPA; please anonymise employee files in Schedule 7 prior to external sharing.\nNo public announcement should be made until board sign-off and the embargo time; references to \u2018Project Meranti\u2019 must be removed from any SGXNet draft.\nPublic-source benchmark: see SGXNet announcement by Heliotrope Pacific Ltd. dated 02 Feb 2025 on its acquisition of a 55% stake in a Catalist issuer.\nRepresentations include compliance with the Securities and Futures Act (Cap. 289) and the SGX Listing Manual; warranties subject to a S$8,000,000 cap and 12-month survival.\nNote: there is no assertion that a MAE has occurred as at the date of this term sheet, and the absence of a MAC is not a completion condition for the earn-out.\nlowercase pm: todo: update schedule 5 on IP assignments, align SPA definitions, spa-day vouchers for the team to be sent friday.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

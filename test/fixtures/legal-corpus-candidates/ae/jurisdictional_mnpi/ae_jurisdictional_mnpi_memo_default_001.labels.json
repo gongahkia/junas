@@ -100,6 +100,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -397,6 +405,24 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2013 Internal Compliance/Board Note: Al Sahra Ports PJSC (Desert Exchange: ASPJ) \u2013 Proposed private placement and pre-close update.\nH.E. Dr. Samir Al Qadi (Chair, Disclosure Committee) presided and confirmed quorum for this meeting.\nStatus: Inside information \u2013 not for external release until approved disclosure via Desert Exchange e-Disclosure by 10:00 GST on 12 Sep 2026 in accordance with FMA\u2011UAE Continuous Disclosure Rule 7.\nMr. Kareem Al Barqa (CFO) informed the Committee that Q3 revenue is trending ~18% above guidance; this is likely price-sensitive given our free float and ADV and falls within the closed period from 1 Sep to results announcement.\nThe Company has received a non-binding term sheet from Sapphire Oasis Fund (DGM SPV) for a 9.9% private placement at a 6% premium; any selective disclosure to the offeree must be under NDA and logged on the insider list.\nFamily-origin concentration: the Al Barqa family and related vehicles currently hold 28.4%; any incremental allotment to affiliates will trigger FMA\u2011UAE related party thresholds and Desert Exchange pre\u2011clearance.\nMs. Laila N. Haddad (Head of HR) noted that copies of Emirates ID for employees assigned to the DGM branch are stored in VaultRef HR\u2011431; PDPL applies\u2014do not circulate outside HR/compliance; no ID numbers to be placed in deal rooms.\nTrade licence details for Al Sahra Ports PJSC (Licence No. TL\u201192177\u2011C) are already public on the Emirate register; reuse is permitted, but attaching scanned IDs of signatories is prohibited under PDPL.\nBlackout: Directors and Permanent Insiders are restricted from dealing until the Q3 results are published; preliminary board sign\u2011off is scheduled for 11 Sep 2026, with market release targeted for 12 Sep 2026 via the Desert Exchange portal.\nNote: The previously announced MoU with Bright Dunes Robotics FZ\u2011LLC dated 14 Mar 2025 remains public and non\u2011price\u2011sensitive as per our press release and Desert Exchange archive; do not treat as inside information.\nOperational update (non\u2011issuer): GulfTech Datacentres LLC changed its billing address last month; this vendor change is not material to Al Sahra Ports PJSC and does not require market disclosure.\nSelected recipients under wall\u2011crossing for the placement: Mr. Rami J. Qasim and Ms. Noor Al Ruweili of Sapphire Oasis (emails: r.qasim@sapphireoasis.capital; n.ruweili@sapphireoasis.capital) \u2013 NDAs executed on 3 Sep 2026.\nContact for compliance queries: compliance@alsahraports.pjsc and +971\u201155\u2011123\u20118472 (internal hotline); escalation to the Disclosure Committee via dc.secretariat@alsahraports.pjsc.\nReminder: Any communication with sell\u2011side analysts must remain within publicly available information (e.g., FY2025 Annual Report filed 28 Feb 2026 on Desert Exchange e\u2011Disclosure) to avoid selective disclosure.\nAction: Company Secretary to update the insider list (Form IL\u20112) and circulate blackout notice; Legal to prepare a draft market announcement in Arabic and English for approval by the FMA\u2011UAE M",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

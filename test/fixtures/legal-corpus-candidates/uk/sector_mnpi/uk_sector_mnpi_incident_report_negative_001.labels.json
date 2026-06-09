@@ -50,6 +50,14 @@
     "previous_must_detect_count": 5,
     "previous_must_not_detect_count": 8
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -162,6 +170,12 @@
       "category": "MNPI",
       "matched_text": "Transition Plan",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2013 Operational/Cyber Update (UK issuer context), 14:00 BST\nNorthside Capital plc (listed on the Brindle Exchange) issues this internal operational note for compliance and risk monitoring.\nThis advisory contains training and process content; references to blackout windows, insider lists, crypto, and commercial terms in this document are primarily educational and not price sensitive on their own.\nThis morning a marketing microsite for our RiverToken Rewards demo wallet briefly presented a certificate chain error; the site holds no live client data and normal service was restored within 22 minutes.\nAn ESG/climate tabletop exercise on scenario modelling concluded with no changes to our publicly disclosed 2025 Transition Plan; all metrics referenced are already on our website.\nInformation barriers (Chinese walls) between Research and Corporate Broking remained effective; no wall crossings occurred and staff completed refresher e-learning on UK MAR tipping prohibitions.\nThe following item is subject to UK MAR controls until assessed by Legal and Compliance.\nPreliminary forensic review indicates unauthorised access to a non-production API supporting analytics for a sustainability-linked note pilot, ahead of a not-yet-announced RNS; an insider list has been opened and a targeted blackout applies to directly involved staff.\nBased on current logs, no customer PII has been exfiltrated; records in the affected environment were synthetic and the UK GDPR notification threshold is not met at this time, pending external counsel review.\nCommercial terms with our vendor Greybanks Quant Systems Ltd are unaffected under the existing MSA; no external communication should be made and no financial impact estimate is authorised for discussion.\nOur Crypto Services brochure includes a section titled \u201cInsider Lists and Information Barriers\u201d for client education only; it does not refer to any live deal or issuer event.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

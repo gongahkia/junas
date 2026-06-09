@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -6,14 +28,29 @@
   "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -48,12 +85,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "approved medical leave for insulin‑dependent diabetes management",
+      "matched_text": "approved medical leave for insulin\u2011dependent diabetes management",
       "rule": "health_condition"
     },
     {
       "category": "PII",
-      "matched_text": "biometric time‑and‑attendance fingerprint templates",
+      "matched_text": "biometric time\u2011and\u2011attendance fingerprint templates",
       "rule": "biometric_identifier"
     },
     {
@@ -113,7 +150,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "30% earn‑out over 18 months tied to revenue from QuokkaMesh and Numbat Ledger product lines",
+      "matched_text": "30% earn\u2011out over 18 months tied to revenue from QuokkaMesh and Numbat Ledger product lines",
       "rule": "contingent_mnpi_language"
     },
     {
@@ -128,7 +165,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Structure: Buyer to acquire 100% of the Target’s issued shares for A$48,500,000, payable 70% in cash at Completion and 30% earn‑out over 18 months tied to revenue from QuokkaMesh and Numbat Ledger product lines.",
+      "matched_text": "Structure: Buyer to acquire 100% of the Target\u2019s issued shares for A$48,500,000, payable 70% in cash at Completion and 30% earn\u2011out over 18 months tied to revenue from QuokkaMesh and Numbat Ledger product lines.",
       "rule": "material_event"
     },
     {
@@ -180,7 +217,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Structure: Buyer to acquire 100% of the Target’s issued shares for A$48,500,000, payable 70% in cash at Completion and 30% earn‑out over 18 months tied to revenue from QuokkaMesh and Numbat Ledger product lines.",
+      "matched_text": "Structure: Buyer to acquire 100% of the Target\u2019s issued shares for A$48,500,000, payable 70% in cash at Completion and 30% earn\u2011out over 18 months tied to revenue from QuokkaMesh and Numbat Ledger product lines.",
       "rule": "material_event"
     },
     {
@@ -232,6 +269,18 @@
       "category": "MNPI",
       "matched_text": "4,200,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed acquisition of Rivergum Robotics Limited (Target) by Tarawi Bay Holdings Pty Ltd (Buyer), each incorporated in Australia and subject to Corporations Act 2001 (Cth) and relevant listing rules of the ASX.\nStructure: Buyer to acquire 100% of the Target\u2019s issued shares for A$48,500,000, payable 70% in cash at Completion and 30% earn\u2011out over 18 months tied to revenue from QuokkaMesh and Numbat Ledger product lines.\nConditions precedent: satisfactory due diligence, Board approvals, any required competition and foreign investment approvals, ASX Listing Rule approvals (if applicable), and no material adverse change between signing and Completion.\nConfidentiality and MNPI: the parties acknowledge possession of information not generally available within s1042A of the Corporations Act and will comply with s1043A insider trading prohibitions and ASX Listing Rule 3.1 continuous disclosure obligations.\nExclusivity: 60\u2011day no\u2011shop/no\u2011talk with customary fiduciary out; the collar is intended as a \u201cstorm\u2011shelter\u201d to both parties in a volatile market and is not political in nature.\nKey employee matters: the Buyer acknowledges that Mr. Hayden Noor, Company Secretary of the Target, is on approved medical leave for insulin\u2011dependent diabetes management, and that his biometric time\u2011and\u2011attendance fingerprint templates are held in the Target\u2019s payroll system and must be handled in accordance with the Privacy Act 1988 (Cth).\nPrivacy and data: the Target represents compliance with the Australian Privacy Principles for all personal information, including health and biometric information of identified individuals such as Mr. Noor, and agrees to maintain appropriate consents and safeguards for any offshore backups.\nIntegration and policies: the Buyer will adopt the Target\u2019s Workplace Wellbeing Policy 2024 and its DEI Charter, which respect religion, union representation, and sexual orientation in a general sense without collecting unnecessary sensitive data.\nBusiness overview: the Target\u2019s principal products are QuokkaMesh (industrial control middleware) and Numbat Ledger (embedded payments), with R&D at Karrawin, NSW and manufacturing at Warrinook, VIC; product roadmaps include a benign codename \u201cKestrel\u20119.\u201d\nCommunity and marketing: existing sponsorship of the amateur Warrinook Dingoes football club and the Fair Play Sponsorship Policy will continue for 12 months post\u2011Completion, without performance guarantees.\nPurchase price adjustment: completion accounts with a working capital peg of A$4,200,000 and a symmetrical collar that protects both sides \u201cwhen the tide turns,\u201d a metaphor that does not imply any religious or political stance.\nWarranties: standard Australian public company warranties, no undisclosed encumbrances, ownership and non\u2011infringement of IP in QuokkaMesh and Numbat Ledger, and no contraventions of the Corporations Act or applic",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -256,7 +305,7 @@
       "reason": "Product name; not PII/MNPI"
     },
     {
-      "matched_text": "Kestrel‑9",
+      "matched_text": "Kestrel\u20119",
       "reason": "Product codename; not a transaction codename"
     },
     {
@@ -284,7 +333,7 @@
       "reason": "Policy name; not PII/MNPI"
     },
     {
-      "matched_text": "storm‑shelter",
+      "matched_text": "storm\u2011shelter",
       "reason": "Metaphor; not PII/MNPI"
     },
     {
@@ -313,8 +362,8 @@
     },
     {
       "concept": "exclusivity lock-up",
-      "matched_text": "60‑day no‑shop/no‑talk",
-      "reason": "Potentially market‑sensitive exclusivity but not an allowed MNPI rule token"
+      "matched_text": "60\u2011day no\u2011shop/no\u2011talk",
+      "reason": "Potentially market\u2011sensitive exclusivity but not an allowed MNPI rule token"
     },
     {
       "concept": "selective disclosure/compliance",
@@ -324,36 +373,7 @@
     {
       "concept": "insider/tipping control",
       "matched_text": "insider trading prohibitions",
-      "reason": "Indicates MNPI handling but not a specific allowed tipping/insider‑list marker"
+      "reason": "Indicates MNPI handling but not a specific allowed tipping/insider\u2011list marker"
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -50,6 +50,14 @@
     "previous_must_detect_count": 17,
     "previous_must_not_detect_count": 9
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -327,6 +335,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC \u2014 EMBARGOED until 15 July 2026 07:00 BST; distribution limited to Thornwick Financial Services plc (the \u201cCompany\u201d) IR, Legal, and M&A.\nRetention & DSAR workflow note re Project Heather \u2014 proposed acquisition of a 17.5% stake in Holmcroft Payments Ltd.\nOn 12 July 2026 the Company executed a binding Sale and Purchase Agreement with Kellington Ventures SPC; consideration \u00a3145,000,000 subject to completion.\nA standard MAE clause applies, and no MAC will be deemed to have occurred due to general market downturns or changes in UK tax law.\nUntil the Linton Securities Exchange (LSE) Regulatory Notice Service (RNS) is released, all drafts, board packs, and term sheets are restricted under the Market Conduct Policy.\nLawful basis: legitimate interests for transaction readiness and legal obligation under the Data Protection Act 2018 and UK GDPR Articles 13\u201315 for any data subject access request.\nData categories in scope include names, work emails, and role history of deal-team staff, plus vendor KYC data for directors, e.g., Mr. Gideon Vale and Ms. Saira Omondi.\nDPO contact: Ms. Eliza Nair, dpo@thornwickfin.co.uk; postal: 1 Fern Yard, Eastmere, EL4 8QH.\nRetention: IR drafts and board memos stored in Vault R11, redlined versions retained 6 years post-completion per Records Schedule FIN-MA-06.\nPublic-source exception: legacy 2023 governance statements and a 2022 press quote by Sir Rowan Pritchard are already public and outside the embargo.\nNote that Sir Rowan Pritchard\u2019s public biography on the corporate registry is not MNPI and may be shared with media.\nlowercase pm note: todo capture meeting minutes, scrub personal mail headers, and file under heather/data-room v3.\nInvestor-relations draft Q&A references the codename only (\u201cProject Heather\u201d) and must not disclose price, % stake, or counterparty prior to RNS.\nFor avoidance of doubt, spa-day vouchers for the Wellvale Baths team event are unrelated to the transaction and not price-sensitive.\nInternational transfers to our processor, Millbridge Analytics BV (UK IDTA in place), are limited to pseudonymised analytics from the diligence tracker.\nIn the event of a DSAR, extract data from M&A drive \u201cHawthorn\u201d using the DSAR playbook; exclude privileged legal advice and redact insider lists.\nUpon completion announcement, convert \u201cProject Heather\u201d labels to real-entity names within 48 hours and update the insider list filed with the Fallowshire Conduct Authority (FCA).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

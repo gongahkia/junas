@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -195,6 +203,12 @@
       "category": "MNPI",
       "matched_text": "sse submissions should follow exchange style guidance and use the investor relations template; confirm chinese-first language with english courtesy translation",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal legal memo \u2014 pipl csl dsl compliance review for fenlake instruments co., ltd. (issuer) and operations workflows\ncompany registry details: unified social credit code (uscc) 99F0X0X0X0X0X0X0X0; registered address placeholder only, no location info in this memo\nas per csrc website notice dated 2025-08-14, the issuer\u2019s star market prospectus addendum is already public and may be cited in research notes\nir draft q&a is not for distribution; embargo date 2026-07-15 09:00 cst before upload to sse disclosure platform\nthe mac clause in the standard share purchase form is negated for industry-wide events and does not by itself signal a material adverse change\nonboarding forms use resident id field only in masked format, example 9X000000000000000; collect consent per pipl and retain for 6 months max\ncross-border transfer: cac standard contract filing completed; hr data to processors in testland limited to hashed ids and payroll totals; no minors under 14\nspa day reminder: hr wellness sign-up is optional and should not collect id numbers or account details; keep the signup sheet offline after the event\nterm sheet sample for training is adapted from public-source transactions and is not tied to any live negotiation or issuer project\nrole mailbox for investor queries: comsec@fenlake.example; avoid personal email routing and avoid uploading cv copies to ir inboxes\npublic-source research may quote percentages from the 2024 annual report; do not include draft or estimated figures from internal models\nsse submissions should follow exchange style guidance and use the investor relations template; confirm chinese-first language with english courtesy translation",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -50,6 +50,14 @@
     "previous_must_detect_count": 21,
     "previous_must_not_detect_count": 9
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 5,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -327,6 +335,36 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Term Sheet \u2014 recommended cash acquisition of Nettlefold Analytics plc by Northborough Capital Partners LLP, a UK private fund adviser, via a court-sanctioned scheme of arrangement under Part 26 of the Companies Act 2006",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Term Sheet \u2014 recommended cash acquisition of Nettlefold Analytics plc by Northborough Capital Partners LLP, a UK private fund adviser, via a court-sanctioned scheme of arrangement under Part 26 of the Companies Act 2006.\nIssuer: Nettlefold Analytics plc (UK incorporated; premium listing on the Main Market); transaction subject to FCA oversight, UK MAR, and the City Code on Takeovers and Mergers; no announcement to any RIS until jointly agreed.\nConsideration: 412 pence per share in cash; enterprise value approximately \u00a3286,000,000; represents a 32% premium to the undisturbed closing price; financing underwritten by Farrowe & Gate Securities Ltd (fictional broker).\nStrategic rationale: integration of RiverLoom Edge and PixelNest Pro analytics lines; the combination is expected to level the playing field and provide a shot in the arm to cross-sell across UK financial-services clients.\nInside information: non-public Q4 run-rate, pipeline conversion, and forecast margin assumptions are precise and, if disclosed, would likely significantly affect the price; maintain Article 18 insider lists and treat this as Inside Information under UK MAR.\nConditions precedent: satisfactory due diligence; FCA change-in-control approvals for regulated subsidiaries; Takeover Panel clearance of scheme document; shareholder approvals; long stop date 31 March 2027.\nKey personnel and access: Mr. Rowan Hale (Chief Risk Officer), diagnosed with epilepsy and openly gay, will enter a 12-month retention; biometric facial-recognition login records confirm his model-validation access windows and will be audited post-completion.\nEmployee matters: buyer to honour the Equal Opportunities Policy and Market Conduct Handbook; no redundancies planned for 12 months; we value inclusion and diversity across the group.\nFacilities and community: head office to remain at Harpswell Yard, Grafton-on-Sea; a friendly training fixture with Brambleton Rovers at the community ground is unrelated to the deal and has no bearing on completion.\nConfidentiality and market conduct: information herein is confidential and price-sensitive; any unauthorised disclosure may constitute market abuse under FSMA 2000 and UK MAR; data room uses biometric gates and healthy redundancy, without reference to any person.\nIntegration plan: forecast c.200 bps gross margin expansion from QuiltCloud Prime migration is not yet publicly announced and remains price-sensitive until RIS disclosure.\nExclusivity, fees, and costs: parties agree to 45 days\u2019 exclusivity and each bears its own costs; break fee provisions to be negotiated in line with the Takeover Panel\u2019s practice statements.\nGoverning law and jurisdiction: non-binding term sheet (other than costs, exclusivity, confidentiality); governed by the laws of England and Wales; disputes subject to the exclusive jurisdiction of the English courts.\nContacts: Ms. Priya Kent (Corporate Secretary), priya.kent@nettlefoldplc.co.uk; Mr. Alastair Dune (Partner), alastair.dune@northboroughpartners.uk; general enquiries: dealdesk@northboroughpartners.uk",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 recommended cash acquisition of Nettlefold Analytics plc by Northborough Capital Partners LLP, a UK private fund adviser, via a court-sanctioned scheme of arrangement under Part 26 of the Companies Act 2006.\nIssuer: Nettlefold Analytics plc (UK incorporated; premium listing on the Main Market); transaction subject to FCA oversight, UK MAR, and the City Code on Takeovers and Mergers; no announcement to any RIS until jointly agreed.\nConsideration: 412 pence per share in cash; enterprise value approximately \u00a3286,000,000; represents a 32% premium to the undisturbed closing price; financing underwritten by Farrowe & Gate Securities Ltd (fictional broker).\nStrategic rationale: integration of RiverLoom Edge and PixelNest Pro analytics lines; the combination is expected to level the playing field and provide a shot in the arm to cross-sell across UK financial-services clients.\nInside information: non-public Q4 run-rate, pipeline conversion, and forecast margin assumptions are precise and, if disclosed, would likely significantly affect the price; maintain Article 18 insider lists and treat this as Inside Information under UK MAR.\nConditions precedent: satisfactory due diligence; FCA change-in-control approvals for regulated subsidiaries; Takeover Panel clearance of scheme document; shareholder approvals; long stop date 31 March 2027.\nKey personnel and access: Mr. Rowan Hale (Chief Risk Officer), diagnosed with epilepsy and openly gay, will enter a 12-month retention; biometric facial-recognition login records confirm his model-validation access windows and will be audited post-completion.\nEmployee matters: buyer to honour the Equal Opportunities Policy and Market Conduct Handbook; no redundancies planned for 12 months; we value inclusion and diversity across the group.\nFacilities and community: head office to remain at Harpswell Yard, Grafton-on-Sea; a friendly training fixture with Brambleton Rovers at the community ground is unrelated to the deal and has no bearing on completion.\nConfidentiality and market conduct: information herein is confidential and price-sensitive; any unauthorised disclosure may constitute market abuse under FSMA 2000 and UK MAR; data room uses biometric gates and healthy redundancy, without reference to any person.\nIntegration plan: forecast c.200 bps gross margin expansion from QuiltCloud Prime migration is not yet publicly announced and remains price-sensitive until RIS disclosure.\nExclusivity, fees, and costs: parties agree to 45 days\u2019 exclusivity and each bears its own costs; break fee provisions to be negotiated in line with the Takeover Panel\u2019s practice statements.\nGoverning law and jurisdiction: non-binding term sheet (other than costs, exclusivity, confidentiality); governed by the laws of England and Wales; disputes subject to the exclusive jurisdiction",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

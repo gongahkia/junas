@@ -1,140 +1,206 @@
 {
-  "doc_id": "vn_jurisdictional_mnpi_term_sheet_negative_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "VN",
-  "destination_jurisdiction": "VN",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Transaction overview: non-binding acquisition of a minority block from existing shareholders and a concurrent private placement, conducted under guidance of Ủy ban Chứng khoán Mekong (UBCK Mekong) Circular 09/2023/VT-FS (fictional)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing: Bamboo River Bank JSC to provide a revolving facility; facility terms are operational and were summarized in the 2025 Annual Report, not new issuer-level guidance"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Conditions precedent: customary due diligence, financing comfort letter, and shareholder resolution; no change of control or merger trigger contemplated"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "012345"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_jurisdictional_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@gmh.invalid"
+      "matched_text": "ir@gmh.invalid",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1800-555-000"
+      "matched_text": "1800-555-000",
+      "rule": "phone_number"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "has not yet been announced on SGDCK Sài Gòn or filed with UBCK Mekong"
+      "matched_text": "has not yet been announced on SGDCK S\u00e0i G\u00f2n or filed with UBCK Mekong",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "an internal trading blackout for designated insiders applies from 10-10-2026 to 24-10-2026"
+      "matched_text": "an internal trading blackout for designated insiders applies from 10-10-2026 to 24-10-2026",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "has not been posted on the exchange bulletin"
+      "matched_text": "has not been posted on the exchange bulletin",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure is prohibited"
+      "matched_text": "selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "the Board has approved an internal preliminary price range for the private placement"
+      "matched_text": "the Board has approved an internal preliminary price range for the private placement",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "“thông tin nội bộ”"
+      "matched_text": "\u201cth\u00f4ng tin n\u1ed9i b\u1ed9\u201d",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no one-on-one analyst briefings during blackout per issuer policy"
+      "matched_text": "no one-on-one analyst briefings during blackout per issuer policy",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "insider trading is prohibited during this window"
+      "matched_text": "insider trading is prohibited during this window",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Transaction overview: non-binding acquisition of a minority block from existing shareholders and a concurrent private placement, conducted under guidance of Ủy ban Chứng khoán Mekong (UBCK Mekong) Circular 09/2023/VT-FS (fictional)"
+      "matched_text": "Transaction overview: non-binding acquisition of a minority block from existing shareholders and a concurrent private placement, conducted under guidance of \u1ee6y ban Ch\u1ee9ng kho\u00e1n Mekong (UBCK Mekong) Circular 09/2023/VT-FS (fictional)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing: Bamboo River Bank JSC to provide a revolving facility; facility terms are operational and were summarized in the 2025 Annual Report, not new issuer-level guidance"
+      "matched_text": "Financing: Bamboo River Bank JSC to provide a revolving facility; facility terms are operational and were summarized in the 2025 Annual Report, not new issuer-level guidance",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Conditions precedent: customary due diligence, financing comfort letter, and shareholder resolution; no change of control or merger trigger contemplated"
+      "matched_text": "Conditions precedent: customary due diligence, financing comfort letter, and shareholder resolution; no change of control or merger trigger contemplated",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "012345"
+      "matched_text": "012345",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction overview: non-binding acquisition of a minority block from existing shareholders and a concurrent private placement, conducted under guidance of \u1ee6y ban Ch\u1ee9ng kho\u00e1n Mekong (UBCK Mekong) Circular 09/2023/VT-FS (fictional)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Bamboo River Bank JSC to provide a revolving facility; facility terms are operational and were summarized in the 2025 Annual Report, not new issuer-level guidance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: customary due diligence, financing comfort letter, and shareholder resolution; no change of control or merger trigger contemplated",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "012345",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transaction overview: non-binding acquisition of a minority block from existing shareholders and a concurrent private placement, conducted under guidance of \u1ee6y ban Ch\u1ee9ng kho\u00e1n Mekong (UBCK Mekong) Circular 09/2023/VT-FS (fictional)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Minority Investment in C\u00f4ng ty C\u1ed5 ph\u1ea7n Gi\u00f3 M\u00f9a Holdings by H\u1ea3i Ph\u01b0\u1ee3ng Capital LLC\nIssuer: C\u00f4ng ty C\u1ed5 ph\u1ea7n Gi\u00f3 M\u00f9a Holdings, listed on S\u1edf Giao d\u1ecbch Ch\u1ee9ng kho\u00e1n S\u00e0i G\u00f2n (SGDCK S\u00e0i G\u00f2n), ticker GMH.VX-001 (invalid placeholder); enterprise code 012345-XX (invalid)\nTransaction overview: non-binding acquisition of a minority block from existing shareholders and a concurrent private placement, conducted under guidance of \u1ee6y ban Ch\u1ee9ng kho\u00e1n Mekong (UBCK Mekong) Circular 09/2023/VT-FS (fictional)\nConsideration and pricing: indicative only; reference price to be derived from 30-day VWAP publicly posted on SGDCK S\u00e0i G\u00f2n; see press release dated 07-01-2025 on the exchange portal for already-announced context\nPositive MNPI: the Board has approved an internal preliminary price range for the private placement that has not yet been announced on SGDCK S\u00e0i G\u00f2n or filed with UBCK Mekong; selective disclosure is prohibited and any leak may be deemed \u201cth\u00f4ng tin n\u1ed9i b\u1ed9\u201d\nRegulatory approvals: filings to UBCK Mekong and notices to SGDCK S\u00e0i G\u00f2n per c\u00f4ng b\u1ed1 th\u00f4ng tin rules; issuer will make public disclosure within 24 hours of a formal decision, in line with local guidance\nPositive MNPI: an internal trading blackout for designated insiders applies from 10-10-2026 to 24-10-2026 and has not been posted on the exchange bulletin; insider trading is prohibited during this window\nFinancing: Bamboo River Bank JSC to provide a revolving facility; facility terms are operational and were summarized in the 2025 Annual Report, not new issuer-level guidance\nConditions precedent: customary due diligence, financing comfort letter, and shareholder resolution; no change of control or merger trigger contemplated\nTimetable: indicative signing targeted for Q4 2026; timeline aligns with the stale strategic roadmap announced on 12-04-2025 and may shift without price sensitivity\nDisclosure and communications: all public statements to be coordinated through IR role mailbox ir@gmh.invalid; no one-on-one analyst briefings during blackout per issuer policy\nListing and trading: no suspension requested; any trading halt would follow SGDCK S\u00e0i G\u00f2n standard procedures and public notices; references to \u201chalt\u201d here are generic and not a current request\nPublic resources: UBCK Mekong general helpline (fictional) 1800-555-000 and information page at msc.gov.invalid; these are broad references and not deal channels\nRepresentations: no undisclosed related-party transactions beyond items already presented in public filings; vendor lists in press materials are illustrative and stale\nGoverning law and dispute resolution: laws of the Socialist Republic of Vietnam; arbitration at Mekong Commercial Arbitration Center (fictional), seat at Th\u00e0nh ph\u1ed1 Minh \u0110\u1ea3o (fictional)\nMiscellaneous: this term sheet is indicative and not a binding offer; generic form labels (Annex A, Schedule 1, Form-SSX-00) and filing codes (F-096/VT) are placeholders",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -167,63 +233,17 @@
       "reason": "Placeholder filing code; not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "VN",
   "uncertain": [
     {
-      "matched_text": "issuer will make public disclosure within 24 hours of a formal decision",
       "concept": "disclosure timing",
+      "matched_text": "issuer will make public disclosure within 24 hours of a formal decision",
       "reason": "VN disclosure-timing commitment is compliance-relevant but not mapped to an allowed MNPI rule"
     },
     {
-      "matched_text": "designated insiders",
       "concept": "insider_list_scope",
+      "matched_text": "designated insiders",
       "reason": "Indicates scope of insiders for a blackout but not an explicit insider list marker per allowed rules"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T13:05:14Z",
-    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -43,6 +43,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -360,6 +368,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY PRIVATE & CONFIDENTIAL \u2014 UPSI under SEBI (PIT) Regulations \u2014 Project Neemleaf \u2014 Term Sheet (Embargoed until 15 Aug 2026, 17:00 IST).\nParties: Aravali BioRenew Pvt. Ltd. (Acquirer) and Kalyan Digital Commerce Ltd. (Target, listed on NSE); key contact at Target: Mr. Ajit Madhavan, Chairman.\nTransaction: Acquisition of 26.0% of the fully diluted share capital via a combination of primary issuance and secondary purchase for an aggregate consideration of INR 1,240 crore at INR 620 per equity share.\nApprovals and process: Execution of definitive agreements (SPA and SHA), board and shareholder approvals under the Companies Act, 2013, Regulation 30 disclosure under SEBI (LODR), and Competition Commission of India clearance.\nMAC/MAE: Material Adverse Change shall exclude changes in general economic or market conditions, changes in interest or currency rates, or changes in applicable law; a downgrade of India GDP or changes to SEBI regulations alone shall not constitute a MAE.\nUPSI handling: This document contains unpublished price sensitive information; trading window shall remain closed for designated persons until 48 hours after public disclosure to the stock exchange pursuant to Regulation 30 of LODR.\nDPDPA compliance: Personal data of directors, employees, and investors to be processed lawfully with consent; avoid collection of Aadhaar/PAN/GSTIN unless strictly necessary, mask identifiers (retain only last 4 digits), and do not process data of children under 18 without verifiable guardian consent.\nContacts: Ms. Rhea Venkataram, CFO, rhea.venkataram@aravaligroup.example; Advisor: Mr. Ishan Borkar, Partner at Sivaji & Co., iborkar@sivajilaw.example.\nTimeline: Board approvals by 22 Jul 2026; signing by 12 Aug 2026; public announcement post-embargo; closing within 90 days subject to CCI and NSE observations; long-stop date 31 Dec 2026.\nKey terms: Standard reps/warranties; no encumbrances on sale shares; indemnity cap 12% of consideration; escrow INR 80 crore for 18 months; promoter lock-in norms not triggered for secondary leg.\nFunding: Internal accruals and term loan from Rajpath Commercial Bank Ltd.; no public offering or PIPE contemplated; no change in control until completion.\nCovenants: Ordinary course operations; no related party transactions above INR 10 crore without prior consent; non-compete for 3 years and non-solicit for 24 months from closing.\nReference materials: Background research note relied on public-source media and FY2023 exchange filings, which may be stale and are non-binding.\nDisclosure controls: No announcement, IR deck, or Q&A to be shared externally before the embargo; draft investor-relations Q&A v0.3 on file for post-signing release coordination.\nnext steps: chase redlines, align with cs team, and yes, the wellness committee will raffle spa-day vouchers on friday; do not attach this term sheet to that email.\nClosing checklist: See Annexure A (KYC, escrow wiring instructions, definitive agreement signatures, SEBI structured digital database update, insider list maintenance, and board meeting notices).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

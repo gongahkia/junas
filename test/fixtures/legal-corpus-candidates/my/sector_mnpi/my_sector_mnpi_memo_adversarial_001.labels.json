@@ -7,13 +7,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -27,13 +27,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -48,6 +48,42 @@
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
+  "_resolved_label_warnings": {
+    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
+    "count": 2,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM250m'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM250m'"
+    ]
+  },
+  "_resolved_label_warnings_history": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 46,
     "new_must_detect_count": 20,
@@ -57,6 +93,14 @@
     "removed_must_not_detect": [],
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -86,12 +130,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Financing: draft term sheet with Meranti Ridge Bank Berhad for RM250m SLS sukuk; initial pricing grid 4.55% with 5–15 bps greenium tied to Scope 2 intensity targets; covenant headroom EBITDA/Net Debt ≥ 3.0x; break fee RM2.5m; signing targeted 14-Jun-2026.",
+      "matched_text": "Financing: draft term sheet with Meranti Ridge Bank Berhad for RM250m SLS sukuk; initial pricing grid 4.55% with 5\u201315 bps greenium tied to Scope 2 intensity targets; covenant headroom EBITDA/Net Debt \u2265 3.0x; break fee RM2.5m; signing targeted 14-Jun-2026.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Operations-only: the “CryptoShield” marketing brochure describes cryptography features in our IoT gateways for plant security and contains no digital token offering or price-sensitive content.",
+      "matched_text": "Operations-only: the \u201cCryptoShield\u201d marketing brochure describes cryptography features in our IoT gateways for plant security and contains no digital token offering or price-sensitive content.",
       "rule": "material_event"
     },
     {
@@ -176,12 +220,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "011-6•••-3219",
+      "matched_text": "011-6\u2022\u2022\u2022-3219",
       "rule": "phone_number"
     },
     {
       "category": "PII",
-      "matched_text": "CY-20 26/05/12-α",
+      "matched_text": "CY-20 26/05/12-\u03b1",
       "rule": "internal_session_id"
     },
     {
@@ -196,7 +240,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "closed period from 01–15 Jun 20 26 applies",
+      "matched_text": "closed period from 01\u201315 Jun 20 26 applies",
       "rule": "blackout_period_reference"
     },
     {
@@ -271,7 +315,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "“KerisChain” sandbox",
+      "matched_text": "\u201cKerisChain\u201d sandbox",
       "rule": "dpt_protocol_event_marker"
     },
     {
@@ -281,7 +325,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "5–15 bps",
+      "matched_text": "5\u201315 bps",
       "rule": "contract_discount_rate"
     },
     {
@@ -318,22 +362,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Financing: draft term sheet with Meranti Ridge Bank Berhad for RM250m SLS sukuk; initial pricing grid 4.55% with 5–15 bps greenium tied to Scope 2 intensity targets; covenant headroom EBITDA/Net Debt ≥ 3.0x; break fee RM2.5m; signing targeted 14-Jun-2026.",
+      "matched_text": "Financing: draft term sheet with Meranti Ridge Bank Berhad for RM250m SLS sukuk; initial pricing grid 4.55% with 5\u201315 bps greenium tied to Scope 2 intensity targets; covenant headroom EBITDA/Net Debt \u2265 3.0x; break fee RM2.5m; signing targeted 14-Jun-2026.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Operations-only: the “CryptoShield” marketing brochure describes cryptography features in our IoT gateways for plant security and contains no digital token offering or price-sensitive content.",
+      "matched_text": "Operations-only: the \u201cCryptoShield\u201d marketing brochure describes cryptography features in our IoT gateways for plant security and contains no digital token offering or price-sensitive content.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
       "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "non-public",
       "rule": "nonpublic_marker"
     },
     {
@@ -395,6 +434,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Date: 29 May 2026 | Subject: Sustainability-linked sukuk, crypto settlement pilot, cyber incident; MNPI/PDPA handling\n\nThis note contains non-public, price-sensitive information under the Exchange Main Market Listing Requirements and must not be circulated beyond the information barrier; closed period from 01\u201315 Jun 20 26 applies.\n\nFinancing: draft term sheet with Meranti Ridge Bank Berhad for RM250m SLS sukuk; initial pricing grid 4.55% with 5\u201315 bps greenium tied to Scope 2 intensity targets; covenant headroom EBITDA/Net Debt \u2265 3.0x; break fee RM2.5m; signing targeted 14-Jun-2026.\n\nCommercial sensitivities: failure to meet Q4 2026 target reduces coupon step-down; preliminary external rating expected at A- (private) by Nusantara Ratings Sdn Bhd; not disclosed publicly.\n\nCrypto/DPT pilot: subsidiary Fikrine Renewables Sdn Bhd tested ringgit-stable settlement for tokenised REC transfers on \u201cKerisChain\u201d sandbox; 3 internal transfers executed on 28\u201329 May; liquidity partner Kelantan Ridge Securities Sdn Bhd; no Exchange announcement yet.\n\nCyber incident: on 12-May an unauthorised access to SCADA historian caused a 3-hour data exfiltration risk; no operational downtime; internal forensic ticket ID: CY-20 26/05/12-\u03b1; supplier \u201cAwanNet\u201d notified; external notification deferred pending assessment; consider immediate trading blackout extension.\n\nInsider list maintained under PDPA: current insiders include Encik Ariff Rahman (CFO, 011-6\u2022\u2022\u2022-3219, ariff.rahman@fikrine.energy.my) and Puan Saliza Mohd Yunus (Deal Principal, saliza.yunus@nimbuscap.my); do not add personal NRIC; store at https://portal.fikrine nergy.com/sec?doc=tm%2Fgw&id=9a7c-f_8.\n\nInformation barrier: Corporate Finance (\u201cProject Palm\u201d) room is walled off from Treasury and IR; any wall-crossing of lenders requires email consent and standard legends; avoid selective disclosure in lender teach-ins.\n\nInvestor communications: statements must avoid tipping; draft deck Line 7 currently implies 8% uplift from carbon credit arbitrage\u2014remove until price discovery completes; do not distribute to buy-side before Exchange filing.\n\nNote that this memo does not constitute a material adverse change and is not a profit estimate; references to crypto wallets here are generic and for educational awareness within staff training.\n\nOperations-only: the \u201cCryptoShield\u201d marketing brochure describes cryptography features in our IoT gateways for plant security and contains no digital token offering or price-sensitive content.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -428,7 +473,7 @@
     },
     {
       "concept": "internal document identifier",
-      "matched_text": "Doc 20 26/06/01—MN PI/CL IM A",
+      "matched_text": "Doc 20 26/06/01\u2014MN PI/CL IM A",
       "reason": "Looks like an internal document code; not clearly mapped to allowed PII rule"
     },
     {
@@ -436,41 +481,5 @@
       "matched_text": "A- (private)",
       "reason": "Non-public preliminary rating that may be price-sensitive, but no specific MNPI rule token provided"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_resolved_label_warnings_history": [],
-  "_resolved_label_warnings": {
-    "count": 2,
-    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM250m'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM250m'"
-    ]
-  },
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -155,6 +163,12 @@
       "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Gulf Meridian Technologies LLC (controller) \u2014 DPA Schedule: UAE PDPL Data Export & Retention Workflow (ADGM affiliate: GMTech ADGM Ltd, processor).\nScope: onboarding forms for vendor/supplier diligence and facility access; categories include Full Name (as per Emirates ID), EID No. (sample format EID 0000-0000-0000-000), Trade Licence No. TL-FAKE-21987, role email, and job title.\nData minimisation: optional fields (family origin, detailed nationality history) are not collected; financial account numbers and biometric templates are out of scope.\nConsent withdrawal: available via privacy@GulfMeridianTech.example; no pending withdrawals or objections as of 2026-06-01.\nDSAR: Request GM-DSAR-1127 received 2026-05-10 for access and erasure; actioned and closed 2026-05-20 with erasure of archived onboarding form GM-ONB-8842.\nRetention: core records retained for 6 years from contract end under PDPL and securities-oversight recordkeeping; destruction of non-essential copies scheduled 2032-06-30.\nCross-border transfer: completed 2026-05-01 to sub-processor SandDune Compute W.L.L. (Bahrain) for disaster recovery; approved under ADGM transfer assessment GE-TR-45 with contractual safeguards and encryption.\nMNPI controls: no issuer insider lists, blackout calendars, or non-public term sheets were processed or transferred; content limited to vendor onboarding metadata and public exchange code lists.\nMarket-abuse compliance: handled in accordance with UAE SCA guidance and ADGM/DIFC supervisory expectations; this note does not authorise trading or disclose any non-public timetable.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

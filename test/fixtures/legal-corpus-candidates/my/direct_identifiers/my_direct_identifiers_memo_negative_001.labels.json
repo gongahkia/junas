@@ -19,13 +19,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -39,13 +39,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -60,6 +60,27 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_resolved_label_warnings": {
+    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
+    "count": 6,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+    ]
+  },
+  "_resolved_label_warnings_history": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
   },
   "_stage_readiness": {
     "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
@@ -98,6 +119,14 @@
       "status": "public_role_mailbox_demoted_from_strict"
     }
   ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "MY",
@@ -126,7 +155,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender’s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
+      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender\u2019s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
       "rule": "material_event"
     },
     {
@@ -233,7 +262,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender’s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
+      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender\u2019s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
       "rule": "material_event"
     },
     {
@@ -245,6 +274,18 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employment letter templates for Plant Manager and Accounts Supervisor roles must use role mailboxes only and omit personal contacts; e.g., hr@serilapis.com.my and general line 1-800-88-4242 (public helpline, do not treat as PII).\nRegistered office for template purposes may use sample text only: Level 18, Menara Delima, Jalan Seri Palma 9, 47588 Bandar Mawar, Selangor (sample address).\nNo unpublished financial metrics, customer names, or pricing terms are to be circulated beyond what was summarised in the 2 April 2026 Kencana LINK announcement; doing so may contravene the Securities Markets Act (MY) provisions on MNPI",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal legal note: PDPA and market disclosure compliance for Seri Lapis Berhad (Company No.: 2022012345678-Z, invalid format) in relation to proposed financing with Crescent Bay Capital Sdn Bhd (Co. No.: 2019123456789, invalid length).\nAs previously announced via Kencana LINK on 2 April 2026 under Bursa Kencana Main Market Listing Requirements para 9.03, the board authorised exploration of a secured term facility; all references herein are to that public announcement and contain no new price-sensitive information.\nRemove placeholder fields before any submission: [NRIC], [Passport No], [Bank Account], [EPF No], [Income Tax Ref], [Residential Address], [Authorised Signatory], [Witness Name].\nSingle retained identifier for HR verification only (not for filing): Employee NRIC 800101-14-7788 to be stored in the HR folder with access controls under PDPA.\nIdentifier-shaped samples in drafts are non-operative and must not be included in filings: Passport No A1234567 (invalid), TIN C-1234567890 (invalid format), EPF 0000000 (placeholder), Bank Account 12-3456-7890123 (sample), SWIFT FICNMYKL0XX (sample).\nEmployment letter templates for Plant Manager and Accounts Supervisor roles must use role mailboxes only and omit personal contacts; e.g., hr@serilapis.com.my and general line 1-800-88-4242 (public helpline, do not treat as PII).\nRegistered office for template purposes may use sample text only: Level 18, Menara Delima, Jalan Seri Palma 9, 47588 Bandar Mawar, Selangor (sample address).\nNo unpublished financial metrics, customer names, or pricing terms are to be circulated beyond what was summarised in the 2 April 2026 Kencana LINK announcement; doing so may contravene the Securities Markets Act (MY) provisions on MNPI.\nThe indicative term sheet with Crescent Bay Capital Sdn Bhd remains subject to internal credit approvals and was described at a high level in the announcement; further details are intentionally withheld until binding terms exist.\nFor drafting convenience, company tax labels should remain generic (e.g., [Company Tax Ref]) and not replaced with live numbers; do not insert SST or customs account numbers into public-facing appendices.\nIf staff require guidance on redaction or anonymisation under PDPA, queries should be sent to compliance@serilapis.com.my; external investor queries should be routed to ir@serilapis.com.my or the Exchange Investor Helpline at 03-6200 0000 (public line).\nAny scanned IDs, utility bills, or payroll slips attached to financing or employment annexures must be removed before circulation to directors or uploaded to the exchange portal.\nBoard pack versions should carry version dates only (e.g., [Version Date]) and avoid embedding metadata that could reveal draft counterparties or employee initials.\nSubject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender\u2019s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -335,26 +376,5 @@
       "matched_text": "TIN C-1234567890",
       "reason": "Tax identifier reference not mapped to an allowed jurisdictional rule and marked invalid format."
     }
-  ],
-  "_resolved_label_warnings_history": [],
-  "_resolved_label_warnings": {
-    "count": 6,
-    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
-      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
-      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
-      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
-      "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
-    ]
-  },
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

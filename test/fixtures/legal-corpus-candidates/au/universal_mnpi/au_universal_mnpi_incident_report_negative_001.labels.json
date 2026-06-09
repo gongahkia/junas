@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -6,14 +28,29 @@
   "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -58,7 +95,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "draft investor‑relations update is embargoed until 09:30 aest, 18 oct 2026",
+      "matched_text": "draft investor\u2011relations update is embargoed until 09:30 aest, 18 oct 2026",
       "rule": "cyber_incident_pre_disclosure"
     },
     {
@@ -68,7 +105,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "root cause: third‑party captcha misconfiguration at vendor merlinbank services pty ltd; remediated via api key rotation and enforced mfa; vendor msa is on public‑form v2.1 and is not a definitive agreement for any acquisition.",
+      "matched_text": "root cause: third\u2011party captcha misconfiguration at vendor merlinbank services pty ltd; remediated via api key rotation and enforced mfa; vendor msa is on public\u2011form v2.1 and is not a definitive agreement for any acquisition.",
       "rule": "material_event"
     },
     {
@@ -78,7 +115,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "financing and materiality: negated mac/mae—this cyber event does not constitute, and is not reasonably likely to constitute, a material adverse change under existing facility documents.",
+      "matched_text": "financing and materiality: negated mac/mae\u2014this cyber event does not constitute, and is not reasonably likely to constitute, a material adverse change under existing facility documents.",
       "rule": "material_event"
     }
   ],
@@ -100,7 +137,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "root cause: third‑party captcha misconfiguration at vendor merlinbank services pty ltd; remediated via api key rotation and enforced mfa; vendor msa is on public‑form v2.1 and is not a definitive agreement for any acquisition.",
+      "matched_text": "root cause: third\u2011party captcha misconfiguration at vendor merlinbank services pty ltd; remediated via api key rotation and enforced mfa; vendor msa is on public\u2011form v2.1 and is not a definitive agreement for any acquisition.",
       "rule": "material_event"
     },
     {
@@ -110,7 +147,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "financing and materiality: negated mac/mae—this cyber event does not constitute, and is not reasonably likely to constitute, a material adverse change under existing facility documents.",
+      "matched_text": "financing and materiality: negated mac/mae\u2014this cyber event does not constitute, and is not reasonably likely to constitute, a material adverse change under existing facility documents.",
       "rule": "material_event"
     },
     {
@@ -122,6 +159,12 @@
       "category": "MNPI",
       "matched_text": "14,872",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "root cause: third\u2011party captcha misconfiguration at vendor merlinbank services pty ltd; remediated via api key rotation and enforced mfa; vendor msa is on public\u2011form v2.1 and is not a definitive agreement for any acquisition.\ncustomer impact: 0 confirmed breaches; invalid identifier samples observed include \"CID\u20110000\u2011XXXX\u20119999\" and \"USER\u2011TEST\u2011000\"; these are placeholders not linked to an identified individual under the privacy act.\ncontrols: waf rules tightened; 14,872 attempts blocked from two autonomous systems; niss v3 authentication guidance referenced.\ndisclosure: draft investor\u2011relations update is embargoed until 09:30 aest, 18 oct 2026 to align with a scheduled maintenance window and community webinar; no early media statements planned.\nlegal assessment: thresholds under the national privacy scheme are not reached; no report to the commonwealth privacy office is triggered; continuous disclosure under asxe listing rules remains not applicable.\nfinancing and materiality: negated mac/mae\u2014this cyber event does not constitute, and is not reasonably likely to constitute, a material adverse change under existing facility documents.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -158,42 +201,13 @@
   "uncertain": [
     {
       "concept": "placeholder identifier",
-      "matched_text": "CID‑0000‑XXXX‑9999",
+      "matched_text": "CID\u20110000\u2011XXXX\u20119999",
       "reason": "Looks like a customer/account ID pattern but explicitly described as invalid placeholder not linked to an identified individual."
     },
     {
       "concept": "placeholder identifier",
-      "matched_text": "USER‑TEST‑000",
+      "matched_text": "USER\u2011TEST\u2011000",
       "reason": "Appears to be a username/ID format but explicitly marked as a placeholder not linked to an identified individual."
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

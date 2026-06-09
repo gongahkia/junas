@@ -39,6 +39,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -236,6 +244,24 @@
       "category": "MNPI",
       "matched_text": "confidential",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Navodaya Circuits Limited \u2014 India Privacy and UPSI Handling Notice for investors, employees, vendors, and website users under the Digital Personal Data Protection Act, 2023 and SEBI PIT Regulations.\nWe collect and process names, contact details, employment and shareholding data, and identifiers such as PAN (masked), Aadhaar (tokenised; last four only), and GSTIN (where mandated), strictly for KYC, payroll, tax, compliance, and exchange disclosure purposes with consent or other lawful grounds.\nFor children (under 18), we only process data with verifiable consent of a parent or lawful guardian and provide age-appropriate notices",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Designated Grievance Officer and DPO: Mr. Raghav Venkataraman (dpo@navodayacircuits.in); escalation to the Board Governance Committee is available for unresolved grievances.\nRetention: employee and investor records are kept for legal limitation periods; structured digital database entries (UPSI recipients, event logs) are retained for at least 8 years or until completion of SEBI proceedings, whichever is later; Aadhaar is stored as an irreversible token separate from primary records.\nUPSI means any information relating to Navodaya Circuits Limited that is not generally available and which, upon becoming generally available, is likely to materially affect our securities\u2019 price; \u201cgenerally available\u201d includes disclosures on the NSE/BSE websites and our Investor Relations page.\nTrading Window is closed from the end of each quarter until 48 hours after financial results become generally available; financial results are disclosed to the stock exchanges per applicable SEBI LODR timelines following Board approval.\nSelective disclosure is prohibited; if any investor/analyst interaction risks inadvertent UPSI, we will first or simultaneously disseminate the same to NSE and BSE and publish on our website in accordance with fair disclosure principles.\nAs publicly announced in our BSE filing dated 14 April 2025 regarding a planned Unit\u20113 maintenance outage, that information is generally available and not UPSI; by contrast, unannounced draft capacity expansion terms remain UPSI until disclosed.\nMateriality is assessed on an issuer\u2011relative basis: for example, a pilot supplier change for a single production line at our Hyderabad facility is not material until a binding LOI is executed or revenue/cost impact thresholds under our policy are met.\nTea will be served at the AGM registration desk; catering arrangements and a vendor\u2019s shift to a different courier partner are non\u2011issuer operational updates and do not constitute UPSI.\nCross\u2011border transfers (e.g., to a payroll processor in Singapore) occur under contractual safeguards consistent with the DPDPA and any Central Government notifications; primary servers are located in India, and Aadhaar tokens are not transferred.\nTo process DSARs securely, we may request limited verification (e.g., last four digits of PAN, masked Aadhaar token, or registered folio reference), and we will provide reasons for denial where permitted by law (e.g., legal privilege, regulatory hold).\nPress releases dated 31 March 2025 uploaded to the NSE electronic platform and our IR page are already in the public domain and should not be treated as UPSI or confidential.\nFor consent withdrawal, email consent@navodayacircuits.in; withdrawal will not affect past processing and may limit services (e.g., dividend payout compliance checks) where statutory processing is required.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

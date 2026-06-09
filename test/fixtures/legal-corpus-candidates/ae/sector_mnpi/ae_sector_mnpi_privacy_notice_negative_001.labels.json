@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -215,6 +223,18 @@
       "category": "MNPI",
       "matched_text": "information barrier",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Barjeel Digital Markets DIFC Ltd Privacy, DSAR, and Retention Note for UAE PDPL compliance (fictional).\nWe process PDPL personal data such as Emirates ID token references, trade licence copy metadata, family-origin details for KYC appropriateness, and role-based contact mailboxes.\nFor educational use, our Crypto Academy webinars and ESG climate dashboards use synthetic or anonymised datasets and carry no issuer-sensitive content.\nCyber incident tabletop exercises use fake tickets and invalid identifiers (e.g., EID ****-****-1234, Licence AB-12345X) to avoid real PII.\nInsider-list training portals display sample names only; operational insider lists for real deals are maintained in a segregated system and are not populated during demos.\nPrior to a public filing, the issuer Sand Reef Protocol ADGM Limited\u2019s draft ADGM token offer timetable and unresolved breach report are treated as non-public market-sensitive information and recorded on the restricted insider list.\nInformation barriers are enforced through separate network shares, monitored role-based mailboxes (e.g., syndicate@barjeeldigital.example), and blackout reminders that are purely procedural notifications.\nCommercial term examples in procurement playbooks (e.g., vendor rate cards for cloud storage) are operational and not linked to any issuer or token listing.\nCollection purposes include onboarding, DIFC/ADGM regulatory reporting, and satisfaction of SCA and DFSA/FSRA recordkeeping; marketing consents cover newsletters about crypto products and climate reporting features.\nDSAR intake is via privacy@barjeeldigital.example or toll-free 800-0000; valid requests must include generic form labels only and will never require a full Emirates ID number.\nWe store KYC files for 6 years after relationship end; insider-list records tied to actual market events are retained for 5 years per local market conduct guidance; training materials are refreshed quarterly and immediately purge placeholders.\nInternational transfers are limited to processors in ADGM, UAE mainland, and the EEA; when outside an adequate jurisdiction, we use PDPL-compliant contractual clauses and transfer risk assessments.\nWe do not sell personal data, and any crypto product names such as Desert Falcon Coin or Oasis Chain Validator are marketing examples, not live issuers.\nIf we run a public bug bounty about cyber resilience, submissions are anonymised and stored separately from operational incident logs.\nUnannounced ESG-linked commercial terms under discussion with Palm Crescent Renewables PJSC for a potential ADGM green token framework must remain within the information barrier and are not to be shared beyond the deal team.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

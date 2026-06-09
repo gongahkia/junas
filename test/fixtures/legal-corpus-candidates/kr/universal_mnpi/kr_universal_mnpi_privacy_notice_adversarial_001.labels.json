@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -325,6 +333,12 @@
       "category": "MNPI",
       "matched_text": "5,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Dalbaram Networks Co., Ltd. \u2014 Data Processing Addendum (Korea) [NON-PUBLIC; FSCMA Art. 174 handling] \u2014 Project Baegdu\nThis DPA governs investor-relations drafting and deal support services provided by Mudang Capital Advisors to Dalbaram Networks under the Definitive Share Purchase Agreement dated 2026-06-30 (the \u201cSPA\u201d).\nBoard memo Ref: BN-2026-045 and research note \u201cLatency Reduction Thesis\u201d fall within data minimisation scope; term sheet TS\u2011Baegdu_v2 is included for processing but not for external circulation.\nPersonal data under PIPA includes employee records, contact details, and resident-number (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638; e.g., 7 7 0 1 0 1-1 2 3 4 5 6 7), processed solely for SPA execution and KRX submission preparation.\nMNPI per FSCMA includes any Project Baegdu valuation, draft IR slides, and SPA schedules not yet publicly disclosed; IR draft embargo until 2026-07-15 09:00 KST.\nTarget purchase price: KRW 78,500,000,000 with a 12.5% earn-out; post-closing holding expected to reach 51% of voting shares.\nFor avoidance of doubt, the SPA\u2019s MAE clause applies only to events materially adverse to Dalbaram\u2019s core network segment; routine spa day cancellations are not a MAC.\nReference materials may include public-source D A R T notices (e.g., 2024-02-01 bulletin) and KRX rulebooks; such public documents are outside MNPI scope.\nProcessor shall store datasets in Seoul region only; any cross-border transfer requires data-subject consent and records per PIPA, and MNPI sharing is logged for potential F S C / F S S examination.\nData subjects may submit access/correction/deletion requests to privacy@dalbaram-net.kr or +82-2-555-0199; acknowledgments within 3 days and substantive response within 10 business days.\nAccess is role-based; logs will obfuscate r r n fields as ****-*******, and test accounts use tokens \u201cusr-9x3q\u2026\u201d; accidental re-identification triggers 72h incident notice to the F S S liaison.\ntodo: update annex 2 with new processor list and move the data room index after legal signs off.\nInvestor-relations note draft v0.9 (not for release): https://dalbaram-net.kr/ir/draft?doc=SPA_v3&embargo=2026-07-15T09:00KST\nDeal checklist items: embargo confirmation, SPA signature packs, MAE carve-outs for labor disputes, KRX disclosure drafting, and term sheet cross-checks.\nAudit scope includes payroll extracts, interviewer notes for Mr. Cho Min-kyu, and vendor NDAs; any finding > KRW 5,000,000 corrective spend requires client approval.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

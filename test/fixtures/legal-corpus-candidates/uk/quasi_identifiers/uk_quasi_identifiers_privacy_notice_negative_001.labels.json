@@ -50,6 +50,14 @@
     "previous_must_detect_count": 9,
     "previous_must_not_detect_count": 4
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -167,6 +175,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Northquay Holdings plc \u2013 Market Conduct Privacy and Retention Notice (UK)\nWe process personal data under the UK GDPR for employees, workers and contractors supporting our UK issuer obligations and market conduct controls.\nCategories processed include HR enrolment data, role-based contact points, security logs, and trade surveillance artefacts generated to comply with UK MAR-aligned rules.\nIn particular, our insider-list and restricted-list workflows capture only business contact fields and timestamps; sample screen prints used in training are redacted and use dummy identifiers.\nExample of data in scope for a single Trade Surveillance Analyst: month/year of birth 06/1987, ordinarily based at the Larksbury office, company laptop serial NQH-LPT-LE-437A, payroll reference NQ-008721, internal user ID u12987, access fob LE-16-204, role mailbox dealsurveillance@northquay-plc.example, and expense card suffix 6621.\nGeneric forms may display labels such as \u201cName\u201d, \u201cDD/MM/YYYY\u201d, \u201cAddress line 1\u201d, or \u201cAccount number #### #### #### ####\u201d; these are templates and not records of a specific person.\nReferences to instruments in surveillance scenarios use fabricated codes (e.g., ZZ00NQ000000) and publicly announced events; training materials avoid material non-public information and stale examples are clearly marked.\nOur lawful bases include legal obligation for issuer record-keeping and legitimate interests in preventing market abuse; we do not rely on consent for monitoring required by regulation.\nWhere required by law, we may disclose records to the Britanic Markets Authority or a UK regulated market operator; any transfer outside the UK uses standard contractual safeguards and proportional redactions.\nRetention: insider list entries are retained for five years from list closure; surveillance alerts are retained for up to three years unless escalated; device tele",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

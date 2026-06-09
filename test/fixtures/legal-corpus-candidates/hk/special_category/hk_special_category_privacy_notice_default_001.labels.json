@@ -44,6 +44,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -241,6 +249,18 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For example, Mr. Adrian Ko (M&A Vice President) provides a fingerprint template for turnstile access and an occupational health report on hypertension, and he has recorded Buddhist affiliation for religious leave under our Inclusive Horizons Policy.\nMs. Celeste Wong, our Data Protection Officer, may be contacted at dpo@vermilionbay.example for data access or correction requests and to exercise opt-out rights regarding non-essential processing.\nIn pre-deal workflows (e.g., Project Coral and Project Lantern), we establish information barriers and secure data rooms to separate MNPI that is specific to a corporation, not generally known to persons accustomed to dealing in securities, and likely to be price-material.\nWe may transfer limited personal data and MNPI to group entities and vetted processors in Lotus Quay and Coral Bay under intra-group agreements and the Fair Winds MNPI Protocol, with encryption at rest and role-based access.\nSystems such as DragonByte CRM and NovaBond Pro are used for workflow, and the data pipeline is described internally as a river, but these product names and metaphors do not change our legal obligations.\nRetention: employee health clearances (5 years post-employment), biometric access logs (90 days rolling), and deal room audit trails (7 years from completion), unless legal holds apply under Hong Kong listing rules.\nWe prohibit storing genetic test results in deal rooms; our Genetic Alpha Fund is only a brand name and does not imply collection of genetic data.\nFor benefits administration, Ms. Iris Tan (Fund Operations Associate) has provided minor-dependent information for schooling reimbursements; this data is stored separately with restricted HR access.\nThis notice does not cover fan engagement for the Harbour Meteors sports team or how souvenir jerseys are sold in Pearl Vista.\nBy policy, we do not require disclosure of sexual orientation; references to sexual-orientation in DEI materials are for inclusivity training only, not to profile individuals.\nWhere requests could reveal MNPI or third-party data, we will redact or defer disclosure consistent with the Securities Ordinance of the Harbour SAR and our Silent Harbor P",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -183,11 +191,6 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "undisclosed",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
     },
@@ -200,6 +203,18 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to FSC clearance",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Investment in Seorim Dynamics Co., Ltd. by Blueharbor Growth Fund SPC (non-binding; for discussion).\nSummary and status: The parties publicly announced their intent on 2025-03-18 via KRX KIND; this draft does not contain undisclosed material facts.\nParties: Issuer \u2014 Seorim Dynamics Co., Ltd. (KOSDAQ-listed, manufacturing telemetry modules); Investor \u2014 Blueharbor Growth Fund SPC and affiliates.\nStructure: Primary issuance of new common shares with a concurrent secondary sale by an existing shareholder; final mix to be agreed.\nConsideration: Combination of cash and exchangeable notes; indicative price per share and quantity to be determined after due diligence and board approval.\nRegulatory and listing: Filings with the FSC and FSS as required under the FSCMA; listing maintenance with KRX; fair disclosure via KIND and issuer IR website.\nConditions precedent: No breach of law; absence of unremedied audit qualifications; confirmation that no MNPI is withheld from the market as of signing.\nEmployee onboarding and retention (intended positive cluster): designated operations manager (DOB 1989-07-14), stationed at Ulsan logistics center, uses company tablet SN SD-UL-9921 and laptop tag UL-OPS-117, payroll account tail 4420, internal HR ID SRD-OPS-311, intranet handle \u201coceanleaf\u201d; no personal name is recorded in this term sheet.\nKYC/AML form placeholders (for post-closing): Name (print): ______; Resident Registration No. (if required by law): 000000-0000000; Address: ______; Account No.: ___-____-_____ (invalid sample); Device IMEI: [not collected].\nCorporate approvals: Issuer and investor board approvals; KRX pre-review if required; labor union consultation for non-economic terms where applicable.\nCovenants: Use of proceeds limited to R&D and working capital; prohibition on insider trading and sharing of MNPI; public IR updates to be posted quarterly.\nInvestor rights: Registration rights under Korean shelf registration regime, ROFR on certain future issuances, and one observer seat; observer shall use a role mailbox only.\nTimetable: Signing targeted for Q3 2026 and closing within 30\u201360 days thereafter, subject to FSC clearance and standard closing deliverables.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

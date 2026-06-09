@@ -50,6 +50,14 @@
     "previous_must_detect_count": 17,
     "previous_must_not_detect_count": 8
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -302,6 +310,30 @@
       "category": "MNPI",
       "matched_text": "Scope 2 emissions",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Mira Kov\u00e1rdi, CISO, email: mira.kovardi@aurivest.eu; phone: +31 6 1234 5678 (corporate), IBAN: N L 1 2 Z Z B K 0 1 2 3 4 5 6 7 8 9 (incident escrow).\nDPO contact (role only): dpo@aurivest.eu; please do not use public helplines 112 or 116 111 for this notice.\nData affected includes limited HR health-screening records used for shift fitness (GDPR Art 9 special categories) from an EU vendor; no MAC addresses were collected or stored",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Internal reference: https://secops.aurivest.eu/ticket/INC-2026-0612?user=dr.mira.kovardi%40aurivest.eu&dept=dpo; do not forward outside EEA without DPA addendum.\nFor clarity, the consumer hotline +800 123 4567 is public and unrelated; media queries to press@aurivest.eu only; the Treasurer (role-only) will not comment",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information under MAR Art 17 (not yet public): preliminary recalculation indicates Scope 2 emissions for FY2025 were underreported by ~21%, implying EBITDA guidance cut of 8\u201310% and capex deferral of \u20ac120m; disclosure draft due 2026-06-12 14:00 CET.\nDr. Mira Kov\u00e1rdi, CISO, email: mira.kovardi@aurivest.eu; phone: +31 6 1234 5678 (corporate), IBAN: N L 1 2 Z Z B K 0 1 2 3 4 5 6 7 8 9 (incident escrow).\nDPO contact (role only): dpo@aurivest.eu; please do not use public helplines 112 or 116 111 for this notice.\nData affected includes limited HR health-screening records used for shift fitness (GDPR Art 9 special categories) from an EU vendor; no MAC addresses were collected or stored.\nCross-border transfer note: backups replicated to ca-west cloud zone under SCCs (Art 46), TIAs in progress; temporary hold on non-essential transfers pending DPA addendum.\nSubjects: Ms. \u00c9da Nary (HU passport: PP1234567), Mr. Oskar Silvano (PT NIF: 123456789); emails partially exfiltrated (eda.nary@aurivest.eu; oskar.silvano@aurivest.eu).\nRegulatory workflow: notify NL supervisory authority (Autoriteit Persoonsgegevens) within 72h; ESMA/MAR disclosure draft queued at https://ir.aurivest.eu/mar/draft?ref=AVR-2026-0612&sec=equity.\nTrading status: request prepared for Euronext trading halt if leak confirmed; insider list updated per MAR Art 18 (entries include \u201cProject NorthSea Reset\u201d team).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

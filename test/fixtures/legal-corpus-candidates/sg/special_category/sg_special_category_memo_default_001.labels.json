@@ -1,88 +1,317 @@
 {
+  "_agent_review": {
+    "notes": "SG Stage A labels passed strict candidate evaluation after second-pass review; project-owner approval recorded for internal benchmarking only.",
+    "reviewer": "codex-gpt-agent-cleanup-pass",
+    "source_report": "/tmp/kaypoh-sg-post-label-cleanup.json",
+    "status": "second_pass_blockers_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending.",
+      "reviewer": "codex-agent-review",
+      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+      "status": "technical_reviewed_pending_human_approval"
+    },
+    {
+      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves.",
+      "reviewer": "codex-gpt-agent-second-pass",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "second_pass_needs_edit_pending_human_approval"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T02:31:16Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T02:31:16Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T02:31:16Z",
+    "accepted_by": "gongahkia",
+    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sg-post-label-cleanup.json",
+    "status": "owner_approved_sg_stage_a_for_internal_benchmarking"
+  },
+  "_owner_acceptance_history": [
+    {
+      "accepted_at_utc": "2026-05-29T01:41:07Z",
+      "accepted_by": "gongahkia",
+      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "owner_accepted_agent_review_for_experimental_use"
+    }
+  ],
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
   "doc_id": "sg_special_category_memo_default_001",
   "document_type": "memo",
-  "source_jurisdiction": "SG",
-  "destination_jurisdiction": "SG",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "zara.quek@larkspurbanyan.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daven Koh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Ong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Master Rio Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Zara Quek",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Koh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daven Koh (Head of Product) disclosed insulin-dependent diabetes treatment at Seabreeze Medical on 14 May 2026",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daven Koh (Head of Product) disclosed insulin-dependent diabetes treatment at Seabreeze Medical on 14 May 2026 and provided a thumbprint scan for the New Tiong Vale plant turnstiles",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Ong (Senior Engineer) has stated she is Buddhist",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Ong (Senior Engineer) has stated she is Buddhist and serves as a steward of the Mech-Tech Workers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Master Rio Tan (intern, age 16)",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Master Rio Tan (intern, age 16) attended a safety orientation session; minor status requires guardian consent before retention of training photos",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "replace full names with employee codes in the virtual data room",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hash biometric templates",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not upload facility pass logs beyond 90 days",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$120m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Hibiscus",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any external sharing of preliminary FY2026 revenue guidance for OrchidOne would be reasonably expected to materially affect value; treat as MNPI and coordinate timing with the Exchange\u2019s regulatory team",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not mention product codenames, sports sponsorships (e.g., East Pier Otters), or site locations before the cleansing notice",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list updates",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Palm Circuits Pte. Ltd",
+      "rule": "material_event"
+    }
+  ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "zara.quek@larkspurbanyan.example"
+      "matched_text": "zara.quek@larkspurbanyan.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Daven Koh"
+      "matched_text": "Mr. Daven Koh",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lila Ong"
+      "matched_text": "Ms. Lila Ong",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Zara Quek"
+      "matched_text": "Ms. Zara Quek",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Koh"
+      "matched_text": "Mr. Koh",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$120m"
+      "matched_text": "S$120m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Hibiscus"
+      "matched_text": "Project Hibiscus",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "age 16"
+      "matched_text": "age 16",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "guardian consent"
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Internal Legal Memorandum — PDPA/MNPI Considerations for SSE Mainboard–listed Tamarind Robotics Ltd. (the Company) re: proposed acquisition of Palm Circuits Pte. Ltd."
+      "matched_text": "Internal Legal Memorandum \u2014 PDPA/MNPI Considerations for SSE Mainboard\u2013listed Tamarind Robotics Ltd. (the Company) re: proposed acquisition of Palm Circuits Pte. Ltd.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Deal context: The Board is evaluating Project Hibiscus to acquire Palm Circuits Pte. Ltd.; draft synergy models and the PelicanCore warranty backlog (May–July) are confidential and not generally available."
+      "matched_text": "Deal context: The Board is evaluating Project Hibiscus to acquire Palm Circuits Pte. Ltd.; draft synergy models and the PelicanCore warranty backlog (May\u2013July) are confidential and not generally available.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Any external sharing of preliminary FY2026 revenue guidance for OrchidOne would be reasonably expected to materially affect value; treat as MNPI and coordinate timing with the Exchange’s regulatory team."
+      "matched_text": "Any external sharing of preliminary FY2026 revenue guidance for OrchidOne would be reasonably expected to materially affect value; treat as MNPI and coordinate timing with the Exchange\u2019s regulatory team.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal Memorandum \u2014 PDPA/MNPI Considerations for SSE Mainboard\u2013listed Tamarind Robotics Ltd. (the Company) re: proposed acquisition of Palm Circuits Pte. Ltd.\nPrepared by Larkspur & Banyan LLC (Singapore counsel) for Board and HR/Capital Markets; queries to sgcompliance@tamarindrobotics.example.\nMNPI: The non-public OrchidOne yield metrics and draft term sheet (S$120m equity issuance) are price-sensitive under Singapore\u2019s SFA Part XII and the Singa Exchange Listing Rules; trading blackout applies to insiders until a cleansing announcement via SSENet.\nMr. Daven Koh (Head of Product) disclosed insulin-dependent diabetes treatment at Seabreeze Medical on 14 May 2026 and provided a thumbprint scan for the New Tiong Vale plant turnstiles; both health and biometric data require strict PDPA access controls.\nMs. Lila Ong (Senior Engineer) has stated she is Buddhist and serves as a steward of the Mech-Tech Workers Union; export of her religion or union membership to the data room needs explicit consent or redaction.\nMaster Rio Tan (intern, age 16) attended a safety orientation session; minor status requires guardian consent before retention of training photos.\nEmployment PDPA actions: replace full names with employee codes in the virtual data room, hash biometric templates, and limit access via MangroveOS-Audit; do not upload facility pass logs beyond 90 days.\nDeal context: The Board is evaluating Project Hibiscus to acquire Palm Circuits Pte. Ltd.; draft synergy models and the PelicanCore warranty backlog (May\u2013July) are confidential and not generally available.\nAny external sharing of preliminary FY2026 revenue guidance for OrchidOne would be reasonably expected to materially affect value; treat as MNPI and coordinate timing with the Exchange\u2019s regulatory team.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -95,236 +324,27 @@
       "reason": "Functional role mailbox; not an individual email address for strict detector-aligned SG PII labels."
     }
   ],
+  "source_jurisdiction": "SG",
   "uncertain": [
     {
-      "matched_text": "export of her religion or union membership to the data room needs explicit consent or redaction",
       "concept": "consent requirement",
+      "matched_text": "export of her religion or union membership to the data room needs explicit consent or redaction",
       "reason": "PDPA-relevant consent requirement but no specific allowed rule for generic consent markers (only withdrawal listed)."
     },
     {
-      "matched_text": "For PDPA DPIA and insider-list updates under the SFA",
       "concept": "DPIA/record-of-processing",
+      "matched_text": "For PDPA DPIA and insider-list updates under the SFA",
       "reason": "Privacy governance activity referenced (DPIA), not covered by an allowed PII rule."
     },
     {
-      "matched_text": "update the Record of Processing",
       "concept": "record of processing",
+      "matched_text": "update the Record of Processing",
       "reason": "Privacy governance/record-keeping reference; not mapped to a listed PII rule."
     },
     {
-      "matched_text": "limit access via MangroveOS-Audit",
       "concept": "access control",
+      "matched_text": "limit access via MangroveOS-Audit",
       "reason": "Security control relevant to PDPA but not covered by an allowed privacy-event marker."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "zara.quek@larkspurbanyan.example"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Daven Koh"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lila Ong"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Master Rio Tan"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Zara Quek"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Koh"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "Mr. Daven Koh (Head of Product) disclosed insulin-dependent diabetes treatment at Seabreeze Medical on 14 May 2026"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "Mr. Daven Koh (Head of Product) disclosed insulin-dependent diabetes treatment at Seabreeze Medical on 14 May 2026 and provided a thumbprint scan for the New Tiong Vale plant turnstiles"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "Ms. Lila Ong (Senior Engineer) has stated she is Buddhist"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "Ms. Lila Ong (Senior Engineer) has stated she is Buddhist and serves as a steward of the Mech-Tech Workers Union"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "Master Rio Tan (intern, age 16)"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Master Rio Tan (intern, age 16) attended a safety orientation session; minor status requires guardian consent before retention of training photos"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "replace full names with employee codes in the virtual data room"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "hash biometric templates"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not upload facility pass logs beyond 90 days"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "draft term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$120m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Hibiscus"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "Any external sharing of preliminary FY2026 revenue guidance for OrchidOne would be reasonably expected to materially affect value; treat as MNPI and coordinate timing with the Exchange’s regulatory team"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not mention product codenames, sports sponsorships (e.g., East Pier Otters), or site locations before the cleansing notice"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list updates"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition of Palm Circuits Pte. Ltd"
-    }
-  ],
-  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
-  "_agent_review": {
-    "reviewer": "codex-gpt-agent-cleanup-pass",
-    "status": "second_pass_blockers_cleaned_owner_approved",
-    "source_report": "/tmp/kaypoh-sg-post-label-cleanup.json",
-    "notes": "SG Stage A labels passed strict candidate evaluation after second-pass review; project-owner approval recorded for internal benchmarking only."
-  },
-  "_agent_review_history": [
-    {
-      "reviewer": "codex-agent-review",
-      "status": "technical_reviewed_pending_human_approval",
-      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
-      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
-    },
-    {
-      "reviewer": "codex-gpt-agent-second-pass",
-      "status": "second_pass_needs_edit_pending_human_approval",
-      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
-      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves."
-    }
-  ],
-  "_owner_acceptance": {
-    "accepted_by": "gongahkia",
-    "status": "owner_approved_sg_stage_a_for_internal_benchmarking",
-    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
-    "accepted_at_utc": "2026-05-29T02:31:16Z",
-    "source_report": "/tmp/kaypoh-sg-post-label-cleanup.json"
-  },
-  "_owner_acceptance_history": [
-    {
-      "accepted_by": "gongahkia",
-      "status": "owner_accepted_agent_review_for_experimental_use",
-      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
-      "accepted_at_utc": "2026-05-29T01:41:07Z",
-      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json"
-    }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-    "reviewed_at_utc": "2026-05-29T02:31:16Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass"
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-chat-approval",
-      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-      "reviewed_at_utc": "2026-05-29T02:31:16Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
-      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

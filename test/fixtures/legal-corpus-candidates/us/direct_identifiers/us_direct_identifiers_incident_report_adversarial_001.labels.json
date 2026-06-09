@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -241,6 +249,18 @@
       "category": "MNPI",
       "matched_text": "sell-side analyst",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aiyana Graft, VP InfoSec, a.graft@northriverhb.com, tel 1-415-555-0198; public helpline 1-800-555-0105 (generic)\nOn 06/03 we detected unauthorized access to a limited set of billing servers supporting HSA accounts, Account ID HSA-742-11829 and ledger ref NRB-00492873\nPatient payment file headers listed U.S. Passport No. 740392851 for an employee travel voucher and MRN 00-482913, though no images or clinical notes were exfiltrated\nURL indicators: https://portal.nrhbank.com/incident?case=IR-2026-0418&ein=54-6789123; audit hash a c c t : ****-****-9123 (OCR-spaced)\nRouting ABA 123456780 (checksum invalid) appeared in a test stub; SSN: ______ on a blank enrollment form is a generic label only\nMailing address on impacted mailers: 47 Quill Rd., Ste 410, Redcrest, ND 58180; do not treat this as a verified residence for any individual\nPreliminary assessment: potential exposure of names and emails for 219 employees incl. Dr. Naima Brooks and Mr. Jared Osei, but credentials were hashed and not readable\nWe remind recipients that this update does not constitute a material adverse change or selective disclosure of material nonpublic information under Reg FD\nNonetheless, internal forecasts note a 2\u20133 bps increase in Q2 opex and a <1% headcount reallocation in revenue cycle ops; this was not discussed with any sell-side analyst prior to the current report filing\nSelective contacts are prohibited; any analyst or investor questions must route to ir@northriverhb.com, not to the on-call engineer, branch manager, or the Chief Privacy Officer\nState notifications prepared for consumer protection authorities in Arbor, Montero, and Kingsland; HIPAA and GLBA reviews indicate low risk to patients and consumers, respectively\nNote: the word 'password' in a log sample refers to product name PasSword, not credentials, and project atlas backlog notes below are lowercase pm prose only\nCity of Redcrest vendor tax account VTA-RC-00951",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer EIN: 54-6789123; Arbor State Corporations Registry File No. AS-26-4419287; Carroway Health License CHL-009842 (fictional identifiers)\nPoint of contact: Ms. Aiyana Graft, VP InfoSec, a.graft@northriverhb.com, tel 1-415-555-0198; public helpline 1-800-555-0105 (generic)\nOn 06/03 we detected unauthorized access to a limited set of billing servers supporting HSA accounts, Account ID HSA-742-11829 and ledger ref NRB-00492873\nPatient payment file headers listed U.S. Passport No. 740392851 for an employee travel voucher and MRN 00-482913, though no images or clinical notes were exfiltrated\nURL indicators: https://portal.nrhbank.com/incident?case=IR-2026-0418&ein=54-6789123; audit hash a c c t : ****-****-9123 (OCR-spaced)\nRouting ABA 123456780 (checksum invalid) appeared in a test stub; SSN: ______ on a blank enrollment form is a generic label only\nMailing address on impacted mailers: 47 Quill Rd., Ste 410, Redcrest, ND 58180; do not treat this as a verified residence for any individual\nPreliminary assessment: potential exposure of names and emails for 219 employees incl. Dr. Naima Brooks and Mr. Jared Osei, but credentials were hashed and not readable\nWe remind recipients that this update does not constitute a material adverse change or selective disclosure of material nonpublic information under Reg FD\nNonetheless, internal forecasts note a 2\u20133 bps increase in Q2 opex and a <1% headcount reallocation in revenue cycle ops; this was not discussed with any sell-side analyst prior to the current report filing",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

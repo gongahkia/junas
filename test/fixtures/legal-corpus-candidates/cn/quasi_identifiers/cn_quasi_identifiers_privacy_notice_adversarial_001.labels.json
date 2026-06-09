@@ -34,13 +34,46 @@
     "status": "approved_for_internal_benchmarking"
   },
   "_strict_reconciliation": {
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:44:27Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-reconciled-narrowed.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU precision guards",
     "basis": "Strict tier was realigned after the UK/EU precision guard pass suppressed closed, public/generic, or non-attributive examples. Original strict labels are preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:44:27Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-reconciled-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU precision guards"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 25,
+    "current_must_detect_count": 8,
+    "current_must_not_detect_count": 8,
+    "previous_ideal_must_detect_count": 25,
+    "previous_must_detect_count": 11,
+    "previous_must_not_detect_count": 8
+  },
+  "_strict_reconciliation_history": [
+    {
+      "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+      "new_ideal_must_detect_count": 25,
+      "new_must_detect_count": 11,
+      "old_ideal_must_detect_count": 21,
+      "old_must_detect_count": 11,
+      "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "removed_must_not_detect": [],
+      "reviewed_at": "2026-06-05T07:58:20Z",
+      "reviewer": "Codex GPT-5.5",
+      "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+      "status": "codex_reconciled_owner_approved_internal_benchmark",
+      "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -50,170 +83,194 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Han Qiming"
+      "matched_text": "Mr. Han Qiming",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Zhao Lin"
+      "matched_text": "Ms. Zhao Lin",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "qiming.han@lianheflux.cn"
+      "matched_text": "qiming.han@lianheflux.cn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@lianheflux.cn"
+      "matched_text": "privacy@lianheflux.cn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1989-03-12"
+      "matched_text": "1989-03-12",
+      "rule": "date_of_birth"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "investor-insider lists"
+      "matched_text": "investor-insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minors under 14"
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer"
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "HanQ-8892"
+      "matched_text": "HanQ-8892",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "SESS-2024-06-07-0345"
+      "matched_text": "SESS-2024-06-07-0345",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "LF13-AX9-7711"
+      "matched_text": "LF13-AX9-7711",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "imei",
-      "matched_text": "IMEI h3x:35:8a:2f:19:__"
+      "matched_text": "IMEI h3x:35:8a:2f:19:__",
+      "rule": "imei"
     },
     {
       "category": "PII",
-      "rule": "cn_resident_id",
-      "matched_text": "31************123X"
+      "matched_text": "31************123X",
+      "rule": "cn_resident_id"
     },
     {
       "category": "PII",
-      "rule": "cn_uscc",
-      "matched_text": "USCC U S C C 93 15 0X 7*** Z9A"
+      "matched_text": "USCC U S C C 93 15 0X 7*** Z9A",
+      "rule": "cn_uscc"
     },
     {
       "category": "PII",
-      "rule": "cn_uscc",
-      "matched_text": "USCC 92 84 ** 0 1 ** P Q R"
+      "matched_text": "USCC 92 84 ** 0 1 ** P Q R",
+      "rule": "cn_uscc"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "****6621"
+      "matched_text": "****6621",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data scope excludes sensitive PI of minors under 14"
+      "matched_text": "Data scope excludes sensitive PI of minors under 14",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "are rotated and tokenized in production"
+      "matched_text": "are rotated and tokenized in production",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "prior to public disclosure"
+      "matched_text": "prior to public disclosure",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "MNPI rooms"
+      "matched_text": "MNPI rooms",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "CAC security assessment"
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1992-05-02"
+      "matched_text": "1992-05-02",
+      "rule": "date_of_birth"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "pre-announcement"
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "qiming.han@lianheflux.cn"
+      "matched_text": "qiming.han@lianheflux.cn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "CAC security assessment"
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1989-03-12"
+      "matched_text": "1989-03-12",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Han Qiming"
+      "matched_text": "Mr. Han Qiming",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Zhao Lin"
+      "matched_text": "Ms. Zhao Lin",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "pre-announcement"
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data scope excludes sensitive PI of minors under 14 and includes employee contact, role, work location, device identifiers, and account aliases; investor-insider lists are controlled with access by need-to-know.\nClustered example for transparency\u2014Mr. Han Qiming, Senior Test Engineer at Lianhe Flux Dynamics, Jiading District, Shanghai, DOB 1989-03-12, email qiming.han@lianheflux.cn, VPN session SESS-2024-06-07-0345, payroll alias HanQ-8892, bank acct ****6621.\nFor the same matter, device data may include laptop LF-13 Pro SN LF13-AX9-7711 and mobile IMEI h3x:35:8a:2f:19:__ truncated, and a partially masked Resident ID 31************123X linked to hukou in H u a i r o u, Bei jing",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subject rights: to access/correct/delete, contact Ms. Zhao Lin (DPO) at privacy@lianheflux.cn or Room 1702, Tower C, Nova Plaza, Xuhui, Shanghai; response within statutory timelines and appeal route via CAC mediation is available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ul basis: under PIPL and CSL/DSL we process HR onboarding, device management, and issuer pre-disclosure controls for CSRC/SSE filings where inside information is handled prior to public disclosure.\nData scope excludes sensitive PI of minors under 14 and includes employee contact, role, work location, device identifiers, and account aliases; investor-insider lists are controlled with access by need-to-know.\nClustered example for transparency\u2014Mr. Han Qiming, Senior Test Engineer at Lianhe Flux Dynamics, Jiading District, Shanghai, DOB 1989-03-12, email qiming.han@lianheflux.cn, VPN session SESS-2024-06-07-0345, payroll alias HanQ-8892, bank acct ****6621.\nFor the same matter, device data may include laptop LF-13 Pro SN LF13-AX9-7711 and mobile IMEI h3x:35:8a:2f:19:__ truncated, and a partially masked Resident ID 31************123X linked to hukou in H u a i r o u, Bei jing.\nSystem logs may embed URL parameters such as https://access.lianheflux.cn/iam?uid=han.qm&loc=CN-SH-JD&dob=1989-03-12&dev=LF13-AX9-7711, which are rotated and tokenized in production.\nCross-border transfer: where payroll or equity plan data is mirrored to AuroraCloud HK, we implement standard contracts, conduct CAC security assessment if volumes/risk thresholds are met, and record flows in the outbound transfer register.\nData subject rights: to access/correct/delete, contact Ms. Zhao Lin (DPO) at privacy@lianheflux.cn or Room 1702, Tower C, Nova Plaza, Xuhui, Shanghai; response within statutory timelines and appeal route via CAC mediation is available.\nRetention: HR files up to 10 years post-termination per labor compliance, device logs 180 days per CSL, insider lists and pre-announcement working papers 3 years for issuer LFGRN2026, then anonymization or deletion is applied.\nNegative scope example: demographic tags like \u201cmale, 30s, tier-1 city, smartphone user\u201d and template strings such as 00-00-00-00-00-00 are not treated as unique identifiers and are not a MAC address used in production.\nSeparated weak identifiers occasionally appear in templates\u2014DOB 1992-05-02; role analyst; device NXT-5; city Suzhou\u2014without names or accounts and are handled as non-identifying unless combined with other fields.\nProcessor obligations: no secondary use, subprocessor Kite Bridge Background Screening Co., Ltd. (USCC 92 84 ** 0 1 ** P Q R) for lawful checks via on-prem gateway; OCR artifacts like \u201cR e s i d e n t   I D\u201d must not be exported cross-border.\nSecurity and governance: encryption in transit/at rest, least privilege, dual-control for MNPI rooms; audit logs retained for potential CSRC inquiries and SSE self-discipline inspections.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -282,30 +339,5 @@
       "matched_text": "appeal route via CAC mediation is available",
       "reason": "Regulatory redress/mediation reference is legally relevant but not in allowed rule list."
     }
-  ],
-  "_strict_reconciliation_history": [
-    {
-      "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-      "new_ideal_must_detect_count": 25,
-      "new_must_detect_count": 11,
-      "old_ideal_must_detect_count": 21,
-      "old_must_detect_count": 11,
-      "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
-      "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "removed_must_not_detect": [],
-      "reviewed_at": "2026-06-05T07:58:20Z",
-      "reviewer": "Codex GPT-5.5",
-      "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
-      "status": "codex_reconciled_owner_approved_internal_benchmark",
-      "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
-    }
-  ],
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 11,
-    "current_must_detect_count": 8,
-    "previous_ideal_must_detect_count": 25,
-    "current_ideal_must_detect_count": 25,
-    "previous_must_not_detect_count": 8,
-    "current_must_not_detect_count": 8
-  }
+  ]
 }

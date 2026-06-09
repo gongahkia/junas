@@ -60,6 +60,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -68,7 +76,7 @@
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "matched_text": "非公开",
+      "matched_text": "\u975e\u516c\u5f00",
       "rule": "nonpublic_marker"
     },
     {
@@ -83,7 +91,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Embargo until 2026‑07‑15 09:00 CST",
+      "matched_text": "Embargo until 2026\u201107\u201115 09:00 CST",
       "rule": "embargo_marker"
     },
     {
@@ -103,7 +111,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Shareholders’ Agreement",
+      "matched_text": "Shareholders\u2019 Agreement",
       "rule": "definitive_agreement"
     },
     {
@@ -113,12 +121,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "SPA/SHA signing planned for 2026‑07‑14 (after 18:00 CST)",
+      "matched_text": "SPA/SHA signing planned for 2026\u201107\u201114 (after 18:00 CST)",
       "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "SSE 临时公告 to be filed only after embargo window opens",
+      "matched_text": "SSE \u4e34\u65f6\u516c\u544a to be filed only after embargo window opens",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -168,12 +176,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "内幕信息知情人名单",
+      "matched_text": "\u5185\u5e55\u4fe1\u606f\u77e5\u60c5\u4eba\u540d\u5355",
       "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "earn‑out up to RMB 60,000,000",
+      "matched_text": "earn\u2011out up to RMB 60,000,000",
       "rule": "contingent_mnpi_language"
     },
     {
@@ -198,7 +206,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "treasury@blueferry‑cap.cn",
+      "matched_text": "treasury@blueferry\u2011cap.cn",
       "rule": "email_address"
     },
     {
@@ -213,27 +221,27 @@
     },
     {
       "category": "PII",
-      "matched_text": "+86‑571‑***‑**68",
+      "matched_text": "+86\u2011571\u2011***\u2011**68",
       "rule": "cn_phone"
     },
     {
       "category": "PII",
-      "matched_text": "62‑***‑***‑0918",
+      "matched_text": "62\u2011***\u2011***\u20110918",
       "rule": "bank_account"
     },
     {
       "category": "PII",
-      "matched_text": "cross‑border HR/payroll data transfers",
+      "matched_text": "cross\u2011border HR/payroll data transfers",
       "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "matched_text": "cross‑border transfer whitelist",
+      "matched_text": "cross\u2011border transfer whitelist",
       "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "matched_text": "no cross‑border transfer of resident IDs",
+      "matched_text": "no cross\u2011border transfer of resident IDs",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -248,7 +256,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "salted hash (SHA‑256) and last‑4",
+      "matched_text": "salted hash (SHA\u2011256) and last\u20114",
       "rule": "data_minimisation_marker"
     },
     {
@@ -273,27 +281,27 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Transaction: Buyer to acquire 62% of the issued share capital of Orchid Ridge Robotics for RMB 480,000,000 (implied pre‑money RMB 775,000,000); closing consideration mix: cash and deferred payments.",
+      "matched_text": "Transaction: Buyer to acquire 62% of the issued share capital of Orchid Ridge Robotics for RMB 480,000,000 (implied pre\u2011money RMB 775,000,000); closing consideration mix: cash and deferred payments.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Structure: Definitive agreements include Share Purchase Agreement (SPA), Shareholders’ Agreement (SHA), IP Assignment; governing law: PRC; closing targeted within T+65 days post‑signing; potential STAR Market path in 2027 subject to CSRC guidance and issuer readiness.",
+      "matched_text": "Structure: Definitive agreements include Share Purchase Agreement (SPA), Shareholders\u2019 Agreement (SHA), IP Assignment; governing law: PRC; closing targeted within T+65 days post\u2011signing; potential STAR Market path in 2027 subject to CSRC guidance and issuer readiness.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Consideration & escrow: RMB 408,000,000 cash at closing; RMB 72,000,000 deferred (24 months); 10% escrow holdback for 18 months; earn‑out up to RMB 60,000,000 upon FY2027 revenue > RMB 1.2bn; working capital true‑up ±RMB 10,000,000 collar.",
+      "matched_text": "Consideration & escrow: RMB 408,000,000 cash at closing; RMB 72,000,000 deferred (24 months); 10% escrow holdback for 18 months; earn\u2011out up to RMB 60,000,000 upon FY2027 revenue > RMB 1.2bn; working capital true\u2011up \u00b1RMB 10,000,000 collar.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Covenants: 3‑year non‑compete within PRC robotics sub‑segment; post‑closing IP assignment for “Orchid Servo‑X” and “MOSS‑Edge” product families; customer and supplier non‑solicit for 24 months; no dividends until net debt/EBITDA < 2.0x.",
+      "matched_text": "Covenants: 3\u2011year non\u2011compete within PRC robotics sub\u2011segment; post\u2011closing IP assignment for \u201cOrchid Servo\u2011X\u201d and \u201cMOSS\u2011Edge\u201d product families; customer and supplier non\u2011solicit for 24 months; no dividends until net debt/EBITDA < 2.0x.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Compliance checklist: Issuer to prepare 内幕信息知情人名单 by 2026‑07‑13; BlueFerry counsel to circulate definitive check‑list; if embargo is breached before 2026‑07‑15 09:00 CST, buyer may delay closing; no USCC or resident ID to be stored outside PRC except as masked/hashed as noted.",
+      "matched_text": "Compliance checklist: Issuer to prepare \u5185\u5e55\u4fe1\u606f\u77e5\u60c5\u4eba\u540d\u5355 by 2026\u201107\u201113; BlueFerry counsel to circulate definitive check\u2011list; if embargo is breached before 2026\u201107\u201115 09:00 CST, buyer may delay closing; no USCC or resident ID to be stored outside PRC except as masked/hashed as noted.",
       "rule": "material_event"
     },
     {
@@ -350,27 +358,27 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Transaction: Buyer to acquire 62% of the issued share capital of Orchid Ridge Robotics for RMB 480,000,000 (implied pre‑money RMB 775,000,000); closing consideration mix: cash and deferred payments.",
+      "matched_text": "Transaction: Buyer to acquire 62% of the issued share capital of Orchid Ridge Robotics for RMB 480,000,000 (implied pre\u2011money RMB 775,000,000); closing consideration mix: cash and deferred payments.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Structure: Definitive agreements include Share Purchase Agreement (SPA), Shareholders’ Agreement (SHA), IP Assignment; governing law: PRC; closing targeted within T+65 days post‑signing; potential STAR Market path in 2027 subject to CSRC guidance and issuer readiness.",
+      "matched_text": "Structure: Definitive agreements include Share Purchase Agreement (SPA), Shareholders\u2019 Agreement (SHA), IP Assignment; governing law: PRC; closing targeted within T+65 days post\u2011signing; potential STAR Market path in 2027 subject to CSRC guidance and issuer readiness.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Consideration & escrow: RMB 408,000,000 cash at closing; RMB 72,000,000 deferred (24 months); 10% escrow holdback for 18 months; earn‑out up to RMB 60,000,000 upon FY2027 revenue > RMB 1.2bn; working capital true‑up ±RMB 10,000,000 collar.",
+      "matched_text": "Consideration & escrow: RMB 408,000,000 cash at closing; RMB 72,000,000 deferred (24 months); 10% escrow holdback for 18 months; earn\u2011out up to RMB 60,000,000 upon FY2027 revenue > RMB 1.2bn; working capital true\u2011up \u00b1RMB 10,000,000 collar.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Covenants: 3‑year non‑compete within PRC robotics sub‑segment; post‑closing IP assignment for “Orchid Servo‑X” and “MOSS‑Edge” product families; customer and supplier non‑solicit for 24 months; no dividends until net debt/EBITDA < 2.0x.",
+      "matched_text": "Covenants: 3\u2011year non\u2011compete within PRC robotics sub\u2011segment; post\u2011closing IP assignment for \u201cOrchid Servo\u2011X\u201d and \u201cMOSS\u2011Edge\u201d product families; customer and supplier non\u2011solicit for 24 months; no dividends until net debt/EBITDA < 2.0x.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Compliance checklist: Issuer to prepare 内幕信息知情人名单 by 2026‑07‑13; BlueFerry counsel to circulate definitive check‑list; if embargo is breached before 2026‑07‑15 09:00 CST, buyer may delay closing; no USCC or resident ID to be stored outside PRC except as masked/hashed as noted.",
+      "matched_text": "Compliance checklist: Issuer to prepare \u5185\u5e55\u4fe1\u606f\u77e5\u60c5\u4eba\u540d\u5355 by 2026\u201107\u201113; BlueFerry counsel to circulate definitive check\u2011list; if embargo is breached before 2026\u201107\u201115 09:00 CST, buyer may delay closing; no USCC or resident ID to be stored outside PRC except as masked/hashed as noted.",
       "rule": "material_event"
     },
     {
@@ -452,6 +460,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S t r i c t l y  C o n f i d e n t i a l / \u975e\u516c\u5f00 \u2014 Deal Codename: Project Lotos \u2014 Embargo until 2026\u201107\u201115 09:00 CST; insider list v0.3 (distribution limited to issuer/ buyer counsel only).\nParties: Buyer \u2014 BlueFerry Capital (Shanghai) Fund II, LP (US C C: 91***BFC***00K8Q2); Seller/Issuer \u2014 Orchid Ridge Robotics Co., Ltd., Hangzhou (US C C: 91***ORR***000X7E).\nTransaction: Buyer to acquire 62% of the issued share capital of Orchid Ridge Robotics for RMB 480,000,000 (implied pre\u2011money RMB 775,000,000); closing consideration mix: cash and deferred payments.\nStructure: Definitive agreements include Share Purchase Agreement (SPA), Shareholders\u2019 Agreement (SHA), IP Assignment; governing law: PRC; closing targeted within T+65 days post\u2011signing; potential STAR Market path in 2027 subject to CSRC guidance and issuer readiness.\nConditions precedent: SAMR simple\u2011case anti\u2011monopoly filing; SAFE registration for any FX inflow; issuer board resolution and shareholder approval; CAC security assessment for cross\u2011border HR/payroll data transfers to hk.payroll.example; completion of legal/financial/CSL\u2011DSL data diligence.\nData & PIPL: Employee roster to be provided with resident ID digits masked (e.g., ************3 3 7 1) and consent records; no data of minors under 14 will be processed; cross\u2011border transfer whitelist and SCCs to be implemented per PIPL/CSL/DSL; vendor access logs retained 6 years.\nMAC/MAE: No M A C has occurred since Q1; for avoidance of doubt, customary seasonal revenue declines, changes in PRC GAAP, or public\u2011source regulatory updates shall not constitute an MAE; the parties confirm there is currently no expected material adverse change.\nTimeline & disclosure: SPA/SHA signing planned for 2026\u201107\u201114 (after 18:00 CST); press Q&A and IR draft prepared but embargoed; SSE \u4e34\u65f6\u516c\u544a to be filed only after embargo window opens; board memo Annex A (signatory page) to be countersigned.\nConsideration & escrow: RMB 408,000,000 cash at closing; RMB 72,000,000 deferred (24 months); 10% escrow holdback for 18 months; earn\u2011out up to RMB 60,000,000 upon FY2027 revenue > RMB 1.2bn; working capital true\u2011up \u00b1RMB 10,000,000 collar.\nEmployment & integration: 12 key employees to sign new PRC labor contracts within 10 business days; no cross\u2011border transfer of resident IDs beyond salted hash (SHA\u2011256) and last\u20114; onboarding workflows aligned to issuer HRIS and employment handbooks.\nCovenants: 3\u2011year non\u2011compete within PRC robotics sub\u2011segment; post\u2011closing IP assignment for \u201cOrchid Servo\u2011X\u201d and \u201cMOSS\u2011Edge\u201d product families; customer and supplier non\u2011solicit for 24 months; no dividends until net debt/EBITDA < 2.0x.\nPublic reference (non\u2011MNPI): HePing Institute\u2019s 2023 Robotics Almanac (publicly available) cites domestic AMR CAGR at ~18%, referenced here for sector context only and does not alter valuation.\nproject notes (internal): update cap table after finance sends v2; keep monday standup short; the spa\u2011day vouchers for ops are unrelated to this transaction and not subject to approval.\nContacts & IR: Mr. Han Qiming, CFO, han.qiming@orchidridge.cn; Ms. Zhao Lin, IR, +86\u2011571\u2011***\u2011**68, ir@orchidridge.cn; WeCom: corp://orchidridge/han.q; data policy link: https://data.orchidridge.cn/policy?v=2.3&ref=lotos\u2011IR.\nBanking & accounts (obfuscated): escrow agent \u2014 AmberDelta Trustees Co., Ltd. (fictional), receiving account 62\u2011***\u2011***\u20110918; branch: Hangzhou Qiantang; SWIFT\u2011like code: ADTR C N H Z XX; payment notice to treasury@blueferry\u2011cap.cn.\nCompliance checklist: Issuer to prepare \u5185\u5e55\u4fe1\u606f\u77e5\u60c5\u4eba\u540d\u5355 by 2026\u201107\u201113; BlueFerry counsel to circulate definitive check\u2011list; if embargo is breached before 2026\u201107\u201115 09:00 CST, buyer may delay closing; no USCC or resident ID to be stored outside PRC except as masked/hashed as noted.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -472,7 +486,7 @@
       "reason": "Defined-term abbreviation; avoid tagging abbreviation itself"
     },
     {
-      "matched_text": "HePing Institute’s 2023 Robotics Almanac",
+      "matched_text": "HePing Institute\u2019s 2023 Robotics Almanac",
       "reason": "Public-source reference flagged as non-MNPI"
     },
     {
@@ -480,7 +494,7 @@
       "reason": "Lowercase project-management prose; not a deal codename"
     },
     {
-      "matched_text": "spa‑day vouchers",
+      "matched_text": "spa\u2011day vouchers",
       "reason": "False-positive bait unrelated to Share Purchase Agreement"
     },
     {

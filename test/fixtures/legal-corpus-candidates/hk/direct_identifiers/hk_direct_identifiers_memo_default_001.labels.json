@@ -94,6 +94,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -127,7 +135,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Adrian Lau Kin‑Hei",
+      "matched_text": "Mr. Adrian Lau Kin\u2011Hei",
       "rule": "named_person"
     },
     {
@@ -192,7 +200,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Carmen Ng Mei‑Ting",
+      "matched_text": "Ms. Carmen Ng Mei\u2011Ting",
       "rule": "named_person"
     },
     {
@@ -242,12 +250,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "indirectly reveals the intended 18.4% premium to Seaview’s last close, which is price‑material",
+      "matched_text": "indirectly reveals the intended 18.4% premium to Seaview\u2019s last close, which is price\u2011material",
       "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "matched_text": "Any onward disclosure requests from “Operations Team” or role‑only sign‑offs are to be rejected unless named approvers (e.g., Dr. Felix Yau, GC) countersign via legal@redbayholdings.hk",
+      "matched_text": "Any onward disclosure requests from \u201cOperations Team\u201d or role\u2011only sign\u2011offs are to be rejected unless named approvers (e.g., Dr. Felix Yau, GC) countersign via legal@redbayholdings.hk",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -282,7 +290,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject: Inside information controls for Project Banyan — proposed acquisition of Seaview Robotics Holdings Ltd. at HKD 4.20 per share",
+      "matched_text": "Subject: Inside information controls for Project Banyan \u2014 proposed acquisition of Seaview Robotics Holdings Ltd. at HKD 4.20 per share",
       "rule": "material_event"
     },
     {
@@ -344,7 +352,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Adrian Lau Kin‑Hei",
+      "matched_text": "Mr. Adrian Lau Kin\u2011Hei",
       "rule": "named_person"
     },
     {
@@ -354,7 +362,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Carmen Ng Mei‑Ting",
+      "matched_text": "Ms. Carmen Ng Mei\u2011Ting",
       "rule": "named_person"
     },
     {
@@ -369,7 +377,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject: Inside information controls for Project Banyan — proposed acquisition of Seaview Robotics Holdings Ltd. at HKD 4.20 per share",
+      "matched_text": "Subject: Inside information controls for Project Banyan \u2014 proposed acquisition of Seaview Robotics Holdings Ltd. at HKD 4.20 per share",
       "rule": "material_event"
     },
     {
@@ -416,6 +424,24 @@
       "category": "MNPI",
       "matched_text": "12345678",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For diligence, Ms. Carmen Ng Mei\u2011Ting (Head of People Ops) new contact at Flat B, 21/F, Pacific Crest Tower, 88 Sheung Lung Road, Kowloon; mobile +852 5122 0044; car plate VZ1234.\nPlease ignore generic placeholders found in the HR template (Employee Name: ______; HKID No.: ______; Tel: ______) and the public 1823 hotline noted in an onboarding flyer.\nNote that a printed slip in the finance drawer lists \u201cEmergency 999\u201d and \u201cHelpdesk 12345678\u201d; these are not account numbers and must not be captured as deal data",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board Compliance Committee, Redbay Holdings Limited (Stock Code 81234; CR No. 2876543; BR No. 68881234-000)\nSubject: Inside information controls for Project Banyan \u2014 proposed acquisition of Seaview Robotics Holdings Ltd. at HKD 4.20 per share\nPursuant to SFO Part XIVA and HKEX LR 13.09, the term sheet and pro forma synergy schedule (headcount rationalisation and 2H FY26 earnings uplift) are MNPI and restricted to the Clean Team only.\nClean Team lead is Mr. Adrian Lau Kin\u2011Hei, CFO, email adrian.lau@redbayholdings.hk, tel +852 6800 7788, HKID A123456(3) (for KYC record), passport K9082731.\nDataroom access via dealroom@redbayholdings.hk; external counsel Ms. Serena Wong of Harbor & Peak Solicitors, chambers contact +852 3900 1122; custodian bank Harbor Union Bank A/C 102-556677-001.\nSFC Takeovers Code Rule 3.7 cautionary announcement is deferred until a trigger event; no trading by Insiders per Dealing Code Section 4; blackout continues until HKEX clearance.\nFund cross\u2011holdings note: Redbay Growth Fund III LP (LPF No. LPF\u201100988; SFC CE No. Z1X234, Type 9) holds 6.2% of Seaview Robotics; conflicts wall in effect.\nEmployment and HR: proposed retention grants to 24 key engineers; Group HR Manager to collect PDPO\u2011compliant consents; do not upload full CVs or HKID images to the VDR.\nFor diligence, Ms. Carmen Ng Mei\u2011Ting (Head of People Ops) new contact at Flat B, 21/F, Pacific Crest Tower, 88 Sheung Lung Road, Kowloon; mobile +852 5122 0044; car plate VZ1234.\nPlease ignore generic placeholders found in the HR template (Employee Name: ______; HKID No.: ______; Tel: ______) and the public 1823 hotline noted in an onboarding flyer.\nNote that a printed slip in the finance drawer lists \u201cEmergency 999\u201d and \u201cHelpdesk 12345678\u201d; these are not account numbers and must not be captured as deal data.\nDraft SPAs include a price collar and MAC; the sensitivity table at page 11 indirectly reveals the intended 18.4% premium to Seaview\u2019s last close, which is price\u2011material.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -461,12 +487,12 @@
     },
     {
       "concept": "Hong Kong tax file number",
-      "matched_text": "IRD Ref. 9A‑772‑091",
+      "matched_text": "IRD Ref. 9A\u2011772\u2011091",
       "reason": "Tax identifier is PII but no HK tax-ID rule in allowed set"
     },
     {
       "concept": "Limited Partnership Fund registration number",
-      "matched_text": "LPF No. LPF‑00988",
+      "matched_text": "LPF No. LPF\u201100988",
       "reason": "Regulatory fund identifier not in allowed rule list"
     },
     {

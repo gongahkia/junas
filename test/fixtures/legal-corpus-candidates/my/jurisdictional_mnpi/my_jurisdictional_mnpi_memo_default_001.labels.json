@@ -15,13 +15,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -44,13 +44,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -65,6 +65,43 @@
     "source_report": "/tmp/kaypoh-candidates-after-ph-reviewed.json",
     "status": "owner_approved_post_ph_precision_realign_for_internal_benchmarking"
   },
+  "_resolved_label_warnings": {
+    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
+    "count": 3,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='MYR220 million'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='MYR220 million'",
+      "drop ideal_must_detect: text not verbatim rule='selective_disclosure_risk' text='do not confirm or deny outside an approved Bursa disclosure.'"
+    ]
+  },
+  "_resolved_label_warnings_history": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 43,
     "new_must_detect_count": 23,
@@ -74,6 +111,14 @@
     "removed_must_not_detect": [],
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -98,12 +143,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Memorandum: MNPI controls for proposed acquisition and financing — Aurora Palm Berhad",
+      "matched_text": "Internal Memorandum: MNPI controls for proposed acquisition and financing \u2014 Aurora Palm Berhad",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "The Company is negotiating to acquire 70% of Lapis Oils Sdn Bhd (Project Kenyalang) with an indicative purchase price range of MYR180–210 million and earn-out triggers linked to FY27 EBITDA; these terms are non-public and price-sensitive pending finalisation of the SPA.",
+      "matched_text": "The Company is negotiating to acquire 70% of Lapis Oils Sdn Bhd (Project Kenyalang) with an indicative purchase price range of MYR180\u2013210 million and earn-out triggers linked to FY27 EBITDA; these terms are non-public and price-sensitive pending finalisation of the SPA.",
       "rule": "material_event"
     },
     {
@@ -113,7 +158,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subtle risk: the internal slide deck labeled “Project Kenyalang v3.2” includes undisclosed capacity uplift assumptions that imply a material earnings impact; do not circulate outside wall-crossed counterparties and ensure NDA coverage.",
+      "matched_text": "Subtle risk: the internal slide deck labeled \u201cProject Kenyalang v3.2\u201d includes undisclosed capacity uplift assumptions that imply a material earnings impact; do not circulate outside wall-crossed counterparties and ensure NDA coverage.",
       "rule": "material_event"
     },
     {
@@ -315,12 +360,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Memorandum: MNPI controls for proposed acquisition and financing — Aurora Palm Berhad",
+      "matched_text": "Internal Memorandum: MNPI controls for proposed acquisition and financing \u2014 Aurora Palm Berhad",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "The Company is negotiating to acquire 70% of Lapis Oils Sdn Bhd (Project Kenyalang) with an indicative purchase price range of MYR180–210 million and earn-out triggers linked to FY27 EBITDA; these terms are non-public and price-sensitive pending finalisation of the SPA.",
+      "matched_text": "The Company is negotiating to acquire 70% of Lapis Oils Sdn Bhd (Project Kenyalang) with an indicative purchase price range of MYR180\u2013210 million and earn-out triggers linked to FY27 EBITDA; these terms are non-public and price-sensitive pending finalisation of the SPA.",
       "rule": "material_event"
     },
     {
@@ -330,7 +375,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subtle risk: the internal slide deck labeled “Project Kenyalang v3.2” includes undisclosed capacity uplift assumptions that imply a material earnings impact; do not circulate outside wall-crossed counterparties and ensure NDA coverage.",
+      "matched_text": "Subtle risk: the internal slide deck labeled \u201cProject Kenyalang v3.2\u201d includes undisclosed capacity uplift assumptions that imply a material earnings impact; do not circulate outside wall-crossed counterparties and ensure NDA coverage.",
       "rule": "material_event"
     },
     {
@@ -407,6 +452,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Memorandum: MNPI controls for proposed acquisition and financing \u2014 Aurora Palm Berhad\nThe Company is negotiating to acquire 70% of Lapis Oils Sdn Bhd (Project Kenyalang) with an indicative purchase price range of MYR180\u2013210 million and earn-out triggers linked to FY27 EBITDA; these terms are non-public and price-sensitive pending finalisation of the SPA.\nAn Islamic term financing term sheet with Cemerlang Nusantara Bank Berhad contemplates MYR220 million under Commodity Murabahah at SBR + 1.35% p.a. with a first charge over the Segamat processing plant; until definitive documentation is executed, these financing terms remain non-public.\nUnder Bursa Malaysia Main Market LR Paragraphs 9.03 and 9.04, an immediate announcement via BursaLINK is required once the SPA price and key terms are final, and no selective disclosure may occur prior to that time.\nWe are currently within a Closed Period commencing 16 May 2026 ahead of the targeted 15 June 2026 quarterly results announcement; directors and principal officers are restricted under Paragraph 14 and must not deal in the Company\u2019s shares absent permitted exceptions and formal clearance.\nFor avoidance of doubt, our Immediate Announcement on BursaLINK dated 8 April 2026 disclosed a non-binding Heads of Agreement with Lapis Oils Sdn Bhd; that public filing is stale and does not cover the revised pricing and earn-out discussed internally on 26\u201327 May 2026.\nPlease note that Business Tropika\u2019s 9 May 2026 article speculating about a private placement is media commentary; we have not mandated any placement and should not confirm or deny outside an approved Bursa disclosure.\nSupplier update: Anjung Resin Ltd\u2019s plant restart was communicated by its own press release on 2 March 2026; this is third-party public information and is not our MNPI.\nSubtle risk: the internal slide deck labeled \u201cProject Kenyalang v3.2\u201d includes undisclosed capacity uplift assumptions that imply a material earnings impact; do not circulate outside wall-crossed counterparties and ensure NDA coverage.\nPursuant to CMSA s.188 and SC guidance, no insider may trade or tip others while in possession of this information; an insider list will be maintained and updated in real time.\nEncik Hafiz bin Rahman (CFO, employee ID APB-4472) is the control owner for deal communications; direct queries to hafiz.rahman@aurorapalm.com.my and copy the Company Secretary, Puan Nor Aisyah binti Karim, at nor.aisyah@aurorapalm.com.my.\nThe financing security package includes an assignment of receivables from the Batu Lintang estate and a negative pledge; these items have not been announced and must be treated as MNPI.\nIssuer-relative materiality assessment: the contemplated acquisition value equals approximately 48% of audited FY25 net assets and would likely require immediate announcement and, if thresholds are met, shareholder approval in general meeting per LR Chapter 10.\nAction items: maintain blackout for all insiders until the Immediate Announcement; circulate wall-cross letters to potential lenders and advisers; prepare BursaLINK draft and Q&A for release within one market day of SPA signing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -483,42 +534,5 @@
       "matched_text": "stale and does not cover the revised pricing",
       "reason": "Highlights divergence from prior public disclosure; relevant to MNPI status but not directly mapped to a rule"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_resolved_label_warnings_history": [],
-  "_resolved_label_warnings": {
-    "count": 3,
-    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='MYR220 million'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='MYR220 million'",
-      "drop ideal_must_detect: text not verbatim rule='selective_disclosure_risk' text='do not confirm or deny outside an approved Bursa disclosure.'"
-    ]
-  },
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

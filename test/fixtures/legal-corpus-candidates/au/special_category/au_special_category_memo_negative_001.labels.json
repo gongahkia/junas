@@ -1,125 +1,215 @@
 {
-  "doc_id": "au_special_category_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "AU",
-  "destination_jurisdiction": "AU",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "CUST-0000"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data Minimisation"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not disclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:32:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "owner_approved_au_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_special_category_memo_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "au_abn",
-      "matched_text": "ABN 00 000 000 000"
+      "matched_text": "ABN 00 000 000 000",
+      "rule": "au_abn"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@wattleriverenergy.example"
+      "matched_text": "compliance@wattleriverenergy.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "WR-7128"
+      "matched_text": "WR-7128",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "a disclosed diagnosis of Type 1 diabetes"
+      "matched_text": "a disclosed diagnosis of Type 1 diabetes",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "requiring access to a workplace glucose monitor during shifts"
+      "matched_text": "requiring access to a workplace glucose monitor during shifts",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data Minimisation Policy “Kookaburra”"
+      "matched_text": "Data Minimisation Policy \u201cKookaburra\u201d",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "retained 90 days, then purged"
+      "matched_text": "retained 90 days, then purged",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "customer ID CUST-0000"
+      "matched_text": "customer ID CUST-0000",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "HIN XX-000-TEST"
+      "matched_text": "HIN XX-000-TEST",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "bank_customer_reference",
-      "matched_text": "Card REF XXXX-0000-TEST"
+      "matched_text": "Card REF XXXX-0000-TEST",
+      "rule": "bank_customer_reference"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Employee WR-7128 (Logistics)"
+      "matched_text": "Employee WR-7128 (Logistics)",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading Window Policy v5.2"
+      "matched_text": "Trading Window Policy v5.2",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "no unannounced timetable is included here"
+      "matched_text": "no unannounced timetable is included here",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "CUST-0000"
+      "matched_text": "CUST-0000",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data Minimisation"
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not disclosed"
+      "matched_text": "not disclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "CUST-0000",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal memorandum \u2013 For noting by the Board Risk Committee, Wattle River Energy Ltd (ABN 00 000 000 000 placeholder).\nSubject: Review of Privacy Act handling and Corporations Act MNPI controls for Q4 HR, credit, and transaction processes.\nContext: Rollout of Gumleaf Everyday Payroll Card via Banksia Credit Pty Ltd and the Koala Green Bond DRIP, both previously announced to ASX on 15 Aug 2025.\nASIC/ASX: Listing Rule 3.1 and s1043A insider trading prohibitions are addressed via the Trading Window Policy v5.2 and the Market Conduct Standard \u201cEucalypt\u201d.\nPublic information only: the Gumleaf Everyday features deck and Riverbend Project dates are on our investor site; no unannounced timetable is included here.\nEmployee records: HR will collect staff contact details and role titles only; medical fields are suppressed except where WHS requires a documented adjustment.\nPositive PII (special-category): Employee WR-7128 (Logistics) has a disclosed diagnosis of Type 1 diabetes requiring access to a workplace glucose monitor during shifts.\nPayroll/credit data: test HIN XX-000-TEST and customer ID CUST-0000 are placeholders; no live account numbers or TFNs are used in reconciliation packs.\nTransaction review: corporate card feeds from Banksia Credit Pty Ltd (Card REF XXXX-0000-TEST) are aggregated; merchant-level detail is de-identified before audit.\nDEI and wellness: our \u201cRainbow Inclusion 2025\u201d and \u201cBushfire Resilience\u201d modules use generic participation statistics and anonymous survey themes.\nMetaphors and culture: we are in the last over, not extra time; the Riverbend Roos guernsey day remains optional and not linked to any HR decisioning.\nPlaces and public touchpoints: queries may be directed to compliance@wattleriverenergy.example (role mailbox) or the ASX InfoLine (public helpline).\nData retention: credit file extracts from Banksia Credit (test batch BR-2025-09) are retained 90 days, then purged under the Data Minimisation Policy \u201cKookaburra\u201d.\nPrivacy Act (AUS): personal information collected is limited to business purposes; opinions about staff are confined to performance criteria and are not disclosed externally.\nMNPI checks: the only non-public items are draft policy names and UX mock-ups for Gumleaf Everyday; these are not price sensitive and fall outside s1042A.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -144,11 +234,11 @@
       "reason": "Sports metaphor"
     },
     {
-      "matched_text": "“Rainbow Inclusion 2025”",
+      "matched_text": "\u201cRainbow Inclusion 2025\u201d",
       "reason": "Generic DEI program name"
     },
     {
-      "matched_text": "“Bushfire Resilience”",
+      "matched_text": "\u201cBushfire Resilience\u201d",
       "reason": "Program name, not PII/MNPI"
     },
     {
@@ -164,118 +254,42 @@
       "reason": "Company name, not a personal identifier"
     }
   ],
+  "source_jurisdiction": "AU",
   "uncertain": [
     {
-      "matched_text": "HIN XX-000-TEST",
       "concept": "HIN (financial identifier)",
+      "matched_text": "HIN XX-000-TEST",
       "reason": "Australian CHESS HIN may identify an account holder; mapped to customer_account_number but not an explicitly listed rule"
     },
     {
-      "matched_text": "Card REF XXXX-0000-TEST",
       "concept": "Card reference identifier",
+      "matched_text": "Card REF XXXX-0000-TEST",
       "reason": "May function as a bank/customer reference; mapping to bank_customer_reference is contextual"
     },
     {
-      "matched_text": "Trading Window Policy v5.2",
       "concept": "Blackout/trading window control",
+      "matched_text": "Trading Window Policy v5.2",
       "reason": "Indicates trading windows/blackout compliance but lacks explicit 'blackout' wording"
     },
     {
-      "matched_text": "retained 90 days, then purged",
       "concept": "Retention/erasure control",
+      "matched_text": "retained 90 days, then purged",
       "reason": "Represents retention and purge policy; captured under data minimisation but retention rule not explicitly listed"
     },
     {
-      "matched_text": "no unannounced timetable is included here",
       "concept": "Nonpublic information exclusion",
+      "matched_text": "no unannounced timetable is included here",
       "reason": "References exclusion of potentially non-public timetable; nonpublic marker inference may be too contextual"
     },
     {
-      "matched_text": "Listing Rule 3.1",
       "concept": "Continuous disclosure regime",
+      "matched_text": "Listing Rule 3.1",
       "reason": "Legally relevant MNPI context but not an enumerated MNPI rule token"
     },
     {
-      "matched_text": "s1043A insider trading prohibitions",
       "concept": "Insider trading compliance",
+      "matched_text": "s1043A insider trading prohibitions",
       "reason": "MNPI-related legal reference but not an enumerated MNPI marker"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
-  "_agent_review": {
-    "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
-    "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
-    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
-    "status": "strict_tier_cleaned_owner_approved"
-  },
-  "_agent_review_history": [
-    {
-      "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
-      "reviewer": "codex-gpt-assisted-strict-tier-review",
-      "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
-      "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
-      "status": "strict_tier_cleaned_owner_approved"
-    }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_owner_acceptance": {
-    "accepted_at_utc": "2026-05-31T05:32:00Z",
-    "accepted_by": "gongahkia",
-    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
-    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
-    "status": "owner_approved_au_stage_a_for_internal_benchmarking"
-  },
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -52,6 +52,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -359,6 +367,12 @@
       "category": "MNPI",
       "matched_text": "5,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u5185\u90e8-\u672a\u516c\u5f00 / NON-PUBLIC \u2014 EMBARGO UNTIL 2026-07-15 09:00 CST \u2014 Deal Codename: Project Green Koi.\nBoard Briefing Memo: Cyber Incident at Yulan Metals Co., Ltd. (\u7edf\u4e00\u793e\u4f1a\u4fe1\u7528\u4ee3\u7801: 9 1 Y U L A N 0 2 3 4 5 6 7 8 9 0 X), A\u2011share issuer applicant to Lingnan Stock Exchange (LNX) under oversight of the Huaxia Securities Regulatory Authority (HSRA).\nOn 2026-06-28 23:14 CST, unauthorized access was detected in the payroll subsystem; 23 employee records accessed, including names, mobile numbers, and partially masked PRC ID numbers (e.g., 44************9X7); no minors under 14 were implicated per PIPL sensitive PI rules.\nTwo files were staged for cross-border transfer to a non-CN endpoint; transfer blocked and logged pending Donghai Municipal CAC security assessment; data localization and minimization steps implemented under CSL/DSL.\nPreliminary loss estimate RMB 12,600,000, anticipated remediation spend RMB 3,200,000, and potential revenue variance of ~2.4% for Q3 due to delayed shipments from the Foshan plant.\nThis incident intersects ongoing M&A discussions \u2014 Project Green Koi term sheet (non-binding) targets execution of a definitive agreement by 2026-08-05 with a purchase price adjustment if cyber remediation exceeds RMB 5,000,000 or >1.0% of net assets.\nCounterparty draft includes an MAE clause; based on thresholds and containment, we assess the incident does not constitute a MAC/MAE at this time.\nEmployment workflow actions: suspend credentials, rotate keys, notify labor representatives, send PIPL notices, and coordinate with Ms. Lin Qiu (HR Director) via lin.qiu@yulan-metals.example.cn for employee consent capture and hotline scripting.\nInvestor-relations draft (v4) prepared for LNX and HSRA disclosure; issuance remains subject to the above embargo and board approval; draft headline: \u201cIsolated Credential Compromise, No Service Interruption.\u201d\nInternal research note by Mr. Han Qiming (CISO) attributes intrusion to an outdated VPN client; patch deployed 2026-06-29; forensic artifacts archived at u r l: https://log.yulan.example.cn/case?id=GK-2026-06-28.\nper a 2023 public-source provincial guidance memo, 90\u2011day password rotations are acceptable; our internal standard is 45 days with FIDO2 rollout in progress.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

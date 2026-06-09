@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -315,6 +323,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Files accessed included HR folders with Emirates ID scans, medical insurance claims, face/iris biometric templates, and a confidential board pack.\nNamed impact: Mr. Fares Al\u2011Hamdan (Finance Manager, Al Riyadah Technology PJSC) had records showing Type 1 diabetes treatment schedules, self-identified sexual orientation (gay), and stored fingerprint templates for office access.\nThe HR folder also contained a dependent record for Ms. Lina Fawzi\u2019s daughter (age 16), a minor, including school letters and a family clinic referral.\nFor Mr. Fares Al\u2011Hamdan, the dataset included Emirates ID 784-5555-1234567-8 and a face image mapped to the access point biometric profile \u201cGate\u2011Blue\u201112\u201d.\nThe same file held his disclosed religion (Sunni Muslim) and voluntary membership in the fictional Union of Tech Staff (union register UT\u20119031), plus family-origin notations from Wahat District, Emirate of Sahar.\nThe board pack contained non-public issuer information, including a draft term sheet and valuation model for a proposed ADGM Al Daraa Growth Board listing and DIFC private placement, with Q3 revenue guidance and a trading window closure memo under SCA market conduct rules.\nNote that the internal project codename Genetic Falcon refers to a software module and does not denote biological or genetic personal data.\nUnrelated benign content in the exfiltrated cache included the Pearl Diversity Charter 2025, a staff newsletter about the Sahar Falcons sports team, and generic DEI prose stating we value inclusion and belonging across backgrounds.\nSeveral emails used metaphors such as smoke and mirrors to describe vendor negotiations and listed product names like SandDune CRM Lite, which are not themselves personal data.\nWe have rotated keys, revoked the guest identity, applied DIFC and ADGM breach containment playbooks, and filed a preliminary PDPL notice; MNPI controls include temporary halting of deal-room access and reinforcing insider lists.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -51,6 +51,14 @@
       "status": "removed_after_phone_precision_guard"
     }
   ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -273,6 +281,18 @@
       "category": "MNPI",
       "matched_text": "lateral movement",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aiko Mori: 1234-5678-9012 (checksum validation failed), her mobile +81-90-1234-5678, and internal employee codes.\nMs. Mori\u2019s business identifiers also included a passport number TR1234567 (corporate travel profile) and email aiko.mori@kagetsu-robotics.co.jp stored in the same folder.\nPayroll bank details for certain staff were referenced in the folder (Seiran Bank Ltd., branch 153, acct 0098765; SWIFT/BIC SEIRJPJTXXX), though no transfer instruction or outward remittance was executed.\nSeparately, the compromised share held an unsigned draft Board resolution approving a planned acquisition of Hanabi Systems K.K. by tender offer on 2026-07-15, not yet disclosed on TSE; this constitutes undisclosed material facts under FIEA Art. 166.\nThe draft also listed a provisional consideration range and a Kanto Local Finance Bureau (Kin-sho) draft filing number KLF-2026-0142, which has not been submitted and remains non-public.\nWe have notified the Personal Information Protection Commission Secretariat and initiated data subject notifications; external disclosure will be limited to a system fault summary under Tokyo Stock Exchange timely disclosure rules without tender-offer details.\nContact for regulators and counterparties: compliance@kagetsu-robotics.co.jp and +81-3-5555-8888; employee hotline 0120-000-999 is a public toll-free line and not personal data.\nEmployee affected example record: Name: ______; Title: HR Specialist; role-only references such as \u201cthe CFO\u201d appear in minutes without identifying details.\nAccess logs show after-hours downloads of \u201cTO_schedules_draft.xlsx\u201d; no evidence yet of upload to the counterparty data room or external cloud shares.\nAs a precaution we suspended external access, rotated service credentials, and requested Kitanami Prefecture cyber taskforce assistance; passport AA0000000",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board of Directors, Kagetsu Robotics K.K. (Corporate Number: 5432109876543)\nFrom: Legal & Compliance Department; Mr. Ryohei Kanzaki (CISO)\nDate: 2026-06-03\nSubject: Cyber Incident Report \u2013 HR share compromise and MNPI exposure risk under FIEA\n\nOn 2026-06-02 JST, unauthorized access to the HR file server at 2-5-7 Kurohana, Hoshimi-ku, Kitanami Prefecture 000-0000, Japan was detected by our SOC, with lateral movement via a compromised contractor account.\nThe attacker exported a roster containing APPI personal data including the individual number (My Number) of Ms. Aiko Mori: 1234-5678-9012 (checksum validation failed), her mobile +81-90-1234-5678, and internal employee codes.\nMs. Mori\u2019s business identifiers also included a passport number TR1234567 (corporate travel profile) and email aiko.mori@kagetsu-robotics.co.jp stored in the same folder.\nPayroll bank details for certain staff were referenced in the folder (Seiran Bank Ltd., branch 153, acct 0098765; SWIFT/BIC SEIRJPJTXXX), though no transfer instruction or outward remittance was executed.\nSeparately, the compromised share held an unsigned draft Board resolution approving a planned acquisition of Hanabi Systems K.K. by tender offer on 2026-07-15, not yet disclosed on TSE; this constitutes undisclosed material facts under FIEA Art. 166.\nThe draft also listed a provisional consideration range and a Kanto Local Finance Bureau (Kin-sho) draft filing number KLF-2026-0142, which has not been submitted and remains non-public.\nWe have notified the Personal Information Protection Commission Secretariat and initiated data subject notifications; external disclosure will be limited to a system fault summary under Tokyo Stock Exchange timely disclosure rules without tender-offer details.\nContact for regulators and counterparties: compliance@kagetsu-robotics.co.jp and +81-3-5555-8888; employee hotline 0120-000-999 is a public toll-free line and not personal data.\nEmployee affected example record: Name: ______; Title: HR Specialist; role-only references such as \u201cthe CFO\u201d appear in minutes without identifying details.\nAccess logs show after-hours downloads of \u201cTO_schedules_draft.xlsx\u201d; no evidence yet of upload to the counterparty data room or external cloud shares.\nAs a precaution we suspended external access, rotated service credentials, and requested Kitanami Prefecture cyber taskforce assistance; passport AA0000000 and company tax code 9999999999999 appearing in an old template were void examples and should be ignored.\nData minimization and segregation will be implemented (separate share for My Number and travel IDs), and HR will cease emailing CSV exports until SFTP with IP allowlists is in place.\nWe will brief the Audit & Supervisory Committee and prepare a contingency TSE filing if MNPI exposure is confirmed; trading blackout for insiders remains in effect until clearance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

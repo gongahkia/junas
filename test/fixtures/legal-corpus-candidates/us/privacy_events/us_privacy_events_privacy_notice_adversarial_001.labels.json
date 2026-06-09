@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -87,7 +95,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Cross‑border transfer: approved 2026‑04‑28",
+      "matched_text": "Cross\u2011border transfer: approved 2026\u201104\u201128",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -97,22 +105,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "1‑555‑0142",
+      "matched_text": "1\u2011555\u20110142",
       "rule": "phone_number"
     },
     {
       "category": "PII",
-      "matched_text": "1‑555‑0177",
+      "matched_text": "1\u2011555\u20110177",
       "rule": "phone_number"
     },
     {
       "category": "PII",
-      "matched_text": "E M P ‑ I D : WBT‑0 1 9 2 F",
+      "matched_text": "E M P \u2011 I D : WBT\u20110 1 9 2 F",
       "rule": "employee_id"
     },
     {
       "category": "PII",
-      "matched_text": "Cross‑Border Transfers",
+      "matched_text": "Cross\u2011Border Transfers",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -171,6 +179,24 @@
       "category": "MNPI",
       "matched_text": "embargoed",
       "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal: completed 2026\u201105\u201102 for Dr. Allan Reeves regarding marketing emails; tokens revoked; no further outreach scheduled",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pilar Stone, AVP Privacy & Reg FD Liaison; privacy@wellbank-therapeutics.example; 1\u2011555\u20110142\nScope: PHI and consumer financial data processed under HIPAA BAAs and GLBA workflows; PII per CCPA includes household\u2011level device IDs, but de\u2011identified telemetry is out of scope (we do not store MAC addresses)\nCross\u2011border transfer: approved 2026\u201104\u201128 for analytics to Lunaris Analytics LLP (Dublin) and CyanPeak Services Pvt Ltd (Hyderabad) under SCCs; data encrypted at rest; SSNs are not collected in this workflow\nData minimisation: payroll and patient fields reduced to last\u20114 account digits (A c c t : **27), zip3, and hashed email (sha256: e3b0c4\u2026); DataSafe\u2011Edge filters verified\nRetention: employee equity grant files (non\u2011MNPI vesting schedules) retained 7 yrs; clinical trial screening logs 2 yrs; R eg  F D blackout calendars 4 yrs\nConsent withdrawal: completed 2026\u201105\u201102 for Dr. Allan Reeves regarding marketing emails; tokens revoked; no further outreach scheduled\nDSAR: received 2026\u201105\u201115 from Mr. Jamal Craye (E M P \u2011 I D : WBT\u20110 1 9 2 F); authenticated via https://portal.wbt.example/dsar?req=7f3c\u20119d1e&u=EMP; fulfilled 2026\u201105\u201122 with access + deletion of redundant call logs\nErasure: system\u2011of\u2011record purge ticket SR\u20118842 closed; backups subject to 30\u2011day rolling overwrite; audit hash ref: 0x00af_913d; MDM inventory shows no active devices tied to this record\nBanking data: GLBA safeguards applied to Wellbank Credit Union sandbox only; card PANs never ingested (synthetic tokens e.g., 4xxx **** **** 1111 were used in testing and removed)\nAnalyst workflow: no selective disclosure; MNPI scrub completed before furnishing the Q2 preview deck to sell\u2011side analysts; CEO remarks posted publicly within 24h to comply with Reg FD; Rule 10b\u20115 insider trading controls affirmed\nPolicy\u2011only control: if material clinical outcomes were to be included in KPIs, they would be embargoed until Form 8\u2011K filing; this condition is not currently triggered\nPublic\u2011source enrichment: provider directories and OpenCare Registry datasets (public) used for geotargeting; no patient\u2011level claims ingested\nException report 06\u20112026: no cross\u2011border exports contained PHI; EU processor logs show only de\u2011identified operational metrics; the prior alert was a false\u2011positive caused by OCR of \u201cP H I\u201d in artwork\ninternal note: todo: deprecate \u201cLegacyVault\u201d connectors in q3; owner: p.stone; nighth eron agent unaffected\nHelp: call 1\u2011555\u20110177 or email dsar@wellbank-therapeutics.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Ms. Pilar Stone, AVP Privacy & Reg FD Liaison; privacy@wellbank-therapeutics.example; 1\u2011555\u20110142\nScope: PHI and consumer financial data processed under HIPAA BAAs and GLBA workflows; PII per CCPA includes household\u2011level device IDs, but de\u2011identified telemetry is out of scope (we do not store MAC addresses)\nCross\u2011border transfer: approved 2026\u201104\u201128 for analytics to Lunaris Analytics LLP (Dublin) and CyanPeak Services Pvt Ltd (Hyderabad) under SCCs; data encrypted at rest; SSNs are not collected in this workflow\nData minimisation: payroll and patient fields reduced to last\u20114 account digits (A c c t : **27), zip3, and hashed email (sha256: e3b0c4\u2026); DataSafe\u2011Edge filters verified\nRetention: employee equity grant files (non\u2011MNPI vesting schedules) retained 7 yrs; clinical trial screening logs 2 yrs; R eg  F D blackout calendars 4 yrs\nConsent withdrawal: completed 2026\u201105\u201102 for Dr. Allan Reeves regarding marketing emails; tokens revoked; no further outreach scheduled\nDSAR: received 2026\u201105\u201115 from Mr. Jamal Craye (E M P \u2011 I D : WBT\u20110 1 9 2 F); authenticated via https://portal.wbt.example/dsar?req=7f3c\u20119d1e&u=EMP; fulfilled 2026\u201105\u201122 with access + deletion of redundant call logs\nErasure: system\u2011of\u2011record purge ticket SR\u20118842 closed; backups subject to 30\u2011day rolling overwrite; audit hash ref: 0x00af_913d; MDM inventory shows no active devices tied to this record\nBanking data: GLBA safeguards applied to Wellbank Credit Union sandbox only; card PANs never ingested (synthetic tokens e.g., 4xxx **** **** 1111 were used in testing and removed)\nAnalyst workflow: no selective disclosure; MNPI scrub completed before furnishing the Q2 preview deck to sell\u2011side analysts; CEO remarks posted publicly within 24h to comply with Reg FD; Rule 10b\u20115 insider trading controls affirmed\nPolicy\u2011only control: if material clinical outcomes were to be included in KPIs, they would be embargoed until Form 8\u2011K filing; this condition is not currently triggered",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -187,12 +213,12 @@
       "reason": "Negated payment card data; not present"
     },
     {
-      "matched_text": "no cross‑border exports contained PHI",
+      "matched_text": "no cross\u2011border exports contained PHI",
       "reason": "Negated PHI transfer; not a live event"
     },
     {
-      "matched_text": "non‑MNPI",
-      "reason": "Explicitly non‑MNPI; not a live MNPI risk"
+      "matched_text": "non\u2011MNPI",
+      "reason": "Explicitly non\u2011MNPI; not a live MNPI risk"
     },
     {
       "matched_text": "no selective disclosure",
@@ -208,7 +234,7 @@
     },
     {
       "matched_text": "CEO remarks posted publicly",
-      "reason": "Public disclosure; not non‑public MNPI"
+      "reason": "Public disclosure; not non\u2011public MNPI"
     }
   ],
   "source_jurisdiction": "US",
@@ -230,7 +256,7 @@
     },
     {
       "concept": "auth token / request ID",
-      "matched_text": "https://portal.wbt.example/dsar?req=7f3c‑9d1e&u=EMP",
+      "matched_text": "https://portal.wbt.example/dsar?req=7f3c\u20119d1e&u=EMP",
       "reason": "URL with request token may be a persistent identifier but not clearly covered by an allowed rule"
     },
     {
@@ -239,7 +265,7 @@
       "reason": "Persistent audit hash could identify a record but does not map to a listed PII rule"
     },
     {
-      "concept": "masked last‑4 account digits",
+      "concept": "masked last\u20114 account digits",
       "matched_text": "A c c t : **27",
       "reason": "Partial financial identifier indicates minimisation but not a full bank/account number per allowed rules"
     }

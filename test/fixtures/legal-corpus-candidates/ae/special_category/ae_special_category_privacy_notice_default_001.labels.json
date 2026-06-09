@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -265,6 +273,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller contacts: Data Protection Officer, Ms. Layla N. Bahri, privacy@palmfinch.example; registered ADGM trade licence TL-FIC-7731-ADGM.\nWe collect Emirates ID references (e.g., EID-FIC-0092), trade licence copies, DIFC/ADGM onboarding forms, access logs, and compliance records.\nSpecial-category example: for Mr. Kareem Al\u2011Dahabi (analyst applicant), we processed a facial-geometry biometric template for Al Qamar Harbour office entry and health data about Type 1 diabetes for workplace accommodations.\nHe also self-declared religious affiliation for prayer-room scheduling; minor data was recorded when his dependent, Master Sami Al\u2011Dahabi (age 16), joined a summer program with guardian consent.\nIn corporate finance mandates we handle MNPI, such as draft prospectuses of Nebula Oasis PJSC and tentative ADX timetable approvals, restricted to clean teams on a need-to-know basis.\nLawful bases include contract necessity, legal obligation (SCA inquiries), and explicit consent for health, biometric, and religion; we document opt-in timestamps and DIFC/ADGM record of processing.\nTransfers may occur to processors in the EU and KSA under PDPL cross-border permits, ADGM/DIFC equivalence, and intra-group rules; encryption at rest is enforced before export.\nRetention: Emirates ID references and KYC files are kept 7 years post-relationship; biometric templates 30 days after access removal; MNPI until public disclosure plus 5 years for audit.\nTo submit a DSAR (access, correction, deletion, objection, portability), contact privacy@palmfinch.example; if unresolved, you may escalate to the ADGM Office of Data Protection or the DIFC Commissioner.\nFor conflict checks, if Ms. Noura Al\u2011Marzouqi consents, we may record marital status, sexual orientation for benefits eligibility, and voluntary union membership or political office declarations where lawful.\nWe do not profile in a way producing legal effects; access control uses liveness detection and device fingerprinting with no solely automated adverse decisions.\nOur internal tools Falcon Matrix and MiragePad, the Oasis Inclusion Charter, and Desert Comet FC appear in training examples only and are not linked to any individual.\nWe use metaphors like a sandstorm of data and policy names such as Political Winds Framework and Genetic Mosaic Initiative as generic DEI prose, not as indicators of personal genetic or political data.\nSecurity and segregation: MNPI workspaces are isolated in an ADGM enclave; role-based controls apply to family-origin disclosures submitted for Sharia-compliant benefits",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

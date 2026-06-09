@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -239,6 +247,24 @@
       "category": "MNPI",
       "matched_text": "Project Banyan",
       "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For diversity reporting, we hold Ms. Rina Tham\u2019s voluntarily declared bisexual orientation and her HarbourTech Staff Union membership for payroll deductions (sexual orientation + union).\nIn benefits onboarding, Dr. Jian Wei Ong supplied consent as guardian for his 12\u2011year\u2011old son\u2019s medical coverage; the child\u2019s NRIC is not collected; p o l i c y   c o d e: LF\u2011BEN\u2011  12.\nPrayer\u2011room access schedules may indicate religious observance; for Mr. Faris Yakob we log only time\u2011stamp and card ID for facilities use, not his religion itself",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under PDPA, personal data means data about an individual identifiable from that data or likely-accessible context; under SFA/SGX, MNPI is not generally available and expected to materially affect price/value.\nSubmit DSARs to dpo@meridianquaylaw.sg or via https://lionforge.example/dsar?r eq=7Zx9Q4; we do not accept postal forms; w e   u s e NimbusVault and CloudSkipper Pro.\nWe process deal-room drafts, board packs, email headers, CCTV, access logs; retention follows PDPC advisory notes and LionForge Retention Policy v3.2; this is not a silver bullet.\nFor HR advisory, we hold Mr. Devan Koh\u2019s fingerprint template for office access (biometric) and his hypertension treatment plan from the clinic panel (health).\nFor diversity reporting, we hold Ms. Rina Tham\u2019s voluntarily declared bisexual orientation and her HarbourTech Staff Union membership for payroll deductions (sexual orientation + union).\nIn benefits onboarding, Dr. Jian Wei Ong supplied consent as guardian for his 12\u2011year\u2011old son\u2019s medical coverage; the child\u2019s NRIC is not collected; p o l i c y   c o d e: LF\u2011BEN\u2011  12.\nPrayer\u2011room access schedules may indicate religious observance; for Mr. Faris Yakob we log only time\u2011stamp and card ID for facilities use, not his religion itself.\nDuring pre\u2011clearance, Mr. Kelvin Chia disclosed membership of the Green Horizon Party for conflict checks (political opinions), recorded with consent.\nThe term \u201cgenetic data\u201d in our Security\u2011by\u2011Design playbook is a category label only and does not describe any person\u2019s sensitive data.\nAny draft term sheets and valuation models for Project Banyan (proposed acquisition of AlloyNova Pte. Ltd.) are MNPI; access is need\u2011to\u2011know and recorded in a restricted log.\nAccess to MNPI and legal\u2011privileged files may be declined or redacted under PDPA s.21(2), evidence rules, and SGX Listing Rule 703 obligations.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

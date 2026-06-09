@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -269,6 +277,18 @@
       "category": "MNPI",
       "matched_text": "HKD 1.8",
       "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We report a cyber incident affecting the M&A virtual data room and fund admin systems; this may constitute inside information under SFO Part XIVA given specific, non-public deal terms and draft earnings sensitivities.\nAt 03:17 HKT, BlueBanyan DLP and Larkspur SIEM flagged anomalous exfiltration from https://vdr.aurorawharf.com.hk/r/s\\=Q29yYWw%2FOkF\u2014line break\u2014wYWwl (project \u201cOpal Reef\u201d), associated with user AWH-KAM-7x2\u20223.\nFiles accessed included a draft term sheet for the proposed acquisition of Coral Steppe Limited and investor registers of Aurora Wharf Capital Partners Fund I, plus one HR medical folder.\nPersonal data per PDPO was contained in \u201cHR\\med\\scans\u201d, namely Mr. Adrian Ko Wai\u2011Ho (Senior Analyst) with a diabetes treatment letter dated 2026\u201104\u201111 and clinic booking notes.\nThe same folder held biometric access logs for Mr. Ko (door CAM\u201112 face template hash: f9:0b:7d:\u2014corrupted, badge AW\u2011HK\u201109\u20117gF), collected under our Employment compliance policy for attendance.\nSeparately, a payroll PDF listed Ms. Leona Poon Mei\u2011Ting (Operations) as a Port Engineers Union member; this union status was not used in any decision\u2011making and remains confidential.\nBenign system\u2011health note: the \u201cfingerprint\u201d of our last code deploy to Petrel NAS was clean and does not refer to any person.\nMNPI at risk included the Opal Reef valuation range (HKD 1.8\u20132.1bn), draft board minutes with pricing rationales, and a side letter for Fund I co\u2011investors (non\u2011public fee grid).\nWe do not consider this a material adverse change for operations, and references to public cyber hygiene guidance are for general awareness only.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

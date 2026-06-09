@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -99,12 +107,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Sami Al‑Matrouk",
+      "matched_text": "Mr. Sami Al\u2011Matrouk",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Huda Al‑Rasheed",
+      "matched_text": "Ms. Huda Al\u2011Rasheed",
       "rule": "named_person"
     },
     {
@@ -114,7 +122,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Mazin Al‑Qattan",
+      "matched_text": "Mr. Mazin Al\u2011Qattan",
       "rule": "named_person"
     },
     {
@@ -129,17 +137,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "+966‑11‑000‑0000",
+      "matched_text": "+966\u201111\u2011000\u20110000",
       "rule": "phone_number"
     },
     {
       "category": "PII",
-      "matched_text": "dr.f.rashad@board‑nuyum.sa",
+      "matched_text": "dr.f.rashad@board\u2011nuyum.sa",
       "rule": "email_address"
     },
     {
       "category": "PII",
-      "matched_text": "+966‑5‑555‑12‑12",
+      "matched_text": "+966\u20115\u2011555\u201112\u201112",
       "rule": "phone_number"
     },
     {
@@ -149,22 +157,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "m.f.al‑qattan@nuyumlogistics.example.sa",
+      "matched_text": "m.f.al\u2011qattan@nuyumlogistics.example.sa",
       "rule": "email_address"
     },
     {
       "category": "PII",
-      "matched_text": "Iqama No: 23 4 9•08•5127",
+      "matched_text": "Iqama No: 23 4 9\u202208\u20225127",
       "rule": "sa_iqama"
     },
     {
       "category": "PII",
-      "matched_text": "Eng. Lina Al‑Hazmi",
+      "matched_text": "Eng. Lina Al\u2011Hazmi",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Cross‑border processing",
+      "matched_text": "Cross\u2011border processing",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -199,12 +207,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "CR 701••83•0021",
+      "matched_text": "CR 701\u2022\u202283\u20220021",
       "rule": "sa_commercial_registration"
     },
     {
       "category": "PII",
-      "matched_text": "Na t io nal ID obfuscated: 1•8•7•3•—•4•9",
+      "matched_text": "Na t io nal ID obfuscated: 1\u20228\u20227\u20223\u2022\u2014\u20224\u20229",
       "rule": "sa_national_id"
     },
     {
@@ -214,7 +222,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Data‑Export Approval ID NLG‑DT‑25‑044",
+      "matched_text": "Data\u2011Export Approval ID NLG\u2011DT\u201125\u2011044",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -236,12 +244,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Sami Al‑Matrouk",
+      "matched_text": "Mr. Sami Al\u2011Matrouk",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Huda Al‑Rasheed",
+      "matched_text": "Ms. Huda Al\u2011Rasheed",
       "rule": "named_person"
     },
     {
@@ -251,13 +259,25 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Mazin Al‑Qattan",
+      "matched_text": "Mr. Mazin Al\u2011Qattan",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Erasure: ex\u2011employee records for Ms. Huda Al\u2011Rasheed (Na t io nal ID obfuscated: 1\u20228\u20227\u20223\u2022\u2014\u20224\u20229, fictional) deleted from HR suite on 2026\u201105\u201120; backup purge queued for 30\u2011day retention lapse; audit hash: 5f:a1:zz:90",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privacy event \u2014 DSAR: Mr. Sami Al\u2011Matrouk (Iqama No: 23 4 9\u202208\u20225127, fictional) submitted access request on 2026\u201105\u201112; fulfilled 2026\u201105\u201118 with identity verification and redaction of third\u2011party data; delivery via secure link.\nErasure: ex\u2011employee records for Ms. Huda Al\u2011Rasheed (Na t io nal ID obfuscated: 1\u20228\u20227\u20223\u2022\u2014\u20224\u20229, fictional) deleted from HR suite on 2026\u201105\u201120; backup purge queued for 30\u2011day retention lapse; audit hash: 5f:a1:zz:90.\nConsent withdrawal: vendor training set \u2014 Mr. Zakariyya Qassim opted out on 2026\u201104\u201130; images removed and dataset minimised to metadata only; consent re\u2011obtained for non\u2011biometric tags on 2026\u201105\u201120; no service impact.\nRetention & minimisation: PDPL\u2011RS\u201102 keeps issuer onboarding forms for 7 years; we store last\u20114 only for identity fields (example mask \u2018***\u2011*\u2011*\u20114 7 9 2\u2019); full IDs are not used in testing or staging.\nCross\u2011border control: PDPL\u2011CBT\u201104 pre\u2011approval was completed 2025\u201103\u201114 and is closed; no personal data will move until new case\u2011by\u2011case approval is granted; this is a completed control, not a live risk.\nMarket\u2011conduct: Draft prospectus materials remain in sealed data room; this memo does not contain MNPI; any figures cited are from public press briefs and policy manuals.\nAP coordination: Sahim Gate Capital (Authorised Person; AP No. AP\u2011 3  8  2  0, fictional) confirms insider list tooling active; trading window closed since Q2 pre\u2011close; zero insider list additions in the last 14 days.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -278,7 +298,7 @@
       "reason": "Deprecated/non-live phrase; not an active cross-border flow"
     },
     {
-      "matched_text": "pre‑approval was completed 2025‑03‑14 and is closed",
+      "matched_text": "pre\u2011approval was completed 2025\u201103\u201114 and is closed",
       "reason": "Completed control; do not flag as live cross-border transfer"
     },
     {
@@ -313,7 +333,7 @@
     },
     {
       "concept": "retention_marker",
-      "matched_text": "30‑day retention lapse",
+      "matched_text": "30\u2011day retention lapse",
       "reason": "Retention/purge timing is privacy-relevant but retention marker not in allowed rules"
     }
   ]

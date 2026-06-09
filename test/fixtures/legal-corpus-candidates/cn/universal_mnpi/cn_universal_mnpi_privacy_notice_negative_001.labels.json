@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -195,6 +203,12 @@
       "category": "MNPI",
       "matched_text": "definitive agreement",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ngyun optisystems co., ltd. (fictional uscc: QY0000000000000000) \u2014 cn privacy notice and dsar/transfer/retention workflow for employees and issuer ir\nwe handle personal information under the pipl, csl, and dsl; sensitive pi includes minors under 14; we do not knowingly collect child data without guardian consent\ncategories: employment onboarding (name, job role, masked resident id sample: 9X**************), and investor relations contact roles (role mailbox only), sourced from public registers and voluntary submissions\nwe do not request bank card numbers or precise home addresses for ir purposes; any residency info is limited to province/city and kept separate from hr files\ndsar channel: privacy@qingyun.example; ir queries: ir@qingyun.example; you may request access, correction, deletion, or portability, subject to legal exemptions\nretention: hr files are kept per statutory limitation periods and payroll rules, then archived with hashing; ir mailing lists are reviewed quarterly and stale entries removed\ncross-border transfers use a standard contract and a security impact self-assessment; records are primarily stored in cn with a backup at our vendor liangyun cloud services pte. ltd. (fictional) in sg, with 2023-05-01 contract posted on our public site\nfor issuer workflows we avoid inside information; embargo date for the q2 operations summary expired on 2023-06-30 09:00 cst and the summary is now public\nany definitive agreement referenced in ir drafts (e.g., facility renewal executed on 2022-12-12) has already been announced; this notice contains no non-public deal details",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

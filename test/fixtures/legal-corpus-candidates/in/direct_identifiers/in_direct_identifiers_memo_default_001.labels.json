@@ -37,6 +37,32 @@
     "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
     "status": "owner_approved_in_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -95,7 +121,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Data room access is restricted; documents labeled “Revenue Guidance 2026” and “Customer Rate Cards” must not be forwarded beyond compliance@kalyanfaiz.in without approval.",
+      "matched_text": "Data room access is restricted; documents labeled \u201cRevenue Guidance 2026\u201d and \u201cCustomer Rate Cards\u201d must not be forwarded beyond compliance@kalyanfaiz.in without approval.",
       "rule": "material_event"
     },
     {
@@ -200,7 +226,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "trading window remains closed 20–30 Jun",
+      "matched_text": "trading window remains closed 20\u201330 Jun",
       "rule": "blackout_period_reference"
     },
     {
@@ -220,7 +246,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "avoid circulating price-sensitive decks to “All Staff”",
+      "matched_text": "avoid circulating price-sensitive decks to \u201cAll Staff\u201d",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -287,7 +313,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Data room access is restricted; documents labeled “Revenue Guidance 2026” and “Customer Rate Cards” must not be forwarded beyond compliance@kalyanfaiz.in without approval.",
+      "matched_text": "Data room access is restricted; documents labeled \u201cRevenue Guidance 2026\u201d and \u201cCustomer Rate Cards\u201d must not be forwarded beyond compliance@kalyanfaiz.in without approval.",
       "rule": "material_event"
     },
     {
@@ -309,6 +335,18 @@
       "category": "MNPI",
       "matched_text": "restricted list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "r the Indian securities regulator\u2019s Prohibition of Insider Trading framework (ISLA PIT), draft Q4 results and the Ridgeway Polymers Pvt Ltd term sheet are unpublished price-sensitive information (UPSI) until the BNX filing.\nThe trading window remains closed 20\u201330 Jun; designated insiders including Ms. Kavya Dhandekar (Company Secretary) and Mr. Rohan Bhise (CFO; Passport N5930241) have acknowledged pre-clearance obligations.\nData room access is restricted; documents labeled \u201cRevenue Guidance 2026\u201d and \u201cCustomer Rate Cards\u201d must not be forwarded beyond compliance@kalyanfaiz.in without approval.\nVendor KYC: Kalyanfaiz Industries Limited GSTIN 27KFLTA1234Q1Z2; Registered Office: Plot 23, Vidyut Marg, Shantipura, Pune, Maharashtra 411234; phone +91-78609-44321.\nAccounts payable details for disclosure: Nirmal Cooperative Bank, IFSC NIRL0004567, Account No. 024561234567; UPI ID kfl.ap@nirbank (for vendor payments only).\nDo not collect Aadhaar for employees unless necessary and consented; note that \u201cAadhaar 1234 5678 9101\u201d submitted by a contractor failed checksum verification and must be redacted from files.\nChild data: internship applicants under 18 (e.g., Master Ishan Morpankar, 16) require verifiable parental consent before processing; maintain consent artefacts in line with DPDPA.\nRoutine helplines such as 112, 1098, or a generic 1800-000-0000 toll-free number are not company contacts and should not be stored in the stakeholder directory.\nFor individual contractors, collect PAN and phone only after consent; sample form fields \u201cName: __________\u201d, \u201cPAN: __________\u201d, \u201cEmail: __________\u201d in draft templates are placeholders and not live data.\nA PAN recorded as ABCTY1234Z on an invoice appears inconsistent with the proprietor\u2019s records; obtain the corrected PAN directly via the secure portal before onboarding.\nPre-clearance exceptions: role-only designees (the CFO, the Head of Strategy) remain on the restricted list even if unnamed in email threads; avoid circulating price-sensitive decks to \u201cAll Staff\u201d.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -373,24 +411,6 @@
       "concept": "Erasure/redaction control",
       "matched_text": "must be redacted from files",
       "reason": "Privacy remediation instruction relevant to compliance but no explicit erasure/redaction rule in allowed set"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -360,6 +368,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Strategic Acquisition Term Sheet (non-binding): Hinode Systems Holdings K.K. (\u201cHinode\u201d) to acquire a 67.0% stake in Sakura Logic K.K. (\u201cSakura\u201d), a Kanto Technology Exchange (KTE) Growth segment issuer, via a tender offer bid (TOB) under the Financial Instruments and Exchange Act (FIEA).\nTransaction Summary: Hinode will commence a TOB at JPY 1,240 per share (cash), targeting 67.0% of Sakura\u2019s issued shares (excluding treasury); completion to be followed by a share consolidation and squeeze-out to 100% ownership, subject to Companies Act procedures.\nBoard Approvals & Governance: Closing conditioned on Hinode and Sakura board approvals and Sakura extraordinary general meeting (EGM); post-closing board to be 5 directors (3 Hinode nominees, 2 Sakura nominees), with a majority independent director policy aligned to KTE Growth practices.\nRegulatory/Exchange Matters: Filings of \u201ctender-offer facts\u201d and \u201cenumerated material facts\u201d under FIEA to the Kanto Financial Instruments Authority (fictional) and notices under KTE Growth listing rules; no disclosure until coordinated press release; any J-SOX internal control updates to be completed within 90 days post-closing.\nMNPI/Insider Controls: Until public announcement, this term sheet and related \u91cd\u5927\u4e8b\u5b9f constitute MNPI; Hinode and Sakura will maintain insider lists, implement trading blackouts for directors, officers, and employees, and procure acknowledgments of FIEA compliance.\nEmployees & Equity: All Sakura employee stock options will be cashed out at intrinsic value at closing; retention grants for key engineers to be approved by the board; no adverse changes to collective agreements without consultation of representative employee bodies.\nPersonal Data & APPI: Diligence and integration will process personal information under APPI; My Number (kojin bango) will be accessed only for payroll/tax workflows and stored separately with access logs, with no cross-use for securities-related onboarding or equity rollovers.\nKey Individual Disclosures (for diligence only): Mr. Haruto Nishimura (Head of R&D) \u2014 registered union membership with Hoshizora Tech Workers Union for payroll dues; biometric facial template used for cleanroo",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

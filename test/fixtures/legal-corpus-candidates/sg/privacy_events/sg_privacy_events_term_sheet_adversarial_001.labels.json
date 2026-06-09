@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -199,6 +207,12 @@
       "category": "MNPI",
       "matched_text": "17b",
       "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Novaluxe Capital Pte. Ltd., a company listed on the Mainboard of SGX-ST; non-binding save for confidentiality, PDPA handling, and exclusivity.\nBuyer: Helio Quanta Holdings Ltd.; Seller: public shareholders via scheme; SG counsel: Kelana & Hsu LLC (attn: Ms. Priya Dhanalakshmi, priya.d@kelana-legal.sg; dealroom: https://deal.kelana.sg/room?code=HQL-NVC-0_7a).\nIndicative consideration S$4.20 per share, subject to no MAC; for the avoidance of doubt, the absence of a MAC is not a privacy risk nor MNPI.\nConditions precedent include SGX-ST approval for delisting, any MAS notifications, a PDPC compliance memo, and execution of DPA Schedule 2 prior to any cross-border transfer.\nCross-border transfer marker: documents will be mirrored to a VDR in Osaka via https://vdr.novaluxe.sg/xfer?id=fx9-12a, with transfer-limitation and equivalent-protection undertakings (PDPA s.26).\nPrivacy workflow: DSAR log shows 1 request closed on 12\u2011Apr\u20112026; consent withdrawal mechanism (HR Form R\u201112) enabled and last used on 03\u2011Mar\u20112026; no open requests as at signing.\nErasure marker: legacy marketing list back\u2011ups (list code \u201cC0\u2011g1\u201d) were irreversibly erased on 28\u2011Feb\u20112026; retention/minimisation: government ID fields are replaced with hashed aliases and retained for 24 months post-termination.\nPost-closing onboarding: New Hire Form OF\u2011Blue contains PDPA consent text and a no\u2011detriment withdrawal clause; template attached as DPA Schedule 3 for policy review.\nMNPI status: this term sheet and price references rely on information generally available on S G X N e t and the issuer\u2019s public materials; the parties do not expect the data herein to be material or non\u2011public under the SFA/SGX regime.\nCompleted control: privacy impact assessment (PIA ref \u201cA\u201117b\u201d) finalised on 10\u2011Apr\u20112026; all remediation items closed; this is a policy\u2011only confirmation and does not imply ongoing processing.\nData\u2011export approvals: cross\u2011border assessment and intra\u2011group SCCs are countersigned (internal ticket \u201cXPT\u201107\u2011sg\u201d marked C O M P L E T E); no further export is scheduled pre\u2011Closing.\nKey personnel: Mr. Adrian Koh (CFO) to execute a 24\u2011month service agreement; contact for signing logistics only: a.koh@novaluxe.sg; no bank account or government ID details will be collected at the term sheet stage.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -162,6 +170,24 @@
       "category": "MNPI",
       "matched_text": "Negative assurance: no leak, breach, or sharing of UPSI is occurring or proposed; domestic exchange listing rules are observed under the company\u2019s Insider Trading Code.",
       "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer approval (positive): on 2026-05-31, export of masked employee directory to Cloudoora Data Services Pte. Ltd., Singapore, was approved with encryption-at-rest, contractual safeguards, and DPDPA-compliant purpose limitation",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Trivera Finserve Limited \u2014 Data Export Approval & DPA Schedule (India DPDPA / PIT Code)\nScope: Processing of client onboarding records (KYC contact, masked PAN), trade confirmations, and employee login logs; Aadhaar and full PAN not stored; child data (under 18) not onboarded.\nLegal basis: consent for marketing; legitimate uses for compliance and contracts; no reliance on implied consent for sensitive identifiers.\nMinimisation: forms labeled \u201cAadhaar / PAN / GSTIN (optional)\u201d are either disabled for retail clients or captured as redacted tokens (e.g., PAN hash), not in raw form.\nRetention: onboarding files 5 years; access logs 18 months; marketing preferences until withdrawal; auto-deletion schedules tested and not paused.\nInsider controls: processors receive no unpublished price-sensitive information; this memo refers only to publicly announced Q4 results and generic workflow steps.\nNegative assurance: no leak, breach, or sharing of UPSI is occurring or proposed; domestic exchange listing rules are observed under the company\u2019s Insider Trading Code.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

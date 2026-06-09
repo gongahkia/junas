@@ -1,150 +1,211 @@
 {
-  "doc_id": "id_sector_mnpi_privacy_notice_negative_001",
-  "document_type": "generic",
-  "source_jurisdiction": "ID",
-  "destination_jurisdiction": "ID",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope: processing covers fintech app telemetry, customer support logs, and employment rosters for operational support, fraud analytics, and service improvement, excluding use for targeted advertising."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Retention: records retained minimum 5 years after service termination or per OJKh recordkeeping guidance, whichever is longer; deletions are certified via chain\u2011of\u2011custody reports."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Security: routine cyber tabletop exercises and red\u2011team drills simulate incidents; any production breach notification will follow UU PDP timelines, but drills and playbooks do not generate MNPI."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Public materials: sustainability metrics and security posture summaries posted on www.skt.example/esg are high\u2011level and reflect already\u2011announced facts, not issuer guidance."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Positive span \u2014 Until keterbukaan informasi is filed with Otoritas Jasa Keuangan Khayalan (OJKh) and Bursa Efek Nusantara (BEN) for a proposed acquisition by PT Bumi Niaga Digital Tbk of a regional e\u2011money unit, draft commercial terms are restricted to a named insider list within Compliance and a trading blackout applies to covered staff."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_sector_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope: processing covers fintech app telemetry, customer support logs, and employment rosters for operational support, fraud analytics, and service improvement, excluding use for targeted advertising."
+      "matched_text": "Scope: processing covers fintech app telemetry, customer support logs, and employment rosters for operational support, fraud analytics, and service improvement, excluding use for targeted advertising.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Retention: records retained minimum 5 years after service termination or per OJKh recordkeeping guidance, whichever is longer; deletions are certified via chain\u2011of\u2011custody reports."
+      "matched_text": "Retention: records retained minimum 5 years after service termination or per OJKh recordkeeping guidance, whichever is longer; deletions are certified via chain\u2011of\u2011custody reports.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Security: routine cyber tabletop exercises and red\u2011team drills simulate incidents; any production breach notification will follow UU PDP timelines, but drills and playbooks do not generate MNPI."
+      "matched_text": "Security: routine cyber tabletop exercises and red\u2011team drills simulate incidents; any production breach notification will follow UU PDP timelines, but drills and playbooks do not generate MNPI.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Public materials: sustainability metrics and security posture summaries posted on www.skt.example/esg are high\u2011level and reflect already\u2011announced facts, not issuer guidance."
+      "matched_text": "Public materials: sustainability metrics and security posture summaries posted on www.skt.example/esg are high\u2011level and reflect already\u2011announced facts, not issuer guidance.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Positive span \u2014 Until keterbukaan informasi is filed with Otoritas Jasa Keuangan Khayalan (OJKh) and Bursa Efek Nusantara (BEN) for a proposed acquisition by PT Bumi Niaga Digital Tbk of a regional e\u2011money unit, draft commercial terms are restricted to a named insider list within Compliance and a trading blackout applies to covered staff."
+      "matched_text": "Positive span \u2014 Until keterbukaan informasi is filed with Otoritas Jasa Keuangan Khayalan (OJKh) and Bursa Efek Nusantara (BEN) for a proposed acquisition by PT Bumi Niaga Digital Tbk of a regional e\u2011money unit, draft commercial terms are restricted to a named insider list within Compliance and a trading blackout applies to covered staff.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@samudrakoneksi.example"
+      "matched_text": "privacy@samudrakoneksi.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross\u2011border transfer"
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "please mask legacy identifiers with [REDACTED]"
+      "matched_text": "please mask legacy identifiers with [REDACTED]",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "a named insider list"
+      "matched_text": "a named insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition by PT Bumi Niaga Digital Tbk of a regional e\u2011money unit"
+      "matched_text": "proposed acquisition by PT Bumi Niaga Digital Tbk of a regional e\u2011money unit",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Until keterbukaan informasi is filed with Otoritas Jasa Keuangan Khayalan (OJKh) and Bursa Efek Nusantara (BEN)"
+      "matched_text": "Until keterbukaan informasi is filed with Otoritas Jasa Keuangan Khayalan (OJKh) and Bursa Efek Nusantara (BEN)",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "restricted to a named insider list"
+      "matched_text": "restricted to a named insider list",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "badge IDs with prefix SKT\u2011"
+      "matched_text": "badge IDs with prefix SKT\u2011",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "ignored and not stored"
+      "matched_text": "ignored and not stored",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: processing covers fintech app telemetry, customer support logs, and employment rosters for operational support, fraud analytics, and service improvement, excluding use for targeted advertising.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: records retained minimum 5 years after service termination or per OJKh recordkeeping guidance, whichever is longer; deletions are certified via chain\u2011of\u2011custody reports.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security: routine cyber tabletop exercises and red\u2011team drills simulate incidents; any production breach notification will follow UU PDP timelines, but drills and playbooks do not generate MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public materials: sustainability metrics and security posture summaries posted on www.skt.example/esg are high\u2011level and reflect already\u2011announced facts, not issuer guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Positive span \u2014 Until keterbukaan informasi is filed with Otoritas Jasa Keuangan Khayalan (OJKh) and Bursa Efek Nusantara (BEN) for a proposed acquisition by PT Bumi Niaga Digital Tbk of a regional e\u2011money unit, draft commercial terms are restricted to a named insider list within Compliance and a trading blackout applies to covered staff.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: processing covers fintech app telemetry, customer support logs, and employment rosters for operational support, fraud analytics, and service improvement, excluding use for targeted advertising.\nRetention: records retained minimum 5 years after service termination or per OJKh recordkeeping guidance, whichever is longer; deletions are certified via chain\u2011of\u2011custody reports.\nDSAR: submit via privacy@samudrakoneksi.example or portal privacy.skt.example/dsar; we respond within 30 calendar days and may extend with notice consistent with UU PDP.\nIdentity verification: we will not request new KTP/NPWP numbers; please mask legacy identifiers with [REDACTED]; placeholder strings like 99.9999.9999 are ignored and not stored.\nCross\u2011border transfer: limited to subprocessors PT Awan Nusantara Sejahtera (ID) and Nusantara Cloud Pte. Ltd. (SG) under kontrak pengikatan, transfer impact assessment, and notification to the local financial regulator Otoritas Jasa Keuangan Khayalan (OJKh) where applicable.\nSecurity: routine cyber tabletop exercises and red\u2011team drills simulate incidents; any production breach notification will follow UU PDP timelines, but drills and playbooks do not generate MNPI.\nTraining: our \u201cCrypto Dasar\u201d and \u201cESG & Iklim untuk Produk\u201d modules are marketing/education only and do not announce listings, tokens, bonds, or green sukuk offerings.\nCommunications policy: references to information barriers, tipping prohibitions, insider lists, or blackout windows in handbooks are generic compliance education for staff and not deal signals.\nPublic materials: sustainability metrics and security posture summaries posted on www.skt.example/esg are high\u2011level and reflect already\u2011announced facts, not issuer guidance.\nVendor terms: commercial\u2011term templates include example SLA/uptime/price bands for sandbox testing and training; examples are non\u2011binding and not offered to the market.\nHR data: employee PII (e.g., work email aliases and badge IDs with prefix SKT\u2011) is processed for attendance and payroll routing only; no biometric data is required for this service.\nAccess controls: role\u2011based access with dual\u2011approval for client data exports; export files watermark \u201ctraining\u2011use only\u201d when generated from staging environments.\nPositive span \u2014 Until keterbukaan informasi is filed with Otoritas Jasa Keuangan Khayalan (OJKh) and Bursa Efek Nusantara (BEN) for a proposed acquisition by PT Bumi Niaga Digital Tbk of a regional e\u2011money unit, draft commercial terms are restricted to a named insider list within Compliance and a trading blackout applies to covered staff.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -189,74 +250,27 @@
       "reason": "Explicitly negated control; avoid false positive"
     }
   ],
+  "source_jurisdiction": "ID",
   "uncertain": [
     {
-      "matched_text": "KTP/NPWP numbers",
       "concept": "Local ID types reference",
+      "matched_text": "KTP/NPWP numbers",
       "reason": "References Indonesian KTP (NIK) and tax ID types without actual numbers; relevant identifiers but not covered by a specific allowed rule span"
     },
     {
-      "matched_text": "Retention: records retained minimum 5 years after service termination or per OJKh recordkeeping guidance, whichever is longer",
       "concept": "Retention marker",
+      "matched_text": "Retention: records retained minimum 5 years after service termination or per OJKh recordkeeping guidance, whichever is longer",
       "reason": "Retention periods are privacy-event markers but no explicit allowed rule name provided"
     },
     {
-      "matched_text": "DSAR: submit via privacy@samudrakoneksi.example or portal privacy.skt.example/dsar; we respond within 30 calendar days and may extend with notice consistent with UU PDP",
       "concept": "DSAR workflow",
+      "matched_text": "DSAR: submit via privacy@samudrakoneksi.example or portal privacy.skt.example/dsar; we respond within 30 calendar days and may extend with notice consistent with UU PDP",
       "reason": "DSAR handling is a privacy-event marker but not explicitly listed among allowed rules"
     },
     {
-      "matched_text": "deletions are certified via chain\u2011of\u2011custody reports",
       "concept": "Erasure/certification marker",
+      "matched_text": "deletions are certified via chain\u2011of\u2011custody reports",
       "reason": "Deletion/erasure handling is legally relevant but not clearly mapped to an allowed rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

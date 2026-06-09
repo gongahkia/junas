@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -89,12 +97,12 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "matched_text": "Mr. Sami Al‑Qassim",
+      "matched_text": "Mr. Sami Al\u2011Qassim",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Layan Al‑Haddad",
+      "matched_text": "Ms. Layan Al\u2011Haddad",
       "rule": "named_person"
     },
     {
@@ -184,7 +192,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "3.25%–3.75%",
+      "matched_text": "3.25%\u20133.75%",
       "rule": "financial_percentage"
     },
     {
@@ -204,7 +212,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Eng. Nasser Al‑Ruwaili",
+      "matched_text": "Eng. Nasser Al\u2011Ruwaili",
       "rule": "named_person"
     },
     {
@@ -224,12 +232,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "cross‑border transfer",
+      "matched_text": "cross\u2011border transfer",
       "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "matched_text": "legal.ops@shamsat‑green.co.example",
+      "matched_text": "legal.ops@shamsat\u2011green.co.example",
       "rule": "email_address"
     },
     {
@@ -249,7 +257,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "tip‑offs",
+      "matched_text": "tip\u2011offs",
       "rule": "tipping_language"
     },
     {
@@ -274,7 +282,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "+966‑5X‑123‑45‑6Y",
+      "matched_text": "+966\u20115X\u2011123\u201145\u20116Y",
       "rule": "phone_number"
     },
     {
@@ -286,12 +294,12 @@
   "must_detect": [
     {
       "category": "PII",
-      "matched_text": "Mr. Sami Al‑Qassim",
+      "matched_text": "Mr. Sami Al\u2011Qassim",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Layan Al‑Haddad",
+      "matched_text": "Ms. Layan Al\u2011Haddad",
       "rule": "named_person"
     },
     {
@@ -378,6 +386,12 @@
       "category": "MNPI",
       "matched_text": "lateral movement",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public: Board has preliminarily approved a sustainability-linked sukuk term sheet with pricing floor 3.25%\u20133.75% and a CO2e reduction KPI (40% by 1448H); disclosure is deferred until Najd Exchange filing.\nNon-public DPT item: we are piloting \u201cDesertChain\u201d crypto custody with Al\u2011Naheel Capital under the Najd Digital Sandbox; no public announcement, internal code-name Project Palm.\nCyber incident update: Falcon360 SIEM flagged lateral movement on 27 Sha\u2018ban 1447H; possible exposure of vendor ESG audit logs; early triage indicates no core finance data loss and does not constitute a material adverse change.\nInsider list (MNPI-restricted): Mr. Sami Al\u2011Qassim (CFO, Iqama 2 1 9 0 3 3 7 4 4 0), Ms. Layan Al\u2011Haddad (Legal, Iqama 2 0 7 1 1 8 9 0 0 1), Eng. Nasser Al\u2011Ruwaili (Ops, Iqama 2 2 0 0 5 4 0 7 3 3); add/remove via http://intra.shamsat.local/kye?case=INSIDER-XL-02%2Fbeta.\nInformation barriers: deal and cyber responders are ring\u2011fenced; no sharing outside the Clean Team; blackout window from 01 Ramadan 1447H until Q1 results; tip\u2011offs or selective disclosure to suppliers or lenders is prohibited.\nCommercial terms sensitivity: revised offtake MOU with Barari Cement LLC includes a confidential floor of SAR 182/ton and a 4\u2011year exclusivity; no counterpart public releases are expected before signing.\nPDPL note: any cross\u2011border transfer of employee Iqama scans to processors in GCC must route via S.D.A.I.A transfer ticket SD\u2011A1A\u20119b0; current status is \u201cpending DPO check,\u201d no data leaves KSA until green\u2011light.\nFor avoidance of doubt, HR\u2019s marketing flyer on \u201ccrypto wallet benefits\u201d is educational only and does not relate to issuer fundraising, custody arrangements, or DPT operations.\nExternal reference used here (e.g., general exchange listing manuals) are public-source and this memo alone is not a listing document.\nNegative MAC language: based on counsel review, the above cyber event, as currently scoped, does not trigger MAC under the SPA draft nor does it reset the lock\u2011up.\nOperational remark: pd team to sync with finance on esg kpis by monday; todo: route draft to KMA liaison and schedule Board circular.\nContact: legal.ops@shamsat\u2011green.co.example, +966\u20115X\u2011123\u201145\u20116Y; for secure uploads use sftp://vault.shamsat.local/upl?x=mnpi%2Fesg.\nReminder: this note is confidential and subject to KSA PDPL and internal Market Conduct Policy; breach of information barriers may result in suspension from Najd Exchange processes.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -407,7 +421,7 @@
     },
     {
       "concept": "Cross-border transfer ticket reference",
-      "matched_text": "SD‑A1A‑9b0",
+      "matched_text": "SD\u2011A1A\u20119b0",
       "reason": "Internal SDAIA ticket reference may be sensitive operational metadata for PDPL transfer control, but no explicit rule covers such ticket IDs."
     }
   ]

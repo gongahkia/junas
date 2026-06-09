@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -77,22 +85,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Faisal Al‑Hakim",
+      "matched_text": "Mr. Faisal Al\u2011Hakim",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Lina Al‑Mutairi",
+      "matched_text": "Dr. Lina Al\u2011Mutairi",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI element included a draft pre‑earnings guidance for issuer “Najd Agritech Co.” and a Rimal Exchange listing timetable attached to Board minutes.",
+      "matched_text": "MNPI element included a draft pre\u2011earnings guidance for issuer \u201cNajd Agritech Co.\u201d and a Rimal Exchange listing timetable attached to Board minutes.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "PDPL actions taken: data minimised, breach contained, and cross‑border transfer halted pending State Data & AI Authority – Kingdom Sector (SDAA‑KS) permit TRF‑2026‑0099.",
+      "matched_text": "PDPL actions taken: data minimised, breach contained, and cross\u2011border transfer halted pending State Data & AI Authority \u2013 Kingdom Sector (SDAA\u2011KS) permit TRF\u20112026\u20110099.",
       "rule": "material_event"
     },
     {
@@ -137,7 +145,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "cross‑border transfer halted",
+      "matched_text": "cross\u2011border transfer halted",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -162,7 +170,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "draft pre‑earnings guidance",
+      "matched_text": "draft pre\u2011earnings guidance",
       "rule": "material_event"
     },
     {
@@ -172,7 +180,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "permit TRF‑2026‑0099",
+      "matched_text": "permit TRF\u20112026\u20110099",
       "rule": "cross_border_transfer_marker"
     }
   ],
@@ -219,22 +227,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Faisal Al‑Hakim",
+      "matched_text": "Mr. Faisal Al\u2011Hakim",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Lina Al‑Mutairi",
+      "matched_text": "Dr. Lina Al\u2011Mutairi",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI element included a draft pre‑earnings guidance for issuer “Najd Agritech Co.” and a Rimal Exchange listing timetable attached to Board minutes.",
+      "matched_text": "MNPI element included a draft pre\u2011earnings guidance for issuer \u201cNajd Agritech Co.\u201d and a Rimal Exchange listing timetable attached to Board minutes.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "PDPL actions taken: data minimised, breach contained, and cross‑border transfer halted pending State Data & AI Authority – Kingdom Sector (SDAA‑KS) permit TRF‑2026‑0099.",
+      "matched_text": "PDPL actions taken: data minimised, breach contained, and cross\u2011border transfer halted pending State Data & AI Authority \u2013 Kingdom Sector (SDAA\u2011KS) permit TRF\u20112026\u20110099.",
       "rule": "material_event"
     },
     {
@@ -246,11 +254,17 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data potentially accessed includes personal data under KSA PDPL and confidential issuer materials relevant to securities markets (MNPI).\nIdentified records: Mr. Faisal Al\u2011Hakim (Iqama No. 2103 45 6789; mobile +966 55 125 8890; e m a i l: m . hakeem@zahratnajd.example).\nIdentified records: Dr. Lina Al\u2011Mutairi (Passport No. QF1234567; desk line +966 11 777 3344; lina.mutairi@zahratnajd.example).\nMNPI element included a draft pre\u2011earnings guidance for issuer \u201cNajd Agritech Co.\u201d and a Rimal Exchange listing timetable attached to Board minutes.\nForensics found a link with embedded IDs: https://portal.znjd.example/issuer/case?cr=1012345678&uid=2103456789 and a stored IBAN SA34 8000 1234 5678 9012 3456 for fee refunds.\nRegistered address on affected files: Al\u2011Misk Plaza, Plot 7, Al\u2011Leytha Quarter, Al Qimma City 11999, KSA.\nPublic or generic items that are not sensitive: building helpline 9200\u201100000 and sample label \u201cPassport: AA0000000\u201d appearing on a blank form.\nPrecision note: logs also contain role\u2011only labels (\u201cthe Treasurer\u201d, \u201cCompliance Officer\u201d) and boilerplate policy text; these do not identify a natural person.\nNegative control: we did not capture any media access control values and no Wikipedia extracts in the archive contain customer details.\nPDPL actions taken: data minimised, breach contained, and cross\u2011border transfer halted pending State Data & AI Authority \u2013 Kingdom Sector (SDAA\u2011KS) permit TRF\u20112026\u20110099.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "9200‑00000",
+      "matched_text": "9200\u201100000",
       "reason": "Public helpline number explicitly marked non-sensitive"
     },
     {
@@ -274,7 +288,7 @@
       "reason": "Role-only label not identifying a natural person"
     },
     {
-      "matched_text": "800‑000‑0000",
+      "matched_text": "800\u2011000\u20110000",
       "reason": "Public inquiries number explicitly marked non-sensitive"
     }
   ],
@@ -287,17 +301,17 @@
     },
     {
       "concept": "postal address",
-      "matched_text": "Al‑Misk Plaza, Plot 7, Al‑Leytha Quarter, Al Qimma City 11999, KSA",
+      "matched_text": "Al\u2011Misk Plaza, Plot 7, Al\u2011Leytha Quarter, Al Qimma City 11999, KSA",
       "reason": "Full registered address may identify individuals but SA postal address not in allowed rules"
     },
     {
       "concept": "regulatory case reference",
-      "matched_text": "DSA‑MC‑2026‑144",
+      "matched_text": "DSA\u2011MC\u20112026\u2011144",
       "reason": "Market-conduct case ID relevant to MNPI workflow but no specific rule"
     },
     {
       "concept": "cross-border permit id",
-      "matched_text": "TRF‑2026‑0099",
+      "matched_text": "TRF\u20112026\u20110099",
       "reason": "Transfer permit identifier related to PDPL cross-border controls; not explicitly mapped to a rule"
     },
     {

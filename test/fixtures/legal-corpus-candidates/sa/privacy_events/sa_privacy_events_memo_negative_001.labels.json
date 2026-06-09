@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -99,7 +107,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Any mention of ‘deal room’, ‘earnings window’, or ‘prospectus’ in attached policies refers to generic templates circulated across the Riyah Exchange sandbox and is not issuer‑specific.",
+      "matched_text": "Any mention of \u2018deal room\u2019, \u2018earnings window\u2019, or \u2018prospectus\u2019 in attached policies refers to generic templates circulated across the Riyah Exchange sandbox and is not issuer\u2011specific.",
       "rule": "material_event"
     },
     {
@@ -139,22 +147,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "CR 101‑00X‑FAKE",
+      "matched_text": "CR 101\u201100X\u2011FAKE",
       "rule": "sa_commercial_registration"
     },
     {
       "category": "PII",
-      "matched_text": "CR REF DEMO‑RZ‑001",
+      "matched_text": "CR REF DEMO\u2011RZ\u2011001",
       "rule": "sa_commercial_registration"
     },
     {
       "category": "PII",
-      "matched_text": "ID 0000‑0000‑VOID",
+      "matched_text": "ID 0000\u20110000\u2011VOID",
       "rule": "sa_national_id"
     },
     {
       "category": "MNPI",
-      "matched_text": "insider‑list",
+      "matched_text": "insider\u2011list",
       "rule": "insider_list_marker"
     },
     {
@@ -176,13 +184,19 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Any mention of ‘deal room’, ‘earnings window’, or ‘prospectus’ in attached policies refers to generic templates circulated across the Riyah Exchange sandbox and is not issuer‑specific.",
+      "matched_text": "Any mention of \u2018deal room\u2019, \u2018earnings window\u2019, or \u2018prospectus\u2019 in attached policies refers to generic templates circulated across the Riyah Exchange sandbox and is not issuer\u2011specific.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prepared for the Audit Committee and CMD\u2011KSA liaison under the Kingdom PDPL; it contains no issuer MNPI and relies only on public/stale procedural descriptions.\nData categories processed during vendor onboarding (DPA Schedule A, Annex 2) are limited to role emails (e.g., support@thamar.local), department codes, and last\u2011four Iqama markers rendered as XXXX.\nNo national ID or Commercial Registration numbers are stored in clear; forms show invalid placeholders only (e.g., CR 101\u201100X\u2011FAKE; ID 0000\u20110000\u2011VOID).\nCross\u2011border transfer: NDAIB approval No. NDAIB/24/EX\u2011019 was granted on 1447\u201108\u201112H for a masked test dataset to the Ulia Cloud EMEA hub, with data minimisation applied.\nThis approval is closed and not a live movement; production datasets remain hosted in\u2011Kingdom under the Riyah Data Zone tenancy.\nConsent withdrawal: the CRM workflow records the right to withdraw, but no active withdrawals are pending; the training example in the DPA appendix is illustrative only.\nDSAR handling: two access requests referenced in Compliance Log CL\u2011RZ\u20110008 were fulfilled and archived; there is no open DSAR queue.\nErasure: the sandbox purge of legacy vendor contacts was executed per Policy RET\u2011KSA\u201105, with audit hashes retained and no customer records affected.\nRetention: Schedule R\u20112022\u201105 applies standard 3\u2011year log retention; no exceptions or extensions have been requested for onboarding materials.\nMinimisation: onboarding forms request only non\u2011sensitive fields (role email, job function, city), and the Iqama/NID field is disabled in the current template.\nMarket conduct: insider\u2011list and blackout templates exist in the issuer playbook, but remain empty placeholders pending CMD\u2011KSA filing and are intentionally not populated.\nAny mention of \u2018deal room\u2019, \u2018earnings window\u2019, or \u2018prospectus\u2019 in attached policies refers to generic templates circulated across the Riyah Exchange sandbox and is not issuer\u2011specific.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],
@@ -200,12 +214,12 @@
     },
     {
       "concept": "cross_border_approval_id",
-      "matched_text": "NDAIB/24/EX‑019",
-      "reason": "Regulatory approval reference relevant to cross‑border transfer but not covered by allowed rules."
+      "matched_text": "NDAIB/24/EX\u2011019",
+      "reason": "Regulatory approval reference relevant to cross\u2011border transfer but not covered by allowed rules."
     },
     {
       "concept": "regulatory_approval_date",
-      "matched_text": "1447‑08‑12H",
+      "matched_text": "1447\u201108\u201112H",
       "reason": "A Hijri date tied to an approval; not a date of birth and not covered by allowed rules."
     },
     {

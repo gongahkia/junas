@@ -50,6 +50,14 @@
     "previous_must_detect_count": 16,
     "previous_must_not_detect_count": 2
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -262,6 +270,18 @@
       "category": "MNPI",
       "matched_text": "signing date",
       "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed all-share combination of Novacircuit S.A. (Luxembourg) and Arcturus Grid SE (Germany).\nIssuer: Novacircuit S.A., shares admitted to trading on Euronext Paris (Regulated Market); securities type: ordinary shares (placeholder ISIN: XX0000000000).\nStructure: Cross-border merger by absorption under Directive (EU) 2017/1132 as amended; exchange ratio to be determined pursuant to independent expert valuation (no figures provided here).\nStatus of information: Terms summarized from Novacircuit\u2019s public press releases of 12 Feb 2024 and 28 Apr 2024 and documents filed in the AMF/OAM; any numerical guidance in those releases is now stale and subject to update.\nFinancing: Use of a sustainability-linked bridge facility previously announced on 05 Mar 2024; no new leverage covenants or price-sensitive metrics are included here; materiality assessment will be issuer-relative and qualitative only for this summary.\nInside information/MAR: The expected SPA signing date and board approval are not yet public; a decision to seek delayed disclosure under Article 17(4) MAR is being evaluated for a target signing at 19:00 CET on 22 Nov 2026, subject to strict confidentiality and no-leak conditions.\nClosed periods: PDMR dealing is prohibited during the 30-day MAR closed period prior to the already-posted H1 2026 results date (corporate calendar shows 29 Aug 2026), with routine exemptions per ESMA guidance.\nDisclosure controls: No selective disclosure to analysts or investors; all communications to be disseminated via a regulated information service and IR role mailbox only.\nGDPR (including Art 9): Data room content is limited to business data; special-category personal data is out of scope; any incidental special-category items must be redacted or processed under Art 9(2) with a documented DPIA and minimisation.\nCross-border transfers: Access to pseudonymised HR and ESG datasets shall occur within the EEA; any remote access from the UK or US requires 2021 SCCs and a Transfer Impact Assessment; processor details available via privacy@novacircuit.eu (role inbox).\nSustainability: The combined group anticipates CSRD reporting from FY2026; SFDR Article 8 alignment for the bridge facility\u2019s use of proceeds is targeted based on publicly disclosed KPIs; Taxonomy references rely on the 2025 non-financial statement already published.\nOperational update (third party): GridWare GmbH, a non-affiliate supplier, publicly announced on 03 Jan 2026 a logistics software migration; this vendor notice is not part of the Issuer\u2019s forward-looking statements and is not material.\nConditions precedent: EU Merger Regulation clearance, local FDI screenings where applicable, and works council information/consultation; initiation of consultations was publicly noted on 15 May 2026.\nListing/exchange documentation: Any prospectus or shareholder circular will follow the EU Prospectus Regulation and AMF guidance; expected filing windows reflect Euronext trading calendars and are indicative only.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

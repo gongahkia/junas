@@ -37,6 +37,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -99,6 +107,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Rimal Utilities Co. (Listed on Najd Securities Exchange \u201cNSE\u2011KSA\u201d; Issuer ID: RUCL\u2011202) \u2014 Operational/Cyber Incident Report, 2026\u201105\u201130 18:40 KSA\nSummary: A routine access review revealed a short\u2011lived exposure of a non\u2011production document folder hosted by Barq Cloud Services WLL; logs indicate a single automated scan and no confirmed download beyond internal IPs.\nData scope: primarily vendor invoices and maintenance SOPs; two image files were identified as scans of vendor drivers\u2019 Iqama cards associated with delivery gate passes.\nPDPL notice: Although the images were in a test folder, they constitute personal data under the Kingdom PDPL; the files were quarantined and erased, and we initiated a DPIA addendum with the Supreme Data & AI Authority (SDAA) transfer desk noting no cross\u2011border transfer is planned.\nBreach containment: Access keys were rotated, external indexing blocked, and Barq Cloud validated bucket policies; Amthal Cyber Response JV confirmed no lateral movement into production.\nPublic information: Service bulletins on 1445\u201102\u201111H and 2023\u201105\u201103G about scheduled desalination maintenance remain accurate and were previously posted to the NSE\u2011KSA Market Announcements Archive.\nOne non\u2011public item was present: a draft issuer notice proposing to postpone the Q2 results announcement by up to one week; this draft has not been submitted to the NSE\u2011KSA portal or the Kingdom Markets Authority (KMA).\nMateriality/market conduct: The draft does not alter guidance and is pending Board review; disclosure will follow KMA Listing Rules if a postponement is confirmed, and no selective briefings have occurred.\nInternal controls: References in system logs to \u201cinsider list\u201d and \u201cblackout window\u201d relate to archived training content and not to any live trading restriction at this time.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

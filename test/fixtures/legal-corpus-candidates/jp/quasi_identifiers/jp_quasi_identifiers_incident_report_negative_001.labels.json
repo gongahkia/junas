@@ -51,6 +51,14 @@
       "status": "removed_after_phone_precision_guard"
     }
   ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -158,6 +166,24 @@
       "category": "MNPI",
       "matched_text": "confidential",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Some spreadsheets included fields labeled \u201cIndividual Number (My Number)\u201d, but the values were masked placeholders (e.g., XXXX-XXXX-XXXX) and not actual identifiers; file naming conventions resembled client codes but were test dummies.\nAudit logs show one contractor record with multiple linkable attributes: DOB 1989-07-12, work location Yokohama Plant, employer Kakuho Systems GK, role Payroll Analyst (dispatch), device asset tag YPH-3321-JP, corporate account ext-pa-0712, VPN session QA-44-19, and building fob UID 04:AF:23:98.\nNo resident record codes, bank account numbers, or live My Number values were exported; detection rules flagged lookalike strings (e.g., JP00-XXXX-0000-0000) that our DLP catalog classifies as test patterns",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Some spreadsheets included fields labeled \u201cIndividual Number (My Number)\u201d, but the values were masked placeholders (e.g., XXXX-XXXX-XXXX) and not actual identifiers; file naming conventions resembled client codes but were test dummies.\nAudit logs show one contractor record with multiple linkable attributes: DOB 1989-07-12, work location Yokohama Plant, employer Kakuho Systems GK, role Payroll Analyst (dispatch), device asset tag YPH-3321-JP, corporate account ext-pa-0712, VPN session QA-44-19, and building fob UID 04:AF:23:98.\nNo resident record codes, bank account numbers, or live My Number values were exported; detection rules flagged lookalike strings (e.g., JP00-XXXX-0000-0000) that our DLP catalog classifies as test patterns.\nThe board\u2019s Risk and Compliance Committee and the Audit & Supervisory Committee were briefed; the board pack excerpt concerned the March integration planning for Midori Logistics KK and matched the public slide deck.\nInvestor Relations confirmed the same acquisition milestones were disclosed on TDnet; there were no additional tender offer facts beyond those already announced, and TSE disclosure practice was followed.\nRemediation included credential resets for affected role accounts, disabling the implicated vendor SFTP token, and revising vendor onboarding to require mutual TLS and IP allowlists.\nThere is no environmental or safety impact; the only operational effect was delayed payroll test cycles; labor union contact points received an informational notice with no action requested.\nAutomated discovery flagged generic template artifacts (\u201cAccount No.: 123-4567-890\u201d, \u201cTicker: 0000\u201d, \u201cForm: NAME/ADDRESS/BIRTHPLACE\u201d), which were empty placeholders and not linked to any individual.\nStakeholder contact points: privacy@aoisora-hd.example (Privacy Office) and 0120-123-000",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational Incident Report \u2014 AoiSora Holdings KK (TSE Growth Market issuer), detected 2026-06-02 JST, internal reference IR-OPS-2026-0413.\nA phishing-linked upload to a third-party vendor portal led to exposure of a non-confidential extract from a board risk briefing and a payroll test folder; the gateway quarantine triggered within 11 minutes and the file was removed.\nSystems involved were the HR shared drive mirror and the outsourced payroll integration; no production finance ledgers, securities order systems, or investor-relations mailboxes were accessed; APPI obligations were reviewed.\nUnder FIEA, we assessed whether the materials contained undisclosed enumerated material facts or tender-offer facts; the only acquisition reference matched a previously posted TDnet summary and did not present MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -344,6 +352,30 @@
       "category": "MNPI",
       "matched_text": "500,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Conditions Precedent: SGX-ST and shareholder approvals (Companies Act 1967), PDPA-compliant consents for employee and customer data, no material adverse change.\nMNPI & Conduct: Parties acknowledge receipt of information that may constitute MNPI under the SFA and SGX Listing Rules; no dealing in LionTech securities until information is generally available.\nDisclosure & Announcements: Any SGX announcement to be coordinated with SGX RegCo; no selective disclosure under Listing Rule 703",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Signatory (Seller): Ms. Tan Mei Lin, Chief Executive Officer; Passport No.: K1234567Z (provided solely for KYC with escrow agent).\nSignatory (Buyer): Mr. David Ong, Managing Director; Email: david.ong@tamarincap.test; Notification address: 1 Tamarin Street #22-01, Singapore 059999.\nEmployment & PDPA: Key employee retention pool S$1,000,000; personal data transfers to be limited to purpose of transaction, with NRIC and FIN numbers masked except where legally required",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "202412345Z); Buyer \u2014 Tamarin Capital Pte. Ltd. (UEN 201812345K).\nStructure & Price: Buyer to acquire 51% of issued shares via share purchase agreement; consideration S$1.20 per share, subject to adjustments.\nFunding & Settlement: Escrow to be placed with Tamarin Bank Ltd. (BIC: TMBKSGSG), Account No.: 012-345-678-901; completion funds payable in SGD.\nConditions Precedent: SGX-ST and shareholder approvals (Companies Act 1967), PDPA-compliant consents for employee and customer data, no material adverse change.\nMNPI & Conduct: Parties acknowledge receipt of information that may constitute MNPI under the SFA and SGX Listing Rules; no dealing in LionTech securities until information is generally available.\nDisclosure & Announcements: Any SGX announcement to be coordinated with SGX RegCo; no selective disclosure under Listing Rule 703.\nContact (Seller IR): ir@liontech.test; Tel: +65 6123 4567; Registered office: 88 Meridian Park #10-01, Singapore 049999.\nSignatory (Seller): Ms. Tan Mei Lin, Chief Executive Officer; Passport No.: K1234567Z (provided solely for KYC with escrow agent).\nSignatory (Buyer): Mr. David Ong, Managing Director; Email: david.ong@tamarincap.test; Notification address: 1 Tamarin Street #22-01, Singapore 059999.\nEmployment & PDPA: Key employee retention pool S$1,000,000; personal data transfers to be limited to purpose of transaction, with NRIC and FIN numbers masked except where legally required.\nNegative Example (Do Not Use): Public helpline 1800 123 4567 is not an authorised transaction contact channel and must not appear on deal notices.\nBait Identifier (Invalid): The placeholder \u201cNRIC: S1234567A (invalid checksum)\u201d must not be recorded in any KYC file or form.\nLong-Stop & Fees: Long-stop date 30 November 2026; break fee S$500,000 if regulatory approvals (including SGX and MAS) are not obtained by the long-stop.\nNotices: All notices to \u201cChief Legal Counsel, LionTech Innovations Ltd.\u201d via legal@liontech.test",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of LionTech Innovations Ltd. (proposed SGX Mainboard issuer) by Tamarin Capital Pte. Ltd.\nParties: Seller \u2014 LionTech Innovations Ltd. (UEN 202412345Z); Buyer \u2014 Tamarin Capital Pte. Ltd. (UEN 201812345K).\nStructure & Price: Buyer to acquire 51% of issued shares via share purchase agreement; consideration S$1.20 per share, subject to adjustments.\nFunding & Settlement: Escrow to be placed with Tamarin Bank Ltd. (BIC: TMBKSGSG), Account No.: 012-345-678-901; completion funds payable in SGD.\nConditions Precedent: SGX-ST and shareholder approvals (Companies Act 1967), PDPA-compliant consents for employee and customer data, no material adverse change.\nMNPI & Conduct: Parties acknowledge receipt of information that may constitute MNPI under the SFA and SGX Listing Rules; no dealing in LionTech securities until information is generally available.\nDisclosure & Announcements: Any SGX announcement to be coordinated with SGX RegCo; no selective disclosure under Listing Rule 703.\nContact (Seller IR): ir@liontech.test; Tel: +65 6123 4567; Registered office: 88 Meridian Park #10-01, Singapore 049999.\nSignatory (Seller): Ms. Tan Mei Lin, Chief Executive Officer; Passport No.: K1234567Z (provided solely for KYC with escrow agent).\nSignatory (Buyer): Mr. David Ong, Managing Director; Email: david.ong@tamarincap.test; Notification address: 1 Tamarin Street #22-01, Singapore 059999.\nEmployment & PDPA: Key employee retention pool S$1,000,000; personal data transfers to be limited to purpose of transaction, with NRIC and FIN numbers masked except where legally required.\nNegative Example (Do Not Use): Public helpline 1800 123 4567 is not an authorised transaction contact channel and must not appear on deal notices.\nBait Identifier (Invalid): The placeholder \u201cNRIC: S1234567A (invalid checksum)\u201d must not be recorded in any KYC file or form.\nLong-Stop & Fees: Long-stop date 30 November 2026; break fee S$500,000 if regulatory approvals (including SGX and MAS) are not obtained by the long-stop.\nNotices: All notices to \u201cChief Legal Counsel, LionTech Innovations Ltd.\u201d via legal@liontech.test; do not address notices to \u201cName of Director: ______\u201d or other form placeholders.\nGoverning Law & Confidentiality: Governed by Singapore law; this term sheet is confidential, non-binding (save for confidentiality, costs, and governing law), and may contain PDPA-protected data.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

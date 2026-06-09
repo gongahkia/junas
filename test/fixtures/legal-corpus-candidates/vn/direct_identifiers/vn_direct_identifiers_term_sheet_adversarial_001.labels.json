@@ -1,220 +1,280 @@
 {
-  "doc_id": "vn_direct_identifiers_term_sheet_adversarial_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "VN",
-  "destination_jurisdiction": "VN",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "huy.tran@nhonrivercapital.vn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "mai.le@nhonrivercapital.vn"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+84 90 123 4567"
-    },
-    {
-      "category": "PII",
-      "rule": "vn_cccd",
-      "matched_text": "0 4 2 8 3 9 6 1 2 7 4 8"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Term Sheet — Proposed acquisition of 51% of Blue Delta Foods Joint Stock Company (CTCP Blue Delta) by Nhon River Capital Ltd., governed by Vietnamese law and the SSC/HOSE disclosure regime."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Post-closing: appointment of independent director (role-only), plan to apply for HOSE mainboard in Q2 FY27; revenue guidance to be released after SSC clearance only."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "VND 72,500"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "72,500"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_direct_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Trần Quang Huy"
+      "matched_text": "Mr. Tr\u1ea7n Quang Huy",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lê Thu Mai"
+      "matched_text": "Ms. L\u00ea Thu Mai",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "vn_cccd",
-      "matched_text": "0 4 2 8 3 9 6 1 2 7 4 8"
+      "matched_text": "0 4 2 8 3 9 6 1 2 7 4 8",
+      "rule": "vn_cccd"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "B12345678"
+      "matched_text": "B12345678",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+84 90 123 4567"
+      "matched_text": "+84 90 123 4567",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "huy.tran@nhonrivercapital.vn"
+      "matched_text": "huy.tran@nhonrivercapital.vn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "mai.le@nhonrivercapital.vn"
+      "matched_text": "mai.le@nhonrivercapital.vn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "120-02-987654321"
+      "matched_text": "120-02-987654321",
+      "rule": "bank_account"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
+      "matched_text": "51%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "VND 72,500 per share"
+      "matched_text": "VND 72,500 per share",
+      "rule": "contract_unit_price"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed acquisition of 51% of Blue Delta Foods Joint Stock Company (CTCP Blue Delta) by Nhon River Capital Ltd"
+      "matched_text": "Proposed acquisition of 51% of Blue Delta Foods Joint Stock Company (CTCP Blue Delta) by Nhon River Capital Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "until HOSE filing"
+      "matched_text": "until HOSE filing",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "SSC approval of the tender offer"
+      "matched_text": "SSC approval of the tender offer",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "after SSC clearance only"
+      "matched_text": "after SSC clearance only",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "plan to apply for HOSE mainboard in Q2 FY27"
+      "matched_text": "plan to apply for HOSE mainboard in Q2 FY27",
+      "rule": "material_event"
     },
     {
       "category": "PII",
-      "rule": "bank_customer_reference",
-      "matched_text": "SWIFT TPCBVN22"
+      "matched_text": "SWIFT TPCBVN22",
+      "rule": "bank_customer_reference"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Số 28 Đường Hoa Sen, Phường Thịnh Lộc, Quận Tân Đông, TP.HCM"
+      "matched_text": "S\u1ed1 28 \u0110\u01b0\u1eddng Hoa Sen, Ph\u01b0\u1eddng Th\u1ecbnh L\u1ed9c, Qu\u1eadn T\u00e2n \u0110\u00f4ng, TP.HCM",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Tầng 12, Tòa nhà Sen Vàng, 145-147 Đường Ngân Hà, Phường An Phúc, Quận Vĩnh Phát, TP.HCM"
+      "matched_text": "T\u1ea7ng 12, T\u00f2a nh\u00e0 Sen V\u00e0ng, 145-147 \u0110\u01b0\u1eddng Ng\u00e2n H\u00e0, Ph\u01b0\u1eddng An Ph\u00fac, Qu\u1eadn V\u0129nh Ph\u00e1t, TP.HCM",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Lô B3, KCN Thái Sơn, Phường Hải Thuận, TP.Đà Nẵng"
+      "matched_text": "L\u00f4 B3, KCN Th\u00e1i S\u01a1n, Ph\u01b0\u1eddng H\u1ea3i Thu\u1eadn, TP.\u0110\u00e0 N\u1eb5ng",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Term Sheet — Proposed acquisition of 51% of Blue Delta Foods Joint Stock Company (CTCP Blue Delta) by Nhon River Capital Ltd., governed by Vietnamese law and the SSC/HOSE disclosure regime."
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of 51% of Blue Delta Foods Joint Stock Company (CTCP Blue Delta) by Nhon River Capital Ltd., governed by Vietnamese law and the SSC/HOSE disclosure regime.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Post-closing: appointment of independent director (role-only), plan to apply for HOSE mainboard in Q2 FY27; revenue guidance to be released after SSC clearance only."
+      "matched_text": "Post-closing: appointment of independent director (role-only), plan to apply for HOSE mainboard in Q2 FY27; revenue guidance to be released after SSC clearance only.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "VND 72,500"
+      "matched_text": "VND 72,500",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "72,500"
+      "matched_text": "72,500",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "huy.tran@nhonrivercapital.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mai.le@nhonrivercapital.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 90 123 4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0 4 2 8 3 9 6 1 2 7 4 8",
+      "rule": "vn_cccd"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of 51% of Blue Delta Foods Joint Stock Company (CTCP Blue Delta) by Nhon River Capital Ltd., governed by Vietnamese law and the SSC/HOSE disclosure regime.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post-closing: appointment of independent director (role-only), plan to apply for HOSE mainboard in Q2 FY27; revenue guidance to be released after SSC clearance only.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 72,500",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "72,500",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of 51% of Blue Delta Foods Joint Stock Company (CTCP Blue Delta) by Nhon River Capital Ltd., governed by Vietnamese law and the SSC/HOSE disclosure regime.\nIssuer: CTCP Blue Delta, Enterprise Code 0318897723, MST: 1857364920, registered address: S\u1ed1 28 \u0110\u01b0\u1eddng Hoa Sen, Ph\u01b0\u1eddng Th\u1ecbnh L\u1ed9c, Qu\u1eadn T\u00e2n \u0110\u00f4ng, TP.HCM.\nAuthorized signatory: Mr. Tr\u1ea7n Quang Huy, Deputy CFO, CCCD: 0 4 2 8 3 9 6 1 2 7 4 8, Passport VN: B12345678; phone +84 90 123 4567; email huy.tran@nhonrivercapital.vn.\nSettlement account: Thanh Phuc Commercial Bank, Acc No 120-02-987654321, SWIFT TPCBVN22; secondary bank helpline 1800 1111 (public), do not use for confidential notices.\nIndicative price: VND 72,500 per share; this valuation, Q3 gross margin targets, and supplier rebate terms are non-public MNPI under the Securities Law until HOSE filing.\nConditions precedent include SSC approval of the tender offer, HOSE notification (Form CBTT-24), and customary no-material adverse change; not a MAC event: updates derived solely from public-source references.\nParties acknowledge Decree 13 personal data obligations; employee payroll extracts and customer bank IDs referenced herein shall not be transferred without consent.\nData room link https://dealroom.vn/term?id=VN-TS-0039&acct=00 123 45 and https://ir.hoise.vn/issuer/blue-delta?id=0318897723\u2014broken line run follows: ac c t: 1 2 0 0 2 9 8 7.\nPost-closing: appointment of independent director (role-only), plan to apply for HOSE mainboard in Q2 FY27; revenue guidance to be released after SSC clearance only.\nKey employee retention bonus schedules and internal supplier credit limits are restricted MNPI; internal: next steps friday standup; LotusERP deployment continues; privacy policy last updated may 2025.\nGeneric form labels: Full Name: __________; Phone: __________; Tax code (invalid) 0000000000; email (spaced) h u y . t @ b l u e d e l t a . c o . v n.\nIssuer warrants all company tax filings (MST 1857364920) are current; bank account identifiers provided are accurate; however, public hotline 1900-8080 should not be used for transaction notices.\nThis Term Sheet is non-binding and subject to definitive agreements; disclosure to UPCoM or HOSE shall be made per Circular 96; any PII processed complies",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -259,88 +319,42 @@
       "reason": "broken text bait not a real account identifier"
     }
   ],
+  "source_jurisdiction": "VN",
   "uncertain": [
     {
-      "matched_text": "Enterprise Code 0318897723",
       "concept": "vn_enterprise_code",
+      "matched_text": "Enterprise Code 0318897723",
       "reason": "Vietnam enterprise/company number is a corporate identifier; no explicit allowed rule provided for VN company code."
     },
     {
-      "matched_text": "MST: 1857364920",
       "concept": "vn_company_tax_code",
+      "matched_text": "MST: 1857364920",
       "reason": "Vietnam corporate tax code (MST); corporate identifier not covered by provided PII rules."
     },
     {
-      "matched_text": "MST 1857364920",
       "concept": "vn_company_tax_code",
+      "matched_text": "MST 1857364920",
       "reason": "Vietnam corporate tax code repeated in parentheses; not mapped to an allowed rule."
     },
     {
-      "matched_text": "id=VN-TS-0039",
       "concept": "internal_session_id",
+      "matched_text": "id=VN-TS-0039",
       "reason": "Dealroom internal record identifier in URL may be sensitive but not clearly covered by allowed rules."
     },
     {
-      "matched_text": "SWIFT TPCBVN22",
       "concept": "swift_code",
+      "matched_text": "SWIFT TPCBVN22",
       "reason": "Bank SWIFT/BIC identifier; not a personal identifier but often treated as sensitive banking reference."
     },
     {
-      "matched_text": "registered address: Số 28 Đường Hoa Sen, Phường Thịnh Lộc, Quận Tân Đông, TP.HCM",
       "concept": "postal_address_VN",
+      "matched_text": "registered address: S\u1ed1 28 \u0110\u01b0\u1eddng Hoa Sen, Ph\u01b0\u1eddng Th\u1ecbnh L\u1ed9c, Qu\u1eadn T\u00e2n \u0110\u00f4ng, TP.HCM",
       "reason": "Vietnamese address; no general postal_address rule provided for VN."
     },
     {
-      "matched_text": "shall not be transferred without consent",
       "concept": "consent_requirement_marker",
+      "matched_text": "shall not be transferred without consent",
       "reason": "Consent requirement for data transfer is privacy-relevant but not clearly covered by the provided consent/DSAR rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T13:05:14Z",
-    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

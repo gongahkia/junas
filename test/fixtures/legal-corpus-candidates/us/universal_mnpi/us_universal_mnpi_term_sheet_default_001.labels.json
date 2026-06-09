@@ -37,6 +37,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -364,6 +372,12 @@
       "category": "MNPI",
       "matched_text": "wall-crossed",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential\u2014Non-Public; subject to Reg FD; Project ORCHID Board Term Sheet (draft).\nIssuer: Northlake Health Systems, Inc. (CRX: NLHS) and Acquirer: BlueBend Bancorp, N.A., for the acquisition of Juniper TeleCare LLC.\nStructure: stock-and-cash merger; 62.5% cash, 37.5% stock; enterprise value approximately $275,000,000.\nConsideration: $14.25 per common unit equivalent, subject to customary purchase price adjustments and working capital true-up.\nFinancing: BlueBend to provide $120,000,000 senior secured term loan B; remainder from NLHS cash and revolver draw; commitment letter attached.\nSigning: definitive Merger Agreement targeted on or before 2026-07-12; closing expected Q4 2026, subject to HSR and state banking/healthcare approvals.\nEmbargo: no external communications or selective disclosure until 2026-07-15 08:30 ET; current report on Form 8-K and press release to post simultaneously.\nMAC/MAE: no Company Material Adverse Effect shall be deemed to have occurred due solely to industry-wide reimbursement changes, changes in law, or pandemics disclosed prior to Signing.\nCovenants: ordinary-course operations; no dividends, equity issuance >$5,000,000, or new clinic openings without written Acquirer consent.\nDiligence: verify HIPAA de-identification, GLBA safeguarding for patient-finance modules, and auditor comfort letter for pro formas.\nIR draft note (not for distribution): management preliminarily models high-single-digit EPS accretion in year one; subject to integration risks.\npublic reference: the 2021 state health report (publicly available) shows telehealth adoption at ~28%, which may be stale and is not a deal trigger.\nContacts: Ms. Rina Palley, CFO, rina.palley@northlakehealth.test; Mr. Theo Marr, Managing Director, theo.marr@bluebendbancorp.test; deal room orchid@secure-rooms.test.\nDisclosure controls: do not share with sell-side analysts or lenders beyond wall-crossed parties until the embargo lifts and the 8-K posts.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

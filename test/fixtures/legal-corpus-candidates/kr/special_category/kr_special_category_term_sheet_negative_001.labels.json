@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -150,6 +158,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Alliance and Equity Investment Term Sheet \u2014 Orilux Semitide Co., Ltd. (KRX KOSDAQ issuer) and Borame Partners SPC (investor)\nTransaction: Private placement of Redeemable Convertible Preferred Shares (RCPS) under FSCMA; not a public offering\nPurpose: Expansion of the BlueDragon Router X9 line and the Jeju Breeze edge program; this is like a hometown team getting ready for playoffs\nAmount: KRW [TBD], consistent with Orilux IR announcement dated 2026-02-01 on DART; any change will be re-announced\nPricing: Issue price and conversion terms to follow KRX fair value guidelines and FSC/FSS feedback; no trading before required disclosures\nClosing Conditions: Board approvals, KRX filing acceptance, and confirmation of no-action from FSS where applicable\nKey Person: Employee A (project lead for X9) will remain employed; Employee A voluntarily disclosed a prior ACL knee surgery in 2018 for insurance onboarding; this health detail is not required for investor decision-making\nPersonal Data Handling: Resident Registration Number (if ever required for lock-up or KYC): Not collected in this term sheet; placeholders or invalid formats (e.g., 000000-0000000) will not be used in filings\nCovenants: No undisclosed related-party transactions; compliance with internal policy Hanriver Mobility 3.0 and IR Policy Open Door 2025 (aspirational DEI and wellness text)\nInformation Rights: Investor receives quarterly management updates; no selective disclosure of important information under FSCMA; press releases coordinated with KRX disclosure timetable\nPublic/Non-MNPI Statement: All figures and product milestones herein are from public IR materials; no important information will be shared privately before",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

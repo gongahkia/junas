@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -57,7 +65,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Prior to any public Form 8‑K or press release, access to preliminary breach assessment metrics is limited to employees on the Insider List under an information barrier, with audit logging and blackout enforcement.",
+      "matched_text": "Prior to any public Form 8\u2011K or press release, access to preliminary breach assessment metrics is limited to employees on the Insider List under an information barrier, with audit logging and blackout enforcement.",
       "rule": "material_event"
     },
     {
@@ -107,7 +115,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "not‑yet‑announced provider partnership",
+      "matched_text": "not\u2011yet\u2011announced provider partnership",
       "rule": "nonpublic_marker"
     },
     {
@@ -122,7 +130,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Prior to any public Form 8‑K or press release",
+      "matched_text": "Prior to any public Form 8\u2011K or press release",
       "rule": "nonpublic_marker"
     },
     {
@@ -159,7 +167,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Prior to any public Form 8‑K or press release, access to preliminary breach assessment metrics is limited to employees on the Insider List under an information barrier, with audit logging and blackout enforcement.",
+      "matched_text": "Prior to any public Form 8\u2011K or press release, access to preliminary breach assessment metrics is limited to employees on the Insider List under an information barrier, with audit logging and blackout enforcement.",
       "rule": "material_event"
     },
     {
@@ -171,6 +179,12 @@
       "category": "MNPI",
       "matched_text": "information barrier",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This Privacy Notice and DSAR Workflow applies to Apex Meridian HealthBank, Inc., a US health\u2011banking issuer subject to CCPA, HIPAA, GLBA, Reg FD, and applicable exchange rules.\nWe collect information reasonably linkable to a consumer, household, or patient (e.g., patient portal IDs, role emails, device IDs, masked account tokens like ACC-0000), and we do not collect SSNs in this workflow (example: 000-00-0000 is invalid).\nFor education and operations, we maintain training materials titled CryptoPay Sandbox, ESG/Climate Playbook, Cyber Incident Tabletop, Insider-List 101, and Information-Barrier Basics; these materials do not contain live customer records or deal content.\nSubscription preferences for our ESG/climate newsletter and analyst education webinars are processed as marketing data under CCPA; you may opt out without affecting services.\nHIPAA-regulated patient data is used only for treatment, payment, and healthcare operations; GLBA customer data is used for account servicing, fraud monitoring, and required reporting.\nDSARs (access, deletion, correction, opt-out) may be submitted via privacy@apexmeridian.example or 1-800-000-0000, and we verify requests using account reference codes (e.g., REF-AXM-12345) rather than government IDs.\nWe retain training logs for Insider-List 101 and Information-Barrier Basics for 2 years, and purge CryptoPay Sandbox artifacts within 30 days; retention clocks are policy-based and not tied to securities events.\nVendor processing occurs in the United States; HIPAA Business Associate Agreements and GLBA service provider contracts are in place, and no cross-border transfers are performed for this workflow.\nWe document cyber incident tabletop drill outputs in a non-production system, and they are redacted to prevent tipping or selective disclosure risks in accordance with Reg FD guidance.\nPublic materials, such as our already-announced 20XX ESG report and a general cyber hygiene brochure, may reuse terms like \u201cinsider-list\u201d and \u201cblackout window\u201d in a generic, educational sense.\nCommercial-term signals is a product label for internal dashboards that summarize publicly available fee schedules and does not create or reflect binding pricing.\nPrior to any public Form 8\u2011K or press release, access to preliminary breach assessment metrics is limited to employees on the Insider List under an information barrier, with audit logging and blackout enforcement.\nWe will not respond to DSARs seeking copies of invalid securities identifiers (e.g., \u201cCUSIP: XXX-000-ZZZ\u201d), marketing drafts, or hypothetical crypto wallet screenshots used in training.\nThis notice does not grant additional contractual rights and is designed to explain how we handle PII under the CCPA/HIPAA/GLBA patchwork for employees, patients, and analyst-facing materials.\nDraft commercial term schedules for a not\u2011yet\u2011announced provider partnership are sequestered behind an information barrier and excluded from DSAR scope until publicly disclosed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

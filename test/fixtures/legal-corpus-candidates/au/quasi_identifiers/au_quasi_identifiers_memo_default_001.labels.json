@@ -17,14 +17,26 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
@@ -46,6 +58,13 @@
     ],
     "warning_count": 2
   },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_stage_readiness": {
     "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
     "reviewed_at_utc": "2026-06-01T01:27:51Z",
@@ -64,6 +83,14 @@
       "status": "ready"
     }
   ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AU",
@@ -366,6 +393,24 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Carver (DOB 12/09/1988, age 37), Senior Geoscience Analyst, Ochre Dunes Resources Ltd, Dockhaven office (Level 22, 9 Quokka Quay, VIC), email eliza.carver@ochredunes.com.au, payroll ID HR-EC-0198, and corporate expense card ending 7716.\nIt also references company laptop ODR-L-00873, mobile asset tag ODR-M-4412, VPN session SYD-APAC-593002 on 15 May 18:42 AEST, and Teams alias ecarver-melb, which together reasonably identify her.\nA leave note in the same file mentions \"telehealth GP 10:30 on 16 May re migraines\" and suburb \"Banksia Vale\", which is sensitive health information if linked to Ms. Carver.\nUnder APP 6 and APP 11, this combination of role, location, device identifiers, accounts, and health-related notes constitutes personal (and in part sensitive) information requiring secure handling and limited disclosure.\nUntil the above forecasts and term sheet are lodged on ASX, staff are restricted from trading in company securities and must treat the materials as MNPI within the meaning of s1043A, with wall-crossing and clean team controls for any external diligence.\nNo supplier should receive MNPI; the forwarding event requires quarantining recipients, revocation of access links, and confirmation that attachments containing device/session metadata are retracted and replaced with redacted versions.\nSeparately, a 29-year-old analyst in Westport used loaner laptop ODR-L-00991 at 09:10 on 15 May with salary band A2 and a desk phone on an 08 prefix; these elements, in isolation, do not identify an individual.\nTraining data includes DOB 03/1979, role \"warehouse associate\", device WH-Tab-22, suburb \"Redlea\", and roster code N3 without a name or account linkage; by themselves they are weak identifiers that should not be treated as PII.\nAvoid wording such as \"the only risk analyst on the Launscroft audit rota this quarter\" in external comms, as uniqueness combined with location and role can enable re-identification.\nCredit assessment data for contractor fuel card application CC-2025-1173 shows internal score B2 and bank account suffix 1144; this credit information is regulated and access should be restricted to the finance clean room.\nImmediate actions: rotate Ms. Carver\u2019s expense card, invalidate VPN session tokens, purge the supplier\u2019s mailbox of the thread, re-issue the pack with scrubbed metadata, and direct any queries to legal@ochredunes.com.au.\nBoard note: consider Notifiable Data Breach assessment to the OAIC regarding potential serious harm from the health leave note, and direct follow-up to Mr. Ronit Vale, Acting Company Secretary, ronit.vale@ochredunes.com.au",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal legal memo \u2014 Ochre Dunes Resources Ltd (AU): handling of employee PII and MNPI arising from pre-results communications and third-party emails.\nContext: prior to ASX announcement lodgement, the CEO circulated draft Q4 production uplift (18% vs prior guidance) and a confidential term sheet with Brolga Foundry Fund and Green Coast Shipping Co., which is not generally available information under the Corporations Act and ASX Listing Rule 3.1.\nAn external supplier was inadvertently forwarded a thread that included an HR screenshot and device logs, potentially disclosing personal information as defined by the Privacy Act.\nThe thread contains a cluster about Ms. Eliza Carver (DOB 12/09/1988, age 37), Senior Geoscience Analyst, Ochre Dunes Resources Ltd, Dockhaven office (Level 22, 9 Quokka Quay, VIC), email eliza.carver@ochredunes.com.au, payroll ID HR-EC-0198, and corporate expense card ending 7716.\nIt also references company laptop ODR-L-00873, mobile asset tag ODR-M-4412, VPN session SYD-APAC-593002 on 15 May 18:42 AEST, and Teams alias ecarver-melb, which together reasonably identify her.\nA leave note in the same file mentions \"telehealth GP 10:30 on 16 May re migraines\" and suburb \"Banksia Vale\", which is sensitive health information if linked to Ms. Carver.\nUnder APP 6 and APP 11, this combination of role, location, device identifiers, accounts, and health-related notes constitutes personal (and in part sensitive) information requiring secure handling and limited disclosure.\nUntil the above forecasts and term sheet are lodged on ASX, staff are restricted from trading in company securities and must treat the materials as MNPI within the meaning of s1043A, with wall-crossing and clean team controls for any external diligence.\nNo supplier should receive MNPI; the forwarding event requires quarantining recipients, revocation of access links, and confirmation that attachments containing device/session metadata are retracted and replaced with redacted versions.\nSeparately, a 29-year-old analyst in Westport used loaner laptop ODR-L-00991 at 09:10 on 15 May with salary band A2 and a desk phone on an 08 prefix; these elements, in isolation, do not identify an individual.\nTraining data includes DOB 03/1979, role \"warehouse associate\", device WH-Tab-22, suburb \"Redlea\", and roster code N3 without a name or account linkage; by themselves they are weak identifiers that should not be treated as PII.\nAvoid wording such as \"the only risk analyst on the Launscroft audit rota this quarter\" in external comms, as uniqueness combined with location and role can enable re-identification.\nCredit assessment data for contractor fuel card application CC-2025-1173 shows internal score B2 and bank account suffix 1144; this credit information is regulated and access should be restricted to the finance clean room.\nImmediate actions: rotate Ms. Carver\u2019s expense card, invalidate VPN session tokens, purge the supplier\u2019s mailbox of the thread, re-issue the pack with scrubbed metadata, and direct any queries to legal@ochredunes.com.au.\nBoard note: consider Notifiable Data Breach assessment to the OAIC regarding potential serious harm from the health leave note, and direct follow-up to Mr. Ronit Vale, Acting Company Secretary, ronit.vale@ochredunes.com.au.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -448,24 +493,5 @@
       "matched_text": "internal score B2",
       "reason": "Credit assessment datum noted as regulated, but no explicit rule for credit score PII in the provided list."
     }
-  ],
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

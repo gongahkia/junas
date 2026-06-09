@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -105,12 +131,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Kameda’s file references insulin therapy for Type 1 diabetes (health data)",
+      "matched_text": "Mr. Kameda\u2019s file references insulin therapy for Type 1 diabetes (health data)",
       "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Kameda’s file references insulin therapy for Type 1 diabetes (health data)",
+      "matched_text": "Mr. Kameda\u2019s file references insulin therapy for Type 1 diabetes (health data)",
       "rule": "health_condition"
     },
     {
@@ -125,7 +151,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Kameda’s spouse is noted as male",
+      "matched_text": "Mr. Kameda\u2019s spouse is noted as male",
       "rule": "sexual_orientation"
     },
     {
@@ -200,7 +226,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "segregated folders labeled “MNPI—Strict.”",
+      "matched_text": "segregated folders labeled \u201cMNPI\u2014Strict.\u201d",
       "rule": "information_barrier_marker"
     },
     {
@@ -280,12 +306,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Specifically, Mr. Kameda’s file references insulin therapy for Type 1 diabetes (health data) and a stored fingerprint hash used for door readers (biometric data); remove this from transaction folders and segregate per PPC guidance.",
+      "matched_text": "Specifically, Mr. Kameda\u2019s file references insulin therapy for Type 1 diabetes (health data) and a stored fingerprint hash used for door readers (biometric data); remove this from transaction folders and segregate per PPC guidance.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Mr. Kameda’s spouse is noted as male, and this sexual-orientation detail is unnecessary to the acquisition diligence and must be redacted before any external review.",
+      "matched_text": "Mr. Kameda\u2019s spouse is noted as male, and this sexual-orientation detail is unnecessary to the acquisition diligence and must be redacted before any external review.",
       "rule": "material_event"
     },
     {
@@ -352,12 +378,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Specifically, Mr. Kameda’s file references insulin therapy for Type 1 diabetes (health data) and a stored fingerprint hash used for door readers (biometric data); remove this from transaction folders and segregate per PPC guidance.",
+      "matched_text": "Specifically, Mr. Kameda\u2019s file references insulin therapy for Type 1 diabetes (health data) and a stored fingerprint hash used for door readers (biometric data); remove this from transaction folders and segregate per PPC guidance.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Mr. Kameda’s spouse is noted as male, and this sexual-orientation detail is unnecessary to the acquisition diligence and must be redacted before any external review.",
+      "matched_text": "Mr. Kameda\u2019s spouse is noted as male, and this sexual-orientation detail is unnecessary to the acquisition diligence and must be redacted before any external review.",
       "rule": "material_event"
     },
     {
@@ -384,6 +410,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board of Directors, Hinode Systems K.K.; From: Legal & Compliance; Date: 2026-05-31; Subject: APPI/My Number handling and FIEA MNPI in proposed acquisition of Aozora Robotics K.K.\nThe board at its 31 May meeting resolved to authorize preliminary steps toward a potential tender offer; under FIEA, this constitutes an undisclosed material fact and must remain non-public until TDnet disclosure.\nMs. Emi Takahata (HR Manager) reports that employee data transferred to the data room included My Number records and biometric access templates for Mr. Ryo Kameda (Engineering Lead), which triggers APPI special-care obligations.\nSpecifically, Mr. Kameda\u2019s file references insulin therapy for Type 1 diabetes (health data) and a stored fingerprint hash used for door readers (biometric data); remove this from transaction folders and segregate per PPC guidance.\nThe file also lists his membership in Shinsei Tech Workers Union and notes of his attendance at Seikou Reform League meetings (union and political affiliations); these categories must not be shared with prospective bidders.\nFor clarity, our Harmony Workplace Policy mentions religion and sexual orientation in general terms to support inclusion, but no collection is permitted unless required by law; this sentence is policy language only.\nMr. Kameda\u2019s spouse is noted as male, and this sexual-orientation detail is unnecessary to the acquisition diligence and must be redacted before any external review.\nMs. Haru Ninomiya (age 17, summer intern) appears in the RSU eligibility file; minor status requires parental consent for processing and should be excluded from bidder materials and internal analyst briefings.\nJ-SOX control testing indicates AuroraXR Headset unit logs from the Akihama Ward office include retina-scan calibration images that are not needed for securities workflows and should be purged under retention limits.\nWe remind all insiders that trading in Hinode Systems K.K. securities is restricted; enumerated facts include the contemplated TOB, a potential issuance of new shares, and appointment of a new representative director under the Companies Act.\nContact compliance@hinodesystems.example.jp to register on the insider list and for blackout-period confirmations; JFSA and TSE rules on timely disclosure apply.\nMetaphorically, rushing this deal would be \u201copening Pandora\u2019s box,\u201d but operationally we will proceed with belt-and-suspenders controls and segregated folders labeled \u201cMNPI\u2014Strict.\u201d",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -408,7 +440,7 @@
       "reason": "place name; not PII/MNPI"
     },
     {
-      "matched_text": "opening Pandora’s box",
+      "matched_text": "opening Pandora\u2019s box",
       "reason": "metaphor; not PII/MNPI"
     },
     {
@@ -459,24 +491,6 @@
       "concept": "trading restriction",
       "matched_text": "restricted",
       "reason": "Implies blackout or insider trading limits; not an explicit allowed blackout marker as a standalone word."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

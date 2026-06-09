@@ -52,6 +52,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -294,6 +302,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+82-02-123-0000, 17-3 Haneul-ro, Seongwon-gu, Haneul City, Boram-do 09999, Republic of Korea.\nWe process personal data of employees, contractors, and investor-relations (IR) contacts for HR management, deal execution, and exchange disclosure obligations consistent with the Capital Markets Act (FSCMA) on material nonpublic information.\nIdentifiable fields may include name, resident-number for identity verification, employment details, payroll data, and insider-list roles relating to important information not yet publicly disclosed.\nExample anchor: Mr. Dae-hoon Lim (Employee No. E-0419) \u2014 resident-number: 79XX01-2XXXXXX, biometric face template for gate access, and a recent occupational health report indicating hypertension; he is recorded as a dues-paying member of the Orion Fab Workers Union solely for payroll deduction and compliance.\nExample anchor: Ms. Ara Jeong (IR officer) \u2014 maintains draft earnings call scripts and an acquisition term sheet for Greenpeak Robotics Co. that constitute important information not yet publicly disclosed under FSCMA.\nWe do not collect genetic data, except where an employee voluntarily submits a medical certificate; however, our engineers may reference genetic algorithms in software documentation.\nAccess to MNPI is strictly need-to-know; IR drafts, insider lists, and deal rooms are restricted until filings are made public on the Haneul Stock Exchange (HSE) portal and via press release.\nTransfers: certain processing is performed by CloudSong Data Services Pte. in the Nasan Republic and by Hanstream Cloud KR for backup, under contractual safeguards and breach notification to the competent securities authority if required.\nRetention: insider lists and pre-deal communications are retained 5 years after public disclosure; employee health surveillance records are retained 3 years under workplace safety guidance; biometric templates are deleted within 30 days of separation.\nData subject rights (PIPA): you may request access, correction, deletion, or suspension via privacy@mokdan-semi.example.kr or DPO Ms. So",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contacts for HR management, deal execution, and exchange disclosure obligations consistent with the Capital Markets Act (FSCMA) on material nonpublic information.\nIdentifiable fields may include name, resident-number for identity verification, employment details, payroll data, and insider-list roles relating to important information not yet publicly disclosed.\nExample anchor: Mr. Dae-hoon Lim (Employee No. E-0419) \u2014 resident-number: 79XX01-2XXXXXX, biometric face template for gate access, and a recent occupational health report indicating hypertension; he is recorded as a dues-paying member of the Orion Fab Workers Union solely for payroll deduction and compliance.\nExample anchor: Ms. Ara Jeong (IR officer) \u2014 maintains draft earnings call scripts and an acquisition term sheet for Greenpeak Robotics Co. that constitute important information not yet publicly disclosed under FSCMA.\nWe do not collect genetic data, except where an employee voluntarily submits a medical certificate; however, our engineers may reference genetic algorithms in software documentation.\nAccess to MNPI is strictly need-to-know; IR drafts, insider lists, and deal rooms are restricted until filings are made public on the Haneul Stock Exchange (HSE) portal and via press release.\nTransfers: certain processing is performed by CloudSong Data Services Pte. in the Nasan Republic and by Hanstream Cloud KR for backup, under contractual safeguards and breach notification to the competent securities authority if required.\nRetention: insider lists and pre-deal communications are retained 5 years after public disclosure; employee health surveillance records are retained 3 years under workplace safety guidance; biometric templates are deleted within 30 days of separation.\nData subject rights (PIPA): you may request access, correction, deletion, or suspension via privacy@mokdan-semi.example.kr or DPO Ms. So-yeon Park at dpo@mokdan-semi.example.kr; we respond within 10 business days.\nWe may need to verify identity with a masked resident-number and a one-time code; an unreasonable or manifestly unfounded request may be refused with written reasons.\nThis notice also applies to investors who sign up for Aurora Pay dividend payouts and SoriWatch alerts, but does not apply to fan clubs or the Haneul Thunder sports schedule.\nOur Open Horizon Inclusion Policy uses plain language about sexual orientation and religion as general DEI topics without recording such attributes unless you expressly provide them for accommodations.\nNothing in this notice is a political football; however, political opinions you voluntarily disclose on internal social platforms are deleted after 30 days unless required for investigation of a code-of-conduct concern.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

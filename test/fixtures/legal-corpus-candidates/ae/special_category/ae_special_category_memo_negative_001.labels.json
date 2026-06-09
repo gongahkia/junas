@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -205,6 +213,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board Compliance Committee, Oasis Reef Holdings Ltd (ADGM Registration ORH-TEST-4127)\nSubject: PDPL readiness and market conduct review for the PalmGate onboarding suite (DFSA/SCA context)\nScope covers processing by Oasis Reef Operations (DIFC branch) for client Nahala Payments FZ-LLC (Trade Licence TL-5931-TEST) and internal HR workflows.\nUnder PDPL, we mapped fields: Emirates ID (masked placeholder only; example: EID-0000-XXXX-TEST), nationality, and contact role mailboxes; no copies of government IDs are stored.\nForm labels include \u201cFamily origin (optional)\u201d and \u201cReligion (do not ask)\u201d; both are disabled per PDPL Data Minimisation Standard v2.1.\nPositive special-category reference: Data Subject ORH-EMP-1193 (employee code) has HR medical leave documentation indicating ongoing treatment for Type 2 diabetes under the company clinic.\nAccess to ORH-EMP-1193\u2019s file is restricted to the HR Medical Inbox and the Data Protection Officer; no Emirates ID or biometric data is linked to that case.\nMarket conduct: our investor-relations team used only publicly announced items from the ADGM FSRA Public Register and DFSA/SCA circulars; no unpublished issuer information or analyst guidance is attached.\nReferences to issuer \u201cDune Meridian PJSC\u201d relate solely to its already-published 2024 Q1 results; no board papers, ratings actions, or trading instructions are present.\nAny timetable examples in PalmGate workflows use dummy symbols (e.g., ISIN TEST-ADGM-000) and invalid dates (31/02/2026) to avoid MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -15,14 +37,29 @@
     ],
     "warning_count": 3
   },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -52,7 +89,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Cross‑border transfer",
+      "matched_text": "Cross\u2011border transfer",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -77,7 +114,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "RG‑  0042",
+      "matched_text": "RG\u2011  0042",
       "rule": "employee_id"
     },
     {
@@ -107,7 +144,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Operational follow‑up: jira ops‑2190 closed; vendor onboarding checklist (rev. 4) now requires a witnessed data‑export approval and check‑back on sFTP endpoint aliases (no change window breach).",
+      "matched_text": "Operational follow\u2011up: jira ops\u20112190 closed; vendor onboarding checklist (rev. 4) now requires a witnessed data\u2011export approval and check\u2011back on sFTP endpoint aliases (no change window breach).",
       "rule": "material_event"
     },
     {
@@ -144,13 +181,25 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Operational follow‑up: jira ops‑2190 closed; vendor onboarding checklist (rev. 4) now requires a witnessed data‑export approval and check‑back on sFTP endpoint aliases (no change window breach).",
+      "matched_text": "Operational follow\u2011up: jira ops\u20112190 closed; vendor onboarding checklist (rev. 4) now requires a witnessed data\u2011export approval and check\u2011back on sFTP endpoint aliases (no change window breach).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI assessment: no information not generally available that would be expected to materially affect financial products; no project revenue forecasts or unannounced capital actions; ASIC/Corporations Act s1042A threshold not met.\nCross\u2011border transfer: one batch was queued for processing by Datastage Pte Ltd (SG processor) under APP 8; export proceeded only after data\u2011export approval at https://export.redgum.example.au/approve?ref=RGX\u20112026\u2011APR&acctId=ZX9%2D77C&cust=j.rooke%40example.net.\nDSAR: an access request from Ms. Naya Elbridge (received via privacy@redgumrenewables.example.au) was fulfilled on 18 May; download token r g - t k n : 0 1 9 E / C was issued and expired within 48h.\nConsent withdrawal: Mr. Aiden K. Marsh withdrew marketing consent on 17 May; CRM flags set to SUPPRESS and no outbound campaigns were sent thereafter.\nErasure/retention: duplicate onboarding files were erased on 20 May per DRS\u2011FIN\u201102, while originals are retained for 7 years under the statutory retention schedule; disposal certificate RG\u2011DISP\u20112026\u2011051 was countersigned.\nMinimisation control: the HR template masked medical descriptors and replaced them with status codes (H\u2011OK/H\u2011RFR); this control is policy\u2011only for archived 2023 files and does not indicate a live risk.\nDPA schedule: processing by Datastage Pte Ltd and KoalaStack Pty Ltd is governed by DPA Schedule 2 (APPs, APP 11 security, APP 8 cross\u2011border), with annexed TOMs approved by the Privacy Lead.\nSecurity detail: no unauthorised access was detected; server logs show zero exfiltration and no MAC addresses were captured; the reference to \u201cpublic media brief\u201d is a public\u2011source link to our ESG report and is non\u2011sensitive.\nListing/continuous disclosure: per ASX Listing Rule 3.1 assessment memo (signed by Dr. Lila K. Mornay, Company Secretary), the event is not material; no trading halt or cleansing notice is required.\nCredit data handling: credit eligibility information in the cover sheets remained encrypted at rest (key id: kms\u2011rg\u2011A U\u201101, alias \u201cstringybark\u201d), and the decryption audit shows no failed attempts.\nEmployment contact details: E M P L O Y E E   I D : RG\u2011  0042 (A. Tenley), phone +61\u20112\u20115550\u20117  1  9  0 were present; note that AuroraPay and SeedTrack product names appear only in internal inventory text.\nOperational follow\u2011up: jira ops\u20112190 closed; vendor onboarding checklist (rev. 4) now requires a witnessed data\u2011export approval and check\u2011back on sFTP endpoint aliases (no change window breach).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -159,7 +208,7 @@
       "reason": "Negated statement indicates none were captured; not a live PII instance"
     },
     {
-      "matched_text": "project “Wattle Ridge”",
+      "matched_text": "project \u201cWattle Ridge\u201d",
       "reason": "Project name; does not meet transaction codename pattern"
     },
     {
@@ -184,37 +233,8 @@
     },
     {
       "concept": "internal reference identifier",
-      "matched_text": "RGX‑2026‑APR",
-      "reason": "Export approval reference may identify an individual’s request/session but is not clearly mapped to a supported PII rule"
+      "matched_text": "RGX\u20112026\u2011APR",
+      "reason": "Export approval reference may identify an individual\u2019s request/session but is not clearly mapped to a supported PII rule"
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

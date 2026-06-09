@@ -7,13 +7,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -27,13 +27,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -48,6 +48,44 @@
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
+  "_resolved_label_warnings": {
+    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
+    "count": 4,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120m'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM1.22'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120m'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM1.22'"
+    ]
+  },
+  "_resolved_label_warnings_history": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 35,
     "new_must_detect_count": 13,
@@ -57,6 +95,14 @@
     "removed_must_not_detect": [],
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -305,6 +351,18 @@
       "category": "MNPI",
       "matched_text": "10%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Please note director onboarding for Mr. Jian Wei Lim (Passport No.: A34567891) and address for service at Unit 12-5, Residensi Kenanga Utara, 38 Jalan Laman Seri, 50577 Kuala Mutiara; PDPA consents to be recorded and external releases to mask passport digits.\nDuring the closed period under Paragraph 14.08, trading by directors is restricted; blackout notice issued 28 May 2026, and draft press note DR/IR/2026/05 has not been lodged with Bursa Malaysia Securities Berhad.\nEmployment letter for CEO-designate to include non-compete and key-man insurance assignment; no disclosure required under Para 9.19 unless compensation exceeds materiality threshold",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2013 Internal Legal & Compliance Memo (PDPA/CMSA)\nTo: Board of Tanjung Agro Holdings Berhad (Company No.: 202101012345 (1498763-X); Tax Ref No.: C8765432109), Level 21, Menara Bintang, 12 Jalan Damar Jaya, 50588 Kuala Mutiara, Wilayah Persekutuan.\nFrom: Puan Norliza Karim, General Counsel, legal@tanjungagro.my, Tel: +60 3-7890 4567.\nRe: Project Sawit Hutan \u2013 proposed private placement and RM120m sukuk murabahah programme; Bursa LR Para 9.03/9.19 considerations and CMSA s.188 insider prohibitions.\nThe draft term sheet with Arwana Ridge Partners Sdn Bhd (Reg. No.: 201801023456 (1287654-T); Tax Ref No.: D2345678901) contemplates 60,000,000 new shares at RM1.22 and covenant package tied to FY2027 EBITDA targets (MNPI; not announced).\nFinancing proceeds to be held in Bintang Capital Bank Berhad account no. 112-345-678901 pending utilisation; account mandate signatories: Encik Faizal Rahman (CFO) and the Company Secretary.\nPlease note director onboarding for Mr. Jian Wei Lim (Passport No.: A34567891) and address for service at Unit 12-5, Residensi Kenanga Utara, 38 Jalan Laman Seri, 50577 Kuala Mutiara; PDPA consents to be recorded and external releases to mask passport digits.\nDuring the closed period under Paragraph 14.08, trading by directors is restricted; blackout notice issued 28 May 2026, and draft press note DR/IR/2026/05 has not been lodged with Bursa Malaysia Securities Berhad.\nEmployment letter for CEO-designate to include non-compete and key-man insurance assignment; no disclosure required under Para 9.19 unless compensation exceeds materiality threshold.\nDo not circulate the Board Pack (Slide 9 forecasts Q3 margin uplift from 11.2% to 14.0%) outside authorised recipients; treat as MNPI under CMSA.\nVendor master form placeholders seen in HR folder (Name: ______; IC No.: ______; Bank: ______) are templates only and contain no data; prior draft showing NRIC: 000000-00-0000 is invalid and must be purged.\nFor external queries route to IR only; Public Helpline 1-300-88-1234 is not an authorised channel for deal communications.\nPDPA note: collected data limited to purpose of placement and employment; retention per internal Policy PDPA/TAHB/2024-01; requests to dpo@tanjungagro.my.\nAnticipated announcement trigger: signing of binding SSA or firm placement commitments; if pricing deviates >10% from VWAP, immediate disclosure is required notwithstanding confidentiality undertakings.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -362,43 +420,5 @@
       "matched_text": "requests to dpo@tanjungagro.my",
       "reason": "Indicates a DSAR/contact channel; useful privacy signal but not explicitly covered by allowed rules."
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_resolved_label_warnings_history": [],
-  "_resolved_label_warnings": {
-    "count": 4,
-    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120m'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM1.22'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120m'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM1.22'"
-    ]
-  },
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

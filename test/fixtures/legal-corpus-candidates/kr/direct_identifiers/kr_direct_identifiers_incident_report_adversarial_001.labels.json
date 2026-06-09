@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -205,6 +213,24 @@
       "category": "MNPI",
       "matched_text": "920305",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ubbf8\uacf5\uac1c",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "421-87-31095; IR contact: security@haneulsteel.co.kr.\nOn 2026-06-02 03:20 KST our SOC observed data exfiltration via a vendor VPN account issued to Mr. Park Min-su of Namu Data Services Co.\nAccessed shares included HR \u201conboarding\u201d and IR \u201cdrafts\u201d; two .hwp files contained resident-number fields and passport scans for interns.\nExample record: Ms. Choi Ara (Intern) \uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638 920305 - 2 0 1 2 3 4 5; KR Passport M1234567X (checksum invalid, sample only).\nInvestor-relations folder included IR-2026-Q3-DRAFT and a non-public term sheet for a private placement with Seonwoo Ventures SPC; this constitutes \uc911\uc694\uc815\ubcf4 \ubbf8\uacf5\uac1c.\nHowever, this summary does not include MNPI figures and numbers are redacted; not a material adverse change under the draft SPA.\nPreliminary assessment indicates no customer data; union payroll unaffected; product \u201cBlueFurnace 3\u201d operations normal and shipping KPIs on track.\nContainment actions: rotated VPN certs, disabled the compromised account, and patched the jump host; action items: update runbook by eod.\nForensic notes: exfil path smb://fileserv01/hr/ and s3://ir-drafts/; suspicious url h t t p s : / / ir.haneulsteel.co.kr/notice?ref=FSCMA174&doc=IR-2026-Q3-DRAFT.\nContact channel: security@haneulsteel.co.kr, phone 010-8423-5532; role-only escalation: CFO, IR lead.\nSettlement/payment details were not accessed; nonetheless we are monitoring Daejin Bank ac c t 132- 04 5- 987654",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-06-02 03:20 KST our SOC observed data exfiltration via a vendor VPN account issued to Mr. Park Min-su of Namu Data Services Co.\nAccessed shares included HR \u201conboarding\u201d and IR \u201cdrafts\u201d; two .hwp files contained resident-number fields and passport scans for interns.\nExample record: Ms. Choi Ara (Intern) \uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638 920305 - 2 0 1 2 3 4 5; KR Passport M1234567X (checksum invalid, sample only).\nInvestor-relations folder included IR-2026-Q3-DRAFT and a non-public term sheet for a private placement with Seonwoo Ventures SPC; this constitutes \uc911\uc694\uc815\ubcf4 \ubbf8\uacf5\uac1c.\nHowever, this summary does not include MNPI figures and numbers are redacted; not a material adverse change under the draft SPA.\nPreliminary assessment indicates no customer data; union payroll unaffected; product \u201cBlueFurnace 3\u201d operations normal and shipping KPIs on track.\nContainment actions: rotated VPN certs, disabled the compromised account, and patched the jump host; action items: update runbook by eod.\nForensic notes: exfil path smb://fileserv01/hr/ and s3://ir-drafts/; suspicious url h t t p s : / / ir.haneulsteel.co.kr/notice?ref=FSCMA174&doc=IR-2026-Q3-DRAFT.\nContact channel: security@haneulsteel.co.kr, phone 010-8423-5532; role-only escalation: CFO, IR lead.\nSettlement/payment details were not accessed; nonetheless we are monitoring Daejin Bank ac c t 132- 04 5- 987654 for anomalies.\nPublic helpline bait: for general inquiries call 1400 City Helpline (public line, not account-specific), or Tel: 000-0000-0000 [placeholder].\nReporting plan: PIPA Art.34 breach notice within 24h and FSCMA voluntary report; filing on SGB portal with doc id SGB-INC-26-0714.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

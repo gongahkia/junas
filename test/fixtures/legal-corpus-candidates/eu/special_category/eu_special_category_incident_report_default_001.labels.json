@@ -50,6 +50,14 @@
     "previous_must_detect_count": 16,
     "previous_must_not_detect_count": 7
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -257,6 +265,18 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "delay public disclosure, filed a delay justification with the competent authority (Hollandic Markets Commission), and established an event insider list.\nFor Ms. Isla Kovarik (employee ID IK-4472), the compromised dataset included a hashed facial template used for turnstile access (biometric data) and a GP referral for stress-related treatment dated 12 May 2026 (health data).\nMs. Kovarik\u2019s self-declared sexual orientation and voluntary union membership fields from the DEI survey module were also exported and linked to her employee profile.\nAs special-category data within the meaning of GDPR Article 9 is implicated, we have invoked enhanced audit logging, role-based redaction, and will consult the supervisory authority on proposed mitigation.\nNo genetic data were stored; the phrase \u201cgenetic algorithm\u201d appears only in a code comment and is unrelated to personal data.\nThe attacker exfiltrated a subset of records via an unauthorised API token to a US subprocessor, CloudHelm Labs LLC, under legacy SCCs; a transfer impact assessment will be updated and supplementary encryption enforced per GDPR guidance.\nSystems affected included the CSRD ESRS-S1 workforce metrics and SFDR PAI mappings, with a projected one-quarter delay to assurance and potential capex reallocation to resilience.\nManagement currently estimates a 3\u20135% Q3 EBITDA impact from identity management remediation and downtime in the AuroraPay payroll module; this unpublished forecast is inside information under EU MAR.\nWe notified the Low Countries Data Supervisor within 72 hours and activated our breach protocol; cross-border notifications will follow for employees resident in Nordmark and Valestria.\nMarket monitoring has flagged unusual volumes in ARMO shares on 05 June 2026; all persons on the insider list have been reminded that dealing is prohibited and wall-crossing approvals are suspended.\nContact for data subjects: Data Protection Officer, Ms. Oona Vermeer, dpo@arcturon-mobility.eu, and incident hotline +31 20 555 0190.\nWe engaged CyberSage Partners BV and our processor Silverfjord Data BV to rotate keys at the Ravensbridge and Karlohaven facilities; backups remain intact and stored within the EEA in Velzenstad.\nA subtle issue in audit logs shows the \u201corientation\u201d field toggled during HR onboarding; in this context it refers to induction training rather than sexual orientation.\nDEI statement: our Equal Horizons Policy affirms respect for religion and sexual orientation in general terms and is not about any individual.\nSeparately, marketing references to the Ravensbridge Tigers sponsorship and the Nimbus Tablet product launch are unrelated to the incident and are not considered inside information.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

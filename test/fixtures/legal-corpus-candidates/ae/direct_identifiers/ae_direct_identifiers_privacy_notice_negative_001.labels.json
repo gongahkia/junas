@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -135,6 +143,12 @@
       "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Naseem Capital ADGM Limited \u2014 DSAR and retention workflow under UAE PDPL and ADGM Data Protection Regulations 2021.\nScope: processing by the Controller for investor onboarding, SCA reporting, and already-announced issuer actions; no MNPI is gathered in this flow.\nContact channels: dpo@naseemcapital.ae (role mailbox) and public helpline 800 555 2100 for general queries; do not submit PII to the helpline.\nIdentity verification: a single local identifier may be requested; example Emirates ID: 784-1987-1234567-9 (checksum deemed invalid during review).\nCompany context: ADGM trade licence No. 0091234-A (sample, not valid) and registered office: P.O. Box 00000, Abu Dhabi Global Market Square, Abu Dhabi (generic).\nIntake form fields (placeholders only): Name: __________; Passport No: __________; Phone: __________; Email: __________; Account/IBAN: AE00 0000 0000 0000 0000 000 (example not in use).\nFor DIFC counterparties and the fictitious Mina Dunes Exchange listings, we rely solely on public filings and SCA notices; insider or deal-room data is out of scope.\nSpecial categories: family-origin information and biometric data are not required; if submitted inadvertently, they will be redacted before processing.\nRetention: verification copies are kept for 30 days then securely deleted; transactional logs (non-identifying) retained for audit for 5 years per ADGM FSRA guidance.\nTransfers: where onward transfer to a third country is necessary, we apply UAE PDPL transfer bases and ADGM adequate jurisdictions; otherwise, DPA clauses with processor Shamal Reef Services FZ-LLC apply.\nDSAR response timeline: acknowledgment within 5 business days; substantive response within one month, subject to identity confirmation and scope limits.\nExclusions: this workflow does not include board minutes, private term sheets, or non-public issuer data; references to \u201cinsider lists\u201d are illustrative only.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

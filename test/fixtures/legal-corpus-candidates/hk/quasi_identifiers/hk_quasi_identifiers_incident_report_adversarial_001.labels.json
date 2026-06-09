@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -299,6 +307,24 @@
       "category": "MNPI",
       "matched_text": "SPA",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity Event (Hong Kong SAR) \u2014 Harbor Ridge Investments Ltd.\nOn 2026-05-29 07:42 HKT, our SOC detected anomalous IMAP logins to internal shared mailbox 'dealroom@harborridge.com.hk' from a non-standard client.\nThe activity correlated to device HR-NTB-2291 (OrionBook 14-HK) assigned to Mr. Adrian Ko, IT Support Analyst, adrian.ko@harborridge.com.hk, staffID HR-14377, b. 1996-07-03 (age 29), office: 28/F Prosperity Centre, Wan Chai, HK; account alias 'ako29'; s e s s i o n = 9 3 1 4 - A K - 2 8.\nNetwork traces show VPN gw 'GW-Central-3', source 203.12.44.88; reported MAC de:ad:be:ef:12:34, which is not a MAC under the SPA and should not be construed as a material adverse change.\nSeven files were copied, including Z e p h y r _TermSheet_v3.pdf and a draft board deck describing an offer for HKX-listed Zephyr Crane Logistics Holdings Ltd. (internal code ZCLH), prepared for regulator pre-consultation and fund LP briefings.\nSuch content includes proposed consideration bands and timetable and may constitute price-sensitive information under the SFO, not generally known to persons likely to deal.\nAn ESG metrics export was also accessed but contained only site-level kWh aggregates and supplier risk tiers drawn from public sources.\nImmediate actions: disabled Mr. Ko\u2019s credentials, isolated HR-NTB-2291, revoked tokens via https://intra.harborridge.com.hk/reset?tkn=9f2c-1b7a-8cc5, cleared cookie sid=ak-9314; audit ref IR-2026-051.\nGeneric demographics seen in HR folders (e.g., 'analyst 28\u201335', 'Cantonese preferred', 'Central office') are non-identifying and should not be treated as PDPO personal data.\nUnlinked operational fields elsewhere: dob 1980-05-10; user id trd-8472; device VP-Desk-117; floor 21; a c c t : 0 0 1 2 - 7 7 8 8; none of these entries are tied to a named individual in this incident.\nWe notified the HKX Listing Division (ldesk@hkx-reg.test) and initiated an internal assessment under Part XIVA of the SFO; no trading halt is requested at this time.\nPer PDPO, potential personal data includes email addresses and log metadata relating to a living individual whose identity is ascertainable from the above cluster; no passports, HKID numbers, or biometrics were stored.\nMs. Yvonne Tse, Data Protection Officer (dpo@harborridge.com.hk, +852 3900 1234), is the contact for data subjects; Mr. Samuel Ip, Head of Compliance, will brief the board risk committee.\nThe post-merger integration playbook (lowercase project-management prose and product names such as 'StratoSync' and 'NebulaDesk') is non-confidential and outside the scope of MNPI.\nWe confirm no MAC clause under the draft SPA has been triggered by this event and no employee termination decision has been made; employment workflow impact assessment is ongoing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

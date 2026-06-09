@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -179,6 +187,18 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Portcrown Capital (HK) Ltd \u2014 Incident Summary (HK) and Training Addendum\nIncident date/time: 12 May 2026 09:14 HKT; Classification: Operational/Cyber (Low)\nEvent: Mis-scoped API key at vendor NeonGate Systems (Asia) Ltd allowed read-only access to non-client log telemetry from a whitelisted IP; least-privilege restored within 27 minutes.\nImpact: No personal data as defined under PDPO was processed or exposed; no client account, name, address, or identifier was present in the affected logs.\nRegulatory: No reportable breach under SFC FMCC; internal record filed as Form IR-1; no disruption to HKEX trading or clearing connectivity.\nRemediation: Rotated all API keys, enforced IP allowlists at vendor, and obtained updated third-party security attestation (SOC-lite) for Q2.\nTraining note: The 12 May tabletop also refreshed staff awareness on insider lists, blackout periods, tipping prohibitions, and maintenance of information barriers across research, investment, and corporate access teams.\nDigital assets note: Our sandbox uses a non-transferable demo token \u201cAmberBay Coin (test-net)\u201d for education only; there is no fund exposure, custody, or client trading in crypto products.\nESG disclosure: The \u201c2024 Climate Resilience Update\u201d was published on our public website on 15 April and already announced via HKEX investor relations; it contains only high-level, non-price-sensitive information.\nCommercial terms: Draft renewal with NeonGate Systems proposes a 60-day termination right and 99.9% SLA; operational negotiation only, not price sensitive or material to any listed security.\nPre-clearance (restricted): Preliminary pre-announcement diligence with Holystone Renewables Holdings Ltd. identified an unpatched endpoint at its data provider that may affect emissions metrics planned for its forthcoming HKEX circular; restrict circulation to Clean Team pending issuer disclosure.\nAccordingly, add Holystone Renewables Holdings Ltd. to the event-specific insider list and apply a no-trade restriction on placeholder codes \u201c0X0X\u201d and \u201cHK-9999\u201d until Compliance clears; do not discuss outside established information barriers.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

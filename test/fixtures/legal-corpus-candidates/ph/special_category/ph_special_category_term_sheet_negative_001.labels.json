@@ -1,90 +1,150 @@
 {
-  "doc_id": "ph_special_category_term_sheet_negative_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "genetic data"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_special_category_term_sheet_negative_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@luntianharvest.example"
+      "matched_text": "ir@luntianharvest.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "religious affiliation (Kasarinlan Fellowship)"
+      "matched_text": "religious affiliation (Kasarinlan Fellowship)",
+      "rule": "religious_belief"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no material non-public information (as defined under the Securities Regulation Code) will be shared for pricing purposes"
+      "matched_text": "no material non-public information (as defined under the Securities Regulation Code) will be shared for pricing purposes",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1-800-ISLA-HELP"
+      "matched_text": "1-800-ISLA-HELP",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "ph_tin",
-      "matched_text": "TIN: ________"
+      "matched_text": "TIN: ________",
+      "rule": "ph_tin"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Employee 7 of Luntian Harvest Foods Corp"
+      "matched_text": "Employee 7 of Luntian Harvest Foods Corp",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "this field will remain masked in the data room"
+      "matched_text": "this field will remain masked in the data room",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "genetic data"
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Strategic Investment Term Sheet \u2014 Luntian Harvest Foods Corp. (Issuer) and Bahaghari Capital Partners SPC (Investor)\nTransaction: Minority investment via primary issuance of convertible preferred shares to be listed on the Maharlika Exchange Growth Segment (MEGS).\nPricing and valuation: To be set by independent appraisal; the parties affirm that no material non-public information (as defined under the Securities Regulation Code) will be shared for pricing purposes.\nRegulatory approvals: Isla Capital Markets Authority (ICMA) notice of exemption and Maharlika Exchange clearance; Isla Central Bank approval for any e-money co-branding with Baybay Digital Bank, Inc. as strategic partner.\nConditions precedent: No undisclosed related-party transactions; public/stale facts from Issuer\u2019s 2024 annual report and 15 May 2025 trading update already posted on the Maharlika Exchange bulletin.\nSettlement and escrow: Proceeds to be deposited with Orasyon Trust Bank (ICB-supervised), escrow account reference 000-ESCROW-XYZ (placeholder only).\nTax: Subject to documentary stamp tax and percentage tax under the Bayan Revenue Code; form labels TIN: ________ and IRB Cert. No.: ________ are for completion at signing.\nHR and data integration: Compliance with the Data Privacy Act of 2012 and N\u2011DOC circulars; no payroll bank account numbers or biometric templates will be transferred pre-close.\nIntentional exception for precision: Employee 7 of Luntian Harvest Foods Corp. has voluntarily recorded a religious affiliation (Kasarinlan Fellowship) in the 2024 inclusion survey; this field will remain masked in the data room.\nProducts and policies (benign): References to BambooPay, Araw Wallet, HeartStrong Benefit, and UnionShield Policy are brand/policy names and do not denote medical histories or labour union membership.\nDisclosure and stabilisation: Issuer to file a Reinvestment Plan under the ICMA Rulebook; any stabilisation will adhere to MEGS guidelines; ISIN-like placeholder MX-TEST-000000 will be replaced post-pricing.\nCovenants: Use of proceeds limited to plant upgrades and logistics digitisation; no dividends on the new class until conversion triggers.\nDEI and wellness: Inclusive Opportunities Pledge and Rainbow Allies Program remain in force; this term sheet does not solicit or process genetic data, sexual orientation, or health diagnoses.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -129,63 +189,17 @@
       "reason": "Place/metaphor reference, not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "000-ESCROW-XYZ",
       "concept": "bank account reference",
+      "matched_text": "000-ESCROW-XYZ",
       "reason": "Escrow account reference placeholder; potentially a bank/customer reference but not clearly personal PII or covered by a listed rule."
     },
     {
-      "matched_text": "IRB Cert. No.: ________",
       "concept": "certificate number",
+      "matched_text": "IRB Cert. No.: ________",
       "reason": "Appears to be an authority certificate field; potentially identifying but not mapped to an enumerated PII rule."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T07:07:36Z",
-    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -314,6 +322,18 @@
       "category": "MNPI",
       "matched_text": "3,200,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 Not generally available (SFA, Singapore) \u2014 Project Saffron \u2014 Subject to contract; non-binding save for confidentiality, exclusivity and governing law.\nProposed acquisition term sheet: Kestrel Straits Holdings Ltd. (Straits Capital Exchange \u201cSCX\u201d Mainboard issuer) to acquire 51% of Orchidex Biologics Pte. Ltd.; total consideration S$ 1 2 8 , 0 0 0 , 0 0 0.\nFunding mix: S$80,000,000 senior facility from Harbour Crest Bank and S$48,000,000 private placement to institutional investors, priced at a 6.5% discount to 5\u2011day VWAP\u2011equivalent.\nDefinitive agreements: Share Purchase Agreement and Shareholders\u2019 Agreement to be executed; long\u2011stop date: 30 September 2026; completion targeted within 5 business days of CP satisfaction.\nEmbargo: investor\u2011relations draft announcement to be prepared but embargoed until 14 Aug 2026, 07:30 SGT; no pre\u2011briefing of analysts or cornerstone funds before embargo lifts.\nConditions precedent: approvals under the Securities and Futures Act (Singapore) and SCX Mainboard rules; PDPA consents for employee data transfers; financial assistance whitewash if required.\nMAC/MAE: no material adverse change has occurred or is reasonably likely; for avoidance of doubt, routine market volatility, public index movements and seasonality shall not constitute a MAC.\nPrice adjustment and escrow: earn\u2011out up to S$24,000,000 over 24 months tied to EBITDA > S$22,000,000; escrow of S$6,400,000 for claims; working capital peg at S$9,750,000 with dollar\u2011for\u2011dollar true\u2011up.\nGovernance: buyer to appoint 3 of 5 directors; reserved matters list attached; retention pool equal to 6.0% fully diluted post\u2011closing subject to independent shareholder approval thresholds.\nExclusivity: 60 days from countersignature; break fee S$3,200,000 if seller accepts a superior offer; non\u2011solicit and non\u2011compete for key founders for 24 months.\nBoard memo note: preliminary valuation reflects internal research note v3.2; per public\u2011source 2024 biotech outlook (open data), sector multiples have been flat to slightly negative.\nDeal checklist ref: DC\u2011SAFFRON\u201112 (CPs, filings, IR, treasury, tax); internal file KSH\u2011OBX\u2011TS\u20112026; link: https://docs.scxroom.example.sg/p/PR0J-SAF#RN-TS-v1.\nAdministrative identifiers: target UEN\u2011like ref U3N\u20118X5\u20114?1 (obf.); buyer registry code R\u20119x2\u2011KSH\u201126 (mock); contact: Ms. Delya Quon, General Counsel, delya.quon@kestrelstraits.sg.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

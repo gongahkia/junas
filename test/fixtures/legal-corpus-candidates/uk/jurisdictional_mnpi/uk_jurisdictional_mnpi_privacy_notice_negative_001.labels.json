@@ -50,6 +50,14 @@
     "previous_must_detect_count": 10,
     "previous_must_not_detect_count": 4
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -182,6 +190,18 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We collect business contact details, role history, training records, recorded business communications for regulatory obligations, and compliance submissions, not personal social media or home device telemetry.\nWe rely on legal obligations (Companies Act and FCA rules) and legitimate interests in running our listed-issuer operations on the London market; we do not sell personal data.\nData subjects may submit a DSAR via privacy@moorhavencapital.co.uk or by post to Data Protection Officer, Moorhaven Capital plc, 4 Kelmer Yard, London W1A 4ZZ",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Moorhaven Capital plc Privacy and Retention Notice for UK Staff and Market Conduct\nThis notice explains how we process personal data under UK GDPR for employees, directors, contractors, and applicants.\nWe collect business contact details, role history, training records, recorded business communications for regulatory obligations, and compliance submissions, not personal social media or home device telemetry.\nWe rely on legal obligations (Companies Act and FCA rules) and legitimate interests in running our listed-issuer operations on the London market; we do not sell personal data.\nData subjects may submit a DSAR via privacy@moorhavencapital.co.uk or by post to Data Protection Officer, Moorhaven Capital plc, 4 Kelmer Yard, London W1A 4ZZ.\nWe may share data with Greywick Transfer Services Ltd (UK registrar), Cloud Wren EU S.\u00e0 r.l. (hosting), and Stonequay Compliance Solutions Ltd (outsourced monitoring), subject to UK-approved transfer safeguards.\nRetention: HR files are retained for up to six years after employment ends, trading surveillance records for five years per FCA requirements, and aggregated metrics may be held longer in anonymised form.\nPublic information: we rely on official RNS announcements and archived press releases; for example, our 2022 systems migration and 2023 office move were announced and are stale.\nAny codes in this notice (e.g., XX00MHCPL000, SEC-ZZ-0000) are placeholders and are not securities identifiers.\nMarket conduct summary (intentional positive span): during the 30 calendar days before publication of our half-year or full-year results, dealing by PDMRs and closely associated persons is prohibited unless an exemption applies and approval is granted via compliance@moorhavencapital.co.uk.\nWe avoid selective disclosure: unpublished precise information is not shared with analysts or counterparties; where a market sounding is necessary, we follow UK MAR procedures including wall-crossing and record-keeping.\nFor MAR purposes we assess significance relative to the issuer\u2019s circumstances and would delay disclosure only where permitted and subject to confidentiality controls.\nThis notice does not concern live transactions: training references to \u201cProject Alder\u201d or \u201cearnings uplift scenarios\u201d are hypothetical and already covered in public disclosures.\nIf you are a retail shareholder, please use our public investor relations mailbox at ir@moorhavencapital.co.uk; we cannot process DSARs via social media comments.\nComplaints may be raised with the ICO, and for listing matters the FCA is the competent authority; we may update this notice following changes to the FCA Handbook or UK MAR guidance without prior notice.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

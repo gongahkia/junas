@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -47,12 +55,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Sami Al‑Ruwaili",
+      "matched_text": "Mr. Sami Al\u2011Ruwaili",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "Example MNPI: unannounced sukuk buyback approval (Board minute 23‑07) — must not be shared with vendors or analysts prior to RSB posting",
+      "matched_text": "Example MNPI: unannounced sukuk buyback approval (Board minute 23\u201107) \u2014 must not be shared with vendors or analysts prior to RSB posting",
       "rule": "material_event"
     },
     {
@@ -77,12 +85,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "dpo@almithaq‑industries.example.sa",
+      "matched_text": "dpo@almithaq\u2011industries.example.sa",
       "rule": "email_address"
     },
     {
       "category": "PII",
-      "matched_text": "Cross‑border transfers",
+      "matched_text": "Cross\u2011border transfers",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -97,7 +105,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non‑public (internal)",
+      "matched_text": "Non\u2011public (internal)",
       "rule": "nonpublic_marker"
     },
     {
@@ -142,7 +150,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Commercial Registration CR: 10•10–CR–x9x9",
+      "matched_text": "Commercial Registration CR: 10\u202210\u2013CR\u2013x9x9",
       "rule": "sa_commercial_registration"
     },
     {
@@ -152,7 +160,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "A‑MI‑MNPI‑log‑x7x7",
+      "matched_text": "A\u2011MI\u2011MNPI\u2011log\u2011x7x7",
       "rule": "internal_session_id"
     },
     {
@@ -162,7 +170,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "K‑DAS approved clauses",
+      "matched_text": "K\u2011DAS approved clauses",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -189,12 +197,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Sami Al‑Ruwaili",
+      "matched_text": "Mr. Sami Al\u2011Ruwaili",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "Example MNPI: unannounced sukuk buyback approval (Board minute 23‑07) — must not be shared with vendors or analysts prior to RSB posting",
+      "matched_text": "Example MNPI: unannounced sukuk buyback approval (Board minute 23\u201107) \u2014 must not be shared with vendors or analysts prior to RSB posting",
       "rule": "material_event"
     },
     {
@@ -216,6 +224,12 @@
       "category": "MNPI",
       "matched_text": "7%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AlMithaq Industries JSC \u2014 PDPL\u2011compliant Issuer Data Transfer & MNPI Handling Workflow (KSA context)\nWe process shareholder and employee PII (PDPL Art. 1) incl. National ID/Iqama and CR\u2011linked signatory data to execute issuer obligations; MNPI is safeguarded under Kingdom Capital Markets Directorate (KCMD, fictional) market\u2011conduct circulars\nFields: Name, Iqama/National ID (e.g., 1\u202f0\u202f9\u202f2\u202f\u2014\u202fxx\u202f\u2014\u202f843\u2022\u20221 or 2 4 7 1 \u2011 xx \u2011 0 9 3), email, IBAN (masked), Board files; Controller: AlMithaq Industries JSC (Commercial Registration CR: 10\u202210\u2013CR\u2013x9x9)\nNon\u2011public (internal) until disclosure via the Issuers Portal of the Riyadh Securities Board (RSB, fictional) within 30 minutes of Board resolution; then Public upon timestamped posting (see https://issuer.rsb.example.sa/ann?no=2025%2F1446\u2011K&status=public)\nSelective disclosure is prohibited; blackout windows apply from draft financials to T+1 post\u2011publication on the RSB feed; insiders must not trade during blackout or pending a trading halt\nIssuer\u2011relative materiality is triggered at >5% of consolidated assets or >7% of quarterly revenue; items below threshold remain confidential unless aggregated impact is material\nExample MNPI: unannounced sukuk buyback approval (Board minute 23\u201107) \u2014 must not be shared with vendors or analysts prior to RSB posting\nThe 1444H payroll system patch and cafeteria relocation do not constitute a material adverse change and are not subject to market disclosure\nCross\u2011border transfers use the S.D.A.I.A. transfer gateway (fictional public authority channel) or K\u2011DAS approved clauses; vendor access requires processor terms and NDAB mapping with encryption at rest and in transit\nLegal basis: PDPL Art. 6(1) performance of legal obligations; explicit consent is required for marketing; PII is minimised and stored in KSA unless an equivalent protection assessment is recorded\nData subject rights (access/correction/erasure) may be exercised by writing Mr. Sami Al\u2011Ruwaili, DPO, dpo@almithaq\u2011industries.example.sa, or via https://privacy.almithaq.example.sa/dsar?ref=QX\u20112 0 2 6\nRetention: Board MNPI files kept 10 years; Iqama copies deleted 30 days post\u2011verification; system logs rotated at 90 days unless incident holds apply\nPublic reference: RSB announcement 2024/140 for Project Barq has been widely reported by Al Bayan Daily (fictional) and is stale; do not treat it as MNPI\nAccess controls: role\u2011based; pre\u2011clearance workflow flags \u201cblackout\u201d on emails; audit trail ID: A\u2011MI\u2011MNPI\u2011log\u2011x7x7 (OCR: l o g \u2011 x 7 x 7)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -249,7 +263,7 @@
     },
     {
       "concept": "erasure/retention_marker",
-      "matched_text": "Iqama copies deleted 30 days post‑verification",
+      "matched_text": "Iqama copies deleted 30 days post\u2011verification",
       "reason": "Deletion/retention schedule is privacy-relevant but not mapped to an allowed rule name"
     },
     {
@@ -259,22 +273,22 @@
     },
     {
       "concept": "internal_session_id",
-      "matched_text": "A‑MI‑MNPI‑log‑x7x7",
+      "matched_text": "A\u2011MI\u2011MNPI\u2011log\u2011x7x7",
       "reason": "Audit trail ID may function like an internal/session identifier but not clearly within the allowed rule scope"
     },
     {
       "concept": "internal_reference_id",
-      "matched_text": "ref=QX‑2 0 2 6",
+      "matched_text": "ref=QX\u20112 0 2 6",
       "reason": "Query reference may be an internal DSAR identifier; no explicit allowed rule for generic internal refs"
     },
     {
       "concept": "sa_national_id/sa_iqama_masked",
-      "matched_text": "1 0 9 2 — xx — 843••1",
+      "matched_text": "1\u202f0\u202f9\u202f2\u202f\u2014\u202fxx\u202f\u2014\u202f843\u2022\u20221",
       "reason": "Masked example resembles KSA ID/Iqama but not a full parsable identifier per strict patterns"
     },
     {
       "concept": "sa_national_id/sa_iqama_masked",
-      "matched_text": "2 4 7 1 ‑ xx ‑ 0 9 3",
+      "matched_text": "2 4 7 1 \u2011 xx \u2011 0 9 3",
       "reason": "Masked example resembles KSA ID/Iqama but not a full parsable identifier per strict patterns"
     }
   ]

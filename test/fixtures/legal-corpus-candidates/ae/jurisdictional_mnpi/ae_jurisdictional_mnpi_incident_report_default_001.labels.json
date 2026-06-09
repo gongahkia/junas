@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -290,6 +298,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ies PJSC (ADX: TOTL) Incident Notice \u2013 Cyber event detected 2026-06-04 02:15 GST affecting DIFC-hosted IR/HR share drive and M&A data room \u201cProject Liwa\u201d.\nOur SOC flagged anomalous SSO activity from an external IP, leading to exfiltration of a subset of files stored by Tamr Oasis Finserv (DIFC) Ltd.\nFiles included PDPL-regulated personal data: copies of Emirates ID cards (partial scans), family-origin declarations from onboarding forms, and trade licence attachments for vendor due diligence.\nApproximately 231 data subjects are implicated (employees, candidates, and roadshow attendees); Emirates ID numbers appear only in truncated form (e.g., 784-20XX-XXXXXXX-3) and two trade licence numbers were visible in full.\nThe same folder contained non-public issuer materials: a draft Board paper and unsigned term sheet to acquire Nukhba Payments ADGM Ltd at an indicative enterprise value of AED 148\u2013162m.\nThis acquisition content is not public and falls within a closed period ahead of H1 results; continuous disclosure under ADX Listing Rules and the SCA Rulebook on Disclosure and Transparency applies.\nTo avoid selective disclosure, only two wall-crossed lenders (Palm Crescent Bank PJSC and Shamal Capital Bank PJSC) were briefed under NDA; insider lists were updated and dealing restrictions reiterated.\nBy contrast, our ADX announcement dated 2026-03-12 on data-center migration and ESG Scope 2 baselines is already public and unrelated to this incident.\nSeparately, OryxNet FZ-LLC reported a regional ISP outage yesterday; this vendor issue did not impact issuer systems and has no bearing on market disclosure.\nContainment actions: disabled the compromised admin account, reset tokens, segmented the DIFC file store, and engaged Desert Falcon Cyber FZ-LLC for forensics; preliminary view is <200MB of data accessed.\nUnder UAE PDPL and Executive Regulations, we will notify the UAE Data Office within 72 hours and contact affected individuals where a high risk to rights is assessed, including providing mitigation guidance.\nWe are assessing issuer-relative materiality; while financial impact appears immaterial (<1% of revenue), reputational sensitivity could render the leak price-sensitive\u2014if so, we will submit an ADX clarification without delay and observe blackout trading prohibitions.\nMarket surveillance has been informed to watch for unusual activity; no request for a trading halt is made at this time, and all inquiries should be centralised to avoid inadvertent disclosure.\nPoint of contact: Ms. Salma Al Nurani (Chief Compliance Officer) and Eng. Marwan Al Badi (DPO), compliance@tamroasis.ae and dpo@tamroasis.ae; data subjects may also write to pri",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

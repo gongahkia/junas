@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -200,6 +208,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Garam Renewables Co., Ltd. (Korean issuer) \u2014 Investor Relations and Deal Support Privacy & Retention Notice.\nWe process personal information under PIPA limited to living\u2011individual data needed for IR queries, site visits, and employment applications; typical fields: name, role, company, business email, and masked resident number (Resident No: XXXXXX-XXXXXXX) where required by law.\nWe do not request wallet keys, full resident registration numbers, or unsupported identifiers, and any forms showing placeholders like 000000-0000000 are instructional only.\nFor FSCMA compliance, we maintain an insider list and apply blackout and information\u2011barrier procedures; the attached training schedule on \u201ccrypto\u201d and \u201ccyber incident tabletop\u201d is educational and not a disclosure of any event.\nData sources: self\u2011submitted web forms, IR inbox ir@garamrenewables.example.kr, and vendor due\u2011diligence portals operated in Korea.\nPurpose and lawful basis: responding to investor inquiries, scheduling ESG briefing sessions, and conducting pre\u2011employment screening as permitted by PIPA and related guidance from the FSC/FSS.\nRetention: IR correspondence retained 3 years; employment records per statutory period; logs from security awareness exercises (e.g., phishing drill) retained 90 days; non\u2011required resident\u2011number copies deleted or irreversibly hashed on receipt.\nCross\u2011border transfer: we do not transfer resident\u2011number data outside Korea; other IR contact data may be processed by service providers in APAC subject to standard safeguards and contracts.\nCybersecurity: operational incident logs are stored in Korea and used for defense; public advisories may reference past, already\u2011announced issues without internal detail.\nCommercial terms: marketing drafts may describe hypothetical \u201cgreen PPA\u201d terms for ESG education; they are not binding offers and contain no current deal specifics.\nPositive MNPI control: until KRX disclosure, the draft term sheet for a pilot crypto\u2011custody service with a domestic partner is restricted MNPI and access is limited to named teams on the insider list.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -385,6 +393,18 @@
       "category": "MNPI",
       "matched_text": "21.5%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "[Strictly Internal\u2014\u975e\u516c\u5f00] Board Memorandum re Project Jade Crane (deal codename) for Blue Harbor Microsystems Co., Ltd. (USCC: 91H0A0000T9L56Q2XM, fictional).\nProposed acquisition of a 21.5% equity interest in Riverpeak New Energy Co., Ltd. (USCC: 91F2X0000K8W123Q7Y, fictional) for approximately RMB 1.2 billion; signing of the definitive Share Purchase Agreement targeted for 2026-06-28, long-stop 2026-10-31.\nEmbargo: IR draft must not be released before 2026-07-15 09:00 CST; issuer obligations under CSRC and SSE listing rules apply during the \u9759\u9ed8\u671f and blackout windows.\nInside information handling: maintain an \u201c\u5185\u5e55\u4fe1\u606f\u77e5\u60c5\u4eba\u201d list; only refer to the transaction using the codename; circulate materials via the sealed data room; do not email summaries outside legal/compliance.\nMAC/MAE: parties acknowledge that sector index volatility, seasonal demand shifts, or pandemics shall not constitute a Material Adverse Effect (negated MAC); closing is conditioned on no MAE arising from target-specific compliance failures.\nRegulatory pathways: CSRC major asset reorg review not triggered; SAMR simple case antitrust filing likely; NDRC foreign debt filing none; CAC cross-border data transfer security assessment required for any export of R&D telemetry or HR files (PIPL/CSL/DSL).\nEmployment workflow note: onboarding records for Ms. Zhao Qing (Resid ID: CN-FIC-44000019991212001X, fictional) must be masked before any cross-border processing; no data relating to minors under 14 is collected in this project.\nData minimization: collect only necessary personal information; encrypt resident ID scans; store domestically; if engaging Singapore analytics vendor, execute SCCs and complete CAC\u7533\u62a5 prior to transfer.\nFinancing: mix of internal cash and a committed RMB term facility; covenants include financial reporting under PRC GAAP and \u201cno dividend leakage\u201d before closing; hedging plan to be approved by Treasury.\nDraft IR paragraph (for later use): Blue Harbor intends to deepen strategic cooperation with Riverpeak to accelerate storage-inverter integration; this draft is non-binding and for investor-relations use after embargo.\nChecklist (excerpt): final term sheet v5, SPA, disclosure schedule, employee retention plan, STAR Market issuer counsel comfort, cyber and data mapping, MOFCOM foreign investment reporting (if any), SSE filing of board resolutions.\nPublic-source reference: see publicly available CSRC Circular [2024] No. 12 on standardized disclosures; templates therein are for reference only and do not reveal any non-public transaction terms.\nResearch note to board: preliminary synergy estimate RMB 86 million annual run-rate by FY2028; sensitivity at +/- 200 bps gross margin; valuation assumes 14.0x FY2026 EBITA under base case.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

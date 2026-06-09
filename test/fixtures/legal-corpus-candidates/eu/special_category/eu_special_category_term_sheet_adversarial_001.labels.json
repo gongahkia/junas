@@ -50,6 +50,14 @@
     "previous_must_detect_count": 22,
     "previous_must_not_detect_count": 9
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 5,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -322,6 +330,36 @@
       "category": "MNPI",
       "matched_text": "subject to regulatory approvals",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Key Person Disclosure (GDPR Art 9): Dr. Selene Markovi\u0107 (Chief Biosignals Officer, ID code NL\u2014A L X\u2014 9 0 1) has an epilepsy diagnosis and is enrolled in fingerprint/iris biometric access control; explicit consent recorded on 2026\u201102\u201114, access strictly role\u2011based.\nAdditional Special\u2011Category Data: Dr. Markovi\u0107 is a dues\u2011paying member of the Neurotech Workers Union and observes Eastern Orthodox religious practices; processing limited to employment, insurance, and investor due diligence with safeguards.\nCross\u2011Border Transfer: limited HR and due\u2011diligence records (including the above special categories) may be transferred to processors in Novaland (non\u2011EEA) under 2021 SCCs and supplementary measures; sub\u2011processors listed at https://data.aurora\u2011lumen.eu/dp\u2011list?v=2",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation & Retention: sensitive records for Dr. Selene Markovi\u0107 will be pseudonymised and retained 3 years post\u2011closing; data subjects may contact dataprivacy@aurora\u2011lumen.eu or +358 555 0199 for rights requests.\nPublic\u2011Source References: non\u2011confidential metrics may include extracts from GreenIndex Europa and the City of Northbridge climate portal; quoting such public sources alone does not constitute Inside Information.\nCovenants & Leverage: leverage cap 2.5x EBITDA; coupon 4.25% PIK with step\u2011up on ESG KPI miss; no dividends without consent; this is not a silver bullet and standard carve\u2011outs apply",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PROJECT LUMEN \u2014 Term Sheet for \u20ac40,000,000 Green Convertible Notes and Call Option; issuer: Aurora Lumen S.A.; investor: Bluegrain Ventures S.\u00e0 r.l.; governed by laws of an EU Member State.\nAdmission & MAR: notes intended for admission to trading on the Alpine City Exchange (EU regulated market); until publication of an approved prospectus, this document contains inside information under EU MAR and must be treated as confidential.\nUse of Proceeds & CSRD/SFDR: proceeds to fund Helios\u2011X product line and CSRD reporting systems; SFDR classification targeted Article 8; genetic algorithm risk models may be used for impact KPIs (benign use of \u201cgenetic\u201d).\nKey Person Disclosure (GDPR Art 9): Dr. Selene Markovi\u0107 (Chief Biosignals Officer, ID code NL\u2014A L X\u2014 9 0 1) has an epilepsy diagnosis and is enrolled in fingerprint/iris biometric access control; explicit consent recorded on 2026\u201102\u201114, access strictly role\u2011based.\nAdditional Special\u2011Category Data: Dr. Markovi\u0107 is a dues\u2011paying member of the Neurotech Workers Union and observes Eastern Orthodox religious practices; processing limited to employment, insurance, and investor due diligence with safeguards.\nCross\u2011Border Transfer: limited HR and due\u2011diligence records (including the above special categories) may be transferred to processors in Novaland (non\u2011EEA) under 2021 SCCs and supplementary measures; sub\u2011processors listed at https://data.aurora\u2011lumen.eu/dp\u2011list?v=2.\nAcquisition Option: investor granted an 18\u2011month call to acquire up to 51% of Aurora Lumen S.A. at \u20ac3.40 per share (internal code ALUM\u2011EQ\u2011X), subject to regulatory approvals by the competent authority and no prohibition by any EU competition body.\nNegative MAC language: a Material Adverse Change shall not be deemed to have occurred due to changes in accounting standards, general market downturns, or the Rivermouth Falcons losing the Coastal League; sponsor rotation is not a MAC.\nSustainability Covenants: issuer to publish CSRD\u2011compliant sustainability statements and SFDR PAI indicators; generic DEI policy (Open Doors Inclusion Charter) to remain in effect without creating any representation about sexual orientation of any individual.\nData Minimisation & Retention: sensitive records for Dr. Selene Markovi\u0107 will be pseudonymised and retained 3 years post\u2011closing; data subjects may contact dataprivacy@aurora\u2011lumen.eu or +358 555 0199 for rights requests.\nPublic\u2011Source References: non\u2011confidential metrics may include extracts from GreenIndex Europa and the City of Northbridge climate portal; quoting such public sources alone does not constitute Inside Information.\nCovenants & Leverage: leverage cap 2.5x EBITDA; coupon 4.25% PIK with step\u2011up on ESG KPI miss; no dividends without consent; this is not a silver bullet and standard carve\u2011outs apply.\nConfidentiality & Rooms: documents hosted at https://rooms.aurora\u2011lumen.eu/txn/PL\u20112026?f=ts%2Fv3#art9 may include redacted special\u2011category annexes; do not export outside the EU drive without DPO sign\u2011off.\nContacts & Notices: Ms. Hana Varela (VP Corporate Development) \u2014 hana.varela@aurora\u2011lumen.eu; investor relations \u2014 ir@bluegrain\u2011ventures.eu; registered office: 12 Quai des Lanternes, 1040 Granstadt, EU.\nOperational note (lowercase pmo): file the draft into sprint board \u2018financing\u2011lumen\u2019: backlog -> diligence -> mar\u2011comms; product names in scope: Helios\u2011X, Lumen Arc, and MeadowSpark.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

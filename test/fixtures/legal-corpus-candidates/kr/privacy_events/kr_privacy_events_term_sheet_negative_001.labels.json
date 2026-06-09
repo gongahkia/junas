@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -190,6 +198,18 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Processing Addendum: A DPA is attached as Schedule DP\u20111; \u201cpersonal information\u201d is defined in accordance with PIPA, and special identification information will be handled with heightened controls.\nOnboarding/KYC Forms: Investor onboarding forms request minimal data fields; Resident Registration Number fields are disabled and display the placeholder 000000-0000000, with masking applied to any legacy records.\nCross\u2011Border Transfer (positive): Data Export Approval DEA\u201126\u2011041 covers transfer of limited employee contact data (work name, role title, work email) to the processor \u201cMokpo Cloud Analytics KK\u201d in Japan under company standard contractual safeguards and DPA Schedule DP\u20112, effective 2026\u201103\u201101",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Daehan Circuitry Co., Ltd. (KRX KOSDAQ issuer) and Solbaram Partners SPC propose a strategic financing via non-voting convertible preferred shares.\nUse of Proceeds: General working capital and domestic R&D; no proceeds allocated to share buybacks absent a separate board resolution.\nPublic Disclosure/MNPI: Issuer confirms all important information per the FSCMA has been publicly disclosed on DART; no MNPI will be provided in diligence absent formal wall\u2011crossing and clean\u2011team procedures.\nRegulatory: Filing of material facts and investor\u2011relations notices on KRX to be completed prior to signing; no objection or comment from the FSC/FSS is anticipated based on prior consultations.\nConfidentiality: A mutual NDA will govern diligence; clean\u2011team access only to aggregated financials and anonymised operational metrics.\nData Processing Addendum: A DPA is attached as Schedule DP\u20111; \u201cpersonal information\u201d is defined in accordance with PIPA, and special identification information will be handled with heightened controls.\nOnboarding/KYC Forms: Investor onboarding forms request minimal data fields; Resident Registration Number fields are disabled and display the placeholder 000000-0000000, with masking applied to any legacy records.\nCross\u2011Border Transfer (positive): Data Export Approval DEA\u201126\u2011041 covers transfer of limited employee contact data (work name, role title, work email) to the processor \u201cMokpo Cloud Analytics KK\u201d in Japan under company standard contractual safeguards and DPA Schedule DP\u20112, effective 2026\u201103\u201101.\nConsent Withdrawal: If a data subject withdraws consent, processing ceases and erasure is executed per the retention matrix; there are no pending withdrawals as of the date of this term sheet.\nDSAR Handling: Data subject access requests will be accepted via privacy.office@daehancircuitry.example and fulfilled within statutory timelines; no open DSARs are noted in the compliance memo.\nRetention/Minimisation: Diligence\u2011related personal data will be retained for up to three years from closing or earlier erasure where legally permissible; collection is limited to what is necessary for FSC/FSS\u2011supervised reporting.\nEmployment Data Scope: Secondment onboarding for integration planning will collect only role descriptors and work contact details; payroll numbers, bank account information, and resident\u2011number images are excluded from the data room.\nConditions Precedent: Completion of DPA schedules, delivery of the privacy compliance memo CP\u2011IR\u20112026, confirmation of KRX notices, and receipt of customary board approvals.\nNegative Clarification: This term sheet does not authorise any immediate deletion, transfer, or disclosure of MNPI; references to erasure, cross\u2011border transfer, and resident\u2011numb",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

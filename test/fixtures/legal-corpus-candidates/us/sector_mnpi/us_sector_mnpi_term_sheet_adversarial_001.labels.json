@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -57,7 +65,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Confidential Term Sheet — Project “Harbor Quill” for proposed acquisition of Heliava Health Bancorp, Inc. (a U.S. issuer) by Vastrum Capital Partners, L.P. (“Buyer”); non-binding summary of principal terms.",
+      "matched_text": "Confidential Term Sheet \u2014 Project \u201cHarbor Quill\u201d for proposed acquisition of Heliava Health Bancorp, Inc. (a U.S. issuer) by Vastrum Capital Partners, L.P. (\u201cBuyer\u201d); non-binding summary of principal terms.",
       "rule": "material_event"
     },
     {
@@ -67,7 +75,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Policy carve‑out: Notwithstanding the above, generic policy documents and public sustainability FAQs may be shared with marketing; blog references to “breach” are editorial and not incident‑related.",
+      "matched_text": "Policy carve\u2011out: Notwithstanding the above, generic policy documents and public sustainability FAQs may be shared with marketing; blog references to \u201cbreach\u201d are editorial and not incident\u2011related.",
       "rule": "material_event"
     },
     {
@@ -167,22 +175,22 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "No selective disclosure to sell‑side analysts, buy‑side personnel, or any market professionals prior to joint press release and Form 8‑K",
+      "matched_text": "No selective disclosure to sell\u2011side analysts, buy\u2011side personnel, or any market professionals prior to joint press release and Form 8\u2011K",
       "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "matched_text": "information‑barrier protocols",
+      "matched_text": "information\u2011barrier protocols",
       "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "anti‑tipping reminder per Rule 10b‑5",
+      "matched_text": "anti\u2011tipping reminder per Rule 10b\u20115",
       "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "matched_text": "trading blackout from signing until two full trading days after Form 8‑K",
+      "matched_text": "trading blackout from signing until two full trading days after Form 8\u2011K",
       "rule": "blackout_period_reference"
     },
     {
@@ -212,17 +220,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Project “Harbor Quill”",
+      "matched_text": "Project \u201cHarbor Quill\u201d",
       "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "matched_text": "wall‑cross",
+      "matched_text": "wall\u2011cross",
       "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "“CryptoCare” wallet pilot",
+      "matched_text": "\u201cCryptoCare\u201d wallet pilot",
       "rule": "dpt_protocol_event_marker"
     },
     {
@@ -237,7 +245,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "No PHI or GLBA‑covered NPI leaves the secure clean room",
+      "matched_text": "No PHI or GLBA\u2011covered NPI leaves the secure clean room",
       "rule": "data_minimisation_marker"
     },
     {
@@ -247,7 +255,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "(555) 000‑xx77",
+      "matched_text": "(555) 000\u2011xx77",
       "rule": "phone_number"
     },
     {
@@ -279,7 +287,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Confidential Term Sheet — Project “Harbor Quill” for proposed acquisition of Heliava Health Bancorp, Inc. (a U.S. issuer) by Vastrum Capital Partners, L.P. (“Buyer”); non-binding summary of principal terms.",
+      "matched_text": "Confidential Term Sheet \u2014 Project \u201cHarbor Quill\u201d for proposed acquisition of Heliava Health Bancorp, Inc. (a U.S. issuer) by Vastrum Capital Partners, L.P. (\u201cBuyer\u201d); non-binding summary of principal terms.",
       "rule": "material_event"
     },
     {
@@ -289,7 +297,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Policy carve‑out: Notwithstanding the above, generic policy documents and public sustainability FAQs may be shared with marketing; blog references to “breach” are editorial and not incident‑related.",
+      "matched_text": "Policy carve\u2011out: Notwithstanding the above, generic policy documents and public sustainability FAQs may be shared with marketing; blog references to \u201cbreach\u201d are editorial and not incident\u2011related.",
       "rule": "material_event"
     },
     {
@@ -371,6 +379,12 @@
       "category": "MNPI",
       "matched_text": "Scope 1",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Project \u201cHarbor Quill\u201d for proposed acquisition of Heliava Health Bancorp, Inc. (a U.S. issuer) by Vastrum Capital Partners, L.P. (\u201cBuyer\u201d); non-binding summary of principal terms.\nConsideration: $14.25 per share in cash, subject to a symmetric collar tied to the NQX Health Financial Index; no financing outs; expected closing in Q4 2026, pending customary approvals.\nDigital assets: carve-out for Heliava\u2019s \u201cCryptoCare\u201d wallet pilot (DPT services for patient refunds); Buyer to assume stablecoin reserve obligations with an independent on-chain attestation at or after public announcement; this pilot has not been disclosed publicly.\nCyber: Parties acknowledge a contained ransomware event on 05/22/26 impacting ~2.1% of clinic endpoints; draft forensics in data room; no confirmed exfiltration of PHI or NPI to date.\nESG/climate: Earnout up to $30,000,000 based on Scope 1+2 emissions reductions at Heliava\u2019s mail\u2011order pharmacy; green capex budget baseline anchored to 2025 public sustainability pages and utility invoices.\nRegulatory/Reg FD: No selective disclosure to sell\u2011side analysts, buy\u2011side personnel, or any market professionals prior to joint press release and Form 8\u2011K; limited wall\u2011cross of analysts permitted under NDA and information\u2011barrier protocols.\nInformation barriers: Buyer to maintain a clean team; Insider List to include Mr. R. Hale (CIO), Ms. Priya Nand (Deputy CISO), Dr. L. Ocampo (Medical Director), and external counsel at Darlowe & Mint PLLC; records retained for 5 years.\nBlackout: Employees with equity awards enter trading blackout from signing until two full trading days after Form 8\u2011K; anti\u2011tipping reminder per Rule 10b\u20115 and company policy.\nHealthcare/GLBA/HIPAA: No PHI or GLBA\u2011covered NPI leaves the secure clean room; sample datasets will be tokenized; dataset IDs: H\u2011HIP\u20113A\u2011xx91 and GL\u2011BA\u2011007\u2022\u2022; audit trail retained in VDR.\nConditions: HSR filing; OCC non\u2011objection for trust operations; Buyer agrees a cyber event at immaterial subsidiaries will not constitute a MAC; reverse termination fee: $55,000,000.\nCommercial: Key supplier consent for cloud EHR renewal; minimum cash at close: \u2265 $120,000,000; break\u2011up fee: $35,000,000; exclusivity through 08/30/26; no-shop with fiduciary out.\nBenign marketing/education: the internal ESG + crypto lunch\u2011and\u2011learn uses generic case studies and does not reference Heliava\u2019s wallets, emissions trajectories, or deal KPIs.\nContacts: Buyer\u2014Mr. S. Calder, Managing Director, s.calder@vastrum.example; Seller\u2014Ms. Tara Bloom, GC, tara.bloom@heliava.example; d a t a   r o o m: https://vault.hel iava.local/r/Tx\u20119xq3?t=1_2_xX.\nNotes: For OCR\u2014A c c t : **88 42 (masked); C U S I P : n/a; internal channel: #harbor\u2011quill; phone: (555) 000\u2011xx77; deal code: HQ\u201126\u2011A.\nPolicy carve\u2011out: Notwithstanding the above, generic policy documents and public sustainability FAQs may be shared with marketing; blog references to \u201cbreach\u201d are editorial and not incident\u2011related.\nDisclosures: This term sheet is non\u2011binding except for exclusivity, confidentiality, and information\u2011barrier covenants; governing law: Delaware; circulated to q4\u2011ops; p",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -402,12 +416,12 @@
     },
     {
       "concept": "internal_session_id / URL token",
-      "matched_text": "https://vault.hel iava.local/r/Tx‑9xq3?t=1_2_xX",
+      "matched_text": "https://vault.hel iava.local/r/Tx\u20119xq3?t=1_2_xX",
       "reason": "Internal VDR link with query token may imply session or access token; not covered by allowed rules"
     },
     {
       "concept": "insider communications channel",
-      "matched_text": "internal channel: #harbor‑quill",
+      "matched_text": "internal channel: #harbor\u2011quill",
       "reason": "Internal comms handle suggests information barrier context but no explicit rule name"
     },
     {
@@ -417,7 +431,7 @@
     },
     {
       "concept": "selective disclosure (internal circulation)",
-      "matched_text": "circulated to q4‑ops",
+      "matched_text": "circulated to q4\u2011ops",
       "reason": "Implies selective internal circulation but not an explicit selective-disclosure anchor phrase"
     }
   ]

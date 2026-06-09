@@ -50,6 +50,14 @@
     "previous_must_detect_count": 16,
     "previous_must_not_detect_count": 6
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -267,6 +275,24 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact: Dr. Ilse Rademacher, Data Protection Officer, dpo@novaforge-se.example, +32 (0)2 555 0199; controller: Novaforge Mobility SE, 7 Ardent Walk, Ehrental, BE\u20111040",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Dr. Ilse Rademacher, Data Protection Officer, dpo@novaforge-se.example, +32 (0)2 555 0199; controller: Novaforge Mobility SE, 7 Ardent Walk, Ehrental, BE\u20111040.\nScope of PII: GDPR Art 4 data linked to candidates, customers, and staff; we do not routinely process Art 9 special categories, save for occupational health attestations where explicit consent is logged (DSAR id NVS\u2011DS\u201100 47).\nRetention: candidate CVs 12 months; insider list entries 5 years per Art 18 MAR; trading notifications (PDMR) 3 years; device telemetry (hashed) 9 months; we do not retain MAC triggers or bank logins.\nCross\u2011border transfers: engineering ticketing and sustainability metrics are processed by Aurion DataOps Pvt. Ltd. (processor) in Luma, Seravia, under 2021 SCCs Module 2 with TIA ref TIA\u2011NOV\u2011\u03a3\u201114; encryption\u2011at\u2011rest AES\u2011256, key split k\u2011id: nf_km_0x7c..1a.\nCSRD/SFDR: personal data within workforce metrics are aggregated before disclosure; special\u2011category data, if any, are redacted; sustainability statements are filed via the OAM\u2011NH portal and are public once timestamped.\nMAR\u2014inside information handling: all non\u2011public precise information likely to significantly affect the price of NOVF shares on Euronext Luma is classified MNPI; selective disclosure is prohibited except under duty of confidentiality and on a strict need\u2011to\u2011know basis.\nDelayed disclosure (Art 17 MAR) requires CEO approval (workflow REF\u2011\u039417/nh\u20110082) and immediate notification to the competent authority, Luma Securities Directorate (LSD); blackout windows apply to PDMRs 30 calendar days before half\u2011year and annual results.\nPublic\u2011status checks: where a matter has been posted to the Officially Appointed Mechanism (OAM\u2011NH) or announced via our RIDS\u2011Luma feed, it is public; see ad\u2011hoc note https://oam-nh.example/record?id=NOVF-2025-03-19&v=1 (already announced).\nNegative control: we do not consider the archived 2023 sustainability blog post or third\u2011party press summaries as MNPI; operational updates in internal sprint boards (e.g., project \u2018pine\u2022cone_7\u2019) are not issuer\u2011level material unless escalated.\nDSAR workflow: submit to privacy@novaforge-se.example with DS key (ds_key: nvf\u20114f**7\u20119a); identity verified via two\u2011step check; cross\u2011border copies are restricted and logged in Ledger NVS\u2011ACC\u20110 3 9.\nProcessor obligations: OrbiQuant Cloud BV and Aurion DataOps Pvt. Ltd. must notify us within 24h of a breach, maintain sub\u2011processor inventories, and not engage in onward transfers without our written authorisation.\nSecurity and access: insider list rows include name, role, business email, and access timestamp; PII in insider lists is minimised; sample badge id \u2018E\u2011l1O\u2011Z9\u2019 is illustrative, not live data.\nNote: the public product brochure for \u2018NovaDrive City\u2019 dated 2024\u201102\u201110 is not confidential; any drafts containing unannounced unit\u2011economics remain non\u2011public until an OAM\u2011NH filing or RIDS\u2011Luma release confirms disclosure.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

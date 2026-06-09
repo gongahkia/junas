@@ -50,6 +50,14 @@
     "previous_must_detect_count": 13,
     "previous_must_not_detect_count": 3
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -162,6 +170,18 @@
       "category": "MNPI",
       "matched_text": "Preliminary internal forecast indicates a not-yet-announced deferral of the interim ESG KPI annex by up to one week, which may interact with a sustainability-linked facility covenant currently in testing.",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: short SFTP outage at the Luserne District EU data hub during a scheduled vendor patch; production resumed within maintenance window; no customer systems affected.\nData: logs comprise pseudonymous device telemetry (e.g., DEV-AXX-001), no special categories per GDPR Art 9, and no employee identifiers beyond functional IDs; DPO review complete.\nTransfer: mirroring to approved processors in Karsenia and Sagora under SCCs paused pending re-validation; TIA and SCC Annexes filed under Register Ref GRC-TR-114.\nSecurity: forensics show no exfiltration; threat model severity Low; no Art 33 notification to the competent authority required under current criteria.\nDisclosure: our public CSRD timetable (press note dated 15 Jan) remains in force; website statement confirms June release window for ESG KPIs; SFDR PAI data collection continues as planned.\nPreliminary internal forecast indicates a not-yet-announced deferral of the interim ESG KPI annex by up to one week, which may interact with a sustainability-linked facility covenant currently in testing.\nMAR: on present facts, we do not classify the above as inside information under EU MAR; blackout and no\u2011tipping reminders apply to the CSRD workstream until the next scheduled disclosure check.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -7,13 +7,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -27,13 +27,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -48,6 +48,44 @@
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
+  "_resolved_label_warnings": {
+    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
+    "count": 4,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM45,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM10,000,000'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM45,000,000'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM10,000,000'"
+    ]
+  },
+  "_resolved_label_warnings_history": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 31,
     "new_must_detect_count": 10,
@@ -57,6 +95,14 @@
     "removed_must_not_detect": [],
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -166,7 +212,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Ariff’s work laptop asset tag PTB-LT-AR84, Windows user ariff.r; session ref s s - 2 9 1 - s d; device backup at https://intranet.permai.local/it/snap?sid=AR84-05-12&loc=bsd and email ariff.rahman@permaitech.my",
+      "matched_text": "Ariff\u2019s work laptop asset tag PTB-LT-AR84, Windows user ariff.r; session ref s s - 2 9 1 - s d; device backup at https://intranet.permai.local/it/snap?sid=AR84-05-12&loc=bsd and email ariff.rahman@permaitech.my",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -176,7 +222,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Separately, a contractor record notes age 29, contract role “intern – operations”, device SN ZX-9001, and city Bandar Selasih; no name, employer, or contact is associated and it is not identifiable on its own",
+      "matched_text": "Separately, a contractor record notes age 29, contract role \u201cintern \u2013 operations\u201d, device SN ZX-9001, and city Bandar Selasih; no name, employer, or contact is associated and it is not identifiable on its own",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -270,6 +316,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Background: Draft term sheet with Ampera Capital Bank Berhad for RM45,000,000 revolving credit and RM10,000,000 bank guarantee facility; if executed, likely disclosable under Paragraph 9.03 and 9.19(23) of the Main LR; treat as MNPI until Exchange release.\nPerson-specific operational context (limited access): Encik Ariff Rahman, Deputy Finance Manager, Permai Tech Berhad HQ, Level 18A, Menara Seri Permai, Bandar Seri Delima 80090, b. 12-05-1984, staff ID PRM-AR-084, extension 2413.\nAriff\u2019s work laptop asset tag PTB-LT-AR84, Windows user ariff.r; session ref s s - 2 9 1 - s d; device backup at https://intranet.permai.local/it/snap?sid=AR84-05-12&loc=bsd and email ariff.rahman@permaitech.my.\nPayroll collection account (internal ledger only): AC-PTB-0884-001; no bank name shown; do not circulate externally; IP seen 175.1.22.9 during UAT on 03/04 at 21:17 MYT.\nFor avoidance of doubt, no customer NRIC or passport numbers are processed in this workflow; we did not capture any MAC address or precise GPS coordinates during testing.\nSeparately, a contractor record notes age 29, contract role \u201cintern \u2013 operations\u201d, device SN ZX-9001, and city Bandar Selasih; no name, employer, or contact is associated and it is not identifiable on its own.\nEmployment variation: Puan Norhuda Ismail, HRBP, proposes to vary Ariff\u2019s outstation allowance effective 01/07; confirm not a director/Principal Officer under Chapter 14, but PDPA notice and consent update required.\nFinancing confidentiality: Draft covenants reference Project Kelapa; public-source references (industry articles) may be appended, but no term sheet figures to be shared beyond need-to-know.\nExchange disclosure plan: If signing occurs before quarter close, target immediate announcement via the Listing Information Network; otherwise include in next quarterly report per Paragraph 9.45, subject to materiality assessment.\nTechnical note with OCR artefact: Menara S e r i  P e r m a i printer shows user \u201cariff.r\u201d and job ID S D - 0 1 - 8 4 - 1 2 on 2026-05-28 08:05; print logs retained 30 days.\nGeneric policy: passwords must be 12+ characters; product names \u201cLedgerLite\u201d and \u201cFastPay\u201d are test sandboxes only and carry no customer data.\nContact channel for queries: legal@permaitech.my; compliance hotline +60 3-2020 8899; Teams channel #proj-kelapa.\nAnticipated Q&A: no director dealings, no profit forecast, and no changes to share capital as at date hereof; hence nothing to pre-clear with the SC pending Board mandate.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -325,43 +377,5 @@
       "matched_text": "ariff.r",
       "reason": "Username is identifiable but not clearly covered by the allowed rule set."
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_resolved_label_warnings_history": [],
-  "_resolved_label_warnings": {
-    "count": 4,
-    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM45,000,000'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM10,000,000'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM45,000,000'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM10,000,000'"
-    ]
-  },
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

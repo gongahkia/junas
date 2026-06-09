@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -360,6 +368,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: PDPL and market abuse assessment for \u201cProject Sand Falcon\u201d (potential acquisition of Marhaba Finserv Ltd, ADGM CL\u20119 1 4 2 2\u2011AD).\nThe draft board term sheet dated 28 May 2026 (purchase price AED 410\u2013460m; sukuk bridge financing) is non\u2011public and, per SCA Market Conduct and ADX Disclosure Manual, constitutes inside information until binding approval.\nDisclosure timing: lodge an ADX e\u2011Disclosure immediately upon board resolution and before the next trading session; simultaneously notify SCA via eServices; do not brief analysts or lenders beyond wall\u2011crossed lists.\nSelective disclosure controls: pre\u2011sounding under NDA with Al Faraj Capital PSC and Noor Crescent Takaful PJSC may proceed only after recording each wall\u2011crossed individual on the insider list; avoid non\u2011deal roadshow references to deal economics.\nClosed period: we are in ADX\u2019s trading blackout from 15 days pre\u2011Q2 end until financials are posted; in addition, impose a transaction\u2011specific blackout on all deal team members under the Insider Dealing Policy.\nPublic\u2011status note: our 12\u2011May\u20112026 ADX filing (https://www.adx.ae/announcements?id=R-2026-0441-FJ) announcing a strategic review is public and stale; it does not render the current pricing, funding, or counterparty identity public.\nPDPL handling: board pack Annex 3 contains personal data (Mr. Yassin Al Hathmar \u2014 Emirates ID 7 8 4\u201119 9 1\u20110 0 2 3 4 5 6\u20117; family origin: Al Hathmar; Trade Licence TL\u2011D I F C\u201100 7 9 5 3); redact or pseudonymise before external circulation.\nChair approval and contact: H.E. Dr. Salma Al Hathmar will review the insider list daily; queries to dr.salma@dunespay.example or legal@dunespay.example.\nNegative controls: no MAC has occurred under the Revolving Murabaha Facility; the \u201cDunesPay Kiosk v2.1\u201d product update and facilities maintenance logs are routine operational updates and not, on a standalone basis, material to the issuer.\nMedia and public references: \u201cGulfTech Weekly\u201d (10\u2011Apr\u20112026) speculated on a fintech merger; do not comment\u2014media speculation does not change non\u2011public status, and only ADX/SCA postings confer public status.\nDIFC/ADGM nuance: if the target\u2019s ADGM board approves a counter\u2011signing in\u2011principle, that remains non\u2011public unless disclosed on the ADGM Registrar portal; ensure any DIFC\u2011side professional advisers are bound by confidentiality.\nProcess hygiene: circulate draft SPA via the secure data room only; insert URL\u2011bound access keys (https://vdr.dunespay.example/deal?p=sandfalcon&inv=7a\u20113f\u2011x9) rather than emailing attachments; maintain the MAR\u2011style insider list with timestamps.\nTiming and escalation: if leakage is suspected, notify ADX Market Ops and SCA Market Supervision within one hour and consider a holding announcement; until an ADX bulletin appears, treat all deal terms and internal forecasts as MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -1,245 +1,322 @@
 {
-  "doc_id": "th_sector_mnpi_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-2-314-0"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Devin Channasit"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Jarinee Watan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "On 3 June 2026 at 02:40 ICT, we detected a ransomware-driven intrusion into our cloud file store used by the Bangkok operations team, triggering PDPA breach assessment procedures."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "In parallel, LMNX is negotiating a THB 650m bridge facility with Phetchara Granite SPC (Singapore) that includes a cyber warranty and a pricing grid linked to ESG KPIs; this financing has not been publicly disclosed and remains at deal-stage."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "99.7%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "18,200"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2 emissions"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_sector_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-2-314-0"
+      "matched_text": "+66-2-314-0",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Devin Channasit"
+      "matched_text": "Mr. Devin Channasit",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Jarinee Watan"
+      "matched_text": "Ms. Jarinee Watan",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "On 3 June 2026 at 02:40 ICT, we detected a ransomware-driven intrusion into our cloud file store used by the Bangkok operations team, triggering PDPA breach assessment procedures."
+      "matched_text": "On 3 June 2026 at 02:40 ICT, we detected a ransomware-driven intrusion into our cloud file store used by the Bangkok operations team, triggering PDPA breach assessment procedures.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "In parallel, LMNX is negotiating a THB 650m bridge facility with Phetchara Granite SPC (Singapore) that includes a cyber warranty and a pricing grid linked to ESG KPIs; this financing has not been publicly disclosed and remains at deal-stage."
+      "matched_text": "In parallel, LMNX is negotiating a THB 650m bridge facility with Phetchara Granite SPC (Singapore) that includes a cyber warranty and a pricing grid linked to ESG KPIs; this financing has not been publicly disclosed and remains at deal-stage.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "99.7%"
+      "matched_text": "99.7%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "18,200"
+      "matched_text": "18,200",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2 emissions"
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Khun Waraporn Suthi"
+      "matched_text": "Khun Waraporn Suthi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@luminarasystems.co.th"
+      "matched_text": "compliance@luminarasystems.co.th",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "ransomware-driven intrusion"
+      "matched_text": "ransomware-driven intrusion",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "exfiltrated approx. 18,200 data rows"
+      "matched_text": "exfiltrated approx. 18,200 data rows",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "has not been publicly disclosed"
+      "matched_text": "has not been publicly disclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 650m"
+      "matched_text": "THB 650m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers are now active"
+      "matched_text": "Information barriers are now active",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout window"
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "tipping"
+      "matched_text": "tipping",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unannounced JV term sheet"
+      "matched_text": "unannounced JV term sheet",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_protocol_event_marker",
-      "matched_text": "di gi tal token wallet pilot"
+      "matched_text": "di gi tal token wallet pilot",
+      "rule": "dpt_protocol_event_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "pricing grid linked to ESG KPIs"
+      "matched_text": "pricing grid linked to ESG KPIs",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2 emissions data uploads"
+      "matched_text": "Scope 2 emissions data uploads",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "ESG impact is currently assessed as moderate"
+      "matched_text": "ESG impact is currently assessed as moderate",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Designated Insiders"
+      "matched_text": "Designated Insiders",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "outside counsel at Lotus & Banyan (HK)"
+      "matched_text": "outside counsel at Lotus & Banyan (HK)",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "non-production API keys"
+      "matched_text": "non-production API keys",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "crypto_wallet_address",
-      "matched_text": "0x8f3a..7d1e"
+      "matched_text": "0x8f3a..7d1e",
+      "rule": "crypto_wallet_address"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout window 03\u201317 June"
+      "matched_text": "blackout window 03\u201317 June",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not discuss with analysts or investors outside approved Q&A"
+      "matched_text": "do not discuss with analysts or investors outside approved Q&A",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+66-2-314-0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devin Channasit",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Jarinee Watan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 3 June 2026 at 02:40 ICT, we detected a ransomware-driven intrusion into our cloud file store used by the Bangkok operations team, triggering PDPA breach assessment procedures.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "In parallel, LMNX is negotiating a THB 650m bridge facility with Phetchara Granite SPC (Singapore) that includes a cyber warranty and a pricing grid linked to ESG KPIs; this financing has not been publicly disclosed and remains at deal-stage.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "99.7%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,200",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 3 June 2026 at 02:40 ICT, we detected a ransomware-driven intrusion into our cloud file store used by the Bangkok operations team, triggering PDPA breach assessment procedures.\nThe attacker exfiltrated approx. 18,200 data rows containing customer service names, work emails, limited device IDs, and 23 staff payroll summary PDFs; no national ID scans or bank account numbers were stored in the affected container.\nPreliminary logs indicate read access to a sealed vault segment holding non-production API keys for our di gi tal token wallet pilot; this relates to an unannounced JV term sheet with NagaKorn Digital Exchange Co., Ltd., and may constitute MNPI under the Securities and Exchange Act.\nIn parallel, LMNX is negotiating a THB 650m bridge facility with Phetchara Granite SPC (Singapore) that includes a cyber warranty and a pricing grid linked to ESG KPIs; this financing has not been publicly disclosed and remains at deal-stage.\nAn insider list has been established and circulated to Designated Insiders including Khun Waraporn Suthi, Mr. Devin Channasit, and outside counsel at Lotus & Banyan (HK), with timestamps and roles recorded per SEC Notification re Inside Information.\nInformation barriers are now active between corporate development and treasury; employees are reminded of the blackout window 03\u201317 June and strictly prohibited from tipping or selective disclosure related to the DPT JV or the bridge facility.\nOperationally, we isolated the Chiang Mai solar data hub and suspended Scope 2 emissions data uploads for May; ESG impact is currently assessed as moderate and remediation vendors are engaged.\nThis notice does not constitute a material adverse change representation; other product lines continue operations without a material adverse change, and retail app uptime exceeds 99.7%.\nFor educational purposes, the marketing team will host a general webinar on ransomware hygiene and crypto custody vocabulary; the content is training-only and not issuer-specific.\nAffected resource tags include s3://lmn-pr0d-fi1e-arch-02, svc_acct: bk-op$-A1-**9, and ref TX: 0x8f3a..7d1e; see https://ir.luminarasystems.co.th/notice?id=REF-2026-06-03&sig=aF%2FzZ for secure updates.\nContact: compliance@luminarasystems.co.th, +66-2-314-0***; Data Protection Officer: Ms. Jarinee Watan, 77 Soi Narai 9, Yannawa, Bangkok 10120.\nUntil formal submission via SETLink and any SEC Thailand consultation are complete, these matters are confidential; do not discuss with analysts or investors outside approved Q&A.\nPublic resources: see regulator and exchange circulars on disclosure practices at thai-capital-guides.example; an employee handbook excerpt on \u201cinsider list etiquette\u201d is attached for routine training only.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -272,94 +349,37 @@
       "reason": "Negated MAC context; excluded per rule 8."
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "s3://lmn-pr0d-fi1e-arch-02",
       "concept": "internal system identifier",
+      "matched_text": "s3://lmn-pr0d-fi1e-arch-02",
       "reason": "May be sensitive infrastructure/path info but not covered by allowed rules."
     },
     {
-      "matched_text": "svc_acct: bk-op$-A1-**9",
       "concept": "service account ID",
+      "matched_text": "svc_acct: bk-op$-A1-**9",
       "reason": "Could be an internal or employee identifier; not clearly mapped to allowed PII rules."
     },
     {
-      "matched_text": "https://ir.luminarasystems.co.th/notice?id=REF-2026-06-03&sig=aF%2FzZ",
       "concept": "access/trace token in URL",
+      "matched_text": "https://ir.luminarasystems.co.th/notice?id=REF-2026-06-03&sig=aF%2FzZ",
       "reason": "URL contains a signature parameter that may act as an internal session or access token; not explicitly covered."
     },
     {
-      "matched_text": "03/06/2569 BE, 09:15 ICT",
       "concept": "timestamp/embargo timing",
+      "matched_text": "03/06/2569 BE, 09:15 ICT",
       "reason": "Temporal marker that could imply timing sensitivity but lacks explicit embargo keywords."
     },
     {
-      "matched_text": "DPT JV",
       "concept": "crypto joint venture marker",
+      "matched_text": "DPT JV",
       "reason": "Crypto-sector sensitivity implied but does not clearly match pre-listing or protocol-event markers."
     },
     {
-      "matched_text": "read access to a sealed vault segment",
       "concept": "cyber incident detail",
+      "matched_text": "read access to a sealed vault segment",
       "reason": "Security-breach detail; sensitive but not a standard lexicon trigger on its own."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": [
-    {
-      "resolved_at": "2026-06-03T03:27:55Z",
-      "reviewer": "Codex GPT-5.5",
-      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-      "warnings": [
-        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
-      ]
-    }
-  ],
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

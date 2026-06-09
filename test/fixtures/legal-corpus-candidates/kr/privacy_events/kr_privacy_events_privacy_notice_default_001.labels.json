@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -230,6 +238,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: onboarding files retained 3 years post-termination; IR logs retained 5 years for audit; MNPI under FSCMA retained until public disclosure + 1 year, then archived or deleted.\nDSAR: submit to privacy@seoratech.co.kr or portal https://privacy.seoratech.co.kr; identity verification via one-time code; response includes access/correction/erasure within statutory timelines.\nConsent withdrawal: send request to dpo@seoratech.co.kr; upon withdrawal we stop cross-border transfers for that data subject and halt non-essential communications; necessary employment records may be kept as required by law.\nErasure: RRN tokens and CV attachments are purged from non-statutory systems within 30 days of valid DSAR or consent withdrawal, subject to legal holds.\nCompleted control: backup set HR-Q3-2024 was securely wiped on 2024-12-31 (certificate on file); verified by Ms. Ji-eun Park, Compliance Officer.\nMNPI handling: information material under FSCMA (e.g., undisclosed forecasts, draft prospectus) is segregated; off-shore processors receive redacted datasets only; we do not transmit draft earnings to vendors.\nInvestor-relations gating: during quiet periods and blackout windows, IR inquiries are logged but content is filtered to exclude MNPI before any export.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

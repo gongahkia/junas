@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -269,6 +277,18 @@
       "category": "MNPI",
       "matched_text": "ransomware incident",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Rainpeak Horizons Holdings Limited (a Hong Kong listed issuer) \u2014 Privacy and MNPI Handling & Retention Notice.\nWe process personal data defined under the PDPO as data relating to an identifiable living individual for recruitment, insider lists, M&A due diligence, and fund formation, administered by Ms. Dora Lau, Data Protection Officer, at privacy@rainpeakhorizons.hk.\nMaterial non-public information is treated per Part XIVA of the Securities and Futures Ordinance as specific information not generally known that would be likely to affect price or investor decisions.\nFor a contemplated acquisition of SolarMoor Capital SPC and a confidential virtual asset custody pilot at our subsidiary Nimbus Vault Limited, access is limited to wall-crossed staff recorded on an insider list maintained by Mr. Kelvin Yip, Company Secretary.\nSuch MNPI includes draft commercial terms for a green-linked loan margin grid and non-public cybersecurity remediation costs from a recent ransomware incident affecting our Harborcrest data hub, and disclosure prior to announcement is prohibited.\nStaff are subject to dealing blackout windows before periodic results and during negotiations, and must not engage in tipping or selective disclosure to potential cornerstone investors or lenders.\nCategories of personal data processed include CVs, contact details, device logs from security monitoring, and board materials redacted for PDPO compliance, with minimisation and pseudonymisation where feasible.\nTransfers to external counsel Kong & Bay Solicitors and to our Hong Kong securities regulator-licensed Type 9 affiliate Meridian Twelve Asset Partners occur under written processing terms and information barriers approved by the Risk Committee.\nCross-border storage may occur in encrypted cloud services in Hong Kong and Singapore subject to transfer impact assessment aligned with local guidance and contractual safeguards; retention is 7 years after transaction or employment end unless legal hold applies.\nData subjects may submit access or correction requests to privacy@rainpeakhorizons.hk, and we will acknowledge within applicable PDPO timeframes with fees limited to reasonable processing costs.\nIn a suspected cyber incident that may expose employee emails or applicant CVs, we will triage within 72 hours, notify affected individuals where risk is high, and assess disclosure and trading halt obligations under the SFO and the Listing Rules of a recognised stock exchange in Hong Kong.\nWhere required for M&A or fund marketing, counterparties may be wall-crossed under non-disclosure agreements, and insider list entries will capture name, role, contact, access date, and reason.\nTraining and operations materials may reference crypto wallets, ESG ratings, or insider lists purely for education or service promotion without containing or implying any current MNPI or deal-stage details.\nUnless otherwise required by law, public comments by staff on sustainability targets or digital asset strategy must be cleared by the Disclosure Committee to avoid selective disclosure and preserve information barriers.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

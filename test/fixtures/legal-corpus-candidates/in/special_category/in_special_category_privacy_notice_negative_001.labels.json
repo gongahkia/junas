@@ -39,6 +39,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -216,6 +224,24 @@
       "category": "PII",
       "matched_text": "Child data",
       "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Purpose: onboarding, KYC support, broker back-office integration, and listed-company compliance; lawful basis includes consent and legitimate uses under the Digital Personal Data Protection Act, 2023 (India).\nProduct names mentioned herein (LotusPay KYC Suite, Banyan Vault, MangoDesk) are internal modules and do not imply collection of every field shown in demo screens.\nIdentifiers on forms are minimised; we do not require Aadhaar for account creation; placeholder entries such as PAN: ZZZZZ9999Z, GSTIN: 00AAAAA0000A0Z0, Aadhaar: 0000-0000-0000 are invalid examples only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Unpublished price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Banyan Ledger Services Private Limited (controller) and Hibiscus Cloud Solutions LLP (processor) issue this India Privacy Notice & Data Processing Addendum for enterprise clients.\nPurpose: onboarding, KYC support, broker back-office integration, and listed-company compliance; lawful basis includes consent and legitimate uses under the Digital Personal Data Protection Act, 2023 (India).\nProduct names mentioned herein (LotusPay KYC Suite, Banyan Vault, MangoDesk) are internal modules and do not imply collection of every field shown in demo screens.\nIdentifiers on forms are minimised; we do not require Aadhaar for account creation; placeholder entries such as PAN: ZZZZZ9999Z, GSTIN: 00AAAAA0000A0Z0, Aadhaar: 0000-0000-0000 are invalid examples only.\nData Subject Access Requests may be submitted via dsar@banyanledger.example; we authenticate using ticket IDs and will not ask for OTPs by telephone.\nFor listed-client workflows, Banyan Ledger operates under the Insider Trading Policy of Marigold Renewables Limited (Indica Stock Exchange) and the national securities regulator\u2019s PIT framework.\nUnpublished price-sensitive information (UPSI) includes draft financials and board-approved but unannounced actions; trading windows are closed accordingly, and already-announced",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

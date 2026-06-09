@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -110,7 +136,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "個人番号",
+      "matched_text": "\u500b\u4eba\u756a\u53f7",
       "rule": "jp_my_number"
     },
     {
@@ -125,7 +151,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Restricted — Board circulation only",
+      "matched_text": "Restricted \u2014 Board circulation only",
       "rule": "information_barrier_marker"
     },
     {
@@ -259,6 +285,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 3 - 0 9 1 authorises HR metadata to Kokoro Systems GmbH (EU) under DPA Schedule 3 with Sakura Capital Market Authority (SCMA) guidance.\nConsent withdrawal: Ms. Kayo Mitsuru withdrew consent for cross-border payroll processing to Kishiro Cloud Pte. Ltd.; exports are halted and the control is closed.\nDSAR and erasure: Mr. Ren Ito\u2019s employee request was logged on 2026-05-21; redundant access logs were erased and minimisation applied to onboarding scans.\nSecurities workflow note: disclosure timing remains aligned with Hinode Securities Exchange listing rules; URL ref: https://exports.hinode.exchange/aoba?doc=TOB- 1 2 7 c &route=eu-bridge.\nFIEA handling: tender-offer facts are maintained in the insider registry; distribution is restricted to b o a r d observers and deal team with sealed email lists.\nContact: Legal & Privacy Office, compliance@aob a - r o b o t i c s . example and tender@hinode-exchange.example; Attn: Mr. Seiji Okamoto",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aoba Robotics K.K. \u2014 Internal Legal & Compliance Memorandum (FIEA/APPI); Restricted \u2014 Board circulation only.\nSubject: Proposed tender-offer to acquire Hoshi Electronics Co., Ltd.; enumerated material facts under FIEA remain non-public and controlled via insider list.\nNo material adverse change (MAC) is expected from the offer terms, and this sentence is generic corporate risk language not tied to PII.\nAPPI/My Number handling for target employee onboarding: minimal collection (name, contact, payroll alias), \u500b\u4eba\u756a\u53f7 fields held as hashed placeholders (e.g., mn-8 4 2 x-0 0 7 - z); retention configured at 7 years for payroll records.\nCompleted control: diligence rooms exclude live My Number; no production of individual codes; sampling used synthetic IDs only.\nCross-border transfer event: Data Export Approval H X - 2 3 - 0 9 1 authorises HR metadata to Kokoro Systems GmbH (EU) under DPA Schedule 3 with Sakura Capital Market Authority (SCMA) guidance.\nConsent withdrawal: Ms. Kayo Mitsuru withdrew consent for cross-border payroll processing to Kishiro Cloud Pte. Ltd.; exports are halted and the control is closed.\nDSAR and erasure: Mr. Ren Ito\u2019s employee request was logged on 2026-05-21; redundant access logs were erased and minimisation applied to onboarding scans.\nSecurities workflow note: disclosure timing remains aligned with Hinode Securities Exchange listing rules; URL ref: https://exports.hinode.exchange/aoba?doc=TOB- 1 2 7 c &route=eu-bridge.\nFIEA handling: tender-offer facts are maintained in the insider registry; distribution is restricted to b o a r d observers and deal team with sealed email lists.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -307,7 +345,7 @@
     },
     {
       "concept": "retention/auto-deletion marker",
-      "matched_text": "archives auto-purged quarterly — already implemented",
+      "matched_text": "archives auto-purged quarterly \u2014 already implemented",
       "reason": "Auto-deletion schedule is relevant but not covered by allowed rules."
     },
     {
@@ -317,7 +355,7 @@
     },
     {
       "concept": "internal technical identifier",
-      "matched_text": "audit hash id: h b 3 - r 0 - 9 q - 1 1 — logged",
+      "matched_text": "audit hash id: h b 3 - r 0 - 9 q - 1 1 \u2014 logged",
       "reason": "Internal IDs/hashes can be sensitive but not in allowed PII list."
     },
     {
@@ -329,24 +367,6 @@
       "concept": "URL containing potential MNPI route",
       "matched_text": "https://exports.hinode.exchange/aoba?doc=TOB- 1 2 7 c &route=eu-bridge",
       "reason": "Links can indicate sensitive workflows but URLs are not in allowed rules."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

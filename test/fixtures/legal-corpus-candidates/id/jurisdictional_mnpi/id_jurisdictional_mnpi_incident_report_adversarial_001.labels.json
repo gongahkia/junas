@@ -1,150 +1,230 @@
 {
-  "doc_id": "id_jurisdictional_mnpi_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "ID",
-  "destination_jurisdiction": "ID",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "arman.sutoyo@nexadana.co.id"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "maya.lestari@nexadana.co.id"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sec-ops@nexadana.co.id"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp4,2 miliar'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp4,2 miliar'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "2026-1442",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "arman.sutoyo@nexadana.co.id"
+      "matched_text": "arman.sutoyo@nexadana.co.id",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "maya.lestari@nexadana.co.id"
+      "matched_text": "maya.lestari@nexadana.co.id",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sec-ops@nexadana.co.id"
+      "matched_text": "sec-ops@nexadana.co.id",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-1442"
+      "matched_text": "2026-1442",
+      "rule": "phone_number"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
+      "matched_text": "5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bpk. Arman Sutoyo"
+      "matched_text": "Bpk. Arman Sutoyo",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "08 12-***-**31"
+      "matched_text": "08 12-***-**31",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ibu Maya Lestari"
+      "matched_text": "Ibu Maya Lestari",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+62-21-77xx-4x21"
+      "matched_text": "+62-21-77xx-4x21",
+      "rule": "phone_number"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "deteksi akses tidak sah"
+      "matched_text": "deteksi akses tidak sah",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "penundaan rilis PayFlex 2.3 selama 2\u20133 minggu"
+      "matched_text": "penundaan rilis PayFlex 2.3 selama 2\u20133 minggu",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "belum diumumkan ke publik"
+      "matched_text": "belum diumumkan ke publik",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "informasi insiden ini bersifat tidak untuk dikonsumsi publik"
+      "matched_text": "informasi insiden ini bersifat tidak untuk dikonsumsi publik",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "ini bukan pengumuman ke publik"
+      "matched_text": "ini bukan pengumuman ke publik",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selektif disclosure: informasi insiden ini bersifat tidak untuk dikonsumsi publik; penyampaian terbatas kepada calon kreditur sindikasi PT Bank Nusaprima Sentosa (di bawah NDA) diperbolehkan untuk tujuan covenant monitoring saja"
+      "matched_text": "Selektif disclosure: informasi insiden ini bersifat tidak untuk dikonsumsi publik; penyampaian terbatas kepada calon kreditur sindikasi PT Bank Nusaprima Sentosa (di bawah NDA) diperbolehkan untuk tujuan covenant monitoring saja",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "periode blackout pra-publikasi informasi (T\u201310 hingga H+2 Hari Kerja keterbukaan)"
+      "matched_text": "periode blackout pra-publikasi informasi (T\u201310 hingga H+2 Hari Kerja keterbukaan)",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "Draf Laporan Insiden Keamanan Siber & Operasional"
+      "matched_text": "Draf Laporan Insiden Keamanan Siber & Operasional",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "dapat mempengaruhi negosiasi akuisisi PT Sagara Pay Nusantara (SPN) (uji tuntas tahap 2, belum diumumkan ke publik)"
+      "matched_text": "dapat mempengaruhi negosiasi akuisisi PT Sagara Pay Nusantara (SPN) (uji tuntas tahap 2, belum diumumkan ke publik)",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Larangan Perdagangan Orang Dalam"
+      "matched_text": "Larangan Perdagangan Orang Dalam",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "draft CSPA"
+      "matched_text": "draft CSPA",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse change"
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "ketentuan MAC"
+      "matched_text": "ketentuan MAC",
+      "rule": "material_adverse_change"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "arman.sutoyo@nexadana.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "maya.lestari@nexadana.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sec-ops@nexadana.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "an: tidak ada dana nasabah produksi yang berpindah; 12 akun uji mengalami refresh paksa; log menunjukkan overlap dengan jadwal pemeliharaan vendor CloudSouth-SEA (pihak ketiga) \u2014 informasi ini bukan operasi Perseroan yang material.\nPotensi MNPI: estimasi biaya forensik Rp4,2 miliar dan kemungkinan penundaan rilis PayFlex 2.3 selama 2\u20133 minggu; dapat mempengaruhi negosiasi akuisisi PT Sagara Pay Nusantara (SPN) (uji tuntas tahap 2, belum diumumkan ke publik).\nMaterialitas & blackout: evaluasi materialitas berbasis pendapatan kuartal (threshold internal 5%); selama periode blackout pra-publikasi informasi (T\u201310 hingga H+2 Hari Kerja keterbukaan) seluruh Insan Perseroan dilarang melakukan trans",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -161,98 +241,32 @@
       "reason": "Defined company acronym, not PII/MNPI."
     }
   ],
+  "source_jurisdiction": "ID",
   "uncertain": [
     {
-      "matched_text": "ext. 7719",
       "concept": "phone_extension",
+      "matched_text": "ext. 7719",
       "reason": "May be considered contact information but not clearly covered as phone_number by current rules."
     },
     {
-      "matched_text": "tiket IT-INC-00I7",
       "concept": "internal_ticket_id",
+      "matched_text": "tiket IT-INC-00I7",
       "reason": "Internal operational identifier; could be treated as internal_session_id-like but not clearly within allowed rules."
     },
     {
-      "matched_text": "hxxps://git.nexadana.co.id/sec/fi1es/INC00I7",
       "concept": "internal_url",
+      "matched_text": "hxxps://git.nexadana.co.id/sec/fi1es/INC00I7",
       "reason": "Internal repository URL; operationally sensitive but not mapped to existing MNPI/PII rules."
     },
     {
-      "matched_text": "C:\\for3ns1c\\NX D\\2026-05\\api_sandbox\\",
       "concept": "internal_file_path",
+      "matched_text": "C:\\for3ns1c\\NX D\\2026-05\\api_sandbox\\",
       "reason": "Could be sensitive infrastructure detail but not covered by current rules."
     },
     {
-      "matched_text": "CloudSouth-SEA",
       "concept": "cross_border_transfer_marker",
+      "matched_text": "CloudSouth-SEA",
       "reason": "Third-party regional cloud reference may imply cross-border processing, but no explicit transfer stated."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": [
-    {
-      "resolved_at": "2026-06-03T03:27:55Z",
-      "reviewer": "Codex GPT-5.5",
-      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-      "warnings": [
-        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp4,2 miliar'",
-        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp4,2 miliar'"
-      ]
-    }
-  ],
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation_adjustments": [
-    {
-      "status": "removed_after_phone_precision_guard",
-      "rule": "phone_number",
-      "matched_text": "2026-1442",
-      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
     }
   ]
 }

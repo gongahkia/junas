@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -244,6 +252,18 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shenton Meridian Ltd. PDPA Privacy and MNPI Handling Notice (M&A, Capital Markets, Employment)\nWe collect and process personal data under the Personal Data Protection Act 2012 (Singapore) and handle inside information under Singapore securities laws and listing rules.\nFor due diligence and wall-crossing on a proposed acquisition of Orange Kestrel Capital Pte. Ltd., Bukit Bay Legal LLC may receive limited staff and shareholder records as our data intermediary.\nAnchored sensitive example: Mr. Adrian Koh (employee code SM-4172) provided cardiac treatment discharge summaries and a thumbprint template used for Bukit Merah office access; his dependent Ethan Koh (age 12) is recorded for medical benefits as a minor.\nSuch health, biometric, and minor data are obtained with explicit consent for HR benefits and access control only, not for capital-markets purposes.\nSeparately, Ms. Priya Nair (contractor) voluntarily disclosed Hindu religious observance preferences and union membership status for roster planning and payroll deductions.\nWe do not require or infer sexual orientation for marketing; our Harmony@Work DEI Charter mentions religion and sexual orientation in principle without collecting them for analytics.\nMaterial non-public information (MNPI) relating to Shenton Meridian Ltd.\u2019s share price is segregated in the MarinaCloud Dataroom (Singapore region) with clean-team access and is disclosed externally only after public announcement through the securities exchange.\nTransfers to overseas counsel or vendors (e.g., MarinaCloud backup nodes in Johor Bahru and Tokyo) occur under contractual clauses ensuring protection comparable to the PDPA.\nRetention: HR medical and biometric records are retained for 7 years from cessation of employment; MNPI working papers are retained for 6 years to meet securities law obligations and audit.\nDSAR: To access, correct, or port your data, email dpo@shentonmeridian.com.sg with your name and employee code; we will respond within 30 days unless an extension applies.\nWe may refuse DSARs that would reveal another person\u2019s data or MNPI before it becomes generally available; any refusal will cite the statutory basis and provide a review channel.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

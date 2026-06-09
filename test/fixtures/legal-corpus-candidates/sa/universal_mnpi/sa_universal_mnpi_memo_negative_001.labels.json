@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -238,15 +246,21 @@
       "category": "MNPI",
       "matched_text": "exploratory discussions",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ntext: proposed strategic partnership with red dune foods co. (unlisted), and reference to sahra exchange notice dated 12 safar 1446h about exploratory discussions (public, stale)\npdpl reminder: do not collect or transmit national id/iqama numbers; use role-based ids only; placeholders below are invalid by design\nform labels for vendor onboarding: national id/iqama: 0000-xxxx-0000; commercial registration: 1010-xyz-9999; iban: sa00 0000 0000 0000 0000 0000\nndad transfer note: any cross-border processing requires a transfer impact assessment and standard contractual clauses logged in the ndad portal before exporting pseudonymized data\nmnpi screen: the investor-relations draft must not circulate outside the deal team before the embargo time of 15 shawwal 1447h 10:00 (ksa)\ndeal status: the share purchase agreement (spa) between al noor renewable holdings jsc and red dune foods co. has been executed; signing occurred after market close and is not yet publis",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "“spa day”",
+      "matched_text": "\u201cspa day\u201d",
       "reason": "False-positive bait unrelated to Share Purchase Agreement"
     },
     {
-      "matched_text": "“spa”",
+      "matched_text": "\u201cspa\u201d",
       "reason": "Defined-term abbreviation referenced in a clarifier; avoid misclassifying as agreement in this context"
     }
   ],

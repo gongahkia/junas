@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -101,6 +109,12 @@
       "category": "MNPI",
       "matched_text": "customer communications reference general consumer protection guidance; all statistics use ranges and do not include account numbers, birth dates, or any unique identifiers.",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "riverton healthbank, inc. \u2014 cyber operations update for investor-relations q&a (us issuer; listed on the national growth exchange; reg fd awareness).\nas previously announced on 2026-05-04 via press release, we detected anomalous traffic at our third-party billing gateway operated by pinecrest data works, ltd.\nper current forensics, no patient health information protected under hipaa and no glba customer data were accessed; affected logs show invalid id patterns such as ssn 000-00-0000 and acct ****-****-1234z.\nservice availability impact was under 11 minutes during off-peak hours and is not expected to be material to operations; no mac/mae has been triggered under any vendor or customer agreement.\npublic-source guidance followed: fcac ransomware checklist and ohpo bulletin on third-party trackers; references to those materials are posted on our website security page.\nwe filed a routine incident notice with state oversight offices and notified impacted clinics via role mailbox notice@rivertonhealthbank.example and the public help page at help.rhb.example/incident.\nlowercase pm notes: backlog item rhb-sec-2041 to complete token rotation; dry run completed in sandbox.\nanalyst relations will keep responses limited to already-published facts and safe harbor language; no selective disclosure to covered market actors is permitted.\nembargo until 2026-06-20 14:00 et for the refreshed faq posting on our ir page, per calendar shared internally.\nfor completeness, we executed a definitive services addendum with pinecrest on 2026-05-01 to enable mfa enforcement, and that addendum was referenced in the form 8-k already on file.\ncustomer communications reference general consumer protection guidance; all statistics use ranges and do not include account numbers, birth dates, or any unique identifiers.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -127,7 +141,7 @@
     },
     {
       "concept": "security testing schedule",
-      "matched_text": "vendor pen-test window 02:00–05:00 et 2026-06-22",
+      "matched_text": "vendor pen-test window 02:00\u201305:00 et 2026-06-22",
       "reason": "Operational security timing could be sensitive MNPI but no explicit rule category covers routine pen-test windows."
     },
     {

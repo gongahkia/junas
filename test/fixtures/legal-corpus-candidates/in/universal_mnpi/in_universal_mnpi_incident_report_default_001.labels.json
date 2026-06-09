@@ -39,6 +39,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -306,6 +314,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Unpublished Price Sensitive Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 Unpublished Price Sensitive Information (UPSI) \u2014 Varanix Infoworks Limited (CIN: L12345MH2020PLC000999), listed on NSE/BSE.\nBoard memo: Cyber incident at Varanix Infoworks \u2014 Project Banyan; embargo until 14-06-2026 08:30 IST pending NSE/BSE disclosure.\nOn 11-06-2026 22:10 IST, our SOC detected anomalous API calls at subsidiary Nimbex Digital Services Pvt Ltd affecting the customer support portal.\nPotentially accessed fields include names, work emails, masked PAN and vendor GSTIN references, and hashed Aadhaar tokens of 27 minor scholarship applicants (child under DPDPA defined as under 18); no biometrics or passwords were exposed.\nCurrent scope estimate: 3.8% of active user profiles and 0.9% system downtime; remediation and forensics budgeted at INR 12.5 crore, with possible contract penalties capped at 5% of monthly billings.\nRegulatory path: CERT-In notification within 6 hours completed; SEBI LODR Reg 30 draft disclosure circulated; SEBI PIT insider list updated in the UPSI handling log VIL-UPSI-2026-0611.\nThis incident intersects with the definitive agreement with Heliotrope Cyber Pvt Ltd under codename Project Banyan, countersigned on 03-06-2026, with closing contingent on customary conditions and exchange review.\nMAC/MAE language: no material adverse change shall be deemed to have occurred due to industry-wide cyber events; the parties agree that general economic or market conditions will not trigger a MAC.\nInvestor-relations draft script adjusts Q1 EBITDA guidance by approximately 2% to incorporate one-time remediation costs; not for external circulation until the embargo time above.\nPublic-source reference: as per Aranya Labs\u2019 publicly available 2023 sector note, similar API key misuse patterns have been observed, but the note does not disclose our systems or any UPSI.\nDPDPA compliance: consent logs are intact; parental consent for the 27 minors was collected via consent@varanix.in; data principals will receive notices and access to a toll-free line 1800-093-221 and dpo@varanix.in.\nTrading controls: until disclosure at 14-06-2026 08:30 IST, employees on the insider list must not trade in Varanix securities under SEBI (Prohibition of Insider Trading) Regulations, 2015; black-out period remains in force.\nNo financial account numbers were retained on the affected system, and no payments or UPI credentials are stored in the support portal database.\nnext steps: patch rollout tonight, rotate tokens, finalize ir faq, send board sign-off, run vendor checklist, file stock exchange intimation by eod.\nThe cafeteria refurbishment and Friday spa-day vouchers from HR are unrelated to this memo and can proceed without board action.\nContacts: Ms. Radhika Menon, Company Secretary, +91-9900001111, r.menon@varanix.in; Mr. Dev Malik, CISO, dev.malik@varanix.in; investor queries: ir@varanix.in.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

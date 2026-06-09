@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -217,6 +225,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Trading) Regulations, Navchetan Tech Limited (listed on Kaveri Stock Exchange) maintains access logs, trading window controls, and insider lists for unpublished price-sensitive information.\nMr. Rohan Desai, Deputy Company Secretary, Hyderabad office (TS-50 00 XX), DOB: 1990-07-14, device: Suryadev A9 (im e i: 86 77 39 xx 90 21), corp email: rohan.desai@navchetan.tech, insider account: NC-TRD-00457, v p n link: vpn://sess=NC%2D00457%2FHYD%2F2024-08-21T19%3A30%3A00Z.\nHis PAN is recorded only as masked P A N: XXXXX1234X (dummy), and GSTIN fields are flagged N/A; all UPSI access by Mr. Desai is auto-tagged with session-hash sh=rohan-hyd-57 and retained for 5 years per PIT policy.\nChildren\u2019s data: onboarding for TeenLearn app users requires parental consent; we will not knowingly collect Aadhaar of minors; any profile marked age <18 is isolated and processed without marketing; guardian contact must be provided for DSAR fulfillment.\nTransfers: personal data, including insider lists, are stored in Mumbai and Bengaluru regions; cross-border transfers occur only to jurisdictions not restricted by Central Government notifications; UPSI snapshots stay in India with keys held by our DPO.\nRetention: KYC documents for vendors kept 8 years (Companies Act), PIT insider lists 5 years after closure, DSAR correspondence 3 years; deletion certificates are issued via https://navchetan.tech/dsar?ref=dsar-0045&chan=ema",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

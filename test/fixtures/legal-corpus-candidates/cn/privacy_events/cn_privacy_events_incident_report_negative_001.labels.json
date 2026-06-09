@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -190,6 +198,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Under PIPL scoping, only employee portal login metadata (IP, timestamp, device type) was briefly unavailable; no Resident ID numbers, bank details, or minors\u2019 (<14) data were accessed or altered.\nOne DSAR requesting erasure of an offboarding mailbox alias was completed per SOP-DSAR-04 on 2026-05-28, and is unrelated to the incident (closure confirmed in the DSAR register).\nA previously approved cross-border HR payroll export to a Singapore processor remained on schedule and was processed under the CAC Standard Contract (2024 Model) with internal Data Export Approval No. HX-CAC-TEST-2026-01 and a completed security impact self-assessment; the outage did not affect transfer controls",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Huilan Dynamics Co., Ltd. is an A-share issuer supervised by the CSRC and subject to SSE listing rules; this event was operational and did not touch disclosure systems.\nUnder PIPL scoping, only employee portal login metadata (IP, timestamp, device type) was briefly unavailable; no Resident ID numbers, bank details, or minors\u2019 (<14) data were accessed or altered.\nOne DSAR requesting erasure of an offboarding mailbox alias was completed per SOP-DSAR-04 on 2026-05-28, and is unrelated to the incident (closure confirmed in the DSAR register).\nA previously approved cross-border HR payroll export to a Singapore processor remained on schedule and was processed under the CAC Standard Contract (2024 Model) with internal Data Export Approval No. HX-CAC-TEST-2026-01 and a completed security impact self-assessment; the outage did not affect transfer controls.\nNo new consent withdrawals were received during the incident window; the last consent withdrawal for optional biometric timekeeping was recorded and closed in Q1 and remains enforced.\nRetention: operational logs are capped at 30 days and auto-purged; the outage did not pause or alter deletion jobs, and data minimisation controls continue to mask CN Resident ID fields.\nDPA Schedule 2 (Processors) lists Jiayang Cloud Services (Shenzhen) Ltd., USCC: 9X0X0X0X0X0X0X0X0X, with no change in sub-processing or location; no access to production PII occurred during remediation.\nEmployment onboarding Form HR-01 requires only name and contact role data; the CN Resident ID field is optional and stored as salted hashes (example placeholder CNID \u201cCNID-0000-TEST\u201d), and copies of IDs are not collected.\nNo sensitive PI concerning minors was collected in the affected system, and special protection measures for under-14 data were not triggered.\nMNPI controls: insider lists and draft disclosures remained offline and segregated; all references to capacity upgrades in internal tickets quoted content already disclosed via CSRC channels, so no inside information was handled.\nRegulatory posture: CAC breach notification thresholds were not met; no filings to the CAC, CSRC, or SSE are required for this resolved operational event.\nCybersecurity classification: internal rating Category III (minor); root cause and corrective actions are documented in SOC Ticket OPS-NET-2026-051.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

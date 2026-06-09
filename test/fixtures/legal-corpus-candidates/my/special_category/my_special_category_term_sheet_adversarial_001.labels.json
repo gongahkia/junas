@@ -1,315 +1,388 @@
 {
-  "doc_id": "my_special_category_term_sheet_adversarial_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "MY",
-  "destination_jurisdiction": "MY",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "faizal.rahman@aurora-nusantara.example"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+60 3-2 9 9 9 0 1"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kavitha Rajendran"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kavitha"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Idris"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Idris"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "union member"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "age 15"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed Term Sheet: Aurora Nusantara Berhad (Aurora) acquisition of Kinetika Sempurna Sdn Bhd (Target) and concurrent Sukuk Murabahah financing (non-binding, indicative)."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Transaction: 80% acquisition of Target for RM188,000,000 cash + RM12,000,000 earn-out; percentage ratio c. 28% (Chapter 10 Major Transaction) subject to shareholder approval and Capital Markets Authority of Malaya Raya (CMAR) clearance."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing: RM150,000,000 Sukuk Murabahah (tenor 5 years) arranged by Lestari Capital Partners Sdn Bhd; balance via internal funds and a standby commodity murabahah term financing-i from Bank Perdagangan Maya Berhad."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "1B"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "80%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "28%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to shareholder approval"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider Lists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 10,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM188,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM12,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM150,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM22m'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM88m'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_special_category_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "faizal.rahman@aurora-nusantara.example"
+      "matched_text": "faizal.rahman@aurora-nusantara.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+60 3-2 9 9 9 0 1"
+      "matched_text": "+60 3-2 9 9 9 0 1",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kavitha Rajendran"
+      "matched_text": "Ms. Kavitha Rajendran",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kavitha"
+      "matched_text": "Ms. Kavitha",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Idris"
+      "matched_text": "Mr. Idris",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Idris"
+      "matched_text": "Idris",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "union member"
+      "matched_text": "union member",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "age 15"
+      "matched_text": "age 15",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed Term Sheet: Aurora Nusantara Berhad (Aurora) acquisition of Kinetika Sempurna Sdn Bhd (Target) and concurrent Sukuk Murabahah financing (non-binding, indicative)."
+      "matched_text": "Proposed Term Sheet: Aurora Nusantara Berhad (Aurora) acquisition of Kinetika Sempurna Sdn Bhd (Target) and concurrent Sukuk Murabahah financing (non-binding, indicative).",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Transaction: 80% acquisition of Target for RM188,000,000 cash + RM12,000,000 earn-out; percentage ratio c. 28% (Chapter 10 Major Transaction) subject to shareholder approval and Capital Markets Authority of Malaya Raya (CMAR) clearance."
+      "matched_text": "Transaction: 80% acquisition of Target for RM188,000,000 cash + RM12,000,000 earn-out; percentage ratio c. 28% (Chapter 10 Major Transaction) subject to shareholder approval and Capital Markets Authority of Malaya Raya (CMAR) clearance.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing: RM150,000,000 Sukuk Murabahah (tenor 5 years) arranged by Lestari Capital Partners Sdn Bhd; balance via internal funds and a standby commodity murabahah term financing-i from Bank Perdagangan Maya Berhad."
+      "matched_text": "Financing: RM150,000,000 Sukuk Murabahah (tenor 5 years) arranged by Lestari Capital Partners Sdn Bhd; balance via internal funds and a standby commodity murabahah term financing-i from Bank Perdagangan Maya Berhad.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "1B"
+      "matched_text": "1B",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "80%"
+      "matched_text": "80%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "28%"
+      "matched_text": "28%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to shareholder approval"
+      "matched_text": "subject to shareholder approval",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider Lists"
+      "matched_text": "Insider Lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kavitha Rajendran (CFO)"
+      "matched_text": "Ms. Kavitha Rajendran (CFO)",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Encik Faizal Rahman"
+      "matched_text": "Encik Faizal Rahman",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Puan Salmah Idris (HR)"
+      "matched_text": "Puan Salmah Idris (HR)",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+60 1X-234-5678"
+      "matched_text": "+60 1X-234-5678",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "Type 1 diabetes"
+      "matched_text": "Type 1 diabetes",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "insulin therapy"
+      "matched_text": "insulin therapy",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template ID"
+      "matched_text": "fingerprint template ID",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fp_hash: E3 0A 9C-77 1B"
+      "matched_text": "fp_hash: E3 0A 9C-77 1B",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "her religion is Hindu"
+      "matched_text": "her religion is Hindu",
+      "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "she is not a union member"
+      "matched_text": "she is not a union member",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "political_opinion",
-      "matched_text": "nor active in politics"
+      "matched_text": "nor active in politics",
+      "rule": "political_opinion"
     },
     {
       "category": "PII",
-      "rule": "sexual_orientation",
-      "matched_text": "self-identifies as lesbian"
+      "matched_text": "self-identifies as lesbian",
+      "rule": "sexual_orientation"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Aina (age 15)"
+      "matched_text": "Aina (age 15)",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 15"
+      "matched_text": "age 15",
+      "rule": "age_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "80% acquisition of Target"
+      "matched_text": "80% acquisition of Target",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Chapter 10 Major Transaction"
+      "matched_text": "Chapter 10 Major Transaction",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "no public offer contemplated"
+      "matched_text": "no public offer contemplated",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not an announcement under Paragraph 9.03"
+      "matched_text": "not an announcement under Paragraph 9.03",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed period restrictions"
+      "matched_text": "closed period restrictions",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "faizal.rahman@aurora-nusantara.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 3-2 9 9 9 0 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kavitha Rajendran",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kavitha",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Idris",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Idris",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union member",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 15",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Term Sheet: Aurora Nusantara Berhad (Aurora) acquisition of Kinetika Sempurna Sdn Bhd (Target) and concurrent Sukuk Murabahah financing (non-binding, indicative).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: 80% acquisition of Target for RM188,000,000 cash + RM12,000,000 earn-out; percentage ratio c. 28% (Chapter 10 Major Transaction) subject to shareholder approval and Capital Markets Authority of Malaya Raya (CMAR) clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: RM150,000,000 Sukuk Murabahah (tenor 5 years) arranged by Lestari Capital Partners Sdn Bhd; balance via internal funds and a standby commodity murabahah term financing-i from Bank Perdagangan Maya Berhad.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "28%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to shareholder approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Term Sheet: Aurora Nusantara Berhad (Aurora) acquisition of Kinetika Sempurna Sdn Bhd (Target) and concurrent Sukuk Murabahah financing (non-binding, indicative).\nIssuer/Buyer: Aurora Nusantara Berhad (Company No.: A N B \u2014 2 0 2 6 \u2014 0 1), listed on the Main Market of B u r s a   K e n c a n a Securities Berhad; head office: Menara Aurora, Lot 3, Jalan Cakrawala, Bandar Sejahtera, Negeri Sentosa.\nTransaction: 80% acquisition of Target for RM188,000,000 cash + RM12,000,000 earn-out; percentage ratio c. 28% (Chapter 10 Major Transaction) subject to shareholder approval and Capital Markets Authority of Malaya Raya (CMAR) clearance.\nFinancing: RM150,000,000 Sukuk Murabahah (tenor 5 years) arranged by Lestari Capital Partners Sdn Bhd; balance via internal funds and a standby commodity murabahah term financing-i from Bank Perdagangan Maya Berhad.\nUse of Proceeds: settle purchase consideration, refinance Target\u2019s Skyline ERP leases and Nimbus CRM subscriptions, and fund integration capex; no public offer contemplated and this is not an announcement under Paragraph 9.03 of the Main Market LR of Bursa Kencana.\nKey commercial terms: minimum EBITDA of RM22m for FY2026; unaudited management forecast (non-public) projects RM88m consolidated revenue; no material adverse change shall not be a condition precedent.\nConditions precedent: approval under Paragraph 10.08, independent adviser circular to non-interested shareholders, Bumiputera ownership considerations (if applicable), and Shariah board certification; no regulatory waivers are sought at this stage.\nConfidentiality/insider rules: parties acknowledge closed period restrictions under the Capital Markets and Services Act (Malaya Raya) and maintain Insider Lists and information barriers; dataroom: https://dataroom.aurora.example/tx?deal=MY-AXN-2026&key=7x%2Fva.\nManagement and employment: Ms. Kavitha Rajendran (CFO) will continue for 24 months; Ms. Kavitha discloses Type 1 diabetes requiring insulin therapy and provides a fingerprint template ID for vault access (fp_hash: E3 0A 9C-77 1B); her religion is Hindu, and she is not a union member nor active in politics.\nFor the avoidance of doubt, the health of the balance sheet is strong and political headwinds are outside the scope of this term sheet.\nRepresentations: Target confirms no ongoing litigation, compliance with PDPA, and that customer names cited herein were obtained from public sources like catalogues and demo product brochures; brand references (e.g., OrionOS, Nimbus CRM) are illustrative only.\nNegative confirmation: the win by the Bandar Sejahtera Tigers and office DEI policy language (equal opportunity, fair hiring) do not form part of the transaction metrics, and sports analogies are metaphors only.\nPlace and timetable: signing targeted in Kota Harmoni, Negeri Semata within 30 business days; long-stop date 90 days from CMAR notification; integration plan draft exists in lowercase project-management prose: next steps: sync with vendors.\nContact: Encik Faizal Rahman, Head of Corporate Strategy, email faizal.rahman@aurora-nusantara.example, tel +60 1X-234-5678; alt fax: +60 3-2 9 9 9 0 1.\nPrivate notes: Puan Salmah Idris (HR) records that Mr. Idris\u2019s daughter, Aina (age 15), will remain on the Target\u2019s medical panel; Puan Salmah also self-identifies as lesbian and declines union affiliation; these staff details are private and not for exchange disclosure.\nMiscellaneous: governing law Malaysia; this term sheet is indicative and non-binding; parties agree not to kick the can beyond the long-stop; ocr-like ref: A U R \u2014 0 1 \u2014 T S \u2014 2 0 2 6.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -354,76 +427,17 @@
       "reason": "non-personal political metaphor, not PII"
     }
   ],
+  "source_jurisdiction": "MY",
   "uncertain": [
     {
-      "matched_text": "https://dataroom.aurora.example/tx?deal=MY-AXN-2026&key=7x%2Fva",
       "concept": "internal_session_id/tokenized link",
+      "matched_text": "https://dataroom.aurora.example/tx?deal=MY-AXN-2026&key=7x%2Fva",
       "reason": "URL contains a key parameter that may function as an access token or session identifier but not covered by a precise rule-based detector"
     },
     {
-      "matched_text": "will remain on the Target’s medical panel",
       "concept": "health-related affiliation",
+      "matched_text": "will remain on the Target\u2019s medical panel",
       "reason": "Indicates inclusion in a medical program/panel which may imply health-related data, but not clearly mapped to health_condition or medical_treatment rules"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": {
-    "count": 10,
-    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM188,000,000'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM12,000,000'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM150,000,000'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM22m'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM88m'"
-    ]
-  },
-  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
-  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_strict_reconciliation": {
-    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

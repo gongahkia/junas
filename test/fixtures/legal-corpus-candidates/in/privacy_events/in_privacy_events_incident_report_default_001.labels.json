@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -257,6 +265,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Separately, a restricted folder was briefly accessible internally and included draft Q4 results and an unannounced capex plan for Vayujal Networks Limited; this content was treated as UPSI under the SEBI (Prohibition of Insider Trading) Regulations, 2015.\nThe trading window was already closed, the insider list was updated within 30 minutes, and compliance confirmed no trades executed; the audit committee was briefed and an intimation was sent to NSE Corporate Filings\u2014no continuing breach is asserted.\nDSAR: Mr. S. Arvind Rao submitted an access-and-erasure request on 19 May; we provided an access copy, then executed erasure in the Gurgaon DC and propagated deletion to Blue Banyan within 72 hours, with confirmations archived.\nChild data handling: Miss Tara Menon (17) attempted sign-up; a child-consent flag triggered and the guardian subsequently withdrew consent, after which marketing communications were suppressed and processing paused pending final erasure.\nRetention: security logs linked to the incident will be retained for 90 days for forensics; UPSI artefacts are on legal hold until results publication; onboarding-form fields remain minimised with defaults off.\nControl (negated/completed): the policy-based replication to the EU DR node did not occur; that route was disabled in April and remains inactive, and backups contain only hashed tokens with no Aadhaar images.\nRemediation: rotated keys, enforced SFTP IP-allowlisting, added field-level masking on exports, and appended a sub-processor audit clause to DPA Schedule III; user access to the UPSI folder is now role-based with break-glass logging.\nSEBI/NSE engagement: we logged an incident summary with the company\u2019s PIT Compliance Officer, noted no trading, and aligned disclosures with the latest SEBI PIT follow-up circular; no investor grievance has been filed.\nConsent management: policy-only statement\u2014Aadhaar eKYC is not enabled for this workflow; PAN/GSTIN collection on onboarding forms is disabled by default unless legally required in a listed-company action.\nCross-border transfer review: the Singapore export was limited to metadata and remained under DEA approval and SCC-equivalent contractual safeguards; no onward transfer to other jurisdictions was authorised.\nContacts: Ms. Leena Narayan (DPO), dpo@vayujalnetworks.in; PIT queries: pit-compliance@vayujalnetworks.in; sub-processor liaison: incidentdesk@bluebanyan.sg; escalatio",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

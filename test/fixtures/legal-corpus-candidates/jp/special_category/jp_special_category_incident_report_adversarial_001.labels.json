@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -290,6 +298,18 @@
       "category": "MNPI",
       "matched_text": "51%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rika Endo-san (EmpID: E-1O0l-7) with a clinic referral for autoimmune treatment and a biometric time-clock template (.pkpass), plus masked \u500b\u4eba\u756a\u53f7(\u30de\u30a4\u30ca\u30f3\u30d0\u30fc)/My N u m b e r: 83\u26054-5X78-9*12.\nAdditional sensitive attributes for Mr. Kenji Morita-san (Team Hikari) included Yumihashi Electronics Workers Union dues (union status) and self-reported sexual orientation: gay; his dependent child (age 12) emergency contact sheet was attached.\nBenign policy note: our religious holiday calendar and generic DEI policy text were present but contain no individual religious affiliation or belief.\nMNPI scope: draft Board materials (extraordinary meeting minutes dated 2026-05-30) described a contemplated tender offer (TOB) under F I E A Art. 27-2 by Aoi Materials Holdings GK for up to 51%, an unpublished Q4 forecast, and preliminary ESOP/RSU grant schedules.\nWe have not resolved any TOB price, number of shares, or definitive board resolution; this report does not contain an offer or solicitation, and management currently believes no material adverse change has occurred.\nMarket/regulatory context: as a Kanto Securities Exchange Prime issuer, we initiated voluntary notice to the fictional Nihon Capital Market Authority (\u76e3\u7763\u5c40) per internal Rule KSE-P-203; no public-source press has carried the above enumerated facts.\nAccess telemetry: abnormal GETs from 103.9.\u25b3.42 via https://ddp.minamino.example.jp/tsubame/?file=Board%2FTOB%5Fdraft.pdf; OCR names show 'R i k a  E n d 0' and 'K e n j i  M 0 r i t a' in log fragments.\nStorage/locations: offsite backups in Midori-ku, Tsukinowa City were not exposed; branch office in Aogiri Town remains unaffected; product 'SakuraShield AV' reported clean scans.\nContainment: NebulaRouter X5 ACLs restored; Mikan SSO secrets rotated; Shirasagi Vault snapshots rolled back; 112 passwords reset; staging server 'kse-acct-00O7' quarantined.\nEmployee outreach: notices delivered to Ms. Endo-san and Mr. Morita-san under APPI Art. 28; hotline csirt@minamino.example.jp and 050-1234-0X0X are open for data-subject requests.\nBoard actions: chair Mr. Daiki Noguchi",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Minamino Robotics K.K. (KSE Prime) \u2014 Operational/Cyber Incident Report: APPI/My Number exposure and potential FIEA MNPI \u2014 2026-06-02 18:40 JST\nSummary: On 2026-06-01 22:17, the Shirasagi Vault due-diligence workspace (Project TSUBAME) was misconfigured behind a NebulaRouter X5, allowing 47 unauthenticated views of two folders.\nImpacted data: HR exports including Ms. Rika Endo-san (EmpID: E-1O0l-7) with a clinic referral for autoimmune treatment and a biometric time-clock template (.pkpass), plus masked \u500b\u4eba\u756a\u53f7(\u30de\u30a4\u30ca\u30f3\u30d0\u30fc)/My N u m b e r: 83\u26054-5X78-9*12.\nAdditional sensitive attributes for Mr. Kenji Morita-san (Team Hikari) included Yumihashi Electronics Workers Union dues (union status) and self-reported sexual orientation: gay; his dependent child (age 12) emergency contact sheet was attached.\nBenign policy note: our religious holiday calendar and generic DEI policy text were present but contain no individual religious affiliation or belief.\nMNPI scope: draft Board materials (extraordinary meeting minutes dated 2026-05-30) described a contemplated tender offer (TOB) under F I E A Art. 27-2 by Aoi Materials Holdings GK for up to 51%, an unpublished Q4 forecast, and preliminary ESOP/RSU grant schedules.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

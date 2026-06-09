@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -248,6 +256,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Role mailboxes (procurement@madar-althuraya.example; cma-liaison@madar-althuraya.example) are used for workflows; no personal emails are required.\nPositive-risk matter for review: during vendor diligence, a senior procurement analyst located in Riyadh (DOB 1991-04-03) using device asset tag MAT-PC-77F2, with internal user ID U-8842 and VPN account vpn-rh-analyst04, accessed a payroll portal showing IBAN ending 6621 linked to a company stipend, and the record also referenced building Gate 2 and shift code S-3.\nAlthough the above excludes a national ID number, the combination of DOB, city, employer, role, device tag, and partial account could indirectly identify an individual under the KSA PDPL",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: PDPL and MNPI controls for Madar Al Thuraya Energy Co. JSC issuer workflows and SDAIA transfer.\nAs previously disclosed on Tadawul on 2025-02-10, board committee reconstitution is public and not MNPI under CMA market-conduct follow-up.\nThe draft vendor onboarding checklist includes generic form labels only: National ID/Iqama: ________, DOB: __/__/____, CRN: 101-XYZ-009 (placeholder), ISIN: XX0000000000 (template), and does not collect live identifiers.\nWe will submit a limited dataset transfer request to SDAIA for model evaluation, using pseudonymized fields and a data processing agreement aligned with the PDPL executive regulations.\nNo unpublished financial targets, reserve estimates, or transaction timetables are included; the investor FAQ references only public, already-announced information.\nRole mailboxes (procurement@madar-althuraya.example; cma-liaison@madar-althuraya.example) are used for workflows; no personal emails are required.\nPositive-risk matter for review: during vendor diligence, a senior procurement analyst located in Riyadh (DOB 1991-04-03) using device asset tag MAT-PC-77F2, with internal user ID U-8842 and VPN account vpn-rh-analyst04, accessed a payroll portal showing IBAN ending 6621 linked to a company stipend, and the record also referenced building Gate 2 and shift code S-3.\nAlthough the above excludes a national ID number, the combination of DOB, city, employer, role, device tag, and partial account could indirectly identify an individual under the KSA PDPL.\nSeparately, a contractor in Jeddah submitted only a generic job title and a contact via hr@vendor.example with no date of birth or account fragments; this should not be treated as PII.\nThe compliance template includes a non-functional sample Iqama: 0000000000 and sample account: 9999-XXXX for illustration, which must be replaced by tokens before circulation.\nFor cross-border processing, no data will be exported until the SDAIA permit is granted and the transfer impact assessment template is completed.\nAny material non-public issuer information (e.g., unannounced capital raise sequencing) remains restricted to the deal team and is not included in the helpdesk knowledge base.\nHelp content may mention terms like insider list, trading window, and blackout, but only in generic definitions; actual dates are posted on the public investor relations page after announcement.\nFor PDPL or MNPI questions, contact privacy.office@madar-althuraya.example or the SDAIA portal helpline 9200-000-000; do not share live national IDs or bank",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

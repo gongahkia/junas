@@ -1,160 +1,226 @@
 {
-  "doc_id": "ph_privacy_events_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Althea Dizon"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Paolo"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Santos"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Dizon"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Santos"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Annex: DPA Schedule 4 (Retention and Minimisation Policy) attached for reference only; its inclusion here is policy‑only and should not be read as notice of a breach."
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_privacy_events_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Althea Dizon"
+      "matched_text": "Ms. Althea Dizon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Dizon"
+      "matched_text": "Ms. Dizon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Paolo J. Santos"
+      "matched_text": "Mr. Paolo J. Santos",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Santos"
+      "matched_text": "Mr. Santos",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Lira V. Mendoza"
+      "matched_text": "Atty. Lira V. Mendoza",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@luneta-holdings.example"
+      "matched_text": "privacy@luneta-holdings.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@luneta-holdings.example"
+      "matched_text": "dpo@luneta-holdings.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross‑border processing"
+      "matched_text": "cross\u2011border processing",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross‑border transfer to Bayangan Pay Pte. Ltd. (outside the Philippines)"
+      "matched_text": "cross\u2011border transfer to Bayangan Pay Pte. Ltd. (outside the Philippines)",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross‑Border Data Transfer Policy"
+      "matched_text": "Cross\u2011Border Data Transfer Policy",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimisation was applied"
+      "matched_text": "Data minimisation was applied",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "dates of birth"
+      "matched_text": "dates of birth",
+      "rule": "date_of_birth"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non‑public financing terms"
+      "matched_text": "non\u2011public financing terms",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "Operational/Cyber Incident Compliance Memo"
+      "matched_text": "Operational/Cyber Incident Compliance Memo",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimisation"
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Paolo"
+      "matched_text": "Mr. Paolo",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Santos"
+      "matched_text": "Santos",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Annex: DPA Schedule 4 (Retention and Minimisation Policy) attached for reference only; its inclusion here is policy‑only and should not be read as notice of a breach."
+      "matched_text": "Annex: DPA Schedule 4 (Retention and Minimisation Policy) attached for reference only; its inclusion here is policy\u2011only and should not be read as notice of a breach.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Althea Dizon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Paolo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Santos",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dizon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Santos",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Annex: DPA Schedule 4 (Retention and Minimisation Policy) attached for reference only; its inclusion here is policy\u2011only and should not be read as notice of a breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Potentially exposed fields on FR\u2011HR\u201112 Onboarding Forms and payroll bank enrollment forms were limited to names, dates of birth, barangay/city and contact details, and employee tax number placeholders (no actual bank account numbers or government IDs were transmitted).\nAs PIC under the Data Privacy Act, we processed a DSAR from Ms. Althea Dizon on 01 June 2026 (ref DSAR\u20112026\u2011061), providing copy and log of access within 48 hours via privacy@luneta-holdings.example.\nOn 02 June 2026, Mr. Paolo J. Santos withdrew consent for cross\u2011border processing of his payroll data; cross\u2011border transfer to Bayangan Pay Pte. Ltd. (outside the Philippines) for his record was halted and remains blocked until further consent, per our Cross\u2011Border Data Transfer Policy",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As PIC under the Data Privacy Act, we processed a DSAR from Ms. Althea Dizon on 01 June 2026 (ref DSAR\u20112026\u2011061), providing copy and log of access within 48 hours via privacy@luneta-holdings.example.\nOn 02 June 2026, Mr. Paolo J. Santos withdrew consent for cross\u2011border processing of his payroll data; cross\u2011border transfer to Bayangan Pay Pte. Ltd. (outside the Philippines) for his record was halted and remains blocked until further consent, per our Cross\u2011Border Data Transfer Policy.\nErasure for Mr. Santos and restriction for Ms. Dizon were completed and recorded in the deletion log (DL\u2011LHI\u20112026\u2011104) on 02 June 2026, with verification by the DPO\u2019s office.\nData minimisation was applied on 01 June 2026 by masking bank fields and excluding any tax document images from system analytics; retention for onboarding forms remains 24 months per Schedule B of the HR Records Retention Matrix.\nPer the Data Processing Agreement (processor contract) with TalaHR Systems OPC, Schedule 2 (Data Categories and Transfers) was updated on 20 May 2026; a separate data\u2011export approval (Approval ID LHI\u2011XB\u20112026\u201104) permits encrypted SFTP payroll updates weekly for active employees only.\nNo evidence of exfiltration exists; the attempted export job was blocked by our DLP rule set and audit trails confirm zero bytes left the enclave\u2014this completed control does not indicate an ongoing privacy risk.\nReview by Capital Markets Compliance confirmed no budgets, guidance, or non\u2011public financing terms were present in affected systems; therefore, no MNPI as defined under the SRC was accessed.\nA current report will be lodged with the Manila Boards Exchange and the Corporate Registries Authority\u2013PH within two business days; director/officer trading blackout remains in force but is unrelated to this event.\nFor tax and banking workflows, only template fields were touched during the incident; no actual payroll disbursements, tax filings, or investor account records were executed or modified.\nSigned by Atty. Lira V. Mendoza, Data Protection Officer; inquiries may be sent to dpo@luneta-holdings.example.\nAnnex: DPA Schedule 4 (Retention and Minimisation Policy) attached for reference only; its inclusion here is policy\u2011only and should not be read as notice of a breach.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -171,93 +237,47 @@
       "reason": "Role title; not PII/MNPI on its own."
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "processed a DSAR",
       "concept": "DSAR marker",
+      "matched_text": "processed a DSAR",
       "reason": "Data subject access request is a privacy-handling event but no explicit DSAR rule exists in allowed taxonomy."
     },
     {
-      "matched_text": "Erasure for Mr. Santos and restriction for Ms. Dizon were completed",
       "concept": "erasure/restriction markers",
+      "matched_text": "Erasure for Mr. Santos and restriction for Ms. Dizon were completed",
       "reason": "Erasure and restriction are privacy-handling events but not enumerated as allowed rules."
     },
     {
-      "matched_text": "retention for onboarding forms remains 24 months",
       "concept": "retention marker",
+      "matched_text": "retention for onboarding forms remains 24 months",
       "reason": "Retention is a privacy-handling event but no explicit retention rule is provided."
     },
     {
-      "matched_text": "data‑export approval (Approval ID LHI‑XB‑2026‑04) permits encrypted SFTP payroll updates weekly for active employees only",
       "concept": "cross-border transfer approval",
+      "matched_text": "data\u2011export approval (Approval ID LHI\u2011XB\u20112026\u201104) permits encrypted SFTP payroll updates weekly for active employees only",
       "reason": "Indicates an export/transfer control but the cross-border nature is not explicit in this sentence."
     },
     {
-      "matched_text": "employee tax number placeholders",
       "concept": "PH TIN reference (placeholder)",
+      "matched_text": "employee tax number placeholders",
       "reason": "Refers to tax identifiers but does not include 'TIN' string or any actual identifier value."
     },
     {
-      "matched_text": "names, dates of birth, barangay/city and contact details",
       "concept": "quasi-identifier combination",
+      "matched_text": "names, dates of birth, barangay/city and contact details",
       "reason": "Describes a combination of identifying attributes without providing specific values; useful for risk assessment but not covered by a specific rule."
     },
     {
-      "matched_text": "A current report will be lodged with the Manila Boards Exchange and the Corporate Registries Authority–PH within two business days",
       "concept": "pre-disclosure filing plan",
+      "matched_text": "A current report will be lodged with the Manila Boards Exchange and the Corporate Registries Authority\u2013PH within two business days",
       "reason": "Regulatory filing plan is compliance-relevant but not mapped to a specific MNPI rule (no 'Embargoed'/'Press Hold' keywords)."
     },
     {
-      "matched_text": "No evidence of exfiltration exists; the attempted export job was blocked by our DLP rule set and audit trails confirm zero bytes left the enclave—this completed control does not indicate an ongoing privacy risk",
       "concept": "completed-control/negation",
+      "matched_text": "No evidence of exfiltration exists; the attempted export job was blocked by our DLP rule set and audit trails confirm zero bytes left the enclave\u2014this completed control does not indicate an ongoing privacy risk",
       "reason": "Negated risk statement relevant for context; not a live privacy event per allowed markers."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T07:07:36Z",
-    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

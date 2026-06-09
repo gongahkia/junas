@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -42,7 +50,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Positive MNPI (conditional): Condition precedent includes Issuer’s notification to CMA of an internal audit finding that certain previously reported Scope 2 ESG metrics require downward restatement, with public clarification to follow after CMA guidance",
+      "matched_text": "Positive MNPI (conditional): Condition precedent includes Issuer\u2019s notification to CMA of an internal audit finding that certain previously reported Scope 2 ESG metrics require downward restatement, with public clarification to follow after CMA guidance",
       "rule": "material_event"
     },
     {
@@ -52,7 +60,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Regulatory Approvals: Closing is subject to CMA approvals (if applicable), Shari’ah certification, and any sectoral NCA cyber compliance confirmations for IT control changes, none of which are being relied upon for trading decisions",
+      "matched_text": "Regulatory Approvals: Closing is subject to CMA approvals (if applicable), Shari\u2019ah certification, and any sectoral NCA cyber compliance confirmations for IT control changes, none of which are being relied upon for trading decisions",
       "rule": "material_event"
     },
     {
@@ -167,7 +175,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Condition precedent includes Issuer’s notification to CMA of an internal audit finding that certain previously reported Scope 2 ESG metrics require downward restatement, with public clarification to follow after CMA guidance",
+      "matched_text": "Condition precedent includes Issuer\u2019s notification to CMA of an internal audit finding that certain previously reported Scope 2 ESG metrics require downward restatement, with public clarification to follow after CMA guidance",
       "rule": "esg_climate_pre_disclosure"
     },
     {
@@ -194,7 +202,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Positive MNPI (conditional): Condition precedent includes Issuer’s notification to CMA of an internal audit finding that certain previously reported Scope 2 ESG metrics require downward restatement, with public clarification to follow after CMA guidance",
+      "matched_text": "Positive MNPI (conditional): Condition precedent includes Issuer\u2019s notification to CMA of an internal audit finding that certain previously reported Scope 2 ESG metrics require downward restatement, with public clarification to follow after CMA guidance",
       "rule": "material_event"
     },
     {
@@ -204,7 +212,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Regulatory Approvals: Closing is subject to CMA approvals (if applicable), Shari’ah certification, and any sectoral NCA cyber compliance confirmations for IT control changes, none of which are being relied upon for trading decisions",
+      "matched_text": "Regulatory Approvals: Closing is subject to CMA approvals (if applicable), Shari\u2019ah certification, and any sectoral NCA cyber compliance confirmations for IT control changes, none of which are being relied upon for trading decisions",
       "rule": "material_event"
     },
     {
@@ -231,6 +239,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft Non-Binding Term Sheet \u2014 Strategic Minority Investment in Al\u2011Waha Climate Systems CJSC (Kingdom of Saudi Arabia)\nParties: Investor \u2014 Nimr Crescent Investments LLC (CR: 701-XX-XXXX); Issuer \u2014 Al\u2011Waha Climate Systems CJSC (CR: 101-XX-XXXX), Riyadh, KSA\nInstrument: Shari\u2019ah-compliant convertible sukuk or alternative murabaha-based instrument, subject to Shari\u2019ah board approval; no public offer under CMA regulations\nPricing & Valuation: To be determined by independent KSA valuer approved under CMA rules; no guidance or pricing discussed outside permitted information-barrier channels\nUse of Proceeds: ESG/climate retrofits for manufacturing lines, energy-efficiency upgrades, and non-marketing pilot of water-cooling optimization in accordance with publicly available sustainability roadmap\nCrypto & Digital Assets (benign use): Internal \u201cSahaWallet-Demo\u201d crypto wallet sandbox used solely for staff training and tabletop settlement simulations; no token issuance, exchange listing, or customer on-boarding contemplated\nCyber & Resilience (benign use): Annual cyber incident tabletop exercise scheduled with external assessor; no actual breach disclosure is being made in this term sheet, and the scenario plans are for operations training only\nSaudi PDPL & PII: Personal data (including National ID/Iqama labels on forms) will not be collected for this transaction except minimal KYC by regulated third parties; any indirect identifiers will be masked or pseudonymized per KSA PDPL\nCross-Border Transfer: No cross-border transfer of personal data is anticipated; if later required, Issuer will apply for SDAIA permit and implement localization controls before any transfer occurs\nInsider Governance (benign use): Draft insider-list template and blackout/tipping awareness materials may be shared for policy benchmarking; production insider lists will not include personal numbers and are maintained via compliance@alwahacs.example\nListing & Disclosure: Issuer has publicly announced a feasibility study for a potential future Tadawul Growth Market application; this term sheet does not constitute a prospectus or commitment and will not be posted on any exchange\nPositive MNPI (conditional): Condition precedent includes Issuer\u2019s notification to CMA of an internal audit finding that certain previously reported Scope 2 ESG metrics require downward restatement, with public clarification to follow after CMA guidance\nCommercial Terms (non-binding): Non-binding summary of vendor volume rebates and warranty extensions for green equipment is attached for discussion only and does not affect reported revenue or guidance\nRegulatory Approvals: Closing is subject to CMA approvals (if applicable), Shari\u2019ah certification, and any sectoral NCA cyber compliance confirmations for IT control changes, none of which are being relied upon for trading decisions",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -247,7 +261,7 @@
       "reason": "Role noun/defined term, not PII/MNPI."
     },
     {
-      "matched_text": "Crypto & Digital Assets (benign use): Internal “SahaWallet-Demo” crypto wallet sandbox used solely for staff training and tabletop settlement simulations; no token issuance, exchange listing, or customer on-boarding contemplated",
+      "matched_text": "Crypto & Digital Assets (benign use): Internal \u201cSahaWallet-Demo\u201d crypto wallet sandbox used solely for staff training and tabletop settlement simulations; no token issuance, exchange listing, or customer on-boarding contemplated",
       "reason": "Benign training example; not a crypto wallet address or MNPI event."
     },
     {

@@ -1,240 +1,310 @@
 {
-  "doc_id": "my_universal_mnpi_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "MY",
-  "destination_jurisdiction": "MY",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+60 3 7788 2200"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope: processing of personal data (employees, contractors, investors) and MNPI linked to employment, financing, board memos, term sheets, and IR drafts for a proposed 19.8% stake sale."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Categories: name, NRIC hash (no raw NRIC), employee no., masked payroll acct, device IDs, trading blackout acknowledgments; purposes: HR administration, financing compliance, investor-relations Q&A."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "NON-PUBLIC"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Rambutan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "19.8%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "500,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 2,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM128,500,000'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM128,500,000'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_universal_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+60 3 7788 2200"
+      "matched_text": "+60 3 7788 2200",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope: processing of personal data (employees, contractors, investors) and MNPI linked to employment, financing, board memos, term sheets, and IR drafts for a proposed 19.8% stake sale."
+      "matched_text": "Scope: processing of personal data (employees, contractors, investors) and MNPI linked to employment, financing, board memos, term sheets, and IR drafts for a proposed 19.8% stake sale.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Categories: name, NRIC hash (no raw NRIC), employee no., masked payroll acct, device IDs, trading blackout acknowledgments; purposes: HR administration, financing compliance, investor-relations Q&A."
+      "matched_text": "Categories: name, NRIC hash (no raw NRIC), employee no., masked payroll acct, device IDs, trading blackout acknowledgments; purposes: HR administration, financing compliance, investor-relations Q&A.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "NON-PUBLIC"
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Rambutan"
+      "matched_text": "Project Rambutan",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "19.8%"
+      "matched_text": "19.8%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "500,000"
+      "matched_text": "500,000",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo until 15 Aug 2026, 18:00 MYT"
+      "matched_text": "Embargo until 15 Aug 2026, 18:00 MYT",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo date 15 Aug 2026"
+      "matched_text": "embargo date 15 Aug 2026",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout acknowledgments"
+      "matched_text": "trading blackout acknowledgments",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Puan Nor Aisyah Bakar"
+      "matched_text": "Puan Nor Aisyah Bakar",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@aurorapalms.com.my"
+      "matched_text": "dpo@aurorapalms.com.my",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@nyalabyte.com"
+      "matched_text": "privacy@nyalabyte.com",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer under PDPA s.129"
+      "matched_text": "Cross-border transfer under PDPA s.129",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "delete or anonymise within 30 days post-termination of services"
+      "matched_text": "delete or anonymise within 30 days post-termination of services",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Not for distribution"
+      "matched_text": "Not for distribution",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no external sharing before Bursa announcement or end of embargo"
+      "matched_text": "no external sharing before Bursa announcement or end of embargo",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "access limited to need-to-know"
+      "matched_text": "access limited to need-to-know",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "keep an insider list for restricted persons"
+      "matched_text": "keep an insider list for restricted persons",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed 19.8% stake sale"
+      "matched_text": "proposed 19.8% stake sale",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "pre-release research notes on Project Rambutan remain internal"
+      "matched_text": "pre-release research notes on Project Rambutan remain internal",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Bursa disclosure pending"
+      "matched_text": "Bursa disclosure pending",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "A U R - EMP • 0 0 7 9"
+      "matched_text": "A U R - EMP \u2022 0 0 7 9",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "1 2 3 -•••- 4 5 6"
+      "matched_text": "1 2 3 -\u2022\u2022\u2022- 4 5 6",
+      "rule": "bank_account"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+60 3 7788 2200",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: processing of personal data (employees, contractors, investors) and MNPI linked to employment, financing, board memos, term sheets, and IR drafts for a proposed 19.8% stake sale.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Categories: name, NRIC hash (no raw NRIC), employee no., masked payroll acct, device IDs, trading blackout acknowledgments; purposes: HR administration, financing compliance, investor-relations Q&A.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Rambutan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 NON-PUBLIC \u2014 Project Rambutan \u2014 Embargo until 15 Aug 2026, 18:00 MYT (Bursa disclosure pending).\nData Processing Addendum (PDPA 2010) between Aurora Palms Berhad (a company listed on the Main Market of Bursa Malaysia) and NyalaByte Services Sdn. Bhd.\nScope: processing of personal data (employees, contractors, investors) and MNPI linked to employment, financing, board memos, term sheets, and IR drafts for a proposed 19.8% stake sale.\nParties acknowledge a draft definitive Share Purchase Agreement valued at RM128,500,000; access limited to need-to-know in line with CMSA s.188 and Bursa Listing Requirements.\nCross-border transfer under PDPA s.129: processors in Selangor and Dublin permitted subject to comparable protection; payroll bank files remain stored in MY.\nRetention: board packs and deal checklists 7 years; system logs 24 months; delete or anonymise within 30 days post-termination of services.\nDSAR/Access: contact Puan Nor Aisyah Bakar (Data Protection Officer) via dpo@aurorapalms.com.my or +60 3 7788 2200; we aim to respond within 21 business days.\nCategories: name, NRIC hash (no raw NRIC), employee no., masked payroll acct, device IDs, trading blackout acknowledgments; purposes: HR administration, financing compliance, investor-relations Q&A.\nMNPI handling: label files NON-PUBLIC \u2014 IR DRAFT; file code APB0-RAM-IR.2026; no external sharing before Bursa announcement or end of embargo.\nThe occurrence of a customary MAE may suspend processing related to the SPA, and routine payroll updates do not constitute a Material Adverse Change.\nFor avoidance of doubt, information already published in Aurora Palms\u2019 2024 sustainability update (public source) is not MNPI and may be processed under legitimate interest.\ntodo: align hr + finance sign-off by fri; spa day vouchers are excluded from scope and handled under WellnessOne product terms.\nUser ref: A U R - EMP \u2022 0 0 7 9; sample acct: 1 2 3 -\u2022\u2022\u2022- 4 5 6; policy URL: https://ir.aurorapalms.com.my/policies/dpa?ref=APB0%2F2026\nSecurity: AES-256 at rest, MFA, quarterly penetration testing; incident notice to privacy@nyalabyte.com within 24h; maintain audit trail for 180 days; keep an insider list for restricted persons.\nNot for distribution; pre-release research notes on Project Rambutan remain internal; embargo date 15 Aug 2026 applies notwithstanding earlier media rumors.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -255,83 +325,27 @@
       "reason": "Project-management note; not MNPI."
     }
   ],
+  "source_jurisdiction": "MY",
   "uncertain": [
     {
-      "matched_text": "Retention: board packs and deal checklists 7 years; system logs 24 months",
       "concept": "retention marker",
+      "matched_text": "Retention: board packs and deal checklists 7 years; system logs 24 months",
       "reason": "Retention periods are privacy-event signals but no explicit allowed rule name provided."
     },
     {
-      "matched_text": "maintain audit trail for 180 days",
       "concept": "retention marker",
+      "matched_text": "maintain audit trail for 180 days",
       "reason": "Indicates retention duration; not clearly mapped to an allowed rule."
     },
     {
-      "matched_text": "DSAR/Access",
       "concept": "DSAR marker",
+      "matched_text": "DSAR/Access",
       "reason": "Data subject access routing is privacy-relevant but no explicit DSAR rule code exists."
     },
     {
-      "matched_text": "NRIC hash (no raw NRIC)",
       "concept": "pseudonymisation/minimisation",
+      "matched_text": "NRIC hash (no raw NRIC)",
       "reason": "Implies hashed identifier treatment; may relate to minimisation but not clearly covered by allowed rule names."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": {
-    "count": 2,
-    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM128,500,000'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM128,500,000'"
-    ]
-  },
-  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
-  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_strict_reconciliation": {
-    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

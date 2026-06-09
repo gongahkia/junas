@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -320,6 +328,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Namchun Renewables Co., Ltd. \u2014 Confidential Incident and IR Update \u2014 2026-06-03 (KR)\nOn 3 June, Security detected unauthorized access to our ESG data room and limited exfiltration from a staging SFTP used by HR.\nThe affected files included training rosters with masked resident-registration numbers (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638; e.g., 9******-1******) and vendor contact lists; no payroll bank accounts were present.\nPreliminary forensics indicate a compromised contractor VPN and a failed segregation between Capital Markets and Research drives, breaching our information barrier protocol.\nSeparately, Treasury is negotiating undisclosed commercial terms for a sustainability-linked note with Jebudo Capital (fictional), including a 10\u201315 bp coupon step-up tied to Scope 2 intensity metrics; this is MNPI under the FSCMA until KRX filing.\nIn parallel, our virtual-asset REC tokenization pilot paused after a hot-wallet policy exception was observed; no customer virtual assets are held, and keys remain in cold storage.\nPer FSC/FSS guidance, we have notified the FSS cyber line within 24 hours and initiated a voluntary fair-disclosure review to assess selective disclosure risks to investors.\nEffective immediately, an insider list has been compiled for the cyber event and REC tokenization workstream; a trading blackout window applies to listed equity and notes until public disclosure.\nMr. Lee Min-gyu, IR Director, will coordinate Q&A, and Ms. Han Soo-jin, CISO, owns containment; contact ir@namchunrenewables.co.kr or ciso@namchunrenewables.co.kr.\nNo evidence suggests manipulation of emissions baselines used in our 2025 sustainability targets, but we are validating meter data for the Incheon plant.\nEmployees are reminded that tipping or discussing the above commercial terms, cyber vectors, or tokenization pilot with analysts outside scheduled KRX disclosures is prohibited under internal policy and the FSCMA.\nFor educational purposes only, the attached primer explains our information-barrier standards and provides crypto-wallet definitions for new hires without referencing any live projects.\nOperations will roll out a patched VPN client and re-segment shared drives by department by 7 June; this is a routine IT improvement and not related to any capital markets transaction.\nWe intend to make a voluntary disclosure on the KRX portal once scoping is complete, anticipated within five business days, subject to FSS feedback.\nThis document is internal to Namchun Renewables and Seorak Securities Advisory (fictional) and must not be forwarded; violators will be added to the insider list.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

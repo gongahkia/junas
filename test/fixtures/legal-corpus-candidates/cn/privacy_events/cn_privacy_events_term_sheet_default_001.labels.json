@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -305,6 +313,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet for Series C Financing and Strategic Asset Acquisition \u2014 Qingyuan Vantage Robotics Co., Ltd. (USCC: 91QYVR3A2L0Z900X1F) and Orchid Bay Automation Holdings Ltd. (USCC: 92OBAH6K7P1M200Z9)\nTransaction: Investor will subscribe for RMB 180,000,000 of Series C Preferred Shares and acquire selected automation assets of the Target; Issuer obligations are subject to PIPL/CSL/DSL compliance and employment transfer workflows.\nListing context: The Issuer intends to apply for listing on the Huaxin Growth Board; information in this term sheet constitutes inside information under the Securities Law until formally disclosed per pre-filing rules.\nEconomics: 12,000,000 Series C Preferred Shares at RMB 15.00 per share; use of proceeds includes R&D and working capital; closing expected within 60 days of regulatory confirmations.\nConditions precedent: delivery of a PRC data compliance memo, DPA Schedule 2 (Processors) and amendments, onboarding forms CN-ONB-24 and EQ-Grant-CN, and confirmation of security measures per PIPL Art. 51 et seq.\nCross-border transfers: any cross-border transfer of limited employee contact data to payroll processor Seastar Pay Ltd. (Minghai Port) requires Data Export Approval Filing No. NCB-NH-2026-118, completed on 2026-04-12; no live cross-border transfers are scheduled at signing.\nConsent: data subjects may withdraw consent by emailing privacy@qvr-cn.example; upon withdrawal, processing under the onboarding form CN-ONB-24 ceases unless another lawful basis applies (e.g., employment or statutory tax obligations).\nDSAR: access/rectification/copy requests will be processed within statutory timelines and logged in Register DSAR-2026-Alpha; all outstanding DSARs related to the Target were fulfilled and closed on 2026-05-10.\nErasure: legacy candidate CVs collected before 2025 were erased per Erasure Ticket ER-0192 on 2026-03-08; policy prohibits storage of resident ID images, and none are stored.\nRetention and minimisation: Retention Schedule R-24 limits HR logs to 24 months and source code access logs to 12 months; minimisation restricts payroll onboarding to name, mobile, and bank tail digits only.\nSensitive PI/minors: the Parties confirm no personal information of minors under 14 is collected or processed in the transferred assets; this reflects completed scoping and does not mandate new collection.\nMNPI controls: an insider list will be maintained; directors, supervisors, and designated staff are subject to trading blackout until the Issuer\u2019s public disclosure; onward sharing of MNPI to external parties is prohibited.\nProcessor oversight: DPA Schedule 2 lists Hailan Cloud (Nanhuan) Data Services and Copper Finch Logistics Tech with subprocessor veto rights; Transfer Impact Assessment Memo CN-TIA-11 is annexed for historical transfers.\nEmployment workflows: equity incentive onboarding for transferee employees uses Form EQ-Grant-CN, collecting role and work email only; resident ID numbers, if presented for tax, remain onshore and are hashed before storage.\nGoverning law and contacts: PRC law; disputes to Huadong Commercial Arbitration Center; primary contact Ms. Lin Xiaoyu, DPO, lin.xiaoyu@qvr-cn.example; investment lead Mr. Chen Ruilong, chen.ruilong@obah.example.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

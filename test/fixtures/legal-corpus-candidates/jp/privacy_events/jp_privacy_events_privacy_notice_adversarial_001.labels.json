@@ -61,6 +61,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -278,6 +286,12 @@
       "category": "MNPI",
       "matched_text": "SPA",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Soramine Robotics K.K. \u2014 DPA Schedule (JP APPI/My Number) for Acquisition & Employee Workflows, v2026-05-29\nContact: Ms. Rika Momose (Data Protection Officer), privacy@soramine.example.jp; escalation: dpo@higashiprime.example\nScope: applies to employee onboarding via HikariHR and board materials supporting the proposed acquisition of Hoshino Systems K.K., with securities compliance aligned to FIEA and Higashi Prime Exchange timely disclosure practices.\nAPPI basis: personal information includes living-individual data and individual codes; My Number (\u500b\u4eba\u756a\u53f7) is collected only for payroll withholding, salted-hash stored, and minimised to last 4 masked digits when displayed.\nCross-border transfer: payroll sub-processing by SakuraPay Pte. Ltd. (SG) is permitted only with prior APPI Art. 28 consent and foreign-system notice; approval record: https://xfer.soramine.example.jp/approve?case=TO-2 9&hash=a1b2%20c3 (completed 2026-05-08).\nPolicy-only control: HikariHR mobile app does not collect device MAC addresses or geolocation; this statement is informational and not a live incident report.\nDSAR: on 2026-05-20, Mr. Kenji Aoba (employee ID SA- 0 1 8 2) submitted an access/copy request; disclosure was provided on 2026-05-22, including processing purposes and third-country destinations; status: closed, no pending items.\nConsent withdrawal & erasure: on 2026-05-13, Ms. Emi Furukawa withdrew consent for overseas transfer of her onboarding documents; export flags were set to \u201cdeny,\u201d and her resume.pdf and id_scan.tif were erased from the SG region store (object keys: hr/onboard/EmF/2 6/\u2026 removed); backups past retention were not restored.\nRetention & minimisation: board packs containing potential MNPI are retained 7 years; however, employee PII in deal rooms is minimised to initials and employee code; My Number tokens are rotated annually and retained 7 years per tax rules, then deleted.\nFIEA note: this memo contains no undisclosed enumerated material facts and no tender-offer facts; the draft SPA contained no MAC trigger and no earnings guidance; circulation is restricted to the acquisition working group.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

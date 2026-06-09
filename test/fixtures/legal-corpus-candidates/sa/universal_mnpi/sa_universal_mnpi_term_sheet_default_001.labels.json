@@ -37,6 +37,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -65,27 +73,27 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Sami Al‑Mutlaq",
+      "matched_text": "Mr. Sami Al\u2011Mutlaq",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Rawan Al‑Hazmi",
+      "matched_text": "Dr. Rawan Al\u2011Hazmi",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Adil Al‑Rayyan",
+      "matched_text": "Mr. Adil Al\u2011Rayyan",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "Transaction: Buyer to acquire 70% of NourPay via definitive Share Purchase Agreement (SPA) and Shareholders’ Agreement (SHA) for SAR 640,000,000; implied enterprise value SAR 900,000,000.",
+      "matched_text": "Transaction: Buyer to acquire 70% of NourPay via definitive Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement (SHA) for SAR 640,000,000; implied enterprise value SAR 900,000,000.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "MAC/MAE: “Material Adverse Change” includes loss of payment services provider license or sanctions breach; for clarity, general FX moves or sector index changes shall not, by themselves, constitute a MAC.",
+      "matched_text": "MAC/MAE: \u201cMaterial Adverse Change\u201d includes loss of payment services provider license or sanctions breach; for clarity, general FX moves or sector index changes shall not, by themselves, constitute a MAC.",
       "rule": "material_event"
     },
     {
@@ -180,7 +188,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Shareholders’ Agreement",
+      "matched_text": "Shareholders\u2019 Agreement",
       "rule": "definitive_agreement"
     },
     {
@@ -255,7 +263,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Sellers’ break fee SAR 18,000,000 for superior proposal accepted",
+      "matched_text": "Sellers\u2019 break fee SAR 18,000,000 for superior proposal accepted",
       "rule": "contingent_mnpi_language"
     },
     {
@@ -307,27 +315,27 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Sami Al‑Mutlaq",
+      "matched_text": "Mr. Sami Al\u2011Mutlaq",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Rawan Al‑Hazmi",
+      "matched_text": "Dr. Rawan Al\u2011Hazmi",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Adil Al‑Rayyan",
+      "matched_text": "Mr. Adil Al\u2011Rayyan",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "Transaction: Buyer to acquire 70% of NourPay via definitive Share Purchase Agreement (SPA) and Shareholders’ Agreement (SHA) for SAR 640,000,000; implied enterprise value SAR 900,000,000.",
+      "matched_text": "Transaction: Buyer to acquire 70% of NourPay via definitive Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement (SHA) for SAR 640,000,000; implied enterprise value SAR 900,000,000.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "MAC/MAE: “Material Adverse Change” includes loss of payment services provider license or sanctions breach; for clarity, general FX moves or sector index changes shall not, by themselves, constitute a MAC.",
+      "matched_text": "MAC/MAE: \u201cMaterial Adverse Change\u201d includes loss of payment services provider license or sanctions breach; for clarity, general FX moves or sector index changes shall not, by themselves, constitute a MAC.",
       "rule": "material_event"
     },
     {
@@ -409,6 +417,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts: Mr. Sami Al\u2011Mutlaq, Head of Corp Dev (Iqama No. 734-22-5913), sami.almutlaq@badiyahtech.sa; counsel: Dr. Rawan Al\u2011Hazmi, rahazmi@almanar-legal.sa; Seller contact: Mr. Adil Al\u2011Rayyan, adil@nourpay.sa",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 MNPI/Insider: Project Oryx Term Sheet; Embargo until 2026-11-03 09:00 AST (Hijri 1448-04-22).\nParties: Badiyah Technology JSC (CR 2051456789; Rimal Exchange issuer) as Buyer; NourPay LLC (CR 1019988776) and its shareholders as Sellers.\nTransaction: Buyer to acquire 70% of NourPay via definitive Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement (SHA) for SAR 640,000,000; implied enterprise value SAR 900,000,000.\nConsideration mechanics: Up to SAR 80,000,000 earn-out tied to FY2027 EBITDA; 10% retention escrow at Al-Rimal Settlement Bank (Account Ref: ORYX-ESC-4471).\nConditions precedent: KCMA approval, Rimal Exchange circular clearance, foreign ownership cap confirmation, and PDPL-compliant data-sharing addendum including SADAA cross-border transfer permit if required.\nMAC/MAE: \u201cMaterial Adverse Change\u201d includes loss of payment services provider license or sanctions breach; for clarity, general FX moves or sector index changes shall not, by themselves, constitute a MAC.\nBoard approvals: Buyer board memo dated 2026-06-12 signed by Ms. Hadeel Al-Sayyar (Board Secretary, Iqama No. 518-77-0314) and Seller board resolution to be delivered at signing.\nTimetable: Signing target 2026-07-15; Long Stop Date 2026-10-30; completion announcement via issuer workflow template drafted for Rimal Exchange (IR draft on file).\nConfidentiality: This document contains MNPI and is not for public release; disclose only to need-to-know insiders under insider list ORYX-IL-09 and maintain trading blackout until the Embargo time.\nCovenants: Sellers to operate in the ordinary course; no dividends, bonuses, related-party transactions, or new debt > SAR 5,000,000 without Buyer consent; carve-out for staff Ramadan gratuities.\nIntegration & PDPL: Establish Shariah Board review; migrate KSA data residency; personal data processing to remain in-Kingdom unless a SADAA permit is obtained, with controller obligations allocated per DPA annex.\nPublic reference baseline: sector multiples referenced from Desert Business Daily (public) 2025-03-18 report; any divergence reflects internal, non-public forecasts and synergy cases.\nFees & termination: Reverse break fee SAR 12,000,000 if KCMA declines approval; Sellers\u2019 break fee SAR 18,000,000 for superior proposal accepted; termination right for Buyer upon MAC.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

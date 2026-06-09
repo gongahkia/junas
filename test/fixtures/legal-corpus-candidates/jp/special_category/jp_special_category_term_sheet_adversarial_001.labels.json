@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -270,6 +278,12 @@
       "category": "MNPI",
       "matched_text": "67%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed TOB by Nadeshiko Robotics K.K. for Orizuru BioSensors K.K. (Japan)\nStatus and MNPI: Contains undisclosed enumerated material facts and tender-offer facts under the FIEA; recipients are treated as temporary insiders subject to JFSA guidance and TSE rules until public announcement.\nTransaction structure: Friendly tender offer for up to 67% of Orizuru at JPY 1,240 per common share; no obligation to consummate until Board of Directors approval and statutory disclosures; this is not an offer to sell securities.\nConditions precedent: JFSA filings (including Large-Scale Shareholding Report as applicable), JFTC clearance, TSE Growth Market notifications; no Material Adverse Change, provided general political conditions, sports\u2011team sponsorships, or product\u2011name changes shall not constitute a MAC.\nEmployee matters (APPI): Ms. Aiko Tanabe (Chief Bioengineer) will transition to buyer; her medical leave for Type\u20111 diabetes treatment (health data) and union membership in the Hoshigaya Tech Workers Union are acknowledged; My Number on file is masked as 1 2 3 4\u2011** **\u2011** 7 8 and will not be exported.\nAccess controls: Mr. Haruto Kato (Facilities Lead) provided a fingerprint template for cleanroom access logs (biometric data) under APPI consent; dataroom URL h t t p : / / data.nadeshiko.exa.jp/vDR?doc=acq%2Fterm&uid=kato.h&v=0x9f; de\u2011identified templates will be retained for 30 days and then purged.\nGovernance: Board of Nadeshiko Robotics K.K. (Chair: Ms. Emi Senda) to establish an independent committee per the Corporate Governance Code; meeting notice posted on the TSE a n n o u n c e portal; meeting venue (fictional): Hoshigaya City, Sakura\u2011dori 5\u201114\u20119.\nFinancing: Bridge loan from Fujiwara Capital GK (fictional) of JPY 6.0bn; covenants include no dividends, maintenance of FIEA\u2011compliant disclosure controls, and a leverage cap; contact: ir\u2011acq@nadeshiko\u2011kk.example.jp.\nEmployee equity: RSU replacement at a 1.25x exchange ratio; unvested awards cashed out subject to TSE insider\u2011trading blackout; clawback aligned with \u201cEqual Opportunities Charter 2026\u201d and \u201cData Minimization Policy (APPI).\u201d\nIntegration and DEI: Buyer affirms diversity, equity and inclusion training; references to religion, genetics, and sexual orientation here are policy\u2011level only and not linked to any individual person.\nPublic\u2011source references: Financial model uses public patent filings and market reports; product metaphors such as \u201cGenetic Compass,\u201d \u201cSoraCloud,\u201d and \u201cUnion Shield\u201d are brand names and not biological or labor\u2011union data.\nRepresentations: Seller reps include accuracy of R&D pipeline, absence of undisclosed related\u2011party transactions, and that the Shinkawa Tigers sponsorship may continue without additional consent.\nAnnouncements: Press release scheduled for 08:30 JST pre\u2011market; until then, parties shall refrain from political contributions referencing the transaction; a political metaphor in internal memos will not trigger a MAC.\nData handling (APPI/My Number): Personal data to remain in Japan; individual codes (including employee badges ND\u201100 7 5 and masked My Number records) processed under need\u2011to\u2011know; OCR\u2011derived line\u2011break artifacts may appear in the vDR and shall not change meaning.\nClosing deliverables: Orizuru to deliver officer\u2019s certificate, shareholder registry excerpt, and confirmation of employee consent logs for biometric access; Nadeshiko to deliver funding confirmations and TOB commencement notice.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

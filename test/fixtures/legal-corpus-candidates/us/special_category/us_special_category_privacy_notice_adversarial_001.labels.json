@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -92,7 +100,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "1‑555‑014‑7724",
+      "matched_text": "1\u2011555\u2011014\u20117724",
       "rule": "phone_number"
     },
     {
@@ -102,57 +110,57 @@
     },
     {
       "category": "PII",
-      "matched_text": "biometric time‑clock face geometry scans",
+      "matched_text": "biometric time\u2011clock face geometry scans",
       "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "matched_text": "genetic carrier screen result “CF‑carrier positive (screen‑only)”",
+      "matched_text": "genetic carrier screen result \u201cCF\u2011carrier positive (screen\u2011only)\u201d",
       "rule": "genetic_data"
     },
     {
       "category": "PII",
-      "matched_text": "treatment code T‑47 physical therapy sessions",
+      "matched_text": "treatment code T\u201147 physical therapy sessions",
       "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "matched_text": "self‑disclosed religious affiliation “Seventh City Fellowship”",
+      "matched_text": "self\u2011disclosed religious affiliation \u201cSeventh City Fellowship\u201d",
       "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "matched_text": "union membership “Allied Care Technicians Local 12.”",
+      "matched_text": "union membership \u201cAllied Care Technicians Local 12.\u201d",
       "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "matched_text": "voiceprint hash (v0, non‑reversible) vpr:a93f::0d//b1‑elgin‑red",
+      "matched_text": "voiceprint hash (v0, non\u2011reversible) vpr:a93f::0d//b1\u2011elgin\u2011red",
       "rule": "biometric_identifier"
     },
     {
       "category": "MNPI",
-      "matched_text": "selective disclosure to covered market actors (sell‑side analysts, buy‑side PMs) is prohibited",
+      "matched_text": "selective disclosure to covered market actors (sell\u2011side analysts, buy\u2011side PMs) is prohibited",
       "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "matched_text": "No material non‑public financial figures are contained in this packet",
+      "matched_text": "No material non\u2011public financial figures are contained in this packet",
       "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "matched_text": "A c c o u n t  I D : HHB‑A9G‑3 9 9",
+      "matched_text": "A c c o u n t  I D : HHB\u2011A9G\u20113 9 9",
       "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "matched_text": "HHB‑A9G‑399",
+      "matched_text": "HHB\u2011A9G\u2011399",
       "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "matched_text": "HR‑ELGIN‑0x7B",
+      "matched_text": "HR\u2011ELGIN\u20110x7B",
       "rule": "employee_id"
     },
     {
@@ -162,7 +170,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "biometric logs (time‑clock) retained 3 years from last use",
+      "matched_text": "biometric logs (time\u2011clock) retained 3 years from last use",
       "rule": "data_minimisation_marker"
     },
     {
@@ -177,12 +185,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "financial system artifacts retained per GLBA schedule (5–7 years)",
+      "matched_text": "financial system artifacts retained per GLBA schedule (5\u20137 years)",
       "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "matched_text": "government identifier images, if any, must be redacted (e.g., S SN shown as xx‑xx‑5Q20) before storage",
+      "matched_text": "government identifier images, if any, must be redacted (e.g., S SN shown as xx\u2011xx\u20115Q20) before storage",
       "rule": "data_minimisation_marker"
     },
     {
@@ -192,17 +200,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non‑public pipeline details",
+      "matched_text": "non\u2011public pipeline details",
       "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "we will not produce drafts, “whisper numbers,” or segment margin bridges",
+      "matched_text": "we will not produce drafts, \u201cwhisper numbers,\u201d or segment margin bridges",
       "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "matched_text": "do not email sell‑side analysts directly",
+      "matched_text": "do not email sell\u2011side analysts directly",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -212,12 +220,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "R‑ELGIN‑2026",
+      "matched_text": "R\u2011ELGIN\u20112026",
       "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "matched_text": "tok=pct%2Fus‑ccpa",
+      "matched_text": "tok=pct%2Fus\u2011ccpa",
       "rule": "internal_session_id"
     }
   ],
@@ -261,6 +269,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data subject: Mr. Rowan Elgin (employee and patient) requests access, deletion, and restriction of: (a) biometric time\u2011clock face geometry scans; (b) genetic carrier screen result \u201cCF\u2011carrier positive (screen\u2011only)\u201d; (c) treatment code T\u201147 physical therapy sessions; (d) self\u2011disclosed religious affiliation \u201cSeventh City Fellowship\u201d; (e) union membership \u201cAllied Care Technicians Local 12.\u201d\nLocator and obfuscated IDs: A c c o u n t  I D : HHB\u2011A9G\u20113 9 9; HRIS: HR\u2011ELGIN\u20110x7B; patient chart r e f : CHP/ELGIN/0x3D; portal: https://portal.harborstonehb.example/dsar?case=R\u2011ELGIN\u20112026&tok=pct%2Fus\u2011ccpa\nScope: Under CCPA we treat consumer/household data reasonably linkable to Mr. Elgin; under HIPAA the above clinical items are PHI; under GLBA any linked application/loan telemetry is NPI and handled under 16 CFR 314.4.\nMNPI/Reg FD gate: selective disclosure to covered market actors (sell\u2011side analysts, buy\u2011side PMs) is prohibited; DSAR fulfillment will exclude",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -273,7 +287,7 @@
       "reason": "Policy name/generic DEI prose; not describing a person."
     },
     {
-      "matched_text": "Pioneer Stock Market “PSM”",
+      "matched_text": "Pioneer Stock Market \u201cPSM\u201d",
       "reason": "Market/product name/acronym; not PII/MNPI."
     },
     {
@@ -285,17 +299,17 @@
   "uncertain": [
     {
       "concept": "internal code",
-      "matched_text": "7‑F‑3‑A",
+      "matched_text": "7\u2011F\u20113\u2011A",
       "reason": "Voicemail code may be linkable to a person but not clearly covered by a specific allowed PII rule."
     },
     {
       "concept": "case identifier",
-      "matched_text": "R‑ELGIN‑2026",
+      "matched_text": "R\u2011ELGIN\u20112026",
       "reason": "Case/token identifier may be linkable; mapped under internal_session_id in ideal tier but not reliably caught by strict rules."
     },
     {
       "concept": "token parameter",
-      "matched_text": "tok=pct%2Fus‑ccpa",
+      "matched_text": "tok=pct%2Fus\u2011ccpa",
       "reason": "URL token may function as an access or tracking token; not clearly within current strict PII rule set."
     }
   ]

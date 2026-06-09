@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -372,6 +380,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Role: Data Fiduciary (Nereus Capital) appoints Data Processor Luminis Backoffice Services LLP; contact Data Protection Officer Ms. Devika Jain at dpo@nereuscap.in, tel +91 74000 12345, portal https://privacy.nereuscap.in/dsar?rid=clt-9x2_00.\nWe process KYC (Aadhaar/PAN/GSTIN in masked form), contact, device logs, and special-category personal data where you choose to provide it for specific services.\nAnchored example: Master Ishan V. Rao (age 16, child Data Principal) \u2014 asthma treatment record dated 12-2025, fingerprint template for lab access, and Student Artists Union membership; consent recorded from guardian Smt. Kavita Rao (PAN: AAAAA0000A, Aadhaar: 7 3 0 1 **** ****).\nAnchored example: Mr. Raghav T. Menon (client employee) \u2014 voiceprint login and retinal hash; disclosure of religious belief (Jain) for optional holiday calendar and sexual orientation (gay) for EAP benefits; processed with explicit, revocable consent.\nBiometric templates are encrypted at rest, not sold, not used for algorithmic marketing, and deleted on deactivation; genetic test summaries, if provided by a Data Principal, are treated as sensitive and restricted.\nFor the listed client Coral Leaf Agro Limited, unpublished price-sensitive information (UPSI) handling follows the client\u2019s PIT Code under Indian insider trading regulations for securities listed on the Auriga Stock Exchange; insider-list access is need-to-know and activity-logged.\nData Principal rights: access, correction, portability, and grievance; send DSARs to dpo@nereuscap.in or use https://privacy.nereuscap.in/dsar?rid=case-19xA_0oL, and please do not email full Aadhaar\u2014use PAN (masked) or GSTIN reference only.\nStorage and transfers: primary storage in Pune data centre; permitted cross-border transfers use inter-affiliate agreements and standard contractual terms; UPSI is never transferred to dealers, analysts, or brokers and is segregated from sales systems.\nRetention: UPSI insider lists and disclosures retained 5 years; biometric and health data retained 90 days post-deactivation; child data minimized and deleted after 24 months of inactivity; GSTIN accounting records retained up to 8 years for audit defence.\nConsent and children: for individuals under 18, verifiable guardian consent is required and can be withdrawn without detriment to non-essential services; refusal does not affect access to investor education materials.\nHousekeeping and policy baits: Nimbus Ledger and CloudPeacock are product names; our Fair Work Charter and Open Inclusion Policy are general guidance only; we support diversity, equity, and inclusion; this update is not a material adverse change; references to the Jaipur Falcons or Moon Tigers are illustrative; we avoid metaphors like \u201cdata is the new oil\u201d.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -165,6 +173,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor Relations processes only public or already-announced facts for Q&A and roadshows, and we prohibit the storage of MNPI in IR, HR, or marketing tools; any MNPI for transactions is confined to a segregated compliance workspace under FSC/FSS guidance.\nDisclosures may be made to GumiPay Services Ltd. (payroll), HanCloud Hosting KK (intra-group cloud in Tokyo), and regulators (FSC, FSS, KRX Market Oversight) where legally mandated; cross-border transfers use standard transfer agreements and opt-in notices where required.\nRetention: personnel files 5 years post-termination; access-control logs 6 months; trade surveillance and insider list archives 10 years under FSCMA; investor email preferences retained until opt-out.\nSecurity measures include role-based access, encryption at rest, HSM-backed keys, and quarterly audits; our \u201cBlue Crane Playbook\u201d is a policy name for security awareness, not a monitoring tool.\nData subject rights: you may request access, correction, deletion, or restriction via the Data Rights Desk at privacy@cloudhan.example or https://privacy.cloudhan.example; we respond within statutory time limits.\nTo verify identity we may request an employee ID and masked resident-number fragments (e.g., **-*******), which are checked against HR records and then discarded.\nWe do not use automated decision making for hiring or promotion; phrases like \u201cfull-court press\u201d in training slides are sports metaphors and have no profiling effect.\nThis notice does not constitute investment advice, does not announce earnings, and does not modify obligations under the FSCMA; questions for investors may be sent to ir@cloudhan.example.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

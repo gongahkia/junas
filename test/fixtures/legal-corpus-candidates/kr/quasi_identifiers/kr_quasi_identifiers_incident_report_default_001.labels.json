@@ -51,6 +51,14 @@
       "status": "removed_after_phone_precision_guard"
     }
   ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -283,6 +291,18 @@
       "category": "MNPI",
       "matched_text": "850714",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kim Min-su (Head of IT Operations, DOB 1985-07-14, Seoryeong Riverfront Office 17F) was active under AD account 'minsu.kim85' from 21:36\u201321:44 KST using company laptop 'HPH-NB14-5521' and VPN session 'sess-AX91B-20260603-2142'.\nThe profile screen displayed only masked resident-number field '850714-*******' and office extension; logs indicate no full resident-number, payroll bank account, or biometric data were exfiltrated.\nAccess path: partner SSO 'Darae Logistics Co.' vendor role with least-privilege policy was mistakenly mapped to 'Project-OPS' group during a deployment change; device fingerprint 'dfp:b7c2-HPH-PLT' and source IP 203.0.113.45 (ASN 'JHNet-IX') observed.\nContainment: accounts 'vendor-darae01' and 'minsu.kim85' were locked at 21:45; tokens cleared; password rotation enforced on all 'Project-OPS' groups; endpoint isolated via HPH-EDR policy.\nPreliminary impact: approximately 32 employee profiles viewed (names and titles only), 2 draft slides on maintenance scheduling, and 1 spreadsheet with monthly capacity assumptions; no customer data involved.\nSeparate telemetry entry (not linked to the above user): a contractor aged 29 in Gujin-do office using shift code 'B', device model 'HPH-MB5', and locale 'ko-KR' opened HR FAQ at 20:10; these demographics are generic and do not identify a person alone.\nFor avoidance of doubt, CSR and ESG metrics in the report library were not altered; carbon intensity figures remain as previously disclosed in the 2025 Sustainability Update.\nPursuant to PIPA and internal security policy, we will notify affected employees and retain forensic logs for 3 years; data minimization controls around DOB and location tagging will be tightened.\nPursuant to FSCMA disclosure standards and Jeonghan Exchange rules, potential MNPI in the draft forecast will be escrowed and disclosed if and when the board resolves a material change.\nOversight: the Korea Financial Markets Authority (KFMA) and Jeonghan Exchange Market Surveillance were informed on 2026-06-04 09:00 KST; reference case 'KFMA-HPH-2026-0612'.\nPoint of contact: Ms. Lee Hye-jin, Director, Compliance Office, ir@haneul-precision.co.kr; security inquiries: security@haneul-precision.co.kr",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: unauthorized third-party login to Collaboration Portal v3.2 via partner credentials caused limited exposure of internal employee profile fields and a draft production forecast.\nAffected matter contains undisclosed operational data: projected Q3 output at Seoryeong Tech Park Line 2 to be reduced by 7\u20139% pending recalibration; this has not been publicly disclosed under FSCMA and remains subject to board review.\nPrimary user context: Mr. Kim Min-su (Head of IT Operations, DOB 1985-07-14, Seoryeong Riverfront Office 17F) was active under AD account 'minsu.kim85' from 21:36\u201321:44 KST using company laptop 'HPH-NB14-5521' and VPN session 'sess-AX91B-20260603-2142'.\nThe profile screen displayed only masked resident-number field '850714-*******' and office extension; logs indicate no full resident-number, payroll bank account, or biometric data were exfiltrated.\nAccess path: partner SSO 'Darae Logistics Co.' vendor role with least-privilege policy was mistakenly mapped to 'Project-OPS' group during a deployment change; device fingerprint 'dfp:b7c2-HPH-PLT' and source IP 203.0.113.45 (ASN 'JHNet-IX') observed.\nContainment: accounts 'vendor-darae01' and 'minsu.kim85' were locked at 21:45; tokens cleared; password rotation enforced on all 'Project-OPS' groups; endpoint isolated via HPH-EDR policy.\nPreliminary impact: approximately 32 employee profiles viewed (names and titles only), 2 draft slides on maintenance scheduling, and 1 spreadsheet with monthly capacity assumptions; no customer data involved.\nSeparate telemetry entry (not linked to the above user): a contractor aged 29 in Gujin-do office using shift code 'B', device model 'HPH-MB5', and locale 'ko-KR' opened HR FAQ at 20:10; these demographics are generic and do not identify a person alone.\nFor avoidance of doubt, CSR and ESG metrics in the report library were not altered; carbon intensity figures remain as previously disclosed in the 2025 Sustainability Update.\nPursuant to PIPA and internal security policy, we will notify affected employees and retain forensic logs for 3 years; data minimization controls around DOB and location tagging will be tightened.\nPursuant to FSCMA disclosure standards and Jeonghan Exchange rules, potential MNPI in the draft forecast will be escrowed and disclosed if and when the board resolves a material change.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -375,6 +383,24 @@
       "category": "MNPI",
       "matched_text": "Insider List",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data/PIPL: processing limited to transaction diligence; no minors under 14 data; any resident ID copies redacted; cross-border transfer (if any) to Investor\u2019s counsel requires CAC security assessment or standard contract filing; primary data room in Beijing with backup node in Chengdu; no biometric templates in scope.\nFinance contact cluster \u2014 Mr. He Yuchen (DOB 1989-11-02, age 36), Role: VP Finance at Qishan; office: Building 3, Pudong New Area (fict.), Shanghai; device tag: CN-PD-Fin-RedMi-7A; payroll ref: GL-1130-HE-1102; internal a c c t: he.yuchen@qishan-opto.cn; res i d e n t I D (masked): 31 0X 1989 1 1 0 2 **** 12X3; s e s s: sh_pd_0034 via https://intranet.qishan-opto.cn/auth?s=he_1102&loc=PD.\nSeparated weak IDs (non-identifying): common test device QX-202 used by 25\u201335-year-old engineers in Nanshan District; generic VPN pool name \u201cSZ-R&D-02\u201d; sample birth month \u201c1993-05\u201d without name; these do not alone identify any person",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential CN Term Sheet (MNPI): Proposed Series C Preferred Share investment in Qishan Integrated Optoelectronics Co., Ltd.; information herein is inside information under the PRC Securities Law until formally announced via SSE disclosure.\nParties: Investor \u2014 Harborview Delta Fund SPC\u2013Subfund A (Cayman); Issuer \u2014 Qishan Integrated Optoelectronics Co., Ltd. (USCC: 91A0 8Z3Q 00X0 0X9Y 1, reg. seat: Fictitious Science Park, Yuelu District, Changsha).\nTransaction: RMB 220,000,000 for 12% Series C, pre-money RMB 1,540,000,000; liquidation preference 1x non-participating; one board seat to Investor; customary anti-dilution and veto list.\nUse of proceeds: expand microLED line (product names: Aurora-Pixel X3, NeoDriver 7), repay supplier credit; no funds used for data brokerage or unrelated devices; ordinary course capex only.\nListing: Company targets STAR Market (SSE) filing within 18 months; CSRC registration to follow; issuer will prepare prospectus drafts and maintain insider lists per CSRC guidance; no public marketing until approval.\nConditions precedent: SAMR anti-monopoly filing if turnover threshold met; DSL compliance with critical data self-assessment; MLPS level-3 certification for core network; SAFE registration for inbound capital; completion of vendor legal opinions.\nData/PIPL: processing limited to transaction diligence; no minors under 14 data; any resident ID copies redacted; cross-border transfer (if any) to Investor\u2019s counsel requires CAC security assessment or standard contract filing; primary data room in Beijing with backup node in Chengdu; no biometric templates in scope.\nFinance contact cluster \u2014 Mr. He Yuchen (DOB 1989-11-02, age 36), Role: VP Finance at Qishan; office: Building 3, Pudong New Area (fict.), Shanghai; device tag: CN-PD-Fin-RedMi-7A; payroll ref: GL-1130-HE-1102; internal a c c t: he.yuchen@qishan-opto.cn; res i d e n t I D (masked): 31 0X 1989 1 1 0 2 **** 12X3; s e s s: sh_pd_0034 via https://intranet.qishan-opto.cn/auth?s=he_1102&loc=PD.\nSeparated weak IDs (non-identifying): common test device QX-202 used by 25\u201335-year-old engineers in Nanshan District; generic VPN pool name \u201cSZ-R&D-02\u201d; sample birth month \u201c1993-05\u201d without name; these do not alone identify any person.\nEmployment & ESOP: 10% post-money option pool; onboarding workflows keep HRIS resident IDs salted/hashed; during diligence only aggregated attrition rates and salary bands are shared; public-source references may include MIIT bulletins and anonymized industry whitepapers.\nConfidentiality/MNPI: parties acknowledge receipt of inside information; no A-share trading of issuer\u2019s suppliers or customers on the basis of this information until publicly disclosed via SSE; Insider List maintained per CSRC Announcement [fictional]-2026-07.\nCompliance carve-outs: no MAC (Material Adverse Change) shall be deemed to occur due to sector-wide chip cycle; for clarity, device M A C addresses and IMEI values are not collected in the data room, and IPs are logged only in truncated form.\nCyber/CSL undertakings: endpoint logging limited to pseudonymous IDs; device inventories tagged by role (e.g., \u201cFinance-Tablet-7A\u201d) not by name; any cross-border log export paused pending CAC filing; data mapping retained for 3 years in PRC.\nClosing mechanics: funds to be wired to designated capital account at a fictitious bank upon CP satisfaction; for test purposes an obfuscated bank ref appears as CN- B A N K - 88 4 5 - XX29; VAT invoice workflow will be performed via e-fapiao portal; no beneficial ownership changes before closing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

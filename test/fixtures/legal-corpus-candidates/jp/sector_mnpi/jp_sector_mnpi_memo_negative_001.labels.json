@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -105,7 +131,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "個人番号",
+      "matched_text": "\u500b\u4eba\u756a\u53f7",
       "rule": "jp_my_number"
     },
     {
@@ -140,7 +166,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Scope: APPI (個人情報保護法)/My Number protocols for HR, board processes, acquisition review, and securities workflows for a TSE-listed issuer.",
+      "matched_text": "Scope: APPI (\u500b\u4eba\u60c5\u5831\u4fdd\u8b77\u6cd5)/My Number protocols for HR, board processes, acquisition review, and securities workflows for a TSE-listed issuer.",
       "rule": "material_event"
     },
     {
@@ -167,7 +193,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Scope: APPI (個人情報保護法)/My Number protocols for HR, board processes, acquisition review, and securities workflows for a TSE-listed issuer.",
+      "matched_text": "Scope: APPI (\u500b\u4eba\u60c5\u5831\u4fdd\u8b77\u6cd5)/My Number protocols for HR, board processes, acquisition review, and securities workflows for a TSE-listed issuer.",
       "rule": "material_event"
     },
     {
@@ -199,6 +225,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: APPI (\u500b\u4eba\u60c5\u5831\u4fdd\u8b77\u6cd5)/My Number protocols for HR, board processes, acquisition review, and securities workflows for a TSE-listed issuer.\nEducational note: employees must not store \u500b\u4eba\u756a\u53f7 in chat tools; use HR Form A with placeholder \"My Number: XX00-000X-123X\" and submit via the compliance mailbox hr-privacy@kosen-tech.example.\nMarketing use: ESG/climate claims in brochures reflect already-published sustainability report dated 2023-06; no new commitments; link to the public site.\nOperations-only crypto reference: cafeteria pilot tokens \"K-Meal\" are prepaid vouchers; no listing, no trading, and no investment solicitation under FIEA.\nTabletop cyber incident: quarterly drill assumes a hypothetical breach of \"cloud store B\"; this scenario is training material and not an actual event.\nInformation-barrier signage: standard wall-crossing procedure applies to demos; this memo does not grant access to any restricted project.\nInsider-list practice: use template IL-000-TEST, populate with roles (e.g., Finance Ops) for blackout training; do not include My Number or home contacts.\nCommercial-term samples: price sheets in Sales Sandbox carry watermarked samples only; they are not binding offers and have been posted on our public website.\nThe board has reviewed a non-public proposal to acquire a minority stake in Hokusei Ledger KK; TDnet filing has not been made and TOB applicability is under counsel review; treat as FIEA material facts and maintain the insider list accordingly.\nSecurity Team reported indicators consistent with a potential unauthorized access to the issuer\u2019s crypto custody test environment; until confirmed and disclosed, handle under undisclosed material fact protocols.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -251,31 +283,13 @@
     },
     {
       "concept": "jp_my_number anchor term",
-      "matched_text": "個人番号",
+      "matched_text": "\u500b\u4eba\u756a\u53f7",
       "reason": "Term references My Number but no actual identifier value present"
     },
     {
       "concept": "nonpublic disclosure status",
       "matched_text": "TDnet filing has not been made",
       "reason": "Indicates lack of public disclosure; may not be part of the enumerated nonpublic markers"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

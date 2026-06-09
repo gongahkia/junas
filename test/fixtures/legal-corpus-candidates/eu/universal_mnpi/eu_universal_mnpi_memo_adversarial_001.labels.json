@@ -39,6 +39,8 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "EU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public support-hotline bait, obfuscated VAT/tax/passport phone-shaped fragments, dotted-date and filing-reference phone bait, role/placeholder emails, template passport values, EU registry/ISIN/LEI/tax numeric fragments, log-id amount fragments, placeholder country-code phones, and negated MAE/contingent-MNPI language. Full EU member-state national-ID breadth and broader semantic GDPR special-category coverage remain ideal-tier gaps.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T17:29:37Z",
@@ -46,6 +48,49 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-eu-stage-a-reviewed.json",
     "status": "owner_approved_eu_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_preserving_existing_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 47,
+    "current_must_detect_count": 22,
+    "current_must_not_detect_count": 4,
+    "previous_ideal_must_detect_count": 47,
+    "previous_must_detect_count": 22,
+    "previous_must_not_detect_count": 4
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -55,350 +100,368 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Livia Marek"
+      "matched_text": "Dr. Livia Marek",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jonas Petrescu"
+      "matched_text": "Mr. Jonas Petrescu",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "l.marek@auroravale.eu"
+      "matched_text": "l.marek@auroravale.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "jonas.petrescu@heliogrid.sa"
+      "matched_text": "jonas.petrescu@heliogrid.sa",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "120-000-000"
+      "matched_text": "120-000-000",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EID: AV-e1x-7Q"
+      "matched_text": "EID: AV-e1x-7Q",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "token=se_a-br1ght_2026"
+      "matched_text": "token=se_a-br1ght_2026",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimisation"
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "replace employee names with pseudonyms"
+      "matched_text": "replace employee names with pseudonyms",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "redact contact details"
+      "matched_text": "redact contact details",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border processing"
+      "matched_text": "cross-border processing",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfers"
+      "matched_text": "cross-border transfers",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "HR data to remain on EU servers only"
+      "matched_text": "HR data to remain on EU servers only",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "wellness/medical accommodation records"
+      "matched_text": "wellness/medical accommodation records",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "A V A L - 0 0 - X X - 0 0 0 0"
+      "matched_text": "A V A L - 0 0 - X X - 0 0 0 0",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "A U R - 0 1 - X X - 9 9 9 9 9 9"
+      "matched_text": "A U R - 0 1 - X X - 9 9 9 9 9 9",
+      "rule": "bank_account"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "INSIDE INFORMATION"
+      "matched_text": "INSIDE INFORMATION",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Seabright"
+      "matched_text": "Project Seabright",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo until 2026-07-15 08:00 CET"
+      "matched_text": "embargo until 2026-07-15 08:00 CET",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo lift"
+      "matched_text": "embargo lift",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list entry code I N S - S B - 0 7"
+      "matched_text": "insider list entry code I N S - S B - 0 7",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "update insider list (Annex II)"
+      "matched_text": "update insider list (Annex II)",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean-team protocol"
+      "matched_text": "clean-team protocol",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "wall-cross"
+      "matched_text": "wall-cross",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not circulate"
+      "matched_text": "do not circulate",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "hold until embargo expiry"
+      "matched_text": "hold until embargo expiry",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed acquisition of a 27.5% stake in HelioGrid S.A"
+      "matched_text": "Proposed acquisition of a 27.5% stake in HelioGrid S.A",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "€240,000,000"
+      "matched_text": "\u20ac240,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "27.5%"
+      "matched_text": "27.5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "10%"
+      "matched_text": "10%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12%"
+      "matched_text": "12%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "42%"
+      "matched_text": "42%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "60%"
+      "matched_text": "60%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not disclosed"
+      "matched_text": "not disclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not public"
+      "matched_text": "not public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "expected Taxonomy-aligned revenues of 42% post-closing"
+      "matched_text": "expected Taxonomy-aligned revenues of 42% post-closing",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed acquisition of a 27.5% stake in HelioGrid S.A. for ~€240,000,000 cash; valuation metrics and break fee are not disclosed externally and remain MNPI under MAR."
+      "matched_text": "Proposed acquisition of a 27.5% stake in HelioGrid S.A. for ~\u20ac240,000,000 cash; valuation metrics and break fee are not disclosed externally and remain MNPI under MAR.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Status: definitive Share Purchase Agreement (SPA) targeted for execution on 2026-06-30; conditions precedent include merger control clearances in Unionia and Seravia, employee information/consultation, and no withdrawal of key transmission licences."
+      "matched_text": "Status: definitive Share Purchase Agreement (SPA) targeted for execution on 2026-06-30; conditions precedent include merger control clearances in Unionia and Seravia, employee information/consultation, and no withdrawal of key transmission licences.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "CSRD/SFDR: initial double-materiality mapping complete; expected Taxonomy-aligned revenues of 42% post-closing; PAI indicators and transition plan will be included in the next sustainability statement (issuer-level)."
+      "matched_text": "CSRD/SFDR: initial double-materiality mapping complete; expected Taxonomy-aligned revenues of 42% post-closing; PAI indicators and transition plan will be included in the next sustainability statement (issuer-level).",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Research/IR draft (not public): internal model shows ~12% synergy uplift not in current guidance; mid-single-digit EPS accretion expected in year two; draft Q&A prepared for investors, hold until embargo expiry."
+      "matched_text": "Research/IR draft (not public): internal model shows ~12% synergy uplift not in current guidance; mid-single-digit EPS accretion expected in year two; draft Q&A prepared for investors, hold until embargo expiry.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "240,000,000"
+      "matched_text": "240,000,000",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "transition plan"
+      "matched_text": "transition plan",
+      "rule": "esg_climate_pre_disclosure"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "l.marek@auroravale.eu"
+      "matched_text": "l.marek@auroravale.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "jonas.petrescu@heliogrid.sa"
+      "matched_text": "jonas.petrescu@heliogrid.sa",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimisation"
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Livia Marek"
+      "matched_text": "Dr. Livia Marek",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jonas Petrescu"
+      "matched_text": "Mr. Jonas Petrescu",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed acquisition of a 27.5% stake in HelioGrid S.A. for ~€240,000,000 cash; valuation metrics and break fee are not disclosed externally and remain MNPI under MAR."
+      "matched_text": "Proposed acquisition of a 27.5% stake in HelioGrid S.A. for ~\u20ac240,000,000 cash; valuation metrics and break fee are not disclosed externally and remain MNPI under MAR.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Status: definitive Share Purchase Agreement (SPA) targeted for execution on 2026-06-30; conditions precedent include merger control clearances in Unionia and Seravia, employee information/consultation, and no withdrawal of key transmission licences."
+      "matched_text": "Status: definitive Share Purchase Agreement (SPA) targeted for execution on 2026-06-30; conditions precedent include merger control clearances in Unionia and Seravia, employee information/consultation, and no withdrawal of key transmission licences.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "CSRD/SFDR: initial double-materiality mapping complete; expected Taxonomy-aligned revenues of 42% post-closing; PAI indicators and transition plan will be included in the next sustainability statement (issuer-level)."
+      "matched_text": "CSRD/SFDR: initial double-materiality mapping complete; expected Taxonomy-aligned revenues of 42% post-closing; PAI indicators and transition plan will be included in the next sustainability statement (issuer-level).",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Research/IR draft (not public): internal model shows ~12% synergy uplift not in current guidance; mid-single-digit EPS accretion expected in year two; draft Q&A prepared for investors, hold until embargo expiry."
+      "matched_text": "Research/IR draft (not public): internal model shows ~12% synergy uplift not in current guidance; mid-single-digit EPS accretion expected in year two; draft Q&A prepared for investors, hold until embargo expiry.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Seabright"
+      "matched_text": "Project Seabright",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "€240,000,000"
+      "matched_text": "\u20ac240,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "27.5%"
+      "matched_text": "27.5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "10%"
+      "matched_text": "10%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "42%"
+      "matched_text": "42%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12%"
+      "matched_text": "12%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "60%"
+      "matched_text": "60%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "240,000,000"
+      "matched_text": "240,000,000",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "transition plan"
+      "matched_text": "transition plan",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact: Dr. Livia Marek (Chief Compliance Officer), l.marek@auroravale.eu, tel: +3X-120-000-000; alternate: Mr. Jonas Petrescu, jonas.petrescu@heliogrid.sa for operational queries.\nPublic-source note: per HelioGrid\u2019s 2025 sustainability report (https://reports.heliogrid.sa/public/2025.pdf), grid loss rates are 3.1%; this information is public and not inside information.\nResearch/IR draft (not public): internal model shows ~12% synergy uplift not in current guidance; mid-single-digit EPS accretion expected in year two; draft Q&A prepared for investors, hold until embargo expiry",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION \u2014 Project Seabright \u2014 embargo until 2026-07-15 08:00 CET; Strictly Confidential; for the Board of AuroraVale NV (EU issuer; listed on NordTerra Exchange MTF).\nProposed acquisition of a 27.5% stake in HelioGrid S.A. for ~\u20ac240,000,000 cash; valuation metrics and break fee are not disclosed externally and remain MNPI under MAR.\nStatus: definitive Share Purchase Agreement (SPA) targeted for execution on 2026-06-30; conditions precedent include merger control clearances in Unionia and Seravia, employee information/consultation, and no withdrawal of key transmission licences.\nMAC/MAE: Clause 8 triggers include loss of grid concession or >10% EBITDA shortfall; for the avoidance of doubt, no MAC or MAE has occurred since FY2025, and Seller covenants to notify of any event reasonably likely to constitute a MAC.\nMAR workflow: update insider list (Annex II) and wall-cross three long-only funds T-1 under clean-team protocol; ad hoc announcement draft to be released upon embargo lift with concurrent investor presentation.\nCSRD/SFDR: initial double-materiality mapping complete; expected Taxonomy-aligned revenues of 42% post-closing; PAI indicators and transition plan will be included in the next sustainability statement (issuer-level).\nGDPR: data room contains personal data; special-category data (Art 9) may arise from HelioGrid wellness/medical accommodation records\u2014do not upload; any cross-border processing to Seravia Processors SE occurs under SCCs (Art 46) with TIA logged.\nData minimisation: replace employee names with pseudonyms (e.g., EID: AV-e1x-7Q) and redact contact details; beneficiary IBANs must not be shared\u2014see masked field A V A L - 0 0 - X X - 0 0 0 0; HR data to remain on EU servers only.\nContact: Dr. Livia Marek (Chief Compliance Officer), l.marek@auroravale.eu, tel: +3X-120-000-000; alternate: Mr. Jonas Petrescu, jonas.petrescu@heliogrid.sa for operational queries.\nPublic-source note: per HelioGrid\u2019s 2025 sustainability report (https://reports.heliogrid.sa/public/2025.pdf), grid loss rates are 3.1%; this information is public and not inside information.\nResearch/IR draft (not public): internal model shows ~12% synergy uplift not in current guidance; mid-single-digit EPS accretion expected in year two; draft Q&A prepared for investors, hold until embargo expiry.\nproject management: update term sheet annexes, refresh diligence tracker v14, prepare board pack by tuesday; spa-day vouchers will be distributed friday\u2014ignore for decision-making.\nContract I D: PRJ-SB-2026-00l (ell), data room link https://data.auroravale.eu/d/PRJ-SB?token=se_a-br1ght_2026; insider list entry code I N S - S B - 0 7 to be appended.\nFunding and settlement: do not circulate\u2014wire to Aurora Escrow SE acct A U R - 0 1 - X X - 9 9 9 9 9 9; hedge coverage locked for 60% notional; anticipated settlement D+2 post-announcement.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -422,66 +485,29 @@
   "source_jurisdiction": "EU",
   "uncertain": [
     {
-      "matched_text": "embargo until 2026-07-15 08:00 CET",
       "concept": "embargo_marker",
+      "matched_text": "embargo until 2026-07-15 08:00 CET",
       "reason": "Embargo phrasing variant not explicitly listed (Embargoed/Press Hold) but functionally equivalent."
     },
     {
-      "matched_text": "A V A L - 0 0 - X X - 0 0 0 0",
       "concept": "masked_bank_account",
+      "matched_text": "A V A L - 0 0 - X X - 0 0 0 0",
       "reason": "Masked IBAN-like reference; likely bank account detail but obfuscated format may evade strict detectors."
     },
     {
-      "matched_text": "A U R - 0 1 - X X - 9 9 9 9 9 9",
       "concept": "masked_bank_account",
+      "matched_text": "A U R - 0 1 - X X - 9 9 9 9 9 9",
       "reason": "Masked account reference; bank account indicator but non-standard format."
     },
     {
-      "matched_text": "Contract I D: PRJ-SB-2026-00l (ell)",
       "concept": "internal_contract_id",
+      "matched_text": "Contract I D: PRJ-SB-2026-00l (ell)",
       "reason": "Internal identifier potentially sensitive but not covered by listed PII rules."
     },
     {
-      "matched_text": "I N S - S B - 0 7",
       "concept": "insider_list_code",
+      "matched_text": "I N S - S B - 0 7",
       "reason": "Specific insider-list code; sensitive but may not be captured by rule keyed to the phrase 'insider list'."
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_preserving_existing_owner_approval",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 22,
-    "current_must_detect_count": 22,
-    "previous_ideal_must_detect_count": 47,
-    "current_ideal_must_detect_count": 47,
-    "previous_must_not_detect_count": 4,
-    "current_must_not_detect_count": 4
-  }
+  ]
 }

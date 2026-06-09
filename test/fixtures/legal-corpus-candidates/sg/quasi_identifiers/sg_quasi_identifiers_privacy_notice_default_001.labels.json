@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -234,6 +242,18 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal Data under the PDPA includes direct identifiers and quasi-identifiers that can identify an individual when combined with other information reasonably accessible to us.\nFor illustration of processing scope, Ms. Adeline Kwa (born 1990-05-14, age 36), Associate Compliance Officer at Lion Meridian Capital Ltd., used company laptop LMC-SG-LT-9833 and messenger handle akwa_audit06 to access the deal room from Harbourview Annex, 12 Coral Quay, Singapore 000123 at 12:10 SGT (session ref EQOPS-2026-06-01-T12).\nThe foregoing data points may constitute personal data and, when linked to pre-announcement term sheets, may also be associated with MNPI as defined under the SFA and SGX Listing Manual (e.g., Rule 703 material information)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For illustration of processing scope, Ms. Adeline Kwa (born 1990-05-14, age 36), Associate Compliance Officer at Lion Meridian Capital Ltd., used company laptop LMC-SG-LT-9833 and messenger handle akwa_audit06 to access the deal room from Harbourview Annex, 12 Coral Quay, Singapore 000123 at 12:10 SGT (session ref EQOPS-2026-06-01-T12).\nThe foregoing data points may constitute personal data and, when linked to pre-announcement term sheets, may also be associated with MNPI as defined under the SFA and SGX Listing Manual (e.g., Rule 703 material information).\nAccess to MNPI is limited to a clean team and named reviewers (e.g., Mr. Rohan Pillay, Deal Room Manager, Straits Harbour Law LLC), with insider lists maintained for SGX compliance and wall-crossing acknowledgments recorded.\nWe implement role-based controls, two-factor authentication for the virtual data room, hashed session IDs (e.g., vrm_sess_7f12ac9), and segregated folders for HR versus capital-markets materials.\nCross-border transfers, if any, will be to approved subprocessors such as Cloud Raptor Services Pte. Ltd. (SG hosting) and Nordic Banyan Data AS (NO analytics), under contracts ensuring a PDPA-comparable standard of protection and documented transfer risk assessments.\nRetention for transaction files and trading surveillance logs is up to 5 years to meet SFA/SGX obligations on records and disclosure controls, unless a legal hold requires longer.\nIndividuals may submit data access or correction requests to dpo@lionmeridiancap.sg or privacy@straitsharbourlaw.sg; we target a response within 30 days and may charge a reasonable fee for complex retrieval.\nFor workforce analytics and capacity planning, we may use aggregated descriptors (e.g., analysts aged 30\u201334 in the east region or Android device users) that are not used to single out any person.\nSimilar but non-identifying signals (e.g., device model \u201cAsterTab 9\u201d, Wi\u2011Fi SSID \u201cGuest-Board-3F\u201d, or private IP 10.64.21.45) appearing alone in logs are treated as operational data unless linked to an identified individual.\nWe do not solicit NRIC numbers or exact birthdays in investor roadshow registrations unless strictly necessary by law or regulation, and such forms are segregated from deal documentation.\nIn the event of a notifiable breach likely to result in significant harm, we will notify the PDPC as required and, where relevant, inform SGX if there is a risk of MNPI leakage affecting continuous disclosure.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

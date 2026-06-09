@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -47,17 +55,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Rami Al‑Harbi",
+      "matched_text": "Mr. Rami Al\u2011Harbi",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Leena Al‑Sudairy",
+      "matched_text": "Dr. Leena Al\u2011Sudairy",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Adnan Al‑Mutlaq",
+      "matched_text": "Mr. Adnan Al\u2011Mutlaq",
       "rule": "named_person"
     },
     {
@@ -82,12 +90,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Iqama: 20 1‑4*‑**83",
+      "matched_text": "Iqama: 20 1\u20114*\u2011**83",
       "rule": "sa_iqama"
     },
     {
       "category": "PII",
-      "matched_text": "National ID: 1 0 9 7‑**‑**56 34",
+      "matched_text": "National ID: 1 0 9 7\u2011**\u2011**56 34",
       "rule": "sa_national_id"
     },
     {
@@ -102,12 +110,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "+966‑11‑555‑0909",
+      "matched_text": "+966\u201111\u2011555\u20110909",
       "rule": "phone_number"
     },
     {
       "category": "PII",
-      "matched_text": "Eng. Salma Al‑Qassim",
+      "matched_text": "Eng. Salma Al\u2011Qassim",
       "rule": "named_person"
     },
     {
@@ -122,7 +130,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non‑public and price‑sensitive",
+      "matched_text": "non\u2011public and price\u2011sensitive",
       "rule": "nonpublic_marker"
     },
     {
@@ -137,7 +145,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "insider list updated (IL‑25‑0 0 7)",
+      "matched_text": "insider list updated (IL\u201125\u20110 0 7)",
       "rule": "insider_list_marker"
     },
     {
@@ -152,7 +160,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "do not brief sell‑side",
+      "matched_text": "do not brief sell\u2011side",
       "rule": "tipping_language"
     },
     {
@@ -162,7 +170,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Examples (fictional, redacted): Eng. Salma Al‑Qassim — Iqama: 20 1‑4*‑**83, email: salma.qassim@najdsholding.sa; Mr. Rami Al‑Harbi — National ID: 1 0 9 7‑**‑**56 34, phone ext. 4 1 2",
+      "matched_text": "Examples (fictional, redacted): Eng. Salma Al\u2011Qassim \u2014 Iqama: 20 1\u20114*\u2011**83, email: salma.qassim@najdsholding.sa; Mr. Rami Al\u2011Harbi \u2014 National ID: 1 0 9 7\u2011**\u2011**56 34, phone ext. 4 1 2",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -177,7 +185,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "This information is non‑public and price‑sensitive under the KCMA Market Conduct Code",
+      "matched_text": "This information is non\u2011public and price\u2011sensitive under the KCMA Market Conduct Code",
       "rule": "nonpublic_marker"
     },
     {
@@ -202,7 +210,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "issuer‑relative materiality threshold",
+      "matched_text": "issuer\u2011relative materiality threshold",
       "rule": "material_event"
     }
   ],
@@ -219,17 +227,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Rami Al‑Harbi",
+      "matched_text": "Mr. Rami Al\u2011Harbi",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Leena Al‑Sudairy",
+      "matched_text": "Dr. Leena Al\u2011Sudairy",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Adnan Al‑Mutlaq",
+      "matched_text": "Mr. Adnan Al\u2011Mutlaq",
       "rule": "named_person"
     },
     {
@@ -246,6 +254,30 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "At 23:40 KSA time on 2025-05-14, our SOC flagged anomalous access to the HR payroll vault; preliminary triage shows limited exfiltration of hashed employee fields and several partially masked Iqama/National ID entries.\nExamples (fictional, redacted): Eng. Salma Al\u2011Qassim \u2014 Iqama: 20 1\u20114*\u2011**83, email: salma.qassim@najdsholding.sa; Mr. Rami Al\u2011Harbi \u2014 National ID: 1 0 9 7\u2011**\u2011**56 34, phone ext. 4 1 2.\nCurrent operational impact is constrained to the Riyadh payroll batch; revenue impact from delayed service renewals is estimated at 6.2% of Q2 segment sales, which may meet our issuer\u2011relative materiality threshold per Continuing Obligations policy",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No cross\u2011border personal data transfer has occurred; a PDPL transfer permit request has been lodged with the State Data & AI Authority portal (SDAA) \u2014 case https://permits.sdaa.example.sa/tx?ref=CR-11-004-77&case=8f2a-9b-33 \u2014 pending approval for forensic review by a vendor outside KSA.\nFor clarity, this incident is unrelated to our already announced logistics footprint plan (public filing RE\u2011NJDH\u20112025\u201105\u2011001 on 2025\u201105\u201102 G: https://ir.najdsholding.sa/ann?id=RE-NJDH-2025-05-001) and to the sustainability press release dated 2025\u201102\u201110 (widely distributed).\nThe third\u2011party cloud provider\u2019s public status page notes a routine RY\u20113 maintenance window in Jeddah on 2025\u201105\u201112; that public information is operational and does not pertain to issuer MNPI",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact: compliance@najdsholding.sa and ir@najdsholding.sa; hotline +966\u201111\u2011555\u20110909; sign\u2011off by Dr. Leena Al\u2011Sudairy (Chair, Disclosure Committee) and Mr. Adnan Al\u2011Mutlaq (CIO)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Examples (fictional, redacted): Eng. Salma Al\u2011Qassim \u2014 Iqama: 20 1\u20114*\u2011**83, email: salma.qassim@najdsholding.sa; Mr. Rami Al\u2011Harbi \u2014 National ID: 1 0 9 7\u2011**\u2011**56 34, phone ext. 4 1 2.\nCurrent operational impact is constrained to the Riyadh payroll batch; revenue impact from delayed service renewals is estimated at 6.2% of Q2 segment sales, which may meet our issuer\u2011relative materiality threshold per Continuing Obligations policy.\nThis information is non\u2011public and price\u2011sensitive under the KCMA Market Conduct Code; selective disclosure is prohibited and distribution is limited to the Disclosure Committee, Audit Chair, and IR, with an insider list maintained on request.\nWe are within a closed period (blackout window) from 1447/11/05 H until the H1 results announcement; insiders are restricted from trading until T+1 after any market disclosure.\nSubject to the Disclosure Committee\u2019s decision at 08:00 AST, we will submit an immediate material development notice on the Rimal Exchange portal before continuous trading commences, or defer to periodic reporting if impact is confirmed immaterial.\nNo cross\u2011border personal data transfer has occurred; a PDPL transfer permit request has been lodged with the State Data & AI Authority portal (SDAA) \u2014 case https://permits.sdaa.example.sa/tx?ref=CR-11-004-77&case=8f2a-9b-33 \u2014 pending approval for forensic review by a vendor outside KSA.\nFor clarity, this incident is unrelated to our already announced logistics footprint plan (public filing RE\u2011NJDH\u20112025\u201105\u2011001 on 2025\u201105\u201102 G: https://ir.najdsholding.sa/ann?id=RE-NJDH-2025-05-001) and to the sustainability press release dated 2025\u201102\u201110 (widely distributed).\nThe third\u2011party cloud provider\u2019s public status page notes a routine RY\u20113 maintenance window in Jeddah on 2025\u201105\u201112; that public information is operational and does not pertain to issuer MNPI.\nWe do not expect a material adverse change to consolidated cash flows, and our cyber response remains within policy; this line is generic policy text and should not affect securities\u2011law analysis.\nInternal note (lowercase): project-management task \"sahara-mail sprint 14\" continues; product names and internal tickets are not for market disclosure.\nInsider controls: insider list updated (IL\u201125\u20110 0 7); breach ticket IR\u201125\u201100A\u201174 opened; please do not forward externally and do not brief sell\u2011side until a public notice",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -254,7 +286,7 @@
       "reason": "Negated 'no MAC' reference; do not label per rule."
     },
     {
-      "matched_text": "RE‑NJDH‑2025‑05‑001",
+      "matched_text": "RE\u2011NJDH\u20112025\u201105\u2011001",
       "reason": "Public filing reference; not MNPI."
     },
     {
@@ -266,7 +298,7 @@
       "reason": "Ticker symbol; not a supported counter rule for this taxonomy."
     },
     {
-      "matched_text": "RY‑3",
+      "matched_text": "RY\u20113",
       "reason": "Public operational reference; not issuer MNPI."
     },
     {
@@ -296,12 +328,12 @@
     },
     {
       "concept": "internal identifier",
-      "matched_text": "IL‑25‑0 0 7",
+      "matched_text": "IL\u201125\u20110 0 7",
       "reason": "Insider list code; may be sensitive operational data but not mapped to a specific allowed rule."
     },
     {
       "concept": "internal incident reference",
-      "matched_text": "IR‑25‑00A‑74",
+      "matched_text": "IR\u201125\u201100A\u201174",
       "reason": "Internal breach ticket ID; potential internal identifier category but not explicitly in allowed rules."
     },
     {

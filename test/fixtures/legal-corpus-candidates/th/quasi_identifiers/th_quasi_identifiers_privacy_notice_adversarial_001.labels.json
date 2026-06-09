@@ -1,215 +1,288 @@
 {
-  "doc_id": "th_quasi_identifiers_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "arun.t@lannameridian.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "siriporn.w@lannameridian.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66 2 123 4500"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSARs"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1990-04-21"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1979-07-09"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Arun Thephasadin"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Arun"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Lanna Meridian PCL (a SET-listed public company) \u2014 Thailand PDPA Privacy Notice and Data Processing Addendum for financing, employment, and SEC disclosure workflows with Ayu Data Services Co., Ltd. as Processor."
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_quasi_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "arun.t@lannameridian.co.th"
+      "matched_text": "arun.t@lannameridian.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "siriporn.w@lannameridian.co.th"
+      "matched_text": "siriporn.w@lannameridian.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66 2 123 4500"
+      "matched_text": "+66 2 123 4500",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSARs"
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1990-04-21"
+      "matched_text": "1990-04-21",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1979-07-09"
+      "matched_text": "1979-07-09",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Arun Thephasadin"
+      "matched_text": "Mr. Arun Thephasadin",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Arun"
+      "matched_text": "Mr. Arun",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Lanna Meridian PCL (a SET-listed public company) \u2014 Thailand PDPA Privacy Notice and Data Processing Addendum for financing, employment, and SEC disclosure workflows with Ayu Data Services Co., Ltd. as Processor."
+      "matched_text": "Lanna Meridian PCL (a SET-listed public company) \u2014 Thailand PDPA Privacy Notice and Data Processing Addendum for financing, employment, and SEC disclosure workflows with Ayu Data Services Co., Ltd. as Processor.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 35"
+      "matched_text": "age 35",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfers"
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@lannameridian.co.th"
+      "matched_text": "dpo@lannameridian.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "sid=9f2c7a-ARU21"
+      "matched_text": "sid=9f2c7a-ARU21",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Khun Siriporn Wattanakul"
+      "matched_text": "Khun Siriporn Wattanakul",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "support@ayu-data.co.th"
+      "matched_text": "support@ayu-data.co.th",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "nonpublic"
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "(Assistant Treasury Manager, born 1990-04-21, age 35) at Lanna Meridian PCL, office: 140 Sathorn 10, Bangkok 10500, arun.t@lannameridian.co.th"
+      "matched_text": "(Assistant Treasury Manager, born 1990-04-21, age 35) at Lanna Meridian PCL, office: 140 Sathorn 10, Bangkok 10500, arun.t@lannameridian.co.th",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "mac_address",
-      "matched_text": "MAC 8 8:b9:1f:2c:**:**"
+      "matched_text": "MAC 8 8:b9:1f:2c:**:**",
+      "rule": "mac_address"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "VPN sess id=ARU21-9f2c\u2022\u2022"
+      "matched_text": "VPN sess id=ARU21-9f2c\u2022\u2022",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "203.150.77.2*"
+      "matched_text": "203.150.77.2*",
+      "rule": "ip_address"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "t14\u2011**77"
+      "matched_text": "t14\u2011**77",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "LMN\u2011TREA\u2011021"
+      "matched_text": "LMN\u2011TREA\u2011021",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we may verify identity using corporate email and last login timestamp only"
+      "matched_text": "we may verify identity using corporate email and last login timestamp only",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Submit DSARs"
+      "matched_text": "Submit DSARs",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure obligations"
+      "matched_text": "selective disclosure obligations",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse change"
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "segregated, access-logged"
+      "matched_text": "segregated, access-logged",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "arun.t@lannameridian.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "siriporn.w@lannameridian.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66 2 123 4500",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-04-21",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1979-07-09",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arun Thephasadin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arun",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lanna Meridian PCL (a SET-listed public company) \u2014 Thailand PDPA Privacy Notice and Data Processing Addendum for financing, employment, and SEC disclosure workflows with Ayu Data Services Co., Ltd. as Processor.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Example log for audit: Mr. Arun Thephasadin (Assistant Treasury Manager, born 1990-04-21, age 35) at Lanna Meridian PCL, office: 140 Sathorn 10, Bangkok 10500, arun.t@lannameridian.co.th, accessed draft covenant schedules at 2025-03-02T09:14:55+07:00",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers: limited HR/payroll items for Mr. Arun are sent to Meridian Capital KK (Tokyo) with PDPA Section 28 safeguards and intra\u2011group DTA; no MNPI is transferred to marketing systems.\nSubmit DSARs to dpo@lannameridian.co.th or via https://privacy.lannameridian.co.th/dsar?ref=SE-2025&sid=9f2c7a-ARU21; we may verify identity using corporate email and last login timestamp only.\nUnlinked weak data captured for service diagnostics (not tied to a named person): DOB 1979-07-09; role \u201canalyst\u201d; province Chiang Mai; Android tablet; guest Wi\u2011Fi \u201cLMNGuest\u201d; browser en\u2011TH; order id QA\u2011LMN\u2011093; these alone do not enable identification",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lanna Meridian PCL (a SET-listed public company) \u2014 Thailand PDPA Privacy Notice and Data Processing Addendum for financing, employment, and SEC disclosure workflows with Ayu Data Services Co., Ltd. as Processor.\nWe process personal data (names, corporate emails, role titles, office location, device identifiers, account references, session logs) under PDPA lawful bases (contract, legal obligation to the Office of the SEC, and legitimate interests), including quasi-identifiers that may indirectly identify a person.\nFor SEA/SEC purposes, material nonpublic information (MNPI) tied to financing or Form 56-1 One Report preparation is segregated, access-logged, and disclosed only per Thai SEC rules; a public press note alone is not MNPI, and generic market commentary is not price sensitive.\nExample log for audit: Mr. Arun Thephasadin (Assistant Treasury Manager, born 1990-04-21, age 35) at Lanna Meridian PCL, office: 140 Sathorn 10, Bangkok 10500, arun.t@lannameridian.co.th, accessed draft covenant schedules at 2025-03-02T09:14:55+07:00.\nDevice and session context: iPhone 13 Pro; MAC 8 8:b9:1f:2c:**:**; VPN sess id=ARU21-9f2c\u2022\u2022; IP 203.150.77.2*; Wi\u2011Fi SSID LMN\u2011Corp; payroll acct \u201cSiam Futura Bank\u201d x\u20114321; badge LMN\u2011TREA\u2011021 (acc o u n t log ref A\u20112\u20111).\nCross-border transfers: limited HR/payroll items for Mr. Arun are sent to Meridian Capital KK (Tokyo) with PDPA Section 28 safeguards and intra\u2011group DTA; no MNPI is transferred to marketing systems.\nSubmit DSARs to dpo@lannameridian.co.th or via https://privacy.lannameridian.co.th/dsar?ref=SE-2025&sid=9f2c7a-ARU21; we may verify identity using corporate email and last login timestamp only.\nUnlinked weak data captured for service diagnostics (not tied to a named person): DOB 1979-07-09; role \u201canalyst\u201d; province Chiang Mai; Android tablet; guest Wi\u2011Fi \u201cLMNGuest\u201d; browser en\u2011TH; order id QA\u2011LMN\u2011093; these alone do not enable identification.\nAdditional telemetry (separate store): ThinkPad T14 serial t14\u2011**77; ip 10.13.*.*; device tag andr\u2011cc3d\u201177; meeting room \u201cChaba 3\u201d; none of this is combined with personnel records without a PDPA basis.\nPublic-source references (SET announcements, PDPC notices, company website) may be processed; this public data, or anonymized aggregates, are not treated as MNPI and are excluded from insider lists.\nFor avoidance of doubt, template changes, cosmetic UI labels, or sandbox figures shall not constitute a material adverse change, and do not trigger selective disclosure obligations.\nRetention: SEC/SET filings and insider lists 10 years; HR payroll artifacts 7 years; device session logs 180 days; \u201cpre\u2011close blue\u2011orchid\u201d folder auto\u2011deletes after 30 days; o c r line",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -226,94 +299,47 @@
       "reason": "Role-noun title, not PII/MNPI by itself"
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "Retention",
       "concept": "retention_marker",
+      "matched_text": "Retention",
       "reason": "Retention controls are privacy-event markers but not enumerated as a valid rule name"
     },
     {
-      "matched_text": "Bangkok 10500",
       "concept": "postal_address_TH",
+      "matched_text": "Bangkok 10500",
       "reason": "Thai postal code/address is identifying but no TH postal rule provided"
     },
     {
-      "matched_text": "140 Sathorn 10",
       "concept": "street_address",
+      "matched_text": "140 Sathorn 10",
       "reason": "Address element is identifying under PDPA but not covered by allowed rules"
     },
     {
-      "matched_text": "10.13.*.*",
       "concept": "ip_address_masked",
+      "matched_text": "10.13.*.*",
       "reason": "Appears to be an IP address but masked and may not meet strict pattern"
     },
     {
-      "matched_text": "QA\u2011LMN\u2011093",
       "concept": "internal_order_id",
+      "matched_text": "QA\u2011LMN\u2011093",
       "reason": "Order identifier can indirectly identify a person in context but lacks a specific allowed rule"
     },
     {
-      "matched_text": "A\u20112\u20111",
       "concept": "internal_log_reference",
+      "matched_text": "A\u20112\u20111",
       "reason": "Internal reference number can be a linkable ID but not covered by an allowed rule"
     },
     {
-      "matched_text": "pre\u2011close blue\u2011orchid",
       "concept": "transaction_codename_like",
+      "matched_text": "pre\u2011close blue\u2011orchid",
       "reason": "Project-like label but does not match the 'Project <Name>' pattern for transaction_codename"
     },
     {
-      "matched_text": "andr\u2011cc3d\u201177",
       "concept": "device_tag_id",
+      "matched_text": "andr\u2011cc3d\u201177",
       "reason": "Device tag is a linkable identifier but not listed in allowed rules"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

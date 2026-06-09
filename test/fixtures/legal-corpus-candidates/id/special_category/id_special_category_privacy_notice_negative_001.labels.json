@@ -1,100 +1,161 @@
 {
-  "doc_id": "id_special_category_privacy_notice_negative_001",
-  "document_type": "generic",
-  "source_jurisdiction": "ID",
-  "destination_jurisdiction": "ID",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MNPI carve-out: We redact material non-public information per POJK 10/202X and Bursa Efek Samudra rules; e.g., drafts on a contemplated acquisition announced publicly on 10-01-2025."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Board/fintech workflows: Board memo exports are scrubbed for MNPI before DSAR delivery; acquisition code names and target codenames are replaced with [Redacted-Deal] tags."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_special_category_privacy_notice_negative_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MNPI carve-out: We redact material non-public information per POJK 10/202X and Bursa Efek Samudra rules; e.g., drafts on a contemplated acquisition announced publicly on 10-01-2025."
+      "matched_text": "MNPI carve-out: We redact material non-public information per POJK 10/202X and Bursa Efek Samudra rules; e.g., drafts on a contemplated acquisition announced publicly on 10-01-2025.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Board/fintech workflows: Board memo exports are scrubbed for MNPI before DSAR delivery; acquisition code names and target codenames are replaced with [Redacted-Deal] tags."
+      "matched_text": "Board/fintech workflows: Board memo exports are scrubbed for MNPI before DSAR delivery; acquisition code names and target codenames are replaced with [Redacted-Deal] tags.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@ptdkn.example"
+      "matched_text": "dpo@ptdkn.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "0800-123-0000"
+      "matched_text": "0800-123-0000",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee-0127"
+      "matched_text": "Employee-0127",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "Employee-0127\u2019s medical leave file records insulin-based diabetes treatment for occupational health clearance only, with access restricted to Klinik Internal"
+      "matched_text": "Employee-0127\u2019s medical leave file records insulin-based diabetes treatment for occupational health clearance only, with access restricted to Klinik Internal",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Primary storage is in Jakarta (ID-01), with encrypted backup in SG-03 under Lintas Data Clauses and vendor PT SamudraCloud Nusantara (subprocessor list published)"
+      "matched_text": "Primary storage is in Jakarta (ID-01), with encrypted backup in SG-03 under Lintas Data Clauses and vendor PT SamudraCloud Nusantara (subprocessor list published)",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we do not collect union membership fields in onboarding forms"
+      "matched_text": "we do not collect union membership fields in onboarding forms",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI carve-out: We redact material non-public information per POJK 10/202X and Bursa Efek Samudra rules; e.g., drafts on a contemplated acquisition announced publicly on 10-01-2025.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Board/fintech workflows: Board memo exports are scrubbed for MNPI before DSAR delivery; acquisition code names and target codenames are replaced with [Redacted-Deal] tags.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI carve-out: We redact material non-public information per POJK 10/202X and Bursa Efek Samudra rules; e.g., drafts on a contemplated acquisition announced publicly on 10-01-2025.\nPublic/stale note: Information already disclosed in our 2025 keterbukaan informasi is treated as public and may be referenced with links, not attachments.\nRetention: SakuRaya Wallet transaction metadata (hashes, device alias, geofence buckets) is retained 5 years; TerasPay API logs 2 years; chat transcripts 12 months.\nEmployment: HRIS keeps attendance and payroll ledgers 7 years; access logs 18 months; we do not collect union membership fields in onboarding forms.\nIntentional special-category span: Employee-0127\u2019s medical leave file records insulin-based diabetes treatment for occupational health clearance only, with access restricted to Klinik Internal.\nBoard/fintech workflows: Board memo exports are scrubbed for MNPI before DSAR delivery; acquisition code names and target codenames are replaced with [Redacted-Deal] tags.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -131,79 +192,32 @@
       "reason": "Negated special-category mention; not collected."
     }
   ],
+  "source_jurisdiction": "ID",
   "uncertain": [
     {
-      "matched_text": "0000-0000-0000-0000",
       "concept": "id_nik",
+      "matched_text": "0000-0000-0000-0000",
       "reason": "Placeholder with hyphens; resembles NIK format but not a real ID and may not match strict patterns."
     },
     {
-      "matched_text": "Account ID",
       "concept": "customer_account_number",
+      "matched_text": "Account ID",
       "reason": "Field label without a concrete value; indicates a PII element but not an instance."
     },
     {
-      "matched_text": "customer portal tokens",
       "concept": "internal_session_id",
+      "matched_text": "customer portal tokens",
       "reason": "Mentions authentication tokens but no actual identifier value provided."
     },
     {
-      "matched_text": "SG-03",
       "concept": "cross_border_transfer_marker",
+      "matched_text": "SG-03",
       "reason": "Implies Singapore backup location (cross-border) but not explicitly labeled as such."
     },
     {
-      "matched_text": "DSAR requests",
       "concept": "consent_withdrawal_marker",
+      "matched_text": "DSAR requests",
       "reason": "Subject-rights/DSAR handling is a privacy-event marker, but many detectors may not flag the generic term."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

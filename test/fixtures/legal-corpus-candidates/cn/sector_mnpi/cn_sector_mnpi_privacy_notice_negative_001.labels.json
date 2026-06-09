@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -215,6 +223,12 @@
       "category": "MNPI",
       "matched_text": "Information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Special PI: biometric access templates for data center entry and security logs after tabletop cyber incident drills; no production breach data is used for promotion.\nBenign use example: our \u201cGreenHash Classroom\u201d demo shows insider-list and blackout features using randomly generated tickers; it does not reference any actual SSE/SZSE issuer.\nInformation barriers: staff in advisory, crypto lab, and ESG ratings are separated by role-based access; marketing may reuse the words \u201cinsider-list,\u201d \u201ctipping,\u201d and \u201ccommercial terms\u201d in training without market sensitivity.\nRetention: operational logs 180 days, HR files per statutory period, crypto-sim sandbox telemetry 30 days; deletion is irreversible and audit-tracked.\nDSAR: submit access/correction/deletion requests to privacy@zccs.example.cn or via the \u201c\u4e2a\u4eba\u4fe1\u606f\u8bf7\u6c42\u8868\u201d (Form PI-01); we may verify via non-sensitive tokens instead of resident ID.\nCross-border: limited transfer of telemetry to our SG cloud processor \u201cAurora Stack Pte.\u201d under the CAC Standard Contract; we have not triggered a security assessment filing to date.\nSecurity: AES-256 at rest, segregation by tenant, and vendor due diligence; our cyber incident playbooks are public on docs.zccs.example.cn/help and include CAC reporting templates.\nInsider handling (positive control): a restricted insider-list is maintained for a pending engagement by a prospective STAR Market applicant using our custody API pilot; access is confined",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

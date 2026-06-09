@@ -51,6 +51,14 @@
       "status": "removed_after_phone_precision_guard"
     }
   ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -163,6 +171,12 @@
       "category": "MNPI",
       "matched_text": "undisclosed",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HaneulNova Materials Co., Ltd. (KR issuer) \u2013 Operational Incident Review and Privacy Compliance Memo dated 2026-06-03.\nOn 2026-05-28, Internal Audit flagged that an HR onboarding form template containing labels \u201cresident-number (RRN)\u201d and \u201cAccount No.\u201d was stored in a test ShareDrive accessible to 12 staff in the HR sandbox.\nOnly blank templates and invalid placeholders (e.g., \u201c000000-0000000\u201d, \u201cXX-1234-0000\u201d) were present; no PIPA-covered living-individual information or FSCMA-defined MNPI was contained or accessed.\nCyber triage confirmed no external connections, no vendor sync, and no file downloads beyond the HR sandbox; network segmentation and IAM controls functioned as designed.\nUnder the Data Processing Addendum, Schedule 1 (Categories of Data), collection of resident-number for onboarding is prohibited; HR policy reaffirmed that the field remains disabled in production.\nRetention/minimisation: Template metadata falls under Record Plan RP-HR-02 (3-year template lifecycle); no personal data retention was triggered, and the RRN label will be suppressed in the next controlled version.\nA prior DSAR for erasure of training account \u201cuser-0421\u201d was completed on 2026-04-19, with the deletion certificate logged in PIMS; this DSAR is unrelated to the present event.\nCross-border transfer: Data-export approval DE-KR-2026-007 was issued on 2026-03-05 for hashed employee IDs to Hwasu Compute KKQ (JP) for SSO testing; that transfer is on its planned pause window and is not implicated.\nConsent withdrawal: Onboarding Form HR-ONB-11 contains the consent-withdrawal channel and model wording; no withdrawal requests apply to test templates, and no pending actions exist.\nInvestor Relations confirms the only additional materials in the sandbox were stale ESG scorecards already disclosed via KRX KIND; no undisclosed deal term sheets or forecasts were stored.\nIn line with FSC/FSS liaison protocol, the event was logged for traceability; notification was not required under PIPA given the absence of personal information and the containment of the incident.\nEmployment systems were not connected to the sandbox, and no employee resident-number, payroll, or bank details were processed; the \u201cAccount No.\u201d label is a generic form artefact.\nThe sandbox folder was removed per IM housekeeping and checksum-verified; this was a scheduled control, not a corrective action for a breach involving personal data.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

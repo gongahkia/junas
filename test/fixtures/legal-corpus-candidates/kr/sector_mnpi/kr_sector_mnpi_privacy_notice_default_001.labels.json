@@ -53,6 +53,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -310,6 +318,12 @@
       "category": "MNPI",
       "matched_text": "information barrier",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For FSCMA compliance, insider lists for the contemplated private placement of tokenized REC units (a virtual\u2011asset pilot adjacent to our wind portfolio) will include role, access time, and unique device IDs.\nSuch insider lists constitute MNPI and are restricted until KRX fair disclosure or FSC/FSS filing is complete; a blackout window applies from draft term sheet circulation to T+2 after public notice.\nCommercial terms under negotiation (e.g., green PPA floor price KRW/MWh and carbon\u2011credit transfer collar) are MNPI and may not be tipped or selectively disclosed to any investor.\nA recent third\u2011party cyber incident investigation regarding our vendor Orion KeySafe revealed credential resets for two employees; containment reports are not public and are stored in a segregated IR drive.\nProcessing includes automated monitoring of data\u2011room downloads and DLP alerts to maintain an information barrier between Treasury and the Virtual Asset Taskforce.\nEducational note: the term \u201cinsider list\u201d in our onboarding e\u2011learning is used for training scenarios only and does not relate to a live transaction.\nLawful basis: consent for resident registration number processing under PIPA Art.24\u20112, legitimate interests for internal controls, and legal obligation for FSC/FSS inquiries.\nRetention: insider list entries and access logs are kept for 5 years from public disclosure; RRN data is hashed with separate key storage and deleted after 3 years unless employment continues.\nCross\u2011border transfer: if due diligence uses our Singapore data center vendor SeonuCloud APAC, we will obtain separate consent and apply standard contractual safeguards.\nDSAR: you may request access, correction, or deletion by contacting the Data Protection Officer, Ms. Han Se\u2011rin, at privacy@haneul\u2011renewables.kr or +82\u20112\u20111234\u20115670.\nWe will respond within 10 business days; for MNPI materials we may defer until public disclosure consistent with FSCMA and KRX fair disclosure rules.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

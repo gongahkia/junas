@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -182,6 +190,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We process personal data under the Digital Personal Data Protection Act, 2023 and the PIT code of the Securities Governance Bureau of India for our listing on the Vahana Stock Exchange",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Marigold Industries Limited \u2013 Privacy Notice and Data Processing Addendum (India) for Investor Relations and Insider List Workflows.\nWe process personal data under the Digital Personal Data Protection Act, 2023 and the PIT code of the Securities Governance Bureau of India for our listing on the Vahana Stock Exchange.\nCorporate CIN: U29309KA2021PLC123987 (fictional company identifier for compliance context).\nContact (role): Data Protection Officer, dpo@marigold-industries.example.in; Public Helpline (non-personal): 1800-000-8383; do-not-reply mailboxes will not accept DSARs.\nForm labels (illustrative only): Name, Aadhaar No: 1234 5678 9123, PAN: ABCDE1234F, Passport No: A1234567, GSTIN: 27ABCDE1234F1Z9 (invalid checksum), Account No: 000000000000, IFSC: ABCD0123456, Address Line 1/2, City, PIN _____.\nWe do not knowingly collect data of a child (under 18) without verifiable consent of a parent or lawful guardian; guardians must not upload images of Aadhaar or PAN to this notice.\nDSAR workflow: submit via privacy portal or email the role mailbox; verification is done using an OTP and masked identifiers; we will never request full card numbers, full Aadhaar, or passwords.\nPurpose of processing includes IR communications, insider list maintenance, trading window administration, and statutory filings with Indian market authorities; generic newsletters are sent only with consent.\nWe handle unpublished price sensitive information strictly for insider list and compliance logs, and only disclose after public dissemination; previously announced board dates and policy summaries on our website are not UPSI.\nCategories of processors include our registrar Citrine Registrars Pvt. Ltd. and cloud vendors under written DPA; data minimisation and purpose limitation principles apply.\nCross-border transfer may occur to vetted processors in data-resident regions subject to transfer impact assessments and contract clauses consistent with Indian rules; no special category personal data is exported for marketing.\nRetention: insider lists 8 years from closure of the event, KYC records 2 years post relationship end, access logs 12 months, unless a legal hold is notified by the",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

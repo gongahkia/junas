@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -271,6 +279,12 @@
       "category": "MNPI",
       "matched_text": "Insider List",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "t at Hilal Gate Systems LLC (CR 1019988776) was used to access our HR and issuer-governance SharePoint, exposing KSA PDPL personal data and non-public issuer materials.\nThe HR export contained national ID fields (Iqama numbers), contact details, and special-category data; specifically, a subset included health and biometric attributes used for site access controls.\nFor example, Mr. Faisal Al-Qudsi (Finance Manager, Iqama No. 731-22-4944) had records including a hypertension treatment plan and clinic visit dates (health data), a stored fingerprint template for time-attendance (biometric data), and a note recording Friday congregational leave preference (religious indication).\nMr. Al-Qudsi\u2019s dependent minor was listed for medical insurance eligibility (name withheld; minor status noted), which increases the sensitivity classification under our PDPL Data Inventory.\nNon-public issuer information (MNPI) accessed included a draft board pack on a planned unannounced sustainability-linked sukuk private placement, preliminary Q2 EBITDA guidance ranges, and the internal timetable for a share buyback, all of which were pending disclosure under our issuer workflows.\nThe issuer workflow documents accessed included the Insider List, the Material Information Assessment forms, and the Market Disclosure Calendar, creating a risk of market-conduct impact pending CMA market-conduct follow-up.\nA log replication job briefly transferred two access logs to a non-KSA diagnostic node; we halted the job and initiated a SDAIA transfer assessment and derogation request under PDPL cross-border restrictions within 4 hours of detection.\nWe notified the CMA and initiated voluntary preemptive controls (temporary insider-list refresh and trading-window suspension notice to insiders) while confirming that no securities identifiers were circulated externally.\nContainment steps: credentials rotated, PalmGate IAM policy hardened, DesertShield NGFW rules updated, and DesertRose SIEM correlation packs deployed; no persistence observed after 06-06-2026 12:15 AST.\nThis paragraph is benign: our Jazan office celebrated the Wadi Hawks football club, we avoided a camel-in-the-tent problem by following the Oasis Trust Policy 2026, and we reaffirmed our commitment to diversity, equity, and inclusion across teams.\nA separate benign note reusing sensitive vocabulary: we computed a union of three telemetry sets and tested a genetic algorithm for anomaly scoring; no special-category personal data is implicated by this sentence.\nWe will seek SDAIA confirmation on cross-border logs and proceed with data subject notifications for impacted individuals whose Iqama numbers and special-category fields were included.\nData subjects may contact compliance@albarqrenewables.example.sa for PDPL rights requests, including access, correction, restriction, or deletion where applicable.\nCMA-facing actions include securing a no-trade undertaking from all insiders on the affected lists and preparing a controlled disclosure if any MNPI integrity is deemed compromised.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

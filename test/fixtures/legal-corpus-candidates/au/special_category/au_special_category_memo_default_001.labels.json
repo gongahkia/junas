@@ -1,195 +1,291 @@
 {
-  "doc_id": "au_special_category_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "AU",
-  "destination_jurisdiction": "AU",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Arjun Vale"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Vale"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Carys Penrith"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Queries to compliance@southquartz.example; further guidance sits under the Inclusive Workplace Policy 2025 and Privacy Standard PS-12 (v2.3)."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Kestrel"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:32:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "owner_approved_au_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_special_category_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@southquartz.example"
+      "matched_text": "compliance@southquartz.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Arjun Vale"
+      "matched_text": "Mr. Arjun Vale",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Vale"
+      "matched_text": "Mr. Vale",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Carys Penrith"
+      "matched_text": "Ms. Carys Penrith",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "employee ref EV-4821"
+      "matched_text": "employee ref EV-4821",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "Mr. Arjun Vale (Senior Process Engineer, employee ref EV-4821) has disclosed insulin-dependent diabetes"
+      "matched_text": "Mr. Arjun Vale (Senior Process Engineer, employee ref EV-4821) has disclosed insulin-dependent diabetes",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "Mr. Arjun Vale (Senior Process Engineer, employee ref EV-4821) has disclosed insulin-dependent diabetes and uses the PalmGate fingerprint clock for site access"
+      "matched_text": "Mr. Arjun Vale (Senior Process Engineer, employee ref EV-4821) has disclosed insulin-dependent diabetes and uses the PalmGate fingerprint clock for site access",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "Mr. Vale is a paid-up member of the Forgeworkers Union"
+      "matched_text": "Mr. Vale is a paid-up member of the Forgeworkers Union",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "sexual_orientation",
-      "matched_text": "Mr. Vale is a paid-up member of the Forgeworkers Union and has identified to HR as gay"
+      "matched_text": "Mr. Vale is a paid-up member of the Forgeworkers Union and has identified to HR as gay",
+      "rule": "sexual_orientation"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "his biometric access logs show consistent early departures during Ramadan, which could indirectly reveal religious belief"
+      "matched_text": "his biometric access logs show consistent early departures during Ramadan, which could indirectly reveal religious belief",
+      "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "retained only for recruitment assessment and then destroyed"
+      "matched_text": "retained only for recruitment assessment and then destroyed",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "limit retention per Health Data Handling Standard HDHS-7"
+      "matched_text": "limit retention per Health Data Handling Standard HDHS-7",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Ms. Carys Penrith (CFO candidate)"
+      "matched_text": "Ms. Carys Penrith (CFO candidate)",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Mr. Arjun Vale (Senior Process Engineer, employee ref EV-4821)"
+      "matched_text": "Mr. Arjun Vale (Senior Process Engineer, employee ref EV-4821)",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Kestrel"
+      "matched_text": "Project Kestrel",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Clean Room"
+      "matched_text": "Clean Room",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "restrict dissemination to the Clean Room"
+      "matched_text": "restrict dissemination to the Clean Room",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "information not generally available"
+      "matched_text": "information not generally available",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "would reasonably be expected to materially affect"
+      "matched_text": "would reasonably be expected to materially affect",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "please avoid discussing any aspect of results or contracts at such public events"
+      "matched_text": "please avoid discussing any aspect of results or contracts at such public events",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "draft half-year results"
+      "matched_text": "draft half-year results",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unsigned exclusive supply agreement"
+      "matched_text": "unsigned exclusive supply agreement",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "inside the Clean Room"
+      "matched_text": "inside the Clean Room",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "off-market buy-back term sheet"
+      "matched_text": "off-market buy-back term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "unauthorised disclosure"
+      "matched_text": "unauthorised disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Queries to compliance@southquartz.example; further guidance sits under the Inclusive Workplace Policy 2025 and Privacy Standard PS-12 (v2.3)."
+      "matched_text": "Queries to compliance@southquartz.example; further guidance sits under the Inclusive Workplace Policy 2025 and Privacy Standard PS-12 (v2.3).",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arjun Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Carys Penrith",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Queries to compliance@southquartz.example; further guidance sits under the Inclusive Workplace Policy 2025 and Privacy Standard PS-12 (v2.3).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kestrel",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board of Directors, South Quartz Group Ltd (AEX-listed) \u2014 From: Legal & Compliance \u2014 Subject: Handling of MNPI and sensitive PII in current transactions\nThe draft half-year results and the unsigned exclusive supply agreement with Tollite Pty Ltd constitute information not generally available that would reasonably be expected to materially affect South Quartz\u2019s securities (Corporations Act 2001 (Cth) s1042A/1043A; AEX Listing Rule 3.1 equivalent).\nMaintain the insider list for Project Kestrel, restrict dissemination to the Clean Room, and defer any OpalPay vendor onboarding announcements until the cleansing notice is approved by the Company Secretary.\nPII/sensitive handling: Mr. Arjun Vale (Senior Process Engineer, employee ref EV-4821) has disclosed insulin-dependent diabetes and uses the PalmGate fingerprint clock for site access; both health and biometric records are sensitive information under the Privacy Act 1988 (Cth).\nMr. Vale is a paid-up member of the Forgeworkers Union and has identified to HR as gay; these details appear in his employment and benefits elections and must not be used for decision-making outside lawful purposes.\nNote also that his biometric access logs show consistent early departures during Ramadan, which could indirectly reveal religious belief; treat this as sensitive and limit retention per Health Data Handling Standard HDHS-7.\nSeparately, Ms. Carys Penrith (CFO candidate) consented to a credit check; her report notes a settled 2019 telecommunications default and two active accounts, which are to be retained only for recruitment assessment and then destroyed.\nEmployment and health documents (fitness-for-duty certificate dated 12 May and workers\u2019 compensation correspondence) are to be stored only in the secure HRIS and must not be emailed outside HR or Legal.\nTransaction documents: draft AEX cleansing notice, off-market buy-back term sheet, and Nimbus Ledger export of March payables are all inside the Clean Room; unauthorised disclosure would likely be an offence and trigger CSOA scrutiny.\nFor avoidance of doubt, generic DEI messaging (e.g., \u201cWe value inclusion and respect all religions and sexual orientations\u201d) may continue in marketing channels, but must not reference any individual.\nThe political climate for royalties is shifting and, metaphorically, we are not out of the woods; this is market commentary, not personal or health data.\nUnrelated: the Port Karrin Pelicans edged the Dune City Breakers last night; please avoid discussing any aspect of results or contracts at such public events.\nCollection and use must comply with APPs 3, 6, and 11; obtain express consent for any new use of sensitive information, and escalate suspected breaches to the Commonwealth Securities Oversight Authority within two business days.\nQueries to compliance@southquartz.example; further guidance sits under the Inclusive Workplace Policy 2025 and Privacy Standard PS-12 (v2.3).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -218,123 +314,47 @@
       "reason": "Collective role, not an individual"
     }
   ],
+  "source_jurisdiction": "AU",
   "uncertain": [
     {
-      "matched_text": "obtain express consent for any new use of sensitive information",
       "concept": "consent requirement",
+      "matched_text": "obtain express consent for any new use of sensitive information",
       "reason": "Privacy control referencing consent; allowed rules do not include a generic consent marker beyond withdrawal"
     },
     {
-      "matched_text": "consented to a credit check",
       "concept": "consent (credit check)",
+      "matched_text": "consented to a credit check",
       "reason": "Indicates consent but not withdrawal; no specific allowed rule for generic consent marker"
     },
     {
-      "matched_text": "must not be emailed outside HR or Legal",
       "concept": "internal data transfer restriction",
+      "matched_text": "must not be emailed outside HR or Legal",
       "reason": "Security/transfer control; not mapped to an allowed privacy-event marker"
     },
     {
-      "matched_text": "defer any OpalPay vendor onboarding announcements until the cleansing notice is approved by the Company Secretary",
       "concept": "announcement hold (embargo-like)",
+      "matched_text": "defer any OpalPay vendor onboarding announcements until the cleansing notice is approved by the Company Secretary",
       "reason": "Timing gate on disclosure but does not match listed embargo markers"
     },
     {
-      "matched_text": "draft AEX cleansing notice",
       "concept": "cleansing notice (market disclosure)",
+      "matched_text": "draft AEX cleansing notice",
       "reason": "Pre-disclosure control reference; not covered by allowed MNPI rule list"
     },
     {
-      "matched_text": "fitness-for-duty certificate dated 12 May",
       "concept": "health document reference",
+      "matched_text": "fitness-for-duty certificate dated 12 May",
       "reason": "Sensitive health-related document but not clearly mapped to an allowed special-category rule without a named subject in the same clause"
     },
     {
-      "matched_text": "workers’ compensation correspondence",
       "concept": "health/insurance document reference",
+      "matched_text": "workers\u2019 compensation correspondence",
       "reason": "Potentially sensitive health data but not explicitly tied to a named individual in the clause"
     },
     {
-      "matched_text": "a settled 2019 telecommunications default and two active accounts",
       "concept": "credit history details",
+      "matched_text": "a settled 2019 telecommunications default and two active accounts",
       "reason": "Personal credit information lacks a specific allowed PII rule category"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
-  "_agent_review": {
-    "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
-    "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
-    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
-    "status": "strict_tier_cleaned_owner_approved"
-  },
-  "_agent_review_history": [
-    {
-      "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
-      "reviewer": "codex-gpt-assisted-strict-tier-review",
-      "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
-      "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
-      "status": "strict_tier_cleaned_owner_approved"
-    }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_owner_acceptance": {
-    "accepted_at_utc": "2026-05-31T05:32:00Z",
-    "accepted_by": "gongahkia",
-    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
-    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
-    "status": "owner_approved_au_stage_a_for_internal_benchmarking"
-  },
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

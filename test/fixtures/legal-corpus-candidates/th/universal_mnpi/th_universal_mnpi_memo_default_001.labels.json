@@ -1,255 +1,357 @@
 {
-  "doc_id": "th_universal_mnpi_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "waranya.chai@aurorafibre.co.th"
+      "decision": "approve",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
     },
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "prasert.kiatkul@aurorafibre.co.th"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-20-123-456"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Waranya Chai"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Prasert Kiatkul"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Use of proceeds: refinance THB 600,000,000 short-term bridge and fund Plant 3 expansion; no dividend covenant breach expected (net debt/EBITDA forecast 2.8x post-deal)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Compliance risk: trading blackout applies to all insiders from memo circulation; breach may contravene SEA Section 241 on insider trading and Section 246 on disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-Public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lotus Banyan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 1,250,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 600,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "19.9%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "75%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "25%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "6.4%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "1,250,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "600,000,000"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_universal_mnpi_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "waranya.chai@aurorafibre.co.th"
+      "matched_text": "waranya.chai@aurorafibre.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "prasert.kiatkul@aurorafibre.co.th"
+      "matched_text": "prasert.kiatkul@aurorafibre.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66-20-123-456"
+      "matched_text": "+66-20-123-456",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Waranya Chai"
+      "matched_text": "Ms. Waranya Chai",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Prasert Kiatkul"
+      "matched_text": "Mr. Prasert Kiatkul",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Use of proceeds: refinance THB 600,000,000 short-term bridge and fund Plant 3 expansion; no dividend covenant breach expected (net debt/EBITDA forecast 2.8x post-deal)"
+      "matched_text": "Use of proceeds: refinance THB 600,000,000 short-term bridge and fund Plant 3 expansion; no dividend covenant breach expected (net debt/EBITDA forecast 2.8x post-deal)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Compliance risk: trading blackout applies to all insiders from memo circulation; breach may contravene SEA Section 241 on insider trading and Section 246 on disclosure"
+      "matched_text": "Compliance risk: trading blackout applies to all insiders from memo circulation; breach may contravene SEA Section 241 on insider trading and Section 246 on disclosure",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-Public"
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lotus Banyan"
+      "matched_text": "Project Lotus Banyan",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 1,250,000,000"
+      "matched_text": "THB 1,250,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "THB 600,000,000"
+      "matched_text": "THB 600,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "19.9%"
+      "matched_text": "19.9%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "75%"
+      "matched_text": "75%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "25%"
+      "matched_text": "25%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "6.4%"
+      "matched_text": "6.4%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "1,250,000,000"
+      "matched_text": "1,250,000,000",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "600,000,000"
+      "matched_text": "600,000,000",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo date/time"
+      "matched_text": "Embargo date/time",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "limit personal data in the SET filing"
+      "matched_text": "limit personal data in the SET filing",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "redact employee IDs and contact details"
+      "matched_text": "redact employee IDs and contact details",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Subscription Agreement"
+      "matched_text": "Share Subscription Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Convertible Debenture Terms"
+      "matched_text": "Convertible Debenture Terms",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Intercreditor Deed"
+      "matched_text": "Intercreditor Deed",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "Material Adverse Change"
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not include pro forma tables before embargo lifts"
+      "matched_text": "do not include pro forma tables before embargo lifts",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed THB 1,250,000,000 convertible debentures and 19.9% private placement"
+      "matched_text": "Proposed THB 1,250,000,000 convertible debentures and 19.9% private placement",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "Conditions precedent include"
+      "matched_text": "Conditions precedent include",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo date/time for external communications: 2026-07-15 09:00 ICT"
+      "matched_text": "Embargo date/time for external communications: 2026-07-15 09:00 ICT",
+      "rule": "embargo_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "waranya.chai@aurorafibre.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "prasert.kiatkul@aurorafibre.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66-20-123-456",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Waranya Chai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Prasert Kiatkul",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Use of proceeds: refinance THB 600,000,000 short-term bridge and fund Plant 3 expansion; no dividend covenant breach expected (net debt/EBITDA forecast 2.8x post-deal)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Compliance risk: trading blackout applies to all insiders from memo circulation; breach may contravene SEA Section 241 on insider trading and Section 246 on disclosure",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lotus Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 1,250,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 600,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "75%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,250,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "600,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Subject: Proposed THB 1,250,000,000 convertible debentures and 19.9% private placement to Meridian Harbor Holdings Ltd. (BVI) with cross-border Facility Agreement\nEmbargo date/time for external communications: 2026-07-15 09:00 ICT, pending SET/SEC review and notification under the SEA\nDefinitive agreements targeted for execution: Share Subscription Agreement (SSA), Convertible Debenture Terms, Intercreditor Deed; draft governed by Thai law with Singapore-law security package",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2013 Non-Public \u2013 Project Lotus Banyan \u2013 Board/Compliance Briefing (Aurora Fibre Public Company Limited, SET ticker AFB)\nFrom: Ms. Waranya Chai, General Counsel, waranya.chai@aurorafibre.co.th; To: Board of Directors; Date: 2026-06-28\nSubject: Proposed THB 1,250,000,000 convertible debentures and 19.9% private placement to Meridian Harbor Holdings Ltd. (BVI) with cross-border Facility Agreement\nEmbargo date/time for external communications: 2026-07-15 09:00 ICT, pending SET/SEC review and notification under the SEA\nDefinitive agreements targeted for execution: Share Subscription Agreement (SSA), Convertible Debenture Terms, Intercreditor Deed; draft governed by Thai law with Singapore-law security package\nMAC/MAE: the SSA carves out general market/FX movements; parties confirm that no Material Adverse Change has occurred since 31 May 2026, and disclosure itself shall not constitute a MAE\nConditions precedent include: EGM approval (not less than 75% of votes), waiver of tender offer requirement under SEC rules if below 25%, and Bank of Thailand consent for offshore inflow\nUse of proceeds: refinance THB 600,000,000 short-term bridge and fund Plant 3 expansion; no dividend covenant breach expected (net debt/EBITDA forecast 2.8x post-deal)\nPDPA note: limit personal data in the SET filing to director names and positions; redact employee IDs and contact details from appendices\nPublic-source reference: capacity metrics in our 2568 Form 56-1 One Report and the 2025 SET presentation are already public and may be cited\nInvestor-relations draft (internal): we anticipate EPS dilution of approximately 6.4% in year one, improving thereafter on volume ramp; do not include pro forma tables before embargo lifts\nCompliance risk: trading blackout applies to all insiders from memo circulation; breach may contravene SEA Section 241 on insider trading and Section 246 on disclosure",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -266,114 +368,32 @@
       "reason": "project-management prose; not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "cross-border Facility Agreement",
       "concept": "cross_border_transfer_marker",
+      "matched_text": "cross-border Facility Agreement",
       "reason": "Refers to cross-border financing; may entail cross-border data sharing but context is not a privacy transfer event."
     },
     {
-      "matched_text": "pending SET/SEC review and notification under the SEA",
       "concept": "nonpublic_marker",
+      "matched_text": "pending SET/SEC review and notification under the SEA",
       "reason": "Implies pre-disclosure regulatory review status but lacks explicit nonpublic keywords beyond 'pending'."
     },
     {
-      "matched_text": "Bank of Thailand consent for offshore inflow",
       "concept": "cross_border_transfer_marker",
+      "matched_text": "Bank of Thailand consent for offshore inflow",
       "reason": "Signals cross-border capital movement; could involve data transfer, but not clearly a privacy-event marker."
     },
     {
-      "matched_text": "Investor-relations draft (internal)",
       "concept": "nonpublic_marker",
+      "matched_text": "Investor-relations draft (internal)",
       "reason": "Indicates internal-only status, but not on the explicit nonpublic keyword list."
     },
     {
-      "matched_text": "2026-07-15 09:00 ICT",
       "concept": "embargo_marker",
+      "matched_text": "2026-07-15 09:00 ICT",
       "reason": "This is the embargo timestamp; detection often keys off the word 'Embargo' rather than the datetime itself."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
-  "_agent_review": {
-    "status": "strict_tier_cleaned_owner_approved",
-    "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
-    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
-  },
-  "_owner_acceptance": {
-    "status": "owner_approved_th_stage_a_for_internal_benchmarking",
-    "accepted_by": "gongahkia",
-    "accepted_at_utc": "2026-05-29T09:42:20Z",
-    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
-    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "status": "approved",
-      "decision": "approve",
-      "reviewer": "gongahkia-project-owner-chat-approval",
-      "reviewed_at_utc": "2026-05-29T09:42:20Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
-    },
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

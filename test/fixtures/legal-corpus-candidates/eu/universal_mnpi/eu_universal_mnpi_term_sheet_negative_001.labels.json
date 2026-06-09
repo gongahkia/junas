@@ -50,6 +50,14 @@
     "previous_must_detect_count": 7,
     "previous_must_not_detect_count": 3
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -177,6 +185,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft term sheet \u2014 proposed strategic investment and option to acquire a minority stake in asteria robotics gmbh by novalune se (eu issuer)\nstatus: for discussion using public-source references; as announced on 2024-02-14 on novalune\u2019s website; no new price-sensitive details in this version\neu context: gdpr art 9 special category data excluded; any cross-border transfer outside eea to use sccs and dpas; sfdr/csrd metrics referenced from public reports\ntransaction structure: staged investment with call option; no definitive agreement executed as of this public draft\nmar workflow: insider list maintained; disclosure will not be delayed; competent authority notification only if delay criteria met; internal embargo window ends 2026-09-30 08:00 cet\ngovernance: board memo references only published kpis; no selective disclosure; ir mailbox: ir@novalune.example\ninternal nickname \u201cproject larch\u201d appears in legacy folders; do not use in any communications; no live codename assigned\nregulatory: intended listing venue remains \u201cnorth coast exchange\u201d (fictional) with local rulebook; no national authority names used in external drafts\nconditions precedent: customary; no material adverse change clause to be interpreted narrowly and expressly negated by ordinary-course variances and sector index moves\nsustainability: csrd datapoints pulled from \u201cnovalune 2024 impact report\u201d (public); sfdr pai indicators to be provided on website before close\ndata protection: no art 9 data exchanged; vendor due diligence to pseudonymise trial workforce logs; any processor outside eea to be onboarded under scc module 2\nidentifiers: no isin assigned to proposed instruments in this draft; placeholder code \u201cZZ-FAKE-123456\u201d used for template testing only\npublic references: see archive notice 2023-11-30, press section; any figures discussed here are illustrative and not binding; no confidential annexes attached\ntimeline: target non-binding heads of terms already posted; any definitive share purchase agreement, if pursued, would be posted on the website after signing\nmisc notes (project mgmt): schedule room 2.11, order sandwiches, and yes the spa-day vouchers for wellness week are approved; keep this administrative chatter out of market announcements\ndeal checklist v2: confirm insider list, website banner text, and sustainability footnotes alignment; delete any stray \u201cdraft confidential\u201d stamps",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

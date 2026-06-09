@@ -37,6 +37,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -80,7 +88,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Purchase Price: SAR 148,000,000 cash at closing plus SAR 22,000,000 earn-out linked to ESG/climate KPIs (scope 1–3 reporting coverage and RECs volume), subject to CMA reporting of related-party dealings where applicable.",
+      "matched_text": "Purchase Price: SAR 148,000,000 cash at closing plus SAR 22,000,000 earn-out linked to ESG/climate KPIs (scope 1\u20133 reporting coverage and RECs volume), subject to CMA reporting of related-party dealings where applicable.",
       "rule": "material_event"
     },
     {
@@ -100,7 +108,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Educational/Marketing Carve-out: Company’s public blog may use the terms “crypto”, “ESG”, and “breach” in general educational content and brand awareness campaigns that do not reference this transaction or any non-public events.",
+      "matched_text": "Educational/Marketing Carve-out: Company\u2019s public blog may use the terms \u201ccrypto\u201d, \u201cESG\u201d, and \u201cbreach\u201d in general educational content and brand awareness campaigns that do not reference this transaction or any non-public events.",
       "rule": "material_event"
     },
     {
@@ -287,7 +295,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Purchase Price: SAR 148,000,000 cash at closing plus SAR 22,000,000 earn-out linked to ESG/climate KPIs (scope 1–3 reporting coverage and RECs volume), subject to CMA reporting of related-party dealings where applicable.",
+      "matched_text": "Purchase Price: SAR 148,000,000 cash at closing plus SAR 22,000,000 earn-out linked to ESG/climate KPIs (scope 1\u20133 reporting coverage and RECs volume), subject to CMA reporting of related-party dealings where applicable.",
       "rule": "material_event"
     },
     {
@@ -307,7 +315,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Educational/Marketing Carve-out: Company’s public blog may use the terms “crypto”, “ESG”, and “breach” in general educational content and brand awareness campaigns that do not reference this transaction or any non-public events.",
+      "matched_text": "Educational/Marketing Carve-out: Company\u2019s public blog may use the terms \u201ccrypto\u201d, \u201cESG\u201d, and \u201cbreach\u201d in general educational content and brand awareness campaigns that do not reference this transaction or any non-public events.",
       "rule": "material_event"
     },
     {
@@ -359,6 +367,12 @@
       "category": "MNPI",
       "matched_text": "Chinese walls",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Proposed acquisition by Investor of 22% of the issued shares of the Company and a strategic commercial agreement for tokenization of renewable energy certificates and carbon offsets.\nPurchase Price: SAR 148,000,000 cash at closing plus SAR 22,000,000 earn-out linked to ESG/climate KPIs (scope 1\u20133 reporting coverage and RECs volume), subject to CMA reporting of related-party dealings where applicable.\nConditions Precedent: CMA non-objection, completion of cyber and regulatory due diligence, and SDAIA permit for cross-border transfer of PDPL-regulated personal data to an EU-hosted virtual data room.\nCyber Incident Warranty: Company represents no material cyber incident since 1447H-01-01; any non-public breach of customer wallets or key-management systems prior to announcement triggers a SAR 15,000,000 price adjustment or termination.\nCrypto/DPT Licensing: Company will maintain operation within the Saudi regulatory sandbox and will not launch any stablecoin, exchange token, or DPT offering without CMA/SAMA no-objection and prior Investor consent.\nConfidentiality and MNPI: Parties acknowledge possession of non-public issuer information; handling shall comply with CMA Market Conduct Regulations, with an insider list maintained by Compliance naming wall-crossed individuals and timestamps.\nInformation Barriers: Investor shall enforce Chinese walls between investment banking and research/asset management teams; only approved deal team may access the data room and MNPI.\nTrading Blackout: Investor imposes a blackout on trading its own Tadawul-listed shares from signing until public announcement and during any closed periods as per CMA and Tadawul rules.\nTipping and Selective Disclosure: No market sounding or disclosure to potential co-investors unless pre-cleared by Compliance and the recipients are wall-crossed and added to the insider list.\nGovernance: Investor gets one board seat and one observer at Company; reserved matters include cybersecurity budget, custody architecture, climate-reporting methodology, and any token issuance.\nKYC and PDPL: KYC data for key managers (e.g., Mr. Saleh Al-Harbi, Iqama ending 3842; Dr. Rasha Al-Mutairi, National ID ending 9051) will be processed on a need-to-know basis, with data minimization, masking, and consent per PDPL.\nEducational/Marketing Carve-out: Company\u2019s public blog may use the terms \u201ccrypto\u201d, \u201cESG\u201d, and \u201cbreach\u201d in general educational content and brand awareness campaigns that do not reference this transaction or any non-public events.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -375,15 +389,15 @@
       "reason": "Role-noun defined term header, not PII/MNPI"
     },
     {
-      "matched_text": "“crypto”",
+      "matched_text": "\u201ccrypto\u201d",
       "reason": "Educational/marketing carve-out without market sensitivity"
     },
     {
-      "matched_text": "“ESG”",
+      "matched_text": "\u201cESG\u201d",
       "reason": "Educational/marketing carve-out without market sensitivity"
     },
     {
-      "matched_text": "“breach”",
+      "matched_text": "\u201cbreach\u201d",
       "reason": "Educational/marketing carve-out without market sensitivity"
     }
   ],
@@ -391,7 +405,7 @@
   "uncertain": [
     {
       "concept": "internal issuer code",
-      "matched_text": "internal code “ABQF”",
+      "matched_text": "internal code \u201cABQF\u201d",
       "reason": "May be non-public identifier relevant to market conduct but not covered by allowed MNPI rules"
     },
     {
@@ -406,7 +420,7 @@
     },
     {
       "concept": "ESG metric detail",
-      "matched_text": "scope 1–3 reporting coverage",
+      "matched_text": "scope 1\u20133 reporting coverage",
       "reason": "Specific ESG KPI detail may be MNPI but not explicitly enumerated"
     },
     {

@@ -82,6 +82,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -120,7 +128,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Hala Al‑Sayegh",
+      "matched_text": "Ms. Hala Al\u2011Sayegh",
       "rule": "named_person"
     },
     {
@@ -130,7 +138,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Badr Al‑Mahrouq",
+      "matched_text": "Mr. Badr Al\u2011Mahrouq",
       "rule": "named_person"
     },
     {
@@ -265,7 +273,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "pseudonymise to the code “IR-0412,”",
+      "matched_text": "pseudonymise to the code \u201cIR-0412,\u201d",
       "rule": "data_minimisation_marker"
     },
     {
@@ -280,12 +288,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Clustered identifiers: Ms. Hala Al‑Sayegh, Investor Relations Officer, DOB 1987-04-12, employer Siraj Metals SJSC, based at Najd Financial District Tower B, device tag SM-MBP-8701 and mobile SN RY-ALN-5541",
+      "matched_text": "Clustered identifiers: Ms. Hala Al\u2011Sayegh, Investor Relations Officer, DOB 1987-04-12, employer Siraj Metals SJSC, based at Najd Financial District Tower B, device tag SM-MBP-8701 and mobile SN RY-ALN-5541",
       "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "matched_text": "DOB 1992-06-01; Eastern Reach; laptop model ‘Ultrabook 14’",
+      "matched_text": "DOB 1992-06-01; Eastern Reach; laptop model \u2018Ultrabook 14\u2019",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -327,7 +335,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Hala Al‑Sayegh",
+      "matched_text": "Ms. Hala Al\u2011Sayegh",
       "rule": "named_person"
     },
     {
@@ -337,7 +345,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Badr Al‑Mahrouq",
+      "matched_text": "Mr. Badr Al\u2011Mahrouq",
       "rule": "named_person"
     },
     {
@@ -369,16 +377,34 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Clustered identifiers: Ms. Hala Al\u2011Sayegh, Investor Relations Officer, DOB 1987-04-12, employer Siraj Metals SJSC, based at Najd Financial District Tower B, device tag SM-MBP-8701 and mobile SN RY-ALN-5541.\nHer corporate email h.alsayegh@siraj-metals.example.com, internal account SM-IR-0412, last week VPN session IR-NFD-0425-7 from 10.12.34.5, and Iqama number ending 3184 are recorded in the insider list.\nThis dataset accompanies MNPI about draft Q2-2026 production guidance and an unannounced secondary offering calendar, both restricted to the pre-disclosure room",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for market release",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under the Kingdom Personal Data Protection Law and DCMA Market Conduct Follow-Up guidance, MNPI means non-public issuer information relevant to trading decisions.\nClustered identifiers: Ms. Hala Al\u2011Sayegh, Investor Relations Officer, DOB 1987-04-12, employer Siraj Metals SJSC, based at Najd Financial District Tower B, device tag SM-MBP-8701 and mobile SN RY-ALN-5541.\nHer corporate email h.alsayegh@siraj-metals.example.com, internal account SM-IR-0412, last week VPN session IR-NFD-0425-7 from 10.12.34.5, and Iqama number ending 3184 are recorded in the insider list.\nThis dataset accompanies MNPI about draft Q2-2026 production guidance and an unannounced secondary offering calendar, both restricted to the pre-disclosure room.\nDCMA expects insider lists to be current within 24 hours and Tadwah filings to precede any pre-marketing; blackout windows apply until Board approval minutes are posted.\nAny transfer of personal data to third-party processors, including analytics uploads to the Supreme Data and AI Agency (SDAA) national platform sandbox, requires a transfer permit and safeguards per PDPL Art 29.\nFor Ms. Hala, pseudonymise to the code \u201cIR-0412,\u201d strip the last two digits of the Iqama, and avoid storing location beacons from NFD guest Wi\u2011Fi tags.\nSensitive HR items (health status, family) are out of scope here and must not be mingled with market files; retain only job role and business contact for issuer workflows.\nAs a benign example, the phrase \u201ca mid-level accountant in coastal Al\u2011Qiran using Android\u201d is too generic and should not be treated as identifying on its own.\nA standalone note \u201cDOB 1992-06-01; Eastern Reach; laptop model \u2018Ultrabook 14\u2019\u201d appears in a training roster without names or employers and should be treated as low-risk quasi-identifiers.\nSeparately, Mr. Badr Al\u2011Mahrouq (Compliance Manager) will oversee the blackout process and maintain the access log \u201cPRE-GUIDE-2026A\u201d for the data room.\nAdvisory broker Najah Capital LLC and counsel Al\u2011Baz & Partners are added to the external insider list with contact channel compliance@najah-capital.example.com only; no personal emails to be used.\nThe issuer workflow now requires dual approvals before uploading any MNPI to the data room and a pre-clearance email from DCMA liaison within two business days.\nQuestions may be directed to pdpl.office@siraj-metals.example.com; this memo is internal and not for market release.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "a mid-level accountant in coastal Al‑Qiran using Android",
+      "matched_text": "a mid-level accountant in coastal Al\u2011Qiran using Android",
       "reason": "Generic demographics; not identifying on its own as per memo example."
     },
     {
       "matched_text": "health status",
-      "reason": "Sensitive-category term mentioned in policy context only; no specific person’s data."
+      "reason": "Sensitive-category term mentioned in policy context only; no specific person\u2019s data."
     }
   ],
   "source_jurisdiction": "SA",

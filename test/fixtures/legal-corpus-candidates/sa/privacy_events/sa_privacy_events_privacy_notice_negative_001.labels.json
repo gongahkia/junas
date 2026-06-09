@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -72,22 +80,22 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "material non‑public information",
+      "matched_text": "material non\u2011public information",
       "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "matched_text": "One‑time cross‑border export (completed)",
+      "matched_text": "One\u2011time cross\u2011border export (completed)",
       "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "matched_text": "SDAIA transfer permit REF SDAIA‑XFR‑XQ2190",
+      "matched_text": "SDAIA transfer permit REF SDAIA\u2011XFR\u2011XQ2190",
       "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "matched_text": "no routine cross‑border transfers are active for issuer registry or insider list data",
+      "matched_text": "no routine cross\u2011border transfers are active for issuer registry or insider list data",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -146,6 +154,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing Addendum Schedule (KSA PDPL) \u2014 Issuer Onboarding and Transfers for Al\u2011Darin Manufacturing JSC (Controller; CR: CR-ALD-0000) and Najm Al Noor Investor Services CJSC (Processor; CR: CR-NAN-FAKE1).\nPurpose: processing of issuer onboarding records, insider lists, and investor registry to support listing and disclosure workflows with the national exchange and CMA filing portals; no marketing profiles are built as part of this service.\nLawful basis: performance of controller instructions and compliance with KSA capital markets and corporate recordkeeping obligations; consent is not relied upon for issuer registry processing, so withdrawal of consent does not affect these operations.\nData categories (labels only): InvestorID, Iqama/National ID token, Commercial Registration token, role email, and audit metadata; minimisation applies (fields collected strictly limited to required identifiers, with masking at rest).\nHosting and storage: primary systems are located in KSA; no routine cross\u2011border transfers are active for issuer registry or insider list data.\nOne\u2011time cross\u2011border export (completed): on 2026\u201102\u201120, a limited data extract (tokenised ID and role contact labels only) was transmitted to Al\u2011Darin Gulf Services SPC (fictional affiliate in Bahrain) under a SDAIA transfer permit REF SDAIA\u2011XFR\u2011XQ2190 and contractual safeguards; no further exports are scheduled.\nRetention: issuer onboarding files retained 5 years from listing completion; insider list change logs retained 10 years; deletion and aggregation are scheduled per policy and subject to legal hold where applicable.\nDSAR handling: requests are accepted via privacy@aldarin.example and fulfilled by the controller; current status shows no open DSARs, and test ticket DSAR\u2011TST\u2011000 (no real identifier) was closed within SLA.\nErasure: the processor deletes or anonymises records only upon written instruction from the controller; the last periodic deletion run completed on 2026\u201104\u201115 with verification logged (hashes stored, no raw IDs retained).\nConsent withdrawal (marketing): not applicable to issuer registry; for newsletters managed by the controller\u2019s IR team, unsubscribes are logged but no KSA\u2011directed campaigns are active at this time.\nMNPI controls: this schedule does not disclose material non\u2011public information; examples herein are placeholders, do not identify live offerings, and contain no securities identifiers.\nSecurity: National ID/Iqama and CR values are stored as salted hashes; access to raw input fields (where temporarily present) is restricted to a small operational role with MFA and daily access log review.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -172,7 +186,7 @@
     },
     {
       "concept": "internal_ticket_id",
-      "matched_text": "DSAR‑TST‑000",
+      "matched_text": "DSAR\u2011TST\u2011000",
       "reason": "Internal test ticket identifier; potentially a record reference but not covered by allowed PII rules and marked as non-real."
     },
     {

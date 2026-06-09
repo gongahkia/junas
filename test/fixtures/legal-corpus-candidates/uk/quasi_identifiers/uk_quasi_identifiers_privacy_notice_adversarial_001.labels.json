@@ -50,6 +50,14 @@
     "previous_must_detect_count": 16,
     "previous_must_not_detect_count": 4
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 5,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -247,6 +255,36 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "25 Kingmaker Street, Londale EC9A 1ZZ",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "To make a request, contact Dr. Elaine March (Data Protection Lead) at privacy@northquaycap.co.uk or submit h t t p s : //portal.northquaycap.co.uk/dsar?ticket=ud\u2011914&step=3; we will not require passport numbers to verify your identity.\nSeparated operational metadata that should not identify by itself: DOB 1977\u201111\u2011??, City \u201cBristolton\u201d, device \u201cGB\u2011MCR\u2011VDI\u201112\u201d, account ending **1134, shift 08:00\u201316:00; this line is illustrative only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Siddiq (Senior Compliance Analyst, North Quay Capital plc), DOB 1989\u201103\u201112 (age 35), office: 25 Kingmaker Street, Londale EC9A 1ZZ, device: LDN\u2011DLP\u2011033, userID: u\u201177123, email: rowan.siddiq@northquaycap.co.uk, internal acct \u201cSurv\u2011Desk\u201104\u201d, session\u2011ref sref=albion\u20112024\u2011Q3\u2011DR\u2011009.\nAccess logs link his device to Rivergate Wharf hot\u2011desk zone \u201cLON\u2011HD\u2011B2\u201d at 07:42\u201316:04 BST, badge swipe txn id N Q C \u2011 S I D \u2011 8 8 9 2, and VDI gateway 10.23.8.44; such linkage is used to respond to DSARs and for audit.\nTo make a request, contact Dr. Elaine March (Data Protection Lead) at privacy@northquaycap.co.uk or submit h t t p s : //portal.northquaycap.co.uk/dsar?ticket=ud\u2011914&step=3; we will not require passport numbers to verify your identity.\nSeparated operational metadata that should not identify by itself: DOB 1977\u201111\u2011??, City \u201cBristolton\u201d, device \u201cGB\u2011MCR\u2011VDI\u201112\u201d, account ending **1134, shift 08:00\u201316:00; this line is illustrative only.\nProcessors: MoorlandCompute UK Ltd (hosting in Londale and Glasford) and Harbourview Custody Ltd (records archive); cross\u2011border transfers use the UK International Data Transfer Addendum with SCCs and supplementary measures.\nRetention: HR files 6 years post\u2011employment; surveillance audio 5 years; trading alerts 7 years +1; hashed IPs retained 12 months; cookie identifiers for www.northquaycap.co.uk expire in 90 days.\nDeal room codename \u201cProject Bramble\u201d may appear in change\u2011control subjects; such logs are quarantined for insider\u2011list purposes and this notice does not constitute inside information under UK MAR.\nFor the avoidance of doubt, no MAC clause has been triggered and no earnings guidance update is contained herein; public source summaries (e.g., Bretland Statistics Office releases) are processed separately.\nSecurity: full\u2011disk encryption, MDM controls, and redaction of serials (e.g., NQC\u2011LTP\u20110 3 3 \u2011 **45); device health telemetry is pseudonymised for analytics.\nIndividual rights (access, rectification, erasure, restriction, objection, portability) apply to UK data subjects; complaints may be addressed to the UK supervisory authority competent for our establishment.\nVerification uses employee number E\u2011 0 1 9 4 7",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "g surveillance, and issuer obligations; under UK MAR we segregate any precise non\u2011public deal information and this notice does not disclose inside information.\nCategories include names, role titles, work emails, quasi\u2011identifiers (DOB, office location, device tags, user IDs, account nicknames); we do not collect full device MAC addresses or home Wi\u2011Fi SSIDs for this purpose.\nExample processing cluster (employment + compliance): Mr. Rowan Siddiq (Senior Compliance Analyst, North Quay Capital plc), DOB 1989\u201103\u201112 (age 35), office: 25 Kingmaker Street, Londale EC9A 1ZZ, device: LDN\u2011DLP\u2011033, userID: u\u201177123, email: rowan.siddiq@northquaycap.co.uk, internal acct \u201cSurv\u2011Desk\u201104\u201d, session\u2011ref sref=albion\u20112024\u2011Q3\u2011DR\u2011009.\nAccess logs link his device to Rivergate Wharf hot\u2011desk zone \u201cLON\u2011HD\u2011B2\u201d at 07:42\u201316:04 BST, badge swipe txn id N Q C \u2011 S I D \u2011 8 8 9 2, and VDI gateway 10.23.8.44; such linkage is used to respond to DSARs and for audit.\nTo make a request, contact Dr. Elaine March (Data Protection Lead) at privacy@northquaycap.co.uk or submit h t t p s : //portal.northquaycap.co.uk/dsar?ticket=ud\u2011914&step=3; we will not require passport numbers to verify your identity.\nSeparated operational metadata that should not identify by itself: DOB 1977\u201111\u2011??, City \u201cBristolton\u201d, device \u201cGB\u2011MCR\u2011VDI\u201112\u201d, account ending **1134, shift 08:00\u201316:00; this line is illustrative only.\nProcessors: MoorlandCompute UK Ltd (hosting in Londale and Glasford) and Harbourview Custody Ltd (records archive); cross\u2011border transfers use the UK International Data Transfer Addendum with SCCs and supplementary measures.\nRetention: HR files 6 years post\u2011employment; surveillance audio 5 years; trading alerts 7 years +1; hashed IPs retained 12 months; cookie identifiers for www.northquaycap.co.uk expire in 90 days.\nDeal room codename \u201cProject Bramble\u201d may appear in change\u2011control subjects; such logs are quarantined for insider\u2011list purposes and this notice does not constitute inside information under UK MAR.\nFor the avoidance of doubt, no MAC clause has been triggered and no earnings guidance update is contained herein; public source summaries (e.g., Bretland Statistics Office releases) are processed separately.\nSecurity: full\u2011disk encryption, MDM controls, and redaction of serials (e.g., NQC\u2011LTP\u20110 3 3 \u2011 **45); device health telemetry is pseudonymised for analytics.\nIndividual rights (access, rectification, erasure, restriction, objection, portability) apply to UK data subjects; complaints may be addressed to the UK supervisory authority competent for our establishment.\nVerification uses employee number E\u2011 0 1 9 4 7 or work email alias, never bank sort codes; we will not infer special category data from generic demographic tags like \u201cmid\u2011level analyst\u201d.\nMarket\u2011abuse controls: insider lists are salted\u2011hash, PDMR dealing notifications filed via the Albion Exchange portal, and surveillance alerts are reviewed without exporting ra",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

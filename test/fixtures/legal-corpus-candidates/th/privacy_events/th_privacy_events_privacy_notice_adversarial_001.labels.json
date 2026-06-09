@@ -1,145 +1,206 @@
 {
-  "doc_id": "th_privacy_events_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Rattana Phromthai"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope: PDPA Sections 24 and 28 compliance; SEA/SEC MNPI controls for SET/SEC submissions; employment, investor relations, and financing data processed only for stated purposes."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Retention schedule: HR files 5 years post\u2011termination, financing facility docs 10 years, IR queries 2 years; automated review flags items > 1,825 days."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "SCC Annex II security includes AES\u2011256, TLS 1.3, role\u2011based access; no MAC trigger occurred under the Sapphire Trust Bank (Thai) facility, and no dataset is used to derive forward earnings."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_privacy_events_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Rattana Phromthai"
+      "matched_text": "Ms. Rattana Phromthai",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope: PDPA Sections 24 and 28 compliance; SEA/SEC MNPI controls for SET/SEC submissions; employment, investor relations, and financing data processed only for stated purposes."
+      "matched_text": "Scope: PDPA Sections 24 and 28 compliance; SEA/SEC MNPI controls for SET/SEC submissions; employment, investor relations, and financing data processed only for stated purposes.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Retention schedule: HR files 5 years post\u2011termination, financing facility docs 10 years, IR queries 2 years; automated review flags items > 1,825 days."
+      "matched_text": "Retention schedule: HR files 5 years post\u2011termination, financing facility docs 10 years, IR queries 2 years; automated review flags items > 1,825 days.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "SCC Annex II security includes AES\u2011256, TLS 1.3, role\u2011based access; no MAC trigger occurred under the Sapphire Trust Bank (Thai) facility, and no dataset is used to derive forward earnings."
+      "matched_text": "SCC Annex II security includes AES\u2011256, TLS 1.3, role\u2011based access; no MAC trigger occurred under the Sapphire Trust Bank (Thai) facility, and no dataset is used to derive forward earnings.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@kgt\u2011fict.example"
+      "matched_text": "dpo@kgt\u2011fict.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "r.phromthai@user\u2011mail.example"
+      "matched_text": "r.phromthai@user\u2011mail.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66\u20112\u201139 1\u20110 33x"
+      "matched_text": "+66\u20112\u201139 1\u20110 33x",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Khun Narit Vongsopha"
+      "matched_text": "Khun Narit Vongsopha",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EmpID E/TH\u20110 0 7 9 a"
+      "matched_text": "EmpID E/TH\u20110 0 7 9 a",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew marketing consent"
+      "matched_text": "withdrew marketing consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross\u2011border transfer approved 2026\u201105\u201102"
+      "matched_text": "Cross\u2011border transfer approved 2026\u201105\u201102",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation applies"
+      "matched_text": "minimisation applies",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "last\u20114 account only"
+      "matched_text": "last\u20114 account only",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "emp_ref E / T H \u2011 0 0 7 9 a"
+      "matched_text": "emp_ref E / T H \u2011 0 0 7 9 a",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "cust_ref th\u2011\u0394\u201100291"
+      "matched_text": "cust_ref th\u2011\u0394\u201100291",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "analytics\u2011only export to BrightLeaf (SG)"
+      "matched_text": "analytics\u2011only export to BrightLeaf (SG)",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "payroll tooling to Nimbus HR K.K. (JP)"
+      "matched_text": "payroll tooling to Nimbus HR K.K. (JP)",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rattana Phromthai",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: PDPA Sections 24 and 28 compliance; SEA/SEC MNPI controls for SET/SEC submissions; employment, investor relations, and financing data processed only for stated purposes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention schedule: HR files 5 years post\u2011termination, financing facility docs 10 years, IR queries 2 years; automated review flags items > 1,825 days.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SCC Annex II security includes AES\u2011256, TLS 1.3, role\u2011based access; no MAC trigger occurred under the Sapphire Trust Bank (Thai) facility, and no dataset is used to derive forward earnings.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: PDPA Sections 24 and 28 compliance; SEA/SEC MNPI controls for SET/SEC submissions; employment, investor relations, and financing data processed only for stated purposes.\nData categories: employee onboarding forms HR\u2011ONB\u201103 (name, role, bank alias), vendor KYC\u2011LITE, and investor relations contact list; minimisation applies (no national ID image, last\u20114 account only).\nCross\u2011border transfer approved 2026\u201105\u201102 by DPO for analytics\u2011only export to BrightLeaf (SG) and payroll tooling to Nimbus HR K.K. (JP) with SCC\u2011TH and encryption at rest.\nNo cross\u2011border transfer is currently pending for payroll; the April batch completed on 2026\u201104\u201130 and the secure tunnel was closed (ticket FIN\u2011TR\u2011041).\nDSAR ref th\u2011\u0394\u201100291 received via https://portal.kgt\u2011fict.example/dsar?rid=TH%2F%CE%94%2F00291; identity verified and access provided within 30 days.\nErasure executed for EmpID E/TH\u20110 0 7 9 a on 2026\u201105\u201110, except statutory payroll and audit logs retained under Revenue Code for 10 years.\nOn 2026\u201105\u201118, Ms. Rattana Phromthai withdrew marketing consent; suppression list updated within 7 days and confirmation sent to r.phromthai@user\u2011mail.example.\nRetention schedule: HR files 5 years post\u2011termination, financing facility docs 10 years, IR queries 2 years; automated review flags items > 1,825 days.\nSCC Annex II security includes AES\u2011256, TLS 1.3, role\u2011based access; no MAC trigger occurred under the Sapphire Trust Bank (Thai) facility, and no dataset is used to derive forward earnings.\nFor SEC Thailand/SET filings (Form 56\u20111/56\u20112), personal data is redacted or aggregated; no undisclosed price\u2011sensitive information is included or transmitted prior to public release.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -168,79 +229,32 @@
       "reason": "social handle not in allowed PII rules"
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "DSAR ref th\u2011\u0394\u201100291",
       "concept": "DSAR marker",
+      "matched_text": "DSAR ref th\u2011\u0394\u201100291",
       "reason": "DSAR events are in scope but there is no explicit dsar_marker rule in the allowed list"
     },
     {
-      "matched_text": "Erasure executed for EmpID E/TH\u20110 0 7 9 a on 2026\u201105\u201110",
       "concept": "erasure marker",
+      "matched_text": "Erasure executed for EmpID E/TH\u20110 0 7 9 a on 2026\u201105\u201110",
       "reason": "Erasure/deletion events are in scope but there is no explicit erasure_marker rule"
     },
     {
-      "matched_text": "Retention schedule: HR files 5 years post\u2011termination, financing facility docs 10 years, IR queries 2 years; automated review flags items > 1,825 days",
       "concept": "retention marker",
+      "matched_text": "Retention schedule: HR files 5 years post\u2011termination, financing facility docs 10 years, IR queries 2 years; automated review flags items > 1,825 days",
       "reason": "Retention/minimisation are in scope but there is no explicit retention_marker rule; contains concrete periods and automation signal"
     },
     {
-      "matched_text": "https://portal.kgt\u2011fict.example/dsar?rid=TH%2F%CE%94%2F00291",
       "concept": "DSAR portal URL with request id",
+      "matched_text": "https://portal.kgt\u2011fict.example/dsar?rid=TH%2F%CE%94%2F00291",
       "reason": "Contains a request identifier parameter that may be an internal ID but URLs/tokens are not explicitly covered by allowed rules"
     },
     {
-      "matched_text": "URL https://exp.kgt\u2011fict.example/xfer?id=Z9\u2011\u03b1&step=appr o v e d",
       "concept": "internal URL/token",
+      "matched_text": "URL https://exp.kgt\u2011fict.example/xfer?id=Z9\u2011\u03b1&step=appr o v e d",
       "reason": "May include an internal transfer or session identifier but not clearly mapped to an allowed rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

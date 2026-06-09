@@ -1,295 +1,4 @@
 {
-  "doc_id": "au_quasi_identifiers_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "AU",
-  "destination_jurisdiction": "AU",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "pnandakumar@wallabygrid.com.au"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@wallabygrid.com.au"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+61 2 7777 4400"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "03/02/1985"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "17/09/1984"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Leon"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Draft term sheet to acquire Sunquarry Systems Pty Ltd (private) for a range of A$42–46m and projected FY27 synergy uplift 8–10% is not generally available and would be expected to materially affect WGS securities if disclosed."
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "A$42"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "46m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "10%"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya K. Nandakumar"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 03/02/1985"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "pnandakumar@wallabygrid.com.au"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "WGS‑IT‑1192"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EMP‑88347"
-    },
-    {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "au‑vpn‑2026‑06‑18T23:14Z/7e1c4"
-    },
-    {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "au‑7e1c4‑23:14"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "medical certificate dated 15 Jun 2026 (non‑work sprain; fit to return 20 Jun)"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. A. Fenwick"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Leon T. Mariner"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@wallabygrid.com.au"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+61 2 7777 4400"
-    },
-    {
-      "category": "PII",
-      "rule": "au_postal_address",
-      "matched_text": "Depot 3, Kestrel Park, Corunda NSW"
-    },
-    {
-      "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "AL‑51‑23‑4567"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "GXY10‑1029"
-    },
-    {
-      "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "AL‑00‑00‑9999"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 17/09/1984"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1985‑02‑03"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Ms. Priya K. Nandakumar (Risk Program Lead, WGS) — DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS‑IT‑1192; email: pnandakumar@wallabygrid.com.au; employee ref EMP‑88347; VPN session au‑vpn‑2026‑06‑18T23:14Z/7e1c4; internal ledger acct AL‑51‑23‑4567"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "ht tps://intra.wgs.local/r?emp=EMP‑88347&dob=1985‑02‑03&dev=WGS‑IT‑1192"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "review the URL parameter policy to prevent inadvertent PII leakage"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Draft term sheet to acquire Sunquarry Systems Pty Ltd (private)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "A$42"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "8–10%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not generally available"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "would be expected to materially affect WGS securities"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "circulate only on need‑to‑know"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "03/02/1985"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "17/09/1984"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Leon"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Draft term sheet to acquire Sunquarry Systems Pty Ltd (private) for a range of A$42–46m and projected FY27 synergy uplift 8–10% is not generally available and would be expected to materially affect WGS securities if disclosed."
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "46m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "10%"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "material adverse change",
-      "reason": "Negated MAC reference; do not label as material_adverse_change per rule 8."
-    },
-    {
-      "matched_text": "ab:cd:ef:gh:ij:kl",
-      "reason": "False-positive bait; explicitly noted as not a MAC address."
-    },
-    {
-      "matched_text": "project koala‑beta",
-      "reason": "Does not match 'Project <CapitalizedName>' transaction codename pattern."
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "ref HC‑1811",
-      "concept": "medical_record_number",
-      "reason": "Clinic reference could be a patient record identifier but is ambiguous and not clearly a formal medical record number."
-    },
-    {
-      "matched_text": "CreditWorks AU check (score 612, no defaults)",
-      "concept": "credit_score",
-      "reason": "Personal credit score is sensitive but not explicitly covered by a listed PII rule."
-    },
-    {
-      "matched_text": "card suffix …6621",
-      "concept": "payment_card_suffix",
-      "reason": "Partial PAN may still be identifying in context but no explicit rule for card suffix; not a full card number."
-    },
-    {
-      "matched_text": "suburb Redfield WA",
-      "concept": "au_postal_address (partial)",
-      "reason": "Suburb and state alone may not meet strict address patterns but could help identify an individual in context."
-    },
-    {
-      "matched_text": "we will action the privacy impact assessment, book stakeholder reviews, and log tasks in project koala‑beta per the company privacy by design guideline; this line is operational and benign",
-      "concept": "privacy_governance_marker",
-      "reason": "PIA/Privacy by Design are governance controls; not clearly mapped to a listed privacy-event marker rule."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
   "_agent_review": {
     "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -308,14 +17,31 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T05:32:00Z",
     "accepted_by": "gongahkia",
@@ -323,41 +49,347 @@
     "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
     "status": "owner_approved_au_stage_a_for_internal_benchmarking"
   },
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
   "_stage_b_approval": {
     "approved_at_utc": "2026-06-02T07:54:03Z",
     "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_quasi_identifiers_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya K. Nandakumar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 03/02/1985",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pnandakumar@wallabygrid.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "WGS\u2011IT\u20111192",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP\u201188347",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "au\u20117e1c4\u201123:14",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. A. Fenwick",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Leon T. Mariner",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@wallabygrid.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 7777 4400",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Depot 3, Kestrel Park, Corunda NSW",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AL\u201151\u201123\u20114567",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GXY10\u20111029",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AL\u201100\u201100\u20119999",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 17/09/1984",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1985\u201102\u201103",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ht tps://intra.wgs.local/r?emp=EMP\u201188347&dob=1985\u201102\u201103&dev=WGS\u2011IT\u20111192",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "review the URL parameter policy to prevent inadvertent PII leakage",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft term sheet to acquire Sunquarry Systems Pty Ltd (private)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$42",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8\u201310%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "would be expected to materially affect WGS securities",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "circulate only on need\u2011to\u2011know",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03/02/1985",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "17/09/1984",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Leon",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft term sheet to acquire Sunquarry Systems Pty Ltd (private) for a range of A$42\u201346m and projected FY27 synergy uplift 8\u201310% is not generally available and would be expected to materially affect WGS securities if disclosed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "46m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "pnandakumar@wallabygrid.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@wallabygrid.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 7777 4400",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03/02/1985",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "17/09/1984",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Leon",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft term sheet to acquire Sunquarry Systems Pty Ltd (private) for a range of A$42\u201346m and projected FY27 synergy uplift 8\u201310% is not generally available and would be expected to materially affect WGS securities if disclosed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$42",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "46m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Purpose: assess handling of personal information and any not\u2011generally\u2011available information that may be price\u2011sensitive prior to a potential ASX announcement.\nMs. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567.\nHer payroll file notes a medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun) from Dr. A. Fenwick, Kestrel Clinic, ref HC\u20111811; retain under \u2018sensitive information\u2019 with access logging",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Purpose: assess handling of personal information and any not\u2011generally\u2011available information that may be price\u2011sensitive prior to a potential ASX announcement.\nMs. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567.\nHer payroll file notes a medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun) from Dr. A. Fenwick, Kestrel Clinic, ref HC\u20111811; retain under \u2018sensitive information\u2019 with access logging.\nCorporate card onboarding via WallabyPay Pty Ltd used a CreditWorks AU check (score 612, no defaults) and records the card suffix \u20266621; card limits are operational, not securities data.\nDraft term sheet to acquire Sunquarry Systems Pty Ltd (private) for a range of A$42\u201346m and projected FY27 synergy uplift 8\u201310% is not generally available and would be expected to materially affect WGS securities if disclosed.\nPer ASX Listing Rule 3.1, until release via ASX platform and ASIC notification, the Sunquarry pricing bands and timing window (Q3 FY26) are MNPI; circulate only on need\u2011to\u2011know.\nPublic sources already list generic salary bands for risk leads in NSW and do not identify staff, and this memo does not include any MAC\u2011like clause or material adverse change trigger.\nTemplate fields in the onboarding pack show DOB 17/09/1984, suburb Redfield WA, handset serial GXY10\u20111029, and ledger AL\u201100\u201100\u20119999 \u2014 these placeholders are illustrative only and are not tied to any named person.\nAccess log shows ht tps://intra.wgs.local/r?emp=EMP\u201188347&dob=1985\u201102\u201103&dev=WGS\u2011IT\u20111192 and s e s s i o n = au\u20117e1c4\u201123:14; review the URL parameter policy to prevent inadvertent PII leakage.\nThe string ab:cd:ef:gh:ij:kl noted in the asset record is not a MAC address and should be treated as a test token from IT.\nwe will action the privacy impact assessment, book stakeholder reviews, and log tasks in project koala\u2011beta per the company privacy by design guideline; this line is operational and benign.\nThe \u2018WattleShield\u2019 endpoint product mentioned by IT is a standard control and does not reveal any personal or price\u2011sensitive data by itself.\nFor questions contact Mr. Leon T. Mariner, Acting General Counsel, legal@wallabygrid.com.au, tel +61 2 7777 4400",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ms. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567.\nHer payroll file notes a medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun) from Dr. A. Fenwick, Kestrel Clinic, ref HC\u20111811; retain under \u2018sensitive information\u2019 with access logging.\nCorporate card onboarding via WallabyPay Pty Ltd used a CreditWorks AU check (score 612, no defaults) and records the card suffix \u20266621; card limits are operational, not securities data.\nDraft term sheet to acquire Sunquarry Systems Pty Ltd (private) for a range of A$42\u201346m and projected FY27 synergy uplift 8\u201310% is not generally available and would be expected to materially affect WGS securities if disclosed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC reference; do not label as material_adverse_change per rule 8."
+    },
+    {
+      "matched_text": "ab:cd:ef:gh:ij:kl",
+      "reason": "False-positive bait; explicitly noted as not a MAC address."
+    },
+    {
+      "matched_text": "project koala\u2011beta",
+      "reason": "Does not match 'Project <CapitalizedName>' transaction codename pattern."
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "medical_record_number",
+      "matched_text": "ref HC\u20111811",
+      "reason": "Clinic reference could be a patient record identifier but is ambiguous and not clearly a formal medical record number."
+    },
+    {
+      "concept": "credit_score",
+      "matched_text": "CreditWorks AU check (score 612, no defaults)",
+      "reason": "Personal credit score is sensitive but not explicitly covered by a listed PII rule."
+    },
+    {
+      "concept": "payment_card_suffix",
+      "matched_text": "card suffix \u20266621",
+      "reason": "Partial PAN may still be identifying in context but no explicit rule for card suffix; not a full card number."
+    },
+    {
+      "concept": "au_postal_address (partial)",
+      "matched_text": "suburb Redfield WA",
+      "reason": "Suburb and state alone may not meet strict address patterns but could help identify an individual in context."
+    },
+    {
+      "concept": "privacy_governance_marker",
+      "matched_text": "we will action the privacy impact assessment, book stakeholder reviews, and log tasks in project koala\u2011beta per the company privacy by design guideline; this line is operational and benign",
+      "reason": "PIA/Privacy by Design are governance controls; not clearly mapped to a listed privacy-event marker rule."
+    }
+  ]
 }

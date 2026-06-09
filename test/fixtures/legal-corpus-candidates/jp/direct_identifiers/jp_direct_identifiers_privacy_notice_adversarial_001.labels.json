@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -230,6 +238,18 @@
       "category": "MNPI",
       "matched_text": "4567890",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "8 0 1 2 3 4 5 6 7 8 9 0 1)\nContact: Data Protection Lead, Ms. Ayaka Morita-san; email: privacy@kotei-systems.jp; phone: 03-6710-2244 (not 110)\nRegistered address: \u3012199-9999 T\u014dky\u014d-to, Shin-Kaidan-shi, Shiomachi 3-12-1, Kotei Bldg. 7F\nEmployee onboarding may include \u500b\u4eba\u756a\u53f7 (My Number) for payroll/tax; sample: 1234-5678-9012 [invalid checksum\u2014do not submit real IDs]\nTax filings: processing via Shin-Kaidan Tax Office code 77-314 referencing employer number T-58-2031 (example only)\nSecurities workflow: the board approved a potential acquisition of Aizu Techno Works KK; MNPI under FIEA applies until tender-offer facts are disclosed on the Kita Tokyo Securities Exchange issuer page\nRole-only recipients (\u4f8b: HR\u62c5\u5f53, \u6cd5\u52d9\u90e8) may access hashed personnel IDs; we do not collect MAC addresses or device IMEIs in this process\nData sharing with our transfer agent Ishikari Trust TA Co. is restricted; bank payout example: MizuHana Bank Funabori Br. (\u5e97\u756a123) \u666e\u901a 4567890 (sample only)\nPassport verification for executives on roadshows: sample JP passport no. TK1234567 (\u67b6\u7a7a) and residence card XR1234567 (OCR may appear as X R 1 23 456 7)\nShareholder communications may come from ir@kotei-systems.jp or via https://portal.kotei-systems.jp/dsar?rid=MN-12%2034%2056%2078%2090%2012\nPublic helplines 0120-000-000 and 110 are not valid privacy contacts; use 03-6710-2244 or dsar@kotei-systems.jp",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Data Protection Lead, Ms. Ayaka Morita-san; email: privacy@kotei-systems.jp; phone: 03-6710-2244 (not 110)\nRegistered address: \u3012199-9999 T\u014dky\u014d-to, Shin-Kaidan-shi, Shiomachi 3-12-1, Kotei Bldg. 7F\nEmployee onboarding may include \u500b\u4eba\u756a\u53f7 (My Number) for payroll/tax; sample: 1234-5678-9012 [invalid checksum\u2014do not submit real IDs]\nTax filings: processing via Shin-Kaidan Tax Office code 77-314 referencing employer number T-58-2031 (example only)\nSecurities workflow: the board approved a potential acquisition of Aizu Techno Works KK; MNPI under FIEA applies until tender-offer facts are disclosed on the Kita Tokyo Securities Exchange issuer page\nRole-only recipients (\u4f8b: HR\u62c5\u5f53, \u6cd5\u52d9\u90e8) may access hashed personnel IDs; we do not collect MAC addresses or device IMEIs in this process\nData sharing with our transfer agent Ishikari Trust TA Co. is restricted; bank payout example: MizuHana Bank Funabori Br. (\u5e97\u756a123) \u666e\u901a 4567890 (sample only)\nPassport verification for executives on roadshows: sample JP passport no. TK1234567 (\u67b6\u7a7a) and residence card XR1234567 (OCR may appear as X R 1 23 456 7)\nShareholder communications may come from ir@kotei-systems.jp or via https://portal.kotei-systems.jp/dsar?rid=MN-12%2034%2056%2078%2090%2012\nPublic helplines 0120-000-000 and 110 are not valid privacy contacts; use 03-6710-2244 or dsar@kotei-systems.jp for DSARs\n\u5171\u540c\u5229\u7528 and \u59d4\u8a17: processing by Shirogane Analytics GK (\u56fd\u5185) and Shirogane Analytics Pte. Ltd. (\u6d77\u5916) follows APPI Art. 27 notices and appropriate safeguards\nRetention: \u7279\u5b9a\u500b\u4eba\u60c5\u5831 for payroll kept encrypted and deleted within 7 years after termination; MNPI logs retained until 2 years after disclosure under FIEA",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

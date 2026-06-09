@@ -71,6 +71,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "ID",
@@ -203,6 +211,12 @@
       "category": "MNPI",
       "matched_text": "10%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET USULAN AKUISISI BERSYARAT antara PT Sirkuit Dana Nusantara Tbk (Perseroan) dan PT BytePay Teknologi (Target) untuk tujuan pengungkapan kepada Otoritas Jasa Keuangan Nusantara (OJK-N) dan Bursa Efek Samudra (BES).\nIdentitas Perseroan: NIB 8412398754123; NPWP Badan 55.777.888.9-012.345; No. AHU-1234567.AH.01.01.Tahun 2024; alamat: Jl. Matoa Raya No. 88, Kecamatan Setiajaya, Kota Samudra 40123.\nIdentitas Target: NIB 9123456789012 (N I B : 9 1 2 3 4 5 6 7 8 9 0 1 2); NPWP Badan 66.999.111.2-345.678; domisili: Jl. Kapuk Hijau No. 5, Kab. Purnajaya 40321.\nBentuk Transaksi: pembelian 80% saham Target dengan imbalan Rp420.000.000.000 tunai dan 10% saham baru Perseroan (kode internal, bukan kode perdagangan BES: SRDN), penyesuaian kas dan utang pada penutupan.\nSyarat Tangguh: efektifnya pernyataan pendaftaran sesuai POJK-N No. 31/POJK-N.04/2025, persetujuan RUPS, dan tidak ada perubahan hukum yang material; catatan: ini bukan syarat MAC terselubung.\nKetentuan Kepegawaian: Bapak Dimas Arwanda (Nomor Paspor RI: R1234 5678; NIK: 3 2 7 5 0 1 0 1 2 3 4 5 6 7 8 9 0 1 2) akan diangkat sebagai Direktur Operasional Target dan berhak atas retention bonus Rp3.000.000.000 selama 24 bulan.\nMekanisme Pembayaran: pada penutupan, Perseroan mentransfer ke Rekening PT BytePay Teknologi di PT Bank Nusantara Fiksi Tbk, No. Rekening 9988776655, Kantor Cabang Pelita, Jl. Cendana 12, Kota Samudra; SWIFT internal BNFIXID1 digunakan hanya untuk rujukan internal.\nPengungkapan & Dataroom: ringkasan transaksi akan disampaikan melalui sistem keterbukaan BES dan OJK-N, lihat Memo Dewan No. MEMO-DSN-014/2026 serta risalah rapat tanggal 17 Mei 2026; akses data: https://dataruang.sirkuitdana.co.id/deal?pid=AHU-1234567&npwp=55.777.888.9-012.345.\nKontak Resmi: Sekretaris Perusahaan melalui corpsec@sirkuitdana.co.id dan +62-812-3456-7891; peringatan: nomor darurat 112 dan Call Center 1500-000 adalah layanan publik dan bukan kontak transaksi.\nKlausul Kerahasiaan: dokumen ini berisi informasi material non-publik (MNPI) hingga diumumkan, tunduk pada Pedoman Keterbukaan BES dan kebijakan internal; internal use only\u2014kebijakan kerahasiaan Perseroan berlaku.\nKetentuan Penutupan: target closing Triwulan III 2026, tunduk pada uji tuntas regulasi pembayaran digital (fintech) dan persetujuan integrasi lisensi dari OJK-N TekFin; tidak ada kewajiban menerbitkan efek sampai efektif.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -34,13 +34,40 @@
     "status": "approved_for_internal_benchmarking"
   },
   "_strict_reconciliation": {
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:44:27Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-reconciled-narrowed.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU precision guards",
     "basis": "Strict tier was realigned after the UK/EU precision guard pass suppressed closed, public/generic, or non-attributive examples. Original strict labels are preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:44:27Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-reconciled-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU precision guards"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 17,
+    "current_must_detect_count": 6,
+    "current_must_not_detect_count": 6,
+    "previous_ideal_must_detect_count": 17,
+    "previous_must_detect_count": 7,
+    "previous_must_not_detect_count": 6
+  },
+  "_strict_reconciliation_history": [
+    {
+      "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+      "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "reviewer": "Codex GPT-5.5",
+      "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+      "status": "codex_reconciled_owner_approved_internal_benchmark",
+      "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -50,120 +77,132 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer approval"
+      "matched_text": "Cross-border transfer approval",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "to be transferred from Hong Kong to a service provider in Singapore"
+      "matched_text": "to be transferred from Hong Kong to a service provider in Singapore",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "from Hong Kong to a service provider in Singapore"
+      "matched_text": "from Hong Kong to a service provider in Singapore",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Retention and Minimisation"
+      "matched_text": "Retention and Minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimised"
+      "matched_text": "minimised",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "role-based emails and business contacts only"
+      "matched_text": "role-based emails and business contacts only",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no HKID numbers or residential addresses will be collected at this stage"
+      "matched_text": "no HKID numbers or residential addresses will be collected at this stage",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Virtual data room access is restricted to necessary folders"
+      "matched_text": "Virtual data room access is restricted to necessary folders",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "field subsets specified in DPA Schedule 3"
+      "matched_text": "field subsets specified in DPA Schedule 3",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "share purchase agreement"
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "55%"
+      "matched_text": "55%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Transaction: Proposed acquisition of 55% of the issued shares via a share purchase agreement; this non-binding term sheet is subject to HKEX Listing Rules Chapter 14/14A."
+      "matched_text": "Transaction: Proposed acquisition of 55% of the issued shares via a share purchase agreement; this non-binding term sheet is subject to HKEX Listing Rules Chapter 14/14A.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_detect": [
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Transaction: Proposed acquisition of 55% of the issued shares via a share purchase agreement; this non-binding term sheet is subject to HKEX Listing Rules Chapter 14/14A."
+      "matched_text": "Transaction: Proposed acquisition of 55% of the issued shares via a share purchase agreement; this non-binding term sheet is subject to HKEX Listing Rules Chapter 14/14A.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "share purchase agreement"
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "55%"
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Azure Banyan Holdings Limited (HKEX: 83Z1) as purchaser; Coral Vista Technology Limited as target; and Lattice Shore Fund SPC \u2013 Cell A as co-investor.\nTransaction: Proposed acquisition of 55% of the issued shares via a share purchase agreement; this non-binding term sheet is subject to HKEX Listing Rules Chapter 14/14A.\nConsideration: To be determined within a valuation range referencing a 30-trading-day VWAP; no price-sensitive figures are set out and no profit forecasts are included.\nRegulatory: Any announcement obligations under Part XIVA of the Securities and Futures Ordinance will be assessed; the parties confirm no MNPI is being provided beyond information already released on the HKEX news website on 2025-12-10.\nApprovals: SFC consent (if required), independent shareholders\u2019 approval, and LPAC confirmation for Lattice Shore Fund SPC; long-stop date six months from signing.\nData protection: Draft Data Processing Addendum (DPA) Schedule 2 (Retention and Minimisation) forms part of the diligence pack and sets policy-only retention periods without triggering collection expansion.\nCross-border transfer approval: Data Export Approval REQ-AX17 was granted on 2026-01-15 for limited payroll and directory fields to be transferred from Hong Kong to a service provider in Singapore under intra-group model clauses, with transfer logs archived.\nConsent/DSAR status: There are no outstanding consent withdrawals, no open data subject access requests, and no erasure requests pending as at the date of this term sheet.\nOnboarding forms: Purchaser and fund will use generic onboarding/KYC forms capturing role-based emails and business contacts only; no HKID numbers or residential addresses will be collected at this stage.\nEmployment: No changes to employee terms or benefit plans until completion; any transfer of employee records will be limited to field subsets specified in DPA Schedule 3.\nInformation sharing: Virtual data room access is restricted to necessary folders; any \u201cinside information\u201d tags are policy labels and do not indicate undisclosed price-sensitive facts.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -234,24 +273,5 @@
       "matched_text": "Data Export Approval REQ-AX17",
       "reason": "Compliance approval identifier; relevant to cross-border governance but not an allowed PII rule"
     }
-  ],
-  "_strict_reconciliation_history": [
-    {
-      "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-      "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
-      "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "reviewer": "Codex GPT-5.5",
-      "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
-      "status": "codex_reconciled_owner_approved_internal_benchmark",
-      "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
-    }
-  ],
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 7,
-    "current_must_detect_count": 6,
-    "previous_ideal_must_detect_count": 17,
-    "current_ideal_must_detect_count": 17,
-    "previous_must_not_detect_count": 6,
-    "current_must_not_detect_count": 6
-  }
+  ]
 }

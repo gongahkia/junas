@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -315,6 +323,12 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller: Naaqah Sands Capital PJSC; DPO: Dr. Noura Al Manasi; contact: dpo@naaqahsands.ae; Trade Licence: TL-99421-FIC (fictional)\nWe process PDPL personal data including name, work contact details, Emirates ID copy, trade licence details, nationality and family-origin declarations for AML/KYC, role/title, and access logs.\nFor listing-preparation and financing mandates, we maintain insider lists per SCA/DFSA/FSRA rules, including access time stamps, wall-crossing consents, and blackout window status.\nMNPI examples: pre-public commercial terms of a virtual asset token pre-sale (discount tiers, lock-ups) for issuer \u201cSandHex Labs FZ-LLC,\u201d code-named Project Dune Falcon, and ESG-linked covenant triggers under a climate metric.\nWe may handle indicators from an unreported cyber incident affecting an issuer\u2019s custody node to assess materiality and notify regulators; such data is restricted and subject to information barriers.\nAccess to MNPI is restricted to a clean team on the \u201cIB-Wall North\u201d data room; calendar invitations marked \u201cclean only\u201d are reviewed where necessary to monitor barrier effectiveness.\nLawful bases include contract performance, compliance with UAE PDPL and market-abuse regimes, and legitimate interests in transaction execution; where required we obtain explicit consent.\nTransfers: data may be processed by Bayt Qamar Services LLC (ADGM), and by Kharif Cloud B.V. (EU) under UAE PDPL transfer mechanisms and ADGM/DIFC adequacy-equivalent safeguards.\nRetention: Emirates ID copies and KYC files are kept 7 years; insider lists and wall-crossing records 5 years; deal-room MNPI is deleted or anonymised 30 days after abort or 180 days after final public disclosure.\nData subject rights (access, correction, erasure, objection, portability) may be exercised by emailing dsar@naaqahsands.ae; responses are typically within 30 days subject to PDPL exemptions for market integrity.\nEmployees are prohibited from tipping or selective disclosure; no sharing of Project Dune Falcon terms with sales desks during blackout; communications are monitored for WhatsApp/Signal usage policy compliance.\nFor ESG/climate diligence we process scenario models tied to an issuer\u2019s energy intensity baseline before publication; such analysis is confidential and could affect pricing on ADX/DFM or ADGM venues.\nEducational note: our public webinar on crypto custody, cyber hygiene, and climate reporting uses generic case studies and does not reference any live issuer, insider list, or blackout information.\nOperations: our marketing brochures may mention \u201ctoken pre-sales,\u201d \u201cinsider controls,\u201d and \u201cinformation barriers\u201d to describe our services, but contain no MNPI or client-specific commercial terms.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

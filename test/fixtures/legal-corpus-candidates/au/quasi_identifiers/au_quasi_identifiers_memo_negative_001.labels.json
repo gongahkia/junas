@@ -94,6 +94,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AU",
@@ -162,7 +170,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Generic demographics: phrases like “staff aged in their 30s” or “regional NSW personnel” in guidance notes are non‑identifying and acceptable under our privacy threshold.",
+      "matched_text": "Generic demographics: phrases like \u201cstaff aged in their 30s\u201d or \u201cregional NSW personnel\u201d in guidance notes are non\u2011identifying and acceptable under our privacy threshold.",
       "rule": "material_event"
     },
     {
@@ -189,13 +197,25 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Generic demographics: phrases like “staff aged in their 30s” or “regional NSW personnel” in guidance notes are non‑identifying and acceptable under our privacy threshold.",
+      "matched_text": "Generic demographics: phrases like \u201cstaff aged in their 30s\u201d or \u201cregional NSW personnel\u201d in guidance notes are non\u2011identifying and acceptable under our privacy threshold.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board Secretariat, Silvergum Technologies Limited\nFrom: Legal & Compliance (legal@silvergum.com.au)\nDate: 31 May 2026\nSubject: Privacy Act and MNPI controls update for ASIC/ASX context\n\nUnder the Privacy Act 1988 (Cth), personal information includes information or an opinion about an identified or reasonably identifiable individual; under the Corporations Act 2001 (Cth) and ASIC guidance, MNPI is information not generally available that would be expected to materially affect financial products.\nEmployment records: rosters and shift allocations are stored by position and site only (e.g., \u201csupport technician \u2013 Brisbane depot\u201d); no DOBs, home addresses, or medical details are exported to operations reports.\nHealth data: EAP utilisation is reported in aggregate (e.g., three staff in Perth this quarter) and not linked to identities; staff may use the public well\u2011being helpline 1300 000 000, which is not a company contact.\nCredit and onboarding: supplier forms capture entity details and are validated against public registers; any ABN-like placeholder \u201c00 000 000 000\u201d in draft screenshots is illustrative only; no consumer credit files are accessed.\nTransactions and disclosure: the contract renewal noted in the April operations pack was disclosed on ASX on 15 April and forms part of our continuous disclosure history; any \u201cpipeline\u201d references here relate to already\u2011announced tenders and are not MNPI.\nIntentional PII example for remediation: to resolve a payroll discrepancy, HR recorded that a contracted network engineer on night shifts at the Newcastle site, born 03/1979, carries device tag RZ-14-88 and is paid to an account ending 4421; this combination is quasi\u2011identifying and must be quarantined to HR systems with role\u2011based access only.\nDevice logs elsewhere list only asset classes (e.g., \u201claptop model AU-2021\u201d) without user linkage; the generic string \u201cID: 123-ABC\u201d in training slides is not an operational identifier.\nFinance governance: the current draft board paper describes an internal product refresh without forecasts or revenue figures and, standing alone, is not price\u2011sensitive under ASX Listing Rule 3.1.\nGeneric demographics: phrases like \u201cstaff aged in their 30s\u201d or \u201cregional NSW personnel\u201d in guidance notes are non\u2011identifying and acceptable under our privacy threshold.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -216,7 +236,7 @@
       "reason": "Training placeholder string; not an operational identifier"
     },
     {
-      "matched_text": "support technician – Brisbane depot",
+      "matched_text": "support technician \u2013 Brisbane depot",
       "reason": "Generic role/location example; non-identifying"
     },
     {

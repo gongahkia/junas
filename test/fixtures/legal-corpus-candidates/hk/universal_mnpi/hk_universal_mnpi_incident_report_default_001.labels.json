@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -299,6 +307,24 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 INSIDE INFORMATION (HSO Part XIVA) \u2014 NOT FOR EXTERNAL DISTRIBUTION.\nBoard incident memo re cyber intrusion: Project Lychee (deal codename) \u2014 Bright Harbour Holdings Limited (VHX: 9X88).\nContact: Mr. Adrian Tse, COO, adrian.tse@brightharbour.com.hk, +852 3900 1234; escalation via security-incident@brightharbour.com.hk.\nOn 2026-06-01 02:40 HKT, anomalous access at our Tsuen Wan DC via vendor RootSpan resulted in downtime of the ClientHub portal (46 minutes) and exposure of HKD 18.4m receivables; preliminary revenue at risk ~2.3%.\nPDPO assessment: names and work emails of 412 employees and 76 SME customers may have been accessed; no ID numbers or bank details observed to date.\nRegulatory position: the event is likely inside information under VHX Listing Rule 13.09 and HSO Part XIVA; embargo on public announcement proposed until 2026-06-15 18:00 HKT pending containment and HSC informal consultation.\nM&A overlay: Share Purchase Agreement (definitive) for acquisition of Cedar Peak Logistics Limited signed on 2026-05-31 with Foxtail Fund V, L.P. co-investing 30%; the incident, if remediated within 14 days, shall not constitute a MAC under clause 8.2.\nFor the avoidance of doubt, the service interruption alone does not amount to a material adverse effect on the target\u2019s consolidated business as defined in the SPA.\nFinancial impact: remediation and forensics estimated at HKD 6.2m (insurer retention HKD 1.0m), potential customer churn 0.6%\u20130.9%; liquidity headroom unaffected.\nEmployment/ops: temporary freeze on vendor onboarding and privileged account resets; wellness spa day vouchers will still be honoured next Friday.\nDraft IR note (non-public): to be cleared by Ms. Phoebe Lau (external counsel, Kwan & Moriyama) and the Audit Committee; no forward-looking statements beyond containment milestones.\nReference: our 2024 sustainability report already discusses generic phishing trends in the sector (public), but it does not disclose vendor names or this incident.\nPlease limit circulation to Board, ExCo, and named advisers; add Messrs. Felix Ng and Daniyal Chow to the insider list in the VHX e-Submission system.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

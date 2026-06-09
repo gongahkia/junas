@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -164,6 +172,18 @@
       "category": "MNPI",
       "matched_text": "307B",
       "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational Incident Report \u2014 Silver Harbor Holdings Limited (Main Board listing in Hong Kong; stock ref: SHL-9Z19), date: 2026-06-02.\nSummary: brief disruption at Harborview data room on 2026-05-30 due to vendor patch rollback; no customer personal data under PDPO accessed or exfiltrated.\nScope: internal logistics platform downtime of 43 minutes; warehouse routing resumed under normal parameters and no orders rerouted externally.\nAssessment under SFO Part XIVA s.307B and Listing Rule 13.09 (Hong Kong): not considered inside information and not price-sensitive; no disclosure obligation triggered.\nPublic-source reference: HarborCERT quarterly bulletin noted similar patch rollbacks in Q1; we followed published KB steps available on their public site.\nM&A workflow note: confirm no change to signed NDAs and data room access logs; standard access was paused during the patch cycle.\nIR draft for website: propose a short notice in the maintenance log only; no media release or analyst briefing proposed.\nBoard memo note: review cyber insurance deductible and vendor SLA at next meeting; no change in guidance proposed.\nEmployment/HR workflow: staff overtime recorded per policy; no disciplinary action; spa day remains scheduled for friday 14:00\u201317:00.\nVendor and fund counterparties informed via role mailboxes only (it-security@silverharbor.example; ops@asteris-capital.example).\nData classification: systems contained only test SKUs and anonymised route tables; no identity is directly or indirectly ascertainable from the affected logs.\nChecklist tickbox: DPIA not required; DPO to log incident ref SH-OPS-2026-00X in the register for audit trail.\nEmbargo for IR page update: hold until 2026-06-05 08:30 HKT to avoid duplicate notices over the weekend.\nContract reference for legal team: SPA MAC clause cross-check only; definitive agreement status unchanged and no drawdown condition impacted.\nInvestor research note snippet (public-domain): sector peers disclosed longer outages in 2024; our incident duration is below the peer median.\nReminder to project managers: keep tickets lowercase and avoid adding 'confidential' tags to routine maintenance logs.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

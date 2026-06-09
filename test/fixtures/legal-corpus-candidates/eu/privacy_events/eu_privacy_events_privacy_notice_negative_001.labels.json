@@ -50,6 +50,14 @@
     "previous_must_detect_count": 5,
     "previous_must_not_detect_count": 16
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -137,6 +145,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller: Meridian Green Metals SE; Processors: CloudForge GmbH (hosting, Euravia-East region), Atlas Metrics Oy (ESG analytics); Subprocessors restricted to EU/EFTA with prior notice.\nScope of PII under GDPR includes shareholder registry and employee HR data; Art 9 data is not intentionally collected beyond limited occupational health attestations required by law and is minimised and shielded from analytics workflows.\nLawful bases: contractual necessity and legal obligation for registry and MAR records; consent only for optional newsletters; consent withdrawals are actioned via Form DCW-07 and there are currently no open withdrawals.\nDSARs are received via the portal at privacy.meridian-green.example; no DSARs are pending and one erasure request was completed on 2026-04-12 under Art 17 with audit trail retained.\nCross-border transfer: Data Export Approval EU-XB-214 authorised a one-off export of limited HR contact fields to Nuvania (no adequacy decision) using 2021 SCCs (Module Two) and a documented TIA; export completed and no ongoing replication is configured.\nTechnical and organisational measures for EU-XB-214 include encryption in transit and at rest, key control by Meridian, and access limited to role accounts; no onward transfers to additional third countries are permitted.\nRetention schedule (policy-only): insider lists (EU MAR) retained 5 years after last update; HR files retained 6 years; investor communications logs retained 3 years; retention holds may apply for regulatory preservation and are recorded in RH-LOG-09.\nData minimisation: analytics receives pseudonymised user IDs and hashed emails; special-category elements are redacted at source and logging excludes full IP addresses by default.\nMAR governance: insider lists maintained in SecureSheet with time-stamping; PDMR dealings pre-cleared under the Closed Period Policy; this note contains no inside information and references only public, previously announced matters.\nCSRD/SFDR workflows: sustainability KPIs are aggregated at entity level; personal data is excluded from external ESG API calls; due diligence records are access-controlled and not exported outside the EU without a fresh approval.\nLocalisation: primary processing region is Euravia-East; disaster recovery is within EU/EFTA only; subprocessor changes require 30 days\u2019 notice and a right to object.\nPlaceholders for illustration only: ISIN ZZ-TEST-000000, Account ACCT-XXXX-0000, Ticket REF-NIL-123; these are invalid and non-live and should not be treated as active identifiers.\nInternational transfer posture: UK destinations are treated as adequate; US destinations are restricted and the legacy EU\u2013US pipeline was decommissioned in Q4 2025; no cookies used for cross-border analytics.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

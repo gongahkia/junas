@@ -1,180 +1,245 @@
 {
-  "doc_id": "my_jurisdictional_mnpi_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "MY",
-  "destination_jurisdiction": "MY",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "corpcomms@serimutiara.example.my"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "3 million"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "12 million"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "11%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "lateral movement"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 2,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM5 million'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM5 million'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_jurisdictional_mnpi_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "corpcomms@serimutiara.example.my"
+      "matched_text": "corpcomms@serimutiara.example.my",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "3 million"
+      "matched_text": "3 million",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "12 million"
+      "matched_text": "12 million",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "11%"
+      "matched_text": "11%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "lateral movement"
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Puan Nadira Halim"
+      "matched_text": "Puan Nadira Halim",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Encik Farid Azlan"
+      "matched_text": "Encik Farid Azlan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@serimutiara.example.my"
+      "matched_text": "ir@serimutiara.example.my",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not for external release"
+      "matched_text": "not for external release",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "anomalous authentication attempts"
+      "matched_text": "anomalous authentication attempts",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "ransomware payload"
+      "matched_text": "ransomware payload",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "WMS outage"
+      "matched_text": "WMS outage",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "immediate announcement requirement"
+      "matched_text": "immediate announcement requirement",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Closed period"
+      "matched_text": "Closed period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "avoid selective disclosure"
+      "matched_text": "avoid selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "constitutes selective disclosure"
+      "matched_text": "constitutes selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "bulk exfiltration"
+      "matched_text": "bulk exfiltration",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "two employee records (names and emails) may have been accessed"
+      "matched_text": "two employee records (names and emails) may have been accessed",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "immediate announcement on the Exchange"
+      "matched_text": "immediate announcement on the Exchange",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "draft an immediate announcement"
+      "matched_text": "draft an immediate announcement",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "must not deal"
+      "matched_text": "must not deal",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no investor, lender, or customer briefings until the announcement is released on the Exchange’s website"
+      "matched_text": "no investor, lender, or customer briefings until the announcement is released on the Exchange\u2019s website",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "insider trading prohibitions"
+      "matched_text": "insider trading prohibitions",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "we will accelerate disclosure"
+      "matched_text": "we will accelerate disclosure",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "potential price‑sensitive development"
+      "matched_text": "potential price\u2011sensitive development",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "corpcomms@serimutiara.example.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "11%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Seri Mutiara Berhad \u2014 Internal Incident Report (Operational/Cyber) \u2014 Confidential; not for external release or analyst briefings prior to an immediate announcement on the Exchange.\nOn 02/06/2026 at approximately 03:10 MYT, our vendor SolarSafe Cloud Sdn Bhd detected anomalous authentication attempts against our hosted Warehouse Management System instance; a ransomware payload was quarantined and lateral movement contained within a segregated staging environment.\nImpact summary: the Medan Tembusu warehouse experienced a 9-hour WMS outage; c.11% of daily outbound shipments by Gemilang Logistics Sdn Bhd were deferred; no physical damage or safety incidents reported.\nPreliminary financial assessment indicates RM2\u20133 million revenue deferral into Q3, with potential margin impact from overtime and expedited freight; on an issuer-relative basis this may be material for the Logistics segment and could trigger an immediate announcement requirement under the Main Market Listing Requirements (Bursa Nusantara Securities Berhad) equivalent of paragraph 9.03A.\nForensics led by Perisai Digital Consulting Sdn Bhd finds no evidence of bulk exfiltration; two employee records (names and emails) may have been accessed\u2014PDPA obligations apply and HR will issue notices within 72 hours; no customer PII or payment data were exposed.\nClosed period: the Company enters a closed period for Q2 results on 01/07/2026; directors and principal officers must not deal in Seri Mutiara Berhad shares; this document contains non-public, price-sensitive information and is subject to insider trading prohibitions.\nDisclosure plan: draft an immediate announcement for submission to the Exchange by 07:30 tomorrow; avoid selective disclosure\u2014no investor, lender, or customer briefings until the announcement is released on the Exchange\u2019s website.\nPublic references for context only: (i) our Sustainability Statement 2025 (public) disclosed ongoing cyber control enhancements; (ii) announcement dated 12/03/2026 titled \u201cOperational Update: Flood Remediation at Medan Tembusu\u201d (public) is unrelated to this incident.\nNon-issuer operational updates: yesterday\u2019s national telecom routing disruption reported in the press is a third\u2011party event; while it may have exacerbated latency, it remains general market information and not specific to the issuer.\nVendor communications: SolarSafe Cloud\u2019s status page post is public and generic; under our contract, the vendor may not identify Seri Mutiara without consent.\nContingencies: if further analysis elevates materiality (e.g., cumulative impact above RM5 million at Group level), we will accelerate disclosure and request the Exchange to note a potential price\u2011sensitive development to mitigate unusual market activity queries.\nGovernance: the Risk Committee chaired by Puan Nadira Halim met at 16:00; Internal Audit to test privileged access and backup restore time objectives; a follow\u2011up determination on materiality is due by 20:00.\nStaff reminder: discussing specifics of this incident on social media, messaging apps, or with counterparties before public release constitutes selective disclosure and may breach capital markets laws and policy CP\u201104.\nContact: enquiries to Encik Farid Azlan, Head of Investor Relations, ir@serimutiara.example.my; media queries to corpcomms@serimutiara.example.my.\nNote: this report supersedes a 10:30 draft that incorrectly estimated RM10\u201312 million impact; that estimate was withdrawn upon reconciliation and must not be relied upon.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -187,83 +252,27 @@
       "reason": "Role-noun defined term; not PII or MNPI by itself"
     }
   ],
+  "source_jurisdiction": "MY",
   "uncertain": [
     {
-      "matched_text": "two employee records (names and emails) may have been accessed",
       "concept": "PII exposure reference",
+      "matched_text": "two employee records (names and emails) may have been accessed",
       "reason": "Indicates access to personal data but does not include concrete PII instances beyond a generic description"
     },
     {
-      "matched_text": "PDPA obligations apply",
       "concept": "data protection legal obligation",
+      "matched_text": "PDPA obligations apply",
       "reason": "Refers to regulatory obligations without mapping to a specific allowed privacy-event marker"
     },
     {
-      "matched_text": "paragraph 9.03A",
       "concept": "listing rule trigger",
+      "matched_text": "paragraph 9.03A",
       "reason": "Lists a disclosure trigger clause relevant to materiality but not directly covered by an MNPI rule token"
     },
     {
-      "matched_text": "policy CP‑04",
       "concept": "internal policy reference",
+      "matched_text": "policy CP\u201104",
       "reason": "Potential compliance sensitivity but not an allowed PII/MNPI rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": {
-    "count": 2,
-    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM5 million'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM5 million'"
-    ]
-  },
-  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
-  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_strict_reconciliation": {
-    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -235,6 +243,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller: AlNajm Capital PJSC (Trade Licence: TL-ANJ- 0O4-77Q), Processor: Desert Ledger FZ-LLC (FZ-TR   -9921); DPO: Ms. Layla Al\u2011Hamri, privacy@alnajm-capital.demo\nScope: PDPL personal data categories: onboarding forms (name, contact, family origin disclosures for suitability), Emirates ID surrogate token E\u20110Q4  2\u20149Z9, masked trade\u2011licence images\nWe do not store Emirates ID images after verification; we do not log MAC addresses or device IMEI, and MNPI is expressly out of scope for this processing activity\nData minimisation: collect only last 4 digits of the Emirates ID surrogate and last 3 digits of mobile; marketing consent not pre\u2011ticked\nConsent withdrawal: Mr. Hadi Al\u2011Sabri withdrew direct marketing consent on 2026\u201104\u201112; suppression flag set (mkt-sup: x7F9) and confirmed by email\nDSAR #DS-  33  71 received 2026\u201104\u201115 via portal https://privacy.alnajm-capital.demo/dsar?id=Q2%2F7  1; copy provided within 30 days; rectified address per client note\nErasure executed: image hash 8a:  9c-77* of trade\u2011licence TL\u2011FZX\u20119N3 cleared from the vault on 2026\u201104\u201118; audit log retained for accountability\nRetention schedule: AML/KYC records 5 years post\u2011offboarding; DIFC branch HR files 6 years; we have already met the retention trigger for legacy client 7Q\u2011**1\nCross\u2011border transfer approved to Falaj Transfer Services B.S.C. (Manama) for encrypted backup hosting; PDPL Art. 23 derogation (contract necessity) applied\nTransfer safeguards: SCC\u2011like terms executed; data residency key: UA\u2011  AE\u2011node\u2011A13; export manifest at https://files.alnajm-capital.demo/export?v=3&ref=onb%2F2026-0 4%2F77\nSecurity: encryption at rest (AES\u2011256), role\u2011based access; note that completion of this DPA does not imply any unresolved breach or live risk\nRegulatory context: SCA market\u2011abuse policy referenced; issuer\u2011side MNPI quarantine is already completed and unrelated to onboarding data\nContact & complaints: dpo@alnajm-capital.demo; local contact +971\u20115x\u2011  44  88  221; complaints avenue available via freezone regulator guidance",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -150,6 +158,12 @@
       "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Systems: The onboarding portal for the Emirate Capital Exchange test environment remained available; workflow queues were paused and resumed without change to data integrity.\nPDPL scope: PDPL-covered fields (Emirates ID, trade licence, family origin) are present as form labels in templates only; the records implicated contained placeholders and no identified or indirectly identifiable natural person data.\nMNPI: No non-public market-sensitive issuer information was processed; the only deal references were to already-announced timetables under prior SCA disclosures.\nDPA/Retention: Per the Data Processing Agreement with Bayt Ajyal Cloud FZ-LLC, Schedule 2 retention rules apply to audit logs (standard 30 days); no retention changes were triggered by this event.\nDSAR/Erasure: A DSAR erasure for a closed test profile was completed on 2026-06-01 and verified by the Privacy Office; no further requests are pending.\nCross-border transfer: Data Export Approval UAE-PDPL/CBT/2026-041 authorised replication of pseudonymised audit events to a GCC regional cluster operated by Azureo Gulf Cloud WLL (BH); minimisation markers ensured no Emirates ID or family-origin fields left the UAE.\nConsent: A consent-withdrawal toggle exists in CRM templates, but no withdrawals were triggered or processed in relation to this incident.\nIdentifiers in forms (examples): Emirates ID 000-0000-0000000-0, Trade Licence TL-XYZ-999999, Family Origin (optional) \u2014 placeholders only, not live submissions.\nCompliance: No notification obligation to the UAE SCA, ADGM Office of Data Protection, or DIFC Commissioner of Data Protection was triggered; the incident is closed as informational.\nMarket context: Deal workflow references were generic and publicly disclosed; nothing price-sensitive or non-public was handled.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

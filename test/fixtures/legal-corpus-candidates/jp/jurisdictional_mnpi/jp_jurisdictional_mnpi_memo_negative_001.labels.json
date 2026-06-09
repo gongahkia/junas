@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -75,7 +101,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "個人番号",
+      "matched_text": "\u500b\u4eba\u756a\u53f7",
       "rule": "jp_my_number"
     },
     {
@@ -105,7 +131,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "未公表の重要事実",
+      "matched_text": "\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f",
       "rule": "nonpublic_marker"
     },
     {
@@ -115,7 +141,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "公開買付",
+      "matched_text": "\u516c\u958b\u8cb7\u4ed8",
       "rule": "material_event"
     },
     {
@@ -214,6 +240,18 @@
       "category": "MNPI",
       "matched_text": "not yet public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal memo to Board and Compliance of Mokusei Industries K.K. regarding APPI/My Number and FIEA considerations for acquisition workflow.\nAs background, the company publicly announced FY2025 results on TDnet on 25 March 20XX and the TSE Prime Market governance report revision on the same date, both already public.\nThe previously disclosed share buyback program was completed in December 20XX; no new authorization is contemplated and this memo does not change public guidance.\nEarnings blackout window under the internal policy ended two trading days after the TDnet release; routine pre-clearance resumes, subject to standard TSE rules.\nHR confirms vendor Ayatori Robotics K.K. relocated its Osaka office to 3-12-7 Nishi-Kanzaki, Kita Ward, Osaka, and this operational change is unrelated to issuer disclosures.\nTemplate materials for securities forms include placeholders such as ISIN ZZ0000000000 and account code ACCT-0099-XY; these are dummy values and not linked to any live instrument.\nFor inquiries, use role mailboxes ir@mokusei.example.jp and hr@mokusei.example.jp; do not send personal data to external distribution lists.\nThe Annual General Meeting notice was filed on TDnet on 10 May 20XX and posted on the corporate website; details are stale and not subject to selective disclosure.\nUnder APPI, no My Number data should be included in board materials; remove any 12-digit individual number fields from drafts circulated to directors.\nDraft board materials currently include an employee onboarding spreadsheet with a column labeled \u500b\u4eba\u756a\u53f7; this constitutes APPI-covered PII and must be stripped before circulation.\nUnder the Financial Instruments and Exchange Act, undisclosed material facts include a tender offer decision, board resolutions, and acquisition terms when not yet public.\nThe Board has not yet announced on TDnet the planned initiation of a \u516c\u958b\u8cb7\u4ed8 for Kogane Tech K.K.; until timely disclosure, treat this as \u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f and restrict access to Legal and Corporate Planning only.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -273,31 +311,13 @@
     },
     {
       "concept": "tender offer planning",
-      "matched_text": "planned initiation of a 公開買付",
+      "matched_text": "planned initiation of a \u516c\u958b\u8cb7\u4ed8",
       "reason": "Non-public initiation planning is material under FIEA; phrase-level mapping may be too contextual for strict detection"
     },
     {
       "concept": "local blackout timing semantics",
       "matched_text": "two trading days",
       "reason": "Exchange-relative blackout timing is compliance-relevant but not a specific allowed rule trigger"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

@@ -1,11 +1,11 @@
 {
   "_agent_review": {
     "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
+    "reviewed_at_utc": "2026-05-31T12:38:03Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
     "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
     "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
-    "status": "post_ae_sa_global_precision_realign_owner_approved",
-    "reviewed_at_utc": "2026-05-31T12:38:03Z"
+    "status": "post_ae_sa_global_precision_realign_owner_approved"
   },
   "_agent_review_history": [
     {
@@ -17,11 +17,11 @@
     },
     {
       "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
+      "reviewed_at_utc": "2026-05-31T12:38:03Z",
       "reviewer": "codex-gpt-assisted-strict-tier-review",
       "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
       "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
-      "status": "post_ae_sa_global_precision_realign_owner_approved",
-      "reviewed_at_utc": "2026-05-31T12:38:03Z"
+      "status": "post_ae_sa_global_precision_realign_owner_approved"
     }
   ],
   "_human_review": {
@@ -56,6 +56,32 @@
     "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
     "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -64,290 +90,308 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Quillon Pak‑Lam Sze"
+      "matched_text": "Mr. Quillon Pak\u2011Lam Sze",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Sze"
+      "matched_text": "Mr. Sze",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Seraphine Ko‑Yi Tam"
+      "matched_text": "Ms. Seraphine Ko\u2011Yi Tam",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "quillon.sze@lotus-meridian.hk"
+      "matched_text": "quillon.sze@lotus-meridian.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "corpdev-role@lotus-meridian.hk"
+      "matched_text": "corpdev-role@lotus-meridian.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr‑tam@brilliantcove.com.hk"
+      "matched_text": "hr\u2011tam@brilliantcove.com.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@lotus-meridian.hk"
+      "matched_text": "compliance@lotus-meridian.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "deal‑ops@northbridge‑tp.com"
+      "matched_text": "deal\u2011ops@northbridge\u2011tp.com",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+852 3 6 8 9 9 2 7 1"
+      "matched_text": "+852 3 6 8 9 9 2 7 1",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "LMH-EMP-0 0 9 4"
+      "matched_text": "LMH-EMP-0 0 9 4",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1990‑09"
+      "matched_text": "1990\u201109",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "LMH‑MBP‑14‑QSZ‑229c"
+      "matched_text": "LMH\u2011MBP\u201114\u2011QSZ\u2011229c",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "hks-0-1903"
+      "matched_text": "hks-0-1903",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "QSZ_90"
+      "matched_text": "QSZ_90",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "lmh%2Dqs z%2F1990-09"
+      "matched_text": "lmh%2Dqs z%2F1990-09",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "LMH‑M&A‑7831"
+      "matched_text": "LMH\u2011M&A\u20117831",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Quasi-identifier cluster (PDPO risk)"
+      "matched_text": "Quasi-identifier cluster (PDPO risk)",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "redact DOBs and personal emails from the VDR indices"
+      "matched_text": "redact DOBs and personal emails from the VDR indices",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfers"
+      "matched_text": "cross-border transfers",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "18.5%"
+      "matched_text": "18.5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "MOU"
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "confidentiality wall"
+      "matched_text": "confidentiality wall",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean team protocol"
+      "matched_text": "clean team protocol",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "wall‑cross consent"
+      "matched_text": "wall\u2011cross consent",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposes to acquire 18.5% of Brilliant Cove Logistics Technology Co., Ltd"
+      "matched_text": "proposes to acquire 18.5% of Brilliant Cove Logistics Technology Co., Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "ring‑fenced"
+      "matched_text": "ring\u2011fenced",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "pre‑announcement sounding with investors"
+      "matched_text": "pre\u2011announcement sounding with investors",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "should not be emailed externally"
+      "matched_text": "should not be emailed externally",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "tam@brilliantcove.com.hk"
+      "matched_text": "tam@brilliantcove.com.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1 3 - 0 9"
+      "matched_text": "1 3 - 0 9",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Quillon Pak"
+      "matched_text": "Mr. Quillon Pak",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Seraphine Ko"
+      "matched_text": "Ms. Seraphine Ko",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Sze"
+      "matched_text": "Sze",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Transaction update: LMH proposes to acquire 18.5% of Brilliant Cove Logistics Technology Co., Ltd. via Northbridge Transfer Partners Ltd.; information herein is specific to a corporation, non-public, and likely to be price-material pending diligence, hence MNPI until announcement; draft timetable targets pre-conditional MOU execution in late June."
+      "matched_text": "Transaction update: LMH proposes to acquire 18.5% of Brilliant Cove Logistics Technology Co., Ltd. via Northbridge Transfer Partners Ltd.; information herein is specific to a corporation, non-public, and likely to be price-material pending diligence, hence MNPI until announcement; draft timetable targets pre-conditional MOU execution in late June.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Public-only materials: the marketing pack for the potential co-investors contains summary charts from publicly available freight indices and does not include MNPI; any model outputs relying on internal forecast spreads will be ring‑fenced."
+      "matched_text": "Public-only materials: the marketing pack for the potential co-investors contains summary charts from publicly available freight indices and does not include MNPI; any model outputs relying on internal forecast spreads will be ring\u2011fenced.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "001122"
+      "matched_text": "001122",
+      "rule": "large_number"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "quillon.sze@lotus-meridian.hk"
+      "matched_text": "quillon.sze@lotus-meridian.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "corpdev-role@lotus-meridian.hk"
+      "matched_text": "corpdev-role@lotus-meridian.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "tam@brilliantcove.com.hk"
+      "matched_text": "tam@brilliantcove.com.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1 3 - 0 9"
+      "matched_text": "1 3 - 0 9",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+852 3 6 8 9 9 2 7 1"
+      "matched_text": "+852 3 6 8 9 9 2 7 1",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Quillon Pak‑Lam Sze"
+      "matched_text": "Mr. Quillon Pak\u2011Lam Sze",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Sze"
+      "matched_text": "Mr. Sze",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Seraphine Ko‑Yi Tam"
+      "matched_text": "Ms. Seraphine Ko\u2011Yi Tam",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Transaction update: LMH proposes to acquire 18.5% of Brilliant Cove Logistics Technology Co., Ltd. via Northbridge Transfer Partners Ltd.; information herein is specific to a corporation, non-public, and likely to be price-material pending diligence, hence MNPI until announcement; draft timetable targets pre-conditional MOU execution in late June."
+      "matched_text": "Transaction update: LMH proposes to acquire 18.5% of Brilliant Cove Logistics Technology Co., Ltd. via Northbridge Transfer Partners Ltd.; information herein is specific to a corporation, non-public, and likely to be price-material pending diligence, hence MNPI until announcement; draft timetable targets pre-conditional MOU execution in late June.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Public-only materials: the marketing pack for the potential co-investors contains summary charts from publicly available freight indices and does not include MNPI; any model outputs relying on internal forecast spreads will be ring‑fenced."
+      "matched_text": "Public-only materials: the marketing pack for the potential co-investors contains summary charts from publicly available freight indices and does not include MNPI; any model outputs relying on internal forecast spreads will be ring\u2011fenced.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "MOU"
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "18.5%"
+      "matched_text": "18.5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "001122"
+      "matched_text": "001122",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Quasi-identifier cluster (PDPO risk): Mr. Quillon Pak\u2011Lam Sze, Associate Director, Corporate Development (LMH-EMP-0 0 9 4), office: Quarry Bay, HK; internal OMS acct \u201cQSZ_90\u201d; email quillon.sze@lotus-meridian.hk; partial DOB 1990\u201109; device label \u201cLMH\u2011MBP\u201114\u2011QSZ\u2011229c\u201d; last login via vpn sess ref hks-0-1903 from Kowloon East.\nAdditional contextual signals re Mr. Sze: intranet URL hit https://intra.lmh.local/sess?user=QSZ_90&tag=H K E X - 1 3 - 0 9 on 2026\u201105\u201128 19:41 HKT; Teams room \u201cBlue Swallow \u2013 M&A\u201d; calendar slot \u201cLMH x Brilliant Cove diligence (room 21F\u2011C)\u201d; please avoid combining these in external emails.\nSeparated weak identifiers (do not attribute to an individual): device types noted in the clean room include \u201ciPhone 12 mini\u201d and \u201cThinkPad X13\u201d; generic city reference \u201cCentral\u201d; sample IP 203.86.1xx.45; month of birth \u201cMarch\u201d; none of these alone should be treated as identifying data",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction update: LMH proposes to acquire 18.5% of Brilliant Cove Logistics Technology Co., Ltd. via Northbridge Transfer Partners Ltd.; information herein is specific to a corporation, non-public, and likely to be price-material pending diligence, hence MNPI until announcement; draft timetable targets pre-conditional MOU execution in late June.\nHK context: draft inside information assessment is being prepared for the Exchange filing pack; if the price-sensitive threshold is met, we will pivot to a holding announcement with a confidentiality wall for the data room and a clean team protocol consistent with the Takeovers Code.\nQuasi-identifier cluster (PDPO risk): Mr. Quillon Pak\u2011Lam Sze, Associate Director, Corporate Development (LMH-EMP-0 0 9 4), office: Quarry Bay, HK; internal OMS acct \u201cQSZ_90\u201d; email quillon.sze@lotus-meridian.hk; partial DOB 1990\u201109; device label \u201cLMH\u2011MBP\u201114\u2011QSZ\u2011229c\u201d; last login via vpn sess ref hks-0-1903 from Kowloon East.\nAdditional contextual signals re Mr. Sze: intranet URL hit https://intra.lmh.local/sess?user=QSZ_90&tag=H K E X - 1 3 - 0 9 on 2026\u201105\u201128 19:41 HKT; Teams room \u201cBlue Swallow \u2013 M&A\u201d; calendar slot \u201cLMH x Brilliant Cove diligence (room 21F\u2011C)\u201d; please avoid combining these in external emails.\nSeparated weak identifiers (do not attribute to an individual): device types noted in the clean room include \u201ciPhone 12 mini\u201d and \u201cThinkPad X13\u201d; generic city reference \u201cCentral\u201d; sample IP 203.86.1xx.45; month of birth \u201cMarch\u201d; none of these alone should be treated as identifying data.\nPDPO handling: redact DOBs and personal emails from the VDR indices; where necessary, use role accounts (e.g., corpdev-role@lotus-meridian.hk) and device pool tags; confirm the personal data collection statement in Annex A applies to cross-border transfers to the diligence vendor.\nFund workflow: Harbor Pine Fund SPC \u2013 Sub\u2011Fund A (internal code HPF-A\u2011001122) is invited to co-invest via an SPV subject to a side letter; no client bank details or national IDs are included; KYC will be run through a separate secure channel after term sheet stage.\nEmployment overlay: draft conditional retention for Ms. Seraphine Ko\u2011Yi Tam, CFO designate of Brilliant Cove, includes a 24\u2011month retention cash award in HK$ bands and standard non-solicit; no DOB recorded; contact for HR queries: hr\u2011tam@brilliantcove.com.hk.\nPublic-only materials: the marketing pack for the potential co-investors contains summary charts from publicly available freight indices and does not include MNPI; any model outputs relying on internal forecast spreads will be ring\u2011fenced.\nObfuscation and access strings: brill\u2011cove\u2011data\u2011room\\2026\u20110 6\u2011APAC; link token lmh%2Dqs z%2F1990-09 is system\u2011generated and should not be emailed externally; convene via bridge code \u201cLMH\u2011M&A\u20117831\u201d only.\nNote re device data: the placeholder MAC \u201c00:00:00:00:00:00\u201d in the IT appendix is illustrative and not a real MAC; no live MAC addresses will be logged in the external clean room per IT Security\u2019s instruction.\nGovernance: any pre\u2011announcement sounding with investors will require wall\u2011cross consent; Company Secretary to maintain the insider list; Legal to clear press Q&As; no press approaches are authorised at this stage.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -392,12 +436,12 @@
   "uncertain": [
     {
       "concept": "fund internal code",
-      "matched_text": "HPF-A‑001122",
+      "matched_text": "HPF-A\u2011001122",
       "reason": "May function as an account/instrument identifier but not clearly personal data"
     },
     {
       "concept": "transaction codename",
-      "matched_text": "Blue Swallow – M&A",
+      "matched_text": "Blue Swallow \u2013 M&A",
       "reason": "Could be a deal-room/codename but does not match the 'Project <Name>' pattern"
     },
     {
@@ -414,24 +458,6 @@
       "concept": "date marker",
       "matched_text": "dated 2026-05-30",
       "reason": "Document date may function like an effective/signing date but not one of the listed embargo markers"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

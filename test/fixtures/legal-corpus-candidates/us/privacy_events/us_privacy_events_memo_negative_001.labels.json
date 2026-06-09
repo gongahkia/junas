@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -163,6 +171,12 @@
       "category": "MNPI",
       "matched_text": "restricted",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Positive event: A cross-border data-export approval was granted for de-identified claims and billing metadata to NorthCap Processors Ltd. (Norlandia) under our SCC-aligned addendum; approval record EXP-26-0412 and field inventory are logged in the Data Export Register.\nThe export excluded names, account numbers, device IDs, and direct identifiers, meeting HIPAA de-identification safe-harbor and avoiding GLBA NPPI; no special category data beyond billing schema codes was included.\nNo consent withdrawals were received this period; the withdrawal mechanism remains available via privacyoffice@pmhealthbank.example, and prior withdrawals remain honored.\nPositive event: One DSAR seeking access and erasure was fulfilled in full, with erasure certificates archived; immutable backups were logged as excluded per policy and legal hold review found none.\nRetention housekeeping is complete for Q2 (recruiting and training records); patient and depositor records remain under statutory retention with documented destruction dates, and no exceptions are pending.\nThere were no incidents involving PII, MNPI, or payments; references to \u201cinsider list,\u201d \u201cblackout,\u201d and \u201crestricted list\u201d in training are generic examples and do not imply active trading restrictions.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -50,6 +50,14 @@
     "previous_must_detect_count": 5,
     "previous_must_not_detect_count": 8
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -147,6 +155,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft Term Sheet \u2014 Proposed strategic investment by Larchmont Horizon Fund SCSp in Valterra BioSystems NV (EU issuer), subject to Pan\u2011EU Securities Authority (PESA) guidance and Nordland Exchange Market (NEXM) issuer rules. \nStructure: Unsecured convertible notes with conversion mechanics aligned to prior public strategy update; indicative economic terms remain non\u2011binding and within a previously announced corridor, so no MNPI is introduced. \nRegulatory context: EU MAR workflows in place (wall\u2011crossing, insider list maintenance, event logging via PESA\u2019s e\u2011MAR portal), with no precise price, size, or timing set in this document. \nSecurities references (placeholders only): Internal ticker NEXM:VBSX (non\u2011live), ISIN XZ0000000000 (invalid), and LEI 0000000VALTERRA00000 (invalid), used for drafting convenience and not for trading. \nGDPR: Only business contact details processed for deal execution; Article 9 data not processed except for aggregated DEI metrics with safeguards; cross\u2011border transfer to Cloudporto Ltd (processor, Lusoria) under Art. 46 SCCs and TIAs; data subject requests via compliance.office@valterra.example.eu.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

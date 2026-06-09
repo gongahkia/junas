@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -355,6 +363,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI items not for wider circulation: draft Q3 revenue variance (\u22126%), indicative PDE approval letter, and a pending port-concession MOU with Marhabah Ports FZC.\nInsider list entry: Mr. Karim Al Hadid (b. 1990-08-17; age 35), Treasury Manager at Zahra Logistics PJSC, Al Sarab City HQ, accessed MNPI via VC session S-2026-05-29-1430Z from subnet 10.24.8.16.\nDevice/account context for Mr. Karim: Oryx A53 handset device ID A53-QN12 and internal treasury account TL-7842; PDPL treats this cluster with DOB+role+device+location as personal data.\nIdentification documents on file: Emirates ID copy verified by HR (number not stored in the deal room) and corporate trade licence ASGM-19-ALQ-4837; vendor trade licence MPFZ-7721 for Marhabah Ports FZC.\nAdditional HR field: family origin noted as \u201cAl Bahr oasis lineage\u201d for scholarship eligibility; exclude such data from any ASGM disclosure package as not required.\nPrecision note: statements like \u201cmale in his 30s from a coastal town\u201d or \u201cmid-level treasury staff\u201d do not by themselves identify a natural person under PDPL.\nFor illustration only and not linked to any named individual: birth year 1984, Android model \u201cOryx One,\u201d city \u201cQasr Coast,\u201d session ref S-2026-06-01-0900Z, and account tag OPS-5520.\nMarket conduct controls: maintain a closed period until PDE market notice; restrict distribution to the insider list; no off-channel messaging; approvals via Compliance Portal.\nRegulatory liaison: upon consent to list, file a market notice with the Federal Securities Authority (FSA\u2011UAE) under ASGM Issuers Rulebook Art. 20 and update the insider list contemporaneously.\nData minimisation: redact DOB and device IDs from Board packs; replace with salted tokens; store the full mapping only in the restricted Legal Vault.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

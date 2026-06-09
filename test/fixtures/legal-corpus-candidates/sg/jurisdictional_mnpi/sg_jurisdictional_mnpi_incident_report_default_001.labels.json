@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -224,6 +232,18 @@
       "category": "MNPI",
       "matched_text": "share purchase agreement",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Telok Ayer Marine & Engineering Limited (SGX-ST Mainboard-listed) detected on 18 July 2026 an unauthorised access to an external virtual data room (operated by BlueKite Data Rooms Pte. Ltd.) used for the ongoing proposed acquisition of HarbourNova Robotics Pte. Ltd.\nPreliminary review confirms access to a draft share purchase agreement, board papers on the proposed acquisition, an internal unaudited H1 FY2026 trading update, and preliminary documentation for a planned dual-tranche SGD note issuance under our MTN Programme.\nThe H1 trading update and financing timetable are not generally available information and may be expected to materially affect the price of the Company\u2019s securities within the meaning of Rule 703; the incident occurred within the Company\u2019s blackout window (15 July\u201330 July) ahead of the H1 results release.\nPersonal data in the data room included names, work emails and mobile numbers of approximately 230 employees and advisors; no NRIC or passport numbers were stored, consistent with PDPA minimisation guidelines.\nFor clarity on public status, certain high-level FY2027 margin targets were already referred to in the Investor Day deck posted on SGXNET on 5 May 2026, but the detailed monthly run-rate figures in the trading update have not been disclosed and remain non-public.\nThis incident is unrelated to the network latency event disclosed in our SGXNET announcement dated 3 March 2026 and to the cost optimisation programme communicated by press release on 12 January 2026.\nImmediate actions: access to the affected workspace has been suspended; credentials rotated; external forensics engaged; Mr. Adrian Seah (CISO) and Ms. Clara Toh (Group General Counsel) are coordinating containment and evidence preservation.\nWe have commenced assessment under the PDPA and will notify the PDPC and affected individuals as soon as practicable and no later than three calendar days if the breach is notifiable; no payment card data or health data were involved.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

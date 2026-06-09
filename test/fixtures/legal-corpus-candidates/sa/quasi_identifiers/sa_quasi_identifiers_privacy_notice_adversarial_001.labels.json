@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -47,7 +55,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Faisal Al‑Rashid",
+      "matched_text": "Mr. Faisal Al\u2011Rashid",
       "rule": "named_person"
     },
     {
@@ -72,7 +80,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "CR 5888‑22‑110022",
+      "matched_text": "CR 5888\u201122\u2011110022",
       "rule": "sa_commercial_registration"
     },
     {
@@ -82,22 +90,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "1987‑04‑13",
+      "matched_text": "1987\u201104\u201113",
       "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "matched_text": "rse_sess_13‑APR‑1987_ri y adh",
+      "matched_text": "rse_sess_13\u2011APR\u20111987_ri y adh",
       "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "matched_text": "dev:RSE‑FA‑1987",
+      "matched_text": "dev:RSE\u2011FA\u20111987",
       "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "matched_text": "cross‑border exports to Gulf Cloud Bahrain Zone‑B",
+      "matched_text": "cross\u2011border exports to Gulf Cloud Bahrain Zone\u2011B",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -112,7 +120,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "DSAR: data subjects may submit access or deletion requests via dpo@saqr-issuer.example.sa or https://privacy.saqr-issuer.example.sa/dsar?ref=DSAR‑Riyadh‑0041; verification uses one‑time codes, not biometric scans",
+      "matched_text": "DSAR: data subjects may submit access or deletion requests via dpo@saqr-issuer.example.sa or https://privacy.saqr-issuer.example.sa/dsar?ref=DSAR\u2011Riyadh\u20110041; verification uses one\u2011time codes, not biometric scans",
       "rule": "consent_withdrawal_marker"
     },
     {
@@ -132,12 +140,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Quasi‑identifier cluster: Mr. Faisal Al‑Rashid, Investor Relations Officer at Najd Manufacturing Issuer Ltd., born 1987‑04‑13, Riyadh office (Riyadh North Tech Park, floor 12), user alias fa.rashid, session rse_sess_13‑APR‑1987_ri y adh, device tag dev:RSE‑FA‑1987",
+      "matched_text": "Quasi\u2011identifier cluster: Mr. Faisal Al\u2011Rashid, Investor Relations Officer at Najd Manufacturing Issuer Ltd., born 1987\u201104\u201113, Riyadh office (Riyadh North Tech Park, floor 12), user alias fa.rashid, session rse_sess_13\u2011APR\u20111987_ri y adh, device tag dev:RSE\u2011FA\u20111987",
       "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "matched_text": "IRO‑7711",
+      "matched_text": "IRO\u20117711",
       "rule": "employee_id"
     },
     {
@@ -147,7 +155,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Iqama ref iq: **23‑**‑9  0",
+      "matched_text": "Iqama ref iq: **23\u2011**\u20119  0",
       "rule": "sa_iqama"
     },
     {
@@ -174,7 +182,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Faisal Al‑Rashid",
+      "matched_text": "Mr. Faisal Al\u2011Rashid",
       "rule": "named_person"
     },
     {
@@ -186,6 +194,18 @@
       "category": "MNPI",
       "matched_text": "restricted",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal data covers identifiers that directly or indirectly identify a natural person (e.g., national ID/Iqama references, work\u2011role and device tags, account aliases, and links to commercial registration records).\nQuasi\u2011identifier cluster: Mr. Faisal Al\u2011Rashid, Investor Relations Officer at Najd Manufacturing Issuer Ltd., born 1987\u201104\u201113, Riyadh office (Riyadh North Tech Park, floor 12), user alias fa.rashid, session rse_sess_13\u2011APR\u20111987_ri y adh, device tag dev:RSE\u2011FA\u20111987",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purpose: operate an investor relations portal and market\u2011conduct follow\u2011up support for the Saudi market authority, while preventing MNPI disclosure in pre\u2011announcement phases.\nPersonal data covers identifiers that directly or indirectly identify a natural person (e.g., national ID/Iqama references, work\u2011role and device tags, account aliases, and links to commercial registration records).\nQuasi\u2011identifier cluster: Mr. Faisal Al\u2011Rashid, Investor Relations Officer at Najd Manufacturing Issuer Ltd., born 1987\u201104\u201113, Riyadh office (Riyadh North Tech Park, floor 12), user alias fa.rashid, session rse_sess_13\u2011APR\u20111987_ri y adh, device tag dev:RSE\u2011FA\u20111987.\nAdditional linkable elements: extension 4419, on\u2011call 08:00\u201316:00 AST, service account IRO\u20117711, portal URL https://rse-issuer.example.sa/s?id=fa-rashid&do b=1987-04-13&loc=Riyadh, and payroll cost center RY\u2011IR\u201112.\nWe may process masked national ID references (Iqama ref iq: **23\u2011**\u20119  0) solely for role verification; full sequences are never stored, and we do not record MAC addresses by default.\nSeparated weak identifiers used only in QA test logs, not linked to any person: 1991\u201109\u201101; device: android 10; location: Jazan Coast; alias: qa.test01; cart id CART\u20110000.\nTransfers: logs and support tickets may be routed to sub\u2011processor Rubai Data Processors KSA Branch (CR 5888\u201122\u2011110022) in Jeddah DC; cross\u2011border exports to Gulf Cloud Bahrain Zone\u2011B occur only with national data authority gateway filings (NDA Gate record NDAG\u2011TRN\u201100928).\nInternational transfer safeguards include contractual clauses, encryption, and a TIA mapping to PDPL Articles 28\u201330; SDAIA\u2011style approvals are simulated in our register but no live SDAIA system is used in this fictional workflow.\nMNPI governance: issuer event calendars and blackout windows are tagged \u201cMNPI\u201d in the portal; access is restricted to Issuer Secretariat and IRO roles, and suspected leaks are escalated to the KSA Capital Markets Directorate (KCMD) within one business da",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -198,7 +218,7 @@
       "reason": "Role-noun defined term, not a person or identifier"
     },
     {
-      "matched_text": "1991‑09‑01",
+      "matched_text": "1991\u201109\u201101",
       "reason": "Separated weak identifier in test logs; not linked to any person"
     },
     {
@@ -214,7 +234,7 @@
       "reason": "Test alias not linked to any person"
     },
     {
-      "matched_text": "CART‑0000",
+      "matched_text": "CART\u20110000",
       "reason": "Test cart id not linked to any person"
     },
     {
@@ -222,7 +242,7 @@
       "reason": "Generic demographic that should not identify a person"
     },
     {
-      "matched_text": "SandKey S‑400 HSMs",
+      "matched_text": "SandKey S\u2011400 HSMs",
       "reason": "Product name, not personal data"
     }
   ],
@@ -230,7 +250,7 @@
   "uncertain": [
     {
       "concept": "regulatory filing identifier",
-      "matched_text": "NDAG‑TRN‑00928",
+      "matched_text": "NDAG\u2011TRN\u201100928",
       "reason": "Could be a sensitive gateway record reference but not covered by a specific allowed rule"
     },
     {
@@ -240,8 +260,8 @@
     },
     {
       "concept": "cost center code",
-      "matched_text": "RY‑IR‑12",
-      "reason": "Internal organizational code that can indirectly identify a person’s team or function, not explicitly covered by allowed rules"
+      "matched_text": "RY\u2011IR\u201112",
+      "reason": "Internal organizational code that can indirectly identify a person\u2019s team or function, not explicitly covered by allowed rules"
     },
     {
       "concept": "user alias/username",

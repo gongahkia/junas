@@ -50,6 +50,14 @@
     "previous_must_detect_count": 21,
     "previous_must_not_detect_count": 8
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -327,6 +335,24 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Owen C. Merriweather (DOB 14/02/1986; age 40), Head of Treasury at High Fell plc (employee ref HF-EMP-0118) based in Northbridge, Westshire; device asset tag HF-NT-4 4 3 B (laptop S/N H F 4 3 9 - 2 1), staff email o.merriweather@highfell.co.uk",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Wren \u2014 Heads of Terms for proposed acquisition of the payments gateway business of Twofold Ridge Limited by High Fell plc and associated \u00a315m bridge financing.\nConsideration: \u00a322.4m (cash \u00a318.0m; vendor loan \u00a34.4m) adjusted for normalised working capital; completion targeted Q3 2026.\nEquity placing: 18,000,000 new ordinary shares in High Fell plc at 128 pence per share to be admitted to trading on the Main Market of the London Securities Venue; announcement via a Regulatory Information Service and subject to the Listing Rules and UK MAR.\nConditions precedent: shareholder authority under s.551 Companies Act, completion of customary due diligence, confirmation from the competent authority regarding the issuer\u2019s eligibility, and no prohibition under the Takeover Code or the Prospectus Regulation Rules.\nConfidentiality/inside information: until RIS announcement this Term Sheet contains inside information; insider lists will be maintained in accordance with UK MAR and DTR provisions; any dealing by restricted persons is prohibited.\nTransitional employment: key staff to be offered retention terms; onboarding and treasury transition to be led by Mr. Owen C. Merriweather (DOB 14/02/1986; age 40), Head of Treasury at High Fell plc (employee ref HF-EMP-0118) based in Northbridge, Westshire; device asset tag HF-NT-4 4 3 B (laptop S/N H F 4 3 9 - 2 1), staff email o.merriweather@highfell.co.uk, payroll account suffix **7421 at Oakmere Bank (UK) Ltd, with Teams s e s s i o n   I D rns-uk-2026-06-04-OM-773.\nFunding: Oakmere Bank (UK) Ltd to provide a \u00a315m committed bridge (facility ref LBC-HF-2026-BF01) repayable from placing proceeds; margin 3.25% over SONIA; covenants limited to interest cover and leverage at issuer level.\nGovernance and undertakings: no dividends or buybacks during exclusivity; customary warranties and indemnities; vendor non-compete for 24 months; exclusivity period 6 weeks from signature; break fee \u00a3450,000.\nAnnouncement and timetable: RIS release intended for 07:00 on signing; draft circular to be posted within 10 business days; settlement through registrar on T+2; non-UK retail investors to be excluded.\nCompliance workflows: all employees on the \u201cWRN-2026-GB\u201d watchlist to obtain pre-clearance for any personal account dealing; deal team to use restricted channels only; use of personal devices for work on Project Wren is not permitted.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

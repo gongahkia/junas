@@ -45,6 +45,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -282,6 +290,24 @@
       "category": "MNPI",
       "matched_text": "6,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Seller Representative: Ms. Leena Tan (Passport No.: K1234567Z, country: SG), c/o 15 Pioneer Tech Loop #03-05, Singapore 628888; role-only signatory \u2014 Company Secretary",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "049999.\nTarget: SummitArc Robotics Pte. Ltd., registered address: 15 Pioneer Tech Loop #03-05, Singapore 628888; IRAS Tax Ref.: T24LP1234Q (fictional).\nContact: Mr. Adrian Koh (CEO) \u2014 Tel: +65 8 1 2 3 4 5 6 7; E m a i l: adrian.koh@lioncap.sg; Deal workspace: https://deal.lioncap.sg/room?uen=201912345K&tx=ACQ60.\nSeller Representative: Ms. Leena Tan (Passport No.: K1234567Z, country: SG), c/o 15 Pioneer Tech Loop #03-05, Singapore 628888; role-only signatory \u2014 Company Secretary.\nPurchase Consideration: S$48,500,000 cash and S$6,000,000 in new Lion City Capital Holdings Ltd. shares (subject to SGX Listing Manual and SFA MNPI restrictions).\nFunding: SGD term loan from Lion City Bank Ltd (SWIFT: LCBLSG22), Account No.: 019-123456-7; bank contact e-mail: treasury@lioncitybank.sg.\nConditions Precedent: MAS approval (if applicable), SGX-ST clearance for share issuance, PDPA-compliant data room access; no MAC shall be deemed to have occurred due solely to public-source index movements.\nDue Diligence: includes verification of UENs and tax references; note that vendor ACRA ref 2019 12345 X (invalid checksum) is a placeholder and should not be relied upon.\nEmployee Matters: retention of key engineers; new employment agreements under SG law; HR helpline 1800-000-0000 is for general enquiries only and not a deal contact.\nAnnouncements: to be made via SGXNET consistent with SGX Listing Manual; drafts circulated to board-only list, not to \u201cname (as per NRIC)\u201d form fields in templates.\nConfidentiality/PDPA: parties shall process business-contact information only; do not upload NRIC scans; where needed, use masked data (e.g., Passp0rt N0. K1234567Z) and redact residential addresses.\nGoverning Law: Singapore; Dispute Resolution: SIAC arbitration; longstop date: 30 September 2026; backstop URL for notices: https://sgxnet.example.sg/announce?issuer=200876543A",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of 60% of SummitArc Robotics Pte. Ltd. (UEN: 2019 12345 K) by Lion City Capital Holdings Ltd.\nAcquirer: Lion City Capital Holdings Ltd. (SGX-ST Mainboard issuer; UEN: 2008 76543 A), registered address: 88 Bayfront Rise #42-01, Singapore 049999.\nTarget: SummitArc Robotics Pte. Ltd., registered address: 15 Pioneer Tech Loop #03-05, Singapore 628888; IRAS Tax Ref.: T24LP1234Q (fictional).\nContact: Mr. Adrian Koh (CEO) \u2014 Tel: +65 8 1 2 3 4 5 6 7; E m a i l: adrian.koh@lioncap.sg; Deal workspace: https://deal.lioncap.sg/room?uen=201912345K&tx=ACQ60.\nSeller Representative: Ms. Leena Tan (Passport No.: K1234567Z, country: SG), c/o 15 Pioneer Tech Loop #03-05, Singapore 628888; role-only signatory \u2014 Company Secretary.\nPurchase Consideration: S$48,500,000 cash and S$6,000,000 in new Lion City Capital Holdings Ltd. shares (subject to SGX Listing Manual and SFA MNPI restrictions).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

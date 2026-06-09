@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -240,6 +248,18 @@
       "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No. 88 Innovation Avenue, Hexi District, Jincheng, Nanshan Province 000000; general inbox: legal@blueriver-robotics.cn",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal compliance memo for Blue River Robotics Technology Group Co., Ltd. (the Company) regarding issuer preparation under PIPL/CSL/DSL in the PRC.\nThe Company\u2019s Unified Social Credit Code is recorded as 91TEST0000MA0XYZ12 (format length ok but checksum appears invalid; to be verified against Jincheng Market Registry).\nRegistered address: No. 88 Innovation Avenue, Hexi District, Jincheng, Nanshan Province 000000; general inbox: legal@blueriver-robotics.cn.\nIssuer context: proposed A-share listing on the Haiyu Stock Exchange; all public updates will be coordinated through issuer@haiyuexchange.cn and the exchange\u2019s public hotline 100-880-12345.\nEmployment onboarding form fields (placeholders): Name: [applicant], ID No.: [to be collected], Passport: [to be collected], Phone: 000-0000-0000, Account: 6222 8888 8888 888X.\nFor background check dry-run purposes, HR used sample Resident ID 110101199003074329 (invalid checksum) for Candidate A; no live resident ID is stored.\nWe do not onboard minors under 14; sensitive personal information procedures require verified guardian consent and enhanced notices under the PIPL.\nCross-border transfer: logs and HR meta-data destined for offshore support are subject to a security assessment filing with the Jincheng Citywide Cyberspace Administration Commission (CAC); only de-identified fields will be exported.\nTax and payroll: filings are made via the Jincheng Municipal Tax Service portal using employer-only fields; no personal bank numbers are stored in the vendor sandbox environment.\nSecurities Law and MNPI: the issuer\u2019s business metrics referenced here are drawn solely from the already-published preliminary listing announcement on the Haiyu Stock Exchange dated 2026-04-01; no undisclosed performance guidance is included.\nInsider list maintenance: role titles (Chair, CFO, Company Secretary) and role mailboxes are used; personal emails and private numbers are not circulate",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

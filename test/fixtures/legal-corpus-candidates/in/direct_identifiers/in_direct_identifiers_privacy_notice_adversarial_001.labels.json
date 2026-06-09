@@ -38,6 +38,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -305,6 +313,12 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Corporate details: CIN: U72900MH2028PLC093451; Regd. Office: Level 9, Ananta Tower, Plot 14, Sector 21, Navi Mumbai, MH 400710; contact: privacy@varanainfratech.in; +91 98765 00012.\nGSTIN: 27BZTPK1234Q1Z6; Data Protection Officer: Mr. Dev Malhotra, dpo@varanainfratech.in; settlements bank: Suryanidhi Bank A / c No. 004512389761, IFSC: SURY0 001234, and billing queries at accounts@varanainfratech.in.\nPurposes: onboarding, KYC verification, investor relations for listed-company mandates, insider list maintenance, audit, and S E B I (P I T) compliance under Indian law.\nCategories of personal data: identifiers (PAN, Aadhaar, passport), contact data (email, phone), employment details; for a child (under 18), processing requires verifiable parental consent; we do not collect MAC addresses unless explicitly provided.\nExample identifiers processed in context: PAN: BZ T P K1 234 Q; Aadhaar: 8324 91  56 0  27; Passport: V1234567; Work email: rhea.kulkarni@varanainfratech.in.\nFor payables/ESOP refunds, beneficiary details may be requested: Suryanidhi Bank A/c 004512389761; IFSC: SURY0001234; phone +91-93948-00012; Note: do not send IDs over public chat or SMS.\nUPSI handling: as per SEBI (Prohibition of Insider Trading) Regulations, 2015, we operate information barriers, trading-window closures before board results, and restrict insiders (e.g., Ms. Rhea Kulkarni, CFO) from dealing in the company\u2019s listed se",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

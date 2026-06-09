@@ -50,6 +50,14 @@
     "previous_must_detect_count": 20,
     "previous_must_not_detect_count": 2
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -317,6 +325,18 @@
       "category": "MNPI",
       "matched_text": "0.6%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION \u2014 Project ANVIL \u2014 Embargo until 15 July 2026 08:00 CET; Issuer: Nordivolt SE (ACM Exchange ticker: NVSE)\nBoard memo n\u00b012/2026 records a cyber incident on 9 July 2026 affecting the Fiorenza DC; preliminary \u20ac3.2m revenue at risk (~3.1% of H2 guidance)\nAttack vector: supplier SFTP compromise at Vantagebyte s.r.l. (processor); 2 1 , 7 9 0 HR files accessed, incl. limited Art. 9 data (biometric time\u2011clock hashes, trade\u2011union opt\u2011in flags)\nData subjects: employees in Member States Fiorenza and Helvonia; cross\u2011border transfer under SCCs; transfer impact assessment on file; DPO contact: privacy@nordivolt-se.eu\nIdentifiers observed: user pseudo\u2011ID E\u2011**\u20119142, device\u2011id nvdl::a7\u20119x\u2011\u0394, shard ref \u201cHR\u2011ARC/2026\u201107\u201d; no government IDs stored\nPer MAR Art. 17(4), disclosure delay is justified due to ongoing containment and risk to a concurrent transaction (see Project ANVIL checklist \u00a75)\nConcurrent transaction: definitive SPA signed 5 July 2026 for acquisition of Oribaltics GmbH; consideration \u20ac42.5m (cash/earnout 70/30); locked\u2011box date 31 Dec 2025\nMaterial adverse change: parties confirm the incident does not constitute a MAC under clause 12.4 of the draft SPA\nIR draft (not for publication) forecasts operational EBITDA impact \u22640.6% FY26; CSRD double\u2011materiality note updated; PAI\u201114 (data breaches) flagged; SFDR Art. 4 disclosures unchanged\nNCA context: notification to Baltic Securities Authority within 72h prepared; ACM Exchange surveillance briefed; internal embargo ends per above unless extended\nPublic\u2011source reference: our 2025 sustainability report already disclosed the legacy firewall decommissioning timeline; the present incident is unrelated to that project\nContacts: Sir Alaric Bronte (Chair), Dr. \u00c9va Markovi\u0107 (DPO), Ms. Pilar Costa (Head of IR); tel +32 000 000 000; backchannel anvil-brief@secure.nordivolt-se.eu",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

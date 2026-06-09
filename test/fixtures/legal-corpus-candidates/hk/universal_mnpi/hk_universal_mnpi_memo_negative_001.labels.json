@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
     "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -115,7 +141,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "avoid collecting “data relating to a living individual whose identity is directly or indirectly ascertainable”",
+      "matched_text": "avoid collecting \u201cdata relating to a living individual whose identity is directly or indirectly ascertainable\u201d",
       "rule": "data_minimisation_marker"
     },
     {
@@ -154,6 +180,12 @@
       "category": "MNPI",
       "matched_text": "30%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal compliance note \u2014 hkex circular drafting status for Hexa Harbour Holdings Ltd. (fictional) regarding previously announced acquisition of Pine Shore Power (Holdings) Limited (fictional)\nall references to the transaction are sourced from hkexnews postings dated 2024-01-12 and public SFC takeovers code materials; no reliance on unpublished analyses\nno new price-sensitive details will be included; figures and timelines, where mentioned, will be drawn from the 2024 interim report already on the issuer\u2019s website\nplease note team spa day scheduled friday 15:00; \u201cspa\u201d here means wellness afternoon and is unrelated to any share purchase agreement\npdpo: avoid collecting \u201cdata relating to a living individual whose identity is directly or indirectly ascertainable\u201d; redact any cv details from board packs and omit personal contact fields\nfor sfo inside information purposes, drafts must avoid forward-looking financials, synergy ranges, or undisclosed assumptions; use neutral past-tense descriptions only\nEMBARGO: investor-relations webpost and faq to be released no earlier than 16:30 HKT on 2026-09-30, to align with the hkexnews upload\nnegated mac: the draft maintains that no material adverse change has occurred since the last audited balance sheet date, mirroring wording already published in the circular\nas disclosed, the definitive Share Purchase Agreement was executed on 2024-02-15; no annexes to the SPA will be reproduced in this memo\nany percentages used should be public thresholds only (e.g., 30% general offer trigger under the takeovers code), not internal targets or hurdle rates",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -185,24 +217,6 @@
       "concept": "signing/execution date",
       "matched_text": "executed on 2024-02-15",
       "reason": "Execution timing is a key milestone but not literally labeled 'Signing Date' per rule"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

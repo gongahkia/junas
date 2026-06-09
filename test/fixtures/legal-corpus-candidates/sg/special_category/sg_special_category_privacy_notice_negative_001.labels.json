@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -149,6 +157,18 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbour Apex Holdings Ltd. (SGX-ST issuer) \u2014 PDPA/SFA Retention & Transfer Workflow Note (Internal)\nScope: applies to M&A diligence, employment records, and capital-markets disclosures under the PDPA, SFA, and SGX Listing Rules.\nPDPA minimisation: collect, use, and disclose personal data only for notified purposes; avoid unnecessary capture of NRIC, full DOB, home addresses, or photos in deal or Board packs.\nRetention schedule: HR files 7 years after cessation; VDR/due\u2011diligence materials 6 years post\u2011completion; trading surveillance logs 5 years; consent records until withdrawal; then anonymise or securely destroy.\nIntentional sensitive data control: for Employee ID E\u20110913 (Finance), retain medical certificates relating to physiotherapy in 2025 for 2 years solely to verify statutory sick leave; access limited to HR Health Admin and audited quarterly.\nCross\u2011border transfers: send personal data to processors in MY/HK only under PDPA s.26 with comparable protection; use Orchid Bridge Data Transfer Addendum v2.1 and document a transfer impact assessment before onboarding.\nDSAR handling: receive requests via dpo@harbourapex.example.sg; verify identity without collecting NRIC (use staff pass suffix or registered work email); respond within 30 days unless extended with reasons recorded.\nMNPI discipline: materials containing information not generally available and reasonably expected to affect price/value must remain within clean teams; pre\u2011clear with the Disclosure Committee and release via SGXNet before wider internal circulation.\nTraining examples may reference the already\u2011announced proposal to combine with Riverstone Robotics Pte. Ltd. (public since 3 Jan 2025) but must not include draft term sheets or unannounced milestones.\nIllustrations that mention Marina Vista smartwatch, Garden City Productivity Policy, Lion City United FC, or Rainbow Spectrum DEI Charter are generic placeholders and do not identify individuals.\nM&A VDR controls: pseudonymise CVs with candidate IDs; exclude personal contact details; use view\u2011only watermarks and expiry; log downloads by role rather than name.\nThird\u2011party processors: Azure Reef Cloud Pte. Ltd. (hosting) and Cedar Quill Advisory LLP (archiving) act under written DPAs with confidentiality, retention, and SGX issuer MNPI clauses.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

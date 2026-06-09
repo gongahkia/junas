@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -6,14 +28,29 @@
   "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -78,17 +115,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-binding Term Sheet — Proposed acquisition of Mariscope Water Pty Ltd by Ridgetide Energy Ltd (ACN 443 889 112; ABN 44 388 911 200; ASX code: RTD?).",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed acquisition of Mariscope Water Pty Ltd by Ridgetide Energy Ltd (ACN 443 889 112; ABN 44 388 911 200; ASX code: RTD?).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Funding: internal cash and existing undrawn facility with Riverbank Mutual Credit Co‑Operative Ltd; no new financing announced.",
+      "matched_text": "Funding: internal cash and existing undrawn facility with Riverbank Mutual Credit Co\u2011Operative Ltd; no new financing announced.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Exclusivity: 45 business days with fiduciary carve‑outs; break fee TBD and to be consistent with Takeovers Panel guidance.",
+      "matched_text": "Exclusivity: 45 business days with fiduciary carve\u2011outs; break fee TBD and to be consistent with Takeovers Panel guidance.",
       "rule": "material_event"
     },
     {
@@ -115,17 +152,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-binding Term Sheet — Proposed acquisition of Mariscope Water Pty Ltd by Ridgetide Energy Ltd (ACN 443 889 112; ABN 44 388 911 200; ASX code: RTD?).",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed acquisition of Mariscope Water Pty Ltd by Ridgetide Energy Ltd (ACN 443 889 112; ABN 44 388 911 200; ASX code: RTD?).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Funding: internal cash and existing undrawn facility with Riverbank Mutual Credit Co‑Operative Ltd; no new financing announced.",
+      "matched_text": "Funding: internal cash and existing undrawn facility with Riverbank Mutual Credit Co\u2011Operative Ltd; no new financing announced.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Exclusivity: 45 business days with fiduciary carve‑outs; break fee TBD and to be consistent with Takeovers Panel guidance.",
+      "matched_text": "Exclusivity: 45 business days with fiduciary carve\u2011outs; break fee TBD and to be consistent with Takeovers Panel guidance.",
       "rule": "material_event"
     },
     {
@@ -142,6 +179,12 @@
       "category": "MNPI",
       "matched_text": "subject to shareholder approval",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed acquisition of Mariscope Water Pty Ltd by Ridgetide Energy Ltd (ACN 443 889 112; ABN 44 388 911 200; ASX code: RTD?).\nStructure: share sale or asset sale; final mechanics to be documented; parties acknowledge standard confidentiality and costs provisions.\nConsideration: mix of cash and scrip; price range TBD; any share issue to comply with ASX Listing Rule 7.1 and subject to shareholder approval.\nFunding: internal cash and existing undrawn facility with Riverbank Mutual Credit Co\u2011Operative Ltd; no new financing announced.\nConditions: FIRB no objection and ACCC informal clearance; third\u2011party consents; if implemented by scheme, court approvals and ASIC registration.\nASX disclosure: announcement scheduled for 28 Aug 2025 under Listing Rule 3.1; draft release prepared but not yet lodged with ASX.\nBlackout: issuer employees are restricted from trading in company securities from Board resolution until the ASX announcement; internal compliance notice issued.\nASX forms: any new issue will require Appendix 3B and s708A cleansing notice; Appendix 4E lodged on 29 Aug 2024 and remains publicly available.\nDue diligence: confirmatory review limited to aggregated operational data; no access to identifiable employee records or health information.\nExclusivity: 45 business days with fiduciary carve\u2011outs; break fee TBD and to be consistent with Takeovers Panel guidance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],
@@ -167,34 +210,5 @@
       "matched_text": "trading halt may be requested under LR 17.1 if necessary",
       "reason": "Potential market control action timing is relevant to disclosure practices but not mapped to a listed MNPI rule."
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

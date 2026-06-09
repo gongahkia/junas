@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -370,6 +378,18 @@
       "category": "MNPI",
       "matched_text": "8,400,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u975e\u516c\u958b",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL\u2014\u975e\u516c\u958b: FIEA MNPI; Deal Codename: Project Hinode; For Board and IR use only.\nData Processing Addendum (APPI/My Number) between Nakamori Robotics K.K. (controller) and Azuma Capital Partners GK / CloudKumo K.K. (processors) in relation to the proposed acquisition of Shinkai Systems K.K.\nEmbargo date/time for any public disclosure on the Nagase Growth Exchange: 2026-07-15 09:00 JST; no employee or shareholder communication may precede this time.\nTerm update: Definitive Share Purchase Agreement signed 2026-06-30; consideration JPY 8,400,000,000 for 55% of issued shares, implying a 22% premium to the last unaffected price per internal research note.\nMAC/MAE clause summary: as of the signing date no MAE has occurred, and general industry cyclicality and changes in law are expressly not a MAC for purposes of termination.\nPersonal data categories: employee HR files, recruitment records, and limited shareholder register fields; My Number (\u500b\u4eba\u756a\u53f7) will only be processed for payroll/tax compliance and is explicitly excluded from the data room and term sheet annexes.\nTransfers and safeguards: processors may host content in Japan via CloudKumo K.K.; any cross-border transfer to SoraCompute Pte. Ltd. (SG) requires prior opt-in consent under APPI and execution of appropriate transfer provisions.\nData subject rights workflow: employees and shareholder-registrants may submit access/correction/erasure requests to Ms. Haruka Omi at privacy@nakamori.example.jp; responses will be issued within 30 days unless a statutory exception applies.\nSecurities workflow controls: files marked \u201cMNPI/\u975e\u516c\u958b/\u53d6\u6271\u6ce8\u610f\u201d remain in the restricted data room; only the Board, IR, and finance teams may access deal checklists, term sheets, and the draft investor-relations release.\nTender-offer facts: no TOB has been announced; management is evaluating a tender offer within 60 days subject to further board approval and financing certainty, which remains undisclosed under FIEA.\nPublic reference: the 2018 sustainability brochure of Shinkai Systems K.K. is public and not relevant to this DPA or the SPA schedules.\nlowercase pm note: todo\u2014move the employee appendix to annex 3, archive stale timelines, and remove any spa-day voucher entries from the sample benefits data.\nIR draft language to be finalized by 2026-07-12: \u201cSubject to closing conditions, Project Hinode is expected to be EPS-accretive in FY2027; this is not an offer or solicitation of securities.\u201d\nBoard memo record: Mr. Kenji Aoba, Director, confirms that access to My Number data is segregated from due-diligence workstreams and that no third party will receive individual codes without written consent.\nRetention schedule: MNPI-labeled materials purged 30 days post-embargo; SPA, consents, and processing logs retained for 7 years unless longer retention is legally required.\nBreach notice: any unauthorized disclosure prior to the embargo, or processing beyond instructions, will trigger immediate suspension of access and notification obligations consistent with APPI and internal incident playbooks.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -200,6 +208,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Compliance Note \u2014 UAE PDPL and market disclosure posture for Najm Crescent Holdings PJSC (ADX-listed).\nWe confirm that the FY2023 results and 1H2024 trading update are already published via ADX and SCA portals; press release dated 15 April 2024 remains public and unchanged.\nThe ADGM-registered subsidiary, Qanadeel Capital Ltd (FSRA supervised), filed its updated shareholding structure on 12 March 2024; this is visible on the ADGM Authority public registry.\nThe publicly announced MoU with Sahab Dunes Logistics LLC was posted on the ADX disclosure portal on 7 January 2024; it expressly states no binding obligations.\nPDPL handling: onboarding forms request Emirates ID copy and trade licence excerpts from counterparties; templates list fields \u201cEmirates ID No.: EID-XXXX-XXXX-XXXX\u201d and \u201cTrade Licence: TL-000000-XX\u201d (placeholders only).\nSubmissions should use the role mailbox compliance@najmcrescent.example; external enquiries should go through the SCA call-centre page published on the regulator\u2019s website.\nRecent media coverage referenced a brand refresh and office relocation; these items are operational and non-material to issuer financials.\nIntentional MNPI: a draft Board agenda includes a not-yet-announced intention to seek SCA no-objection for an amendment to the ADX voluntary buyback programme next month; do not share externally.\nNo amounts, volumes, or effective dates beyond the tentative window above have been determined; any details will be released in accordance with SCA/ADX disclosure timing.\nThe DFSA Market Abuse Module and SCA Market Conduct rules on selective disclosure apply; avoid one-to-one briefings except after public posting on the exchange portal.\nVendor onboarding for Abu Dhabi offices continues as scheduled; updates relate to facilities management only and are non-issuer operational matters.\nDIFC branch licence renewal acknowledgement is visible on the DIFC Public Register; the status reads \u201cActive\u201d and is not market sensitive.\nFamily-origin data is not collected in HR or onboarding processes; a legacy free-text field labelled \u201cNationality/Origin (optional)\u201d must be suppressed to align with PDPL data minimisation.\nBlackout calendars posted in 2023 remain archived on the investor-relations site; those dates are historic and superseded by the publicly posted 2024 policy.\nAnalysts and investors should be directed to the above public releases and uploaded investor presentations; do not reference working drafts or internal trackers.\nIntentional MNPI: an internal draft term sheet for a potential ADGM-listed debt issuance exists; the issuer has not mandated arrangers and no announcement has been made.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

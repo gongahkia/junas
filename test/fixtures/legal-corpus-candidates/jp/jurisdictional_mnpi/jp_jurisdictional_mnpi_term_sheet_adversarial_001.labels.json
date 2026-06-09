@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -270,6 +278,18 @@
       "category": "MNPI",
       "matched_text": "260501",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition (share purchase/TOB) of Asahira Robotics Co., Ltd. (fictional; listed on Kyowa Securities Exchange \u201cKSE\u201d Growth) by Mikado Horizons Kabushiki Kaisha\nSponsor/Contact: Mr. Satoru Hino, Head of Corporate Strategy; s.hino@mikado-horizons.co.jp; Deal code \u201cAOI-7Z\u201d\nStructure/Consideration: Cash purchase of up to 65% of outstanding shares at \u00a51,280 per share (aggregate cap ~\u00a56.0bn); board seat rights for Mikado Horizons\nPublic/Non-public status: Until \u9069\u6642\u958b\u793a via KSE\u2019s KDnet, these terms constitute \u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f under FIEA; selective disclosure is prohibited\nDisclosure timing: Targeted KDnet filing 2026-07-15 15:30 JST with summary press release; \u81e8\u6642\u5831\u544a\u66f8 to follow within statutory deadline\nGovernance: Mikado Horizons \u53d6\u7de0\u5f79\u4f1a resolution scheduled for 2026-07-10; Asahira board recommendation in principle obtained subject to final price collar\nEmployee trading blackout: Company-wide \u53d6\u5f15\u7981\u6b62\u671f\u9593 from 2026-07-05 through 2026-07-16 for finance, corporate planning, IR, and any informed employees\nSelective communication: External discussions restricted to NDA-bound counterparties; no analyst one-on-ones on this topic prior to KDnet posting (FIEA fair disclosure risk)\nFinancing: Committed bridge from Seigetsu Commercial Bank (fictional) up to \u00a53.5bn; remainder from Mikado Horizons cash; no margin pledge over target shares\nTOB fallback: If negotiated purchase cannot complete by 2026-08-01, Mikado Horizons will launch a \u516c\u958b\u8cb7\u4ed8\u3051 on or before 2026-08-05; TOB notice to be lodged with KSE\nDiligence/PII: APPI compliance\u2014no My Number (\u500b\u4eba\u756a\u53f7) will be collected; only hashed employee IDs (e.g., eID: y-4x9_***), and redacted payroll extracts; individual codes to be excluded from data room\nIssuer-relative materiality: Given Mikado Horizons market cap (~\u00a518.4bn), this transaction is material to the issuer and subject to issuer blackout and timely disclosure controls\nConditions precedent: Competition clearance from Shirasagi Competition Authority (fictional) and no injunction; note that absence of a \u201cMAC\u201d is not a condition precedent and a general MAC will not permit termination\nPublic reference (non-MNPI): Asahira\u2019s Q4 sales target update disclosed on KDnet 2026-05-01 (PR-260501) remains public and stale, and is not relied upon as forward guidance here\nNon-issuer operational note (benign): cafeteria relocation and website maintenance window (week of 2026-07-08) are internal, non-material items and do not affect this term sheet",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

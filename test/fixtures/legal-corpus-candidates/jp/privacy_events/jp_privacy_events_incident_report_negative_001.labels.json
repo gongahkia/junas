@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -120,6 +128,12 @@
       "category": "MNPI",
       "matched_text": "undisclosed",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI confirmation: tender-offer details relating to the already-announced acquisition of Sumikaze Analytics K.K. were not stored in the affected system, and no undisclosed enumerated material facts were accessed.\nPrivacy controls: data minimisation was applied (only role IDs and pseudonymous tokens were cached); retention timers on the sandbox tenant remained at 7 days and had not reached expiry.\nEvent handling: one DSAR (employee access request) received earlier in May for the onboarding system was fulfilled on 2026-05-20; no follow-up erasure was requested.\nConsent status: no consent withdrawal for My Number handling has been recorded for the affected employee cohort; existing consents remain logged in the portal.\nCross-border processing: Data Export Approval DEX-2026-07 was granted to transfer hashed employee identifiers to Kaede Systems Pte. Ltd. (SG) for pre-announced payroll testing, with APPI Article 28 notices provided.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

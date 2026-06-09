@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -310,6 +318,24 @@
       "category": "MNPI",
       "matched_text": "4,800,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-Border Transfer: Support-ticket metadata may be transferred to Kikyo Cloud Pte. Ltd. (Singapore) under Data Export Approval Memo DE-INT-2025-044 and contractually equivalent safeguards; no My Number (tokutei personal information) is included in such transfers, and transfer logs are reviewed quarterly.\nDSAR/Erasure: All data subject access requests received to date (e.g., DR-2025-031) are fully resolved; erasure of ex-contractor application logs was completed on 2026-01-31 and verified via internal audit report PRIV-CHK-2026-02; there are no open DSARs",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-Border Transfer: Support-ticket metadata may be transferred to Kikyo Cloud Pte. Ltd. (Singapore) under Data Export Approval Memo DE-INT-2025-044 and contractually equivalent safeguards; no My Number (tokutei personal information) is included in such transfers, and transfer logs are reviewed quarterly.\nDSAR/Erasure: All data subject access requests received to date (e.g., DR-2025-031) are fully resolved; erasure of ex-contractor application logs was completed on 2026-01-31 and verified via internal audit report PRIV-CHK-2026-02; there are no open DSARs.\nConsent Withdrawal: Employee marketing consent withdrawal by \u201cM. Kuroda\u201d on 2025-12-10 was processed, analytics tokens disabled within 48 hours, and employment/payroll processing continues under statutory bases only.\nMy Number Handling: My Number is collected solely for payroll/withholding and statutory reporting, retained for 7 years per tax recordkeeping requirements, and then securely deleted; no cross-border transfer, aggregation, or secondary use of My Number will occur under this transaction.\nRepresentations/Covenants: The issuer represents compliance with the APPI and internal My Number handling rules; no new stock options, dividends, or related-party transactions will be authorized before closing; privacy incident notices to the acquirer within 48 hours per DPA Schedule; this clause is policy-only and not triggered by any current incident.\nClosing & Escrow: Expected closing date 2026-03-15, subject to satisfaction of conditions; 10% deposit to be held by Aome Trust Co., Ltd. as escrow agent; post-closing integration plan to be agreed within 30 days.\nSecurities Matters: Shares will be issued via third-party allotment in accordance with issuer Articles; no public offering; no registration under foreign securities laws is contemplated or required.\nGoverning Law/Dispute Resolution: Governed by the laws of Japan; exclusive jurisdiction of the Tokyo District Court; Japanese and English working versions with Japanese prevailing in case of conflict.\nContacts: Ms. Aya Morishima, Legal Counsel, Hoshizora Holdings KK, ayamorishima@hoshizora-hd.example.jp; Mr. Daichi Tanabe, CFO, Hinode Robotics KK, cfo@hinode-robotics.example.co.jp",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Hoshizora Holdings KK (acquirer) to purchase 35% of Hinode Robotics KK (issuer) via negotiated placement; Hinode is listed on the Kanto Growth Exchange (KGE), fictional Growth Board in Japan.\nConsideration: JPY 4,800,000,000 at JPY 960 per new share; no warrants or convertible securities; closing subject to customary adjustments.\nConditions Precedent: Board of Directors approvals of both companies; timely disclosure per issuer\u2019s listing rules; filings and notices as required under the Companies Act, the Financial Instruments and Exchange Act (FIEA), and the Antimonopoly Act; no material adverse change.\nMNPI/FIEA: This term sheet is confidential; as of the date hereof there are no undisclosed enumerated material facts or tender-offer facts under FIEA, and prior KGE disclosure of the basic transaction outline has been completed.\nKey Employees: Retention offers to designated managers; revised onboarding form HR-ONB-2025 includes APPI-compliant notices and optional consents for ancillary processing, with a mechanism for withdrawal without detriment to employment.\nData Protection: DPA Schedule APPI-JP-2 is annexed, requiring data minimisation for recruitment records, privacy-by-design for telemetry, and a retention cap of 3 years for candidate CVs unless legal hold applies.\nCross-Border Transfer: Support-ticket metadata may be transferred to Kikyo Cloud Pte. Ltd. (Singapore) under Data Export Approval Memo DE-INT-2025-044 and contractually equivalent safeguards; no My Number (tokutei personal information) is included in such transfers, and transfer logs are reviewed quarterly.\nDSAR/Erasure: All data subject access requests received to date (e.g., DR-2025-031) are fully resolved; erasure of ex-contractor application logs was completed on 2026-01-31 and verified via internal audit report PRIV-CHK-2026-02; there are no open DSARs.\nConsent Withdrawal: Employee marketing consent withdrawal by \u201cM. Kuroda\u201d on 2025-12-10 was processed, analytics tokens disabled within 48 hours, and employment/payroll processing continues under statutory bases only.\nMy Number Handling: My Number is collected solely for payroll/withholding and statutory reporting, retained for 7 years per tax recordkeeping requirements, and then securely deleted; no cross-border transfer, aggregation, or secondary use of My Number will occur under this transaction.\nRepresentations/Covenants: The issuer represents compliance with the APPI and internal My Number handling rules; no new stock options, dividends, or related-party transactions will be authorized before closing; privacy incident notices to the acquirer within 48 hours per DPA Schedule; this clause is policy-only and not triggered by any current incident.\nClosing & Escrow: Expected closing date 2026-03-15, subject to satisfaction of conditions; 10% deposit to be held by Aome Trust Co., Ltd. as escrow agent; post-closing integration plan to be agreed within 30 days.\nSecurities Matters: Shares will be issued via third-party allotment in accordance with issuer Articles; no public offering; no registration under foreign securities laws is contemplated or required.\nGoverning Law/Dispute Resolution: Governed by the laws of Japan; exclusive jurisdiction of the Tokyo District Court; Japanese and English working versions with Japanese prevailing in case of conflict.\nContacts: Ms. Aya Morishima, Legal Counsel, Hoshizora Holdings KK, ayamorishima@hoshizora-hd.example.jp; Mr. Daichi Tanabe, CFO, Hinode Robotics KK, cfo@hinode-robotic",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

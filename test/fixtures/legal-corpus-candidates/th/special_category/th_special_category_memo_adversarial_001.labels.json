@@ -15,13 +15,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -44,13 +44,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -64,6 +64,46 @@
     "basis": "User instructed Codex to handle approval stages for project benchmarking; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-candidates-after-ph-reviewed.json",
     "status": "owner_approved_post_ph_precision_realign_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -312,6 +352,12 @@
       "category": "MNPI",
       "matched_text": "Insider List",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: SEA Section 59 MNPI controls for cross\u2011border financing and SET disclosure; PDPA special\u2011category data in HR files\nContext and timing: proposed USD 180,000,000 amortising term loan from Suryawong Capital Pte. Ltd. (Singapore) and Lao Viridian Bank Ltd., code\u2011name Project KHWA N; disclosure under SET material information guidelines and in Form 56\u20111 One Report\nUntil signing, all draft terms (interest step\u2011ups, warrant coverage, covenant\u2011lite flex) constitute MNPI under SEA; trading blackout remains in force for directors and Category A employees per Insider List v3.2 (Deal UID PRJ\u2011KHwN\u2011\u03947f/59)\nAnchored PDPA check: Khun Wirot Phongchai (Employee No. TH\u2011EMP\u20110 2 7 7; e\u2011mail w.phongchai@tnd.co.th) has HR records noting Type 1 diabetes treatment and stored facial\u2011geometry templates in KirinVault HSM for plant access; this special\u2011category health and biometric data must not appear in any SEC/SET filings\nFurther SCD flags: Khun Siriporn Nadee (HR Ref. TH\u2011INT\u20111 6\u2011S) is a 16\u2011year\u2011old trainee (minor data) who identifies as Muslim and is registered to the Eastern Manufacturing Workers\u2019 Union; do not transmit her file cross\u2011border without consent and DPA safeguards\nNon\u2011exhaustive: Mr. Aran Kietkamol (Ops) disclosed same\u2011sex partnership status to HR for spousal insurance; retain onshore only and segregate from project dataroom; note that the phrase sexual orientation in our DEI policy is generic guidance and not personal data in itself\nNo MAC representation: the loan drafts expressly state there is not, and has not been, any material adverse change; this clause is standard and not MNPI by itself\nDocuments flow: Thai\u2011law facility agreement (draft v5), English\u2011law debenture pledge, and a Singapore\u2011law share charge are in Dataroom 04; access via https://portal.tnd.co.th/memo?id=MNPI_5b\u20119&sec=s59 (URL contains internal tokens only)\nPublic\u2011source references (e.g., SET practice notes, press articles about the Nakhon Jade Tigers sports club, or product brochures for SkyLime ERP) may be circulated freely; however, mixing them with draft terms risks tainting recipients with MNPI\nOCR artefacts detected in the scanned HR packet show partial identifiers \u201cTH\u2011**\u2011***\u2011****\u2011**\u201d and phone +66\u20112\u20113 4 5\u20116 7 8 9; scrub before board packs are compiled\nFor SEC Thailand queries on Sections 59/241 enforcement and CMSB notifications on PP, contact Legal at legal@tnd.co.th or Compliance Line +66 2100 8899; project\u2011management chat (lowercase): #financing\u2011workstream is archived hourly\nSpeaking metaphorically, the lotus blooms after the rain, but metaphors belong in townhalls, not in MD&A; ensure our One Report avoids flowery language\nNote: the draft Corporate Open Culture Charter and our diversity, equity, and inclusion statement remain unrelated to the financing and should not be attached to the SET immediate report",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -353,37 +399,5 @@
       "matched_text": "Until signing",
       "reason": "Signals a timing restriction linked to signing, but does not match explicit Embargoed/Signing Date patterns in allowed rules."
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

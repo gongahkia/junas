@@ -1,155 +1,216 @@
 {
-  "doc_id": "id_direct_identifiers_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "ID",
-  "destination_jurisdiction": "ID",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sari.handayani@lintasdana.co.id"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "andri.prakoso@dompetkilat.id"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@sinara-partners.law"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "csirt@lintasdana.co.id"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+62 812-3456-7890"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+62 21 0000 0000"
-    },
-    {
-      "category": "PII",
-      "rule": "id_nik",
-      "matched_text": "3173123401234567"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "60%"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_direct_identifiers_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sari.handayani@lintasdana.co.id"
+      "matched_text": "sari.handayani@lintasdana.co.id",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "andri.prakoso@dompetkilat.id"
+      "matched_text": "andri.prakoso@dompetkilat.id",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@sinara-partners.law"
+      "matched_text": "legal@sinara-partners.law",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "csirt@lintasdana.co.id"
+      "matched_text": "csirt@lintasdana.co.id",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+62 812-3456-7890"
+      "matched_text": "+62 812-3456-7890",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+62 21 0000 0000"
+      "matched_text": "+62 21 0000 0000",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "id_nik",
-      "matched_text": "3173123401234567"
+      "matched_text": "3173123401234567",
+      "rule": "id_nik"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "60%"
+      "matched_text": "60%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ibu Sari Handayani"
+      "matched_text": "Ibu Sari Handayani",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bapak Andri Prakoso"
+      "matched_text": "Bapak Andri Prakoso",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "C1234567"
+      "matched_text": "C1234567",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "0987654321"
+      "matched_text": "0987654321",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "media@lintasdana.co.id"
+      "matched_text": "media@lintasdana.co.id",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "mengakuisisi 60% PT Arta Nuansa Data (analitik fintech)"
+      "matched_text": "mengakuisisi 60% PT Arta Nuansa Data (analitik fintech)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "belum diumumkan ke Otoritas Jasa Keuangan Nusantara (OJK-N) dan Bursa Efek Jakarta Raya (BEJR)"
+      "matched_text": "belum diumumkan ke Otoritas Jasa Keuangan Nusantara (OJK-N) dan Bursa Efek Jakarta Raya (BEJR)",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "siber/operasional (ransomware)"
+      "matched_text": "siber/operasional (ransomware)",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "insiden ini dapat memengaruhi valuasi dan timeline"
+      "matched_text": "insiden ini dapat memengaruhi valuasi dan timeline",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sari.handayani@lintasdana.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "andri.prakoso@dompetkilat.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@sinara-partners.law",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "csirt@lintasdana.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+62 812-3456-7890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+62 21 0000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3173123401234567",
+      "rule": "id_nik"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Incident Report \u2013 Confidential (MNPI), 02/06/2026 18:30 WIB\nIssuer: PT Lintas Dana Teknologi Tbk (Perseroan), NIB 0234567890123; NPWP 12.345.678.9-012.345; alamat terdaftar: Menara Seroja Lt. 18, Jl. Anyelir Raya No. 128A, Kuningan Baru, Jakarta Selatan 12999\nDisusun oleh: Ibu Sari Handayani, Sekretaris Perusahaan; kontak: sari.handayani@lintasdana.co.id, +62 812-3456-7890\nJenis insiden: siber/operasional (ransomware) yang mempengaruhi unit fintech PT Dompet Kilat Nusantara (anak perusahaan); outage ledger wallet 09:20\u201314:10 WIB\nDeteksi awal melalui peringatan SOC; server terdampak: DK-LEDGER-03; tidak ada indikasi eksfiltrasi di luar data uji yang di-hash\nCakupan awal PII: 1.742 pengguna ritel berpotensi terekspos metadata profil (nama, ponsel, email, dan 4 digit akhir rekening); segmen ini tidak menyimpan NIK penuh atau biometrik\nKredensial karyawan terkompromi: Bapak Andri Prakoso (Ops Lead), KTP/NIK 3173123401234567, email dinas andri.prakoso@dompetkilat.id, Paspor C1234567 (duplikat di drive HR)\nRails pembayaran tidak terdampak; contoh IBAN di template QA \u201cIBAN: XX00 0000 0000 0000 0000 0000\u201d adalah placeholder dan tidak terkait rekening produksi\nNomor layanan 112 disebut dalam umpan phishing; itu adalah nomor darurat publik dan bukan hotline kami\nRekening remitansi vendor yang mungkin terlihat: Rek. Bank Samudra Sejahtera 0987654321 a.n. PT Lintas Dana Teknologi; akan dilakukan rotasi nomor rekening\nPenilaian materialitas: Perseroan sedang negosiasi lanjutan untuk mengakuisisi 60% PT Arta Nuansa Data (analitik fintech), belum diumumkan ke Otoritas Jasa Keuangan Nusantara (OJK-N) dan Bursa Efek Jakarta Raya (BEJR); ins",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -178,79 +239,32 @@
       "reason": "Public emergency number, not personal phone/PII"
     }
   ],
+  "source_jurisdiction": "ID",
   "uncertain": [
     {
-      "matched_text": "NIB 0234567890123",
       "concept": "company_identifier (NIB)",
+      "matched_text": "NIB 0234567890123",
       "reason": "Corporate business ID; relevant identifier but not covered by allowed rules and not natural-person PII"
     },
     {
-      "matched_text": "NPWP 12.345.678.9-012.345",
       "concept": "tax_identifier (corporate NPWP)",
+      "matched_text": "NPWP 12.345.678.9-012.345",
       "reason": "Corporate tax number; relevant but not mapped to an allowed rule and not natural-person PII"
     },
     {
-      "matched_text": "alamat terdaftar: Menara Seroja Lt. 18, Jl. Anyelir Raya No. 128A, Kuningan Baru, Jakarta Selatan 12999",
       "concept": "company_registered_address",
+      "matched_text": "alamat terdaftar: Menara Seroja Lt. 18, Jl. Anyelir Raya No. 128A, Kuningan Baru, Jakarta Selatan 12999",
       "reason": "Corporate address; potentially sensitive operationally but no allowed postal-address rule for ID and not natural-person PII"
     },
     {
-      "matched_text": "segmen ini tidak menyimpan NIK penuh atau biometrik",
       "concept": "data_minimisation_marker",
+      "matched_text": "segmen ini tidak menyimpan NIK penuh atau biometrik",
       "reason": "Indicates data minimisation by design; rule advises against labeling negated/already-implemented controls but may be relevant for privacy governance"
     },
     {
-      "matched_text": "permohonan suspensi perdagangan belum diperlukan",
       "concept": "trading_suspension_reference",
+      "matched_text": "permohonan suspensi perdagangan belum diperlukan",
       "reason": "Mentions market trading suspension governance; not clearly mapped to allowed MNPI markers like blackout/embargo"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

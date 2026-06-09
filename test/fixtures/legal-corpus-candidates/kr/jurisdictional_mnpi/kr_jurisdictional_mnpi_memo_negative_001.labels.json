@@ -1,160 +1,4 @@
 {
-  "doc_id": "kr_jurisdictional_mnpi_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "KR",
-  "destination_jurisdiction": "KR",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "123-ABC-456789"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing: The 2025-02-10 convertible note program was publicly noticed and closed; subsequent references are stale and non-material."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "000000-0000000"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EMP-0000-XXX"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@hwayeon-industries.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@hwayeon-industries.example"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "avoid collection; redact if received"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Do not store resident-number copies in IR or deal rooms"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not share employee personal data externally"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not use personal emails"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet publicly disclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "temporary blackout from 2026-06-10 to 2026-06-15"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "potential divestiture of wholly owned subsidiary Hwayeon Components GK"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "limit circulation to Board, Audit Committee, and IR Compliance"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no external references to the potential divestiture"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "123-ABC-456789"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing: The 2025-02-10 convertible note program was publicly noticed and closed; subsequent references are stale and non-material."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "Security code HX-000000",
-      "reason": "Dummy/template identifier in example; not live account or PII."
-    },
-    {
-      "matched_text": "Account 123-ABC-456789",
-      "reason": "Dummy/template identifier in example; not a real bank/customer account or PII."
-    },
-    {
-      "matched_text": "Strategy 2026",
-      "reason": "Public IR deck title; not MNPI or a transaction codename."
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "insiders",
-      "concept": "insider_list_marker",
-      "reason": "Mentions insiders in context of blackout but no explicit insider list creation or maintenance is stated."
-    },
-    {
-      "matched_text": "Board will meet on 2026-06-15",
-      "concept": "pre-decision_timing",
-      "reason": "Pre-decisional Board meeting date could be sensitive, but not covered by explicit allowed MNPI rules."
-    },
-    {
-      "matched_text": "prepare an issuer 공시 within one business day of the Board decision",
-      "concept": "disclosure_timing",
-      "reason": "Specifies timing of public disclosure obligations; relevant locally but not mapped to a current allowed MNPI rule."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for “Ms. Hana Park” was rejected because the text is an actual named-person reference.",
   "_agent_review": {
     "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -180,6 +24,11 @@
     "reviewer": "gongahkia-project-owner-chat-approval",
     "status": "approved"
   },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for \u201cMs. Hana Park\u201d was rejected because the text is an actual named-person reference.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T02:34:00Z",
     "accepted_by": "gongahkia",
@@ -188,21 +37,186 @@
     "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_jurisdictional_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "000000-0000000",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP-0000-XXX",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@hwayeon-industries.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@hwayeon-industries.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid collection; redact if received",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Do not store resident-number copies in IR or deal rooms",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not share employee personal data externally",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not use personal emails",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "temporary blackout from 2026-06-10 to 2026-06-15",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential divestiture of wholly owned subsidiary Hwayeon Components GK",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "limit circulation to Board, Audit Committee, and IR Compliance",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no external references to the potential divestiture",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-ABC-456789",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: The 2025-02-10 convertible note program was publicly noticed and closed; subsequent references are stale and non-material.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "123-ABC-456789",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: The 2025-02-10 convertible note program was publicly noticed and closed; subsequent references are stale and non-material.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Hwayeon Industries Co., Ltd. \u2014 Internal Compliance Memo (KR) \u2014 Disclosure/PII/MNPI Status\nPublic status: The company\u2019s IR overview and FY2025 results Q&A were posted on 2026-03-01 via our website and earlier \uacf5\uc2dc; these items remain public and non-sensitive.\nExchange/update: On 2025-12-20 we announced the planned transfer to the Seoul Growth Board (SGB) segment; this was completed and disclosed, with no new exchange action pending.\nFinancing: The 2025-02-10 convertible note program was publicly noticed and closed; subsequent references are stale and non-material.\nEmployment/HR: A payroll vendor migration targeted for 2026-07-01 is an operational change; for issuer-relative materiality, treat as non-material; do not share employee personal data externally.\nPIPA handling: Template fields in HR forms (Resident Registration No.: 000000-0000000; Employee ID: EMP-0000-XXX) are placeholders; avoid collection; redact if received.\nContact channels: Use role mailboxes (ir@hwayeon-industries.example; compliance@hwayeon-industries.example); do not use personal emails; public helpline details remain on the website.\nFair disclosure: IR should rely on previously posted \uacf5\uc2dc and press releases; avoid selective disclosure in one-on-one meetings absent a simultaneous \uacf5\uc815\uacf5\uc2dc.\nSecurities references: Any \u201cSecurity code HX-000000\u201d or \u201cAccount 123-ABC-456789\u201d appearing in drafts are dummy identifiers for templates and not live accounts.\nCompliance note under \uc790\ubcf8\uc2dc\uc7a5\ubc95(FSCMA): The Board will meet on 2026-06-15 to consider a potential divestiture of wholly owned subsidiary Hwayeon Components GK; this is not yet publicly disclosed and must be treated as MNPI; insiders are under a temporary blackout from 2026-06-10 to 2026-06-15.\nDistribution control: Until a Board resolution, limit circulation to Board, Audit Committee, and IR Compliance; no external references to the potential divestiture.\nInvestor-relations materials: The \u201cStrategy 2026\u201d slide deck is already public; any revisions will be posted via company website before investor briefings.\nOperational updates: Facility maintenance notices from Hanmu Property SPC are landlord communications and not issuer disclosures.\nForm labels and filing timing: Use Compliance Memo CM-26-KR; if fair disclosure becomes required, prepare an issuer \uacf5\uc2dc within one business day of the Board decision.\nRecords: Do not store resident-number copies in IR or deal rooms; the current deal workspace contains only public items and prior \uacf5\uc2dc archives.\nQuestions may be directed to the Compliance Office role mailbox; this memo is intended to guide consistent handling of public vs. non-public information in Korea.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Security code HX-000000",
+      "reason": "Dummy/template identifier in example; not live account or PII."
+    },
+    {
+      "matched_text": "Account 123-ABC-456789",
+      "reason": "Dummy/template identifier in example; not a real bank/customer account or PII."
+    },
+    {
+      "matched_text": "Strategy 2026",
+      "reason": "Public IR deck title; not MNPI or a transaction codename."
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "insider_list_marker",
+      "matched_text": "insiders",
+      "reason": "Mentions insiders in context of blackout but no explicit insider list creation or maintenance is stated."
+    },
+    {
+      "concept": "pre-decision_timing",
+      "matched_text": "Board will meet on 2026-06-15",
+      "reason": "Pre-decisional Board meeting date could be sensitive, but not covered by explicit allowed MNPI rules."
+    },
+    {
+      "concept": "disclosure_timing",
+      "matched_text": "prepare an issuer \uacf5\uc2dc within one business day of the Board decision",
+      "reason": "Specifies timing of public disclosure obligations; relevant locally but not mapped to a current allowed MNPI rule."
     }
   ]
 }

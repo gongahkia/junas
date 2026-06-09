@@ -37,6 +37,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -90,7 +98,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "IR draft language (internal use only): “The Company confirms operations are stable; remediation concluded within 4 hours; no service-level breach; estimated containment cost SAR 1.6 million (~0.4% of FY revenue).”",
+      "matched_text": "IR draft language (internal use only): \u201cThe Company confirms operations are stable; remediation concluded within 4 hours; no service-level breach; estimated containment cost SAR 1.6 million (~0.4% of FY revenue).\u201d",
       "rule": "material_event"
     },
     {
@@ -272,7 +280,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "IR draft language (internal use only): “The Company confirms operations are stable; remediation concluded within 4 hours; no service-level breach; estimated containment cost SAR 1.6 million (~0.4% of FY revenue).”",
+      "matched_text": "IR draft language (internal use only): \u201cThe Company confirms operations are stable; remediation concluded within 4 hours; no service-level breach; estimated containment cost SAR 1.6 million (~0.4% of FY revenue).\u201d",
       "rule": "material_event"
     },
     {
@@ -329,6 +337,12 @@
       "category": "MNPI",
       "matched_text": "182,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Najd Ports Services Company (JSC), Tadawul: NPX, CR 1010999888 \u2014 Operational Incident Report \u2014 MNPI / Non-Public\nDeal Codename: Project Saffron; Embargo: Do not disclose externally before 2026-07-15 09:00 AST per Issuer Disclosure Committee instruction.\nOn 2026-06-03, a phishing email titled \u201cfree spa day for staff\u201d led to unauthorized access to a shared HR mailbox; preliminary forensic log shows 17 minutes of session activity from an IP outside KSA.\nData exposure (PDPL scope): names, company emails, and Iqama numbers for 27 contractors; sample record: \u201cK. Al-Shamrani, Iqama 2094765123, k.shamrani@najdports.com.sa\u201d (to be redacted in public notice).\nNo full bank details leaked; only masked IBAN fragments (e.g., SA38-80**-**21) and shift rosters; no medical data.\nSDAIA transfer controls: cross-border replication to our disaster-recovery node is paused; Data Transfer Impact Assessment filed, permit request ref SDAIA-DTIA-26-441 submitted 2026-06-04.\nTransaction impact: the definitive Share Purchase Agreement for Project Saffron (acquisition of Red Dune Cold Chain LLC) signed 2026-06-01 at SAR 182,000,000 with a 12% earn-out remains in effect.\nCounsel advises the incident is not expected to constitute a Material Adverse Change and does not trigger any MAE termination right under the SPA.\nCMA market-conduct follow-up: self-report filed 2026-06-04, CMA ref MC-24-4471; draft Tadawul announcement prepared for board approval.\nBoard memo ref BM-26-017 and Term Sheet v7.2 note enhanced vendor audit rights; Mr. Nasser Al-Bishri (Acting CFO, Iqama 2073359014) to brief the Audit Committee.\nPublic-source context: a March post in the Riyadh Business Chronicle speculated on a system outage at a different port operator, which is unrelated and outdated.\nIR draft language (internal use only): \u201cThe Company confirms operations are stable; remediation concluded within 4 hours; no service-level breach; estimated containment cost SAR 1.6 million (~0.4% of FY revenue).\u201d\nlowercase pm note: action: coordinate with it and hr, update risk register, and circulate dpia addendum by eod.\nIssuer workflow: Disclosure Committee sign-off required before posting on Tadawul IR portal; any analyst queries to be routed via Dr. Lina Al-Mutairi (DPO) at dpo@najdports.com.sa and Eng. Tariq Al-Sabri (CISO) at security@najdports.com.sa.\nFor board oversight, please contact Ms. Reem Al-Hazmi, Chair, via officeofchair@najdports.com.sa; this document contains MNPI and is not for distribution outside authorized recipients.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

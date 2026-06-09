@@ -45,6 +45,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -237,6 +245,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AurumTech Holdings Ltd (SGE\u2011ST Mainboard): Internal Cyber Incident Update \u2014 Internal use only, not for SGE\u2011Net release.\nOn 30 May 2026 23:41 SGT, SOC detected anomalous egress via vendor VPN on Segment B; CIRT Case Ref: AT\u2011C I R T\u20112 0 2 6 / 05\u20110 1 7.\nScope: Preliminary indicates exposure of low\u2011sensitivity personal data under the PDPA (names, work emails, office numbers) for ~212 SG staff; EID sa m p l e AUR\u2011**47H9; no NRICs, passwords, payroll or bank a/cs implicated.\nContainment: VPN key rotated, AurumEdge WAF ruleset updated; third\u2011party \u201cCitrineVault Pte. Ltd.\u201d isolated; hash trace 89a4:2f...e f; ticket: INC\u2011202605\u2011017; link: https://intra.aurumtech.com/case?id=AT%2F2026%2F05%2F017&view=pr iv.\nImpact/materiality: Current estimate <0.5% of FY2026 opex; no interruption to trading platforms; management assesses event not likely to be material to the issuer at this time.\nMNPI/closed period: This information is not generally available and falls within the pre\u2011results closed period (1 Jun\u201315 Jul); directors/officers must not deal; insider list updated (Ms. Soo Lian, Mr. Wei Ong).\nDisclosure plan: We will assess under SGE\u2011ST Listing Manual r.703; if material, an immediate SGE\u2011Net announcement will be filed; otherwise, disclosure will be made in the next quarterly business update.\nPublic\u2011status cross\u2011check: See already\u2011published SGE\u2011Net 12 Apr 2026 \u201cOperational Resilience Update Q1\u201d (public), which discussed sector\u2011wide phishing trends; that filing did not cover this 30 May event.\nSelective disclosure controls: External counsel and M&A counterparties on project banyan (proposed acquisition of Flaris Renewables Pte. Ltd.) remain under NDA; no counterparties will be briefed until any SGE\u2011Net release.\nEmployment/HR: Affected staff will receive notice letters and credit monitoring offer; sample notice routed to com m s for QA; union representation not applicable; escalation contact dpo@aurumtech.com.sg.\nRegulator/PDPA workflow: Notification draft to the Data Protection Authority of Singapore (DPAS) within 3 calendar days of assessment; breach log ref: DP\u20112 0 2 6\u201105\u2011AT\u2011017; data\u2011minimisation steps recorded.\nInvestor relations: We do not expect this to constitute a material adverse change (no MAC) to revenue or the project banyan timeline; press queries to ir@aurumtech.com.sg; do not attribute to threat actor in any off\u2011cycle",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

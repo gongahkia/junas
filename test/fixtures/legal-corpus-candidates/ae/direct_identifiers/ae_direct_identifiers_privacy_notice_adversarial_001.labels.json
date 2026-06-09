@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -320,6 +328,18 @@
       "category": "MNPI",
       "matched_text": "010234567890",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Unit 1204, Sapphire Tower, Al Reem Island, Abu Dhabi, PO Box 123456",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "or privacy: privacy [at] faranwafinance.ae; tel: 0 5 5 1 2 3 4 5 6 7; address: Unit 1204, Sapphire Tower, Al Reem Island, Abu Dhabi, PO Box 123456.\nWe process: Emirates ID, passport, company trade licence, corporate bank IBAN, business email/phone, nationality and family origin for KYC under PDPL, and issuer MNPI relating to SCA-regulated offerings.\nExample subject: Mr. Omar Al Qassim, E m i r a t e s  I D 784-1989-1234567-9, Passport UA-P9087654, mobile +971 55 987 3210, work email o.alqassim@faranwafinance.ae.\nNote: the above EID checksum is invalid for testing; do not rely on 784-0000-0000000-0 as it is a sample only; \u201cFinance Manager\u201d is a role, not a person.\nProcessing purposes: drafting term sheets and data rooms for Al Najm Metals PJSC under SCA/DFSA oversight; MNPI such as draft earnings and unannounced board resolutions must remain confidential.\nLawful basis: contractual necessity and compliance with AML/KYC; retention 6 years from deal close; todo: update retention matrix after go-live of NimbusVault archive.\nDSARs: submit at https://portal.faranwafinance.ae/dsar?eid=784198912345679&lic=CN-5642398 (or email dsar@faranwafinance.ae); generic form labels like Name: _____ and Email: _____ do not identify a person by themselves.\nInternational transfers: Processor may transfer to ADGM and DIFC data centers only, applying UAE PDPL Art. 22 and SCA circulars; no onward transfer to non-adequate states without written approval.\nSecurity: encryption at rest/in transit, role-based access; we do not collect device MAC addresses or public-source helpdesk logs for profiling.\nPayment and account references: IBAN AE10 023 0001234567890123 (illustrative, check digits not valid); Oasis Bank PJSC client a c c o u n t 010234567890; do not use public helpline 800 555 for DSARs.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

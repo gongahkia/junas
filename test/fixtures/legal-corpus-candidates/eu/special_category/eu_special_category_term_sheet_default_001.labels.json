@@ -50,6 +50,14 @@
     "previous_must_detect_count": 28,
     "previous_must_not_detect_count": 8
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -392,6 +400,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed acquisition of HelixPort Analytics S.A. by OrbiNova SE (EU issuer on the Mercurion Exchange EuroCap MTF, supervised by the Lydovia Securities and Markets Commission).\nStructure: OrbiNova to acquire 100% via cash and share exchange; consideration \u20ac128m cash plus 4.5m new Class B ordinary shares (no security identifier assigned before admission); completion subject to OrbiNova and HelixPort shareholder approvals and Competent Authority clearance.\nThis document contains precise non-public information regarding OrbiNova and HelixPort that is likely to significantly affect OrbiNova\u2019s price under MAR; wall-crossing confirmations are required and insider lists will be maintained until a public announcement.\nKey non-public items include a preliminary Q3 revenue shortfall of approximately 8% versus guidance and unreleased \u201cAurora Mesh\u201d pilot results; disclosure timing to be coordinated with the market operator and the LSMC.\nGDPR/Art 9 schedule: explicit consent and legal basis will cover biometric access control and timekeeping (fingerprint templates and iris-scan geometry) and occupational health files for Ms. Selene Ardent (plant supervisor), who is a member of the Lydovia Techworkers Union and receives treatment for a managed cardiac condition.\nAdditional sensitive fields: Ms. Ardent\u2019s prior genetic carrier screening undertaken for safety clearance and her declared political party membership (Green Horizon Lydovia) are to be pseudonymised with least-privilege access; her dependent child Leo Ardent (age 16) is listed for emergency contacts only.\nCross-border transfers: personal data, including special-category data, will remain within the EU unless strictly necessary for support by OrbiNova\u2019s Azuristan centre under SCCs; a Transfer Impact Assessment, encryption, and audit logging are conditions precedent.\nCSRD/SFDR: post-closing, OrbiNova will consolidate ESRS metrics, including workforce diversity and unionisation rates, and align product-level sustainability data to SFDR PAI indicators; generic DEI wording (inclusive culture, equal opportunity) is aspirational and non-binding.\nGovernance and MAR workflow: PDMR dealing blackouts apply; insider lists must include identity, role, and contact details with time stamps and reasons; Mr. Corin Feldar (CFO) will administer lists and wall-crossing notices.\nFinancing: \u20ac90m term loan and \u20ac50m sustainability-linked revolving credit facility tied to CSRD targets; funds earmarked for integration of the \u201cPolaris Cloud\u201d product suite and working capital.\nConditions precedent: audited financials, merger control clearances in Lydovia and Norvia, Works Council information/consultation, vendor warranties, and confirmation from the LSMC on lawful deferral of disclosure under MAR.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

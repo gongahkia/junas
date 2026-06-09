@@ -39,6 +39,8 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "EU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public support-hotline bait, obfuscated VAT/tax/passport phone-shaped fragments, dotted-date and filing-reference phone bait, role/placeholder emails, template passport values, EU registry/ISIN/LEI/tax numeric fragments, log-id amount fragments, placeholder country-code phones, and negated MAE/contingent-MNPI language. Full EU member-state national-ID breadth and broader semantic GDPR special-category coverage remain ideal-tier gaps.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T17:29:37Z",
@@ -46,6 +48,49 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-eu-stage-a-reviewed.json",
     "status": "owner_approved_eu_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_preserving_existing_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 27,
+    "current_must_detect_count": 13,
+    "current_must_not_detect_count": 7,
+    "previous_ideal_must_detect_count": 27,
+    "previous_must_detect_count": 13,
+    "previous_must_not_detect_count": 7
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -55,205 +100,217 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer event"
+      "matched_text": "Cross-border transfer event",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal event"
+      "matched_text": "Consent withdrawal event",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation tags"
+      "matched_text": "data minimisation tags",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jaro Nivelle"
+      "matched_text": "Mr. Jaro Nivelle",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "j.nivelle@domain-aster.eu"
+      "matched_text": "j.nivelle@domain-aster.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Elin Tvara"
+      "matched_text": "Ms. Elin Tvara",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "e.tvara@lunarisbio.eu"
+      "matched_text": "e.tvara@lunarisbio.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Mirek Leno"
+      "matched_text": "Dr. Mirek Leno",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@lunarisbio.eu"
+      "matched_text": "dpo@lunarisbio.eu",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean team drive"
+      "matched_text": "clean team drive",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list"
+      "matched_text": "insider-list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "mk-4127"
+      "matched_text": "mk-4127",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "mk-4131"
+      "matched_text": "mk-4131",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric"
+      "matched_text": "biometric",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "health data"
+      "matched_text": "health data",
+      "rule": "health_condition"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "market-sounding procedures"
+      "matched_text": "market-sounding procedures",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "restricted list"
+      "matched_text": "restricted list",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "unaudited production forecasts"
+      "matched_text": "unaudited production forecasts",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purpose limitation"
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MAR workflow: investor-relations drafts containing unaudited production forecasts are stored in the clean team drive, with access restricted; note that these drafts are already summarised in public Q1 guidance and do not constitute MNPI."
+      "matched_text": "MAR workflow: investor-relations drafts containing unaudited production forecasts are stored in the clean team drive, with access restricted; note that these drafts are already summarised in public Q1 guidance and do not constitute MNPI.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "restricted list"
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "j.nivelle@domain-aster.eu"
+      "matched_text": "j.nivelle@domain-aster.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "e.tvara@lunarisbio.eu"
+      "matched_text": "e.tvara@lunarisbio.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purpose limitation"
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jaro Nivelle"
+      "matched_text": "Mr. Jaro Nivelle",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Elin Tvara"
+      "matched_text": "Ms. Elin Tvara",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Mirek Leno"
+      "matched_text": "Dr. Mirek Leno",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MAR workflow: investor-relations drafts containing unaudited production forecasts are stored in the clean team drive, with access restricted; note that these drafts are already summarised in public Q1 guidance and do not constitute MNPI."
+      "matched_text": "MAR workflow: investor-relations drafts containing unaudited production forecasts are stored in the clean team drive, with access restricted; note that these drafts are already summarised in public Q1 guidance and do not constitute MNPI.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "restricted list"
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Compliance Memorandum \u2014 Lunaris BioEnergy SE (EU issuer), prepared by Legal & Privacy\nSubject: MAR disclosure controls, GDPR Art 9 handling, and CSRD/SFDR data streams\nFollowing admission to listing on the Borealis Growth Exchange (BGX), the Issuer maintains an insider list and has confirmed no delay-of-disclosure under MAR Art 17 is currently in place.\nAny sustainability metrics used for CSRD/SFDR reporting derive from a pseudonymised dataset; no special category data under Art 9 is included in KPI dashboards.\nCross-border transfer event: HR onboarding forms for contractors processed via Aurora Cloud Pty Ltd (AU) under SCCs; TIA v3.2 completed and approved by the Data Export Panel on 2026-05-15.\nDPA Schedule: Sub-processor roster updated (Annex II), with purpose limitation and data minimisation tags applied to fields collected (role, work e-mail, payroll alias), excluding biometric or health data.\nConsent withdrawal event: two data subjects in the marketing list (IDs: mk-4127, mk-4131) opted out; erasure of tracking identifiers completed and suppression list retained per 24-month retention policy.\nDSAR event: one access request from Mr. Jaro Nivelle, resolved on 2026-05-20 with full export (machine-readable) and audit log; contact: j.nivelle@domain-aster.eu.\nErasure workflow: Ms. Elin Tvara requested deletion of recruiter notes; lawful basis no longer applies; erasure executed and confirmed to e.tvara@lunarisbio.eu; backup queues flagged for overwrite within 30 days.\nRetention control: Payroll source records are held for statutory periods only; the completed archival job removed legacy profiles older than 6 years.\nMAR workflow: investor-relations drafts containing unaudited production forecasts are stored in the clean team drive, with access restricted; note that these drafts are already summarised in public Q1 guidance and do not constitute MNPI.\nA negative control: no cross-border transfers of special category data occur in the clinical trials registry, as that dataset is anonymised at source; this is a policy check only and not a live incident.\nOnboarding form revision: privacy notice link standardised, and consent checkboxes for optional analytics default to off across EU locales; consent logs stored in the EU region.\nPoint of contact: Dr. Mirek Leno (DPO), dpo@lunarisbio.eu; escalation to the Board Risk Committee only if a restricted list update is required.\nIf consent is reinstated by a data subject, marketing automations will re-enable only after double opt-in; until then, no profiling or enrichment will be performed.\nNothing in this memo constitutes inside information; any future selective disclosure will follow the MAR insider-list and market-sounding procedures maintained by Compliance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -289,101 +346,64 @@
   "source_jurisdiction": "EU",
   "uncertain": [
     {
-      "matched_text": "DSAR event",
       "concept": "dsar_marker",
+      "matched_text": "DSAR event",
       "reason": "DSAR handling is a privacy event but no explicit DSAR rule is listed"
     },
     {
-      "matched_text": "Erasure workflow",
       "concept": "erasure_marker",
+      "matched_text": "Erasure workflow",
       "reason": "Erasure/deletion workflow is relevant but no erasure rule is provided"
     },
     {
-      "matched_text": "erasure of tracking identifiers",
       "concept": "erasure_marker",
+      "matched_text": "erasure of tracking identifiers",
       "reason": "Describes deletion action; not directly covered by an allowed rule"
     },
     {
-      "matched_text": "Retention control",
       "concept": "retention_marker",
+      "matched_text": "Retention control",
       "reason": "Retention governance is relevant but no retention rule is enumerated"
     },
     {
-      "matched_text": "24-month retention policy",
       "concept": "retention_policy_duration",
+      "matched_text": "24-month retention policy",
       "reason": "Retention period is privacy-relevant but lacks a corresponding rule name"
     },
     {
-      "matched_text": "backup queues flagged for overwrite within 30 days",
       "concept": "deletion_timeline",
+      "matched_text": "backup queues flagged for overwrite within 30 days",
       "reason": "Deletion/overwrite scheduling is relevant but not in allowed rules"
     },
     {
-      "matched_text": "pseudonymised dataset",
       "concept": "pseudonymisation_marker",
+      "matched_text": "pseudonymised dataset",
       "reason": "Privacy technique under GDPR; not mapped to a listed rule"
     },
     {
-      "matched_text": "anonymised at source",
       "concept": "anonymisation_marker",
+      "matched_text": "anonymised at source",
       "reason": "Indicates anonymisation; not mapped to a listed rule"
     },
     {
-      "matched_text": "SCCs",
       "concept": "transfer_mechanism",
+      "matched_text": "SCCs",
       "reason": "Standard Contractual Clauses indicate cross-border mechanism but not the event marker itself"
     },
     {
-      "matched_text": "TIA v3.2",
       "concept": "transfer_impact_assessment",
+      "matched_text": "TIA v3.2",
       "reason": "TIA is relevant for cross-border transfer compliance but not covered by allowed rules"
     },
     {
-      "matched_text": "consent is reinstated",
       "concept": "consent_reinstatement",
+      "matched_text": "consent is reinstated",
       "reason": "Consent reinstatement control is relevant but not a defined marker rule"
     },
     {
-      "matched_text": "consent logs stored in the EU region",
       "concept": "data_localisation",
+      "matched_text": "consent logs stored in the EU region",
       "reason": "Data localisation/storage governance is relevant but not in allowed PII/MNPI rules"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_preserving_existing_owner_approval",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 13,
-    "current_must_detect_count": 13,
-    "previous_ideal_must_detect_count": 27,
-    "current_ideal_must_detect_count": 27,
-    "previous_must_not_detect_count": 7,
-    "current_must_not_detect_count": 7
-  }
+  ]
 }

@@ -1,260 +1,326 @@
 {
-  "doc_id": "ph_special_category_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "jonel.verano@luzmar-renewables.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63-02-8123-4567"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "LM-04219"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "LM-03088"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jonel"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Reina"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Verano"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Verano"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "age 9"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "LuzMar Renewables Holdings, Inc. (MEE: LMRH; PSC Registration 2024-09117) Incident Report – Cybersecurity and MNPI Exposure, dated 21 May 2026."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Bulalakaw"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_special_category_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jonel D. Verano"
+      "matched_text": "Mr. Jonel D. Verano",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "LM-04219"
+      "matched_text": "LM-04219",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "jonel.verano@luzmar-renewables.ph"
+      "matched_text": "jonel.verano@luzmar-renewables.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template AFX-77"
+      "matched_text": "fingerprint template AFX-77",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "clinic record noting hypertension treatment"
+      "matched_text": "clinic record noting hypertension treatment",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "voluntary union membership entry with Pagkakaisa Workers Union–LuzMar Chapter"
+      "matched_text": "voluntary union membership entry with Pagkakaisa Workers Union\u2013LuzMar Chapter",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Reina O. Leano"
+      "matched_text": "Ms. Reina O. Leano",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "LM-03088"
+      "matched_text": "LM-03088",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "genetic screening note indicating G6PD deficiency"
+      "matched_text": "genetic screening note indicating G6PD deficiency",
+      "rule": "genetic_data"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minor son R.O.L., age 9"
+      "matched_text": "minor son R.O.L., age 9",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 9"
+      "matched_text": "age 9",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Isabel Q. Javelona"
+      "matched_text": "Atty. Isabel Q. Javelona",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@luzmar-renewables.ph"
+      "matched_text": "dpo@luzmar-renewables.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63-02-8123-4567"
+      "matched_text": "+63-02-8123-4567",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@luzmar-renewables.ph"
+      "matched_text": "ir@luzmar-renewables.ph",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Bulalakaw"
+      "matched_text": "Project Bulalakaw",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet disclosed to investors"
+      "matched_text": "not yet disclosed to investors",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "constituting potential MNPI under the Securities Regulation Code and PSC rules"
+      "matched_text": "constituting potential MNPI under the Securities Regulation Code and PSC rules",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric timekeeping data"
+      "matched_text": "biometric timekeeping data",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "ISO-format fingerprint templates"
+      "matched_text": "ISO-format fingerprint templates",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "MTB-2049-xx31"
+      "matched_text": "MTB-2049-xx31",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Verano"
+      "matched_text": "Mr. Verano",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "green bond term sheet"
+      "matched_text": "green bond term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "green bond term sheet"
+      "matched_text": "green bond term sheet",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "draft board resolution on dividends"
+      "matched_text": "draft board resolution on dividends",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "Incident Report – Cybersecurity and MNPI Exposure"
+      "matched_text": "Incident Report \u2013 Cybersecurity and MNPI Exposure",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jonel"
+      "matched_text": "Mr. Jonel",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Reina"
+      "matched_text": "Ms. Reina",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Verano"
+      "matched_text": "Verano",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "age 9"
+      "matched_text": "age 9",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "LuzMar Renewables Holdings, Inc. (MEE: LMRH; PSC Registration 2024-09117) Incident Report – Cybersecurity and MNPI Exposure, dated 21 May 2026."
+      "matched_text": "LuzMar Renewables Holdings, Inc. (MEE: LMRH; PSC Registration 2024-09117) Incident Report \u2013 Cybersecurity and MNPI Exposure, dated 21 May 2026.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "jonel.verano@luzmar-renewables.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63-02-8123-4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LM-04219",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LM-03088",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jonel",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Reina",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Verano",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Verano",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 9",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "LuzMar Renewables Holdings, Inc. (MEE: LMRH; PSC Registration 2024-09117) Incident Report \u2013 Cybersecurity and MNPI Exposure, dated 21 May 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Bulalakaw",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "At this time, customer accounts and retail product users of our IslaRay rooftop kits were unaffected, and the San Mirasol Tigers\u2019 championship parade near our office was unrelated to the outage.\nSystems impact was contained to the Bay Vista Tower data room (Unit 1903, New Kalayaan District, San Mirasol City), and backup integrity checks indicate no data corruption beyond the exfiltration.\nWe have implemented password resets, disabled legacy SFTP, and deployed AuroraVault SIEM heuristics with BayanShield EDR; we are also notifying the National Privacy Directorate and affected data subjects as required by law",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "LuzMar Renewables Holdings, Inc. (MEE: LMRH; PSC Registration 2024-09117) Incident Report \u2013 Cybersecurity and MNPI Exposure, dated 21 May 2026.\nOn 18 May 2026, an unauthorized actor accessed our HR payroll file server and exfiltrated \u2018Payroll_Q2\u2019 and \u2018Capital-Markets_Drafts\u2019 folders from the New Kalayaan District site in San Mirasol City.\nExfiltrated HR data included personal information under the Data Privacy Act, such as Tax Registry Nos., masked bank accounts with Maharlika Trust Bank, and biometric timekeeping data stored as ISO-format fingerprint templates.\nFor example, Mr. Jonel D. Verano (Employee ID LM-04219, jonel.verano@luzmar-renewables.ph) had fingerprint template AFX-77 stored, a clinic record noting hypertension treatment, and a voluntary union membership entry with Pagkakaisa Workers Union\u2013LuzMar Chapter.\nThe HR file for Ms. Reina O. Leano (Employee ID LM-03088) also contained a genetic screening note indicating G6PD deficiency and a dependent record for her minor son R.O.L., age 9, with School ID SMC-7S-3345.\nSome payroll archives included withholding tax certificates and salary credit advices; no card PANs were kept, but bank account aliases (e.g., MTB-2049-xx31) were present.\nA benign reference appears in our DEI Charter 2024, which mentions religion and sexual orientation as protected classes without linking to any person.\nExfiltrated capital-markets drafts included unaudited Q3 forecasts, a draft board resolution on dividends, and a green bond term sheet for Project Bulalakaw not yet disclosed to investors, constituting potential MNPI under the Securities Regulation Code and PSC rules.\nWe are preparing a current report on PSC Form 17-C for submission to the Manila Equities Exchange and the Philippine Securities Commission within the prescribed period.\nAt this time, customer accounts and retail product users of our IslaRay rooftop kits were unaffected, and the San Mirasol Tigers\u2019 championship parade near our office was unrelated to the outage.\nSystems impact was contained to the Bay Vista Tower data room (Unit 1903, New Kalayaan District, San Mirasol City), and backup integrity checks indicate no data corruption beyond the exfiltration.\nWe have implemented password resets, disabled legacy SFTP, and deployed AuroraVault SIEM heuristics with BayanShield EDR; we are also notifying the National Privacy Directorate and affected data subjects as required by law.\nOne phishing lure referenced a fake \u201cEqual Opportunity and DEI Charter Update\u201d and a product named Hummingbird VPN, which should be treated as a Trojan horse rather than a real policy change.\nFor avoidance of doubt, mention of \u201creligion\u201d in our supplier code is boilerplate and does not disclose any person\u2019s beliefs, while Mr. Verano\u2019s clinic entry and union status are specific and confidential.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -271,11 +337,11 @@
       "reason": "Product/brand name, not PII or MNPI"
     },
     {
-      "matched_text": "San Mirasol Tigers’",
+      "matched_text": "San Mirasol Tigers\u2019",
       "reason": "Sports team reference, not PII or MNPI"
     },
     {
-      "matched_text": "“Equal Opportunity and DEI Charter Update”",
+      "matched_text": "\u201cEqual Opportunity and DEI Charter Update\u201d",
       "reason": "Policy/lure title; not personal or market-sensitive data by itself"
     },
     {
@@ -283,63 +349,17 @@
       "reason": "Product name; not PII or MNPI"
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "School ID SMC-7S-3345",
       "concept": "student_id",
+      "matched_text": "School ID SMC-7S-3345",
       "reason": "Student/education ID is identifiable but not covered by an explicit allowed rule type"
     },
     {
-      "matched_text": "Tax Registry Nos",
       "concept": "tax_id_reference",
+      "matched_text": "Tax Registry Nos",
       "reason": "Indicates presence of tax identifiers (e.g., PH TIN) but no actual number is provided in the text"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T07:07:36Z",
-    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

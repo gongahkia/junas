@@ -50,6 +50,14 @@
     "previous_must_detect_count": 6,
     "previous_must_not_detect_count": 4
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -167,6 +175,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We process limited personal data of staff, contractors, and professional contacts as controller for compliance and reporting; this note contains no unpublished financials and no deal information.\nFor CSRD/SFDR metrics we may process special categories (e.g., health and trade\u2011union affiliation) in aggregated form with safeguards under GDPR Art 9; no decisions are taken about individuals based solely on such data.\nIn one audit sample for control testing, a sustainability analyst (born 1986\u201107, Central Port District) in the Hydro Storage Unit with corporate level L2, device tag NX\u20117Q\u2011101, door badge A\u201144\u2011903, and masked payroll account EU\u2011XX11\u2011004200 was logged to evidence role\u2011based access",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "District) in the Hydro Storage Unit with corporate level L2, device tag NX\u20117Q\u2011101, door badge A\u201144\u2011903, and masked payroll account EU\u2011XX11\u2011004200 was logged to evidence role\u2011based access.\nGeneric HR records may include department (e.g., Finance), region (e.g., North Zone), or start month (e.g., 2024\u201105) without names or direct contact details; such standalone items are not used to identify a person.\nPseudonymisation is applied to monitoring logs; token keys are held by the Data Protection Office and are accessed only for legally required investigations with approval.\nCertain support logs are processed by Lyridia Cloud AG (processor) in Lyridia (a third country) under the EU Standard Contractual Clauses, with a Transfer Impact Assessment and technical measures (encryption at rest and in transit).\nRemote access by the processor is restricted to ticket IDs, role titles, and timestamps; fields such as national identifiers and full account numbers are excluded by design.\nMAR workflows: insider lists contain role title, organisational unit, and timestamped inclusion/removal; no trade prices or orders are stored here; retention is five ye",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

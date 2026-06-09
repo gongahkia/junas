@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -6,14 +28,29 @@
   "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -93,17 +130,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non‑public, issuer‑material information reasonably expected to affect Quarrystone’s securities",
+      "matched_text": "non\u2011public, issuer\u2011material information reasonably expected to affect Quarrystone\u2019s securities",
       "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "no selective briefings—any deck for Investor meetings must first be released on the ASX Platform",
+      "matched_text": "no selective briefings\u2014any deck for Investor meetings must first be released on the ASX Platform",
       "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "matched_text": "wall‑crossing consents required for any additional potential investors",
+      "matched_text": "wall\u2011crossing consents required for any additional potential investors",
       "rule": "information_barrier_marker"
     },
     {
@@ -143,7 +180,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "closed periods under the Company’s Securities Trading Policy",
+      "matched_text": "closed periods under the Company\u2019s Securities Trading Policy",
       "rule": "blackout_period_reference"
     },
     {
@@ -168,12 +205,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Issuer‑relative materiality: Covenants and forecast thresholds are assessed against Quarrystone’s current market capitalisation and liquidity profile; breach of minimum cash covenant (A$4.0m) is considered material for Listing Rule 3.1 purposes.",
+      "matched_text": "Issuer\u2011relative materiality: Covenants and forecast thresholds are assessed against Quarrystone\u2019s current market capitalisation and liquidity profile; breach of minimum cash covenant (A$4.0m) is considered material for Listing Rule 3.1 purposes.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Events of default and remedies: Non‑payment (10 business day cure), insolvency, continuous disclosure breach not rectified within 5 business days, or delisting; upon EoD, Investor may require immediate redemption at 105% of outstanding principal plus accrued interest.",
+      "matched_text": "Events of default and remedies: Non\u2011payment (10 business day cure), insolvency, continuous disclosure breach not rectified within 5 business days, or delisting; upon EoD, Investor may require immediate redemption at 105% of outstanding principal plus accrued interest.",
       "rule": "material_event"
     },
     {
@@ -235,12 +272,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Issuer‑relative materiality: Covenants and forecast thresholds are assessed against Quarrystone’s current market capitalisation and liquidity profile; breach of minimum cash covenant (A$4.0m) is considered material for Listing Rule 3.1 purposes.",
+      "matched_text": "Issuer\u2011relative materiality: Covenants and forecast thresholds are assessed against Quarrystone\u2019s current market capitalisation and liquidity profile; breach of minimum cash covenant (A$4.0m) is considered material for Listing Rule 3.1 purposes.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Events of default and remedies: Non‑payment (10 business day cure), insolvency, continuous disclosure breach not rectified within 5 business days, or delisting; upon EoD, Investor may require immediate redemption at 105% of outstanding principal plus accrued interest.",
+      "matched_text": "Events of default and remedies: Non\u2011payment (10 business day cure), insolvency, continuous disclosure breach not rectified within 5 business days, or delisting; upon EoD, Investor may require immediate redemption at 105% of outstanding principal plus accrued interest.",
       "rule": "material_event"
     },
     {
@@ -307,6 +344,18 @@
       "category": "MNPI",
       "matched_text": "12,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "612 345 987), an ASX-listed issuer, and Denali Bay Capital Pty Ltd (ACN 835 222 119) (Investor); primary contact: Ms. Eliza Ward, Company Secretary, eliza.ward@quarrystone.com.au, +61 2 5550 0199; Investor contact: Mr. Jonah Pike, Director, invest@denalibay.com.au.\nInstrument and size: A$12,000,000 senior unsecured convertible notes with 1-for-2 attaching unlisted options; notes to convert into fully paid ordinary shares in Quarrystone.\nKey terms: 6.75% p.a. cash coupon, 36\u2011month maturity, conversion price A$0.58 (20% premium to 10\u2011day VWAP prior to announcement), option exercise price A$0.70, anti\u2011dilution customary for pro\u2011rata issues.\nUse of proceeds: Scale-up of the Marrinup assembly line and working capital; no funds applied to related\u2011party payments.\nConditions precedent: (a) shareholder approval under ASX Listing Rules 7.1 and, if required due to scale, 11.1.2; (b) ASX in\u2011principle advice on Listing Rule 11 (significant change) if triggered; (c) sophisticated investor status for Investor under s708(8) Corporations Act; (d) execution of securityholder commitment letters (non\u2011binding).\nDisclosure and timing: Announcement to ASX Platform under Listing Rule 3.1 immediately after execution; if leak risk arises, the Company will request a trading halt; Appendix 3B to be lodged prior to any issue; cleansing notice under s708A(5)(e) to be lodged on first conversion.\nBlackout windows and trading: The Company and Investor acknowledge closed periods under the Company\u2019s Securities Trading Policy; no dealing by directors, employees, or Investor while in possession of information not generally available (MNPI) as defined in s1042A; blackout applies from quarter end until release of Appendix 4C and from 1 July until FY results.\nMNPI and selective disclosure: This term sheet and accompanying revenue pipeline schedules contain non\u2011public, issuer\u2011material information reasonably expected to affect Quarrystone\u2019s securities; no selective briefings\u2014any deck for Investor meetings must first be released on the ASX Platform; wall\u2011crossing consents required for any additional potential investors.\nIssuer\u2011relative materiality: Covenants and forecast thresholds are assessed against Quarrystone\u2019s current market capitalisation and liquidity profile; breach of minimum cash covenant (A$4.0m) is considered material for Listing Rule 3.1 purposes.\nPublic information reference (non\u2011MNPI): The ASX announcement titled \u201cQ3 Activities Report and Appendix 4C\u201d dated 15 April 2025 is already generally available and is included only as background; reliance on that release does not create MNPI.\nBenign/non\u2011issuer update: The state industry council\u2019s generic media release on robotics tax incentives last month is not specific to the Company and is not considered price\u2011sensitive for Quarrystone.\nOperational note (non\u2011material): A scheduled upgrade by an external logistics provider, Wattle Freight Co., may extend delivery lead times by two days in July; based on current volumes this is not expected to be material to the issuer.\nCovenants: Minimum cash A$4.0m; quarterly information undertakings (unaudited management accounts shared under NDA); negative pledge on new debt save for ordinary\u2011course equipment leases up to A$500k aggregate.\nEvents of default and remedies: Non\u2011payment (10 business day cure), insolvency, continuous disclosure breach not rectified within 5 business days, or delisting; upon EoD, Investor may require immediate redemption at 105% of outstanding principal plus accrued interest.\nShareholder approvals and timetable: EGM targeted within 6 weeks of signing; notice of meeting and explanatory memorandum to be lodged with ASX prior to dispatch; if shareholder approval is not obtained, parties will confer on revised terms or termination without break fee.\nPrivacy and data handling: Personal information exchanged (e.g., names, roles, contact details of noteholders and employees) will be handled in accordance with the Privacy Act 1988 (Cth); no health information is sought or required under this term sheet.\nConfidentiality: Except for required ASX disclosures, this document is confidential and may be shared only with professional advisers bound by confidentiality obligations; if the transaction does not proceed within 60 days, materials in the data room must be returned or destroyed upon request via dataroom@quarrystone.com.au",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "rystone Robotics Ltd (ACN 612 345 987), an ASX-listed issuer, and Denali Bay Capital Pty Ltd (ACN 835 222 119) (Investor); primary contact: Ms. Eliza Ward, Company Secretary, eliza.ward@quarrystone.com.au, +61 2 5550 0199; Investor contact: Mr. Jonah Pike, Director, invest@denalibay.com.au.\nInstrument and size: A$12,000,000 senior unsecured convertible notes with 1-for-2 attaching unlisted options; notes to convert into fully paid ordinary shares in Quarrystone.\nKey terms: 6.75% p.a. cash coupon, 36\u2011month maturity, conversion price A$0.58 (20% premium to 10\u2011day VWAP prior to announcement), option exercise price A$0.70, anti\u2011dilution customary for pro\u2011rata issues.\nUse of proceeds: Scale-up of the Marrinup assembly line and working capital; no funds applied to related\u2011party payments.\nConditions precedent: (a) shareholder approval under ASX Listing Rules 7.1 and, if required due to scale, 11.1.2; (b) ASX in\u2011principle advice on Listing Rule 11 (significant change) if triggered; (c) sophisticated investor status for Investor under s708(8) Corporations Act; (d) execution of securityholder commitment letters (non\u2011binding).\nDisclosure and timing: Announcement to ASX Platform under Listing Rule 3.1 immediately after execution; if leak risk arises, the Company will request a trading halt; Appendix 3B to be lodged prior to any issue; cleansing notice under s708A(5)(e) to be lodged on first conversion.\nBlackout windows and trading: The Company and Investor acknowledge closed periods under the Company\u2019s Securities Trading Policy; no dealing by directors, employees, or Investor while in possession of information not generally available (MNPI) as defined in s1042A; blackout applies from quarter end until release of Appendix 4C and from 1 July until FY results.\nMNPI and selective disclosure: This term sheet and accompanying revenue pipeline schedules contain non\u2011public, issuer\u2011material information reasonably expected to affect Quarrystone\u2019s securities; no selective briefings\u2014any deck for Investor meetings must first be released on the ASX Platform; wall\u2011crossing consents required for any additional potential investors.\nIssuer\u2011relative materiality: Covenants and forecast thresholds are assessed against Quarrystone\u2019s current market capitalisation and liquidity profile; breach of minimum cash covenant (A$4.0m) is considered material for Listing Rule 3.1 purposes.\nPublic information reference (non\u2011MNPI): The ASX announcement titled \u201cQ3 Activities Report and Appendix 4C\u201d dated 15 April 2025 is already generally available and is included only as background; reliance on that release does not create MNPI.\nBenign/non\u2011issuer update: The state industry council\u2019s generic media release on robotics tax incentives last month is not specific to the Company and is not considered price\u2011sensitive for Quarrystone.\nOperational note (non\u2011material): A scheduled upgrade by an external logistics provider, Wattle Freight Co., may extend delivery lead times by two days in July; based on current volumes this is not expected to be material to the issuer.\nCovenants: Minimum cash A$4.0m; quarterly information undertakings (unaudited management accounts shared under NDA); negative pledge on new debt save for ordinary\u2011course equipment leases up to A$500k aggregate.\nEvents of default and remedies: Non\u2011payment (10 business day cure), insolvency, continuous disclosure breach not rectified within 5 business days, or delisting; upon EoD, Investor may require immediate redemption at 105% of outstanding principal plus accrued interest.\nShareholder approvals and timetable: EGM targeted within 6 weeks of signing; notice of meeting and explanatory memorandum to be lodged with ASX prior to dispatch; if shareholder approval is not obtained, parties will confer on revised terms or termination without break fee.\nPrivacy and data handling: Personal information exchanged (e.g., names, roles, contact details of noteholders and employees) will be handled in accordance with the Privacy Act 1988 (Cth); no health information is sought or required under this term sheet.\nConfidentiality: Except for required ASX disclosures, this document is confidential and may be shared only with professional advisers bound by confidentiality obligations; if the transaction does not proceed within 60 days,",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -323,16 +372,16 @@
       "reason": "Defined-term abbreviation; not PII or MNPI."
     },
     {
-      "matched_text": "“Q3 Activities Report and Appendix 4C”",
+      "matched_text": "\u201cQ3 Activities Report and Appendix 4C\u201d",
       "reason": "Public ASX filing already generally available; not MNPI per document."
     },
     {
-      "matched_text": "state industry council’s generic media release on robotics tax incentives",
+      "matched_text": "state industry council\u2019s generic media release on robotics tax incentives",
       "reason": "Non-issuer, generic media release; expressly not price-sensitive for the issuer."
     },
     {
-      "matched_text": "Operational note (non‑material)",
-      "reason": "Explicitly designated non‑material; not MNPI."
+      "matched_text": "Operational note (non\u2011material)",
+      "reason": "Explicitly designated non\u2011material; not MNPI."
     }
   ],
   "source_jurisdiction": "AU",
@@ -352,34 +401,5 @@
       "matched_text": "trading halt",
       "reason": "Market halt is a disclosure/embargo control; not one of the explicit embargo strings in allowed rules."
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

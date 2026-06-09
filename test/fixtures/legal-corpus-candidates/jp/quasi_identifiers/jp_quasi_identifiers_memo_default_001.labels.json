@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -105,7 +131,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Hanae Morita, born 1991-04-12 (age 35), Senior IR Manager at Shōnai Techworks KK, accessed draft TOB via VPN session ID STK-VPN-1027 at 10:27 JST on 21 May 2026 from Kisaragi-ku HQ; device STK-LAP-4472; internal IR equity account 8342-AN",
+      "matched_text": "Ms. Hanae Morita, born 1991-04-12 (age 35), Senior IR Manager at Sh\u014dnai Techworks KK, accessed draft TOB via VPN session ID STK-VPN-1027 at 10:27 JST on 21 May 2026 from Kisaragi-ku HQ; device STK-LAP-4472; internal IR equity account 8342-AN",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -135,7 +161,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "¥1,240",
+      "matched_text": "\u00a51,240",
       "rule": "financial_amount"
     },
     {
@@ -160,7 +186,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "¥24",
+      "matched_text": "\u00a524",
       "rule": "financial_amount"
     },
     {
@@ -215,7 +241,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Undisclosed material facts include draft TOB price of ¥1,240 per share, planned announcement window 7–10 June, and bridge-financing terms; treat as MNPI under FIEA.",
+      "matched_text": "Undisclosed material facts include draft TOB price of \u00a51,240 per share, planned announcement window 7\u201310 June, and bridge-financing terms; treat as MNPI under FIEA.",
       "rule": "material_event"
     },
     {
@@ -225,7 +251,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Draft attachment notes unaudited Q2 revenue uplift of 9.8% and potential interim dividend adjustment to ¥24; not yet filed with any exchange.",
+      "matched_text": "Draft attachment notes unaudited Q2 revenue uplift of 9.8% and potential interim dividend adjustment to \u00a524; not yet filed with any exchange.",
       "rule": "material_event"
     },
     {
@@ -267,7 +293,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Undisclosed material facts include draft TOB price of ¥1,240 per share, planned announcement window 7–10 June, and bridge-financing terms; treat as MNPI under FIEA.",
+      "matched_text": "Undisclosed material facts include draft TOB price of \u00a51,240 per share, planned announcement window 7\u201310 June, and bridge-financing terms; treat as MNPI under FIEA.",
       "rule": "material_event"
     },
     {
@@ -277,7 +303,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Draft attachment notes unaudited Q2 revenue uplift of 9.8% and potential interim dividend adjustment to ¥24; not yet filed with any exchange.",
+      "matched_text": "Draft attachment notes unaudited Q2 revenue uplift of 9.8% and potential interim dividend adjustment to \u00a524; not yet filed with any exchange.",
       "rule": "material_event"
     },
     {
@@ -297,12 +323,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "¥1,240",
+      "matched_text": "\u00a51,240",
       "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "matched_text": "¥24",
+      "matched_text": "\u00a524",
       "rule": "financial_amount"
     },
     {
@@ -319,6 +345,18 @@
       "category": "MNPI",
       "matched_text": "Insider List",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hanae Morita, born 1991-04-12 (age 35), Senior IR Manager at Sh\u014dnai Techworks KK, accessed draft TOB via VPN session ID STK-VPN-1027 at 10:27 JST on 21 May 2026 from Kisaragi-ku HQ; device STK-LAP-4472; internal IR equity account 8342-AN.\nContact for IR: hanae.morita@shonai-tech.co.jp, ext. 2459; do not circulate her session ID outside the Insider List.\nMr. Keita Sugino",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Proposed tender-offer to acquire up to 26% of Koganei BioSystems KK; APPI/My Number handling and FIEA obligations\nUndisclosed material facts include draft TOB price of \u00a51,240 per share, planned announcement window 7\u201310 June, and bridge-financing terms; treat as MNPI under FIEA.\nPersonal data for due diligence must exclude My Number and be limited per APPI; collect only role, seniority, and business contact details as necessary.\nMs. Hanae Morita, born 1991-04-12 (age 35), Senior IR Manager at Sh\u014dnai Techworks KK, accessed draft TOB via VPN session ID STK-VPN-1027 at 10:27 JST on 21 May 2026 from Kisaragi-ku HQ; device STK-LAP-4472; internal IR equity account 8342-AN.\nContact for IR: hanae.morita@shonai-tech.co.jp, ext. 2459; do not circulate her session ID outside the Insider List.\nMr. Keita Sugino (CFO) has approved a trading blackout from 1 June until the public notice; all pre-clearance requests to the Compliance Desk.\nThe string \u201c1984-09-03, Yorihama City, account -3020\u201d appears in legacy logs without any naming context and should be treated as non-identifying until linked; still redact for caution.\nAndroid device model JPN-AX55 and a regional office label \u201cWest Annex\u201d are generic descriptors and do not identify an individual by themselves.\nGeneral labor statistics (e.g., average engineer age in Tokatsu region) may be shared with bidders; avoid any linkage to specific HR files.\nUnder FIEA and the Kitanami Exchange Prime Section listing rules, forecast revisions, dividend policy changes, and tender-offer parameters remain MNPI until disclosed.\nMaintain an Insider List covering directors, Strategy Office, IR, and Legal; manufacturing staff at coastal plants are excluded unless notified.\nDraft attachment notes unaudited Q2 revenue uplift of 9.8% and potential interim dividend adjustment to \u00a524; not yet filed with any exchange.\nAPPI requires minimization and secure handling; do not transmit residence information, session IDs, or internal account numbers to external counsel absent necessity and record.\nCompliance Desk channel: compliance@shonai-tech.co.jp and internal hotline +81-50-5555-2107; archive communications per internal policy.\nThis memo is confidential to Sh\u014dnai Techworks KK and its advisors; external disclosure prohibited until the announcement draft is cleared.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -347,7 +385,7 @@
   "uncertain": [
     {
       "concept": "embargo/timing",
-      "matched_text": "planned announcement window 7–10 June",
+      "matched_text": "planned announcement window 7\u201310 June",
       "reason": "Announcement timing is sensitive but does not match allowed embargo_marker keywords"
     },
     {
@@ -369,24 +407,6 @@
       "concept": "location quasi-identifier",
       "matched_text": "Yorihama City",
       "reason": "Location alone is not covered but may contribute to identifiability when combined"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

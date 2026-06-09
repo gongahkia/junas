@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -280,6 +288,18 @@
       "category": "MNPI",
       "matched_text": "Project LOTUS",
       "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: applies to employment workflows (recruitment, onboarding, payroll, time/attendance) and issuer obligations for a prospective listing on the Yuelin Stock Exchange Sci\u2011Tech Board, including MNPI controls under the Mainland Securities Law and guidance of the Yuelin Securities Supervision Commission.\nWe process identity (name, Resident ID), contact, HR and compliance records, and sensitive personal information subject to separate consent, e.g., Ms. Zhao Liyun (Resident ID: 82123419900312123X) whose facial template and fingerprint hashes are enrolled for DragonGate Access v5.\nRoutine occupational health results (e.g., spirometry, HbA1c) and a voluntary thalassemia\u2011carrier genetic screen are recorded for Ms. Zhao in accordance with PIPL Art. 28 and internal safety protocols.\nMs. Zhao has declared Buddhist religious affiliation for holiday scheduling and opted into the Yunqiao Employees\u2019 Union; her self\u2011reported sexual orientation is used only to administer equal\u2011benefit policies and is not visible to managers.\nDependent data for Ms. Zhao\u2019s son Zhao Yichen (age 12) are processed for medical insurance; guardian consent is required and verified with uploaded signatures, and minors\u2019 data are treated as sensitive under PIPL.\nInside information (e.g., Project LOTUS\u20119 revenue forecasts, pre\u2011approval device test summaries) is controlled before public disclosure; access is strictly need\u2011to\u2011know and trading windows are set per Yuelin Securities Supervision Commission rules.\nCross\u2011border transfers occur only to Yunqiao Robotics Pte. (Singa Bay) and Dataforge Cloud HK\u2011M (Harborland SAR) after Yuelin Municipal Cyberspace Bureau security assessment or execution of standard contracts; system\u2011level data maps are maintained.\nRetention: access logs 6 months, device images 30 days, HR files 3 years post\u2011termination, MNPI audit trails 10 years, and minor\u2011dependent records until the child turns 18 plus 3 years, unless longer is required by tax or securities rules.\nData subject rights (access, copy, correction, deletion, portability, withdrawal of consent) may be exercised via dpo@yunqiao\u2011robotics.cn.example or by mail to Privacy Office, Floor 12, Tower C, 66 Ruyi Avenue, Xianghai New Zone, Yuelin Province; refer to Policy Nebula\u201112 for request forms.\nWe do not make solely automated decisions with legal or similarly significant impact; attendance scores computed by DragonGate Access v5 are reviewed by a human supervisor.\nWe value diversity, equity and inclusion, and our internal \u201cGenetic Shield\u201d algorithm is only a product feature name and does not relate to any individual\u2019s genetic data.\nParticipation in the office Yuelin Blue Kites fan club is voluntary and unrelated to employment decisions; RSVPs collect only names and preferred jersey sizes.\nManaging data is a tightrope between innovation and compliance, so place names like \u201cMaple Harbor\u201d and \u201cCloud Ridge\u201d used in project code names are metaphors, not geographic tracking.\nFor questions or complaints, contact dpo@yunqiao\u2011robotics.cn.example; you may also lodge a complaint with the Yuelin Provincial Cyberspace Bureau at complaints@ymcb.gov.example or with the Huaxin Mainland Securities Authority regarding MNPI safeguards.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

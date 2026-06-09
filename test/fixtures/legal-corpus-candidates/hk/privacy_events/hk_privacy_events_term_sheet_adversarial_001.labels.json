@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -227,16 +235,6 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "restricted",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "Term Sheet",
       "rule": "definitive_agreement"
     },
@@ -264,6 +262,18 @@
       "category": "MNPI",
       "matched_text": "388,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Investment in Harbor Peak Holdings Limited (HK) \u2014 Ref: TS\u2011HK/2026\u20140l1 \u2014 https://secure.harbor-peak.example/room?doc=TS%2DHK%2F2026&mask=redact\nParties: Investor \u2014 Jade Lantern Capital Fund I, LP; Issuer \u2014 Harbor Peak Holdings Limited (a HKEX-listed company); adviser \u2014 Cordant Ridge Advisory (Asia) Limited.\nStructure: Subscription of new shares representing 12.5% post\u2011money; indicative consideration HKD 388,000,000; no security IDs are assigned at this stage.\nRegulatory: subject to HKEX Listing Rules Chapters 14/14A and SFC filings re deemed special deals; inside information handled per SFO P a r t X I V A.\nMNPI control: No inside information or price\u2011sensitive specifics will be shared; diligence materials are restricted to public\u2011source extracts and anonymised operational metrics.\nData Protection: DPA Schedule 2 (PDPO compliant) applies; data minimisation in effect (policy statement only, not a live deletion order); staff email logs excluded from the data room.\nCross\u2011border transfer: limited contact data may be exported to Nordhaven DS Pte. Ltd. (SG) for sanctions screening; Data\u2011Export Approval GDA\u2011HK\u2011\u03a33 issued 2026\u201104\u201101 and superseded by GDA\u2011HK\u2011\u03a33b; no pending approvals.\nConsent withdrawal & DSAR: data subjects may withdraw consent or submit DSARs via privacy@harbor\u2011peak.example or https://privacy.harbor\u2011peak.example/portal?req=dsar&ref=HK%2FJL; responses within 30 days.\nErasure: recruitment CVs collected before 2025 were erased on 2026\u201105\u201102 (ECR#79d\u2011hk completed), and no further erasure is pending for this project.\nRetention: KYC/AML onboarding files retained for 7 years from closing unless statutory exceptions apply; generic HR policy text: retent ion is reviewed annually.\nOnboarding forms: Form P\u2011ONB\u201112b (candidate consent) and Annex P\u2011OCR\u2011scan include pixelated ID exemplars only; SFC N o t i c e 1 7 acknowledgement template attached.\nConditions: HK Takeovers Code not triggered; no material adverse change condition precedent applies\u2014MAC clause is expressly excluded and cannot be invoked.\nCompliance memo: CM\u2011HK\u20112026\u201108 summarises third\u2011party processors; this memo confirms prior transfers are complete and does not request any new export or deletion workflow.\nKey contacts: Ms. Verna Kwok (CLO), verna.kwok@harbor\u2011peak.example, +852 3 9 0 0 1 2 3 4; Mr. Darius Fong (PM), darius.fong@jadelantern.example; for vendor access ping",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

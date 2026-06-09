@@ -1,58 +1,238 @@
 {
+  "_agent_review": {
+    "notes": "Removed second-pass false-positive labels, added must-not suppressions, and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-agent-cleanup-pass",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "second_pass_blockers_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending.",
+      "reviewer": "codex-agent-review",
+      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+      "status": "technical_reviewed_pending_human_approval"
+    },
+    {
+      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves.",
+      "reviewer": "codex-gpt-agent-second-pass",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "second_pass_needs_edit_pending_human_approval"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T02:30:40Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T02:30:40Z",
+    "accepted_by": "gongahkia",
+    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "owner_approved_sg_stage_a_for_internal_benchmarking"
+  },
+  "_owner_acceptance_history": [
+    {
+      "accepted_at_utc": "2026-05-29T01:41:07Z",
+      "accepted_by": "gongahkia",
+      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "owner_accepted_agent_review_for_experimental_use"
+    }
+  ],
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
   "doc_id": "sg_privacy_events_memo_negative_001",
   "document_type": "memo",
-  "source_jurisdiction": "SG",
-  "destination_jurisdiction": "SG",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Dr. Wei Han Ong",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Kintara Dynamics Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout rules",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data room minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seraphine Chia",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "203.0.113.0/25",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jerome Pang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Delphine Lau",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tip",
+      "rule": "tipping_language"
+    }
+  ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Wei Han Ong"
+      "matched_text": "Dr. Wei Han Ong",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Seraphine Chia"
+      "matched_text": "Ms. Seraphine Chia",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jerome Pang"
+      "matched_text": "Mr. Jerome Pang",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Delphine Lau"
+      "matched_text": "Ms. Delphine Lau",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "To: Board and GC; From: Dr. Wei Han Ong, Partner; Date: 20 May 2026; Contact: compliance@northbridgemeridian.com\nWe are advising on Solarys\u2019 proposed acquisition of Kintara Dynamics Pte. Ltd.; while the transaction is price-sensitive, this memo excludes valuation ranges and EPS bridges and therefore does not itself contain MNPI under the SFA.\nPursuant to SGX Listing Rule 703 and internal blackout rules, the insider list is maintained; as a completed control, the insider list was closed as at 18 May 2026 with zero pending additions",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: limited employee data (role, grade, start date) will be accessed by Valora Diligence Sdn. Bhd. (Malaysia) under DPA Schedule 2 (Transfer Limitation and Model Clauses); export approval DEF-2026-07 was granted by the DPO, Ms. Seraphine Chia.\nNo onward transfer to sub-processors is permitted; the vendor\u2019s IP whitelisting is restricted to 203.0.113.0/25, and encryption at rest is confirmed; there is no live incident or breach",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board and GC; From: Dr. Wei Han Ong, Partner; Date: 20 May 2026; Contact: compliance@northbridgemeridian.com\nWe are advising on Solarys\u2019 proposed acquisition of Kintara Dynamics Pte. Ltd.; while the transaction is price-sensitive, this memo excludes valuation ranges and EPS bridges and therefore does not itself contain MNPI under the SFA.\nPursuant to SGX Listing Rule 703 and internal blackout rules, the insider list is maintained; as a completed control, the insider list was closed as at 18 May 2026 with zero pending additions.\nData room minimisation has been implemented: HR files carry initials only, payroll account fields are masked, and only headcount bands are shared; payroll bank details were never uploaded to the data room.\nCross-border transfer: limited employee data (role, grade, start date) will be accessed by Valora Diligence Sdn. Bhd. (Malaysia) under DPA Schedule 2 (Transfer Limitation and Model Clauses); export approval DEF-2026-07 was granted by the DPO, Ms. Seraphine Chia.\nNo onward transfer to sub-processors is permitted; the vendor\u2019s IP whitelisting is restricted to 203.0.113.0/25, and encryption at rest is confirmed; there is no live incident or breach.\nDSAR: Mr. Jerome Pang (Senior Analyst) submitted an access and correction request on 7 May 2026; identity was verified, extracts were provided, and the DSAR was closed on 14 May 2026 with corrections logged.\nConsent withdrawal: Ms. Delphine Lau withdrew consent for optional wellness-app telemetry on 3 May 2026; processing for that purpose ceased, and marketing emails were suppressed without affecting employment-related processing.\nErasure: non-essential wellness metrics relating to five employees were deleted from the HRIS on 12 May 2026; deletion certificates are filed under HR/Privacy/2026-05; no financial account numbers were processed in that erasure.\nRetention: due diligence working papers will be retained for 6 months post-completion and then purged per Retention Schedule \u00a75.3, subject to legal hold; these timers are policy-only and do not imply any current deletion risk.\nOnboarding forms: the Employee Securities Trading Onboarding Form has been updated to clarify PDPA consent by notification and to hyperlink the PDPC advisory; the form does not collect MNPI.\nCapital-markets controls: no selective disclosure to analysts has occurred; pre-clearance of any announcement remains with the Disclosure Committee; investor Q&A decks exclude non-public revenue sensitivities.\nEmployment: secondment letters for the integration team include confidentiality and MNPI handling acknowledgements; training records for the Core Deal Team are up to date as at 16 May 2026.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -93,181 +273,27 @@
       "reason": "Public, desk, or generic query contact number; not personal data for strict SG PII labels."
     }
   ],
+  "source_jurisdiction": "SG",
   "uncertain": [
     {
-      "matched_text": "Erasure",
       "concept": "erasure_marker",
+      "matched_text": "Erasure",
       "reason": "Erasure/deletion event is within coverage concept but not an explicit allowed rule name."
     },
     {
-      "matched_text": "Retention",
       "concept": "retention_marker",
+      "matched_text": "Retention",
       "reason": "Retention policy marker is within coverage concept but not an explicit allowed rule name."
     },
     {
-      "matched_text": "proper segregation between HR and Corporate Development folders",
       "concept": "information_barrier_marker",
+      "matched_text": "proper segregation between HR and Corporate Development folders",
       "reason": "Indicates an information barrier/segregation control but does not use the explicit 'information barrier' phrasing required by the rule."
     },
     {
-      "matched_text": "export approval DEF-2026-07",
       "concept": "data_export_approval",
+      "matched_text": "export approval DEF-2026-07",
       "reason": "Export approval is a compliance artifact relevant to cross-border transfer but not mapped to a specific allowed rule."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Wei Han Ong"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition of Kintara Dynamics Pte. Ltd"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout rules"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data room minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Seraphine Chia"
-    },
-    {
-      "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "203.0.113.0/25"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jerome Pang"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Delphine Lau"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "tip"
-    }
-  ],
-  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
-  "_agent_review": {
-    "reviewer": "codex-gpt-agent-cleanup-pass",
-    "status": "second_pass_blockers_cleaned_owner_approved",
-    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
-    "notes": "Removed second-pass false-positive labels, added must-not suppressions, and recorded project-owner approval for internal benchmarking only."
-  },
-  "_agent_review_history": [
-    {
-      "reviewer": "codex-agent-review",
-      "status": "technical_reviewed_pending_human_approval",
-      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
-      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
-    },
-    {
-      "reviewer": "codex-gpt-agent-second-pass",
-      "status": "second_pass_needs_edit_pending_human_approval",
-      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
-      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves."
-    }
-  ],
-  "_owner_acceptance": {
-    "accepted_by": "gongahkia",
-    "status": "owner_approved_sg_stage_a_for_internal_benchmarking",
-    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
-    "accepted_at_utc": "2026-05-29T02:30:40Z",
-    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json"
-  },
-  "_owner_acceptance_history": [
-    {
-      "accepted_by": "gongahkia",
-      "status": "owner_accepted_agent_review_for_experimental_use",
-      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
-      "accepted_at_utc": "2026-05-29T01:41:07Z",
-      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json"
-    }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-    "reviewed_at_utc": "2026-05-29T02:30:40Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass"
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-chat-approval",
-      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-      "reviewed_at_utc": "2026-05-29T02:30:40Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
-      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

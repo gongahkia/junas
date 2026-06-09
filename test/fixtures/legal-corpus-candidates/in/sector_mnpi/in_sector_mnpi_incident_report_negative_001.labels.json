@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -197,6 +205,12 @@
       "category": "MNPI",
       "matched_text": "Information Barrier",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data impact: no Aadhaar intake on the microsite; CRM connectors disabled; training samples in one PDF showed \u201cPAN: AAAAA0000A\u201d and \u201cGSTIN: 22AAAAA0000A1Z5\u201d as dummy labels; these are placeholders and not linked to any individual.\nChildren\u2019s data: not collected; services are B2B; age gating not applicable; no profiling of minors under 18.\nDPDPA compliance: processing basis was consent for marketing; no sensitive personal data stored; Data Principal requests via privacy@banyangrid.example.in will be actioned within statutory timelines.\nSEBI/PIT context: documents indexed included only generic \u201cInsider List Procedure (Training Copy)\u201d and \u201cInformation Barrier SOP (Public Extract)\u201d already posted on our careers page; no insider names, PANs, or trade windows disclosed therein.\nESG/climate materials: the \u201cClimate Risk Toolkit v2\u201d whitepaper and CSR case studies were accessed; these are already announced on our website and are non-financial educational content.\nCrypto reference: the \u201cCryptoPay Sandbox Guide\u201d describes a demo workflow and testnet addresses; no wallets, private keys, or commercial terms were present.\nPositive control note: during verification, we identified a file named \u201cQ4 FY26 Sustainability KPI_Draft.pdf\u201d in a nearby restricted folder; although logs show no download, treat this draft as UPSI under SEBI (PIT) Regulations until Board release and add the Sustainability Working Group to the insider list.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

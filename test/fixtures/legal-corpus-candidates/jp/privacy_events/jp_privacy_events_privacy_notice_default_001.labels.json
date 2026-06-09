@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -210,6 +218,12 @@
       "category": "MNPI",
       "matched_text": "Completed control: the acquisition data room for Omega Microsystems KK closed and was wiped on 2026-05-01; the wipe certificate is archived and there is no ongoing transfer from that environment.",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Ms. Ayumi Nara (Data Protection Officer), privacy@hoshizora.example, +81-50-1234-5678\nScope: employee onboarding forms, board acquisition diligence data room, and investor relations mailing list for the Hinode Exchange growth market.\nPII categories: name, corporate email, employee ID, attendance; Specific Personal Information (My Number) used only for payroll/tax and kept in Japan; My Number is never transferred cross-border.\nCross-border transfer: approved export of non-My Number employee data to Sakura Payroll Systems Pte. Ltd. (Singapore) via AES-256 encryption and access keys; prior consent obtained under APPI cross-border rules and records kept.\nConsent withdrawal: employees may revoke overseas provision at any time; as of 2026-05-10, three withdrawals were completed and those profiles were excluded from subsequent exports.\nDSAR: Mr. Kenji Aoba requested disclosure and erasure on 2026-04-03; response issued on 2026-04-15; attendance logs over 3 years old were erased; tax documents were retained as legally required.\nRetention/minimisation: onboarding collects only needed fields; My Number retained for seven fiscal years then deleted; board due diligence files retained for one year post-closing; IR mailing list entries deleted within 72 hours of unsubscribe.\nMNPI controls (FIEA): undisclosed enumerated material facts, any tender-offer facts related to the planned Omega Microsystems KK share acquisition, and employee stock option grant schedules were ring-fenced; exported datasets contained none of the above and were pre-cleared by Compliance.\nNegative control: no biometric identifiers or precise geolocation are collected in these workflows.\nVendor commitments: SCCs are not used; the DPA Annex requires APPI-compliant foreign transfer safeguards, no onward transfer without approval, and quarterly audit logs; the 2026-03-31 audit reported no findings.\nThird-party provision record: Jul 2025\u2013May 2026 logs show exports only to Sakura Payroll; no transfers to marketers or group companies occurred.\nBoard materials: minutes contain director names with honorifics, but only redacted internal copies are circulated; external counsel received anonymised versions stored on Tohoku Legal Partners LLP servers in Tokyo.\nCompleted control: the acquisition data room for Omega Microsystems KK closed and was wiped on 2026-05-01; the wipe certificate is archived and there is no ongoing transfer from that environment.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

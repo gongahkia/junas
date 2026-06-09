@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -277,6 +285,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The exposure included identifiers (Aadhaar and PAN fields), minor-dependent details, and certain UPSI relating to draft Q1 results and a confidential divestment term sheet.\nMs. Nisha Kapoor (Employee ID ML-44812) had her fingerprint template from the biometric attendance module and a clinic note about treatment for endometriosis accessed without consent.\nMaster Rohan Dev, age 16 (dependent of Mr. Shashank Dev), had his vaccination history and school insurance enrolment references viewed in the same cache.\nMr. Aarav Balan\u2019s file incorporated a genetic screening report for a thalassemia carrier marker together with his union membership record in the MettaLok Workers Forum.\nAn external processor, LotusPay Prime Pvt. Ltd., briefly received a spreadsheet linking employee records to UPSI on projected EBITDA and a not-yet-announced plant sale, breaching our PIT Code 2024.\nAlthough we are an equal opportunity employer with DEI commitments, the root cause was a misconfigured SSO scope for a service account in Indapur and not any policy choice.\nNo Aadhaar, PAN, or GSTIN numbers were fully visible; logs show placeholders like Aadhaar XXXX-1313-7788 and PAN XXPXX1234Q rendered only to audit viewers.\nA benign clarification: the word union here also refers to the union of two datasets in a Spark job, not any person\u2019s trade-union detail.\nUPSI handling follows our Internal UPSI Handling Standard and PIT Code drafted per Indian securities regulator guidance, but an email rule forwarded previews to a Kavapur staging mailbox.\nAs a metaphor, the breach spread like a cracked monsoon umbrella across shared drives while a test bot named BluePanda mirrored folders.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -145,6 +153,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Barjeel Transit Holdings PJSC \u2014 Operational/Cyber Incident Notice (UAE PDPL; DIFC branch context)\nSummary: On 04 June 2026, a misconfigured file share in the DIFC branch exposed a sandbox folder for 36 minutes; access logs show 3 internal hits, no external IPs.\nData types: procurement templates and HR onboarding forms with labels like Full Name, Emirates ID, Passport No., Family origin, but most fields were blank placeholders.\nOne test artifact contained an invalid Emirates ID string 784-1987-6543210-0 (checksum failed) associated with a dummy QA profile; no live individual identifiers were confirmed.\nNo bank IBANs were present; a sample field showed AE00 0000 0000 0000 0000 000 (placeholder), and Trade Licence No. CN-7788990X (invalid) appeared in a draft vendor form.\nThe incident did not involve confidential issuer results, forecasts, term sheets, or unpublished market disclosures; all referenced deal workflows pertained to a public RFP already announced.\nFor avoidance of doubt under UAE/SCA/ADGM/DIFC market-abuse standards, we confirm no MNPI was accessed or transmitted.\nA generic role mailbox procurement@barjeeltransit.example and the public helpline 800-000-4321 were listed in templates; no personal phone numbers or personal emails were exposed.\nSystems affected: SharePoint farm BRJ-SP-DEV only; production VDR and treasury systems were not impacted.\nRoot cause: misapplied permission group \u201cAll-Staff-View\u201d to a DEV path by the Service Desk Analyst role; corrected within 10 minutes and verified by IT Governance.\nRegulatory context: assessed against UAE PDPL data-minimisation duties and DIFC outsourcing guidance; no cross-border transfers occurred.\nCustomer/contractor impact: zero confirmed; the only passport field held the string P<ARE00000000X (invalid) in a template, and address lines showed [Registered Address] placeholders.\nFollow-up: notify DPO and retain logs for 12 months; no SCA issuer disclosure is required due to absence of MNPI and non-material operational impact.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -50,6 +50,14 @@
     "previous_must_detect_count": 5,
     "previous_must_not_detect_count": 9
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -127,6 +135,12 @@
       "category": "MNPI",
       "matched_text": "GDPR assessment: no applicable Art 9(2) condition existed for that single record; event classified as a personal data breach with low risk, deleted within 2 hours, with logs retained under Art 5(1)(f).",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Facts: a contractor uploaded two CSV extracts to a test bucket replicated to our processor Aurora Data Grid Ltd. in Verdania under SCCs; cross-border transfer logged and paused.\nDatasets contained vendor product labels (e.g., AuroraShield XDR, Riverline Vault) and generic wellness slogans used in UX testing; no payroll, no IDs, no biometrics.\nOne record contained special-category personal data: Employee: Mara Ilion \u2014 occupational health clearance dated 2025-11-02 indicating cardiac rehabilitation, placed in error within a training note.\nAll other lines referenced anonymised role accounts (e.g., ops_team@orildera.eu) and placeholder fields (e.g., EMP_ID: 0000-XX); no union, religion, political, genetic, or sex-life data.\nMAR assessment: precise information capable of influencing the price was not present; sustainability metrics mentioned were identical to figures published in the Q1 2026 Trading Update on 29 April and our CSRD Fact Book.\nAccordingly, no inside information list was opened; however, a watch note was filed with the Baltic Capital Markets Authority (BCMA) for transparency under our Notification Policy.\nGDPR assessment: no applicable Art 9(2) condition existed for that single record; event classified as a personal data breach with low risk, deleted within 2 hours, with logs retained under Art 5(1)(f).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

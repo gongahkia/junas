@@ -50,6 +50,14 @@
     "previous_must_detect_count": 9,
     "previous_must_not_detect_count": 7
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -182,6 +190,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR: received from Dr. Emile Toral on 2026-05-22 (data export link issued; file checksum 7f:aa:9c); erasure of marketing preference confirmed on 2026-05-25",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller contact: Ms. Sirka Vahl, DPO, dpo@alveon-fabrika.eu; https://portal.alveon.eu/export?id=E-19%2FGRX&sig=px_0a9.\nProcessor: Cinderlogic Analytics Ltd (Euravia) with subprocessor Lycon Data LLC (Lydor Isles, third country); transfer tool: S C C - M 2 (GDPR Art 46) with supplementary encryption controls.\nCross-border transfer event: approved 2026-06-01 by Privacy Board minute PB-   4  1; TIA v3.2 indicates low residual risk; no onward transfer without written consent from Alveon Fabrika SE.\nMinimisation: fields limited to hashed client ref (c_ref: C9-\u00d87-1A), sector, and CSRD PAI metrics via \u201cverdant\u2011kpis v2.4\u201d; no MAC addresses or precise geolocation are logged.\nArt 9 assessment: special category data are not required; no reliance on Art 9(2)(a) consent; policy-only control completed on 2026-05-10 \u2014 biometric templates not collected.\nDSAR: received from Dr. Emile Toral on 2026-05-22 (data export link issued; file checksum 7f:aa:9c); erasure of marketing preference confirmed on 2026-05-25.\nConsent withdrawal: recorded for Ms. Inga Dravik (cust\u2022\u2022\u20224942) on 2026-05-14; processing now restricted to contractual necessity; historic backups will age out per schedule.\nRetention: 3 years for investor-relations records; 12 months for analytics logs; 14 days for raw telemetry; public-register extracts may be retained longer as they are not confidential; next review due q3.\nSecurity: encryption at rest (AES-256), key vault EU-only; h o s t n a m e: srv-alv-eu09; access via SSO; no remote device inventory (incl. MACs) is stored; no personal data breach has occurred or been notifiable to a Supervisory Authority.\nMAR workflow: insider list maintained for Project \u201cTERRA-Bond\u201d; delay of disclosure closed on 2026-04-30; no inside information is currently held or transmitted to pr",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

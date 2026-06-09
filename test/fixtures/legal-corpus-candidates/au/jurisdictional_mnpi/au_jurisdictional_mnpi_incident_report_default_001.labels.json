@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -15,14 +37,29 @@
     ],
     "warning_count": 1
   },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -102,7 +139,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "6–8%",
+      "matched_text": "6\u20138%",
       "rule": "financial_percentage"
     },
     {
@@ -177,7 +214,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "If the FreightHub backlog exceeds 72 hours, internal forecast indicates a 6–8% reduction in June revenue for Rail & Intermodal; given RVF’s FY26 guidance range, this could be material to the issuer if sustained.",
+      "matched_text": "If the FreightHub backlog exceeds 72 hours, internal forecast indicates a 6\u20138% reduction in June revenue for Rail & Intermodal; given RVF\u2019s FY26 guidance range, this could be material to the issuer if sustained.",
       "rule": "material_event"
     },
     {
@@ -219,7 +256,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "If the FreightHub backlog exceeds 72 hours, internal forecast indicates a 6–8% reduction in June revenue for Rail & Intermodal; given RVF’s FY26 guidance range, this could be material to the issuer if sustained.",
+      "matched_text": "If the FreightHub backlog exceeds 72 hours, internal forecast indicates a 6\u20138% reduction in June revenue for Rail & Intermodal; given RVF\u2019s FY26 guidance range, this could be material to the issuer if sustained.",
       "rule": "material_event"
     },
     {
@@ -231,6 +268,18 @@
       "category": "MNPI",
       "matched_text": "8%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Per Dr. Owen Park (CISO), the intrusion was contained by 07:15 AEST; two application servers were isolated and restored from clean images, with monitoring heightened across all depots.\nPreliminary data review indicates exposure of names and business emails of 127 contractor drivers and two internal employee identifiers; no TFNs, bank account details, or health/credit data were accessed.\nAn assessment under the OAIC Notifiable Data Breaches scheme is underway; current risk is assessed as low to moderate, subject to forensic validation.\nIf the FreightHub backlog exceeds 72 hours, internal forecast indicates a 6\u20138% reduction in June revenue for Rail & Intermodal; given RVF\u2019s FY26 guidance range, this could be material to the issuer if sustained.\nThis information is not generally available; continuous disclosure obligations under LR 3.1 are being monitored, and LR 3.1A applies while confidentiality is maintained and a reasonable person would not expect immediate disclosure.\nWe will prepare an ASX announcement for release without delay if confidentiality is lost or the impact is assessed as materially price-sensitive; a trading halt request remains an option under ASX Guidance Note 8.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -268,34 +317,5 @@
       "matched_text": "health/credit data",
       "reason": "General categories referenced without specific data elements; not clearly covered by allowed PII rules."
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

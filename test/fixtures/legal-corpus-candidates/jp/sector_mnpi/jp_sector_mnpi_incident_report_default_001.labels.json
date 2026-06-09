@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -285,6 +293,12 @@
       "category": "MNPI",
       "matched_text": "Scope 1",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Affected business: Corporate Development workspace held a draft term sheet for a proposed acquisition of MidoriGrid KK; contents are undisclosed material facts under FIEA and remain on a need-to-know basis.\nDigital assets: Keys for our sandbox \u201cShirocoin\u201d employee token wallet (test environment only) were stored in a subfolder; keys have been rotated and no on-chain movement was identified, but credential replay risk remains.\nESG materials: Draft Scope 1\u20133 emissions recalculation and climate-risk narrative for FY2026, as well as unannounced science-based emissions targets and a provisional sustainability-linked loan covenant table, were accessed; this information is non-public.\nContainment: Vendor VPN disabled, IAM tokens revoked, and forensic images captured; trade surveillance has been notified to enforce information barriers with the proprietary trading desk of our subsidiary Koma Capital GK.\nGovernance: Insider list opened for Incident IR-24-061, including Ms. Hanae Kuroda (CISO), Mr. Daichi Morimoto (CorpDev), and two board observers; entries will be maintained in accordance with internal FIEA procedures.\nMarket conduct: A company-wide blackout window remains in effect until kessan release; tipping or selective disclosure regarding the contemplated acquisition or ESG targets is strictly prohibited; all media inquiries must be routed to IR.\nCommercial terms risk: The leaked term sheet included preliminary valuation ranges, earn-out mechanics, and regulator-clearance milestones; all terms are subject to board approval and may change materially.\nThird parties: No customer personal data or production OT networks were affected; operations at the Nagisaka Plant continue without disruption.\nEducation: Next week\u2019s lunch-and-learn on information barriers and insider lists will use generic case studies and will not include MNPI or crypto wallet credentials.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

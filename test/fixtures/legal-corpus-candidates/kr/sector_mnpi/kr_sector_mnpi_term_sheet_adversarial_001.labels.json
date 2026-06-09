@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -395,6 +403,18 @@
       "category": "MNPI",
       "matched_text": "Scope 1",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Jae-uk, CFO, Mireu GreenTech Co., Ltd.; resident reg. no. 9 0 0 1 0 1-1 2 3 4 5 6 7 (masked); han.jaeuk@mireugreentech.kr; +82-2-555-2200",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Strategic Investment and Acquisition (Korea) between Mireu GreenTech Co., Ltd. (KOSDAQ: MRGX, fictional) and Hanseo Capital Partners SPC (the Investor).\nTransaction: KRW 48,500,000,000 convertible bonds to finance acquisition of Gwanak Digital Custody Co., Ltd., a prospective VASP for custody of digital assets (crypto/DPT).\nCommercial Terms: Coupon 2.25% p.a., conversion price KRW 7,200, investor put at year 3, use of proceeds 80% acquisition consideration, 20% cyber resilience capex.\nMNPI Status: The Target reported a contained cyber incident on 2026-05-30 involving a testnet hot wallet; this has not been publicly disclosed under FSCMA and is shared under strict \uc815\ubcf4\uc7a5\ubcbd.\nESG/Climate KPI: Margin step-up +50 bps if FY2027 K-ETS verified Scope 1\u20133 emissions exceed 18,000 tCO\u2082e; independent assurance required.\nRegulatory/Disclosure: Notices to FSC and FSS as applicable; Company will comply with KRX \uacf5\uc815\uacf5\uc2dc and refrain from selective disclosure; IR blackout from Signing until KRX disclosure +2 trading days.\nInsider Controls: Maintain FSCMA Art.174 insider list (insider-list.xlsx v3) including directors and certain vendors; access via https://ir.mireugreentech.kr/ts?id=T S-24-krx-889&room=wall.\nInformation Barriers: Investor and Company establish clean-teams; trading in listed debt/equity of the Company or DPT issued by affiliates is prohibited; tipping strictly prohibited.\nConditions Precedent: (i) F S S non-objection and VASP pre-registration confirmation for the Target, (ii) customary K-IFRS comfort, (iii) remediation of the above cyber incident per Annex C, (iv) no suspension by K R X.\nRepresentations: No undisclosed token issuance by Target; pending environmental permits are accurately described; MAC carve-out \u2014 routine regulator Q&A, market-wide crypto volatility, or a hypothetical token delisting on a foreign venue shall not constitute a Material Adverse Change.\nCovenants: No selective marketing of eco-token pilot to investors before public notice; maintain separate data rooms for ESG and DPT materials; quarterly climate disclosures aligned with K-Taxonomy draft.\nContact: Mr. Han Jae-uk, CFO, Mireu GreenTech Co., Ltd.; resident reg. no. 9 0 0 1 0 1-1 2 3 4 5 6 7 (masked); han.jaeuk@mireugreentech.kr; +82-2-555-2200.\nEducational Note (benign): an internal training handout using words like 'cyber incident', 'insider list', and 'token listing' is distributed to new hires and does not relate to, nor disclose, this transaction.\nPublic Sources: Unless stated otherwise, background on KRX continuous disclosure obligations and FSCMA definitions is drawn from publicly available guidance; no third-party research is incorporated.\nFees/Expenses: 1.20% arrangement fee to Investor\u2019s affiliate, payable at Closing; break fee KRW 350,000,000 if Company accepts a superior proposal pre-Closing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

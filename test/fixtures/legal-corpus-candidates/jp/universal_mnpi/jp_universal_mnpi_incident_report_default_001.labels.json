@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -360,6 +368,18 @@
       "category": "MNPI",
       "matched_text": "90%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u975e\u516c\u958b",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u793e\u5916\u79d8 / Non-Public \u2014 FIEA-sensitive \u2014 Operational/Cyber Incident Report \u2014 2026-06-03 18:40 JST \u2014 Issuer: KotoTech K.K. (TKS Growth Market)\nAt 16:55 JST our SOC detected public access to a third-party object store used by Uminari Data Services K.K.; a misconfiguration allowed unauthenticated GET requests between 15:42 and 16:16 JST before containment.\nPreliminary review shows exposure of a board memo and deal checklist for Project Hinagiku, a draft IR Q&A, and transaction files including a term sheet and a fully executed Share Purchase Agreement (SPA) between KotoTech K.K. and Aoba Capital Partners GK regarding a pre-announcement tender offer (67.5% stake for JPY 12.4 billion; planned public embargo lift 2026-07-15 09:00 JST).\nEmployee-related records in the same bucket included names, internal and personal email addresses, and masked My Number fields (salted hashes; no raw digits), which are \u201cpersonal information\u201d under APPI; no biometric or location logs were present.\nUnder FIEA, undisclosed enumerated facts include the tender-offer ratio/consideration and the existence of a definitive agreement; classification: \u975e\u516c\u958b/Level-Red (MNPI) pending disclosure through the TKS timely-disclosure platform.\nMAC/MAE: although the SPA contains a customary MAC clause (no Material Adverse Effect), our current assessment is that this incident does not constitute an MAE and does not trigger any termination or price-adjustment rights.\nContainment actions: Uminari access disabled at 16:20 JST; keys rotated; DLP patterns updated; the board memo and IR draft replaced; draft notifications prepared for the Nippon Market Oversight Agency and the TKS listing supervisor (not yet sent).\nCommunications plan: draft investor-relations release (\u793e\u5916\u914d\u5e03\u7981\u6b62) prepared with the above embargo; board approval required; a joint dry-run call with Aoba Capital Partners GK is scheduled for 2026-06-07 at 10:00 JST.\nGovernance and contact: Ms. Ayaka Mori (Chair) authorized containment; Mr. Kenji Morita (CISO) leads response; contact kenji.morita@kototech.example.com and sec-incident@kototech.example.com for queries.\nPer public and stale trade-press coverage by Nikko Business Times (2024), misconfigured object stores have been reported industry-wide; these articles do not reference KotoTech and no evidence links our data to external indexing.\nAnalyst/research handling: Eastwind Analytics K.K. has requested a management meeting; do not circulate the draft research note \u201cHinagiku Accretion Scenarios\u201d pre-embargo; internal model indicates +8.2% FY27 EPS accretion assuming 200 bps cost synergies and 90% retention of key engineers.\nRegulatory next steps: privacy notifications prepared under APPI for affected employees (scope finalizing), and internal FIEA MNPI log updated; legal is drafting an addendum to the vendor DPA with enhanced audit rights and a 24h notification SLA.\ntodo: update dd room permissions, close the old uminari bucket, and sync the term sheet filenames to the board memo annex list.\nhr reminder: wellness onsen day for employees is still on friday; attendance is voluntary and this does not affect trading blackout timelines.\nThis IR Q&A and research-summary content remain non-public until the embargo; any external reference to the SPA or tender-offer terms before 2026-07-15 09:00 JST will be treated as a breach and escalated to the Audit & Supervisory Committee.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

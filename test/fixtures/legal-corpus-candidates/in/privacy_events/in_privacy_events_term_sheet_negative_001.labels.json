@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -192,6 +200,24 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Onboarding forms: Customer KYC templates avoid collecting Aadhaar; fields labelled \u201cAadhaar (optional \u2014 0000 0000 0000 placeholder)\u201d and \u201cPAN (not for minors)\u201d are non-mandatory, and GSTIN capture is vendor-only\nChildren\u2019s data: Target states it does not onboard individuals under 18 without verifiable parental consent; a single consent withdrawal for a child account has been received and is pending suppression within 7 days before Closing\nCross-border transfers: No customer Aadhaar/PAN/GSTIN is transferred outside India; Data-Export Approval DEA-014 for de-identified support metrics to a processor in Neralia was approved on 15-02-2026 and executed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Neelivra Retail Technologies Limited by Yavnika Vector Private Limited (India)\nParties: Buyer \u2014 Yavnika Vector Private Limited; Target \u2014 Neelivra Retail Technologies Limited (a listed entity on the Novara Stock Exchange, India)\nStructure: Purchase of a controlling stake via share purchase and open offer, subject to SEBI (SAST) and SEBI (LODR) compliance; no price or ratio is set in this term sheet\nMNPI/UPSI: The parties acknowledge SEBI PIT obligations; no unpublished price sensitive information beyond publicly announced strategic review is shared, and financials referenced are from public quarterly filings\nConditions precedent: stock exchange no-objection, CCI approval if applicable, and receipt of a DPDPA compliance memo confirming adherence to consent, purpose limitation, and security safeguards\nData protections: Schedule D (Data Processing Addendum) incorporates retention (transaction logs purged after 365 days; last purge 31-01-2026 completed), data minimisation, and a DSAR workflow tested in Q4 FY26 with all test tickets closed\nOnboarding forms: Customer KYC templates avoid collecting Aadhaar; fields labelled \u201cAadhaar (optional \u2014 0000 0000 0000 placeholder)\u201d and \u201cPAN (not for minors)\u201d are non-mandatory, and GSTIN capture is vendor-only\nChildren\u2019s data: Target states it does not onboard individuals under 18 without verifiable parental consent; a single consent withdrawal for a child account has been received and is pending suppression within 7 days before Closing\nCross-border transfers: No customer Aadhaar/PAN/GSTIN is transferred outside India; Data-Export Approval DEA-014 for de-identified support metrics to a processor in Neralia was approved on 15-02-2026 and executed\nRepresentations: No biometrics or health data processed; employee data is limited to role emails and official titles; generic helplines and role mailboxes (e.g., help@service.example) are used for CRM entries\nRegulatory reporting: Any board decisions constituting UPSI will be disclosed by Target under SEBI (LODR) Regulation 30 prior to any trading window change; this term sheet constitutes a non-binding summary only\nPost-closing integration: Buyer policies will align with the DPDPA and sectoral KYC norms; PAN/GSTIN of vendors will be collected through standard onboarding forms using illustrative IDs (e.g., 11AAAAA1111A1Z1) in test environments only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

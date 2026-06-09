@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -6,14 +28,29 @@
   "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -108,7 +145,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "would be expected to influence trading in our SBSX‑listed securities",
+      "matched_text": "would be expected to influence trading in our SBSX\u2011listed securities",
       "rule": "material_event"
     },
     {
@@ -118,12 +155,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "credential‑stuffing attack",
+      "matched_text": "credential\u2011stuffing attack",
       "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "matched_text": "no‑MAE clause",
+      "matched_text": "no\u2011MAE clause",
       "rule": "material_adverse_change"
     },
     {
@@ -138,7 +175,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Draft IR line (not for release before embargo): “operations have normalised, no customer data affected, and we remain on track to deliver FY26 guidance.”",
+      "matched_text": "Draft IR line (not for release before embargo): \u201coperations have normalised, no customer data affected, and we remain on track to deliver FY26 guidance.\u201d",
       "rule": "material_event"
     },
     {
@@ -195,7 +232,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Draft IR line (not for release before embargo): “operations have normalised, no customer data affected, and we remain on track to deliver FY26 guidance.”",
+      "matched_text": "Draft IR line (not for release before embargo): \u201coperations have normalised, no customer data affected, and we remain on track to deliver FY26 guidance.\u201d",
       "rule": "material_event"
     },
     {
@@ -262,11 +299,23 @@
       "category": "MNPI",
       "matched_text": "100%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 Project QUOKKA \u2014 EMBARGO until 15 July 2026 09:00 AEST; for Board of Redgum Renewables Limited (Australia).\nIncident summary: on 28 June 2026 a credential\u2011stuffing attack via a third\u2011party vendor resulted in four SCADA gateways being quarantined and a 5.2% curtailment of output for three hours.\nEstimated financial impact A$0.32m; no personal health records exposed, but staff names and roster emails for 47 employees were accessed.\nExternal adviser Currong Cyber & Risk Pty Ltd engaged; preliminary remediation complete, full audit due 12 July; contact: security@redgumrenewables.com.au.\nContinuous disclosure: this information is not generally available and, if leaked, would be expected to influence trading in our SBSX\u2011listed securities; consider pre\u2011positioning a trading halt request with the Sydney Board of Securities.\nM&A context (MNPI): bidder Merriweather Capital Partners has delivered a draft Scheme Implementation Deed to acquire 100% for A$63.5m cash at A$0.84 per share; signing targeted 20 July 2026.\nThe draft deed includes a no\u2011MAE clause; on current assessment the incident is not reasonably likely to constitute a Material Adverse Effect and no MAC has occurred.\nDraft IR line (not for release before embargo): \u201coperations have normalised, no customer data affected, and we remain on track to deliver FY26 guidance.\u201d\nPublic source note: a 2021 industry blog speculated about similar attacks on energy telemetry, but this is stale and not relied upon for our assessment.\nlowercase pm note: spa\u2011day vouchers for wellness week to be sent friday; not material and excluded from disclosure.\nGovernance: report to the Commonwealth Markets Authority lodged within 72 hours under Privacy Act principles; customer notifications to be issued only if Commonwealth Information Commissioner guidance requires.\nDeal checklist triggers: confirm insurability, vendor indemnity, confirm definitive agreement schedules, and update bidder of any notifiable incident per Project QUOKKA protocol.\nPrepared by Ms. Isla Penrith (General Counsel) and Dr. Rowan Kade (CISO); media/IR queries to ir@redgumrenewables.com.au.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "spa‑day vouchers",
+      "matched_text": "spa\u2011day vouchers",
       "reason": "False-positive bait; not a Share Purchase Agreement (SPA) reference."
     },
     {
@@ -286,34 +335,5 @@
       "matched_text": "trading halt request",
       "reason": "Compliance-sensitive action related to disclosure but not mapped to a specific allowed MNPI rule."
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

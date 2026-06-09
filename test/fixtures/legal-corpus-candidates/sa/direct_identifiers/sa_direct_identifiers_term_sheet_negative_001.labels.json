@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -62,7 +70,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "any cross-border transfer will follow SDAIA’s approvals and standard contractual clauses under the KSA PDPL",
+      "matched_text": "any cross-border transfer will follow SDAIA\u2019s approvals and standard contractual clauses under the KSA PDPL",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -116,6 +124,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding term sheet for a minority strategic investment in Noor Logistics CJSC by Al Madar Renewable Holdings CJSC.\nParties: Issuer (Noor Logistics CJSC, CR [2055123456 invalid checksum]) and Investor (Al Madar Renewable Holdings CJSC, CR [0000000000 placeholder]).\nStructure: Private placement of new shares under the Companies Law and CMA regulations, processed through Tadawul\u2019s issuer services workflow; no change of control contemplated.\nPublic information: Evaluation relies solely on Noor Logistics\u2019 audited FY1444H results and past announcements already posted on Tadawul; no MNPI is being provided or relied upon.\nPricing: Final mechanics and share count to be agreed in the CMA-reviewed submission; no amounts are stated in this document.\nConditions precedent: CMA approval, Tadawul notice, ZATCA tax clearance, and post-closing updates to commercial registration and articles; any CMA Market Conduct follow-up will be procedural.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

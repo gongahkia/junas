@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -121,6 +129,12 @@
       "category": "MNPI",
       "matched_text": "Our ESG and cyber teams concluded the outage is an operational availability issue, not a confidentiality breach, and privacy risk remains low.",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-05-24, a misconfigured SSO setting caused a 27-minute read-only interruption to the HR document portal used for issuer onboarding forms and DPA schedules.\nFor clarity, no unauthorised access occurred, and logs show no MNPI exposure relating to RGX disclosure workflows.\nThe onboarding forms contain generic labels (e.g., National ID/Iqama, Commercial Registration), but live fields were masked (e.g., Iqama ****-****-****, CR 2050-XY-001), and no identifiers were viewable.\nThe event did not involve financial accounts, customer transactions, or securities orders, and therefore does not trigger market-conduct escalation to the Kingdom Markets Authority.\nAs previously announced in March, our PDPL DPA Schedule 2 (Retention and Deletion) shortened HR-document retention to 12 months and activated field-level minimisation.\nOne data subject erasure request (DSAR) for a former contractor was completed on 2026-05-22 with verified deletion receipts; no residual artifacts remain in live systems.\nA consent withdrawal recorded in the investor-relations preference center was already actioned last quarter and required no new processing under this incident.\nCross-border transfer controls remain in force; the last approved export occurred on 2026-05-23 under ADA-K Permit REF-ADAK-26-0412 to a GCC payroll processor with hashed ID tokens only.\nNo transfers were initiated or attempted during the incident window, and the export keys are held in-country under HSM control.\nIssuer workflows (board packs, draft announcements, and analyst Q&A) stayed within the Najd Exchange portal and were not intermingled with the HR portal.\nAny reference to \u201cNational ID\u201d or \u201cIqama\u201d in templates is purely a form label; the incident affected only the availability of PDFs with placeholder text.\nOur ESG and cyber teams concluded the outage is an operational availability issue, not a confidentiality breach, and privacy risk remains low.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

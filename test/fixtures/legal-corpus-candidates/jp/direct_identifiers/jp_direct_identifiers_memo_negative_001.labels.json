@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -65,7 +91,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "普通 1234567",
+      "matched_text": "\u666e\u901a 1234567",
       "rule": "bank_account"
     },
     {
@@ -120,7 +146,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Legal & Compliance Memo — Issuer: Yamataka Instruments KK — Board agenda re acquisition workflows and APPI/FIEA controls.",
+      "matched_text": "Internal Legal & Compliance Memo \u2014 Issuer: Yamataka Instruments KK \u2014 Board agenda re acquisition workflows and APPI/FIEA controls.",
       "rule": "material_event"
     },
     {
@@ -157,7 +183,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Legal & Compliance Memo — Issuer: Yamataka Instruments KK — Board agenda re acquisition workflows and APPI/FIEA controls.",
+      "matched_text": "Internal Legal & Compliance Memo \u2014 Issuer: Yamataka Instruments KK \u2014 Board agenda re acquisition workflows and APPI/FIEA controls.",
       "rule": "material_event"
     },
     {
@@ -174,6 +200,12 @@
       "category": "MNPI",
       "matched_text": "1234567",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal & Compliance Memo \u2014 Issuer: Yamataka Instruments KK \u2014 Board agenda re acquisition workflows and APPI/FIEA controls.\nThe Seimei Robotics KK asset acquisition framework was announced on TSE TDnet on 2026-05-15; discussion should be confined to that public notice.\nUnder FIEA, no undisclosed enumerated material facts or tender-offer facts are to be tabled; any future TOB would be pre-cleared and timely disclosed.\nAPPI/My Number: collection of individual codes for employees must be strictly limited to tax/withholding use and segregated from general HR files.\nExample HR form labels (placeholders only): \u6c0f\u540d / \u4f4f\u6240 / \u90e8\u7f72 / \u9023\u7d61\u5148 / \u7dca\u6025\u9023\u7d61\u5148; these fields are non-sensitive unless combined with individual codes.\nRole mailboxes for submissions: hr-onboarding@yamataka.co.jp; Board Secretariat: board@yamataka.co.jp; do not use personal emails.\nPublic helplines for general guidance (fictional): FSA Inquiry 03-0000-0000; TSE Listing Support 0570-000-000; do not provide individual information to helplines.\nCompany identifiers (placeholders): \u6cd5\u4eba\u756a\u53f7 9876-5432-1098; Shinagawa Ward Business Permit SG-000000; both are invalid checksum/series and for filing format only.\n\u5f93\u696d\u54e1 \u500b\u4eba\u756a\u53f7 1234-5678-9012 (invalid checksum) must be collected via the secure portal and must not be transmitted via email or chat.\nTravel workflow: \u65c5\u5238\u756a\u53f7 ZZ0000000 (sample only, invalid) may appear on vendor onboarding drafts; redact in copies retained by non-Travel functions.\nBanking for settlement (public framework only): Koto Bank Shindori Branch, \u666e\u901a 1234567; no personal accounts or identifiers are to be recorded in board packs.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -186,27 +218,27 @@
       "reason": "public helpline number (fictional) bait"
     },
     {
-      "matched_text": "氏名",
+      "matched_text": "\u6c0f\u540d",
       "reason": "generic form label bait"
     },
     {
-      "matched_text": "住所",
+      "matched_text": "\u4f4f\u6240",
       "reason": "generic form label bait"
     },
     {
-      "matched_text": "部署",
+      "matched_text": "\u90e8\u7f72",
       "reason": "generic form label bait"
     },
     {
-      "matched_text": "連絡先",
+      "matched_text": "\u9023\u7d61\u5148",
       "reason": "generic form label bait"
     },
     {
-      "matched_text": "緊急連絡先",
+      "matched_text": "\u7dca\u6025\u9023\u7d61\u5148",
       "reason": "generic form label bait"
     },
     {
-      "matched_text": "法人番号 9876-5432-1098",
+      "matched_text": "\u6cd5\u4eba\u756a\u53f7 9876-5432-1098",
       "reason": "invalid checksum placeholder (corporate number) bait"
     },
     {
@@ -214,11 +246,11 @@
       "reason": "placeholder identifier not in allowed taxonomy"
     },
     {
-      "matched_text": "従業員 個人番号 1234-5678-9012",
+      "matched_text": "\u5f93\u696d\u54e1 \u500b\u4eba\u756a\u53f7 1234-5678-9012",
       "reason": "invalid checksum placeholder (My Number) bait"
     },
     {
-      "matched_text": "旅券番号 ZZ0000000",
+      "matched_text": "\u65c5\u5238\u756a\u53f7 ZZ0000000",
       "reason": "sample placeholder (invalid passport number) bait"
     },
     {
@@ -249,24 +281,6 @@
       "concept": "institution identifier",
       "matched_text": "Tokyo Securities Transfer Center (fictional)",
       "reason": "Entity reference may be operationally relevant but not covered by allowed PII/MNPI rules"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

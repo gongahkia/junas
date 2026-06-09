@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -47,22 +55,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Nasser Al‑Shehri",
+      "matched_text": "Mr. Nasser Al\u2011Shehri",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Laila Al‑Saif",
+      "matched_text": "Dr. Laila Al\u2011Saif",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "Incident Report — Cybersecurity Event (Preliminary; Non-Public per CMA Market Conduct Regulations; internal circulation only)",
+      "matched_text": "Incident Report \u2014 Cybersecurity Event (Preliminary; Non-Public per CMA Market Conduct Regulations; internal circulation only)",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Pursuant to the KSA PDPL and its Implementing Regulations, we have prepared a breach notification to SDAIA without undue delay and imposed a temporary freeze on cross‑border transfers; our EU analytics pipeline under the SDAIA transfer consultation is paused pending DPIA updates.",
+      "matched_text": "Pursuant to the KSA PDPL and its Implementing Regulations, we have prepared a breach notification to SDAIA without undue delay and imposed a temporary freeze on cross\u2011border transfers; our EU analytics pipeline under the SDAIA transfer consultation is paused pending DPIA updates.",
       "rule": "material_event"
     },
     {
@@ -152,7 +160,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "6–8%",
+      "matched_text": "6\u20138%",
       "rule": "financial_percentage"
     },
     {
@@ -172,7 +180,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "cross‑border transfers",
+      "matched_text": "cross\u2011border transfers",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -244,22 +252,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Nasser Al‑Shehri",
+      "matched_text": "Mr. Nasser Al\u2011Shehri",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Laila Al‑Saif",
+      "matched_text": "Dr. Laila Al\u2011Saif",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "Incident Report — Cybersecurity Event (Preliminary; Non-Public per CMA Market Conduct Regulations; internal circulation only)",
+      "matched_text": "Incident Report \u2014 Cybersecurity Event (Preliminary; Non-Public per CMA Market Conduct Regulations; internal circulation only)",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Pursuant to the KSA PDPL and its Implementing Regulations, we have prepared a breach notification to SDAIA without undue delay and imposed a temporary freeze on cross‑border transfers; our EU analytics pipeline under the SDAIA transfer consultation is paused pending DPIA updates.",
+      "matched_text": "Pursuant to the KSA PDPL and its Implementing Regulations, we have prepared a breach notification to SDAIA without undue delay and imposed a temporary freeze on cross\u2011border transfers; our EU analytics pipeline under the SDAIA transfer consultation is paused pending DPIA updates.",
       "rule": "material_event"
     },
     {
@@ -298,14 +306,16 @@
       "rule": "financial_percentage"
     },
     {
-      "category": "MNPI",
-      "matched_text": "7014456780",
-      "rule": "large_number"
+      "category": "PII",
+      "matched_text": "Mr. Nasser Al\u2011Shehri (CISO; Iqama ending 8821) activated the IRP at 02:30 AST and isolated the affected connector; Dr. Laila Al\u2011Saif (DPO) is leading PDPL notifications via dpo@alqafil.sa.\nPursuant to the KSA PDPL and its Implementing Regulations, we have prepared a breach notification to SDAIA without undue delay and imposed a temporary freeze on cross\u2011border transfers; our EU analytics pipeline under the SDAIA transfer consultation is paused pending DPIA updates.\nPreliminary assessment indicates a possible Q2 throughput decline of 6\u20138% due to shipper onboarding delays; given our issuer\u2011relative threshold (c.5% of quarterly revenue), this may constitute a material development requiring disclosure under the Rules on the Offer of Securities and Continuing Obligations",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     },
     {
       "category": "MNPI",
-      "matched_text": "7021100456",
-      "rule": "large_number"
+      "matched_text": "Incident Report \u2014 Cybersecurity Event (Preliminary; Non-Public per CMA Market Conduct Regulations; internal circulation only)\nIssuer: AlQafil Logistics Co. (CR 7042219981), Tadawul symbol QAFL; contact: compliance@alqafil.sa, +966-11-000-1234\nOn 03/06/2026 at 02:10 AST we detected anomalous access to our Riyadh payment integration via a privileged service account hosted at our vendor \u201cNujumNet Hosting FZ-LLC,\u201d resulting in a four-hour disruption and potential exfiltration of a legacy backup.\nThe backup contained approximately 1.2 million records with names, mobile numbers, and identifiers including partial National ID/Iqama and Commercial Registration, e.g., Iqama ending 4410 and CR 7019923345, but no primary account numbers or full IBANs.\nMr. Nasser Al\u2011Shehri (CISO; Iqama ending 8821) activated the IRP at 02:30 AST and isolated the affected connector; Dr. Laila Al\u2011Saif (DPO) is leading PDPL notifications via dpo@alqafil.sa.\nPursuant to the KSA PDPL and its Implementing Regulations, we have prepared a breach notification to SDAIA without undue delay and imposed a temporary freeze on cross\u2011border transfers; our EU analytics pipeline under the SDAIA transfer consultation is paused pending DPIA updates.\nPreliminary assessment indicates a possible Q2 throughput decline of 6\u20138% due to shipper onboarding delays; given our issuer\u2011relative threshold (c.5% of quarterly revenue), this may constitute a material development requiring disclosure under the Rules on the Offer of Securities and Continuing Obligations.\nTo avoid selective disclosure during the closed period from 20/06/2026 until H1 results publication, insiders are reminded of the blackout policy and no external communications are authorized beyond regulator liaison.\nIf materiality is confirmed, we will publish an announcement on the Saudi Exchange (Tadawul) announcements platform outside trading hours and inform the CMA prior to release; otherwise, we will provide an internal market update in the next Board meeting.\nNote: NujumNet\u2019s 01/06/2026 public press statement referenced a \u201cregional security issue\u201d without naming clients; our Tadawul announcement dated 15/04/2026 regarding the data center migration remains accurate and unrelated to this event.\nFor precision, routine ERP patching completed on 31/05/2026 is operationally separate and did not contribute to this incident.\nData subject categories include individual consignees and corporate shippers; examples include National ID endings 9923/1177 and CRs 7014456780/7021100456; no geolocation or biometric data were present.\nAll tokens/keys are rotated, the HSM replacement has cleared customs and will be installed tonight, and third\u2011party access has been restricted to whitelisted IPs; a forensics image has been preserved.\nWe have scheduled a coordination call with the CMA Market Conduct Department and will brief the Saudi Exchange Listed Company Affairs team on our intended disclosure timing.\nPlease direct any queries to compliance@alqafil.sa or the incident desk at soc@alqafil.sa; media inquiries are to be declined pending regulator guidance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -353,7 +363,7 @@
     },
     {
       "concept": "local materiality threshold",
-      "matched_text": "issuer‑relative threshold",
+      "matched_text": "issuer\u2011relative threshold",
       "reason": "Issuer-specific materiality metric is MNPI-relevant but not mapped to a current allowed rule"
     },
     {

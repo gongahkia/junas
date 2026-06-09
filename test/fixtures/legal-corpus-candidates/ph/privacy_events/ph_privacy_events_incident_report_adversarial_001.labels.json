@@ -1,240 +1,300 @@
 {
-  "doc_id": "ph_privacy_events_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "unsubscribe@kalinaw-holdings.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "celina.orate@kalinaw-holdings.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63 88 555 0199"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Benedicto"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lorr"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rodel"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Note that no environmental discharge, community impact, or governance breach occurred; this update is operational only and not a notifiable breach under NPPC thresholds."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Chinese walls"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Celina M. Orate"
+      "matched_text": "Atty. Celina M. Orate",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Benedicto R. Sulit"
+      "matched_text": "Mr. Benedicto R. Sulit",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Engr. Paulo Z. Castañeda"
+      "matched_text": "Engr. Paulo Z. Casta\u00f1eda",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@kalinaw-holdings.ph"
+      "matched_text": "privacy@kalinaw-holdings.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer"
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation rules"
+      "matched_text": "minimisation rules",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lorr aine J. Quinto"
+      "matched_text": "Ms. Lorr aine J. Quinto",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "consent withdrawal"
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "unsubscribe@kalinaw-holdings.ph"
+      "matched_text": "unsubscribe@kalinaw-holdings.ph",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Chinese walls"
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rodel P. Samonte"
+      "matched_text": "Mr. Rodel P. Samonte",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "celina.orate@kalinaw-holdings.ph"
+      "matched_text": "celina.orate@kalinaw-holdings.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63 88 555 0199"
+      "matched_text": "+63 88 555 0199",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Orate"
+      "matched_text": "Atty. Orate",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "Acct: 00-7 1-X-932"
+      "matched_text": "Acct: 00-7 1-X-932",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "bank acct masked: X X 9-7 2 0 1"
+      "matched_text": "bank acct masked: X X 9-7 2 0 1",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Emp I D: HR-3 9 4 8 1"
+      "matched_text": "Emp I D: HR-3 9 4 8 1",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "Q N T- 1 1 9"
+      "matched_text": "Q N T- 1 1 9",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "DEX-2041"
+      "matched_text": "DEX-2041",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "DEX-2 0 4 1"
+      "matched_text": "DEX-2 0 4 1",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "SD- 4 2 1"
+      "matched_text": "SD- 4 2 1",
+      "rule": "internal_session_id"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "IL- 08 3"
+      "matched_text": "IL- 08 3",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Chinese walls affirmed"
+      "matched_text": "Chinese walls affirmed",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "MNPI quarantine"
+      "matched_text": "MNPI quarantine",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed PGB sustainability-linked bond coupon step-up triggers"
+      "matched_text": "proposed PGB sustainability-linked bond coupon step-up triggers",
+      "rule": "material_event"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "masked dataset only"
+      "matched_text": "masked dataset only",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Benedicto"
+      "matched_text": "Mr. Benedicto",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lorr"
+      "matched_text": "Ms. Lorr",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rodel"
+      "matched_text": "Mr. Rodel",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Note that no environmental discharge, community impact, or governance breach occurred; this update is operational only and not a notifiable breach under NPPC thresholds."
+      "matched_text": "Note that no environmental discharge, community impact, or governance breach occurred; this update is operational only and not a notifiable breach under NPPC thresholds.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "unsubscribe@kalinaw-holdings.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "celina.orate@kalinaw-holdings.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 88 555 0199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Benedicto",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lorr",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rodel",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Note that no environmental discharge, community impact, or governance breach occurred; this update is operational only and not a notifiable breach under NPPC thresholds.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident & Compliance Memo re: HR SFTP glitch and MNPI quarantine \u2014 Kalinaw Holdings (Pilipinas), Corp., PGB-listed issuer\nFrom: Atty. Celina M. Orate, Data Protection Officer; To: Mr. Benedicto R. Sulit (CFO), Engr. Paulo Z. Casta\u00f1eda (IT SecOps); contact: privacy@kalinaw-holdings.ph\nOn 28 May 2026, a scheduled cross-border transfer of payroll files to SintaSoft Pte. Ltd. (SG) via sftp://transfer.sintasoft.sg/hr?batch=20 4 failed due to an expired SSH key; no data left our enclave.\nThe export request (Data Export Approval DEX-2 0 4 1) was auto-paused under DPA Schedule 3 (HR & Payroll) and minimisation rules (fields sent: Emp I D, name, net pay; bank acct masked: X X 9-7 2 0 1).\nWe confirm under the Data Privacy Act that identity is not apparent from masked fields; further, we do not collect MAC addresses or GPS for payroll workflows.\nDSAR-Ref: DS/2 6/0018 received from Ms. Lorr aine J. Quinto requested access and erasure of marketing records; consent withdrawal logged 2026-05-12 via unsubscribe@kalinaw-holdings.ph.\nErasure completed for CRM profile Q N T- 1 1 9; HR records retained per Policy R-5 (5-year statutory payroll retention); note: retention tag applied, no new processing.\nIncident classification: operational (no breach); security logs show 0 bytes transmitted; checksum mismatches were internal; completed-control C-42 (Cross-border DPIA) closed on 2026-05-20 with no high residual risk.\nFor capital-markets, a draft ASC disclosure re: proposed PGB sustainability-linked bond coupon step-up triggers remains material non-public information; insider list IL- 08 3 updated and Chinese walls affirmed.\nBy contrast, the emissions intensity figures referenced in Annex B are from the publicly available 2025 sustainability report and do not constitute MNPI.\nHR onboarding Form F-12 (for \u201cMr. Rodel P. Samonte\u201d, Emp I D: HR-3 9 4 8 1) contains PII and payroll bank details with Luntian Rural Bank, Acct: 00-7 1-X-932; redaction applied before any external transmission.\nVendor contract Addendum 2 with SintaSoft affirms data localisation fallback; cross-border transfer resumes only after key rotation and NPPC-notified registry update (ticket url: https://intra.kalinaw-holdings.ph/export?id=DEX-2041&cust=HR%2Fpayroll).\nNote that no environmental discharge, community impact, or governance breach occurred; this update is operational only and not a notifiable breach under NPPC thresholds.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -251,88 +311,42 @@
       "reason": "Generic mention without any actual identifier value."
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "DSAR-Ref: DS/2 6/0018",
       "concept": "DSAR reference",
+      "matched_text": "DSAR-Ref: DS/2 6/0018",
       "reason": "DSAR markers are legally relevant but no explicit allowed rule token is defined."
     },
     {
-      "matched_text": "DS/2 6/0018",
       "concept": "DSAR reference",
+      "matched_text": "DS/2 6/0018",
       "reason": "Identifier for a DSAR; DSAR event not in allowed rules list."
     },
     {
-      "matched_text": "Erasure completed",
       "concept": "erasure marker",
+      "matched_text": "Erasure completed",
       "reason": "Erasure/RTBF control is relevant but not in the enumerated valid marker rules."
     },
     {
-      "matched_text": "retention tag applied",
       "concept": "retention marker",
+      "matched_text": "retention tag applied",
       "reason": "Retention events are in coverage concept but not provided as a valid detection rule."
     },
     {
-      "matched_text": "5-year statutory payroll retention",
       "concept": "retention duration",
+      "matched_text": "5-year statutory payroll retention",
       "reason": "Retention duration is relevant but not mapped to a specific allowed rule."
     },
     {
-      "matched_text": "Cross-border DPIA",
       "concept": "DPIA/control record",
+      "matched_text": "Cross-border DPIA",
       "reason": "DPIA completion is privacy-relevant but not an allowed detection rule."
     },
     {
-      "matched_text": "data localisation fallback",
       "concept": "localisation/transfer control",
+      "matched_text": "data localisation fallback",
       "reason": "Transfer-localisation control is relevant but not covered by a specific allowed marker."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T07:07:36Z",
-    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

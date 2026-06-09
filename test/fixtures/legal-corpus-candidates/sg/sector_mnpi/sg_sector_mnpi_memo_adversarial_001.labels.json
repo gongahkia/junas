@@ -1,83 +1,277 @@
 {
+  "_agent_review": {
+    "notes": "SG Stage A labels passed strict candidate evaluation after second-pass review; project-owner approval recorded for internal benchmarking only.",
+    "reviewer": "codex-gpt-agent-cleanup-pass",
+    "source_report": "/tmp/kaypoh-sg-post-label-cleanup.json",
+    "status": "second_pass_blockers_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending.",
+      "reviewer": "codex-agent-review",
+      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+      "status": "technical_reviewed_pending_human_approval"
+    },
+    {
+      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves.",
+      "reviewer": "codex-gpt-agent-second-pass",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "second_pass_needs_edit_pending_human_approval"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T02:31:16Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T02:31:16Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T02:31:16Z",
+    "accepted_by": "gongahkia",
+    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sg-post-label-cleanup.json",
+    "status": "owner_approved_sg_stage_a_for_internal_benchmarking"
+  },
+  "_owner_acceptance_history": [
+    {
+      "accepted_at_utc": "2026-05-29T01:41:07Z",
+      "accepted_by": "gongahkia",
+      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "owner_accepted_agent_review_for_experimental_use"
+    }
+  ],
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
   "doc_id": "sg_sector_mnpi_memo_adversarial_001",
   "document_type": "memo",
-  "source_jurisdiction": "SG",
-  "destination_jurisdiction": "SG",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Cedar",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$112",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "B L A C K O U T",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Wei Liang Tan (GC)",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Khoo (CFO)",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not tip counterparties",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$6.3m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "expected to be price\u2011sensitive",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7O0\u2011IL\u20112",
+      "rule": "employee_id"
+    }
+  ],
   "must_detect": [
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Cedar"
+      "matched_text": "Project Cedar",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$112"
+      "matched_text": "S$112",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "ransomware incident"
+      "matched_text": "ransomware incident",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Tan"
+      "matched_text": "Mr. Tan",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barrier"
+      "matched_text": "Information barrier",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$6.3m"
+      "matched_text": "S$6.3m",
+      "rule": "financial_amount"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Wei Liang Tan"
+      "matched_text": "Mr. Wei Liang Tan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Khoo"
+      "matched_text": "Ms. Priya Khoo",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Mr. Wei Liang Tan (GC) summarises “Project Cedar”: proposed acquisition of Verdant Thermal Pte. Ltd., an ESG/climate solutions target, at a board-approved, non‑public price range of S$112–S$118m with a 2.5x FY27 EBITDA earn‑out."
+      "matched_text": "Mr. Wei Liang Tan (GC) summarises \u201cProject Cedar\u201d: proposed acquisition of Verdant Thermal Pte. Ltd., an ESG/climate solutions target, at a board-approved, non\u2011public price range of S$112\u2013S$118m with a 2.5x FY27 EBITDA earn\u2011out.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Preliminary cyber root‑cause indicates a third‑party privileged access lapse; PDPA breach assessment ongoing, but employee records appear masked; notify the DPO if any individual becomes identifiable from likely‑accessible context."
+      "matched_text": "Preliminary cyber root\u2011cause indicates a third\u2011party privileged access lapse; PDPA breach assessment ongoing, but employee records appear masked; notify the DPO if any individual becomes identifiable from likely\u2011accessible context.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "If asked externally about cyber or climate initiatives, use the holding statement and refer to our published sustainability report; do not comment on the ransomware event or acquisition before an SGX announcement."
+      "matched_text": "If asked externally about cyber or climate initiatives, use the holding statement and refer to our published sustainability report; do not comment on the ransomware event or acquisition before an SGX announcement.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$118m"
+      "matched_text": "S$118m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mr. Wei Liang Tan (GC) summarises \u201cProject Cedar\u201d: proposed acquisition of Verdant Thermal Pte. Ltd., an ESG/climate solutions target, at a board-approved, non\u2011public price range of S$112\u2013S$118m with a 2.5x FY27 EBITDA earn\u2011out.\nMNPI: a contained ransomware incident on 24 May affected the DPT wallet custody testnet at subsidiary Nimbus Exchange Services Pte. Ltd.; no external disclosure pending forensic validation and counsel review.\nUnder SFA ss. 218/219 and SGX Listing Rule 703, trading by persons on the insider list is prohibited; initiate B L A C K O U T from 28/05 until formal announcement via SGXNet.\nInsider list is maintained at https://intranet.esteronpacific.example/insider?list=Q29kZURlYWw%3D; add Ms. Priya Khoo (CFO), Mr. Tan, selected diligence staff, and vendor counsel; queries to compliance@esteronpacific.example.\nInformation barrier: ring\u2011fence \u201cDigital Assets\u201d from \u201cSustainability Ventures\u201d; do not tip counterparties or share LumenChain DPT pilot metrics during diligence or sell\u2011side tech workshops.\nCommercial terms in draft include a 12\u2011month earn\u2011out, a no\u2011leak covenant, and a reverse break fee of S$6.3m; these are not generally available and are expected to be price\u2011sensitive.\nFor avoidance of doubt, nothing herein asserts a Material Adverse Change, no forecast downgrades are proposed, and employment transfer terms remain standard form under existing HR policy.\nPreliminary cyber root\u2011cause indicates a third\u2011party privileged access lapse; PDPA breach assessment ongoing, but employee records appear masked; notify the DPO if any individual becomes identifiable from likely\u2011accessible context.\nWe will brief MAS on the DPT environment impact under the Payment Services Act; staff may cite public MAS guidance in training FAQs for education only: https://policy.esteronpacific.example/psa?ver=1.0.1.\nEducational/marketing: the ESG roadshow brochure reuses terms like \u201cselective disclosure risk\u201d and \u201cinsider list hygiene\u201d purely in a generic training context for a public sustainability fair; no deal content or market\u2011sensitive figures are included.\nOperations\u2011only: upload redacted cyber logs to the clean\u2011room; schedule vcs in lowercase jira: project\u2011cedar > legal > filings; do not forward vendor names on open Slack channels.\nPublic\u2011source references (e.g., MAS circulars on DPT risks and SGX practice statements) may inform drafting style, but citations do not convert this note into a disclosure or negate confidentiality.\nEmployment: prepare retention letters for key Verdant engineers; avoid selective disclosure by issuing offers via secure channel DocRef: PROJ\u2011CED4R\u201100 7 \u2014 acct: XX19\u20113A; emp: 7O0\u2011IL\u20112.\nIf asked externally about cyber or climate initiatives, use the holding statement and refer to our published sustainability report; do not comment on the ransomware event or acquisition before an SGX announcement.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -98,201 +292,27 @@
       "reason": "Functional role mailbox; not an individual email address for strict detector-aligned SG PII labels."
     }
   ],
+  "source_jurisdiction": "SG",
   "uncertain": [
     {
-      "matched_text": "XX19‑3A",
       "concept": "account reference",
+      "matched_text": "XX19\u20113A",
       "reason": "May be an internal or customer/bank account reference but not clearly covered by a specific allowed PII rule"
     },
     {
-      "matched_text": "PROJ‑CED4R‑00 7",
       "concept": "internal document reference",
+      "matched_text": "PROJ\u2011CED4R\u201100 7",
       "reason": "Potentially sensitive internal identifier but not clearly mapped to an allowed PII rule"
     },
     {
-      "matched_text": "Q29kZURlYWw%3D",
       "concept": "internal list identifier/token",
+      "matched_text": "Q29kZURlYWw%3D",
       "reason": "URL parameter may function as an internal ID or token but not clearly an 'internal_session_id'"
     },
     {
-      "matched_text": "LumenChain DPT pilot metrics",
       "concept": "dpt protocol/pilot event",
+      "matched_text": "LumenChain DPT pilot metrics",
       "reason": "Non-public crypto pilot details may be market sensitive, but mapping to the specific DPT event markers is not explicit"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "ideal_must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Cedar"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non‑public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$112"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "ransomware incident"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "B L A C K O U T"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Wei Liang Tan (GC)"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Khoo (CFO)"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Tan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barrier"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "do not tip counterparties"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "avoid selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$6.3m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "expected to be price‑sensitive"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not generally available"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "7O0‑IL‑2"
-    }
-  ],
-  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
-  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
-  "_agent_review": {
-    "reviewer": "codex-gpt-agent-cleanup-pass",
-    "status": "second_pass_blockers_cleaned_owner_approved",
-    "source_report": "/tmp/kaypoh-sg-post-label-cleanup.json",
-    "notes": "SG Stage A labels passed strict candidate evaluation after second-pass review; project-owner approval recorded for internal benchmarking only."
-  },
-  "_agent_review_history": [
-    {
-      "reviewer": "codex-agent-review",
-      "status": "technical_reviewed_pending_human_approval",
-      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
-      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending."
-    },
-    {
-      "reviewer": "codex-gpt-agent-second-pass",
-      "status": "second_pass_needs_edit_pending_human_approval",
-      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
-      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves."
-    }
-  ],
-  "_owner_acceptance": {
-    "accepted_by": "gongahkia",
-    "status": "owner_approved_sg_stage_a_for_internal_benchmarking",
-    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
-    "accepted_at_utc": "2026-05-29T02:31:16Z",
-    "source_report": "/tmp/kaypoh-sg-post-label-cleanup.json"
-  },
-  "_owner_acceptance_history": [
-    {
-      "accepted_by": "gongahkia",
-      "status": "owner_accepted_agent_review_for_experimental_use",
-      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
-      "accepted_at_utc": "2026-05-29T01:41:07Z",
-      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json"
-    }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-    "reviewed_at_utc": "2026-05-29T02:31:16Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass"
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-chat-approval",
-      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-      "reviewed_at_utc": "2026-05-29T02:31:16Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
-      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

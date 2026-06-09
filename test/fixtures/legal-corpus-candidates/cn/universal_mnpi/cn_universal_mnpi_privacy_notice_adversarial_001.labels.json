@@ -55,6 +55,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -352,6 +360,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "[\u5185\u90e8-\u4e0d\u516c\u5f00] Data Transfer & Retention Workflow Note \u2014 Project BANYAN (issuer: Feilin Biologics Co., Ltd.) \u2014 Board Memo/IR Draft extract\nCross-border sharing with Azure Lantern Partners (HK) and CloudLake Data Services (SG) requires PIPL Art.38 separate consent and CAC \u6570\u636e\u51fa\u5883\u5b89\u5168\u8bc4\u4f30 before 2026-07-10\nEmbargo: 2026-07-15 10:00 CST; CSRC/SZSE pre-disclosure not yet filed; STRICTLY NON-PUBLIC and subject to issuer insider list controls\nDraft Term Sheet (v3) and definitive Share Purchase Agreement contemplate RMB 480,000,000 for 12.5% Series C preferred; valuation model and research notes attached\nHR and applicant data scope: resident ID tails 43**71X; bank a/c ****-29 88; minors <14 flagged as sensitive PI; purpose-limited to vendor due diligence; retention 6y in CN\nController: Juniper Harbour (Shenzhen) Co., Ltd.; U S C C: 91Z1 0A3Q 7L9P 002J 6R; DPO: Ms. Zhao Lin, privacy@juniper-harbour.cn; address: Futian, Shenzhen (fict.)\nr e s e a r c h  n o t e: attrition 3.1%; a 2018 SSE manual (publicly available) is cited for definitions and is not confidential information\nNo MAE has occurred as of the proposed signing date, and the planned system migration is not a MAC under the Draft SPA\nDSAR channel: https://notice.juniper-harbour.cn/policy?dpa=2026&ref=proj%2FBANYAN or +86-755-6600-0000; verify via masked resident ID and staff email alias\nPrior to export, apply pseudonymization and encryption; execute PRC SCCs or equivalent; complete DSL materiality self-assessment and CSL security controls checklist\nEmployment workflow: Payroll processor JadeGate Tech (CN) processes salaries; overseas access disabled; audit logs retained 24 months; change owner: Mr. Han Rui\nInvestor-relations draft: [STRICTLY NON-PUBLIC - IR DRAFT] talking points not to be shared before embargo; references to CSRC guidance are from public circulars\nDeletion and retention: close data rooms 30 days post-closing/termination; backup snapshots \u039415 days; access approvals by Dr. Qian He, CISO; exceptions require written approval\nproject checklist (lowercase): ping ms. zhao re redlines; move \u201cterm sheet v3\u201d to /dealroom/banyan/ts; confirm szse codename registry; book spa day after signing",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

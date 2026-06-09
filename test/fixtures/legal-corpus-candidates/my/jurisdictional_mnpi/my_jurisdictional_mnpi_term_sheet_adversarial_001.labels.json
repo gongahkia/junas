@@ -1,305 +1,384 @@
 {
-  "doc_id": "my_jurisdictional_mnpi_term_sheet_adversarial_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "MY",
-  "destination_jurisdiction": "MY",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "amirul.zain@merantidynbhd.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "faris.hadi@niratech.example"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2012 0120 077"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+6 0 - 3 - 7 7 1 2 0 4 4"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Term Sheet — Proposed Acquisition of 70% equity interest in NiraTech Sdn Bhd by Meranti Dynamics Berhad (Company No.: 2016 0100 999) — Deal Code: MY/TS/2 0 2 6 - 0 7 - C E N D A N A"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Funding: Senior term facility of up to RM150,000,000 from Serunai Finance Berhad at 3M KLIBOR + 1.80% p.a., 5-year tenor; drawdown at completion; no personal guarantees; negative pledge aligned to existing MTN; this financing line is not announced and remains confidential."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Covenants Pre-Completion: Ordinary course operations; no dividend or capital reduction at NiraTech Sdn Bhd without consent; no issuance of new shares or options; no change to top-10 customer contracts; no change to accounting policies except as required by MFRS."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "3M"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "70%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "1.80%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "2%"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 16,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM148,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM98,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM150,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM10,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM6,000,000'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_jurisdictional_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "amirul.zain@merantidynbhd.example"
+      "matched_text": "amirul.zain@merantidynbhd.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "faris.hadi@niratech.example"
+      "matched_text": "faris.hadi@niratech.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2012 0120 077"
+      "matched_text": "2012 0120 077",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+6 0 - 3 - 7 7 1 2 0 4 4"
+      "matched_text": "+6 0 - 3 - 7 7 1 2 0 4 4",
+      "rule": "phone_number"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Term Sheet — Proposed Acquisition of 70% equity interest in NiraTech Sdn Bhd by Meranti Dynamics Berhad (Company No.: 2016 0100 999) — Deal Code: MY/TS/2 0 2 6 - 0 7 - C E N D A N A"
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of 70% equity interest in NiraTech Sdn Bhd by Meranti Dynamics Berhad (Company No.: 2016 0100 999) \u2014 Deal Code: MY/TS/2 0 2 6 - 0 7 - C E N D A N A",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Funding: Senior term facility of up to RM150,000,000 from Serunai Finance Berhad at 3M KLIBOR + 1.80% p.a., 5-year tenor; drawdown at completion; no personal guarantees; negative pledge aligned to existing MTN; this financing line is not announced and remains confidential."
+      "matched_text": "Funding: Senior term facility of up to RM150,000,000 from Serunai Finance Berhad at 3M KLIBOR + 1.80% p.a., 5-year tenor; drawdown at completion; no personal guarantees; negative pledge aligned to existing MTN; this financing line is not announced and remains confidential.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Covenants Pre-Completion: Ordinary course operations; no dividend or capital reduction at NiraTech Sdn Bhd without consent; no issuance of new shares or options; no change to top-10 customer contracts; no change to accounting policies except as required by MFRS."
+      "matched_text": "Covenants Pre-Completion: Ordinary course operations; no dividend or capital reduction at NiraTech Sdn Bhd without consent; no issuance of new shares or options; no change to top-10 customer contracts; no change to accounting policies except as required by MFRS.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "3M"
+      "matched_text": "3M",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "70%"
+      "matched_text": "70%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3%"
+      "matched_text": "3%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "1.80%"
+      "matched_text": "1.80%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
+      "matched_text": "5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "2%"
+      "matched_text": "2%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dato’ Seri Amirul Zain"
+      "matched_text": "Dato\u2019 Seri Amirul Zain",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Puan Nadira Rahman"
+      "matched_text": "Puan Nadira Rahman",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Encik Faris Hadi"
+      "matched_text": "Encik Faris Hadi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@merantidynbhd.example"
+      "matched_text": "privacy@merantidynbhd.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "schedule withheld from public release"
+      "matched_text": "schedule withheld from public release",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "are not generally available information"
+      "matched_text": "are not generally available information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "are not public"
+      "matched_text": "are not public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The transaction constitutes material information under Paragraph 9.03 of the Main Market Listing Requirements of Bursa Tanjung"
+      "matched_text": "The transaction constitutes material information under Paragraph 9.03 of the Main Market Listing Requirements of Bursa Tanjung",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed period"
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout"
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective Disclosure Controls"
+      "matched_text": "Selective Disclosure Controls",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "if these become generally available, price sensitivity is expected under CMSA standards"
+      "matched_text": "if these become generally available, price sensitivity is expected under CMSA standards",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "pseudonymised"
+      "matched_text": "pseudonymised",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "only aggregated metrics (e.g., attrition, salary bands) to be shared"
+      "matched_text": "only aggregated metrics (e.g., attrition, salary bands) to be shared",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no NRIC copies to be circulated outside the secure data room"
+      "matched_text": "no NRIC copies to be circulated outside the secure data room",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "total_contract_value",
-      "matched_text": "RM148,000,000 for 70%"
+      "matched_text": "RM148,000,000 for 70%",
+      "rule": "total_contract_value"
     },
     {
       "category": "MNPI",
-      "rule": "contract_discount_rate",
-      "matched_text": "VWAP-3%"
+      "matched_text": "VWAP-3%",
+      "rule": "contract_discount_rate"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "this term sheet and its pricing grid/integration plan are not generally available information"
+      "matched_text": "this term sheet and its pricing grid/integration plan are not generally available information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "immediate announcement within one (1) market day upon execution"
+      "matched_text": "immediate announcement within one (1) market day upon execution",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Closed Period"
+      "matched_text": "Closed Period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no broad or selective disclosure to analysts/media"
+      "matched_text": "no broad or selective disclosure to analysts/media",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "inadvertent selective disclosure"
+      "matched_text": "inadvertent selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "leak risk"
+      "matched_text": "leak risk",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Target signing by 29 June 2026 (T0)"
+      "matched_text": "Target signing by 29 June 2026 (T0)",
+      "rule": "embargo_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "amirul.zain@merantidynbhd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "faris.hadi@niratech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2012 0120 077",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+6 0 - 3 - 7 7 1 2 0 4 4",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of 70% equity interest in NiraTech Sdn Bhd by Meranti Dynamics Berhad (Company No.: 2016 0100 999) \u2014 Deal Code: MY/TS/2 0 2 6 - 0 7 - C E N D A N A",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Funding: Senior term facility of up to RM150,000,000 from Serunai Finance Berhad at 3M KLIBOR + 1.80% p.a., 5-year tenor; drawdown at completion; no personal guarantees; negative pledge aligned to existing MTN; this financing line is not announced and remains confidential.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants Pre-Completion: Ordinary course operations; no dividend or capital reduction at NiraTech Sdn Bhd without consent; no issuance of new shares or options; no change to top-10 customer contracts; no change to accounting policies except as required by MFRS.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3M",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of 70% equity interest in NiraTech Sdn Bhd by Meranti Dynamics Berhad (Company No.: 2016 0100 999) \u2014 Deal Code: MY/TS/2 0 2 6 - 0 7 - C E N D A N A\nParties: Meranti Dynamics Berhad (Main Market issuer on Bursa Tanjung Securities), Vendors of NiraTech Sdn Bhd (2012 0120 077), and Serunai Finance Berhad (financier) as indicative lender.\nStructure & Consideration: RM148,000,000 for 70% (cash RM98,000,000 + issuance of new ordinary shares by Meranti Dynamics Berhad valued at VWAP-3%); price subject to net debt/normalised working capital adjustments (\u00b1RM6,000,000 collar, schedule withheld from public release).\nFunding: Senior term facility of up to RM150,000,000 from Serunai Finance Berhad at 3M KLIBOR + 1.80% p.a., 5-year tenor; drawdown at completion; no personal guarantees; negative pledge aligned to existing MTN; this financing line is not announced and remains confidential.\nPublic-Status & Announcements: Heads of terms were announced on 12 May 2026 via Bursa Tanjung (Ref: BT-2026-0512-AQ-001; https://ann.bursatanjung.example/ann?id=B T - 2 0 2 6 - 0 5 1 2), but this term sheet and its pricing grid/integration plan are not generally available information.\nDisclosure & Materiality: The transaction constitutes material information under Paragraph 9.03 of the Main Market Listing Requirements of Bursa Tanjung; issuer-relative materiality threshold applied at >5% of consolidated net assets or RM10,000,000 (whichever lower); immediate announcement within one (1) market day upon execution.\nClosed Period & Dealing Restrictions: Directors and principal officers shall observe the closed period (30 calendar days before the targeted Q2 results announcement window, anticipated 1\u201330 Aug 2026); no dealings in Meranti Dynamics Berhad securities are permitted during blackout; any waiver requires disclosure to Bursa Tanjung.\nSelective Disclosure Controls: Information may be disclosed to financiers, legal/tax advisers, and potential co-investors subject to NDA; no broad or selective disclosure to analysts/media; any inadvertent selective disclosure will be equalised by prompt Bursa Tanjung announcement per Practice Note 12.\nConditions Precedent: (i) Shareholders\u2019 approval under Chapter 10 thresholds (major transaction); (ii) lender approval and final credit; (iii) third-party consents (including PelangiTel Sdn Bhd for key customer contracts); (iv) execution of key management service agreements for continuity; (v) no injunction or restraining order under applicable CMSA provisions.\nEmployee & PDPA Handling: Exchange of employee/customer lists for diligence to be pseudonymised; only aggregated metrics (e.g., attrition, salary bands) to be shared; personal data processed in accordance with PDPA; PD queries: privacy@merantidynbhd.example; no NRIC copies to be circulated outside the secure data room.\nMAC & Termination: No Material Adverse Change clause shall apply to this term sheet and its definitive agreements; the absence of a MAC provision shall not be construed as a termination right and ordinary course market volatility shall not constitute grounds for rescission.\nCovenants Pre-Completion: Ordinary course operations; no dividend or capital reduction at NiraTech Sdn Bhd without consent; no issuance of new shares or options; no change to top-10 customer contracts; no change to accounting policies except as required by MFRS.\nTimetable: Target signing by 29 June 2026 (T0); immediate Bursa Tanjung announcement within 1 market day post-signing; EGM by T0+60; completion by T0+90; if material terms vary, further announcement required per LR 9.19A; trading halt may be requested if leak risk escalates.\nPublic References (non-price-sensitive): The \u201cCloudLedger v2.0\u201d product mention and 2023 awards cited in Meranti Dynamics Berhad\u2019s 2024 annual report and broad press release dated 18 Jan 2024 are public and generic; they do not form part of forward-looking statements and should not be treated as MNPI.\nAlready-Announced Item: As announced to Bursa Tanjung on 3 Mar 2025 (Ref: BT-2025-0303-Pilot; https://www.bursatanjung.example/market/announcements?ref=BT-2025-0303-Pilot), a non-binding pilot with PelangiTel Sdn Bhd was completed; this is stale and is excluded from the issuer\u2019s current forecasts.\nIntegration & Synergies (Confidential): Procurement consolidation and shared services migration plan (Wave 1\u20133), detailed headcount mapping, and customer repricing bands (\u00b12% triggers) are not public; if these become generally available, price sensitivity is expected under CMSA standards.\nContacts: Dato\u2019 Seri Amirul Zain (Group CEO) amirul.zain@merantidynbhd.example; Puan Nadira Rahman (CFO) +6 0 - 3 - 7 7 1 2 0 4 4; deal room: https://vdr.merantidynbhd.example/p/PR O J - C E N D A N A; vendor rep: Encik Faris Hadi faris.hadi@niratech.example.\nMiscellany: Governing law: Malaysia; costs borne by each party; this term sheet is non-binding except for confidentiality, exclusivity (60 days), and governing law; standard hr policy text re: training budgets and leave",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -324,91 +403,32 @@
       "reason": "Generic role noun, not PII"
     }
   ],
+  "source_jurisdiction": "MY",
   "uncertain": [
     {
-      "matched_text": "No Material Adverse Change clause shall apply to this term sheet and its definitive agreements",
       "concept": "material_adverse_change (negated)",
+      "matched_text": "No Material Adverse Change clause shall apply to this term sheet and its definitive agreements",
       "reason": "MAC is legally significant but explicitly negated; rule excludes negated MAC/MAE mentions"
     },
     {
-      "matched_text": "Deal Code: MY/TS/2 0 2 6 - 0 7 - C E N D A N A",
       "concept": "transaction_codename (non-standard)",
+      "matched_text": "Deal Code: MY/TS/2 0 2 6 - 0 7 - C E N D A N A",
       "reason": "Appears to be a deal/codename but does not match the Project <Name> pattern required by the rule"
     },
     {
-      "matched_text": "personal data processed in accordance with PDPA",
       "concept": "PDPA compliance statement",
+      "matched_text": "personal data processed in accordance with PDPA",
       "reason": "Privacy compliance/processing notice is relevant but not clearly covered by the allowed privacy-event markers"
     },
     {
-      "matched_text": "trading halt may be requested if leak risk escalates",
       "concept": "trading halt contingency",
+      "matched_text": "trading halt may be requested if leak risk escalates",
       "reason": "Leak-driven halt is market-sensitive but not explicitly mapped to an allowed MNPI rule"
     },
     {
-      "matched_text": "Heads of terms",
       "concept": "preliminary agreement reference",
+      "matched_text": "Heads of terms",
       "reason": "Legally meaningful early-stage document but not one of the enumerated definitive agreement types"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": {
-    "count": 16,
-    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM148,000,000'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM98,000,000'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM150,000,000'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM10,000,000'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM6,000,000'"
-    ]
-  },
-  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
-  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_strict_reconciliation": {
-    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

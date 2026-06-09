@@ -49,6 +49,14 @@
     "status": "post_cn_ae_precision_realign_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -371,6 +379,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing Addendum and PDPA Notice (Singapore) for Project Banyan\nParties: Artemis Pacific Holdings Ltd. (controller; a Lion City Securities Market issuer) and Caldera Capital Partners Pte. Ltd. (processor), with Merlion & Banyan LLC as external counsel.\nPurpose: processing personal data and confidential deal materials for a proposed acquisition of Seabright Renewables Pte. Ltd. and related capital-markets and employment integration workstreams.\nPDPA compliance: we process contact details, employment records, and device logs about individuals identifiable from that data alone or with other accessible information; we rely on contractual necessity and legitimate interests with consent where required.\nMNPI controls: information not generally available and reasonably expected to affect price/value under the SFA and local listing rules will be ring-fenced and used only for the approved purpose.\nInsider list: Merlion & Banyan LLC will maintain a contemporaneous insider list for Project Banyan including wall-crossed personnel such as Mr. Koh Jian Ming and Ms. Nur Afiqah, with time stamps and roles.\nInformation barriers: a clean team at Caldera will handle cyber risk metrics and DPT treasury analytics, segregated from the issuer\u2019s trading personnel; access is chaperoned and recorded.\nBlackout and no-tipping: issuer employees are in a pre-deal blackout and must not tip, selectively disclose, or discuss commercial terms with investors or counterparties outside approved channels.\nDPT/crypto sensitivity: the target\u2019s confidential stablecoin settlement pilot and a potential exchange listing of a house token are non-public and may be price-sensitive; distribution is restricted to the clean room.\nESG/climate financing: draft terms for a sustainability-linked bond with a 25 bps coupon step-up tied to Scope 2 KPIs are preliminary MNPI and subject to approval; disclosure will follow market announcements.\nCyber incident workflow: if, during diligence, we detect indicators of a ransomware infection beyond a red-team exercise, escalate within 2 hours to the Incident Subcommittee and the DPO for containment and notification assessment.\nData transfers: processors and sub-processors may access data from facilities in Kestrel Isle and Harii Prefecture subject to PDPA transfer obligations, contractual safeguards, and encryption in transit and at rest.\nRetention: deal-room materials and insider lists will be retained for seven years after closing or lapse of the transaction, then securely deleted or anonymised unless legal hold applies.\nDSARs: individuals may request access, correction, or withdrawal of consent by writing to dpo@artemis-pacific.example; responses will be provided within 30 days unless an exception applies.\nCommercial terms confidentiality: non-public pricing concepts (e.g., a 1.15x collar, earn-out bands, and break fee triggers) are MNPI and must not be discussed outside the project team or before approved announcements.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -220,6 +228,12 @@
       "category": "MNPI",
       "matched_text": "78,000,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Hanul Kinetics Co., Ltd. (KSX: HN\u2011Z1; fict.) proposes to acquire Eunhwa Robotics Co., Ltd.; purchase price KRW 78,000,000,000; non\u2011binding term sheet.\nClosing subject to Korean securities regulator approval (K\u2011FSC) and market operator clearance (KSX Growth Board); no MAC condition will be included.\nEach party may hold important information not yet publicly disclosed under the FSCMA; the investor\u2011relations briefing dated 2025\u201112\u201120 is public and not MNPI.\nCross\u2011border transfer of diligence files to SG review server approved per PIPA with explicit notices; Data\u2011Export Approval ref: KR\u2011HNUL\u2011EXP\u20119x_3 (archived).\nAs of 2026\u201102\u201110 the export link was disabled and all third\u2011country tokens revoked; no live overseas transfer in place.\nDPA Schedule (KR Addendum) Annex 2\u2014RRN minimisation: resident\u2011number fields masked and not required for investor review; policy applies to em ployment records.\nEmployee onboarding forms will be redacted before upload; DSAR from former employee Mr. Jo   In\u2011seok was fulfilled on 2026\u201101\u201115 and erasure completed for batch \"BOX\u2011kr\u201177_\u0394\".\nTwo marketing email consents withdrawn (log ids c\u2011kr\u201100O\u20117l1; c\u2011kr\u20118vv\u20112Q0) and processing stopped\u2014control completed, not a current risk.\nRetention: 3 years for deal files excluding CVs; automatic minimisation deletes r\u00e9sum\u00e9 fields (age, re si dent\u2011number) on export.\nThis paragraph is generic policy text only and does not by itself indicate active processing or a breach.\nPublic\u2011source references (KSX DISC notices, company homepage) may be used for verification; no scraping of personal social media.\nConsideration shares to be listed on KSX subject to submission of em ployee integration plan to K\u2011FSC and FOS\u2011style post\u2011closing report (fictional oversight body).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

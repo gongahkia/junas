@@ -17,13 +17,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -37,13 +37,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -58,6 +58,46 @@
     "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
     "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
   },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "VN",
@@ -66,12 +106,12 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "matched_text": "Ms. Lan Q. Phạm",
+      "matched_text": "Ms. Lan Q. Ph\u1ea1m",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Duy Ngô",
+      "matched_text": "Mr. Duy Ng\u00f4",
       "rule": "named_person"
     },
     {
@@ -116,7 +156,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "KHÔNG CÔNG BỐ",
+      "matched_text": "KH\u00d4NG C\u00d4NG B\u1ed0",
       "rule": "nonpublic_marker"
     },
     {
@@ -231,12 +271,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "IR considerations: draft Q3 guidance references uplift from Nam Cát Solar 2; IR team must not distribute the draft until after the embargo, and all media responses should use the standard “no comment” language.",
+      "matched_text": "IR considerations: draft Q3 guidance references uplift from Nam C\u00e1t Solar 2; IR team must not distribute the draft until after the embargo, and all media responses should use the standard \u201cno comment\u201d language.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Conditions precedent: UBCKNN approval, HOSE acknowledgement, corporate approvals (board and shareholders’ circular resolution per LOE Art. 156), anti-money laundering clearance on Aster Banyan funds, and no MAE between signing and closing.",
+      "matched_text": "Conditions precedent: UBCKNN approval, HOSE acknowledgement, corporate approvals (board and shareholders\u2019 circular resolution per LOE Art. 156), anti-money laundering clearance on Aster Banyan funds, and no MAE between signing and closing.",
       "rule": "material_event"
     },
     {
@@ -323,12 +363,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "IR considerations: draft Q3 guidance references uplift from Nam Cát Solar 2; IR team must not distribute the draft until after the embargo, and all media responses should use the standard “no comment” language.",
+      "matched_text": "IR considerations: draft Q3 guidance references uplift from Nam C\u00e1t Solar 2; IR team must not distribute the draft until after the embargo, and all media responses should use the standard \u201cno comment\u201d language.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Conditions precedent: UBCKNN approval, HOSE acknowledgement, corporate approvals (board and shareholders’ circular resolution per LOE Art. 156), anti-money laundering clearance on Aster Banyan funds, and no MAE between signing and closing.",
+      "matched_text": "Conditions precedent: UBCKNN approval, HOSE acknowledgement, corporate approvals (board and shareholders\u2019 circular resolution per LOE Art. 156), anti-money laundering clearance on Aster Banyan funds, and no MAE between signing and closing.",
       "rule": "material_event"
     },
     {
@@ -395,6 +435,12 @@
       "category": "MNPI",
       "matched_text": "pending board sign-off",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board of Directors, Orchid Mekong Renewables JSC (CTCP N\u0103ng L\u01b0\u1ee3ng Lan Mekong) \u2014 From: Legal & Compliance; Contact: Ms. Lan Q. Ph\u1ea1m, CLO, ms.lan.pham@orchidmekong.vn.\nRe: PROJECT LOTUS \u2014 proposed private placement and strategic alliance with Aster Banyan Capital Pte Ltd (non-resident investor) and related definitive documentation.\nTransaction summary: issue of 60,000,000 new shares (approx. 15% post-issuance) at VND 20,000/share for gross proceeds of VND 1,200,000,000,000; proceeds earmarked for Nam C\u00e1t Solar 2 and working capital.\nDefinitive agreements: Share Subscription Agreement (SSA) and Strategic Cooperation Agreement in near-final form (draft 2026-06-20) circulated for board review; closing conditioned on UBCKNN approval and HOSE notification.\nConfidentiality: this note and the attached investor-relations draft are NON-PUBLIC; nothing herein is filed on the HOSE system or announced on our website prior to the embargo.\nMAE/MAC: for avoidance of doubt, changes in VN-Index levels, interest rates, or general PV panel input price movements shall not constitute a Material Adverse Effect; the current supplier delay at B\u00ecnh Ph\u00fa substation is not a MAC event.\nPrepared by: Ms. Lan Q. Ph\u1ea1m (CLO) and Mr. Duy Ng\u00f4 (Treasury, Employee ID CL-4172); internal settlement coordination via S\u00f4ng Xanh Bank, District 3 branch, ops account 102-334455-66 (fees only), with equity settlement through VSDC account 888-006688 (Aster Banyan).\nRegulatory path: pre-clear with HOSE Listing Dept., file private placement dossier under Decree 155/2020/N\u0110-CP with UBCKNN, and publish disclosure within T+1 of signing; target signing 12 July 2026, pricing reference per investor term sheet.\nPublic-source reference (benign): our 2025 Sustainability Report already disclosed a general capacity expansion plan; however, the pricing and investor identity in PROJECT LOTUS are not public and remain subject to the above embargo.\nIR considerations: draft Q3 guidance references uplift from Nam C\u00e1t Solar 2; IR team must not distribute the draft until after the embargo, and all media responses should use the standard \u201cno comment\u201d language.\nVendor/third parties: codename \u201cPROJECT LOTUS\u201d to be used on all external counsel and diligence invoices (Amber Reed Advisors Co., Ltd.; Blue Bamboo Securities JSC fairness opinion pending board sign-off).\nConditions precedent: UBCKNN approval, HOSE acknowledgement, corporate approvals (board and shareholders\u2019 circular resolution per LOE Art. 156), anti-money laundering clearance on Aster Banyan funds, and no MAE between signing and closing.\nCovenants: dividend lock-up through FY2027 and a 12-month standstill by Aster Banyan on secondary market purchases above 19.9%; any waiver requires a supermajority board vote including at least one independent director.\nTimeline risk: grid-connection testing at B\u00ecnh Ph\u00fa substation may slip by two weeks; management assesses this as immaterial to FY2026 EBITDA targets and not reasonably expected to cause a material adverse change.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -412,37 +458,5 @@
     }
   ],
   "source_jurisdiction": "VN",
-  "uncertain": [],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  "uncertain": []
 }

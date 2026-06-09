@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -344,6 +352,12 @@
       "category": "MNPI",
       "matched_text": "240,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2013 MNPI \u2013 Project Banyan \u2013 Embargoed until 30 June 2026, 08:00 SGT.\nAurora Straits Holdings Ltd. (SGX-ST Mainboard) incident report: vendor SFTP credential compromise detected on 28 May 2026 at 21:40 SGT by SOC alert, contained within 45 minutes.\nUnauthorised access exposed PDPA-covered data (names, emails, and mobile numbers of 37 job applicants) and one internal Board memo attachment; no NRIC copies were stored in the affected directory.\nMNPI exposure risk: draft Share Purchase Agreement and term sheet for Project Banyan (proposed acquisition of 75% of Meridian Docks Pte. Ltd. for S$240,000,000) were present in the same vendor exchange.\nSPA clause 8.2 (negated MAC): any cyber incident disclosed prior to Closing shall not, by itself, constitute a Material Adverse Effect for purposes of Conditions Precedent.\nStatus: forensic timeline indicates data exfiltration window < 2 hours; no customer or payroll records accessed; preliminary impact to FY2026 revenue estimated at \u22641.5%.\nRegulatory/listing considerations: under the SFA and SGX Listing Manual Rule 703, the information is likely price-sensitive; recommend trading halt and embargo on external communications until 30 June 2026 08:00 SGT pending final forensic report.\nPDPA actions: notify PDPC within 3 business days under Part VIA; implement credential rotation and vendor hardening; prepare individual notifications for affected applicants via dpo@aurorastraits.sg.\nIR draft (not for release) prepared for potential post-embargo announcement; queries to Ms. Rina Koh, Head of Investor Relations, rina.koh@aurorastraits.sg; restrict circulation to Board and deal team only.\nDeal checklist: confirm no leak paths from advisors; rotate vendor keys; verify that only generally available information is used in any analyst engagement; cross-check public sources (e.g., 2024 supplier list on our website).\nBoard memo note: if SPA executed before disclosure, include carve-out and covenant to cooperate on cyber remediation; if not, amend term sheet to add escrow of S$12,000,000 (5%) for post-closing claims.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

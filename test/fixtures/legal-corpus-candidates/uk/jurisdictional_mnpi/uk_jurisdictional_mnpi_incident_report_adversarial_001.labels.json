@@ -50,6 +50,14 @@
     "previous_must_detect_count": 6,
     "previous_must_not_detect_count": 7
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -202,6 +210,18 @@
       "category": "MNPI",
       "matched_text": "Insider List",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Status: This constitutes inside information under UK MAR; non\u2011public pending permitted delay; distribution restricted to Board and PDMRs only.\nSummary: outage on \u201cHawthorn\u201d payments platform from 03:14\u201308:52 BST due to third\u2011party patch regression; ~12,4OO card authorisations queued; no evidence of data exfiltration.\nImmediate impact: potential H1 fee income deferral of 0.6\u20130.8% if backlog not cleared by month\u2011end; consistent with guidance in our 30 April RNS\u2011B trading update (RNSB/26/0099).\nPublic status: Not yet disclosed via R N S\u2011B; a generic holding line was posted to h t t p s : / / status . bramblegate\u2011finance . example (non\u2011price\u2011sensitive service notice).\nDelay to disclosure: We rely on UK MAR Art. 17(4); confidentiality preserved, omission not likely to mislead, and we can ensure control; pre\u2011notified the competent authority via UK MOO portal, ref UKMOO/17/4/0\u20110\u20117.\nClosed period: 30\u2011day blackout ahead of interim results under BSE\u2011UK rules; PDMRs reminded not to deal; wall\u2011crossing limited to two lenders under NDA on 0 6 / 0 6 / 2 0 2 6.\nSelective disclosure risk: Ms. Priya Latchford (CFO) and Mr. Owen Kells (CISO) briefed three prospective ABS investors in a diligence call; each was wall\u2011crossed and acknowledged receipt of inside information.\nPublic reference: Our 2025 Sustainability & Controls Report (RNS\u2011B notice RNSB/25/0142, 14 March 2026) outlines Hawthorn resilience targets at a high level and remains public.\nTechnical details: affected nodes uk\u2011haw\u20111a/1b; patch v9.8.1; hash ff:3a:4b:0l (ell); case ref INC\u20112O26\u20110l9B; auth queue ID 7X\u20114l3\u2011UK; vendor ticket u r l https://support.vendor\u2011alpha.example/case?id=H4W\u2011981.\nCustomer data: only tokenised PANs observed; no unencrypted personal data; under UK GDPR we assess low risk to data subjects; notification to the UK DSO is not required at this time.\nMarket impact: preliminary P&L sensitivity <\u00a31.2m deferred fees; this does not constitute a material adverse change under the 2024 RCF with Trillmere Lending Syndicate.\nRemediation: rollback applied at 08:22; backlog clearing ETA 11:30; independent forensics engaged (Redmuir Cyber Ltd) with daily updates to the Audit & Risk Committee.\nDisclosure plan: unless confidentiality is compromised, we intend to release a brief operational update via R N S\u2011B by 07:00 BST next trading day; broader comms to follow via investor microsite.\nGovernance: Audit & Risk Committee Chair Sir Rowan Hargate has convened an extraordinary meeting at 17:00; outcomes to be captured in the MAR Insider List (Bramblegate v2, list id bgf\u2011mar\u2011l1st).\nNon\u2011issues: legacy onboarding project \u201csilver fern\u201d is unaffected; the travel policy email sent last week is routine; this note is not a profit warning nor a change to previously stated outlook.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

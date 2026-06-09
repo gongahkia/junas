@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -189,6 +197,12 @@
       "category": "MNPI",
       "matched_text": "Insider List",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PA exclude information that would constitute non-public, price-sensitive information as defined under the Securities and Futures Ordinance; wall-crossing for M&A diligence is governed separately under the Insider List Policy.\nData export approval VR-HK-XBT-2026-011 was completed on 2026-01-09 by Ms. Tamsin Yiu, Compliance Director, with two-factor approval; no live export is pending at the time of this memo.\nFor the proposed acquisition scenario involving Amber Harbor Advisory Ltd by a VerdantRise subsidiary, only aggregated staffing metrics will be shared with external counsel, and all names will be pseudonymised prior to transfer.\nSecurity testing: breach notification drills concluded on 2025-12-15; this note does not indicate any incident; queries may be directed to Mr. Koji Ng at compliance@verdantrise.example.hk.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

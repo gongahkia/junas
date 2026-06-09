@@ -39,6 +39,8 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "UK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA labels were kept as deterministic cross-border-transfer findings where the fixture describes actual payroll/HR data exports.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T15:54:54Z",
@@ -46,6 +48,49 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
     "status": "owner_approved_uk_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_preserving_existing_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 31,
+    "current_must_detect_count": 15,
+    "current_must_not_detect_count": 15,
+    "previous_ideal_must_detect_count": 31,
+    "previous_must_detect_count": 16,
+    "previous_must_not_detect_count": 15
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -55,244 +100,268 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Eliza Torquay"
+      "matched_text": "Ms. Eliza Torquay",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "eliza.torquay@greengatecap.co.uk"
+      "matched_text": "eliza.torquay@greengatecap.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 7400 000912"
+      "matched_text": "+44 7400 000912",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Owen Rathbone"
+      "matched_text": "Mr. Owen Rathbone",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 12/09/1982"
+      "matched_text": "DOB 12/09/1982",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "BRB-LT-0397"
+      "matched_text": "BRB-LT-0397",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "u-714-39-ab"
+      "matched_text": "u-714-39-ab",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "880113"
+      "matched_text": "880113",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "v p n - 9 1 2 0 6"
+      "matched_text": "v p n - 9 1 2 0 6",
+      "rule": "internal_session_id"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£15.6m"
+      "matched_text": "\u00a315.6m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£2.1m"
+      "matched_text": "\u00a32.1m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "+7–9%"
+      "matched_text": "+7\u20139%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "8.5m"
+      "matched_text": "8.5m",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "strictly internal"
+      "matched_text": "strictly internal",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Torquay"
+      "matched_text": "Ms. Torquay",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "e t r - 5 5 - 0 8 - 3"
+      "matched_text": "e t r - 5 5 - 0 8 - 3",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "GGCP-LT-221"
+      "matched_text": "GGCP-LT-221",
+      "rule": "device_serial_number"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet in the public domain"
+      "matched_text": "not yet in the public domain",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "dealing is prohibited"
+      "matched_text": "dealing is prohibited",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "may significantly affect price"
+      "matched_text": "may significantly affect price",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "DOB 12/09/1982, Lendham Dock Office—Tower 4 (North Quay), device BRB-LT-0397 (Surface Pro 8), internal user id u-714-39-ab, and payroll ref 880113"
+      "matched_text": "DOB 12/09/1982, Lendham Dock Office\u2014Tower 4 (North Quay), device BRB-LT-0397 (Surface Pro 8), internal user id u-714-39-ab, and payroll ref 880113",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "DOB 07/05/1979, city Bristol, employer ‘insurer’, device tag LT-004"
+      "matched_text": "DOB 07/05/1979, city Bristol, employer \u2018insurer\u2019, device tag LT-004",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "12/09/1982"
+      "matched_text": "12/09/1982",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "07/05/1979"
+      "matched_text": "07/05/1979",
+      "rule": "date_of_birth"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Pre-close metrics: H1 net interest income forecast +7–9% YoY; treasury VaR down to £2.1m; these figures are not yet in the public domain and may significantly affect price if disclosed prematurely."
+      "matched_text": "Pre-close metrics: H1 net interest income forecast +7\u20139% YoY; treasury VaR down to \u00a32.1m; these figures are not yet in the public domain and may significantly affect price if disclosed prematurely.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "8.5m"
+      "matched_text": "8.5m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "9%"
+      "matched_text": "9%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to board approval"
+      "matched_text": "subject to board approval",
+      "rule": "contingent_mnpi_language"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "eliza.torquay@greengatecap.co.uk"
+      "matched_text": "eliza.torquay@greengatecap.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 7400 000912"
+      "matched_text": "+44 7400 000912",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "12/09/1982"
+      "matched_text": "12/09/1982",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "07/05/1979"
+      "matched_text": "07/05/1979",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Eliza Torquay"
+      "matched_text": "Ms. Eliza Torquay",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Owen Rathbone"
+      "matched_text": "Mr. Owen Rathbone",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Torquay"
+      "matched_text": "Ms. Torquay",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Pre-close metrics: H1 net interest income forecast +7–9% YoY; treasury VaR down to £2.1m; these figures are not yet in the public domain and may significantly affect price if disclosed prematurely."
+      "matched_text": "Pre-close metrics: H1 net interest income forecast +7\u20139% YoY; treasury VaR down to \u00a32.1m; these figures are not yet in the public domain and may significantly affect price if disclosed prematurely.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "8.5m"
+      "matched_text": "8.5m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£15.6m"
+      "matched_text": "\u00a315.6m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£2.1m"
+      "matched_text": "\u00a32.1m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "9%"
+      "matched_text": "9%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to board approval"
+      "matched_text": "subject to board approval",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Torquay, CFO (Greengate Capital plc), carries insider status effective 28/05/2026; contact eliza.torquay@greengatecap.co.uk; tel +44 7400 000912.\nFor monitoring, Mr. Owen Rathbone (Senior Compliance Manager, Brackenfell Bank plc), DOB 12/09/1982, Lendham Dock Office\u2014Tower 4 (North Quay), device BRB-LT-0397 (Surface Pro 8), internal user id u-714-39-ab, and payroll ref 880113 are associated with this review",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Torquay, CFO (Greengate Capital plc), carries insider status effective 28/05/2026; contact eliza.torquay@greengatecap.co.uk; tel +44 7400 000912.\nFor monitoring, Mr. Owen Rathbone (Senior Compliance Manager, Brackenfell Bank plc), DOB 12/09/1982, Lendham Dock Office\u2014Tower 4 (North Quay), device BRB-LT-0397 (Surface Pro 8), internal user id u-714-39-ab, and payroll ref 880113 are associated with this review.\nSession trace: vpn ref v p n - 9 1 2 0 6 and intranet URL https://portal.brackenfell.co.uk/filing?doc=preclose&issuer=GGCP&tid=R N S - 1 9 4 1 linked to his account.\nIndicative unannounced placing terms (subject to board approval): 8.5m new shares at a range of 180\u2013185p; expected gross proceeds circa \u00a315.6m; this is precise and non-public and should be treated as inside information.\nPre-close metrics: H1 net interest income forecast +7\u20139% YoY; treasury VaR down to \u00a32.1m; these figures are not yet in the public domain and may significantly affect price if disclosed prematurely.\nGeneric demographics from the HR dashboard (e.g., age bands 25\u201334 and 35\u201344, job family \u201canalyst\u201d, region \u201cSouth East\u201d) do not identify any specific person and should not be treated as PII.\nDevice inventories list \u201cWindows 11, iPhone 14, USB-C docks\u201d and the code OPS-129-Q; these are operational assets without direct linkage to a named individual.\nNo MAC clause is contemplated in the Subscription Agreement, and the board does not anticipate any material adverse change triggers during the offer window.\nThe governance team will refresh the insider list (Annex I format) and notify the FCA Primary Market team upon RNS approval; until then, dealing is prohibited for persons on the list.\nPublic-source references to sector pricing from \u201cUK Retail Lending Monitor, Apr 2026\u201d are permissible to cite and are not MNPI.\nMs. Torquay\u2019s temporary access token e t r - 5 5 - 0 8 - 3 \u2014to be revoked post-release\u2014was issued to device GGCP-LT-221; see helpdesk ticket HD/2026/0447.\nA standalone identifier \u201cDOB 07/05/1979",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under UK MAR and FCA Handbook (LR/DEPP), the pre-close trading update for Greengate Capital plc remains non-public; draft RNS details below are strictly internal.\nMs. Eliza Torquay, CFO (Greengate Capital plc), carries insider status effective 28/05/2026; contact eliza.torquay@greengatecap.co.uk; tel +44 7400 000912.\nFor monitoring, Mr. Owen Rathbone (Senior Compliance Manager, Brackenfell Bank plc), DOB 12/09/1982, Lendham Dock Office\u2014Tower 4 (North Quay), device BRB-LT-0397 (Surface Pro 8), internal user id u-714-39-ab, and payroll ref 880113 are associated with this review.\nSession trace: vpn ref v p n - 9 1 2 0 6 and intranet URL https://portal.brackenfell.co.uk/filing?doc=preclose&issuer=GGCP&tid=R N S - 1 9 4 1 linked to his account.\nIndicative unannounced placing terms (subject to board approval): 8.5m new shares at a range of 180\u2013185p; expected gross proceeds circa \u00a315.6m; this is precise and non-public and should be treated as inside information.\nPre-close metrics: H1 net interest income forecast +7\u20139% YoY; treasury VaR down to \u00a32.1m; these figures are not yet in the public domain and may significantly affect price if disclosed prematurely.\nGeneric demographics from the HR dashboard (e.g., age bands 25\u201334 and 35\u201344, job family \u201canalyst\u201d, region \u201cSouth East\u201d) do not identify any specific person and should not be treated as PII.\nDevice inventories list \u201cWindows 11, iPhone 14, USB-C docks\u201d and the code OPS-129-Q; these are operational assets without direct linkage to a named individual.\nNo MAC clause is contemplated in the Subscription Agreement, and the board does not anticipate any material adverse change triggers during the offer window.\nThe governance team will refresh the insider list (Annex I format) and notify the FCA Primary Market team upon RNS approval; until then, dealing is prohibited for persons on the list.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "25–34",
+      "matched_text": "25\u201334",
       "reason": "Generic demographic band not identifying on its own"
     },
     {
-      "matched_text": "35–44",
+      "matched_text": "35\u201344",
       "reason": "Generic demographic band not identifying on its own"
     },
     {
@@ -340,7 +409,7 @@
       "reason": "Generic location not identifying on its own"
     },
     {
-      "matched_text": "employer ‘insurer’",
+      "matched_text": "employer \u2018insurer\u2019",
       "reason": "Generic employer category not identifying on its own"
     },
     {
@@ -365,42 +434,5 @@
       "matched_text": "effective 28/05/2026",
       "reason": "Acts like an effective date marker but does not use the exact 'Effective Date' phrase required by the rule"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_preserving_existing_owner_approval",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 16,
-    "current_must_detect_count": 15,
-    "previous_ideal_must_detect_count": 31,
-    "current_ideal_must_detect_count": 31,
-    "previous_must_not_detect_count": 15,
-    "current_must_not_detect_count": 15
-  }
+  ]
 }

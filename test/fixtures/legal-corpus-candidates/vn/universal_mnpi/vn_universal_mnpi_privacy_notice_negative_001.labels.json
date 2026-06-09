@@ -48,6 +48,14 @@
     "status": "post_cn_ae_precision_realign_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "VN",
@@ -220,6 +228,12 @@
       "category": "MNPI",
       "matched_text": "10%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lantern Bamboo Holdings JSC (Vietnam) \u2014 Privacy Notice and Data Processing Addendum for disclosure, HR, banking, and transaction workflows.\nUnder Decree 13/2023 on personal data protection, we process information associated with or helping identify a specific person (PII) in employee records, shareholder registers, IR inquiries, and vendor onboarding.\nCategories include role emails, masked account tokens (example: ACCT-ID LBM-000-XYZ), payroll IDs (example: VNB-XXXX-9999), and public-source materials from HOSE and HNX announcements; we avoid storing biometric data.\nLawful bases include consent where applicable, performance of contracts, and compliance with SSC and stock exchange rules; this notice relies on already-announced facts and stale public disclosures.\nDSAR channel: submit the generic form \u201cRequest for Access/Correction\u201d via privacy@lanternbamboo.example or the IR mailbox ir@lanternbamboo.example; no personal phone contacts are used.\nRetention workflow: board memo drafts 12 months; research notes 6 months; investor-relations drafts 3 months; unexecuted term sheets destroyed after 30 days; access logs auto-purged after 180 days.\nCross-border transfers: limited hosting in Singapore under contractual safeguards; localization exceptions are assessed per Decree 13; River Lotus Bank (fictional) receives payroll tokens only, not full account numbers.\nSecurities context: we maintain MNPI labels internally and embargo calendars; no MAC/MAE has occurred with respect to public programs, and we do not disclose non-public issuer information in this notice.\nEmbargo date: 2026-07-14 09:00 ICT for a definitive agreement signing is captured in the IR calendar and restricted to authorized users until release to HOSE.\nPublic references: 2023 annual report LBH-AR-2023, HOSE news links, and analyst summaries relying on open data; our research note templates avoid pre-announcement price-sensitive content.\nThreshold language: we track 5% and 10% reporting triggers under the Securities Law, but this document does not announce any new substantial shareholding or tender percentages.\nProject management: checklist_v0, draft_ir_note_v1, and archive_ready flag are internal labels; these lowercase items are not deal codenames and carry no confidential marker.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -265,6 +273,18 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 2024-05-28, our internal monitoring in DIFC detected anomalous access to the Finance drive by Ms. Leila Barakat (Deputy Finance Manager, age 34, DOB 1989-11-17) via a company laptop",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2024-05-28, our internal monitoring in DIFC detected anomalous access to the Finance drive by Ms. Leila Barakat (Deputy Finance Manager, age 34, DOB 1989-11-17) via a company laptop.\nDevice: Dell Latitude 7420 asset tag SH-DW-7420-33; VPN sess id sh-vpn/ab3c-9 4; IPv4 10.18.7.44; not a MAC address: 00-00-00-00-00-00.\nMs. Barakat\u2019s corporate account leila.barakat@saharhorizons.example accessed https://intra.saharhorizons.example/fin/term-sheet?deal=SL-sukuk&sid=se s s-4F12C9 and uploaded a zip to share-ext.\nAccess originated from a hotel Wi-Fi in Al Maryah Island, Abu Dhabi (ADGM vicinity), during a roadshow prep meeting.\nHer profile notes family roots in Al Ain (maternal), Liwa Oasis (paternal), which are irrelevant to this assessment but stored in HR for diversity reporting.\nHR fields include Emirates ID ref EID 784-1989-1234567-3 and Trade Licence TL-AD-923451 for Sahar Horizons PJSC; no original IDs were exported.\nThe files touched included an unsigned ADX timetable and draft sustainability-linked sukuk allocation model for Al Qamar Renewables LLC (issuer mandate pending), which is confidential MNPI under SCA/ADGM guidance.\nPublic data such as 2023 ESG policy brochures and generic procurement templates are not sensitive and can remain on the shared drive.\nWe did not observe credential stuffing, and no payment card numbers or health data were processed; the string 1234-56-789 is a product code, not an account.\nA separate spreadsheet lists \u201cDOB 1975-02-05; role: analyst; device: iPhone 12; location: Sharjah\u201d without names and should not be treated as directly identifying.\nExport log row: ac c t: 400-77 21-ABD, bucket=fin-esg-v5, u r l: https://dl.saharhorizons.example/esg/v5/score?proj=ne w-w ind&rid=R-0 08.\nGeneric demographics in the risk dashboard (male 40s, marina commute, Android user) are non-actionable alone and do not create identifiability per PDPL.\nAs per DIFC Data Protection Law and UAE PDPL, we will notify only if confirmed exfiltration of PD falls above risk threshold; at present, indicators show limited exposure linked to a single user and device.\nFor follow-up, contact Dr. Omar Safwan, DPO, at dpo@saharhorizons.example or +971-50-000-1234; this report is marked Internal\u2014Market Abuse Controls.\nThis incident does not indicate market manipulation, does not include pricing guidance, and does not reveal a securities identifier or ISIN.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

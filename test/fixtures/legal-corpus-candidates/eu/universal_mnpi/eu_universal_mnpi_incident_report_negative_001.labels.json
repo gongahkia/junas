@@ -50,6 +50,14 @@
     "previous_must_detect_count": 7,
     "previous_must_not_detect_count": 5
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -147,6 +155,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "incident report (operational/cyber) \u2014 quendris utilities se (valence exchange se: vx), eu issuer\n\ndescription of event: low-grade phishing emails detected on 2026-05-30; no systems compromised; already noted in the q2 operations update on our public newsroom\n\nrisk assessment: non-material for csrd reporting; no service disruption; reference: national cyber bulletin ccb-26-112 (public, fictional)\n\ngdpr: personal data limited to role mailboxes (it-ops@quendris.example, privacy@quendris.example); no art 9 special-category data processed; purpose limitation and storage limitation observed\n\ncross-border transfer: security logs mirrored to a processor in lydria (non-eea) under sccs v2.1; transfer impact assessment logged; local dpa informed via standard portal form (routine notification)\n\nmar workflow: information assessed as not precise and not likely to significantly affect price; no delay decision required; insider list not opened at this stage\n\nnegated mac language: no mac/mae triggered under revolving credit facility; covenant position unchanged versus last published annual report\n\nir draft note: cyber paragraph for the q2 trading update is prepared with an embargo until 2026-07-15 08:00 cet for vx disclosure; internal distribution limited to comms and legal\n\npublic-source references: see quendris utilities se 2025 csrd report (pp. 34\u201335) and the cyber hygiene factsheet on the sustainability microsite (already available)\n\nsfdr tie-in: no change to pai indicators; no adverse sustainability impacts identified for distributors of article 8 strategies; any broker research mentions expected to be generic\n\ncontrols: mfa enforced; enterprise password reset completed; no vendor escalation; public helpline +00 000 000 000 and security@quendris.example (role inbox) available for inquiries\n\ninvalid identifiers (form placeholders only): isin ZZ0000000000, lei 000000FAKELEI42, account id 1234-XXXX-0000; placeholders not linked to an actual instrument\n\nproject-management notes: lower-case updates; backlog grooming tomorrow; spa-day voucher for ops team remains scheduled\n\nboard memo cross-reference: see operations committee paper oc-26-044 (archived, non-confidential) summarising the already-announced phishing trend\n\nterm sheet/definitive agreements: not applicable; no acquisition, disposal, or financing amendment contemplated in relation to this event",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

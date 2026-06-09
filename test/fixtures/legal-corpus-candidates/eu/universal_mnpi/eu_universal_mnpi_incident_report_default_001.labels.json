@@ -50,6 +50,14 @@
     "previous_must_detect_count": 23,
     "previous_must_not_detect_count": 2
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -352,6 +360,24 @@
       "category": "MNPI",
       "matched_text": "1.2%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Prepared for the Board by Dr. Lina Kessler, Group DPO, and Mr. Oskar Vidal, CFO; contact: lina.kessler@novalight.eu, +358 040 000 1212.\nOn 2026-07-09 we identified a cyber incident at our Helderland data hub impacting approx. 3.1% of EU consumer records and certain Art. 9 GDPR wellness entries collected during voluntary employee programmes.\nInitial forensics indicate unauthorised API access via third-country sub-processor CloudArcadia Pte Ltd (SG), covered by 2024 SCCs and a definitive Data Processing Agreement signed 2025-11-03",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC \u2014 INSIDE INFORMATION \u2014 Project LARKSPUR incident report (IR draft) \u2014 Novalight SE \u2014 Embargo until 2026-07-15 07:30 CET.\nPrepared for the Board by Dr. Lina Kessler, Group DPO, and Mr. Oskar Vidal, CFO; contact: lina.kessler@novalight.eu, +358 040 000 1212.\nOn 2026-07-09 we identified a cyber incident at our Helderland data hub impacting approx. 3.1% of EU consumer records and certain Art. 9 GDPR wellness entries collected during voluntary employee programmes.\nInitial forensics indicate unauthorised API access via third-country sub-processor CloudArcadia Pte Ltd (SG), covered by 2024 SCCs and a definitive Data Processing Agreement signed 2025-11-03.\nWe have contained the vector and rotated keys; personal data potentially affected include hashed emails, device IDs, and limited health profile tags (no government IDs, no payment cards).\nFor MAR purposes this is likely precise, non-public information; IR to prepare an Article 17 disclosure aligned with Nordhaven Securities Market Authority (NSMA) rules and Euronext Baltica manual after the embargo window.\nEstimated remediation and customer notification costs are \u20ac2.8\u20133.4m, with a temporary 1.2% EBITDA headwind in Q3; liquidity and covenants remain unaffected.\nThe Share Purchase Agreement for Project LARKSPUR (definitive SPA dated 2026-06-28) includes a MAE qualifier; current assessment: the incident does not constitute a MAC/MAE under \u00a77.2(b).\nCross-border transfer safeguards are operational (SCCs + TIAs); we will notify the Data Protection Authority of Helderland within 72h in line with GDPR Art. 33 and consult our lead supervisory authority under the one-stop-shop.\nCSRD/ESRS impact: we will include the event in ESRS S-Risk and Gov-4 disclosures; SFDR PAI metrics unchanged as no environmental harm occurred.\nPublic-source reference: as already described on our sustainability microsite (policy updated in 2024), we encrypt all archives at rest using AES-256 and rotate keys quarterly.\nInvestor-relations note (draft): no change to FY guidance; capital expenditure for cyber hardening will be reallocated within the existing \u20ac12m envelope.\nDeal checklist excerpt \u2014 non-public markers: codeword \u201corchid\u201d in board packs, restricted room access, blackout list expansion to 17 names; employees reminded of MAR closed-period rules.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

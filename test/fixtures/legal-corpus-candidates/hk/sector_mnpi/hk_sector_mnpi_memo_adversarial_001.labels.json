@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
     "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -150,7 +176,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "earn‑out",
+      "matched_text": "earn\u2011out",
       "rule": "contingent_mnpi_language"
     },
     {
@@ -190,12 +216,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject: Proposed acquisition of GreenHarbor Carbon Chain Ltd and concurrent JV with BluePeak Digital Asset Partners SPC; key terms include HKD 128m upfront and a 2‑year earn‑out indexed to verified carbon unit sales; long‑stop 31 Oct and 2% reverse break fee",
+      "matched_text": "Subject: Proposed acquisition of GreenHarbor Carbon Chain Ltd and concurrent JV with BluePeak Digital Asset Partners SPC; key terms include HKD 128m upfront and a 2\u2011year earn\u2011out indexed to verified carbon unit sales; long\u2011stop 31 Oct and 2% reverse break fee",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Public references: please see HKEX’s public ESG guidance “GL‑ESG‑2031” and SFC circular on virtual asset platform risk management (Dec 2025) for background only; these are cited for context and are not inside information",
+      "matched_text": "Public references: please see HKEX\u2019s public ESG guidance \u201cGL\u2011ESG\u20112031\u201d and SFC circular on virtual asset platform risk management (Dec 2025) for background only; these are cited for context and are not inside information",
       "rule": "material_event"
     },
     {
@@ -242,12 +268,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject: Proposed acquisition of GreenHarbor Carbon Chain Ltd and concurrent JV with BluePeak Digital Asset Partners SPC; key terms include HKD 128m upfront and a 2‑year earn‑out indexed to verified carbon unit sales; long‑stop 31 Oct and 2% reverse break fee",
+      "matched_text": "Subject: Proposed acquisition of GreenHarbor Carbon Chain Ltd and concurrent JV with BluePeak Digital Asset Partners SPC; key terms include HKD 128m upfront and a 2\u2011year earn\u2011out indexed to verified carbon unit sales; long\u2011stop 31 Oct and 2% reverse break fee",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Public references: please see HKEX’s public ESG guidance “GL‑ESG‑2031” and SFC circular on virtual asset platform risk management (Dec 2025) for background only; these are cited for context and are not inside information",
+      "matched_text": "Public references: please see HKEX\u2019s public ESG guidance \u201cGL\u2011ESG\u20112031\u201d and SFC circular on virtual asset platform risk management (Dec 2025) for background only; these are cited for context and are not inside information",
       "rule": "material_event"
     },
     {
@@ -304,6 +330,24 @@
       "category": "MNPI",
       "matched_text": "information barrier",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2013 Internal Legal & Compliance Memo (HK) \u2013 Project SAFFRON\nTo: Board of Harbor Crest Technologies Limited (HKEx\u2011listed, code HCT\u2011X [internal placeholder]) and Mr. Adrian Tso, NED; From: Group Counsel; Date: 30 May\nSubject: Proposed acquisition of GreenHarbor Carbon Chain Ltd and concurrent JV with BluePeak Digital Asset Partners SPC; key terms include HKD 128m upfront and a 2\u2011year earn\u2011out indexed to verified carbon unit sales; long\u2011stop 31 Oct and 2% reverse break fee\nInside information assessment: under SFO Part XIVA and Listing Rule 13.09, the cyber and VA licensing status below is likely price\u2011sensitive and not generally known to persons who commonly invest or deal in our shares\nCyber incident: target reports a credential\u2011stuffing event on 18 May (internal ticket C\u2011 4 1 9 8) affecting 2,130 user records; no client assets moved; this has not been announced to the market and is subject to remediation and SFC engagement\nVirtual asset operations: the target operates a pilot DPT order\u2011book for tokenised REC/VCU products; SFC VATP licence application is in draft; treasury w a l l e t: 0x9f13...b3 (masked) is used for staking yield that will be carved\u2011out at completion\nESG/climate: the business model tokenises reef\u2011restoration carbon units; a side letter proposes a HKD 12m price collar if 2 0 2 7 V C U s fail to meet BlueSea Registry Method GR\u201109; this commercial term is not to be shared outside the clean team\nInformation barriers: only the \u201cPro ject SA FFR ON\u201d clean team may access the data room; an insider list (Appendix A) includes Mr. Adrian Tso, Ms. Lila Ko, and 14 staff (IDs partially masked: H K \u2011 Z X 9 1 3 2 ( 4 ), etc.); no onward disclosure except on a need\u2011to\u2011know basis\nTrading restrictions: effective immediately, the Restricted List is updated and a blackout window applies to Group Digital and Treasury until further notice; any PAs by covered persons in crypto\u2011exposed securities are prohibited; please avoid tipping or selective disclosure to LPs or vendors\nFor training only: our public ESG and crypto glossary explains \u201ctokenisation,\u201d \u201cinsider list,\u201d and \u201cinformation barrier\u201d concepts at https://www.harbor-crest.hk/academy (general educational materials; not deal\u2011specific and not MNPI)\noperations note: update vdr folder \u201c04_commercials\u201d with the revised SPA; link: https://intra.harbor-crest.hk/case?id=PRJ-SA FF RON&doc=vdr%2Fspa_v3.pdf; avoid uploading any PII beyond names/roles strictly necessary under PDPO\nThere has been no material adverse change reported by the vendor since the 15 May Q&A, and no MAC condition is currently triggered under the draft SPA\nPublic references: please see HKEX\u2019s public ESG guidance \u201cGL\u2011ESG\u20112031\u201d and SFC circular on virtual asset platform risk management (Dec 2025) for background only; these are cited for context and are not inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -324,31 +368,13 @@
   "uncertain": [
     {
       "concept": "hk_hkid (masked/partial)",
-      "matched_text": "H K ‑ Z X 9 1 3 2 ( 4 )",
+      "matched_text": "H K \u2011 Z X 9 1 3 2 ( 4 )",
       "reason": "Appears to be a partially masked HKID-like string but does not match the full HKID pattern"
     },
     {
       "concept": "internal_ticket_id",
-      "matched_text": "C‑ 4 1 9 8",
+      "matched_text": "C\u2011 4 1 9 8",
       "reason": "Internal ticket/reference number; could be sensitive operational metadata but not clearly covered by an allowed rule"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

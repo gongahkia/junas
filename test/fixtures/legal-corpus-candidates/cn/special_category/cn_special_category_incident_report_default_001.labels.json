@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -325,6 +333,24 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR \u201cpre-employment health checks\u201d folder included Dr. Lin Mei\u2019s genetic screening report for thalassemia trait and thyroid treatment referrals, and Mr. Zhao Feng\u2019s attendance system biometric templates (.frp) with a redacted resident ID (99000019990302456X).\nMs. Tang Hui\u2019s dependent file contained her child Tang Rui (age 12) school physical form and guardian consent, constituting sensitive personal information of a minor under PIPL.\nMr. Han Jun, the employee union treasurer and Party branch liaison, had a union dues ledger and internal meeting notes exposed (union and political affiliation data)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Cybersecurity and MNPI Exposure \u2014 Issuer Qiyun Robotics Technology Co., Ltd. (USCC: 99QYRT0M2K1234567X), listed on Huadong Securities Exchange (HSE).\nIncident No. HSE-2026-07-018; Date: 2026-07-22; Location: Yonghai; Contact: incident@qiyun-robotics.cn.\nOn 2026-07-21 23:18 CST, NebulaShield WAF flagged anomalous outbound POST bursts from a legacy HR subnet; a compromised vendor account \u201csunrise-ops\u201d was used to exfiltrate archives.\nHR \u201cpre-employment health checks\u201d folder included Dr. Lin Mei\u2019s genetic screening report for thalassemia trait and thyroid treatment referrals, and Mr. Zhao Feng\u2019s attendance system biometric templates (.frp) with a redacted resident ID (99000019990302456X).\nMs. Tang Hui\u2019s dependent file contained her child Tang Rui (age 12) school physical form and guardian consent, constituting sensitive personal information of a minor under PIPL.\nMr. Han Jun, the employee union treasurer and Party branch liaison, had a union dues ledger and internal meeting notes exposed (union and political affiliation data).\nFinance \u201cQ2 flash\u201d and \u201cProject Cloud Arrow\u201d folders held unaudited earnings worksheets and a draft acquisition term sheet that were not publicly disclosed, constituting inside information under the Securities Law pre-disclosure regime.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

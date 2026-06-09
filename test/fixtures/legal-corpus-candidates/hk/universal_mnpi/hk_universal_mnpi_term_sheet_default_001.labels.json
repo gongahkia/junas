@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -339,6 +347,18 @@
       "category": "MNPI",
       "matched_text": "subject to regulatory clearances",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY PRIVATE & CONFIDENTIAL \u2014 Project Banyan \u2014 Embargoed until 31 July 2026, 18:00 HKT; contains inside information under Part XIVA of the SFO.\nParties: Orchid Harbour Holdings Limited (incorporated in Hong Kong) as Buyer; Luminous Wharf Group Limited (a Main Board issuer listed on HKEX) as Target.\nStructure: Strategic subscription for 22.5% of enlarged share capital via new share issuance and 2.5% secondary purchase from Coral Reef Ventures SPC (together, the \u201cTransaction\u201d).\nConsideration: Total HK$480,000,000 (HK$3.20 per new share), funded by Jade Lantern Master Fund \u2014 Sub\u2011Fund \u201cPearl Crane\u201d; no leverage at Buyer level at signing.\nUse of proceeds: capex for Kowloon cold\u2011chain expansion and working capital; non\u2011public budget referenced in Board Memo dated 28 June 2026 (Appendix A).\nDefinitive agreements: Share Subscription Agreement and Shareholders\u2019 Agreement targeted for execution on or before 15 August 2026; long\u2011stop date 30 September 2026.\nConditions precedent: SFC whitewash waiver (if triggered) under the Takeovers Code, independent shareholders\u2019 approval under HKEX Listing Rules, HKEX clearance, and no Material Adverse Change in the Target Group prior to completion.\nMAC carve\u2011outs: changes in Hong Kong interest rates, typhoon\u2011related operational disruptions, or HKFRS amendments shall not, in themselves, constitute a MAE; for the avoidance of doubt, there has not been any MAE since 1 January 2026.\nGovernance and employment: Buyer to nominate 2 of 9 board seats; reserved matters list attached; key management retention \u2014 Mr. Pang Hoi\u2011kit to remain CEO for 36 months at HK$2,400,000 per annum plus options equal to 1.0% of post\u2011money share capital (vesting over 4 years).\nPublic reference: As disclosed in the Target\u2019s FY2025 annual report on HKExnews, net cash was approximately HK$120,000,000; this term sheet supplements, and is not inconsistent with, public information.\nAnnouncements & IR: Draft Rule 13.09/Part XIVA announcement and shareholder circular to be prepared by IR and legal; no release prior to the embargo date/time; no analyst briefings until the clean team approves the sanitised materials.\nExclusivity & confidentiality: 60\u2011day exclusivity; this document contains MNPI and is not for distribution; non\u2011binding save for confidentiality, exclusivity, costs, and governing law (Hong Kong).\nClosing mechanics: Expected completion in late Q3 2026 subject to regulatory clearances; escrow for subscription proceeds to be administered by Starlark Nominees (HK) Limited under Hong Kong law.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

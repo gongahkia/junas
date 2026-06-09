@@ -89,6 +89,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -102,22 +110,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Dalal Al‑Hazmi",
+      "matched_text": "Ms. Dalal Al\u2011Hazmi",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Faris Al‑Motlaq",
+      "matched_text": "Mr. Faris Al\u2011Motlaq",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "Re: Board memo (issuer workflow) — Project Nabt — Proposed acquisition of 62.5% of Najd Fiber Pipes Co. (CR 4030-77-1245) by Zahra Capital JSC for SAR 412,500,000.",
+      "matched_text": "Re: Board memo (issuer workflow) \u2014 Project Nabt \u2014 Proposed acquisition of 62.5% of Najd Fiber Pipes Co. (CR 4030-77-1245) by Zahra Capital JSC for SAR 412,500,000.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Definitive documents: Share Purchase Agreement (SPA) and Shareholders’ Agreement in near-final form; Signing targeted 2026-08-31; closing subject to competition and market regulator clearances.",
+      "matched_text": "Definitive documents: Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement in near-final form; Signing targeted 2026-08-31; closing subject to competition and market regulator clearances.",
       "rule": "material_event"
     },
     {
@@ -182,7 +190,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Shareholders’ Agreement",
+      "matched_text": "Shareholders\u2019 Agreement",
       "rule": "definitive_agreement"
     },
     {
@@ -192,7 +200,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "7–9%",
+      "matched_text": "7\u20139%",
       "rule": "financial_percentage"
     },
     {
@@ -257,7 +265,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "DRAFT‑NON‑D ISCLOSABLE",
+      "matched_text": "DRAFT\u2011NON\u2011D ISCLOSABLE",
       "rule": "nonpublic_marker"
     },
     {
@@ -287,7 +295,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "if MAE triggers post‑signing, walk‑away fee SAR 12,000,000 applies",
+      "matched_text": "if MAE triggers post\u2011signing, walk\u2011away fee SAR 12,000,000 applies",
       "rule": "contingent_mnpi_language"
     }
   ],
@@ -299,22 +307,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Dalal Al‑Hazmi",
+      "matched_text": "Ms. Dalal Al\u2011Hazmi",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Faris Al‑Motlaq",
+      "matched_text": "Mr. Faris Al\u2011Motlaq",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "Re: Board memo (issuer workflow) — Project Nabt — Proposed acquisition of 62.5% of Najd Fiber Pipes Co. (CR 4030-77-1245) by Zahra Capital JSC for SAR 412,500,000.",
+      "matched_text": "Re: Board memo (issuer workflow) \u2014 Project Nabt \u2014 Proposed acquisition of 62.5% of Najd Fiber Pipes Co. (CR 4030-77-1245) by Zahra Capital JSC for SAR 412,500,000.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Definitive documents: Share Purchase Agreement (SPA) and Shareholders’ Agreement in near-final form; Signing targeted 2026-08-31; closing subject to competition and market regulator clearances.",
+      "matched_text": "Definitive documents: Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement in near-final form; Signing targeted 2026-08-31; closing subject to competition and market regulator clearances.",
       "rule": "material_event"
     },
     {
@@ -361,6 +369,12 @@
       "category": "MNPI",
       "matched_text": "9%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY PRIVATE & CONFIDENTIAL \u2014 Internal \u2014 Embargo: 2026-09-18 18:00 AST \u2014 Not for circulation outside issuer teams.\nRe: Board memo (issuer workflow) \u2014 Project Nabt \u2014 Proposed acquisition of 62.5% of Najd Fiber Pipes Co. (CR 4030-77-1245) by Zahra Capital JSC for SAR 412,500,000.\nThis information is non-public and subject to national exchange disclosure rules; any release will be coordinated through Investor Relations at ir@zahra-cap.example.\nDefinitive documents: Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement in near-final form; Signing targeted 2026-08-31; closing subject to competition and market regulator clearances.\nMAC/MAE: The SPA includes an MAE definition with carve-outs for general economic conditions; for the avoidance of doubt, no MAC is deemed to have occurred as of the date hereof.\nPDPL considerations: do not upload national ID/Iqama scans; sample record \u201cIqama 1 0 9 - 3 3 8 2 7 1 4 6\u201d and payroll IBANs must be tokenized; cross-border vendor access via the SDAIA transfer gateway requires prior permit.\nData room hygiene: personal data fields masked; CR extracts for counterparties to be redacted (example: C R   4 0 3 - 0 7 - 1 2 4 5); any onward transfer outside KSA logged in the SDAIA portal.\nFinancial highlights (issuer internal): pro-forma FY2026 EBITDA SAR 96m; anticipated net leverage 2.1x; expected integration synergies 7\u20139% of opex by Q4 2027.\nPublic-source reference: the 2024 Najd Fiber sustainability fact sheet (public web posting) lists water-recycling capacity of 32%, which aligns with our diligence claims.\nInvestor-Relations draft Q&A available at https://va ult.zahra-cap.example/dataroom?deal=proj-nabt&token=x9p-1a-0z; draft is marked DRAFT\u2011NON\u2011D ISCLOSABLE and must not be forwarded.\nBoard approvals: per KSA Companies Law (JSC), extraordinary resolution threshold noted; Ms. Dalal Al\u2011Hazmi (Board Secretary) to minute the vote; contact: dalal.alhazmi@zahra-cap.example.\nResearch note (internal only) by Mr. Faris Al\u2011Motlaq, General Counsel, concludes that PDPL Article 29 permits processing for legal claims; nonetheless, we will avoid storing face images or full Iqama numbers.\nproject notes: update gantt, chase vendor list, prep cr translations, align q2 call; hr also mentioned spa\u2011day vouchers next week, which is unrelated and not market\u2011sensitive.\nChecklist items pending: KYC on sellers (Al\u2011Qassim Holdings SPC, CR 101-88-0092) under enhanced due diligence; definitive escrow letter; embargoed press release copy; if MAE triggers post\u2011signing, walk\u2011away fee SAR 12,000,000 applies.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -373,7 +387,7 @@
       "reason": "Role noun; not an identifiable natural person"
     },
     {
-      "matched_text": "spa‑day",
+      "matched_text": "spa\u2011day",
       "reason": "False-positive bait; unrelated to Share Purchase Agreement"
     }
   ],
@@ -401,7 +415,7 @@
     },
     {
       "concept": "nonpublic_marker",
-      "matched_text": "DRAFT‑NON‑D ISCLOSABLE",
+      "matched_text": "DRAFT\u2011NON\u2011D ISCLOSABLE",
       "reason": "Irregular hyphenation/spacing may evade strict detectors"
     },
     {

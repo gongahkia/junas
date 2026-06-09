@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -184,6 +192,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Ms. Leona Chia, Data Protection Officer, dpo@meridian-llp.sg.\nScope: PDPA-compliant processing of employee, counterparty and shareholder data for M&A diligence and capital-markets work, including handling of information that may constitute MNPI under the SFA/SGX rules.\nCross-border transfers: onboarding and HR files are hosted in Singapore with controlled replication to our Kuala Lumina Processing Centre (Malaysia) under PDPC Model Clauses (Schedule 2), with comparable protection and encryption at rest.\nFor deal rooms, any pre-announcement term sheets and analyst decks containing non-public price-sensitive information are stored in a \u201cMNPI \u2013 Restricted\u201d workspace with access logged and no external sharing until public disclosure via SGXNet.\nDSAR handling: access/correction requests are acknowledged within 3 business days and fulfilled within 30 days unless an exception under the PDPA applies; requests should be sent to privacy@solaria-metals.sg or dpo@meridian-llp.sg.\nConsent withdrawal: individuals may withdraw consent for marketing or talent pooling at any time; upon receipt, we cease such processing within a reasonable time and confirm by email, without affecting mandatory regulatory records.\nMinimisation: we do not collect full NRIC numbers for recruitment or vendor onboarding; where identification is required, we record only the last three characters and delete any scanned images immediately after verification.\nErasure/cease-retention: upon closure of a deal or termination of engagement, personal data no longer necessary is anonymised or securely destroyed, subject to legal holds and our retention limitation obligation.\nRetention: matter files containing MNPI and client instructions are retained for 6 years from transaction completion to meet professional and SFA record-keeping expectations, after which we cease retention unless litigation is reasonably contemplated.\nTransfer approvals: cross-border exports for payroll processing by Aurora Pay Sdn Bhd (Malaysia) and archiving by CirrusVault Pty Ltd (Australia) were approved by the DPO on 12 Feb 2026 with vendor DPAs on file.\nCompleted control: the legacy HR share drive containing 2019\u20132020 intern CVs was permanently purged and cryptographically shredded on 3 Mar 2025; no backups remain and this action closed PDPC audit finding REF-MER-042.\nNegative statement: the planned transfer of candidate profiles to a Vietnam screening vendor in May 2026 did not proceed and no personal data was exported.\nSecurity/MNPI wall: staff on the Solaria Metals mandate are seconded into a ring-fenced team with insider lists maintained; as of this note there are no open wall breaches or suspected leaks.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

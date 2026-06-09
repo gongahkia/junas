@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -195,6 +203,18 @@
       "category": "MNPI",
       "matched_text": "Term Sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Invalid Identifier Placeholders for Form Tracking: Securities Code: 0000A-BETA (invalid placeholder), Resolution Ref: RES-2026-XX-ALPHA, Dataroom Folder: DR-APPI-166-TEST",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Business Combination between Hikari Motors KK (Acquirer) and Mirai Circuits KK (Target) under the Companies Act of Japan\nStructure: Share acquisition with an option to implement a subsequent share exchange (kabushiki kokan); no tender offer (TOB) is currently planned, and any TOB trigger will be assessed pursuant to FIEA requirements\nConsideration: Mix of cash and acquirer shares to be determined; any share issuance will comply with fictional Shin-Nihon Growth Market listing rules and internal pricing policies\nConditions Precedent: Board approvals of both parties, customary representations and warranties, and confirmation that no undisclosed enumerated material facts exist under FIEA at signing\nMNPI Covenant: Parties represent reliance solely on publicly announced facts (including previously disclosed FY results and press releases) and shall refrain from trading in breach of FIEA Articles addressing insider trading and tender-offer facts\nData Protection: APPI compliance required; individual numbers (My Number) will not be collected or transferred in this transaction, and any HR data provided will be pseudonymized (e.g., Employee Code fields only)\nIntentional APPI carve-out for diligence: Employee Identifier E-04421 has disclosed ongoing hospital treatment scheduling as part of a paid medical leave request; any special-care personal information derived from this disclosure will be aggregated or redacted before transfer\nEmployee Matters: No union-transfer obligations are contemplated; retention bonuses and standard non-solicitation covenants to be negotiated in compliance with Japanese labor guidelines\nProducts and Trademarks (non-binding references): Target\u2019s catalog includes the \u201cGenetic Edge Router\u201d and \u201cBiometric Shield SDK,\u201d which are brand names and do not involve handling of genetic or biometric personal data\nPolicy Framework: Parties will align with Internal Ethics Policy 12-B and the Inclusive Workplaces Charter; generic wellness programs (Wellness Mileage Program) may be extended post-closing without collecting sensitive data\nCSR/Community (non-binding): The combined group may sponsor the Rainbow Tigers amateur league and green factory initiatives in Hoshikawa; such CSR statements are aspirational and not conditions to closing\nInvalid Identifier Placeholders for Form Tracking: Securities Code: 0000A-BETA (invalid placeholder), Resolution Ref: RES-2026-XX-ALPHA, Dataroom Folder: DR-APPI-166-TEST\nRegulatory Notices: Any future TOB or major share issuance will be announced via the Shin-Nihon Growth Market disclosure portal and the Kosei Securities Authority public bulletin as applicable\nContact for Information (role mailbox only): Investor Relations (ir@hikari-motors.example.jp) and Corporate Planning (cp@mirai-circuits.example.jp); no personal emails or direct lines will be used in pre-announcement communications",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

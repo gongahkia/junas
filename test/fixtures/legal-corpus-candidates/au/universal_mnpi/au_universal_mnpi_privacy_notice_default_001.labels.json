@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -6,14 +28,29 @@
   "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -138,12 +175,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "±5%",
+      "matched_text": "\u00b15%",
       "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "matched_text": "APP 8–compliant backup in Singapore",
+      "matched_text": "APP 8\u2013compliant backup in Singapore",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -272,6 +309,24 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Kerr, Privacy Officer, +61 2 9000 1111.\nScope includes employment records, health claims managed by MedicoAssist Pty Ltd, credit checks via Coastline Credit Bureau Pty Ltd, and transaction files for deal codename Project Kookaburra.\nNon-public: embargo on external disclosure until 30 September 2026 09:00 AEST; draft investor-relations Q&A is not for release before this embargo.\nWattleGrid executed a definitive Scheme Implementation Deed with Bottlebrush Renewables Holdings Pty Ltd on 15 August 2026 for A$42,500,000 consideration, including a 15% scrip placement.\nThe parties agree the MAC/MAE clause does not apply to revenue variance within \u00b15% or employee restructures under 2% FTE, and no Material Adverse Change shall be deemed to have occurred on those grounds.\nRetention: payroll and personnel files are kept 7 years (Fair Work obligations), credit assessment records 5 years, and MNPI artifacts for Project Kookaburra until completion plus 5 years.\nTransfers: data is stored in NSW and VIC, with an APP 8\u2013compliant backup in Singapore; offshore disclosures require contractual safeguards and OAIC-compliant assessments.\nAccess and correction: individuals may request access or correction under APP 12/13 by emailing privacy@wattlegrid.com.au; we verify identity (e.g., employee ID WG-E1234) and respond within 30 days.\nCredit information: we comply with the Privacy (Credit Reporting) Code; to correct a report from Coastline Credit Bureau Pty Ltd, email credit@wattlegrid.com.au.\nHealth information from the Employee Assistance Program is de-identified for reporting; no decision with legal or similarly significant effect is made solely by automated means.\nSecurity: files labelled \u201cMNPI \u2013 Project Kookaburra\u201d are held in ASX blackout folders; insider lists are maintained for ASIC inspection and board oversight.\nAs already disclosed in our FY24 Appendix 4E on the ASX announcements platform, the 2024 non-core divestments are public and outside this note\u2019s scope.\naction: upload the signed term sheet to the clean room by 5pm and confirm user permissions; also, the team spa day is pencilled for friday.\nComplaints we cannot resolve may be escalated to the OAIC; postal enquiries: PO Box 778, Willow Quay NSW 2122",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL \u2014 Data processing and retention workflow prepared under the Privacy Act 1988 (Cth) and APPs; not generally available for the purposes of s1042A Corporations Act.\nWattleGrid Limited (ASX:WGLX) appoints certain service providers as processors; contact privacy@wattlegrid.com.au.\nQueries may be directed to Ms. Eliza Kerr, Privacy Officer, +61 2 9000 1111.\nScope includes employment records, health claims managed by MedicoAssist Pty Ltd, credit checks via Coastline Credit Bureau Pty Ltd, and transaction files for deal codename Project Kookaburra.\nNon-public: embargo on external disclosure until 30 September 2026 09:00 AEST; draft investor-relations Q&A is not for release before this embargo.\nWattleGrid executed a definitive Scheme Implementation Deed with Bottlebrush Renewables Holdings Pty Ltd on 15 August 2026 for A$42,500,000 consideration, including a 15% scrip placement.\nThe parties agree the MAC/MAE clause does not apply to revenue variance within \u00b15% or employee restructures under 2% FTE, and no Material Adverse Change shall be deemed to have occurred on those grounds.\nRetention: payroll and personnel files are kept 7 years (Fair Work obligations), credit assessment records 5 years, and MNPI artifacts for Project Kookaburra until completion plus 5 years.\nTransfers: data is stored in NSW and VIC, with an APP 8\u2013compliant backup in Singapore; offshore disclosures require contractual safeguards and OAIC-compliant assessments.\nAccess and correction: individuals may request access or correction under APP 12/13 by emailing privacy@wattlegrid.com.au; we verify identity (e.g., employee ID WG-E1234) and respond within 30 days.\nCredit information: we comply with the Privacy (Credit Reporting) Code; to correct a report from Coastline Credit Bureau Pty Ltd, email credit@wattlegrid.com.au.\nHealth information from the Employee Assistance Program is de-identified for reporting; no decision with legal or similarly significant effect is made solely by automated means.\nSecurity: files labelled \u201cMNPI \u2013 Project Kookaburra\u201d are held in ASX blackout folders; insider lists are maintained for ASIC inspection and board oversight.\nAs already disclosed in our FY24 Appendix 4E on the ASX announcements platform, the 2024 non-core divestments are public and outside this note\u2019s scope.\naction: upload the signed term sheet to the clean room by 5pm and confirm user permissions; also, the team spa day is pencilled for friday.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -281,34 +336,5 @@
     }
   ],
   "source_jurisdiction": "AU",
-  "uncertain": [],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  "uncertain": []
 }

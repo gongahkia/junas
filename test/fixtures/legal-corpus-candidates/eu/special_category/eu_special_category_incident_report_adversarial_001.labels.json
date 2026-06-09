@@ -50,6 +50,14 @@
     "previous_must_detect_count": 21,
     "previous_must_not_detect_count": 7
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -297,6 +305,18 @@
       "category": "MNPI",
       "matched_text": "9%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: cyber incident affecting HR and R&D drives, potential personal data breach under GDPR Arts 4(12) and 9, and creation of inside information under EU MAR Art 7.\nNamed data subject: Mr. Toma\u0161 Varek (Employee ID: ORL-eID tvarek\u201494.\u2423\u2423), whose hospital oncology treatment schedule and union membership in the \u201cEnergia Workers Council\u201d were exposed in a misconfigured object-storage bucket.\nAdditional special category: biometric facial template hash (fmt v2 a6:9b:\u2026:ff) and the note \u201cpartner is male\u201d in a wellness form for Dr. Leona Schaffner, R&D lead, indicating sexual orientation.\nNo genetic data were collected for Mr. Varek; this sentence mentions genetic datasets only in a generic context for SFDR due diligence and is benign.\nScope: approximately 1,240 HR records accessed; controller is Orlena Renewables SE; processors are CloudVela GmbH and Perventa SA; cross-border transfer to a forensics vendor in Kaledon (non-EEA) under SCC Module 2.\nIncident channel: exfiltration via API key t o k e n: 4F-29 b1- R3D c\u2014br o k e n, observed in logs at https://siem.orlena-se.example/e/evt?id=9e7a%2Dq1%2D884&ts=20%3A14.\nIssuer impact (non-public): unannounced delay of Project \u201cPINEWIND\u201d turbines (250MW) by \u22659 months, expected to reduce FY2026 EBITDA guidance by 7\u20139%; preliminary view is that this constitutes inside information likely to significantly affect the price on Nordmerc.\nMAR workflow: insiders identified (list ID INS-ORL/2026-06-PINEWIND), dealing restricted from 06.06.2026 20:30 CET; notify the competent authority \u201cFMA Helveticia\u201d and the Nordmerc Exchange MAR desk.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

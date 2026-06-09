@@ -1,115 +1,176 @@
 {
-  "doc_id": "id_special_category_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "ID",
-  "destination_jurisdiction": "ID",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Guntur Mahesa"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_special_category_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Guntur Mahesa"
+      "matched_text": "Dr. Guntur Mahesa",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bapak Ridwan Halim"
+      "matched_text": "Bapak Ridwan Halim",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bapak Ridwan"
+      "matched_text": "Bapak Ridwan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ibu Diah Rahmadi"
+      "matched_text": "Ibu Diah Rahmadi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@auroradata.example.id"
+      "matched_text": "compliance@auroradata.example.id",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "templat pemindaian wajah (biometrik)"
+      "matched_text": "templat pemindaian wajah (biometrik)",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "catatan pengelolaan asma dari klinik rekanan (kesehatan)"
+      "matched_text": "catatan pengelolaan asma dari klinik rekanan (kesehatan)",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "keanggotaan Bapak Ridwan dalam Serikat Pekerja Bintang"
+      "matched_text": "keanggotaan Bapak Ridwan dalam Serikat Pekerja Bintang",
+      "rule": "trade_union_membership"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "internal draft, rahasia"
+      "matched_text": "internal draft, rahasia",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "belum dipublikasikan"
+      "matched_text": "belum dipublikasikan",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "akuisisi bersyarat"
+      "matched_text": "akuisisi bersyarat",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "kode proyek Kupu\u2011Kupu"
+      "matched_text": "kode proyek Kupu\u2011Kupu",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "berpotensi memengaruhi harga efek Perseroan di BES bila diungkapkan"
+      "matched_text": "berpotensi memengaruhi harga efek Perseroan di BES bila diungkapkan",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "tidak dimaksudkan sebagai Paparan Publik"
+      "matched_text": "tidak dimaksudkan sebagai Paparan Publik",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "akses tidak sah"
+      "matched_text": "akses tidak sah",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "tanpa mengungkap rincian medis individu"
+      "matched_text": "tanpa mengungkap rincian medis individu",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Dr. Guntur Mahesa",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Secara MNPI, draft term sheet yang belum dipublikasikan terkait akuisisi bersyarat atas PT Lintas Arunika Teknologi (kode proyek Kupu\u2011Kupu) ditemukan dalam repositori yang sama.\nDokumen tersebut memuat proyeksi sinergi dan asumsi valuasi yang berpotensi memengaruhi harga efek Perseroan di BES bila diungkapkan.\nAtas dasar Peraturan OJN No. 55/2024 tentang Keterbukaan Emiten, Direksi menilai insiden ini material dan menyiapkan Paparan Informasi tanpa mengungkap rincian medis individu.\nLangkah perbaikan mencakup rotasi kredensial, penonaktifan token pengembang, dan pemberlakuan enkripsi end\u2011to\u2011end untuk berkas akses biometrik.\nSebagai mitigasi reputasi, rilis pemasaran untuk produk \u201cAurora GreenScore\u201d (ESG) ditunda; catatan: kemenangan Kencana Dragons FC semalam tidak berkaitan dengan insiden ini.\nDalam lingkup DEI, Perseroan menegaskan nilai keberagaman, kesetaraan, dan inklusi tetap dijalankan, serta tidak mengubah kebijakan cuti keagamaan.\nSeluruh pemegang akun NebulaPay akan menerima pemberitahuan, dan konsumen dapat menghubungi compliance@auroradata.example.id untuk pertanyaan.\nPernyataan ini disusun oleh Dr. Guntur Mahesa (Ketua Komite Audit) untuk rapat dewan dan tidak dimaksudkan sebagai Paparan Publik hingga persetujuan Sekretaris Perusahaan.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -174,74 +235,27 @@
       "reason": "Generic DEI prose; not PII/MNPI."
     }
   ],
+  "source_jurisdiction": "ID",
   "uncertain": [
     {
-      "matched_text": "nomor KTP",
       "concept": "id_nik",
+      "matched_text": "nomor KTP",
       "reason": "Refers to Indonesian national ID number but explicitly stated as absent/without; negated context."
     },
     {
-      "matched_text": "informasi agama",
       "concept": "religious_belief",
+      "matched_text": "informasi agama",
       "reason": "Special-category concept mentioned in a negated context (not processed); may not warrant labeling under strict rules."
     },
     {
-      "matched_text": "orientasi seksual pelanggan",
       "concept": "sexual_orientation",
+      "matched_text": "orientasi seksual pelanggan",
       "reason": "Special-category concept mentioned as not processed; context is negated."
     },
     {
-      "matched_text": "\u201cgenetik\u201d",
       "concept": "genetic_data",
+      "matched_text": "\u201cgenetik\u201d",
       "reason": "Special-category term cited as a placeholder and not linked to a person; borderline relevance."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

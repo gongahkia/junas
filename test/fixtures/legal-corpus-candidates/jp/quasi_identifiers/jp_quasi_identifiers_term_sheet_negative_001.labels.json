@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -210,6 +218,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ics (issuer, listed on the Kanto Growth Exchange) proposes a friendly TOB for Momiji Sensors K.K., to be followed by a share exchange; this term sheet is non-binding and summarizes principal terms.\nRegulatory context: Disclosure will comply with the Financial Instruments and Exchange Act (FIEA) and the Kanto Growth Exchange rules; any tender-offer facts not yet publicly announced are treated as MNPI until release.\nPrice and ratio: The indicative, non-binding price range and illustrative exchange ratio were preliminarily disclosed on 2026-01-15; final terms are subject to both boards\u2019 approvals and customary confirmatory due diligence.\nConditions: Closing requires special committee recommendations at each company, shareholder approvals where applicable, clearance from the Shinsei Competition Authority, and completion of post-TOB squeeze-out procedures permitted under applicable law.\nFunding: Consideration will be funded through a committed bridge facility from Hoshi Capital SPC and an equity commitment letter from Azuma Ventures Fund I LPS; no security interests over personal data will be taken.\nSecurities workflow: The bidder will file a tender offer registration statement and publish an English summary; settlement of shares will be administered by Eastbay Securities Transfer Agency K.K., with no requirement for shareholders to submit My Number for this transaction.\nAPPI compliance: Each party will process personal data subject to the APPI on a need-to-know basis, and will not collect \u201cMy Number\u201d except where legally required for payroll/tax; any employee lists provided shall be pseudonymized and accompanied by retention/deletion instructions.\nVDR and devices: Access to the virtual data room requires MDM enrollment and watermarking; example device record format is \u201cMDM ID: DEV-0000-0000 (sample only)\u201d, and contractor laptops must have disk encryption enabled.\nInsider control: Directors, officers, and designated employees are subject to blackout periods and an insider list will be maintained by the issuer\u2019s Compliance Office; no trading in issuer or target securities is permitted while in possession of MNPI.\nIntentional positive identifier cluster (for HR transfer planning only): one target employee (operations supervisor) based in Sapporo, DOB 1990-04-12, internal employee code E-1742, device IMEI 357111-00-123456-7, and payroll account suffix 4432, will be seconded post-closing; these data points must not be disclosed outside the HR workstream.\nNon-identifying example: generic descriptors such as \u201cpart-time engineer in Osaka, born in 1987\u201d or \u201cage band 30s in Nagano\u201d by themselves are illustrative and are not to be used to single out an individual.\nForm placeholders (do not complete here): Name [________]; Department [________]; My Number (NNNN-NNNN-NNNN) [________]; Securities code [XXXX]; ISIN [________]; Account No. [XXXX-XXXX]; these labels are for standard forms only and not required for the tender offer acceptance.\nGovernance: Each board will constitute a special committee of outside directors to evaluate the transaction independently, with minutes circulated to the full board; no individual director personal data will be included in public filings.\nEmployee matters: No mass transfer of personnel files will occur prior to closing; benefits harmonization will use aggregated data, and any cross-functional secondment will be documented without collecting personal phone numbers or home addresses.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

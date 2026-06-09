@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -6,14 +28,29 @@
   "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -163,7 +200,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "must be declined and forwarded to the client’s authorised spokesperson",
+      "matched_text": "must be declined and forwarded to the client\u2019s authorised spokesperson",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -252,6 +289,24 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal information will be collected and used only for agreed purposes, kept accurate and up to date, and not combined with behavioural analytics for advertising without consent; de-identified ESG survey responses may be used for internal reporting.\nIndividuals may exercise access and correction rights by contacting Ms. Tahlia Brooks, Privacy Officer, at privacy@koalacloud.example.au or 1300 404 707; identification checks will be conducted without storing copies of identity documents.\nCross-border disclosures are restricted; any remote support sessions that access production data will occur within Australia and be logged, with redaction applied to health and credit information unless strictly necessary",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cessing Addendum (Australia) between Wallaroo Resources Ltd and Koala Cloud Services Pty Ltd governs processing of personal information and confidential market-sensitive information in line with the Australian Privacy Principles and the Corporations Act.\nCategories processed include employee records (contact, payroll, roster, fitness-for-work health notes), contractor background checks (credit histories supplied by the client), and customer transaction logs for the Wallaroo digital wallet service.\nProcessor acknowledges access to non-public corporate information reasonably expected to affect financial products, including draft terms for a proposed utility token issuance and an ESG-linked power purchase agreement, and must not engage in tipping or selective disclosure.\nTo manage MNPI, the parties will maintain an insider list for deal-stage projects, implement information barriers between the tokenisation team and sales, and enforce blackout windows for staff trading in Wallaroo tokens or shares under the internal trading policy.\nCybersecurity data (security event logs, intrusion traces, and simulated incident drills) will be processed only for detection and response; actual cyber incidents will be handled under confidential breach playbooks and embargoed announcements consistent with Australian listing rules.\nSubprocessors (including Kookaburra Analytics Pty Ltd and Dropbear Hosting Ltd) will be approved in writing, placed behind a clean team where deal materials are involved, and bound by equivalent confidentiality and security obligations.\nCommercial terms require the processor to meet a 99.9% availability SLA for the wallet API; service credits apply, but no public attribution of outage root cause may be made before authorised disclosure by the client.\nThe processor must segregate datasets so that marketing, education, and operations materials cannot inadvertently reveal MNPI; for clarity, our public webinar on crypto tokens and carbon offsets is purely educational and does not relate to any funding, listing, or commercial negotiation.\nPersonal information will be collected and used only for agreed purposes, kept accurate and up to date, and not combined with behavioural analytics for advertising without consent; de-identified ESG survey responses may be used for internal reporting.\nIndividuals may exercise access and correction rights by contacting Ms. Tahlia Brooks, Privacy Officer, at privacy@koalacloud.example.au or 1300 404 707; identification checks will be conducted without storing copies of identity documents.\nCross-border disclosures are restricted; any remote support sessions that access production data will occur within Australia and be logged, with redaction applied to health and credit information unless strictly necessary.\nRetention: recruitment files are kept 12 months post-process, payroll and superannuation records for 7 years, insider lists and related approvals for at least 7 years from the end of the relevant project, and security logs for 18 months unless needed for an investigation.\nThe processor will immediately quarantine suspected data exfiltration indicators and notify the client confidentially; training content may use the phrase \u201ccyber breach\u201d in simulations, which alone does not indicate any real incident or disclosure.\nAny media or analyst queries received by the processor regarding tokens, ESG programs, or cyber matters must be declined and forwarded to the client\u2019s authorised spokesperson, and staff are reminded that even seemingly innocuous draft sustainability metrics can constitute MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -293,34 +348,5 @@
       "matched_text": "not combined with behavioural analytics for advertising without consent",
       "reason": "Indicates consent gating rather than withdrawal; allowed rules include consent_withdrawal_marker only."
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -172,8 +180,9 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non-public",
-      "rule": "nonpublic_marker"
+      "matched_text": "Incident summary for Hang Prosper Holdings Limited (Main Board issuer; internal ref IMS-2025-17) regarding phishing-related mailbox misuse on 28\u201329 May.\nThe event concerned shared role mailboxes at PearlGate Securities (HK) Limited (group broker) and Jade Meridian Capital Fund SPC (affiliated fund manager, asset management licensed), with no trading instructions altered.\nWe stress no MNPI leak: the only deal materials touched were the already-announced heads of terms for the proposed acquisition of Auric Reef Logistics Ltd, duplicating content on the Exchange\u2019s disclosure website dated three months earlier.\nA legacy USB drive contained a spreadsheet labelled \u201cInvestor KYC\u201d but fields held mock values (e.g., HKID: X000000(0), account: 000-000-000-0000), and no live client files were present.\nThe compromised credentials belonged to a facilities role account \u201cops.facility@hangprosper.local\u201d used for building access notifications, not a named individual.\nSystems impacted: SkyOffice 365 shared mailbox, one retired endpoint tagged HP-WS-ARCH-019, and an on-prem file share named \\\\hp-fs01\\archive.\nOne contractor record in an onboarding form combined weak identifiers: employer Harbourline Property Services Limited (outsourced), role \u201csite technician,\u201d work location \u201cKai Fung Bay depot,\u201d device asset tag HB-NTB-2219, internal staff ID OPS-4432, month-year of birth 1997-04, and a masked payroll account \u201c323-***-**18.\u201d\nThese fields are fragmented and, except for the masked account and staff code, would not identify the individual alone under the PDPO.\nNo customer names, national ID scans, or bank instructions were accessed; sample data included generic placeholders such as \u201cName: A. Sample\u201d and \u201cDOB: 01/01/1900\u201d used for training.\nTrade blotter exports viewed contained only end-of-day summaries already in the public domain and did not include any specific, non-public price-sensitive information as contemplated by the SFO.\nWe informed the Hong Kong securities regulator via the public enquiries channel and filed a precautionary update through the Exchange\u2019s e-submission portal, noting no impact to market operations.\nInternally, HR has rotated shared passwords, disabled the \u201cops.facility\u201d mailbox, and enforced MFA; staff were reminded not to store employment forms on shared drives.\nThe reference \u201cclient code 0F00-0000\u201d and \u201cIPO list.xlsx\u201d in the folder tree were legacy test artifacts unrelated to any live offering.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

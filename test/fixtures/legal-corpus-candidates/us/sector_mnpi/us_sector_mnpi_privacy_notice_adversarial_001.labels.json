@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -72,7 +80,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Reg FD discipline: market-facing disclosures only via Form 8‑K, earnings release, or webcast; non-deal roadshow materials must be pre-cleared; internal draft decks are not for distribution.",
+      "matched_text": "Reg FD discipline: market-facing disclosures only via Form 8\u2011K, earnings release, or webcast; non-deal roadshow materials must be pre-cleared; internal draft decks are not for distribution.",
       "rule": "material_event"
     },
     {
@@ -147,7 +155,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "1‑833‑555‑0199",
+      "matched_text": "1\u2011833\u2011555\u20110199",
       "rule": "phone_number"
     },
     {
@@ -207,7 +215,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Digital asset pilot (non-public): “CareCoin” rewards token for HSA wellness cohorts launching on testnet",
+      "matched_text": "Digital asset pilot (non-public): \u201cCareCoin\u201d rewards token for HSA wellness cohorts launching on testnet",
       "rule": "dpt_protocol_event_marker"
     },
     {
@@ -217,12 +225,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "no sharing of CareCoin pilot metrics with equity research until 8‑K or press release",
+      "matched_text": "no sharing of CareCoin pilot metrics with equity research until 8\u2011K or press release",
       "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "matched_text": "green loan term sheet contemplates a 10 bps step-down tied to Scope 1+2 reductions—treat as MNPI",
+      "matched_text": "green loan term sheet contemplates a 10 bps step-down tied to Scope 1+2 reductions\u2014treat as MNPI",
       "rule": "esg_climate_pre_disclosure"
     },
     {
@@ -279,7 +287,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Reg FD discipline: market-facing disclosures only via Form 8‑K, earnings release, or webcast; non-deal roadshow materials must be pre-cleared; internal draft decks are not for distribution.",
+      "matched_text": "Reg FD discipline: market-facing disclosures only via Form 8\u2011K, earnings release, or webcast; non-deal roadshow materials must be pre-cleared; internal draft decks are not for distribution.",
       "rule": "material_event"
     },
     {
@@ -346,6 +354,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2 emissions",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing purpose: healthcare-banking analytics and fraud defense using minimum necessary data; no sale of personal information; GLBA and HIPAA carve-outs preserved; de-identification per NIST/ONC guidance.  \nMNPI protocol: no selective disclosure to analysts, investors, or broker-dealers; wall-crossing required for covered research; communications must route through Investor Relations; tipping is prohibited.  \nSensitive event notice (confidential): 2026-05-27 cyber anomaly on Orchard-EHR archival bucket (us-east-1) under review; treat as potentially material until assessed; internal case \u201cProject Larch.\u201d  \nInsider list (restricted): Mr. Jae Kim (SVP SecOps), Dr. Lila Mercado (CMO), Ms. Farah DuPont (Compliance), vendor lead Mr. Aaron Vale; list maintained at htt ps://invest.vireo.example/insider?case=L A R C H-01; trading blackout effective T+0 for covered persons.  \nInformation barriers: CipherSage research team segregated from Vireo capital markets; no sharing of CareCoin pilot metrics with equity research until 8\u2011K or press release; physical and logical barriers enforced.  \nDigital asset pilot (non-public): \u201cCareCoin\u201d rewards token for HSA wellness cohorts launching on testnet; do not discuss token economics or on-chain partner selection with external analysts prior to public disclosure; internal code ref: PRJ\u2011SPRU CE\u2011\u03b1.  \nCommercial terms (confidential): Nimbus Cloud Services sustainability-SLA bundle at $12.4m/year with 99.95% EHR uptime and carbon-offset certification; green loan term sheet contemplates a 10 bps step-down tied to Scope 1+2 reductions\u2014treat as MNPI.  \nReg FD discipline: market-facing disclosures only via Form 8\u2011K, earnings release, or webcast; non-deal roadshow materials must be pre-cleared; internal draft decks are not for distribution.  \nEducational/marketing note: our ESG training module uses examples of \u201cclimate-linked\u201d loans and \u201ctokenization\u201d vocabulary for awareness only and contains no live commercial terms or MNPI.  \nDSAR workflow: verify identity, exclude privileged or trade-secret content and MNPI from responses, and apply GLBA/HIPAA exceptions; submit requests via privacy@vireohealthbank.example or 1\u2011833\u2011555\u20110199; masked IDs (e.g., x x x\u2011xx\u20114 3 2 1) only in correspondence.  \nData transfers and retention: US-only storage (us-east-1/us-west-2), AES\u2011256 at rest, TLS in transit; incident logs retained 24 months; DocID: VHB\u2011DPA\u201120 26 se g m e n t: 04; audit trail hashes posted internally at htt ps://go.vireo.example/audit?d=VHB\u2011DPA\u201104.  \nMateriality caveat: this addendum does not constitute, and shall not be deemed, a material adverse change, an offer to sell any security or token, or a public communication for Reg FD purposes.  \nPublic reference: Scope 2 emissions baselines are already disclosed in Vireo\u2019s 2026 Q1 ESG Report; nothing herein supersedes public filings.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -368,12 +382,12 @@
     },
     {
       "concept": "transaction code",
-      "matched_text": "PRJ‑SPRU CE‑α",
+      "matched_text": "PRJ\u2011SPRU CE\u2011\u03b1",
       "reason": "Internal project code reference that is not in the 'Project <Name>' codename pattern."
     },
     {
       "concept": "us_ssn (masked)",
-      "matched_text": "x x x‑xx‑4 3 2 1",
+      "matched_text": "x x x\u2011xx\u20114 3 2 1",
       "reason": "Looks like a masked SSN pattern; insufficient digits and spaces prevent matching allowed SSN rule."
     },
     {
@@ -383,7 +397,7 @@
     },
     {
       "concept": "internal document identifier",
-      "matched_text": "VHB‑DPA‑04",
+      "matched_text": "VHB\u2011DPA\u201104",
       "reason": "Internal doc/audit reference; potentially identifying within the organization but not mapped to a specific allowed rule."
     }
   ]

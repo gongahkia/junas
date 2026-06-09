@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
     "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -214,6 +240,12 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Compliance Memo \u2014 Seabright Innovations Holdings Limited (HKX: 0X12; ISIN: ZZ0000000000; sandbox placeholders only)\nPurpose: operational guidance on crypto, ESG/climate, cyber, insider-list, information-barriers, blackout, and PDPO/SFO obligations for Hong Kong workflows.\nPublic references: the Exchange ESG Reporting Guide and regulator circulars on virtual asset distribution are widely available and are cited here for training only.\nMarketing note: the \u201cSeabright Crypto Wallet\u201d product name may appear in brochures and staff webinars; this is not a token launch and carries no pricing or listing implications.\nInformation barriers: use DataRoom-HK01 and Research-HK01 channels per Information Barrier Standard v1.4; wall-cross requests via compliance@seabright.example.\nInsider list hygiene: populate Form IF-01 with role titles and work numbers only; under PDPO, avoid unnecessary personal data; use the legal.ops@seabright.example mailbox for submissions.\nTrading blackout: the routine staff dealing blackout around interim results (01\u201315 Jul, public calendar) remains in effect and should not be read as a signal.\nESG/climate training: the Sustainability Office will host a scenario analysis workshop; no commercial terms or counterparties will be discussed in that session.\nCyber tabletop: IT will run a ransomware tabletop exercise using the \u201cSilver Harbour\u201d scenario; this is an internal drill and not a real incident.\nEducational examples: terms like \u201ctipping,\u201d \u201cinsider-list,\u201d and \u201cclean team\u201d may appear in e-learning modules and policies without indicating a live situation.\nQueries and helplines: contact compliance@seabright.example; external market conduct information is available at regulator-hotline@example (public).\nPublic/stale transaction context: as announced on 15 March, Seabright signed a non-binding MoU to explore a green steel JV; no binding commercial terms have been agreed.\nPositive MNPI span: On 26 May, an external penetration test identified a critical misconfiguration in the cloud key vault for the crypto custody pilot; trading systems are unaffected; restrict knowledge to the Insider List (roles only) and maintain information barriers pending remediation.\nReminder: do not include names, personal emails, or ID numbers on the Insider List; PDPO applies to any data relating to an identifiable individual.\nPositive MNPI span: Subject to board mandate and not yet announced, we have received a non-binding term sheet for a minority investment in Aquila Carbon Data Ltd. (ESG analytics); discussion is limited to the Clean Team pending Part XIVA disclosure",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -257,24 +289,6 @@
       "concept": "contingent_mnpi_language",
       "matched_text": "Subject to board mandate",
       "reason": "Conditional governance approval language signaling deal contingency; may be material context but not a specific allowed rule phrase."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

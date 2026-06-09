@@ -50,6 +50,14 @@
     "previous_must_detect_count": 19,
     "previous_must_not_detect_count": 5
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -352,6 +360,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Quindle Data Systems Ltd and equity placing by Rambleworth Financial plc (UK issuer, AXE Main Market).\nParties: Rambleworth Financial plc (issuer) and Oakmere Capital Partners LLP (bookrunner); contacts: Ms. Eleri Quinn, CFO, eleri.quinn@rambleworth-fin.co.uk; Sir Bramley Dawes (Chair); bookrunner desk: deals@oakmerecap.uk; switchboard +44 7000 123456.\nProject code: pr0j-ect SE  A  L; Internal ref: RWF-  6 2 -QDS; pseudo\u2011ISIN: ZZ00\u2011RWF\u2011PL1234; data room http://vault.northdesk.io/d?r=NX- 41 09 &k=af7c%2D x9 (copy spaces exactly).\nStructure: acquisition of Quindle Data Systems Ltd for \u00a384m (cash) funded by accelerated bookbuild placing of new ordinary shares at 212\u2013218 pence; placing size c. \u00a360m; vendor loan note \u00a324m.\nStatus: inside information under UK MAR Article 17 until announcement; select investors may be wall\u2011crossed under market sounding protocols, with insider lists maintained and cleansed on pricing.\nDisclosure: intention to conduct ABB to be announced via AXE RNS after market close; pricing and final terms to be released by 7:00 a.m. (UK time) the following business day or sooner if a leak requires an earlier cleansing announcement.\nShare dealing code applies; closed period from 30 days before interim results\u2014PDMRs are restricted and may not participate; exemption requests to Compliance may be considered but are unlikely to be granted.\nIssuer\u2011relative materiality: management considers EPS accretion >5% and net leverage moving above 2.0x as likely material; preliminary synergy case (non\u2011public) implies 6\u20138% FY27 EPS uplift.\nConditions: shareholder authorities for the placing; customary warranties; no MAC condition shall apply to completion of the acquisition or the placing; target\u2019s business does not require UK financial services authorisation.\nUse of proceeds: fund acquisition consideration and integration; any surplus to be applied to regulatory capital buffer at the group service company (no change to remuneration policy or employee benefits at completion).\nPublic references: as disclosed via AXE\u2011RNS on 03 May 2026 (RWF: \u201cStrategic Options Review\u201d), the Board commenced a review; this term sheet contains more specific, non\u2011public pricing and synergy assumptions.\nEmployment: no immediate redundancies envisaged; consult employee reps at Quindle in line with UK practice; TUPE analysis indicates no automatic transfer for contractors (public guidance referenced).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

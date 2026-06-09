@@ -48,6 +48,14 @@
     "status": "post_cn_ae_precision_realign_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AU",
@@ -200,6 +208,24 @@
       "category": "MNPI",
       "matched_text": "9b",
       "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 5550 8190.\nRoles: Redgum Energy Ltd as APP entity; Horizon Payroll Services Pty Ltd as processor; controls include APP 1\u201313 and ASIC/ASX context; no MNPI exported\u2014draft ASX Listing Rule 3.1 materials are explicitly excluded.\nScope of data: employment files (EmpID AU-9X3*47), limited health clearance outcome (\u201cfit for duty\u201d), and credit-report headers; minimisation applied to remove raw medical notes and full bureau files.\nConsent log: onboarding consent recorded 03/02/2026 (IP 203.0.113.77); Mr. Arlo Finch withdrew consent for marketing emails on 29/03/2026 via dsar+au@redgumenergy.au; withdrawal acknowledged, n o n e of the HR processing relies on consent.\nDSAR event: access request received 01/04/2026 under APP 12; copy provided 05/04/2026 at https://portal.redgumenergy.au/dsar?req=RGE-4 9 3\u2014O (token expires); correction request under APP 13 closed with address update.\nErasure event: non-essential recruitment profile deleted 08/04/2026 (Case No. DSAR\u2014Syd\u201400 7); r e d a c t e d references retained to meet Corporations Act s286 7\u2011year recordkeeping\u2014this is a completed action.\nCross\u2011border transfer: payroll line items sent to Southern Byte Pte Ltd (SG) for processing; APP 8 considered; contractual measures ensure comparable protections; transfer approval memo TRA\u201171\u2011SG archived at http://export.redgumenergy.au/api/v1/xfer?id=TRA-7 1 SG&sig=9b%2Fkz.\nData\u2011export approval was granted by Ms. Tahlia Vance, Privacy Lead, on 12/03/2026 (tahlia.vance@redgumenergy.au",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consent log: onboarding consent recorded 03/02/2026 (IP 203.0.113.77); Mr. Arlo Finch withdrew consent for marketing emails on 29/03/2026 via dsar+au@redgumenergy.au; withdrawal acknowledged, n o n e of the HR processing relies on consent.\nDSAR event: access request received 01/04/2026 under APP 12; copy provided 05/04/2026 at https://portal.redgumenergy.au/dsar?req=RGE-4 9 3\u2014O (token expires); correction request under APP 13 closed with address update.\nErasure event: non-essential recruitment profile deleted 08/04/2026 (Case No. DSAR\u2014Syd\u201400 7); r e d a c t e d references retained to meet Corporations Act s286 7\u2011year recordkeeping\u2014this is a completed action.\nCross\u2011border transfer: payroll line items sent to Southern Byte Pte Ltd (SG) for processing; APP 8 considered; contractual measures ensure comparable protections; transfer approval memo TRA\u201171\u2011SG archived at http://export.redgumenergy.au/api/v1/xfer?id=TRA-7 1 SG&sig=9b%2Fkz.\nData\u2011export approval was granted by Ms. Tahlia Vance, Privacy Lead, on 12/03/2026 (tahlia.vance@redgumenergy.au), and expired on 30/05/2026; this approval is not presently active and no live transfers are scheduled.\nSubprocessor register: Cloud Koala NZ Ltd (Wellington) for encrypted backups; no biometric templates or device MAC addresses are collected, and hotspot logs were proposed but not implemented.\nMarket integrity statement: investor\u2011relations workspace contains only public\u2011source ASX announcements and shareholder FAQs; no \u201cnot generally available\u201d forecasts or draft board papers are transmitted to vendors under this schedule.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

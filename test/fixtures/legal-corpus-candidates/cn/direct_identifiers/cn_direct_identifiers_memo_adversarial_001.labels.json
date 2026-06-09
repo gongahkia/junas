@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -285,6 +293,24 @@
       "category": "MNPI",
       "matched_text": "209999",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "19F, Tower C, No. 88 Qimei Rd, Pudong South District, Shanghai 209999",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board Compliance Committee; From: General Counsel, Mr. Liang Qiu; Re: PIPL/CSL/DSL alignment and MNPI controls in pre-IPO workflows\nCompany USCC: 92310000MA0X1Y2Z3A; registered address: 19F, Tower C, No. 88 Qimei Rd, Pudong South District, Shanghai 209999\nContact for this memo: legal@huaxing-lattice.cn, tel +86-21-6600-4398; public helpline 12345 is referenced only for public policy questions and is not our contact\nEmployee onboarding currently captures Resident ID numbers and passport data for PRC nationals and foreign hires; e.g., Resident ID 11010519880612345X (checksum invalid) and Passport P<CN>9 8 7 6 5 4 3 shown in a redacted sample\nOne intern, Ms. Tao Yiran, is 13 years old; note this is sensitive personal information under PIPL and requires parental consent workflow\nFinance shares a salary disbursement account: Acct 6222-1379-0043-2107 held at Jade Banyan Bank, and payroll email payroll@huaxing-lattice.cn; do not treat the phrase Name: __________ as data\nWe also store mobile numbers for field engineers (e.g., 1 39 1 00 8 77 23 broken across digits) and office extensions, but we do not collect MAC addresses or IMEI\nCross-border: vendor BrightCloud HK Ltd. will receive HR contact lists; per CAC measures we must file a security assessment before exporting employee phone/email and household registration info (hukou), via https://intra.huaxing-lattice.cn/cac/submit?rid=11010519880612345X\nAs issuer under CSRC supervision and potential Shanghai Stock Exchange STAR Market listing, the 2026H1 revenue numbers and non-public customer pipeline remain inside information until disclosed in our prospectus\nMNPI transmission is limited to role-only recipients: the Manager, Chief Accountant, and external counsel at sunriver-legal.cn; do not forward t",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -134,6 +142,12 @@
       "category": "MNPI",
       "matched_text": "19.9%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding term sheet \u2014 proposed strategic collaboration between Novalis Robotics Limited (SGX-ST mainboard issuer) and Shoreline Capital Partners Pte. Ltd.; governing law: Singapore.\nSummary: potential subscription for new ordinary shares to fund automation expansion; valuation approach to reference publicly available VWAPs and an independent fairness opinion; financial amounts to be determined.\nStake sought: up to 19.9% of the enlarged share capital, subject to regulatory and shareholder approvals.\nThis outline is for discussion only and is not intended to be binding; for avoidance of doubt, no MAC/MAE condition is contemplated in this draft.\nPublic/stale reference: Novalis Robotics Limited announced its FY2024 audited results on SGXNet on 28 Feb 2025; this term sheet does not amend or supplement those disclosures.\nRegulatory context: any transaction will comply with the SFA, the SGX Listing Manual (including Chapters 9 and 10 as relevant), and the Singapore Code on Take-overs and Mergers where applicable.\nDisclosure: Rule 703 considerations and continuous disclosure obligations remain with the issuer; investor-relations mailbox ir@novalisrobotics.sg will coordinate any public queries.\nIllustrative conditions precedent: shareholder approval if thresholds are triggered under the SGX Listing Manual; MAS approvals if any regulated activities are involved; confirmation of financing availability from the subscriber.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

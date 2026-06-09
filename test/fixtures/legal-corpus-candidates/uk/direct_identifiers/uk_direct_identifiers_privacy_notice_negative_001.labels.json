@@ -50,6 +50,14 @@
     "previous_must_detect_count": 4,
     "previous_must_not_detect_count": 17
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -172,6 +180,30 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12345678",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_company_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Submit requests via the secure portal; role mailbox only: dsar@northwoldcapital.co.uk; do not send ID scans to personal email addresses.\nWe may ask for a utility bill or driving licence reference [DL No] for verification; do not include full card numbers or security codes.\nCouncil Tax Ref [optional]: CTX-000000-00 (format example only); place of work [department]: [Compliance Operations]",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12345678); DPO: dpo@northwoldcapital.co.uk; public helpline: 0800 010 1234.\nScope: applies to front-office, compliance surveillance, and deal teams supporting listings on the City Quay Exchange (UK).\nDSAR intake uses form labels only; fields such as [Full name], [Address], [NI Number], [Passport Number], and [Account Number] are placeholders and must not be emailed.\nFor verified identity only, we may process a single UK passport number belonging to the requester: 941234567.\nExamples not to be treated as live data: NI No: OO 12 34 56 D (invalid); NHS No: 123 456 7890 (invalid); UTR: 0000000000 (placeholder).\nBank details are not collected via DSAR; any visible \u201cSort code: 00-00-00; Account: 00000000; IBAN: GB00 NWC0 0000 0000 00\u201d are invalid examples.\nRegistered office (issuer): 1 Ledger House, Wharf Lane, Northwold, ZX1 1ZX (fictional).\nProcessors: Cityridge Custody Ltd (UK) and CloudBridge EU S.\u00e0 r.l. (EEA) under UK IDTA/Addendum; no transfers to high-risk third countries.\nRetention: insider lists and surveillance records are retained for five years after a public announcement in line with UK MAR and internal policy FIN-RA-07.\nAlready-announced, public information (e.g., the 2025 refinancing timetable) may be included in DSAR responses; MNPI is excluded or redacted.\nSubmit requests via the secure portal; role mailbox only: dsar@northwoldcapital.co.uk; do not send ID scans to personal email addresses.\nWe may ask for a utility bill or driving licence reference [DL No] for verification; do not include full card numbers or security codes.\nCouncil Tax Ref [optional]: CTX-000000-00 (format example only); place of work [department]: [Compliance Operations]",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller: Northwold Capital plc (Companies House No. 12345678); DPO: dpo@northwoldcapital.co.uk; public helpline: 0800 010 1234.\nScope: applies to front-office, compliance surveillance, and deal teams supporting listings on the City Quay Exchange (UK).\nDSAR intake uses form labels only; fields such as [Full name], [Address], [NI Number], [Passport Number], and [Account Number] are placeholders and must not be emailed.\nFor verified identity only, we may process a single UK passport number belonging to the requester: 941234567.\nExamples not to be treated as live data: NI No: OO 12 34 56 D (invalid); NHS No: 123 456 7890 (invalid); UTR: 0000000000 (placeholder).\nBank details are not collected via DSAR; any visible \u201cSort code: 00-00-00; Account: 00000000; IBAN: GB00 NWC0 0000 0000 00\u201d are invalid examples.\nRegistered office (issuer): 1 Ledger House, Wharf Lane, Northwold, ZX1 1ZX (fictional).\nProcessors: Cityridge Custody Ltd (UK) and CloudBridge EU S.\u00e0 r.l. (EEA) under UK IDTA/Addendum; no transfers to high-risk third countries.\nRetention: insider lists and surveillance records are retained for five years after a public announcement in line with UK MAR and internal policy FIN-RA-07.\nAlready-announced, public information (e.g., the 2025 refinancing timetable) may be included in DSAR responses; MNPI is excluded or redacted.\nSubmit requests via the secure portal; role mailbox only: dsar@northwoldcapital.co.uk; do not send ID scans to personal email addresses.\nWe may ask for a utility bill or driving licence reference [DL No] for verification; do not include full card numbers or security codes.\nCouncil Tax Ref [optional]: CTX-000000-00 (format example only); place of work [department]: [Compliance Operations].\nFor complaints, use the UK supervisory authority\u2019s public web form or call our helpline 0800 010 1234; no fees are charged for standard DSARs.\nMention of \u201cpassport\u201d, \u201caccount\u201d, or \u201cinsider list\u201d herein includes non-operational placeholders designed to illustrate format, not to solicit sensitive data.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

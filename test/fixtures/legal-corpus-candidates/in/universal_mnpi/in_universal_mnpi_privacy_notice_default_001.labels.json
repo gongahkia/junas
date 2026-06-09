@@ -41,6 +41,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -308,6 +316,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL \u2014 UPSI \u2014 Project Monsoon retention and transfer workflow note for Lumosyn Industries Limited (listed on NEXI Exchange; internal code LUMOIL); embargo until 30 Sep 2026, 17:00 IST.\nPurpose: govern handling of personal data under the Digital Personal Data Protection Act, 2023 and unpublished price sensitive information under Indian PIT Regulations for a proposed 17.5% strategic investment in Trillium Exports Limited.\nCategories: shareholder KYC (PAN token P-TEST-0001, Aadhaar hash AX-0000, GSTIN alias G-NULL-42), employee lists (children under 18 flagged; parental consent required), board contact details for Ms. Kavita Raneli and Mr. Devansh Quara.\nLawful basis: consent for candidate outreach and IR mailing lists; legitimate uses for contract performance relating to definitive agreement drafts; do not collect raw Aadhaar, only salted hashes and masked PAN references.\nRetention: UPSI folders (deal codename Monsoon) retained 7 years post-close or 2 years after termination of the definitive agreements, whichever later; DSAR requests acknowledged in 24 hours and resolved within 30 days via privacy@lumosyn.example.in.\nAccess: limited to board, finance, and advisors Verdant Ridge Advisors LLP; maintain clean-room access keys; audit trail via exchange-compliant insider list maintained by the Company Secretary.\nTransfer: mirror to a Singapore data centre under contract with sub-processor Cloudnest Pte, with onward transfer logs and a country assessment consistent with guidance from the Ministry of Digital Affairs.\nSecurity: segregate UPSI from public IR content; watermark research notes and investor-relations drafts; do not forward to external messaging groups until embargo lifts.\nMaterial Adverse Change: for avoidance of doubt, no Material Adverse Change has occurred as of the board memo date; MAE carve-outs apply per draft SPA, with pandemics and commodity shocks excluded from MAC.\nFinancial terms \u2014 NOT FOR PUBLIC DISSEMINATION: purchase price INR 480 crore, contingent earn-out up to INR 60 crore; board consent threshold 75% and standstill for 12 months.\nThis note forms part of the board memo and deal checklist; any press release drafts referencing \u201cProject Monsoon\u201d must be marked DRAFT\u2013IR and kept in the IR embargo folder.\nPublic-source clarification: per the FY2023 annual report on the issuer\u2019s website and the public exchange portal, historical revenue and director names are public and not UPSI for PIT purposes.\nChildren\u2019s data workflow: internships and campus drives must collect verifiable parental consent for anyone under 18; delete rejected applicant records after 90 days unless a litigation hold applies.\nnext steps: circulate term sheet v4 to Ms. Raneli and Mr. Quara, update definitive agreements, lock rooms for diligence, and maybe a spa day after signing to keep morale up",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

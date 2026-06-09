@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -189,7 +197,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "“R. K–Tenley”",
+      "matched_text": "\u201cR. K\u2013Tenley\u201d",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -303,6 +311,18 @@
       "category": "MNPI",
       "matched_text": "analyst Q&A",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Daria Voss, Associate GC; To: Board Compliance Committee; contact legal@northelm-healthbank.com; cc: ir@northelm-healthbank.com\nAs of Q2 close, no selective disclosure of MNPI occurred in the 6/12 sell-side analyst briefing; content mirrored public 10-Q excerpts and press releases.\nTrading blackout remains in place until the earnings call; this is a standing policy, not a statement that undisclosed results are being circulated.\nFor avoidance of doubt, the quarterly disclosure checklist includes \u201cno material adverse change\u201d boilerplate; this is template text, not an indicator of undisclosed performance.\nPrivacy events: DSAR NE-00 4 7 for consumer \u201cR. K\u2013Tenley\u201d completed 5/28 with identity verification via portal ticket https://portal.northelm.local/dsar?id=NE0047; erasure of deprecated marketing tags executed.\nConsent withdrawal: patient opt-out for \u201cMyVitals Insights\u201d (ticket HV-9b) processed, and future secondary use minimised per DPA Schedule A v3.2; legacy consents unaffected.\nCross-border transfer: approval granted to export hashed encounter logs to GreenHarbor Analytics Ltd. (Dublin) under SCCs; PHI remains tokenized and at-rest in U.S. data centers.\nGLBA accounts: no account-level data left the U.S.; core banking field minimisation for acct 7 7 -XX-9 3 1 applied (name, SSN, and MAC addresses not collected).\nHIPAA BAAs: onboarding form for CloudMediserv, LLC completed; security review noted no open high-risk items; risk item RES-1 2 8 closed 5/29.\nRetention: patient claims PDFs older than 7 years moved to WORM store per policy DC-12; note this is a completed archival control, not a new collection activity.\nData-export approval: CFO countersigned Export-Req-19 for de-identified trend tables to https://intra.northelm/exports?pk=0xA F F E&ok=1; finance analyst access via role \u201cFIN_OBS\u201d only.\nPer Rule 10b-5 and Reg FD, Dr. Sel Fisk (IR) will host the 7/18 earnings call; prep deck contains only public-source references and prior guidance; draft contains no forward-looking revenue by product.\nWe did not provide the \u201cPulseBank\u201d roadmap to any investor; any analyst Q&A will be simultaneous via webcast; see meeting id ZR-  64:Q.\nIncident status: no breach reported; the prior cross-border sandbox was decommissioned in April and all tokens were destroyed (hash set 9f::77..c2 verified); do not reopen this environment.\nContact Mr. Jonah Reaves (CISO) at security@northelm-healthbank.com or +1-555-013-8802 for technical controls; legal questions to Ms. Voss",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "From: Ms. Daria Voss, Associate GC; To: Board Compliance Committee; contact legal@northelm-healthbank.com; cc: ir@northelm-healthbank.com\nAs of Q2 close, no selective disclosure of MNPI occurred in the 6/12 sell-side analyst briefing; content mirrored public 10-Q excerpts and press releases.\nTrading blackout remains in place until the earnings call; this is a standing policy, not a statement that undisclosed results are being circulated.\nFor avoidance of doubt, the quarterly disclosure checklist includes \u201cno material adverse change\u201d boilerplate; this is template text, not an indicator of undisclosed performance.\nPrivacy events: DSAR NE-00 4 7 for consumer \u201cR. K\u2013Tenley\u201d completed 5/28 with identity verification via portal ticket https://portal.northelm.local/dsar?id=NE0047; erasure of deprecated marketing tags executed.\nConsent withdrawal: patient opt-out for \u201cMyVitals Insights\u201d (ticket HV-9b) processed, and future secondary use minimised per DPA Schedule A v3.2; legacy consents unaffected.\nCross-border transfer: approval granted to export hashed encounter logs to GreenHarbor Analytics Ltd. (Dublin) under SCCs; PHI remains tokenized and at-rest in U.S. data centers.\nGLBA accounts: no account-level data left the U.S.; core banking field minimisation for acct 7 7 -XX-9 3 1 applied (name, SSN, and MAC addresses not collected).\nHIPAA BAAs: onboarding form for CloudMediserv, LLC completed; security review noted no open high-risk items; risk item RES-1 2 8 closed 5/29.\nRetention: patient claims PDFs older than 7 years moved to WORM store per policy DC-12; note this is a completed archival control, not a new collection activity.\nData-export approval: CFO countersigned Export-Req-19 for de-identified trend tables to https://intra.northelm/exports?pk=0xA F F E&ok=1; finance analyst access via role \u201cFIN_OBS\u201d only.\nPer Rule 10b-5 and Reg FD, Dr. Sel Fisk (IR) will host the 7/18 earnings call; prep deck contains only public-source references and prior guidance; draft contains no forward-looking revenue by product.\nWe did not provide the \u201cPulseBank\u201d roadmap to any investor; any analyst Q&A will be simultaneous via webcast; see meeting id ZR-  64:Q.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -395,6 +403,30 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Clean-room diligence example (restricted): Mr. Daichi Morimoto (Product Manager, Kisaragi Microsystems K.K., Chiyoda-ku Tokyo office), DOB 1990-03-14, age 36, employee code EID-KIS-4319, company laptop model KMW-14 (hostname KIS-TKY-PM14), internal handle @d.mori90, VPN session ref KR-2025-0415-773, and email daichi.morimoto@kisaragi.example.co.jp must not be disclosed outside the diligence clean room under APPI\nIllustrative non-identifying data points (not linked to any person): age 42, role \u201canalyst,\u201d a sample device model RD-300, Osaka office template, and a generic login tag \u201calpha-7\u201d; these examples are placeholders for systems mapping only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Miscellaneous: non-binding except for exclusivity (60 days), confidentiality, costs, and governing law; governing law: Japan; venue: Tokyo District Court; for queries contact Ms. Ayaka Senda (CFO) at ayaka.senda@kisaragi.example.co.jp or +81-3-5555-0210; currency conversions are illustrative and do not identify any person",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "deal.team@mikado-cap.example.jp; Issuer Legal: legal@kisaragi.example.co.jp\nPurchase price: JPY 1,280 per share in cash; minimum acceptance 66.7%; maximum 100%; post-TOB squeeze-out via share consolidation contemplated\nConditions precedent: Kisaragi board approval per Companies Act; timely disclosure on TSE; filing of tender offer registration statement under FIEA; JFSA/Local Bureau notifications; no MAC\nMNPI handling: this term sheet contains undisclosed enumerated material facts and tender-offer facts under the FIEA; internal circulation limited to clean teams and insiders under company insider lists\nPersonal information: APPI compliance required; no collection or processing of My Number (\u500b\u4eba\u756a\u53f7); employee data to be pseudonymized and shared only within the data room; delete or return upon termination\nEmployment and integration: no involuntary reductions for 12 months post-closing; retention bonuses for key R&D staff; works councils not applicable; ordinary course bonuses to be honored\nClean-room diligence example (restricted): Mr. Daichi Morimoto (Product Manager, Kisaragi Microsystems K.K., Chiyoda-ku Tokyo office), DOB 1990-03-14, age 36, employee code EID-KIS-4319, company laptop model KMW-14 (hostname KIS-TKY-PM14), internal handle @d.mori90, VPN session ref KR-2025-0415-773, and email daichi.morimoto@kisaragi.example.co.jp must not be disclosed outside the diligence clean room under APPI\nIllustrative non-identifying data points (not linked to any person): age 42, role \u201canalyst,\u201d a sample device model RD-300, Osaka office template, and a generic login tag \u201calpha-7\u201d; these examples are placeholders for systems mapping only\nFinancing: Hinohana Finance K.K. to provide a JPY 6.0bn committed bridge loan (no security pre-closing); equity co-invest by Seiryu Growth Fund LPS up to JPY 2.5bn; no public offering is contemplated\nShareholder and regulatory matters: if 5% threshold is crossed, Large Shareholding Report filings will be made; insider trading restrictions apply; any press release to follow TSE Timely Disclosure rules and fair disclosure policy\nRepresentations and covenants: customary reps including financial statements, absence of undisclosed liabilities, IP ownership, cybersecurity; data protection covenants include APPI-compliant notices and cross-border transfer safeguards\nTimeline: sign definitive by 15 July 2026, launch TOB by 31 August 2026 for a 20\u201330 business day offer period, settlement T+3 after completion; long-stop date 31 October 2026; termination for breach or failure of conditions\nMiscellaneous: non-binding except for exclusivity (60 days), confidentiality, costs, and governing law; governing law: Japan; venue: Tokyo District Court; for queries contact Ms. Ayaka Senda (CFO) at ayaka.senda@kisaragi.example.co.jp or +81-3-5555-0210; currency conversions are illustrative and do not identify any person",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Proposed Tender Offer (\u516c\u958b\u8cb7\u4ed8\u3051) for Kisaragi Microsystems K.K. (TSE Growth) by Mikado Capital Partners GK\nIssuer: Kisaragi Microsystems K.K.; Offeror: Mikado Capital Partners GK; Contact: deal.team@mikado-cap.example.jp; Issuer Legal: legal@kisaragi.example.co.jp\nPurchase price: JPY 1,280 per share in cash; minimum acceptance 66.7%; maximum 100%; post-TOB squeeze-out via share consolidation contemplated\nConditions precedent: Kisaragi board approval per Companies Act; timely disclosure on TSE; filing of tender offer registration statement under FIEA; JFSA/Local Bureau notifications; no MAC\nMNPI handling: this term sheet contains undisclosed enumerated material facts and tender-offer facts under the FIEA; internal circulation limited to clean teams and insiders under company insider lists\nPersonal information: APPI compliance required; no collection or processing of My Number (\u500b\u4eba\u756a\u53f7); employee data to be pseudonymized and shared only within the data room; delete or return upon termination\nEmployment and integration: no involuntary reductions for 12 months post-closing; retention bonuses for key R&D staff; works councils not applicable; ordinary course bonuses to be honored\nClean-room diligence example (restricted): Mr. Daichi Morimoto (Product Manager, Kisaragi Microsystems K.K., Chiyoda-ku Tokyo office), DOB 1990-03-14, age 36, employee code EID-KIS-4319, company laptop model KMW-14 (hostname KIS-TKY-PM14), internal handle @d.mori90, VPN session ref KR-2025-0415-773, and email daichi.morimoto@kisaragi.example.co.jp must not be disclosed outside the diligence clean room under APPI\nIllustrative non-identifying data points (not linked to any person): age 42, role \u201canalyst,\u201d a sample device model RD-300, Osaka office template, and a generic login tag \u201calpha-7\u201d; these examples are placeholders for systems mapping only\nFinancing: Hinohana Finance K.K. to provide a JPY 6.0bn committed bridge loan (no security pre-closing); equity co-invest by Seiryu Growth Fund LPS up to JPY 2.5bn; no public offering is contemplated\nShareholder and regulatory matters: if 5% threshold is crossed, Large Shareholding Report filings will be made; insider trading restrictions apply; any press release to follow TSE Timely Disclosure rules and fair disclosure policy\nRepresentations and covenants: customary reps including financial statements, absence of undisclosed liabilities, IP ownership, cybersecurity; data protection covenants include APPI-compliant notices and cross-border transfer safeguards\nTimeline: sign definitive by 15 July 2026, launch TOB by 31 August 2026 for a 20\u201330 business day offer period, settlement T+3 after completion; long-stop date 31 October 2026; termination for breach or failure of conditions",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -50,6 +50,14 @@
     "previous_must_detect_count": 13,
     "previous_must_not_detect_count": 15
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -192,6 +200,24 @@
       "category": "MNPI",
       "matched_text": "Project Harrier",
       "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Kydd (employee ID: NL\u2011u 17\u2011k y d d; rowan.kydd@northgate-lumen.example.co.uk) reported that his biometric fingerprint template for the Westerfen Data Suite door controller was inadvertently synced to a shared folder.\nDuring triage Mr. Kydd stated he uses an insulin pump and requires Type 1 diabetes treatment; HR noted a clinic letter was attached to the sync batch in error.\nMr. Kydd confirmed active membership of the Foundry Finance Union because the folder contained ballot PDFs named \u201cKydd_Rowan_FFU_2026\u201d; removal and purge completed at 03:11",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Kydd (employee ID: NL\u2011u 17\u2011k y d d; rowan.kydd@northgate-lumen.example.co.uk) reported that his biometric fingerprint template for the Westerfen Data Suite door controller was inadvertently synced to a shared folder.\nDuring triage Mr. Kydd stated he uses an insulin pump and requires Type 1 diabetes treatment; HR noted a clinic letter was attached to the sync batch in error.\nMr. Kydd confirmed active membership of the Foundry Finance Union because the folder contained ballot PDFs named \u201cKydd_Rowan_FFU_2026\u201d; removal and purge completed at 03:11.\nGovernance: Ms. Priya Stone (DPO & SMF16/17) assessed that no deal room files, client mandates, or pipeline data (e.g., Project Harrier) were accessed; this is not precise non\u2011public price-sensitive information under UK MAR and does not trigger a regulatory news service announcement.\nMarket integrity: this does not constitute a material adverse change and does not create MNPI; an insider\u2011list update was considered and rejected, with rationale recorded in the market abuse decision log.\nControls: SkyForge SIEM and Lighthouse Vault show no exfiltration; URL: https://intranet.northgate-lumen.example.co.uk/itsec/case?id=INC-0 4 7&user=u\u2014k y d d; device id u\u20117g2l\u2011xx\u20143 quarantined.\nCulture note: our inclusion and diversity policy states that sexual orientation and religion are protected characteristics, but this report does not discuss anyone\u2019s sexual orientation or religion.\nExternal perimeter: Oldborough Owls FC fixtures on the office noticeboard and MeadowTrack HR product brochures appeared in the same share; these items are irrelevant and public.\nCommunications: the issuer will notify staff via the usual channel (incidentdesk@northgate-lumen.example.co.uk) and consult the union on outage timing without sharing personal data.\nImpact: no client names, account numbers, trades, or pricing models were found; references to BBS Newswire and cityblogs were public-source materials; storm in a teacup, but we fixed the teacup.\nEmployment: Mr. Kydd",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mr. Rowan Kydd (employee ID: NL\u2011u 17\u2011k y d d; rowan.kydd@northgate-lumen.example.co.uk) reported that his biometric fingerprint template for the Westerfen Data Suite door controller was inadvertently synced to a shared folder.\nDuring triage Mr. Kydd stated he uses an insulin pump and requires Type 1 diabetes treatment; HR noted a clinic letter was attached to the sync batch in error.\nMr. Kydd confirmed active membership of the Foundry Finance Union because the folder contained ballot PDFs named \u201cKydd_Rowan_FFU_2026\u201d; removal and purge completed at 03:11.\nGovernance: Ms. Priya Stone (DPO & SMF16/17) assessed that no deal room files, client mandates, or pipeline data (e.g., Project Harrier) were accessed; this is not precise non\u2011public price-sensitive information under UK MAR and does not trigger a regulatory news service anno",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

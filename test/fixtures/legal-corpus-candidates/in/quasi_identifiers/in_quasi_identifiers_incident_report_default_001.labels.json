@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -287,6 +295,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 04-06-2026, suspicious sign-in to the corporate mail of Mr. Rohan Dev, Deputy Finance Manager, from Vasant Tech Park (Pune) triggered an alert.\nThe account rohan.dev@tansawsl.in on device TWASL-LAP-229 (Windows 11) initiated an anomalous OWA session id SESS-7F3C9-PN, with IP 172.22.91.14 and VPN tag TWASL-GW-04.\nWeak identifiers linked to Mr. Rohan Dev include DOB 14-06-1991, work extension 040-7782 (mobile ending 7082), PAN ending QZ7, and Aadhaar last four 4506 maintained in HRIS.\nTwo exfiltrated attachments contained UPSI: draft board note on an unannounced PPA tariff revision and preliminary Q1 results of TWASL, both unpublished and price-sensitive under SEBI (PIT) Regulations, 2015.\nThe Compliance Officer closed the trading window w.e.f. 05-06-2026, updated the insider list, and notified the stock exchanges; no trades by designated persons were detected post-incident.\nA child visitor registration from a community tour stored age 16 and guardian email parent.contact@familynilayam.example without any Aadhaar capture, with verifiable parental consent recorded and now revoked.\nAggregate descriptors such as \u201cengineers aged 25\u201335 at the Harigunj wind farm cluster\u201d are not identifying on their own and remain outside the scope of specific notification.\nSeparately observed weak identifiers not tied to a named person include a contractor role \u201cNight Shift Technician\u201d in Shivannagar unit, Android device code XZ-55A, access badge 3F-17, and PAN fragment **9Q2.\nA lone DOB 02-08-1987 appears in a network log alongside city tag Kaveripur and Wi-Fi SSID TWASL-GUEST-2G, but no name, employee code, or contact information is associated.\nLimited vendor KYC scans of Suryamukhi EPC Private Limited (GSTIN masked \u20267H2) were accessed; bank account numbers and directors\u2019 IDs were fully redacted in the leaked copies.\nWe have implemented password resets, EDR quarantine of TWASL-LAP-229, geo-fencing for O365, and a Rule 7 DPDPA breach assessment; consent and notice under Sections 5\u20138 have been refreshed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

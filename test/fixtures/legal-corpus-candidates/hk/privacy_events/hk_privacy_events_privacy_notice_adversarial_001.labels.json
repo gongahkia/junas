@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -244,6 +252,18 @@
       "category": "MNPI",
       "matched_text": "restricted list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact for PDPO requests: Mr. Adrian Ko, Data Protection Officer, priva cy@harbornova.hk; DSAR portal https://portal.harbornova.hk/dsar?id=7f%2D1c%2Fhk.\nPersonal data categories: candidate resumes, staff emails, initials, employee codes (no government ID scans saved), and investor KYC attestations; data minimisation applied to only necessary fields on Orchid\u2011\u03b2 onboarding forms.\nCross\u2011border transfer: EU/SG processing for cloud hosting and AML screening; although PDPO s.33 is not in force, equivalent safeguards adopted via Schedule 2 SCC\u2011style clauses and completed DPIA Expt\u2011004b.\nData export approval HN\u2011CBT\u20112026\u201111 was granted by the Privacy Committee on 2026\u201103\u201118; transfer keys rotated 2026\u201103\u201119; doc ref Sched\u20112 // expt\u2011 0 0 4 b.\nDSAR: request HN\u2011EMP\u201104_7xB received 2026\u201104\u201130 and fulfilled 2026\u201105\u201103 within PDPO s.18 time frame; copies provided and excessive payroll attachments redacted (minimisation).\nConsent withdrawal: Ms. Leona Tse (ex\u2011Analyst) withdrew consent for marketing emails on 2026\u201104\u201112; suppression list updated same day and mailings disabled; no further outreach is scheduled.\nErasure: redundant CVs from closed requisition HR\u2011R e q\u2011 21 were securely deleted 2026\u201102\u201114; wipe log sha256: c3f1..7ba9 retained for audit; restore points checked with no residuals.\nRetention: investor due diligence records for Type 9 activities retained 5 years post\u2011exit per internal policy aligning to SFC AML Guidelines; staff payroll records retained 7 years post\u2011termination.\nMNPI (SFO): pre\u2011announcement diligence for proposed acquisition of Yuetron Marine Systems Ltd. was designated \u201cinside information\u201d from 2026\u201102\u201114 to 2026\u201103\u201101; the restricted list was enforced and closed after disclosure on 2026\u201103\u201102; there is no current live MNPI.\nEmployment data sharing to Mainland support centre is not active; a runbook exists but has not been executed and no cross\u2011border movement to CN has occurred.\nNegative control statements for precision: no MAC clause was triggered in the draft SPA; we do not collect biometric templates; certain director details were taken from public sources (company bulletin); jira notes: \u201ctodo adjus",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

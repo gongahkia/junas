@@ -1,190 +1,271 @@
 {
-  "doc_id": "id_quasi_identifiers_privacy_notice_default_001",
-  "document_type": "generic",
-  "source_jurisdiction": "ID",
-  "destination_jurisdiction": "ID",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sari.l@arunikadigital.co.id.test"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sec-office@arunikadigital.co.id.test"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+62 21 555 1900"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp74,2 miliar'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1,1\u20131,3 triliun'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp74,2 miliar'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1,1\u20131,3 triliun'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_quasi_identifiers_privacy_notice_default_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sari.l@arunikadigital.co.id.test"
+      "matched_text": "sari.l@arunikadigital.co.id.test",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sec-office@arunikadigital.co.id.test"
+      "matched_text": "sec-office@arunikadigital.co.id.test",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+62 21 555 1900"
+      "matched_text": "+62 21 555 1900",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@arunikadigital.co.id.test"
+      "matched_text": "privacy@arunikadigital.co.id.test",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@arunikadigital.co.id.test"
+      "matched_text": "dpo@arunikadigital.co.id.test",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ibu Sari Lestari"
+      "matched_text": "Ibu Sari Lestari",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "12-03-1985"
+      "matched_text": "12-03-1985",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "AD-88-3391"
+      "matched_text": "AD-88-3391",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "user ID 40219"
+      "matched_text": "user ID 40219",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "ARU-PAY-0091"
+      "matched_text": "ARU-PAY-0091",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "sess-89c3-Seruni-40219"
+      "matched_text": "sess-89c3-Seruni-40219",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "10.14.7.22"
+      "matched_text": "10.14.7.22",
+      "rule": "ip_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bapak Rafi Nurcahyo"
+      "matched_text": "Bapak Rafi Nurcahyo",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "sebelum pengumuman publik"
+      "matched_text": "sebelum pengumuman publik",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "tidak boleh dibagikan sampai laporan keterbukaan diajukan ke OJK dan diumumkan di bursa"
+      "matched_text": "tidak boleh dibagikan sampai laporan keterbukaan diajukan ke OJK dan diumumkan di bursa",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Transfer data lintas batas"
+      "matched_text": "Transfer data lintas batas",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "kami memverifikasi identitas tanpa meminta salinan KTP/NIK"
+      "matched_text": "kami memverifikasi identitas tanpa meminta salinan KTP/NIK",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "\u201c***9982\u201d"
+      "matched_text": "\u201c***9982\u201d",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Contoh pengelompokan identifikasi lemah: Ibu Sari Lestari (tgl lahir 12-03-1985), Chief Financial Officer PT Arunika Investama Digital, berkantor di Kantor Seruni Barat, Kota Seruni Barat, menggunakan tablet berseri AD-88-3391 dan email sari.l@arunikadigital.co.id.test; user ID 40219 serta dompet gaji ARU-PAY-0091 terhubung ke rekening Bank Samudra Nusantara berakhiran 9982"
+      "matched_text": "Contoh pengelompokan identifikasi lemah: Ibu Sari Lestari (tgl lahir 12-03-1985), Chief Financial Officer PT Arunika Investama Digital, berkantor di Kantor Seruni Barat, Kota Seruni Barat, menggunakan tablet berseri AD-88-3391 dan email sari.l@arunikadigital.co.id.test; user ID 40219 serta dompet gaji ARU-PAY-0091 terhubung ke rekening Bank Samudra Nusantara berakhiran 9982",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Sesi VPN beliau bertanda sess-89c3-Seruni-40219 pada 10-05-2026 dari IP 10.14.7.22 dan tag risalah rapat CF-Seruni-04 mengikat identitasnya dalam alur kerja akuisisi"
+      "matched_text": "Sesi VPN beliau bertanda sess-89c3-Seruni-40219 pada 10-05-2026 dari IP 10.14.7.22 dan tag risalah rapat CF-Seruni-04 mengikat identitasnya dalam alur kerja akuisisi",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "rekening Bank Samudra Nusantara berakhiran 9982"
+      "matched_text": "rekening Bank Samudra Nusantara berakhiran 9982",
+      "rule": "bank_account"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "rencana akuisisi PT Sinar Orbit Teknologi oleh PT Arunika Investama Digital"
+      "matched_text": "rencana akuisisi PT Sinar Orbit Teknologi oleh PT Arunika Investama Digital",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "sampai pengumuman keterbukaan informasi di bursa diterbitkan bersama dokumen regulator"
+      "matched_text": "sampai pengumuman keterbukaan informasi di bursa diterbitkan bersama dokumen regulator",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "tidak boleh dibagikan"
+      "matched_text": "tidak boleh dibagikan",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "akses ke MNPI dibatasi berdasarkan peran"
+      "matched_text": "akses ke MNPI dibatasi berdasarkan peran",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "dibatasi hanya untuk tim transaksi"
+      "matched_text": "dibatasi hanya untuk tim transaksi",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "nomor rekening atau dompet akan dimasking"
+      "matched_text": "nomor rekening atau dompet akan dimasking",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "MAC terpotong B4-22-**-A9"
+      "matched_text": "MAC terpotong B4-22-**-A9",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Transfer data lintas batas ke pemroses kami LangitCloud Pte. Ltd. (Singapura, fiktif) dilakukan berdasarkan kontrak pemrosesan yang setara SCC"
+      "matched_text": "Transfer data lintas batas ke pemroses kami LangitCloud Pte. Ltd. (Singapura, fiktif) dilakukan berdasarkan kontrak pemrosesan yang setara SCC",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sari.l@arunikadigital.co.id.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sec-office@arunikadigital.co.id.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+62 21 555 1900",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Informasi non-publik yang material (MNPI) mencakup data emiten yang dapat memengaruhi keputusan investor atau harga efek sampai diumumkan melalui keterbukaan informasi yang diwajibkan regulator.\nContoh pengelompokan identifikasi lemah: Ibu Sari Lestari (tgl lahir 12-03-1985), Chief Financial Officer PT Arunika Investama Digital, berkantor di Kantor Seruni Barat, Kota Seruni Barat, menggunakan tablet berseri AD-88-3391 dan email sari.l@arunikadigital.co.id.test; user ID 40219 serta dompet gaji ARU-PAY-0091 terhubung ke rekening Bank Samudra Nusantara berakhiran 9982.\nSesi VPN beliau bertanda sess-89c3-Seruni-40219 pada 10-05-2026 dari IP 10.14.7.22 dan tag risalah rapat CF-Seruni-04 mengikat identitasnya dalam alur kerja akuisisi.\nGabungan identifikasi lemah tersebut diperlakukan sebagai data pribadi dan dibatasi hanya untuk tim transaksi sampai pengumuman keterbukaan informasi di bursa diterbitkan bersama dokumen regulator.\nContoh MNPI: draf memo dewan mengenai rencana akuisisi PT Sinar Orbit Teknologi oleh PT Arunika Investama Digital memuat pendapatan Q2 (belum diaudit) Rp74,2 miliar dan kisaran valuasi internal Rp1,1\u20131,3 triliun; materi ini tidak boleh dibagikan sampai laporan keterbukaan diajukan ke OJK dan diumumkan di bursa.\nRetensi: log ruang data transaksi disimpan 5 tahun pasca-pengumuman; log perangkat HR 12 bulan; hasil DSAR disimpan 90 hari setelah penutupan permintaan.\nProses DSAR: kami memverifikasi identitas tanpa meminta salinan KTP/NIK; nomor rekening atau dompet akan dimasking (misal \u201c***9982\u201d) dan data yang sensitif akan diekstrak dari sistem transaksi.\nTransfer data lintas batas ke pemroses kami LangitCloud Pte. Ltd. (Singapura, fiktif) dilakukan berdasarkan kontrak pemrosesan yang setara SCC dan menjaga kerahasiaan materi emiten sesuai pedoman pengawas.\nContoh yang tidak mengidentifikasi: catatan umum seperti \u201cpetugas gudang usia 26\u201328, Kecamatan Purnama, memakai ponsel Nebula C3\u201d tanpa nama, akun, atau tanggal tertentu tidak mengidentifikasi individu.\nIdentifikasi lemah terpisah lainnya: tahun lahir 1990, tinggal dekat Pasar Lestari, dan Android versi 12 yang muncul di dasbor telemetri tanpa tautan ke user ID tidak diperlakukan sebagai PII kecuali jika digabungkan.\nKeamanan: akses ke MNPI dibatasi berdasarkan peran (mis. \u201cDeal-Analyst-2\u201d), log perangkat mencatat MAC terpotong B4-22-**-A9, dan peringatan dipicu atas unduhan >2",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -225,89 +306,22 @@
       "reason": "Product/brand name, not PII"
     }
   ],
+  "source_jurisdiction": "ID",
   "uncertain": [
     {
-      "matched_text": "kode emiten internal ARI-01",
       "concept": "internal code possibly linked to a person",
+      "matched_text": "kode emiten internal ARI-01",
       "reason": "May function as an employee/internal identifier but context suggests issuer code; not clearly covered by allowed PII rules"
     },
     {
-      "matched_text": "CF-Seruni-04",
       "concept": "internal document tag linking identity",
+      "matched_text": "CF-Seruni-04",
       "reason": "Tag may link an individual to an acquisition workflow but not clearly within a specific allowed PII rule"
     },
     {
-      "matched_text": "\u201csess-Seruni\u201d",
       "concept": "internal session pattern",
+      "matched_text": "\u201csess-Seruni\u201d",
       "reason": "Pattern for session IDs could be PII if instantiated but this is a generic pattern example, not a concrete identifier"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": [
-    {
-      "resolved_at": "2026-06-03T03:27:55Z",
-      "reviewer": "Codex GPT-5.5",
-      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-      "warnings": [
-        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp74,2 miliar'",
-        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1,1\u20131,3 triliun'",
-        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
-        "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
-        "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
-        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp74,2 miliar'",
-        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1,1\u20131,3 triliun'",
-        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
-        "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
-        "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
-        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
-      ]
-    }
-  ],
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

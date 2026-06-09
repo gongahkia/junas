@@ -50,6 +50,14 @@
     "previous_must_detect_count": 6,
     "previous_must_not_detect_count": 1
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -137,6 +145,12 @@
       "category": "MNPI",
       "matched_text": "contact: investorrelations@northbank.example and cybersecurity@northbank.example; please do not reply to this mailbox for personal queries",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "references: see public statement via rns dated 31 october 2026 (contains no inside information under uk mar art.17) and ncsc guidance on password hygiene\nticker/isin placeholders for website mapping: \"nbhp\", ISIN: XX0000000000 (invalid), sedol: 0000000\ncontact: investorrelations@northbank.example and cybersecurity@northbank.example; please do not reply to this mailbox for personal queries",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

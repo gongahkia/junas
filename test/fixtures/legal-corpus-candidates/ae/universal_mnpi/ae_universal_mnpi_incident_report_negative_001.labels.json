@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -140,6 +148,18 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "scope \u2014 no customer accounts, emirates id copies, or family-origin fields were accessed; logs show only synthetic test profiles with invalid id strings such as eid 784-0000-0000000-0.\npublic context \u2014 similar configuration advisories have been circulated by sca and dfsa in 2023, and prior issues were announced on the adx disclosure feed by other issuers.\nregulatory \u2014 the event falls below operational incident thresholds; per uae pdpl, no personal data breach notification is triggered based on current evidence",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "incident summary \u2014 al barq holdings pjsc experienced a transient outage on the vendor onboarding portal hosted in adgm on 04 jun 2026 due to a misconfigured api key rotation.\nscope \u2014 no customer accounts, emirates id copies, or family-origin fields were accessed; logs show only synthetic test profiles with invalid id strings such as eid 784-0000-0000000-0.\npublic context \u2014 similar configuration advisories have been circulated by sca and dfsa in 2023, and prior issues were announced on the adx disclosure feed by other issuers.\nregulatory \u2014 the event falls below operational incident thresholds; per uae pdpl, no personal data breach notification is triggered based on current evidence.\ndetection and timeline \u2014 first alert at 02:14 gst; automated rollback completed 02:27 gst; vendor acknowledgement at 03:05 gst; service normalized by 03:20 gst.\nimpact \u2014 zero financial loss and no market-sensitive issuer information exposed; this was not a cyber-attack and not ransomware.\ngovernance \u2014 board risk committee notified via role mailbox risk@albarq-holdings.example; no named persons included in the chain.\nproof points \u2014 hash samples stored in a difc data room; public-source references appended (see sca circular 12/2021 and adgm guidance note 05/2022).\ncontract review \u2014 our term sheet templates include negated mac language for operational lapses that are promptly remediated and immaterial as to mae.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -1,160 +1,220 @@
 {
-  "doc_id": "ph_jurisdictional_mnpi_term_sheet_negative_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "disclosures@islanortefoods.example.ph"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Draft Term Sheet: Proposed Acquisition of a Controlling Stake in Isla Norte Foods Corporation"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Consideration: Cash in Philippine pesos; price per share to be finalized post confirmatory due diligence; no financing contingency; settlement through Banco de Bahaghari, Inc. (subject to standard AML/KYC)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Disclosure: PSE EDGE immediate disclosure upon signing/closing and SEC Form 17-C within five business days from occurrence, consistent with PSE and SRC rules and issuer’s Disclosure Policy"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Material non-public information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "40%"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_jurisdictional_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "disclosures@islanortefoods.example.ph"
+      "matched_text": "disclosures@islanortefoods.example.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "corpsec@barasoainholdings.example.ph"
+      "matched_text": "corpsec@barasoainholdings.example.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "ph_tin",
-      "matched_text": "000-000-000-000"
+      "matched_text": "000-000-000-000",
+      "rule": "ph_tin"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Material non-public information"
+      "matched_text": "Material non-public information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "insider-trading blackout window"
+      "matched_text": "insider-trading blackout window",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "40%"
+      "matched_text": "40%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Draft Term Sheet"
+      "matched_text": "Draft Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed Acquisition of a Controlling Stake in Isla Norte Foods Corporation"
+      "matched_text": "Proposed Acquisition of a Controlling Stake in Isla Norte Foods Corporation",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "may constitute"
+      "matched_text": "may constitute",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "01–15 July 2026"
+      "matched_text": "01\u201315 July 2026",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "signing/closing"
+      "matched_text": "signing/closing",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosures"
+      "matched_text": "selective disclosures",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "mandatory tender offer"
+      "matched_text": "mandatory tender offer",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Draft Term Sheet: Proposed Acquisition of a Controlling Stake in Isla Norte Foods Corporation"
+      "matched_text": "Draft Term Sheet: Proposed Acquisition of a Controlling Stake in Isla Norte Foods Corporation",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Consideration: Cash in Philippine pesos; price per share to be finalized post confirmatory due diligence; no financing contingency; settlement through Banco de Bahaghari, Inc. (subject to standard AML/KYC)"
+      "matched_text": "Consideration: Cash in Philippine pesos; price per share to be finalized post confirmatory due diligence; no financing contingency; settlement through Banco de Bahaghari, Inc. (subject to standard AML/KYC)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Disclosure: PSE EDGE immediate disclosure upon signing/closing and SEC Form 17-C within five business days from occurrence, consistent with PSE and SRC rules and issuer’s Disclosure Policy"
+      "matched_text": "Disclosure: PSE EDGE immediate disclosure upon signing/closing and SEC Form 17-C within five business days from occurrence, consistent with PSE and SRC rules and issuer\u2019s Disclosure Policy",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "disclosures@islanortefoods.example.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft Term Sheet: Proposed Acquisition of a Controlling Stake in Isla Norte Foods Corporation",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration: Cash in Philippine pesos; price per share to be finalized post confirmatory due diligence; no financing contingency; settlement through Banco de Bahaghari, Inc. (subject to standard AML/KYC)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure: PSE EDGE immediate disclosure upon signing/closing and SEC Form 17-C within five business days from occurrence, consistent with PSE and SRC rules and issuer\u2019s Disclosure Policy",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft Term Sheet: Proposed Acquisition of a Controlling Stake in Isla Norte Foods Corporation\nAcquirer: Barasoain Capital Holdings, Inc. (PH SEC Reg. No.: A2026-00X-9999; Company TIN: 000-000-000-000 for form reference only)\nTarget: Isla Norte Foods Corporation, a PSE-listed corporation (provisional symbol: INF0; CUSIP/ISIN: N/A placeholder), principal office at Unit 1601, Apo Center, Makisig District, Quezon Vista, Metro Manila\nStructure: Purchase of approximately 40% of outstanding common shares from multiple selling shareholders via on-exchange cross and negotiated block, with mandatory tender offer analysis under SRC Rule 19\nConsideration: Cash in Philippine pesos; price per share to be finalized post confirmatory due diligence; no financing contingency; settlement through Banco de Bahaghari, Inc. (subject to standard AML/KYC)\nDisclosure: PSE EDGE immediate disclosure upon signing/closing and SEC Form 17-C within five business days from occurrence, consistent with PSE and SRC rules and issuer\u2019s Disclosure Policy\nMaterial non-public information note: Until posted on PSE EDGE, this term sheet and the contemplated transaction details may constitute material non-public information under the Securities Regulation Code\nIssuer policy: Isla Norte\u2019s insider-trading blackout window is scheduled for 01\u201315 July 2026 around interim results, during which directors/officers are restricted from trading\nConditions precedent: SEC clearance for any mandatory tender offer; PSE approval for special block sale if applicable; BIR tax clearances; third-party consents; completion of legal, financial, and tax due diligence\nRegulatory references: SRC Rule 19 (Tender Offers), SRC Rule 23 (Insider Trading), PSE Revised Disclosure Rules; no waivers requested or expected at term sheet stage\nBackground (public): As disclosed in Isla Norte\u2019s 2025 Integrated Annual Report on PSE EDGE dated 15 April 2026, its packaging line modernization was completed in Q4 2025 and a new regional distributor was appointed for Visayas markets\nPress coverage (public): General press releases dated 12 January 2025 referenced a potential strategic review; this term sheet does not update or confirm any such reports",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -167,73 +227,27 @@
       "reason": "Defined role-noun"
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "A2026-00X-9999",
       "concept": "ph_sec_company_registration_number",
+      "matched_text": "A2026-00X-9999",
       "reason": "PH SEC company registration numbers are relevant identifiers but not covered by allowed PII rules."
     },
     {
-      "matched_text": "Unit 1601, Apo Center, Makisig District, Quezon Vista, Metro Manila",
       "concept": "postal_address_PH",
+      "matched_text": "Unit 1601, Apo Center, Makisig District, Quezon Vista, Metro Manila",
       "reason": "Addresses can be identifying; PH postal address is not in the allowed PII rule set."
     },
     {
-      "matched_text": "SEC Form 17-C within five business days",
       "concept": "disclosure_timing",
+      "matched_text": "SEC Form 17-C within five business days",
       "reason": "Jurisdiction-specific disclosure timeline is MNPI-relevant but not mapped to an allowed rule."
     },
     {
-      "matched_text": "provisional symbol: INF0",
       "concept": "pse_ticker_symbol_placeholder",
+      "matched_text": "provisional symbol: INF0",
       "reason": "Pre-assigned ticker symbols can be market-sensitive but no specific MNPI rule exists for this."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T07:07:36Z",
-    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

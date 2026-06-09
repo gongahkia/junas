@@ -17,13 +17,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -37,13 +37,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -58,6 +58,46 @@
     "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
     "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
   },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "VN",
@@ -71,7 +111,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Shareholders’ Agreement",
+      "matched_text": "Shareholders\u2019 Agreement",
       "rule": "definitive_agreement"
     },
     {
@@ -91,7 +131,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "NỘI BỘ — KHÔNG CÔNG BỐ TRƯỚC 15/06/2026 09:00 ICT",
+      "matched_text": "N\u1ed8I B\u1ed8 \u2014 KH\u00d4NG C\u00d4NG B\u1ed0 TR\u01af\u1edaC 15/06/2026 09:00 ICT",
       "rule": "nonpublic_marker"
     },
     {
@@ -101,7 +141,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "draft, non‑public",
+      "matched_text": "draft, non\u2011public",
       "rule": "nonpublic_marker"
     },
     {
@@ -141,12 +181,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Vũ Đăng Hà",
+      "matched_text": "Mr. V\u0169 \u0110\u0103ng H\u00e0",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Lê Thu An",
+      "matched_text": "Ms. L\u00ea Thu An",
       "rule": "named_person"
     },
     {
@@ -161,22 +201,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "LRP‑e0 77",
+      "matched_text": "LRP\u2011e0 77",
       "rule": "employee_id"
     },
     {
       "category": "PII",
-      "matched_text": "LRP‑c3  14",
+      "matched_text": "LRP\u2011c3  14",
       "rule": "employee_id"
     },
     {
       "category": "PII",
-      "matched_text": "acct 00 1 98‑L R P‑ 2 04 7",
+      "matched_text": "acct 00 1 98\u2011L R P\u2011 2 04 7",
       "rule": "bank_account"
     },
     {
       "category": "PII",
-      "matched_text": "ref “P‑L A N E  15/06”",
+      "matched_text": "ref \u201cP\u2011L A N E  15/06\u201d",
       "rule": "bank_customer_reference"
     },
     {
@@ -196,17 +236,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "KHÔNG CÔNG BỐ TRƯỚC 15/06/2026 09:00 ICT",
+      "matched_text": "KH\u00d4NG C\u00d4NG B\u1ed0 TR\u01af\u1edaC 15/06/2026 09:00 ICT",
       "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "approved in principle, subject to National Capital Markets Authority (NCMA‑VN) registration and Saigon Main Board (SMB) disclosure",
+      "matched_text": "approved in principle, subject to National Capital Markets Authority (NCMA\u2011VN) registration and Saigon Main Board (SMB) disclosure",
       "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "matched_text": "Lantern River Power JSC (“LRP”) to enter into definitive Share Subscription Agreement and Shareholders’ Agreement with Crescent Banyan Fund I for a VND 1,250,000,000,000 private placement representing ~12.5% post‑money",
+      "matched_text": "Lantern River Power JSC (\u201cLRP\u201d) to enter into definitive Share Subscription Agreement and Shareholders\u2019 Agreement with Crescent Banyan Fund I for a VND 1,250,000,000,000 private placement representing ~12.5% post\u2011money",
       "rule": "material_event"
     },
     {
@@ -216,7 +256,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Draft investor‑relations text (not for release): “Subject to NCMA‑VN approvals, LRP will issue 62,500,000 new shares at VND 20,000; Board may consider dividend policy update in Q4 2026”; file: https://ir.lanternriver.vn/dataroom?p=paddylane&id=LRP-2%201%209A-x7.",
+      "matched_text": "Draft investor\u2011relations text (not for release): \u201cSubject to NCMA\u2011VN approvals, LRP will issue 62,500,000 new shares at VND 20,000; Board may consider dividend policy update in Q4 2026\u201d; file: https://ir.lanternriver.vn/dataroom?p=paddylane&id=LRP-2%201%209A-x7.",
       "rule": "material_event"
     },
     {
@@ -253,7 +293,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Draft investor‑relations text (not for release): “Subject to NCMA‑VN approvals, LRP will issue 62,500,000 new shares at VND 20,000; Board may consider dividend policy update in Q4 2026”; file: https://ir.lanternriver.vn/dataroom?p=paddylane&id=LRP-2%201%209A-x7.",
+      "matched_text": "Draft investor\u2011relations text (not for release): \u201cSubject to NCMA\u2011VN approvals, LRP will issue 62,500,000 new shares at VND 20,000; Board may consider dividend policy update in Q4 2026\u201d; file: https://ir.lanternriver.vn/dataroom?p=paddylane&id=LRP-2%201%209A-x7.",
       "rule": "material_event"
     },
     {
@@ -315,6 +355,18 @@
       "category": "MNPI",
       "matched_text": "20,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Funds to be wired into escrow at Amber River Bank Vietnam (fict), acct 00 1 98\u2011L R P\u2011 2 04 7, ref \u201cP\u2011L A N E  15/06\u201d; signatories: Mr. V\u0169 \u0110\u0103ng H\u00e0 and Ms. L\u00ea Thu An.\nPrivacy/PII: circulation limited to named employees only (Emp l oyee ID LRP\u2011e0 77, LRP\u2011c3  14); processed per Privacy Decree 13\u2011\u03b2 and LRP Policy PR\u20112026\u201101 (fictional).\nDraft investor\u2011relations text (not for release): \u201cSubject to NCMA\u2011VN approvals, LRP will issue 62,500,000 new shares at VND 20,000; Board may consider dividend policy update in Q4 2026\u201d; file: https://ir.lanternriver.vn/dataroom?p=paddylane&id=LRP-2%201%209A-x7",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "N\u1ed8I B\u1ed8 \u2014 KH\u00d4NG C\u00d4NG B\u1ed0 TR\u01af\u1edaC 15/06/2026 09:00 ICT \u2014 Internal Legal Brief re: Project PADDYLANE (LRP).\nLantern River Power JSC (\u201cLRP\u201d) to enter into definitive Share Subscription Agreement and Shareholders\u2019 Agreement with Crescent Banyan Fund I for a VND 1,250,000,000,000 private placement representing ~12.5% post\u2011money.\nBoard memo: Resolution 06\u20112026/LRP (12/06/2026) approved in principle, subject to National Capital Markets Authority (NCMA\u2011VN) registration and Saigon Main Board (SMB) disclosure under Listing Rule 7.4 (fictional).\nNon\u2011public markers: Draft IR copy and draft term sheet attached; EMBARGO until 15/06/2026 09:00 ICT; working group code name \u201cPADDYLANE\u201d.\nConditions precedent include: NCMA\u2011VN acceptance notice, SMB pre\u2011clear, bank KYC files, and a Material Adverse Effect clause as follows.\nMAC/MAE: No MAE shall be deemed to occur solely due to changes in VN base rate set by the People\u2019s Monetary Board (PMB\u2011VN) or sector\u2011wide tariff updates publicly announced; for clarity, an MAE is not triggered by general inflation or weather\u2011related curtailment disclosed in routine reports.\nFunds to be wired into escrow at Amber River Bank Vietnam (fict), acct 00 1 98\u2011L R P\u2011 2 04 7, ref \u201cP\u2011L A N E  15/06\u201d; signatories: Mr. V\u0169 \u0110\u0103ng H\u00e0 and Ms. L\u00ea Thu An.\nPrivacy/PII: circulation limited to named employees only (Emp l oyee ID LRP\u2011e0 77, LRP\u2011c3  14); processed per Privacy Decree 13\u2011\u03b2 and LRP Policy PR\u20112026\u201101 (fictional).\nDraft investor\u2011relations text (not for release): \u201cSubject to NCMA\u2011VN approvals, LRP will issue 62,500,000 new shares at VND 20,000; Board may consider dividend policy update in Q4 2026\u201d; file: https://ir.lanternriver.vn/dataroom?p=paddylane&id=LRP-2%201%209A-x7.\nPreliminary research note (draft, non\u2011public): FY2026E EBITDA VND 810bn; pro\u2011forma net debt/EBITDA 2.9x; expected dilution 11.1%; target gearing 55% by FY2027.\nDeal checklist excerpt: SSA (definitive), SHA, escrow agreement, auditor comfort letter, UBO declaration (NCMA\u2011VN Form 88D), anti\u2011corruption certificate, SMB price\u2011sensitive notice temp",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -327,11 +379,11 @@
       "reason": "defined-term abbreviation"
     },
     {
-      "matched_text": "NCMA‑VN",
+      "matched_text": "NCMA\u2011VN",
       "reason": "defined-term abbreviation"
     },
     {
-      "matched_text": "PMB‑VN",
+      "matched_text": "PMB\u2011VN",
       "reason": "defined-term abbreviation"
     },
     {
@@ -339,7 +391,7 @@
       "reason": "codename without Project prefix"
     },
     {
-      "matched_text": "spa‑voucher codes",
+      "matched_text": "spa\u2011voucher codes",
       "reason": "false-positive bait; not a Share Purchase Agreement"
     }
   ],
@@ -350,37 +402,5 @@
       "matched_text": "lea n@lanternriver.vn",
       "reason": "Contains a space in the local-part, so it may not match standard email regexes but appears intended as an email address."
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

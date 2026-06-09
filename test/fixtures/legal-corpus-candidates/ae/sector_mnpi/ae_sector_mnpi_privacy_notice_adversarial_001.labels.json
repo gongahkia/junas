@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -295,6 +303,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For queries, contact Mr. Kareem Al-Hadi, Data Protection Officer, or submit a DSAR at https://portal.falconoasis.ae/dsar?ref=H7-9x_k.\nIn issuer mandates, we may receive non-public commercial terms (token pre-sale price bands, sustainability-linked coupon step-ups) and maintain SCA-compliant insider lists under information bar riers.\nEmployees on Project HAWK are subject to blackout windows and anti-tipping controls; calendar invites labelled \u201cquiet period\u201d trigger auto-restrictions in our D I F C entity.\nPrior to any VARA notification, crypto wallet whitelists and validator node IPs are classified as restricted; access is logged and segregated.\nIn a cyber incident investigation, we collect device telemetry and obfuscated account IDs (acct: gmdm-**Q4-71**) to meet breach notification duties without unnecessary identification.\nCross-border transfers to processors in Manara Free Tech Zone are governed by ADGM SCCs; for onshore, SCA rulebook and Federal Decree-Law 45/2021 apply, with data minimisation.\nWe process project-level ESG climate metrics for Desert Wind Sukuk SPV solely at an aggregated level and not linked to a natural person.\nThis notice is not a MAC trigger, is not a selective disclosure, and references public-source frameworks for educational guidance only.\nOur marketing webinar on crypto custody and insider list hygiene uses generic examples and does not discuss any live issuer or deal timetable.\nRetention: Emirates ID images and trade licence copies are kept 6 years post offboarding; insider list audit trails persist 10 years unless law requires earlier deletion.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

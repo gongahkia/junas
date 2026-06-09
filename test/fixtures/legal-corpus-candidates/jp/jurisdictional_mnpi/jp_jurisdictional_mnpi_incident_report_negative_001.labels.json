@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -120,6 +128,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-05-28, a configuration error by our outsourced IT vendor SeikaNet G.K. restricted label-printing permissions on the Chiba Distribution Center file server, resulting in temporary shipment delays.\nImpact: operations were normalized within the day; no systems containing personal data or payroll information were connected to the affected segment, and no data exfiltration was detected.\nDisclosure status: a brief notice was posted to our website and filed under \u201cOther\u201d on the Tokyo Bay Exchange (fictional) Timely Disclosure Portal (TBE\u2011TD) on 2026-05-29; impact assessed as below our issuer-relative threshold for materiality but disclosed out of caution.\nAPPI/My Number: the affected server held only hashed operational logs and anonymized roster tokens; no \u201cpersonal information\u201d or \u201cindividual codes (My Number)\u201d as defined under APPI Article 2 were present.\nBait identifiers observed in logs include EMP-00-XYZ and CUST-123-ABCD-0000; these are system-generated labels and not linked to living individuals.\nCorrective action: the vendor patch was rolled back, least-privilege ACLs were restored, and a change-freeze remains in place pending completion of a segregation-of-duties check.\nAs already announced on 2025-02-15 via TBE\u2011TD, our Board approved execution of a basic agreement to acquire Ayame Parts G.K.; there have been no subsequent updates to that transaction.\nFor avoidance of doubt, the 2026 Yukashoken Hokokusho (Securities Report) dated 2026-06-01, including risk factor updates and cyber controls, has been made publicly available on our issuer page.\nSeparately from this incident, management is evaluating commencing a tender offer for Hatsuho Systems K.K.; no TBE\u2011TD registration or press release has been made, and until public disclosure this constitutes MNPI under the Financial Instruments and Exchange Act.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

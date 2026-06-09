@@ -1,240 +1,300 @@
 {
-  "doc_id": "my_sector_mnpi_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "MY",
-  "destination_jurisdiction": "MY",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "azlan.firdhaus@seripelangi.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "haris.z@seripelangi.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "zaid.omar@seripelangi.example"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The ESG draft shows a 14% negative variance in Scope 2 emissions versus March guidance; this information is non-public and may be price-sensitive under the CMSA materiality threshold."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "14%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barrier"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Chinese Wall"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2 emissions"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_sector_mnpi_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "azlan.firdhaus@seripelangi.example"
+      "matched_text": "azlan.firdhaus@seripelangi.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "haris.z@seripelangi.example"
+      "matched_text": "haris.z@seripelangi.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "zaid.omar@seripelangi.example"
+      "matched_text": "zaid.omar@seripelangi.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The ESG draft shows a 14% negative variance in Scope 2 emissions versus March guidance; this information is non-public and may be price-sensitive under the CMSA materiality threshold."
+      "matched_text": "The ESG draft shows a 14% negative variance in Scope 2 emissions versus March guidance; this information is non-public and may be price-sensitive under the CMSA materiality threshold.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "14%"
+      "matched_text": "14%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barrier"
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Chinese Wall"
+      "matched_text": "Chinese Wall",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2 emissions"
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Encik Azlan Firdhaus"
+      "matched_text": "Encik Azlan Firdhaus",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Puan Norlina Bakar"
+      "matched_text": "Puan Norlina Bakar",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Encik Haris Zikri"
+      "matched_text": "Encik Haris Zikri",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "En. Zaid Omar"
+      "matched_text": "En. Zaid Omar",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@seripelangi.example"
+      "matched_text": "compliance@seripelangi.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Cik Meera Thassan"
+      "matched_text": "Cik Meera Thassan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cosec@seripelangi.example"
+      "matched_text": "cosec@seripelangi.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "ransomware attempt"
+      "matched_text": "ransomware attempt",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "data exfiltration"
+      "matched_text": "data exfiltration",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading blackout"
+      "matched_text": "Trading blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "no tipping"
+      "matched_text": "no tipping",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no selective disclosure"
+      "matched_text": "no selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "may be price-sensitive"
+      "matched_text": "may be price-sensitive",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "DAX Token Pilot"
+      "matched_text": "DAX Token Pilot",
+      "rule": "dpt_pre_listing_marker"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_protocol_event_marker",
-      "matched_text": "go‑live date"
+      "matched_text": "go\u2011live date",
+      "rule": "dpt_protocol_event_marker"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "Negarabit Digital Asset Exchange"
+      "matched_text": "Negarabit Digital Asset Exchange",
+      "rule": "dpt_pre_listing_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet announced"
+      "matched_text": "not yet announced",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Senarai Orang Dalam"
+      "matched_text": "Senarai Orang Dalam",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "ESG draft"
+      "matched_text": "ESG draft",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "potential data exfiltration"
+      "matched_text": "potential data exfiltration",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List additions"
+      "matched_text": "Insider List additions",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "ransomware"
+      "matched_text": "ransomware",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "azlan.firdhaus@seripelangi.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "haris.z@seripelangi.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "zaid.omar@seripelangi.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The ESG draft shows a 14% negative variance in Scope 2 emissions versus March guidance; this information is non-public and may be price-sensitive under the CMSA materiality threshold.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "14%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese Wall",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Confidential (Malaysia PDPA/CMSA context) \u2014 Seri Pelangi Renewables Berhad\nPrepared by: Encik Azlan Firdhaus (Acting CISO) \u2014 contact: azlan.firdhaus@seripelangi.example \u2014 Date: 02 June 2026, 08:30 MYT\nSummary: On 01 June 2026, our endpoint monitoring flagged a ransomware attempt affecting two file servers in the Shah Alam DC; partial encryption was contained, but potential data exfiltration occurred.\nInitial forensics indicate copies of folders \u201cESG_DraftAssurance_Q2\u201d and \u201cDAX_Token_Pilot_Terms\u201d were accessed by an external IP prior to containment.\nThe ESG draft shows a 14% negative variance in Scope 2 emissions versus March guidance; this information is non-public and may be price-sensitive under the CMSA materiality threshold.\nThe DAX Token Pilot terms include fee schedule, validator arrangements, and a tentative go\u2011live date for tokenised REC issuance on the Negarabit Digital Asset Exchange; these commercial terms are not yet announced.\nAs the Company is listed on Bursa Menara Berhad, we are assessing disclosure obligations against the Listing Requirements materiality test and timing for any necessary announcement.\nAn information barrier (Chinese Wall) has been instituted between the Digital Assets Unit and Group Treasury with immediate effect; Insider List (Senarai Orang Dalam) has been initiated and circulated to Compliance.\nInsider List additions: Puan Norlina Bakar (Head of Compliance), Encik Haris Zikri (CIO), En. Zaid Omar (GM, Digital Assets); emails: compliance@seripelangi.example, haris.z@seripelangi.example, zaid.omar@seripelangi.example.\nTrading blackout for Designated Persons is imposed from 02\u201315 June 2026; reminders issued re: no tipping, no selective disclosure, and pre-clearance of any urgent trades.\nWe have notified external counsel Rimba & Teh Partners and lender Nusantara Amanah Bank Berhad regarding potential implications for covenants under the Green Sukuk Facility term sheet (non-public, execution draft).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -255,73 +315,27 @@
       "reason": "Educational context; not market sensitive MNPI"
     }
   ],
+  "source_jurisdiction": "MY",
   "uncertain": [
     {
-      "matched_text": "pre-clearance of any urgent trades",
       "concept": "pre-clearance control",
+      "matched_text": "pre-clearance of any urgent trades",
       "reason": "Insider dealing control language; compliance-relevant but not explicitly listed in allowed MNPI markers"
     },
     {
-      "matched_text": "NRIC numbers",
       "concept": "PII class mention",
+      "matched_text": "NRIC numbers",
       "reason": "References sensitive identifier category without any actual identifier values present"
     },
     {
-      "matched_text": "external IP",
       "concept": "IP address reference",
+      "matched_text": "external IP",
       "reason": "Indicates access by an IP address but no concrete ip_address value provided"
     },
     {
-      "matched_text": "execution draft",
       "concept": "deal stage indicator",
+      "matched_text": "execution draft",
       "reason": "Non-public deal-stage status that may be sensitive but not explicitly mapped to an allowed MNPI rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
-  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_strict_reconciliation": {
-    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

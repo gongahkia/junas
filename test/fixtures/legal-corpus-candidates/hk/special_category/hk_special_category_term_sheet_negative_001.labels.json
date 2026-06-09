@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -149,6 +157,18 @@
       "category": "MNPI",
       "matched_text": "60%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Aurora Harbor Technologies Limited (Main Board issuer; illustrative stock code \u201c0000.XH\u201d) as purchaser and Pearl Mosaic Holdings Limited as target; Riverstone Capital Fund I LP as investor.\nTransaction: Proposed acquisition of 60% of the issued shares of Pearl Mosaic Holdings Limited by Aurora Harbor Technologies Limited, with concurrent subscription by Riverstone for exchangeable \u201cSkyline Ledger Notes\u201d.\nConsideration: To be set within a fair value range supported by an independent valuation; payment mix (cash/new shares/notes) to be finalised in definitive agreements.\nFunding: Internal resources of Aurora Harbor Technologies Limited and proceeds from Riverstone\u2019s investment; no margin financing or collateral over customer assets contemplated.\nRegulatory status: Expected classification as a major transaction under Chapter 14 of the Hong Kong listing rules (to be confirmed); not a connected transaction under Chapter 14A based on current analysis; circular and independent shareholders\u2019 approval at a special general meeting to be obtained if required.\nCompliance and disclosure: Parties acknowledge obligations on inside information under the Securities and Futures Ordinance; unannounced price-sensitive terms (if any) will be disclosed via the issuer\u2019s publication platform; personal data will be handled in accordance with the issuer\u2019s Harbour Shield Data Policy and applicable Hong Kong privacy law.\nEmployment and integration: Standard retention, non-solicit and transitional services to be agreed; the Inclusive Pathways Charter affirms diversity, equity and inclusion across teams without collecting sensitive attributes unrelated to the transaction.\nPublic/stale product references: The target\u2019s 2025 launch of \u201cCoralPay\u201d wallet and \u201cBamboo Cloud\u201d services was previously announced and forms part of the public domain; no trophies from the Kowloon Meteors or souvenirs from Dragon\u2019s Back hikes are assets of the target.\nDue diligence scope: Legal, financial, tax and IT reviews only; no collection of biometric, genetic or health records, and no scraping of end-user data; limited data room with redactions and role-based access controls.\nSpecial note (employment data\u2014consented): Employee Ref: EA-0471 (a prospective secondee) has voluntarily disclosed membership in the Harbour Tech Employees Union for conflict assessment; processing limited to this purpose with explicit consent and retained for the minimum period necessary.\nConfidentiality: Mutual NDA to be executed; notices and queries to compliance@auroraharbor.example (role mailbox).\nAnnouncements: Any shareholder communication or announcement to be coordinated through the issuer\u2019s standard channels and timetable; no forward-looking statements will be released without agreed wording.\nExclusivity and costs: 60-day no-shop from countersignature; each party bears its own costs; break fee, if any, to be discussed in definitive documentation.\nGoverning law and binding effect: Governed by the laws of Hong Kong; this term sheet is non-binding except for confidentiality, exclusivity and costs; public enquiries line: 800-000-000.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

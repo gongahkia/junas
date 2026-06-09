@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -57,7 +65,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Term Sheet — Proposed acquisition of Aurelius CareNet Systems LLC (“Seller”) by NewHarbor HealthBank, Inc. (“Buyer”), a Delaware corporation and U.S. issuer, to combine healthcare payments and community banking platforms.",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Aurelius CareNet Systems LLC (\u201cSeller\u201d) by NewHarbor HealthBank, Inc. (\u201cBuyer\u201d), a Delaware corporation and U.S. issuer, to combine healthcare payments and community banking platforms.",
       "rule": "material_event"
     },
     {
@@ -67,17 +75,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Closing Conditions: HSR filing if required, HIPAA/GLBA/CCPA compliance review, absence of a Material Adverse Change; for the avoidance of doubt, a MAC shall not be deemed to occur due to general DEI policy updates, sponsorships of local sports teams, or adoption of religion‑neutral holiday calendars.",
+      "matched_text": "Closing Conditions: HSR filing if required, HIPAA/GLBA/CCPA compliance review, absence of a Material Adverse Change; for the avoidance of doubt, a MAC shall not be deemed to occur due to general DEI policy updates, sponsorships of local sports teams, or adoption of religion\u2011neutral holiday calendars.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Employee Matters: Mr. Owen R. Vale (Employee ID: NH‑HB‑3 7 4‑XX2), designated transition lead, will receive a retention bonus; per Schedule 5.2(a), his hospital biometric timeclock template (finger‑vein scan) will be deleted at closing and his Crohn’s treatment schedule may be shared only with the occupational health nurse under HIPAA.",
+      "matched_text": "Employee Matters: Mr. Owen R. Vale (Employee ID: NH\u2011HB\u20113 7 4\u2011XX2), designated transition lead, will receive a retention bonus; per Schedule 5.2(a), his hospital biometric timeclock template (finger\u2011vein scan) will be deleted at closing and his Crohn\u2019s treatment schedule may be shared only with the occupational health nurse under HIPAA.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Data Carve‑Outs: Ms. Priya L. Menon (email: pmenon@aur‑carenet.example), a patient‑analyst liaison, has a documented BRCA1 genetic carrier status and is a member of the North Downtown Health care Workers Uni on; such data shall not transfer and must be pseudonymized or deleted prior to closing.",
+      "matched_text": "Data Carve\u2011Outs: Ms. Priya L. Menon (email: pmenon@aur\u2011carenet.example), a patient\u2011analyst liaison, has a documented BRCA1 genetic carrier status and is a member of the North Downtown Health care Workers Uni on; such data shall not transfer and must be pseudonymized or deleted prior to closing.",
       "rule": "material_event"
     },
     {
@@ -112,12 +120,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "material non‑public projections",
+      "matched_text": "material non\u2011public projections",
       "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "not selectively to sell‑side analysts or portfolio managers",
+      "matched_text": "not selectively to sell\u2011side analysts or portfolio managers",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -132,22 +140,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "Employee ID: NH‑HB‑3 7 4‑XX2",
+      "matched_text": "Employee ID: NH\u2011HB\u20113 7 4\u2011XX2",
       "rule": "employee_id"
     },
     {
       "category": "PII",
-      "matched_text": "his hospital biometric timeclock template (finger‑vein scan)",
+      "matched_text": "his hospital biometric timeclock template (finger\u2011vein scan)",
       "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "matched_text": "his Crohn’s treatment schedule",
+      "matched_text": "his Crohn\u2019s treatment schedule",
       "rule": "health_condition"
     },
     {
       "category": "PII",
-      "matched_text": "his Crohn’s treatment schedule",
+      "matched_text": "his Crohn\u2019s treatment schedule",
       "rule": "medical_treatment"
     },
     {
@@ -157,7 +165,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "pmenon@aur‑carenet.example",
+      "matched_text": "pmenon@aur\u2011carenet.example",
       "rule": "email_address"
     },
     {
@@ -182,7 +190,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "ir@newharbor‑healthbank.example",
+      "matched_text": "ir@newharbor\u2011healthbank.example",
       "rule": "email_address"
     },
     {
@@ -212,12 +220,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "patient sex‑life data",
+      "matched_text": "patient sex\u2011life data",
       "rule": "sex_life_reference"
     },
     {
       "category": "PII",
-      "matched_text": "an employee’s sexual orientation",
+      "matched_text": "an employee\u2019s sexual orientation",
       "rule": "sexual_orientation"
     },
     {
@@ -232,7 +240,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "data‑minimization policies",
+      "matched_text": "data\u2011minimization policies",
       "rule": "data_minimisation_marker"
     }
   ],
@@ -259,7 +267,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Term Sheet — Proposed acquisition of Aurelius CareNet Systems LLC (“Seller”) by NewHarbor HealthBank, Inc. (“Buyer”), a Delaware corporation and U.S. issuer, to combine healthcare payments and community banking platforms.",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Aurelius CareNet Systems LLC (\u201cSeller\u201d) by NewHarbor HealthBank, Inc. (\u201cBuyer\u201d), a Delaware corporation and U.S. issuer, to combine healthcare payments and community banking platforms.",
       "rule": "material_event"
     },
     {
@@ -269,17 +277,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Closing Conditions: HSR filing if required, HIPAA/GLBA/CCPA compliance review, absence of a Material Adverse Change; for the avoidance of doubt, a MAC shall not be deemed to occur due to general DEI policy updates, sponsorships of local sports teams, or adoption of religion‑neutral holiday calendars.",
+      "matched_text": "Closing Conditions: HSR filing if required, HIPAA/GLBA/CCPA compliance review, absence of a Material Adverse Change; for the avoidance of doubt, a MAC shall not be deemed to occur due to general DEI policy updates, sponsorships of local sports teams, or adoption of religion\u2011neutral holiday calendars.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Employee Matters: Mr. Owen R. Vale (Employee ID: NH‑HB‑3 7 4‑XX2), designated transition lead, will receive a retention bonus; per Schedule 5.2(a), his hospital biometric timeclock template (finger‑vein scan) will be deleted at closing and his Crohn’s treatment schedule may be shared only with the occupational health nurse under HIPAA.",
+      "matched_text": "Employee Matters: Mr. Owen R. Vale (Employee ID: NH\u2011HB\u20113 7 4\u2011XX2), designated transition lead, will receive a retention bonus; per Schedule 5.2(a), his hospital biometric timeclock template (finger\u2011vein scan) will be deleted at closing and his Crohn\u2019s treatment schedule may be shared only with the occupational health nurse under HIPAA.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Data Carve‑Outs: Ms. Priya L. Menon (email: pmenon@aur‑carenet.example), a patient‑analyst liaison, has a documented BRCA1 genetic carrier status and is a member of the North Downtown Health care Workers Uni on; such data shall not transfer and must be pseudonymized or deleted prior to closing.",
+      "matched_text": "Data Carve\u2011Outs: Ms. Priya L. Menon (email: pmenon@aur\u2011carenet.example), a patient\u2011analyst liaison, has a documented BRCA1 genetic carrier status and is a member of the North Downtown Health care Workers Uni on; such data shall not transfer and must be pseudonymized or deleted prior to closing.",
       "rule": "material_event"
     },
     {
@@ -311,16 +319,28 @@
       "category": "MNPI",
       "matched_text": "312,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Board Observer: Rev. Dr. Caleb S. Arlen will serve as a non\u2011voting observer for 12 months; his church affiliation is not relevant to diligence and should not be processed or stored in Buyer systems.\nReporting & Public Sources: management may use publicly available inputs (e.g., State of Borealis budget reports, Fresno Firewings community health fair attendance figures) in the investor deck; no internal payer rate files or draft examiner findings may be shared without simultaneous public access.\nIntegration Plan (lowercase working draft): adopt Sunrise CRM, HarborLedger, and MedBridge API; we will \u201cswing for a home run\u201d on day\u20111 conversion subject to IT change\u2011control and data\u2011minimization policies",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Aurelius CareNet Systems LLC (\u201cSeller\u201d) by NewHarbor HealthBank, Inc. (\u201cBuyer\u201d), a Delaware corporation and U.S. issuer, to combine healthcare payments and community banking platforms.\nPurchase Price: $312,000,000 in cash and Buyer Class B non\u2011voting shares; final mix subject to customary purchase price adjustment; no public security identifiers referenced herein.\nStructure & Financing: reverse subsidiary merger; proceeds funded by a senior secured term loan under a commitment from BlueMesa Capital Partners LP (fictional), subject to U.S. bank regulatory approvals and satisfaction of internal credit policies.\nClosing Conditions: HSR filing if required, HIPAA/GLBA/CCPA compliance review, absence of a Material Adverse Change; for the avoidance of doubt, a MAC shall not be deemed to occur due to general DEI policy updates, sponsorships of local sports teams, or adoption of religion\u2011neutral holiday calendars.\nR e g   F D / Rule 1 0 b - 5: any material non\u2011public projections (including preliminary patient\u2011billing integration metrics and pro forma net interest margin outcomes) will be furnished broadly via https://ir.newharbor-healthbank.example/deal?doc=TS-AXN-0042, not selectively to sell\u2011side analysts or portfolio managers.\nEmployee Matters: Mr. Owen R. Vale (Employee ID: NH\u2011HB\u20113 7 4\u2011XX2), designated transition lead, will receive a retention bonus; per Schedule 5.2(a), his hospital biometric timeclock template (finger\u2011vein scan) will be deleted at closing and his Crohn\u2019s treatment schedule may be shared only with the occupational health nurse under HIPAA.\nData Carve\u2011Outs: Ms. Priya L. Menon (email: pmenon@aur\u2011carenet.example), a patient\u2011analyst liaison, has a documented BRCA1 genetic carrier status and is a member of the North Downtown Health care Workers Uni on; such data shall not transfer and must be pseudonymized or deleted prior to closing.\nBoard Observer: Rev. Dr. Caleb S. Arlen will serve as a non\u2011voting observer for 12 months; his church affiliation is not relevant to diligence and should not be processed or stored in Buyer systems.\nReporting & Public Sources: management may use publicly available inputs (e.g., State of Borealis budget reports, Fresno Firewings community health fair attendance figures) in the investor deck; no internal payer rate files or draft examiner findings may be shared without simultaneous public access.\nIntegration Plan (lowercase working draft): adopt Sunrise CRM, HarborLedger, and MedBridge API; we will \u201cswing for a home run\u201d on day\u20111 conversion subject to IT change\u2011control and data\u2011minimization policies.\nEquity Rollover: key employees may receive options under Buyer\u2019s 2026 Omnibus Plan; vesting will not accelerate solely due to union activity or changes in an employee\u2019s sexual orientation (policy language only).\nHealthcare/Bank Reps & Warranties: Seller represents compliance with HIPAA security standards, CCPA\u2011style consumer rights, GLBA Safeguards Rule, and no undisclosed government inquiries; no undisclosed processing of patient sex\u2011life data in operational CRMs.\nConfidentiality: this document contains M N P I; until an authorized public release, circulate only to persons bound by NDAs; IR contact: ir@newharbor\u2011healthbank.example.\nMiscellaneous: governing law\u2014Delaware; listing to remain on a U.S. national securities exchange; standard no\u2011shop, employee non\u2011solicit, and transition services terms; Equal Opportunity Policy appended; this term sheet is non\u2011binding until execution of definitive agreements.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
     {
       "matched_text": "Seller",
-      "reason": "Defined role term in the agreement, not a person’s name."
+      "reason": "Defined role term in the agreement, not a person\u2019s name."
     },
     {
       "matched_text": "Buyer",
-      "reason": "Defined role term in the agreement, not a person’s name."
+      "reason": "Defined role term in the agreement, not a person\u2019s name."
     }
   ],
   "source_jurisdiction": "US",
@@ -328,15 +348,15 @@
     {
       "concept": "financing counterparty identity",
       "matched_text": "BlueMesa Capital Partners LP",
-      "reason": "Identity of a committed lender in deal financing may be material and non‑public, but no specific MNPI rule covers counterparty names."
+      "reason": "Identity of a committed lender in deal financing may be material and non\u2011public, but no specific MNPI rule covers counterparty names."
     },
     {
       "concept": "information barrier/control",
       "matched_text": "circulate only to persons bound by NDAs",
-      "reason": "Distribution restriction is compliance‑relevant to avoid selective disclosure, but not clearly mapped to an allowed marker."
+      "reason": "Distribution restriction is compliance\u2011relevant to avoid selective disclosure, but not clearly mapped to an allowed marker."
     },
     {
-      "concept": "non‑public distribution location",
+      "concept": "non\u2011public distribution location",
       "matched_text": "https://ir.newharbor-healthbank.example/deal?doc=TS-AXN-0042",
       "reason": "Direct IR link could indicate dissemination controls; not explicitly covered by current MNPI rules."
     }

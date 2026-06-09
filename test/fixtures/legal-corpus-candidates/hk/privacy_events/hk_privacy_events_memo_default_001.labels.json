@@ -86,6 +86,14 @@
     "status": "codex_reconciled_after_precision_guard_owner_approval_preserved",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -278,6 +286,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal memo (HK) \u2013 Harbour Peak Holdings Limited: M&A and privacy controls status for proposed acquisition of Lotus Ferrum Technology Co. with co-investment by Jade Banyan Partners Fund I LP.\nWe confirm that specific, non-public financial metrics of Lotus Ferrum constitute inside information under the SFO; MNPI remains confined to the clean team, and no dealing in Harbour Peak shares by insiders has occurred during the blackout period.\nCross\u2011border transfer: data export approval DEA\u20112026\u2011041 for payroll processing to DataFoundry Pte. Ltd. (Singapore) was approved on 18 May, with DPA Schedule 2 (processor terms), encryption at rest, and a transfer impact assessment referencing PCPD guidance; there are no unapproved outbound transfers.\nEmployment onboarding forms for seconded staff (Phase 1 integration) capture names, emails, and role histories only; HKID numbers are not collected and employee numbers are truncated per our minimisation standard.\nA DSAR from Mr. Paulo Tse (former contractor) received on 02 May was fulfilled on 07 May; access report issued and non-statutory records erased, with a retention hold applied to payroll records in line with tax requirements.\nConsent withdrawal: Ms. Aria Ng (fund investor) withdrew consent for marketing communications on 15 May; her profile is flagged \u201cno marketing,\u201d and the suppression list was updated within 24 hours.\nData retention: onboarding forms in the M&A staging folder now have a 12\u2011month retention period (down from 24 months) per the revised HR schedule effective 1 May; auto\u2011deletion has been tested and evidenced.\nFor the avoidance of doubt, the \u201cproduction dataset\u201d referenced in Annex B is illustrative only and does not authorise the use of identifiable customer data in diligence; only anonymised, aggregated revenue cohorts are provided to the clean room.\nNo MNPI has been shared with potential finance providers beyond a redacted term sheet and KPI ranges; the insider list has been updated and acknowledgments are on file.\nData room logs show no downloads of salary tables or employee contact rosters since the last audit on 19 May, and watermarking remains enabled.\nA draft DPA with Blue Lantern Services (HK) Limited covering HR systems integration is attached as Schedule 2; signature is pending counterparty board approval, but processing will not commence until fully executed.\nErasure request window: no open erasure requests remain as at today; prior erasure tickets EP\u20111441 and EP\u20111443 are closed with evidence captured in the PDPO register.\nPolicy\u2011only control: the \u201cEmergency Export Waiver\u201d remains on file for business continuity but is not active and cannot be invoked without joint approval from Legal and the DPO under the Cross\u2011Border Playbook.\nHKEX communications: no pre\u2011announcement is required at this stage; should a firm intention form, we will trigger the inside information assessment and liaise with the SFC on any necessary trading halt.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

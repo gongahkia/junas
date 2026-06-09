@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -480,6 +488,18 @@
       "category": "MNPI",
       "matched_text": "40,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Control of Jiangyuan Optics Co., Ltd. by Qiluo Capital Fund I, L.P., governed by PRC law.\nTarget: Jiangyuan Optics Co., Ltd. (fictional), registered in Hanyu District, Yuelan Province, PRC; Unified Social Credit Code (USCC) placeholder JYO-9Z31X-000TQ (not an official code).\nBuyer: Qiluo Capital Fund I, L.P., managed by Qiluo (Tianjin) Equity Investment Management Co., Ltd.; Transaction: purchase of 60% equity interests for RMB 320,000,000.\nRegulatory status: the Target is preparing an Innovation Board listing application with Hanyuan Stock Exchange (fictional), and board secretariat minutes regarding the draft timetable constitute inside information under PRC Securities Law and must not be traded upon.\nConditions precedent: compliance with PIPL, CSL, and DSL; for any cross-border transfer of personal information, standard contract filing and a security assessment with the national cyberspace regulator will be completed before closing.\nData scope: diligence data room includes HR files, device logs, access-control records, and supplier ledgers; no state secrets are included, and processing follows purpose limitation and minimization.\nAnchored sensitive data: Mr. He Ming (Factory Supervisor, Employee ID JYO-0142) has biometric templates (fingerprint and face-scan clock-in) and an occupational health record noting controlled hypertension; his membership with Yuelan Optics Workers Union is also recorded.\nMinors\u2019 data: Zhao Jing (age 13), the dependent child of Ms. Zhao Fei (Accounting), has a vaccination certificate and school enrollment letter stored in the benefits portal, requiring guardian consent and heightened protection measures.\nAdditional special-category note: Ms. Lin Ya (R&D) voluntarily listed her religious belief as Buddhist in an optional staff profile; no employment decision shall be based on such information.\nConfidentiality and MNPI: all term sheet contents and unaudited Q1 figures (non-public) constitute inside information until public disclosure via the HSE information platform; the Parties shall adopt trading blackouts and control selective disclosure.\nIdentifiers and masking: any Resident ID numbers are truncated in diligence (e.g., Ms. Wang Xiu \u2014 ID ending 0007), and payroll bank accounts are tokenized; no raw biometric templates or genetic data sets will be exported.\nCross-border processing: limited transfer to Buyer\u2019s analysts in Hong Kong SAR and Singapore via encryption, access controls, and PRC-standard contractual clauses; onward transfers require written approval and updated records of processing.\nPricing and closing mechanics: RMB 320,000,000 cash at closing less net debt, plus an earn-out of RMB 40,000,000 tied to 2027 audited net profit; closing targeted within 120 days of approvals by the national securities regulator and the provincial commerce department.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

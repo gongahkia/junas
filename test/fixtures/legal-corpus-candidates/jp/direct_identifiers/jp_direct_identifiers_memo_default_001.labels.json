@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -304,6 +330,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aki Tanabe (HR) \u2014 My Number: 123456789018 (for payroll withholding; do not store in board materials), mobile 090-8061-3344, email aki.tanabe@akagawa-kk.example.jp.\nResidential address (for payroll): \u3012179-9999 Harukawa-ken, Nishihana-shi, Sakura 2-3-5; store via secure HRIS only and exclude from deal binder.\nAkagawa Precision K.K. Hojin Bango Corporate Number: 8700110005901; internal reference for counterpart KYC and tax filings.\nTreasury settlement channel: Torinaga Bank Nishihana Branch, Futsu-koza (Ordinary Account) No. 456-7890123; finance queries to finance@akagawa-kk.example.jp.\nMr. Kenji Okada (CFO) \u2014 Passport No. JA8923451",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential internal memo \u2014 Akagawa Precision K.K. board briefing re APPI/My Number handling and prospective tender offer under FIEA.\nThe Board reviewed a proposed friendly acquisition of Kumori Systems K.K. via cash tender offer at a preliminary price of JPY 2,450 per share; intended launch in late Q3 subject to valuation deliverables and special committee approval.\nUnder the Financial Instruments and Exchange Act, these tender-offer facts are undisclosed and constitute material non-public information; circulation is restricted to directors and the deal team only.\nMs. Aki Tanabe (HR) \u2014 My Number: 123456789018 (for payroll withholding; do not store in board materials), mobile 090-8061-3344, email aki.tanabe@akagawa-kk.example.jp.\nResidential address (for payroll): \u3012179-9999 Harukawa-ken, Nishihana-shi, Sakura 2-3-5; store via secure HRIS only and exclude from deal binder.\nAkagawa Precision K.K. Hojin Bango Corporate Number: 8700110005901; internal reference for counterpart KYC and tax filings.\nTreasury settlement channel: Torinaga Bank Nishihana Branch, Futsu-koza (Ordinary Account) No. 456-7890123; finance queries to finance@akagawa-kk.example.jp.\nMr. Kenji Okada (CFO) \u2014 Passport No. JA8923451 for onboarding with domestic securities broker; copy retention limited to KYC archive per APPI.\nPublic helpline 0120-000-000 is a general citizen hotline; do not list as a deal contact or in investor relations notices.\nForm placeholder fields may appear on draft attachments (Name: __________, Address: __________, Tax ID: __________); remove or mask before board circulation; attendees included Chairperson, HR Lead, and Legal Counsel.\nLocal government vendor registration for property tax remittance: Nishihana City Office code NCO-77-221; confirm no prefectural tax arrears prior to launch.\nPer APPI/My Number, individual codes must be segregated, minimized, and encrypted; payroll retains source data, while board packets contain only role-level summaries.\nFIEA compliance: tender-offer facts (price range, counterparty identity, financing terms, schedule) remain embargoed; implement blackout and insider list updates for all deal participants.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -366,24 +404,6 @@
       "concept": "data minimization implementation",
       "matched_text": "board packets contain only role-level summaries",
       "reason": "Minimization contextually evident but phrase may be too semantic for strict detection."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

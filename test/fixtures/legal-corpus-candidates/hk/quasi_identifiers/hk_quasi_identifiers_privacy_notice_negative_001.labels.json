@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -184,6 +192,12 @@
       "category": "MNPI",
       "matched_text": "announcement date",
       "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbour Peak Capital (HK) Ltd privacy and data retention workflow for Hong Kong listed-company activities under the PDPO and securities law obligations.\nScope includes M&A due diligence, fund investor onboarding, and employment records processed to support listing rule compliance on the Pearl Bay Exchange.\nWe collect role-based contact points only: deal-team mailboxes (e.g., mna.ops@harbourpeak.example), compliance@harbourpeak.example, and investor.services@harbourpeak.example; personal contact details are avoided for this workflow.\nQuasi-identifiers are processed minimally: city of residence, partial month-year of birth, internal staff codes, device tags, and account suffixes; these alone do not identify an individual without other information.\nIn a closed-file HR access audit for one temporary analyst (DOB 1987-05; residence district: Yuen Long; internal staff code RPO-118; workstation asset tag HK-WKS-19-A7; payroll account ending 4412; employing entity Harbour Peak Capital (HK) Ltd), these attributes were used together solely for entitlement validation.\nFor investors in our fund vehicles, we retain only onboarding identifiers such as form reference numbers (e.g., Form Ref: SUB-A1-000-XYZ) and country of tax residence; fund subscription outcomes are announced via Pearl Bay Exchange disclosures where required.\nReferences to \u201cinsider\u201d, \u201cMNPI\u201d, or \u201cprice sensitive\u201d in this notice reflect generic risk categories under the SFO and do not indicate we hold any non-public deal terms; the Red Lantern REIT merger was publicly announced on 2025-03-01.\nData transfers may occur within our group to Harbour Peak Capital (Asia) GP Ltd and to our appointed registrar, Wharfstone Registrars (HK) Ltd, under contractual terms aligned with the PDPO Data Protection Principles.\nOverseas processing may occur at our secure centre in Pearl River Tech Park (Guangzhou) with encryption-at-rest; no unique government ID numbers are stored in the M&A data room.\nAccess requests: submit a DSAR by completing the \u201cPDPO Access Form\u201d and emailing privacy.office@harbourpeak.example; please avoid including full dates of birth or complete bank account numbers in free-text fields.\nWe retain Board and committee packs containing market commentary for 7 years; such materials contain aggregated analytics and public issuer names drawn from exchange circulars.\nEmployee device telemetry retains device model, OS version, and generic IP ranges (e.g., 10.0.0.0/8) but not precise location; invalid identifiers typed in sample fields (e.g., ID: 1234-XX-000) are discarded.\nWe do not maintain CCTV biometric templates; demographic labels such as \u201cgraduate\u201d or \u201cover 18\u201d are collected only for eligibility screening and are not linked to trading accounts.\nAny disclosure to regulators or the Exchange occurs only as required by applicable law; our policy avoids sharing hashed emails, cookie IDs, or advertising identifiers with brokers.\nThe retention clock for virtual data rooms starts from the public announcement date on the Pearl Bay Exchange; documents flagged \u201cpublic\u201d are reviewed quarterly and stale items are removed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

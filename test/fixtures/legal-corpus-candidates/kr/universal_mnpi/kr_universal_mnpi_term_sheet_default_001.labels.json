@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -360,6 +368,12 @@
       "category": "MNPI",
       "matched_text": "3,200,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 NOT FOR PUBLIC DISCLOSURE (Capital Markets Act); IR DRAFT \u2014 Embargo until 2026-07-15 08:30 KST.\nProject Jade Lantern \u2014 Term Sheet for strategic acquisition of 22.5% of Haneul BioDevices Co., Ltd. by Barun Creek Holdings Co., Ltd.\nParties and Contacts: Haneul BioDevices Co., Ltd.; Barun Creek Holdings Co., Ltd.; contact: Ms. Park Min\u2011ji, IR Lead, ir@haneulbio.example.kr.\nTransaction: Subscription and negotiated block trade for 18,400,000 ordinary shares; total consideration KRW 128,000,000,000 at KRW 6,956 per share (12.3% premium to 30\u2011day VWAP on KCX).\nStructure: 7.5% secondary from founders and 15.0% primary issuance; subject to filings with the Financial Governance Commission of Korea (FGC\u2011KR) and public notice under KCX large\u2011shareholding rules.\nDefinitive Agreements: Share Purchase Agreement and Subscription Agreement targeted for signing on 2026\u201107\u201112; Long\u2011Stop Date 2026\u201110\u201131.\nConditions Precedent: board and shareholder approvals, KCX disclosure forms, Supervisory Markets Bureau (SMB\u2011KR) acknowledgement of change in major shareholder, and audited Q2 2026 results.\nMAC/MAE: standard MAE applies; however, changes in healthcare reimbursement policy issued by the Ministry of Health Policy (MHP\u2011KR) and normal seasonal shifts shall not constitute a MAE.\nUse of Proceeds: KRW 80,000,000,000 for GMP expansion in Cheonan and KRW 10,000,000,000 for R&D; remaining to refinance short\u2011term borrowings.\nConfidentiality and Blackout: any disclosure before the embargo date triggers trading blackout under internal code; code name \u2018Project Jade Lantern\u2019 to be used in board memos, research notes, and deal checklists.\nBoard Matters: draft board resolution prepared by Mr. Choi Seung\u2011ho, CFO, for circulation on 2026\u201107\u201108; resident\u2011number data will not be collected and any resident\u2011number on attachments must be masked per PIPA.\nPublic\u2011source reference: sector assumptions align with the 2025 KCX biotech summary and MHP\u2011KR reimbursement circulars that are publicly posted; no reliance on any unpublished supervisory findings.\nOther Covenants: no dividends until FY2027; standstill at 24.9%; break fee KRW 3,200,000,000 if buyer financing fails; negative pledge on core IP for 18 months.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

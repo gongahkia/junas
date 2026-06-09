@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -324,6 +332,24 @@
       "category": "MNPI",
       "matched_text": "300,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet\u2014Proposed Acquisition of NovaGrid Robotics Limited by Fenriver Technologies Holdings Limited (HKEX Main Board issuer)\nDate: 6 June 2026 (HKT)\nParties: Buyer\u2014Fenriver Technologies Holdings Limited; Seller\u2014Blue Tern Capital SPC \u2013 Growth Cell; Target\u2014NovaGrid Robotics Limited\nTransaction: Purchase of 70% equity in Target for HK$680,000,000 (cash) plus HK$80,000,000 earn-out over two years subject to revenue thresholds\nStatus: Inside information under Part XIVA of the SFO; not generally known and price sensitive; no selective disclosure; treat as strictly confidential until publication on HKEXnews\nPublic reference: The Company\u2019s HKEXnews announcement dated 2 March 2026 regarding disposal of the Lumiflex business is public and separate; nothing herein updates or corrects that disclosure\nListing Rules: Preliminary size test indicates a Major Transaction under Chapter 14; trading halt to be requested upon signing term sheet; announcement to be published as soon as reasonably practicable and targeted within 3 business days once key terms are settled\nShareholders\u2019 approval: Circular to be despatched within 15 business days after the announcement; EGM expected within 30\u201335 days; no pre-vetting of the announcement required under prevailing HKEX practice\nBlackout: Directors and relevant employees are in a blackout period under Appendix 10 (Model Code) until the Company\u2019s next results announcement; all dealing clearances suspended\nFunding: Consideration funded by internal resources and a proposed HK$300,000,000 unsecured term loan from Harbour Peak Finance Limited (subject to lender IC approval and customary conditions)\nConditions precedent: No trigger of a mandatory general offer under the Takeovers Code (Rule 26), required regulatory consents obtained, no material adverse change in Target\u2019s permits, and issuer-relative materiality thresholds confirmed by the Board\nInformation sharing: Clean team protocol for competitively sensitive data; data room access limited to designated personnel; no investor communications containing non-public, price-sensitive specifics unless and until covered by an HKEX announcement\nConfidentiality and leaks: No media/analyst briefings; if a leak is suspected, parties will coordinate an immediate holding announcement via the HKEX e-Submission system; no social media postings by any Party or adviser\nAdvisors/Contacts: Ms. Celia Wong (CFO, Fenriver) at celia.wong@fenrivertech.hk; Mr. Adrian K. Lau (Partner, Blue Tern Capital) at alau@blueterncap.hk",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

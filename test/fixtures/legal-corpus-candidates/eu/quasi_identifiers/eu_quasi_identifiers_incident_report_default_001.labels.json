@@ -50,6 +50,14 @@
     "previous_must_detect_count": 13,
     "previous_must_not_detect_count": 7
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -292,6 +300,18 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG data lake used for CSRD/SFDR metrics and investor reporting on the Aurelia Regulated Market; preliminary assessment indicates potential inside information within the meaning of EU MAR Articles 7 and 17.\nMs. Elina Markovic (born 1985-11-22), Sustainability Reporting Lead at Orphicora Energy SE in Zagreb, accessed the \u201cGreenScope\u201d workspace from corporate laptop OE-ZG-EM-022 during session S-7f3a at 19:42 CEST, using mailbox emarkovic@orphicora.eu and Teams profile \u201cemarkovic_ZG\u201d; subsequent anomalous API calls were executed under her role-based account.\nRoot cause analysis shows an OAuth token replay via a compromised third-party browser extension; device telemetry referenced Wi\u2011Fi \u201cOE-Zagreb-3F\u201d and a truncated client IP 10.44.XX.91, after which automated exports included Scope 2 energy invoices and facility shift rosters tied to the Zagreb and Vara\u017edin sites.\nCross-border transfer context: the ESG dataset was routed to a non-EEA processor, Quayshore Analytics Inc. (fictional, Vesper City, US), under the 2021 EU SCCs and a transfer impact assessment; transfers were paused at 21:05 CEST pending supplementary measures and processor audit under Article 28 GDPR.\nSpecial-category data (GDPR Art. 9): two weekly health-safety incident logs with anonymisation errors contained sick-leave annotations and union-related meeting attendance tags for maintenance staff; these files were included in the same export batch and are being remediated.\nMAR workflow: the unvalidated variance in electricity consumption factors could lead to a restatement of Q2 emissions intensity, potentially affecting cost-of-capital assumptions in an unannounced green financing programme (project codename \u201cCitrine\u201d); the event is currently classified as inside information and delay of disclosure has been decided with documented legitimate interest and confidentiality controls.\nInsider list entries were updated at 22:30 CEST (core team and external advisors), trading restrictions were reaffirmed to PDMRs, and the Aurelia Market Monitoring Unit was informed of a precautionary watch; no trading halt has been requested at this stage.\nData protection measures: data subjects are being identified, Article 33 GDPR notification to the Ardellia DPA has been prepared within 72 hours, and data minimisation plus pseudonymisation are being applied to any cross-border diagnostic artefacts.\nNo national ID numbers, passport details, full IBANs, or biometric templates were observed in the exfiltrated subset; supplier numbers appear internal-only (e.g., \u201cVEND-4097-22\u201d) and are being rotated.\nGeneric workforce demographics in the sustainability annex (average age 41, 62% technical roles, multiple EU languages) were referenced in dashboards but do not identify any person on their own.\nSeparate weak identifiers noted elsewhere but not linkable to a named person include: \u201ca 29-year-old Rotterdam technician using an Android device on SSID \u2018DeltaNet\u2019 during night shift\u201d in a chat snippet, and \u201ca contractor in Plovdiv with badge series P-3A\u201d in a warehouse ticket; no contact details or names attached.\nA subtle signal surfaced in calendar metadata: recurring \u201cEU Taxonomy mapping\u201d meetings tagged \u201cCEST-0800, Vara\u017edin floor 2\u201d with room beacon IDs; these have been purged from sharing links and replaced with generic descriptors.\nFor SFDR and CSRD purposes, we will issue a corrigendum if intensity metrics materially change; the current internal estimate is a 3\u20135% variance, but this is subject to assurance and may not be relied upon for investment decisions.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

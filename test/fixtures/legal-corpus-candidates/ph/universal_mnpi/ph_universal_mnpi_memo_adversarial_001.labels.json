@@ -8,13 +8,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -28,13 +28,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -50,6 +50,13 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
     "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
   },
   "_stage_readiness": {
     "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
@@ -71,6 +78,8 @@
   ],
   "_strict_reconciliation": {
     "basis": "AU Stage B precision guards created five cross-jurisdiction strict misses. Codex manually audited the fixture contexts and found the current deterministic suppressions defensible for strict mode: template email alias format, defined-term MNPI statements, or generic MNPI references. Existing project-owner Stage A readiness approval is preserved; this is internal benchmark maintenance, not legal advice.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "removed_strict_expectations": [
       {
         "category": "PII",
@@ -80,9 +89,15 @@
     ],
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-candidates-after-au-stage-b-reconciled.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -217,7 +232,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Strictly Confidential — non-public; Project Sampaguita board memo re proposed primary offering by Azucena Capital Holdings, Inc. (LSE-PH issuer).",
+      "matched_text": "Strictly Confidential \u2014 non-public; Project Sampaguita board memo re proposed primary offering by Azucena Capital Holdings, Inc. (LSE-PH issuer).",
       "rule": "material_event"
     },
     {
@@ -269,7 +284,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Strictly Confidential — non-public; Project Sampaguita board memo re proposed primary offering by Azucena Capital Holdings, Inc. (LSE-PH issuer).",
+      "matched_text": "Strictly Confidential \u2014 non-public; Project Sampaguita board memo re proposed primary offering by Azucena Capital Holdings, Inc. (LSE-PH issuer).",
       "rule": "material_event"
     },
     {
@@ -331,6 +346,12 @@
       "category": "MNPI",
       "matched_text": "18%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 non-public; Project Sampaguita board memo re proposed primary offering by Azucena Capital Holdings, Inc. (LSE-PH issuer).\nContact Atty. Isidro Calaunan, Compliance Head, isidro.calaunan@azucenacapital.ph, +63 2 8123 4567.\nEmbargo until 2026-07-15 09:00 PHT; draft IR deck and PSC Form 17-C current report not to be released before embargo.\nTerm sheet: PHP 1.25 billion primary shares at an indicative 6.5% discount to VWAP; cornerstone allocation 19.9% to Coral Reef Partners Pte. Ltd.\nFinancing to be supported by bridge facility with Isla Verde Bank, acct 17-0X4-**82, subject to CRBP single borrower limits.\nBoard to approve execution of the Share Purchase Agreement and Underwriting Agreement; S h a r e   P u r c h a s e   A g r e e m e n t is definitive.\nMAC/MAE: No Material Adverse Change has occurred since Q1; absence of MAE is a condition precedent, and this is not a MAC.\nHR/tax: retention RSUs to 14 key employees, gross-up for fringe benefits tax; payroll to coordinate BID remittances; update privacy notices under the Data Privacy Act.\nInternal research note: projected FY26 EBITDA uplift +18% post-offer; sensitivity assumes no tariff hike; not for public circulation.\nPublic-source reference: per Manila Ledger 2024-02-03 article on power sector capex, peer averages are stable; this sentence is non-proprietary.\nIR draft link http://ir.azucenacapital.ph/d/17C?draft=Y&k=1a-9z-4x; doccode AZC-IR-2026-0715; O C R br e ak rn rn.\nClosing checklist: LSE-PH listing notice, PSC pre-effective clearance, tax clearance certificate, CRBP FX rules if proceeds held offshore, KYC refresh for Coral Reef Partners.\nlowercase project note: todo: align timelines with hr and finance, move the sprint demo to fri; bring spa-day raffle vouchers for wellness week.\nFor avoidance of doubt, despite market volatility this briefing is not guidance; all employees should use firstname.lastname@azucenacapital.ph aliases only.\nA cco un t na me: Az u c ena Ca p ital Offe r Pro c eeds Esc row; s ign at or y Ms. Lira Navotas; TIN 9xx-3x2-1x9 (placeholder only).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -375,12 +396,5 @@
       "matched_text": "update privacy notices under the Data Privacy Act",
       "reason": "Indicates a privacy compliance action; not directly covered by consent/minimisation/transfer markers."
     }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

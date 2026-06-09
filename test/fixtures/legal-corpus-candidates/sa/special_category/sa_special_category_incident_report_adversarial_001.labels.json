@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -42,12 +50,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Nabeel Al‑Hadid",
+      "matched_text": "Mr. Nabeel Al\u2011Hadid",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Hadeel Al‑Qurashi",
+      "matched_text": "Ms. Hadeel Al\u2011Qurashi",
       "rule": "named_person"
     },
     {
@@ -57,7 +65,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-public issuer data included “SSE code MITQ-882”, draft Q2 2026 revenue shortfall of ~8% vs guidance, unannounced Line‑3 downtime on 2026‑06‑03, and a rights‑issue term sheet (T+60 target).",
+      "matched_text": "Non-public issuer data included \u201cSSE code MITQ-882\u201d, draft Q2 2026 revenue shortfall of ~8% vs guidance, unannounced Line\u20113 downtime on 2026\u201106\u201103, and a rights\u2011issue term sheet (T+60 target).",
       "rule": "material_event"
     },
     {
@@ -92,22 +100,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "2094—1133—0884",
+      "matched_text": "2094\u20141133\u20140884",
       "rule": "sa_iqama"
     },
     {
       "category": "PII",
-      "matched_text": "biometric fingerprint template hash FPT:b4c1…77a",
+      "matched_text": "biometric fingerprint template hash FPT:b4c1\u202677a",
       "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "matched_text": "insulin‑dependent diabetes",
+      "matched_text": "insulin\u2011dependent diabetes",
       "rule": "health_condition"
     },
     {
       "category": "PII",
-      "matched_text": "+966‑57‑221‑0044",
+      "matched_text": "+966\u201157\u2011221\u20110044",
       "rule": "phone_number"
     },
     {
@@ -117,12 +125,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "+966‑51‑000‑1122",
+      "matched_text": "+966\u201151\u2011000\u20111122",
       "rule": "phone_number"
     },
     {
       "category": "PII",
-      "matched_text": "Rx update 2026‑04‑17",
+      "matched_text": "Rx update 2026\u201104\u201117",
       "rule": "medical_treatment"
     },
     {
@@ -132,12 +140,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "unannounced Line‑3 downtime on 2026‑06‑03",
+      "matched_text": "unannounced Line\u20113 downtime on 2026\u201106\u201103",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "rights‑issue",
+      "matched_text": "rights\u2011issue",
       "rule": "material_event"
     },
     {
@@ -152,7 +160,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "opt‑out for secondary processing is respected",
+      "matched_text": "opt\u2011out for secondary processing is respected",
       "rule": "consent_withdrawal_marker"
     }
   ],
@@ -164,12 +172,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Nabeel Al‑Hadid",
+      "matched_text": "Mr. Nabeel Al\u2011Hadid",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Hadeel Al‑Qurashi",
+      "matched_text": "Ms. Hadeel Al\u2011Qurashi",
       "rule": "named_person"
     },
     {
@@ -179,7 +187,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-public issuer data included “SSE code MITQ-882”, draft Q2 2026 revenue shortfall of ~8% vs guidance, unannounced Line‑3 downtime on 2026‑06‑03, and a rights‑issue term sheet (T+60 target).",
+      "matched_text": "Non-public issuer data included \u201cSSE code MITQ-882\u201d, draft Q2 2026 revenue shortfall of ~8% vs guidance, unannounced Line\u20113 downtime on 2026\u201106\u201103, and a rights\u2011issue term sheet (T+60 target).",
       "rule": "material_event"
     },
     {
@@ -201,6 +209,12 @@
       "category": "MNPI",
       "matched_text": "8%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ST, a misconfigured OasisVault object store exposed internal SSE Issuer Portal export logs via bucket \u201calmithaq-ops-prd\u201d, affecting PII and MNPI.\nNamed subject: Mr. Nabeel Al\u2011Hadid (CFO, employee E-4403), Nat\u2019l I d: 2094\u20141133\u20140884 (Iq     ama), biometric fingerprint template hash FPT:b4c1\u202677a, and clinic note \u201cinsulin\u2011dependent diabetes, Rx update 2026\u201104\u201117\u201d were present.\nAdditional PII for Ms. Hadeel Al\u2011Qurashi (IR officer) included mobile +966\u201157\u2011221\u20110044 and work email hadeel.qurashi@almithaq-industrials.example; no special-category data for her.\nNon-public issuer data included \u201cSSE code MITQ-882\u201d, draft Q2 2026 revenue shortfall of ~8% vs guidance, unannounced Line\u20113 downtime on 2026\u201106\u201103, and a rights\u2011issue term sheet (T+60 target).\nA scheduled transfer via the National Data Authority gateway (\u201csdata-bridge\u201d) to a government sandbox inadvertently queued /exports/health.csv and /bio/fpt.bin alongside routine CR extracts.\nThe leak was identified by NebulaGuard XDR; from a market-conduct standpoint, dissemination risk is medium and we have notified the Capital Markets Regulator (CMR) Market\u2011Conduct Unit and Sahara Securities Exchange Listings within 2h.\nFor avoidance of doubt, we did not collect MAC addresses, Wi\u2011Fi PSKs, or device serials; public-source content (e.g., our 2025 Sustainability Report) remained unaffected and the drip resembled a leaky faucet rather than a flood.\nBenign reuse: the phrase \u201csexual orientation\u201d exists only in our Equal Opportunity & Inclusion policy text; no such fields were in any incident dataset.\nUnrelated benign data such as the Al\u2011Nour Falcons preseason schedule and product brochure for Sandstorm ERP were in the same workspace but not part of the exposure.\nURL and obfuscation artifacts: https://issuer.sse.example/tickets/INC-2026%2F05%2F29?ref=E-4403&iq=2094%201133%200884; internal line breaks caused O C R\u2011like spacing in exports.\nTrading considerations: while this remains MNPI until disclosure, we assess no material adverse change trigger; however, CMR rules allow a discretionary halt if rumors surface.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -209,7 +223,7 @@
       "reason": "Negated/benign mention; not collected"
     },
     {
-      "matched_text": "Wi‑Fi PSKs",
+      "matched_text": "Wi\u2011Fi PSKs",
       "reason": "Negated/benign mention; not collected"
     },
     {
@@ -221,7 +235,7 @@
       "reason": "Policy text only; no incident dataset fields"
     },
     {
-      "matched_text": "Al‑Nour Falcons",
+      "matched_text": "Al\u2011Nour Falcons",
       "reason": "Sports team; non-PII bait"
     },
     {

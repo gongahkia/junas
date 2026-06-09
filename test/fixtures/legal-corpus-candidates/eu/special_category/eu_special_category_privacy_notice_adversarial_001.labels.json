@@ -50,6 +50,14 @@
     "previous_must_detect_count": 19,
     "previous_must_not_detect_count": 8
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -250,11 +258,6 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "material non-public information",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "Project LUMEN",
       "rule": "transaction_codename"
     },
@@ -262,6 +265,24 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subject: Dr. Mirela S\u00f8rensen (R&D), employee id: NL-VA\u2014E M P  0 1 9 7, uid vda//e-00197, contact mirela.s@verdantarcus.eu.\nArt 9 data processed for this subject: migraine treatment reimbursement (health); biometric door-entry facial template; voluntary declaration of Lutheran faith; union membership fee payroll deduction; note: \u201cpolitical risk\u201d reports concern markets, not a person\u2019s political data",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Upon DSAR receipt from Dr. S\u00f8rensen, identity is verified via salted-hash token va:prx:7b-xx-41 and HR photo match; we exclude legally privileged MAR notebooks relevant to insider-list justifications.\nCross-border transfers: special-category records remain in NL; intra-EEA sharing with Verdant Arcus S.L. (ES) and Verdant Arcus Kft. (HU); support vendor CloudCilia Ltd (IE) and backup processor NebulaFrame O\u00dc (EE) under signed DPAs; any third-country access by ArcBridge Pvt (IN) relies on 2021 SCCs, TIA, and encryption with EU-hosted keys",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data subject: Dr. Mirela S\u00f8rensen (R&D), employee id: NL-VA\u2014E M P  0 1 9 7, uid vda//e-00197, contact mirela.s@verdantarcus.eu.\nArt 9 data processed for this subject: migraine treatment reimbursement (health); biometric door-entry facial template; voluntary declaration of Lutheran faith; union membership fee payroll deduction; note: \u201cpolitical risk\u201d reports concern markets, not a person\u2019s political data.\nBases: Art 9(2)(b) employment/social security; Art 9(2)(a) explicit consent for access control biometrics; Art 6(1)(c) for CSRD/SFDR workforce indicators without publishing special-category details.\nMAR workflow: insider list entry \u201cProject LUMEN\u201d linked to internal security code VDA-NL-9X2Q; a draft power-purchase agreement is non-public and likely price-sensitive; disclosure-delay decision recorded with reason codes and timestamps.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

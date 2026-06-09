@@ -50,6 +50,14 @@
     "previous_must_detect_count": 13,
     "previous_must_not_detect_count": 5
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -212,6 +220,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI control: deal room materials concerning the proposed Rivermere Exchange secondary listing are excluded and redactions were completed on 20 May 2026; sample checks confirmed zero MNPI present.\nLawful basis: compliance with obligations under UK MAR and Thornhaven\u2019s legitimate interests in market-abuse detection; the vendor will not perform automated decision-making with legal or similarly significant effects.\nSupplier Onboarding Form FIN-SUP-09 and DPA Schedule 2 (Processor Instructions) are annexed, limiting processing to calibration and prohibiting profiling outside the documented purposes.\nTransfer mechanism: the UK IDTA with CloudHarbor was signed on 18 May 2026, and a transfer risk assessment was approved by Ms. Priya Delmere (DPO) on 19 May 2026; encryption in transit and at rest has been verified.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

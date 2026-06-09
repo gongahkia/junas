@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -141,6 +149,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Listing context: Issuer intends to seek listing on Tadawul (Nomu) within 12 months; this term sheet relies only on public announcements and contains no MNPI under CMA Market Conduct Regulations.\nStructure: Subscription for new ordinary shares subject to CMA approval for capital increase; consideration ranges and valuation to be set in definitive agreements with no market-sensitive amounts stated herein.\nConditions precedent: CMA no-objection, GAC clearance where applicable, and internal PDPL readiness certification per compliance memo MEM-PDPL-2025-04.\nData Processing Addendum: Schedule KSA-PDPL-2 applies; processors will be onboarded via Form FRM-ONB-009 using role mailboxes only (e.g., privacy@najdlogistics.example) and generic contact points.\nPII minimisation: onboarding collects only CR field, corporate contacts, and purpose of processing; National ID/Iqama fields are masked and not required unless expressly mandated by KYC law.\nRetention: personal data processed under this transaction follows Retention Schedule PDPL-KSA-RS-01 (investor KYC files 5 years post-closing; onboarding logs 12 months), with earlier erasure where legal basis lapses.\nConsent withdrawal: if an individual withdraws consent, records are flagged and processing is paused per SOP-PDPL-07; as of this term sheet there are no active withdrawals.\nDSAR handling: requests are received via the privacy portal and triaged within 5 business days; no pending DSARs relate to this transaction and no delays are expected.\nCompleted event: one DSAR erasure request (Ref: DSAR-CLS-2025-044) concerning a former vendor contact was completed and logged, confirming deletion from onboarding repositories.\nCross-border transfer approval: APV-KSA-2025-117 was issued by SDAIA for export of pseudonymised KPI dashboards to a read-only EU analytics instance through 2026-12-31; no raw National ID/Iqama or CR data is included.\nIssuer workflows: insider lists and blackout procedures are maintained by the issuer; no unpublished financials or forecasts will be shared with the investor prior to sign",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -154,7 +168,7 @@
     },
     {
       "matched_text": "investor",
-      "reason": "Generic role noun; not a person’s name or MNPI by itself."
+      "reason": "Generic role noun; not a person\u2019s name or MNPI by itself."
     }
   ],
   "source_jurisdiction": "SA",

@@ -1,190 +1,268 @@
 {
-  "doc_id": "my_direct_identifiers_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "MY",
-  "destination_jurisdiction": "MY",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "security@sunrisecom.my"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1 2 3 4 5 6 7 8"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+60 3-7722 8899"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+60 11-4455 7788"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "201901234567"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Pineapple"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossed"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 2,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120m'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120m'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "2026-0527",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_direct_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "security@sunrisecom.my"
+      "matched_text": "security@sunrisecom.my",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1 2 3 4 5 6 7 8"
+      "matched_text": "1 2 3 4 5 6 7 8",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+60 3-7722 8899"
+      "matched_text": "+60 3-7722 8899",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+60 11-4455 7788"
+      "matched_text": "+60 11-4455 7788",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-0527"
+      "matched_text": "2026-0527",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "201901234567"
+      "matched_text": "201901234567",
+      "rule": "phone_number"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Pineapple"
+      "matched_text": "Project Pineapple",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossed"
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "Facility A/C 1140-1234-5678"
+      "matched_text": "Facility A/C 1140-1234-5678",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Encik Farhan Idris"
+      "matched_text": "Encik Farhan Idris",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Puan Nabila Roslan"
+      "matched_text": "Puan Nabila Roslan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Encik Farhan"
+      "matched_text": "Encik Farhan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "A1 2 3 4 5 6 7 8"
+      "matched_text": "A1 2 3 4 5 6 7 8",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "pd pa @sunrisecom.my"
+      "matched_text": "pd pa @sunrisecom.my",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "INC-2026-0527"
+      "matched_text": "INC-2026-0527",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "contains no data"
+      "matched_text": "contains no data",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "should not be treated as collected data"
+      "matched_text": "should not be treated as collected data",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "operational cyber incident"
+      "matched_text": "operational cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "re-wall-crossed"
+      "matched_text": "re-wall-crossed",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "access is restricted to need-to-know"
+      "matched_text": "access is restricted to need-to-know",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "To prevent information asymmetry contrary to CMSA principles"
+      "matched_text": "To prevent information asymmetry contrary to CMSA principles",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "analysts have not been briefed"
+      "matched_text": "analysts have not been briefed",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "based on current facts, immediate announcement may not be required"
+      "matched_text": "based on current facts, immediate announcement may not be required",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@sunrisecom.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1 2 3 4 5 6 7 8",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 3-7722 8899",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 11-4455 7788",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201901234567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Pineapple",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sed procurement folders and a draft, unaudited Q2 EBITDA/working-capital summary and pricing grid for a proposed RM120m Murabahah facility (non-public, potentially price-sensitive).\nLimited PDPA impact was identified for two employees; e.g., Encik Farhan Idris (IT Analyst), Pass p o r t No.: A1 2 3 4 5 6 7 8, and Puan Nabila Roslan (Procurement), mobile +60 3-7722 8899.\nNo customer NRICs were stored; the form label \u201cIC No.: __________\u201d appears in the exported template only and contains no data.\nOne leaked draft term sheet referenced Nusantara Merchant Bank Berhad Facility A/C 1140-1234-5678 and covenant triggers; no transaction authorisation keys were exposed.\nInternal contacts for data subjects: security@sunrisecom.my; alternate ema il: pd pa @sunrisecom.my; incident desk tel: +60 11-4455 7788.\nCase tracker URL (internal): https://portal.sunrisecom.my/incident?r e f=INC-2026-0527&cid=201901234567; access is restricted to need-to-know.\nAssessment under the Malaysian Exchange Listing Requirements (para 9.03) is ongoing; based on current facts, immediate announcement may not be required, but we will escalate if materiality is met.\nTo prevent information asymmetry contrary to CMSA principles, counterparties in \u201cProject Pineapple\u201d have been re-wall-crossed under updated NDAs; analysts have not been briefed.\nCompany identifiers for reference: Sunrise Composites Berhad, SSM Reg. No.: 201901234567 (1357920-T); subsidiary Sunrise Composites Manufacturing Sdn. Bhd., Reg. No.: 200501112233 (654321-H).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -213,91 +291,27 @@
       "reason": "Explicitly stated invalid/test number; not dataset content."
     }
   ],
+  "source_jurisdiction": "MY",
   "uncertain": [
     {
-      "matched_text": "Reg. No.: 201901234567 (1357920-T)",
       "concept": "company_registration_number",
+      "matched_text": "Reg. No.: 201901234567 (1357920-T)",
       "reason": "Malaysian SSM company registration identifiers are legally relevant but no specific allowed rule covers them."
     },
     {
-      "matched_text": "SSM Reg. No.: 201901234567 (1357920-T)",
       "concept": "company_registration_number",
+      "matched_text": "SSM Reg. No.: 201901234567 (1357920-T)",
       "reason": "Company identifier; relevant for legal compliance but not mapped to an allowed PII rule."
     },
     {
-      "matched_text": "Reg. No.: 200501112233 (654321-H)",
       "concept": "company_registration_number",
+      "matched_text": "Reg. No.: 200501112233 (654321-H)",
       "reason": "Subsidiary\u2019s SSM registration; not covered by allowed rules."
     },
     {
-      "matched_text": "cid=201901234567",
       "concept": "internal_company_id",
+      "matched_text": "cid=201901234567",
       "reason": "Likely an internal/company identifier in a restricted portal URL; no matching allowed rule."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": {
-    "count": 2,
-    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120m'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120m'"
-    ]
-  },
-  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
-  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_strict_reconciliation": {
-    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation_adjustments": [
-    {
-      "status": "removed_after_phone_precision_guard",
-      "rule": "phone_number",
-      "matched_text": "2026-0527",
-      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
     }
   ]
 }

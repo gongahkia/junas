@@ -77,6 +77,49 @@
       "status": "owner_accepted_agent_review_for_experimental_use"
     }
   ],
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "Strict tier was realigned after the UK/EU precision guard pass suppressed closed, public/generic, or non-attributive examples. Original strict labels are preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:44:27Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-reconciled-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU precision guards"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 22,
+    "current_must_detect_count": 11,
+    "current_must_not_detect_count": 5,
+    "previous_ideal_must_detect_count": 22,
+    "previous_must_detect_count": 12,
+    "previous_must_not_detect_count": 5
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -85,170 +128,188 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jorin Tay"
+      "matched_text": "Mr. Jorin Tay",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Delia Khoo"
+      "matched_text": "Ms. Delia Khoo",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Eamon Yeo"
+      "matched_text": "Mr. Eamon Yeo",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "eamon.yeo@lexor-hee.com"
+      "matched_text": "eamon.yeo@lexor-hee.com",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EmpRef e7 7-xx-3 9 0"
+      "matched_text": "EmpRef e7 7-xx-3 9 0",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross‑border transfer"
+      "matched_text": "cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent for direct marketing"
+      "matched_text": "withdrew consent for direct marketing",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Minimisation"
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not generally available"
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading by insiders remains restricted"
+      "matched_text": "trading by insiders remains restricted",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers are in place"
+      "matched_text": "information barriers are in place",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition of Zephyr Port Systems Pte. Ltd"
+      "matched_text": "proposed acquisition of Zephyr Port Systems Pte. Ltd",
+      "rule": "material_event"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Internal memorandum to Board Audit & Risk Committee of Sunleaf Marine Ltd. from Lexor Tan & Hee LLC dated 28 May 2026 re: proposed acquisition of Zephyr Port Systems Pte. Ltd. (DealRef SL—A  C Q—0 0 9)."
+      "matched_text": "Internal memorandum to Board Audit & Risk Committee of Sunleaf Marine Ltd. from Lexor Tan & Hee LLC dated 28 May 2026 re: proposed acquisition of Zephyr Port Systems Pte. Ltd. (DealRef SL\u2014A  C Q\u20140 0 9).",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "eamon.yeo@lexor-hee.com"
+      "matched_text": "eamon.yeo@lexor-hee.com",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jorin Tay"
+      "matched_text": "Mr. Jorin Tay",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Delia Khoo"
+      "matched_text": "Ms. Delia Khoo",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Eamon Yeo"
+      "matched_text": "Mr. Eamon Yeo",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Internal memorandum to Board Audit & Risk Committee of Sunleaf Marine Ltd. from Lexor Tan & Hee LLC dated 28 May 2026 re: proposed acquisition of Zephyr Port Systems Pte. Ltd. (DealRef SL—A  C Q—0 0 9)."
+      "matched_text": "Internal memorandum to Board Audit & Risk Committee of Sunleaf Marine Ltd. from Lexor Tan & Hee LLC dated 28 May 2026 re: proposed acquisition of Zephyr Port Systems Pte. Ltd. (DealRef SL\u2014A  C Q\u20140 0 9).",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For PDPA compliance, cross\u2011border transfer of diligence packets to the Nimbus HR Sydney instance (employee onboarding forms and contractor rosters) proceeded under DPA Schedule 2; Data Export Approval DEX-1 7 5 was granted on 24 May 2026 with onward\u2011transfer restrictions",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For PDPA compliance, cross\u2011border transfer of diligence packets to the Nimbus HR Sydney instance (employee onboarding forms and contractor rosters) proceeded under DPA Schedule 2; Data Export Approval DEX-1 7 5 was granted on 24 May 2026 with onward\u2011transfer restrictions.\nRetention: CVs and interview notes are to be retained for 6 months post\u2011close under policy PR-RET-03, after which erasure will occur unless required for legal claims; early erasure may be requested by individuals.\nDSAR: one access request from Mr. Jorin Tay dated 23 May 2026 seeking payroll history for FY2024 was fulfilled on 25 May 2026 with redactions of third\u2011party data; there are no outstanding DSARs as at 28 May 2026.\nConsent withdrawal/erasure: Ms. Delia Khoo (finance contractor) withdrew consent for direct marketing on 20 May 2026; her marketing profile was erased and verified on 21 May 2026, while core employment records are retained solely for statutory purposes.\nMinimisation: onboarding form FRM\u2011ONB\u201104 has been trimmed to role\u2011critical fields (ID, bank name, tax residency), removing non\u2011essential fields (e.g., personal hobbies) effective immediately.\nCompleted control: Cross\u2011border Transfer Impact Assessment CTIA\u20140 4 has been closed; no personal data will be moved to non\u2011comparable jurisdictions after 25 May 2026 absent fresh approvals.\nSecurity artefacts: share registry extract ref SR-9\u2022\u2022\u202221 has been redacted; internal identifiers appear as EmpRef e7 7-xx-3 9 0; this is a compliance artefact and not a trading signal.\nCapital markets timeline: any announcement will be released via SGXNet after clearance; draft text and DPA Schedule 2 are at http://intra.sunleaf.sg/export?ref=M%26A-20 26-A1&doc=Schedule2 (note OCR spacing in the link).\nGovernance: information barriers are in place; the research desk is ring\u2011fenced and the deal team is on the Insider List; no MAC clause has been triggered under the current term sheet.\nPublic references (Exchange index levels, analyst consensus) are sourced from openly available materials and do not contain confidential information.\nContact: queries to Mr. Eamon Yeo, Partner, Lexor Tan & Hee LLC, eamon.yeo@lexor-hee.com",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal memorandum to Board Audit & Risk Committee of Sunleaf Marine Ltd. from Lexor Tan & Hee LLC dated 28 May 2026 re: proposed acquisition of Zephyr Port Systems Pte. Ltd. (DealRef SL\u2014A  C Q\u20140 0 9).\nUnder the SFA and SGX Listing Rules, the draft SPA pricing range and earn\u2011out mechanics remain not generally available and are MNPI; trading by insiders remains restricted under s.218 until SGXNet announcement and cleansing.\nOperational HR integration details summarised at the 27 May townhall mirror what was released on SGXNet and are not price sensitive; this memo is not a profit forecast.\nFor PDPA compliance, cross\u2011border transfer of diligence packets to the Nimbus HR Sydney instance (employee onboarding forms and contractor rosters) proceeded under DPA Schedule 2; Data Export Approval DEX-1 7 5 was granted on 24 May 2026 with onward\u2011transfer restrictions.\nRetention: CVs and interview notes are to be retained for 6 months post\u2011close under policy PR-RET-03, after which erasure will occur unless required for legal claims; early erasure may be requested by individuals.\nDSAR: one access request from Mr. Jorin Tay dated 23 May 2026 seeking payroll history for FY2024 was fulfilled on 25 May 2026 with redactions of third\u2011party data; there are no outstanding DSARs as at 28 May 2026.\nConsent withdrawal/erasure: Ms. Delia Khoo (finance contractor) withdrew consent for direct marketing on 20 May 2026; her marketing profile was erased and verified on 21 May 2026, while core employment records are retained solely for statutory purposes.\nMinimisation: onboarding form FRM\u2011ONB\u201104 has been trimmed to role\u2011critical fields (ID, bank name, tax residency), removing non\u2011essential fields (e.g., personal hobbies) effective immediately.\nCompleted control: Cross\u2011border Transfer Impact Assessment CTIA\u20140 4 has been closed; no personal data will be moved to non\u2011comparable jurisdictions after 25 May 2026 absent fresh approvals.\nSecurity artefacts: share registry extract ref SR-9\u2022\u2022\u202221 has been redacted; internal identifiers appear as EmpRef e7 7-xx-3 9 0; this is a compliance artefact and not a trading signal.\nCapital markets timeline: any announcement will be released via SGXNet after clearance; draft text and DPA Schedule 2 are at http://intra.sunleaf.sg/export?ref=M%26A-20 26-A1&doc=Schedule2 (note OCR spacing in the link).\nGovernance: information barriers are in place; the research desk is ring\u2011fenced and the deal team is on the Insider List; no MAC clause has been triggered under the current term sheet.\nPublic references (Exchange index levels, analyst consensus) are sourced from openly available materials and do not contain confidential information.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -257,7 +318,7 @@
       "reason": "Negated MAC mention; not a trigger and should not be labeled as Material Adverse Change."
     },
     {
-      "matched_text": "Completed control: Cross‑border Transfer Impact Assessment CTIA—0 4 has been closed",
+      "matched_text": "Completed control: Cross\u2011border Transfer Impact Assessment CTIA\u20140 4 has been closed",
       "reason": "Completed control; not a live cross-border transfer risk."
     },
     {
@@ -290,40 +351,5 @@
       "matched_text": "was erased and verified",
       "reason": "Erasure handling event is legally relevant but no explicit 'erasure_marker' rule provided."
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:44:27Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-reconciled-narrowed.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU precision guards",
-    "basis": "Strict tier was realigned after the UK/EU precision guard pass suppressed closed, public/generic, or non-attributive examples. Original strict labels are preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 12,
-    "current_must_detect_count": 11,
-    "previous_ideal_must_detect_count": 22,
-    "current_ideal_must_detect_count": 22,
-    "previous_must_not_detect_count": 5,
-    "current_must_not_detect_count": 5
-  }
+  ]
 }

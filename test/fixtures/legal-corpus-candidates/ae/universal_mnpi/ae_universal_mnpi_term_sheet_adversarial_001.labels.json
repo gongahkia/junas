@@ -58,6 +58,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -400,6 +408,12 @@
       "category": "MNPI",
       "matched_text": "180,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Project Sand Kite (Non-Public; For Board circulation only) \u2014 Embargoed until 2026-07-15 08:00 GST\nParties: Acquirer Red Mangrove Capital Limited (ADGM Commercial Licence CL-ADGM-2A7Z9; FSRA supervised), Target Sands Reef Holdings LLC (Dubai mainland; Trade Licence TL-DXB-10XX-923847), Seller Al-Bahri Family Holdings SPC (RAK)\nTransaction: acquisition of 62.5% of Sands Reef Hospitality Co. (DIFC-LD-00AB19) for cash and rollover; implied enterprise value AED 1 , 2 0 0 , 0 0 0 , 0 0 0\nConsideration: AED 900,000,000 cash at Completion + AED 80,000,000 earn-out subject to FY2027 EBITDA \u2265 AED 180,000,000; rollover by Seller equals 12.5% post-Completion\nConditions precedent: ADGM no-objection, DIFC registrar filing, foreign ownership notification if required, internal IC approvals, KYC (Emirates ID masked only: 784-19**-****123-9), no public announcement before embargo\nMAC/MAE: customary MAC applies; for the avoidance of doubt, cost inflation up to 9% YoY and any pandemics first declared before 2025 shall not constitute a MAC\nDe f i n i t i v e  A g r e e m e n t s: Share Purchase Agreement, Shareholders\u2019 Agreement, Subscription Agreement, Transitional Services; target signing 2026-07-20; Long Stop Date 2026-11-15\nGovernance: Board to be 5 members; Mr. Salman Q. Barakat to join as director; H.E. Dr. Layla Al Nouri to chair Audit Committee (independent; family-origin disclosure: Al Nouri\u2014Ajman/Levant roots)\nPricing and metrics: headline price AED 7.50 per share equivalent; implied EV/EBITDA 8.2x; minimum cash at bank AED 45m; net debt cap AED 120m\nConfidentiality/IR: strictly confidential; issuer IR draft not for release; see data packet https://ir.sandsreef.ae/p/data?deal=PX%2Dsk-07&uid=0x00F-AB; Non-Reliance Notice to be signed before VDR access\nPublic-source note (stale and not relied upon): per 2023 website archive https://sands-reef.example/pdfs/esg-2023.pdf the group reported 12 resorts and 2 pipelines\nu a e  p d p l: personal data will be processed within DIFC/ADGM; trade licence/Emirates ID copies used for KYC only; contact privacy@ s a n d s - r e e f . a e for data subject rights\nCompliance and market-abuse: no dealing in any securities of Sands Reef or affiliates; SCA/DFSA market abuse prohibitions apply; potential ADX Growth Market listing in 2027 subject to SCA approval; no RNS/ADX filings until embargo\nProcess notes (internal, lowercase): t-3 to ic; circulate redlines; align tax workstream; update dd tracker; room 4 hold; spa-day at Mirage Oasis is personal time and not transaction-related\nNotices: Primary contact \u2014 Mr. Salman Q. Barakat, Head of Corporate Development, Red Mangrove Capital Limited (ADGM); sbarakat@redmangrove.capital; tel +971 5X 234 56 78\nMiscellaneous: governing law DIFC; dispute forum DIFC Courts (Small Claims excluded); this term sheet is non-binding except confidentiality, exclusivity (45 days), governing law, and costs",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

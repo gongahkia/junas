@@ -89,6 +89,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -102,22 +110,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Faisal Al‑Mutlaq",
+      "matched_text": "Mr. Faisal Al\u2011Mutlaq",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Hessa Al‑Nafea",
+      "matched_text": "Ms. Hessa Al\u2011Nafea",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Noura Al‑Saif",
+      "matched_text": "Dr. Noura Al\u2011Saif",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Legal & Compliance Memo — Al-Nour Industrial Holdings (CR 2028990001) regarding potential acquisition of Al-Rimal Packaging Co. (CR 1017783452) and related disclosure under KMA Continuing Obligations.",
+      "matched_text": "Internal Legal & Compliance Memo \u2014 Al-Nour Industrial Holdings (CR 2028990001) regarding potential acquisition of Al-Rimal Packaging Co. (CR 1017783452) and related disclosure under KMA Continuing Obligations.",
       "rule": "material_event"
     },
     {
@@ -259,22 +267,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Faisal Al‑Mutlaq",
+      "matched_text": "Mr. Faisal Al\u2011Mutlaq",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Hessa Al‑Nafea",
+      "matched_text": "Ms. Hessa Al\u2011Nafea",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Noura Al‑Saif",
+      "matched_text": "Dr. Noura Al\u2011Saif",
       "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Legal & Compliance Memo — Al-Nour Industrial Holdings (CR 2028990001) regarding potential acquisition of Al-Rimal Packaging Co. (CR 1017783452) and related disclosure under KMA Continuing Obligations.",
+      "matched_text": "Internal Legal & Compliance Memo \u2014 Al-Nour Industrial Holdings (CR 2028990001) regarding potential acquisition of Al-Rimal Packaging Co. (CR 1017783452) and related disclosure under KMA Continuing Obligations.",
       "rule": "material_event"
     },
     {
@@ -331,6 +339,18 @@
       "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal & Compliance Memo \u2014 Al-Nour Industrial Holdings (CR 2028990001) regarding potential acquisition of Al-Rimal Packaging Co. (CR 1017783452) and related disclosure under KMA Continuing Obligations.\nDraft terms (non-binding MOU): consideration SAR 420\u2013460m funded via a mix of internal cash and a SAR 250m Murabaha; projected EPS uplift of SAR 0.12\u20130.15 in FY 1448H\u2014this is non-public and constitutes inside information under the Kingdom Markets Authority (KMA) Market Conduct Regulations.\nBlackout window: Insiders are in a closed period from 15 days before quarter end until publication of results on the Najd Exchange (the Exchange); no dealing is permitted until a formal announcement is released.\nSelective disclosure is prohibited; any lender or adviser access is under NDA and a need-to-know roster; if any information is inadvertently shared externally, an immediate corrective announcement via the Exchange\u2019s disclosures portal is required.\nPublic-status note: Our 10 Sha\u2018b\u0101n 1447H notice on the Exchange regarding renewal of a Shari\u2018a-compliant working capital facility remains public and is not MNPI for this transaction.\nPress references to sector energy-price adjustments in last year\u2019s ministerial briefings are stale and not determinative; do not treat general media coverage as a basis for disclosure delay.\nPersonal data handling: Mr. Faisal Al\u2011Mutlaq (Iqama 77-554433-219), CFO, and Ms. Hessa Al\u2011Nafea (Iqama 66-112233-408), Strategy Lead, are designated deal-team controllers under PDPL; limit use of their identifiers and do not transmit ID scans over email.\nCross-border transfers: Any HR or KYC files shared with our UAE payroll processor, DunePay FZ\u2011LLC, require a transfer impact assessment and prior permit from the National Data & AI Directorate (NDAD) per PDPL; store copies on KSA-hosted systems only.\nData minimization: remove Iqama/CR numbers from draft board packs where not legally required; use role-based IDs in the diligence dataroom and mask dates of birth.\nSubtle materiality: the draft resin-supply renegotiation with Desert Polymers (7% input cost reduction from 1 Dh\u016b al\u2011Qa\u2018dah) is operational but likely material for Al\u2011Nour\u2019s margins; treat as MNPI until contract execution and announcement.\nIssuer-relative materiality: although the target\u2019s revenues are modest at SAR 95m, the transaction triggers a material development for Al\u2011Nour under the Continuing Obligations due to segment concentration.\nDisclosure timing: if the board approves on Monday, plan an Exchange announcement before market open the next trading day; if closing occurs during trading hours, coordinate with the Exchange for an immediate posting to avoid disorderly trading.\nInsider list: update the named-insider register and send a blackout reminder today; any research interactions must be scripted and confined to public in",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

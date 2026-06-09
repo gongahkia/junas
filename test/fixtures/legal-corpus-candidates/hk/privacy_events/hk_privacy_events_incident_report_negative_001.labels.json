@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -89,6 +97,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational Incident Report \u2014 Harbor Peak Holdings Limited (HKEX-listed issuer)\nIncident ref: OP-2025-044; Date: 2025-05-18 16:20 HKT; Prepared by: Risk & Compliance Office\nSummary: brief misconfiguration on a document storage policy in hk-prd-ops allowed read access to a non-sensitive folder for 14 minutes; access was limited to internal network; no outage\nData content assessment: folder held archived compliance memos, DPA Schedule (HK) templates, and blank investor/employee onboarding forms; no living individual\u2019s identity was ascertainable within files\nPrivacy impact (PDPO): no personal data accessed or disclosed; no data subject access request (DSAR) was received or needed in relation to this event\nCross-border transfer: unrelated to the incident, Data Export Approval DEA-2025-004 authorised and completed transfer of pseudonymised security logs to Technova Systems SG on 2025-05-12 under DPA Schedule 2 (HK); controls operated as designed\nErasure and retention: no erasure requests were triggered by this incident; retention schedule R-3 (HK) remains in effect for archived materials\nMinimisation: only template documents were present; fields for name, ID number, account, and address were unpopulated; minimisation policy P-12 requirements met\nMNPI review (SFO): no specific corporation information likely to be price-material was present; M&A references were limited to already-announced",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

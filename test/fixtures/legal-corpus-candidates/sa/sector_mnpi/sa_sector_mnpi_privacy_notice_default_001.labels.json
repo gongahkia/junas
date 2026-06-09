@@ -37,6 +37,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -319,6 +327,18 @@
       "category": "MNPI",
       "matched_text": "information barrier",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR and contact: data subjects may request access, correction, or deletion under the PDPL by emailing dpo@saharagrid.sa or by writing to Ms. Salma Al-Numan, Data Protection Officer, P.O. Box 44221, Riyadh 12511",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing and MNPI Handling Addendum (KSA PDPL) between Sahara Grid Renewables JSC (CR 701-45-998877; Tadawul issuer) and PalmCore Cloud Services LLC (Processor), effective 12 Safar 1448H / 5 July 2027.\nPurpose and categories: processing of shareholder, employee, and supplier PII (names, work contacts, National ID/Iqama last 4 digits, CR copies, role/department) and datasets supporting ESG/climate metrics, cyber threat monitoring, and capital markets workflows.\nMNPI scope: non-public drafts of a climate-linked sukuk and a tokenised carbon credit pilot, cyber incident post-mortems, pre-close financials, and blackout window calendars are classified as MNPI per CMA Market Conduct Regulations and Tadawul Listing Rules.\nAccess and information barriers: the Sustainable Finance Desk and the Digital Assets Working Group operate on segregated drives and separate collaboration tenants; wall-crossing requires Legal approval and acknowledgment of the selective disclosure and anti-tipping policy.\nInsider list: maintained by Compliance, including Mr. Yazan Al-Qudsi (CFO, Iqama ****-**-7490), Eng. Rakan Al-Sadiq (CISO), and Ms. Huda Al-Jazari (Head of Carbon Strategy), with timestamps and reasons (e.g., sukuk term sheet review; crypto pilot vendor selection).\nBlackout windows: no trading by PDMRs or their closely associated persons during pre-close and ad hoc event windows; the Processor must suppress trading alerts if data indicates a scheduled IT maintenance \u201cblackout window\u201d that is operational only.\nCyber incident handling: suspected ransomware or data exfiltration evidence is logged to KSA-resident SIEM within 15 minutes; escalation to Sahara Grid Renewables DPO and CISO occurs under NCA guidance before any market disclosure decision.\nTransfers: PII and MNPI are hosted in Riyadh availability zones; any replication outside KSA requires an SDAIA Transfer Assessment and written permit, with encryption-in-transit/at-rest and a prohibition on offshore analytics unless pseudonymised.\nCommercial terms: PalmCore Cloud\u2019s fee discount is contingent on CMA sandbox admission of the tokenised carbon credit pilot and shall not be communicated beyond the information barrier until public; volume tiers for ESG data processing are non-sensitive and may be shared with procurement.\nDSAR and contact: data subjects may request access, correction, or deletion under the PDPL by emailing dpo@saharagrid.sa or by writing to Ms. Salma Al-Numan, Data Protection Officer, P.O. Box 44221, Riyadh 12511.\nRetention: insider lists, wall-crossing consents, and MNPI artefacts are retained until the underlying information is public plus five years; Iqama and CR copies are retained for statutory periods only, then irreversibly anonymised.\nSubprocessors: any crypto/DPT analytics or climate-data vendors (e.g., GreenLedger Analytics LLC (KSA)) require prior written approval, DPIA records under the PDPL Implementing Regulations, and confirmation that no selective disclosure to third parties will occur.\nTraining and tipping controls: all recipients complete annual CMA market conduct and PDPL training; inadvertent selective disclosure triggers a standstill, public equalisation via Tadawul if required, and instant update of the insider list.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -327,7 +347,7 @@
       "reason": "Role-noun defined term, not PII or MNPI"
     },
     {
-      "matched_text": "our public webinar entitled “Crypto, Cyber, and Climate in Saudi Capital Markets”",
+      "matched_text": "our public webinar entitled \u201cCrypto, Cyber, and Climate in Saudi Capital Markets\u201d",
       "reason": "Educational/marketing carve-out explicitly states no MNPI or personal data"
     }
   ],

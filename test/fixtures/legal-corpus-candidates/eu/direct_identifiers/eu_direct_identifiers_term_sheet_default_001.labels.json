@@ -50,6 +50,14 @@
     "previous_must_detect_count": 18,
     "previous_must_not_detect_count": 4
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -317,6 +325,24 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LU11223344",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "eu_company_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Alder \u2014 Non-binding Term Sheet for the proposed acquisition of Lymaris Technologies S.A. (Euronext Paris) by Ardentis Capital S.\u00e0 r.l. (Luxembourg).\nLymaris Technologies S.A., RCS Paris 2099 B 000123, SIREN 812 345 678, VAT FR12 812345678, registered office: 10 All\u00e9e des Fen\u00eatres Bleues, 75099 Paris, France; LEI 529900NOTREALABCDE12.\nArdentis Capital S.\u00e0 r.l., RCS Luxembourg B 909090, VAT LU11223344, si\u00e8ge: 2 Rue du Soleil, L-9090 Holburg, Grand-Duch\u00e9 de Luxembourg; contact: deal@ardentis.example.lu.\nConsideration: \u20ac18.40 per LYM share (all-cash), representing a 28% premium; this constitutes inside information under EU MAR and is not for public disclosure prior to cleansing.\nFinancing sources include a bridge facility with escrow at Banque Imaginaire (FR), IBAN FR00 1000 2000 3000 4000 5000 601, BIC BIMAFRPPXXX.\nIssuer IR contact: ir@lymaris.example.fr; Tel: +33 1 86 99 77 55; registered email for notices: corporate.secretariat@lymaris.example.fr.\nKYC point: Mr. Adrien Joubert (Director), Passport (FR) AA1234567, contact address: 41 Chemin des \u00c9toiles, 69099 Lyon, France.\nRole contact only: Data Protection Officer, dpo@lymaris.example.fr; Name: [to be appointed]; generic intake email: name@example.com.\nNon-actionable bait: Public helpline +33 800 000 000 is not a party contact and must not be used for notice or diligence purposes.\nPersonal data processing: Parties will process contact details under GDPR Art.6(1)(b); no Art.9 special-category data will be sought, and any incidental special-category elements will be redacted before transfer.\nCross-border transfers: any export of PII to non-EEA service providers (including a UK-hosted VDR) will use 2021 SCCs plus a transfer impact assessment and strong encryption at rest and in transit.\nSustainability undertakings: Lymaris will provide CSRD ESRS E1\u2013E5 datapoints and SFDR principal adverse impact indicators and taxonomy-alignment assumptions used in diligence; no marketing of SFDR Art.9 products is contemplated.\nMAR compliance: wall-crossed insiders will be listed on an AMF-compliant insider list (capturing phone/email and passport identifiers) and subject to blackout from signing until a cleansing announcement on Euronext Paris.\nConditions precedent: AMF clearance for the offer document, works council consultation, financing documents finalisation, and absence of a material adverse effect; governing law: French law; notices via secure VDR plus ir@lymaris.example.fr.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

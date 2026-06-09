@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -154,6 +162,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privacy and Retention Workflow Notice \u2014 Ficus Meridian Ltd. (SG) with Cedar Reef Capital Pte. Ltd.\nScope: We process personal data under the PDPA for SG law-firm and listed-company support (M&A, employment, and capital-markets), and we operate controls for SFA/SGX market conduct obligations.\nCollection: We collect work emails, role titles, and business card information from counterparties, event RSVPs, and marketing sign-ups for ESG/climate and crypto education webinars; we do not collect NRIC/FIN unless strictly required by law.\nForm labels used in templates may include \u201cGovernment ID (masked): XXXXX0000X\u201d, \u201cWallet alias (non-custodial): demo-abc123\u201d, and \u201cInsider-list role: Legal/Finance\u201d; these fields are illustrative and not linked to identifiable individuals in training materials.\nDSAR: Submit access/correction requests to dpo@ficusmeridian.example; we may request verification limited to company badge or work email domain, consistent with PDPA requirements.\nTransfers: Data may be processed by JurisWorks APAC Pte. Ltd. (SG) and Cloudia BV (NL) under PDPC Model Contractual Clauses; cross-border transfers comply with the Transfer Limitation Obligation and comparable protection standards.\nRetention: Routine HR files, marketing contact logs, and tabletop cyber incident drill notes are retained 2\u20133 years; insider-list templates, blackout approvals, and information-barrier attestations are retained no less than 5 years post-event in line with SFA/SGX expectations.\nSecurity: We maintain separate repositories for commercial-term playbooks and for crypto product names used in marketing-only content; legal operations have no access to production trading systems.\nTraining materials include benign examples of \u201ctipping,\u201d \u201cblackout,\u201d and \u201cinformation-barrier\u201d phrasing to improve staff awareness, and do not reference live issuers or live deal codenames.\nWe do not process biometric identifiers, precise geolocation, or private keys in these workflows; any crypto wallet strings shown in examples are non-functional and for formatting only.\nEmployment context: Staff may be added to an insider-list due to their role; only role descriptions are visible internally, not personal contact details.\nPositive MNPI example (restricted access): A draft insider list exists for a proposed share placement by Ficus Meridian Ltd. that has not been announced on SGX; access is limited to Corporate Secretariat and External Counsel.\nPublic/stale information such as previously announced sustainability-linked bond frameworks or past cyber incident advisories is used for training and FAQs without containing MNPI.\nThis notice is governed by Singapore law; where SFA/SGX or MAS guidance applies, we prioritise prohibitions on false trading, market manipulation, and improper disclosure.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

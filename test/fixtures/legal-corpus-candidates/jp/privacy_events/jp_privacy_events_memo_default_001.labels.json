@@ -47,6 +47,50 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_resolved_label_warnings": [
+    {
+      "basis": "Legacy approved Stage A auto-label warnings were resolved during JP/KR Stage B cleanup; strict tier was already manually reconciled/approved, and broader coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-04T04:34:12Z",
+      "warnings": [
+        "drop must_detect: invalid rule 'dsar' text='DSAR:'",
+        "drop must_detect: invalid rule 'retention' text='Retention:'",
+        "drop ideal_must_detect: invalid rule 'dsar' text='DSAR:'",
+        "drop ideal_must_detect: invalid rule 'retention' text='Retention:'",
+        "drop ideal_must_detect: invalid rule 'dsar' text='data subject access request'",
+        "drop ideal_must_detect: invalid rule 'erasure' text='Erasure:'",
+        "drop ideal_must_detect: invalid rule 'erasure' text='erased'",
+        "drop ideal_must_detect: invalid rule 'erasure' text='purged'",
+        "drop ideal_must_detect: invalid rule 'retention' text='Retention Schedule RS-7'",
+        "drop ideal_must_detect: invalid rule 'retention' text='retention adjustments'"
+      ]
+    }
+  ],
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -214,6 +258,12 @@
       "category": "MNPI",
       "matched_text": "Undisclosed",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board of Directors; From: Ms. Rika Suda, General Counsel; Date: 31 May 2026; Subject: APPI/My Number compliance, FIEA MNPI controls, and Hanabi Systems KK acquisition.\nSummary: The proposed acquisition of Hanabi Systems KK (private issuer) and concurrent employee share plan onboarding implicate APPI and FIEA workflows.\nAPPI/My Number: Employee onboarding form FY26 omitted My Number fields; collection is not required for securities grant processing, and the prior pilot form was decommissioned with all test entries erased on 15 May 2026.\nDSAR: One data subject access request from Mr. Kenji Aoba (contract engineer) was fulfilled and closed; payroll contact identifiers were provided, and the minimum necessary copy was retained per Retention Schedule RS-7.\nConsent withdrawal: Ms. Miki Tamura withdrew marketing-email consent on 20 May; withdrawal did not affect employment processing, and the HR notice was logged for audit only.\nCross-border transfer: Data-Export Approval Form DE-14 approved transfer of limited employee contact data to Mirai Processors Pte. Ltd. (SG) under DPA Schedule 2; identifiers were minimised and no My Number was exported.\nErasure: Former employee My Number hashes were already purged by the Secure Archive Job SA-19; this is a completed control and does not indicate a live risk.\nRetention: Board confirms adherence to RS-7 (18 months for onboarding metadata, 7 years for statutory payroll records, no retention for unnecessary identifiers).\nFIEA MNPI: Undisclosed enumerated material facts exist regarding the Hanabi Systems KK tender offer analysis; no tender-offer announcement is contemplated at this",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -286,42 +336,6 @@
       "concept": "DSAR intake gating",
       "matched_text": "is not a DSAR intake",
       "reason": "Clarifies non-DSAR channel; relevant to DSAR handling but negative wording"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_resolved_label_warnings": [
-    {
-      "basis": "Legacy approved Stage A auto-label warnings were resolved during JP/KR Stage B cleanup; strict tier was already manually reconciled/approved, and broader coverage remains in ideal_must_detect.",
-      "resolved_at": "2026-06-04T04:34:12Z",
-      "warnings": [
-        "drop must_detect: invalid rule 'dsar' text='DSAR:'",
-        "drop must_detect: invalid rule 'retention' text='Retention:'",
-        "drop ideal_must_detect: invalid rule 'dsar' text='DSAR:'",
-        "drop ideal_must_detect: invalid rule 'retention' text='Retention:'",
-        "drop ideal_must_detect: invalid rule 'dsar' text='data subject access request'",
-        "drop ideal_must_detect: invalid rule 'erasure' text='Erasure:'",
-        "drop ideal_must_detect: invalid rule 'erasure' text='erased'",
-        "drop ideal_must_detect: invalid rule 'erasure' text='purged'",
-        "drop ideal_must_detect: invalid rule 'retention' text='Retention Schedule RS-7'",
-        "drop ideal_must_detect: invalid rule 'retention' text='retention adjustments'"
-      ]
     }
   ]
 }

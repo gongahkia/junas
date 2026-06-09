@@ -1,346 +1,4 @@
 {
-  "doc_id": "kr_sector_mnpi_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "KR",
-  "destination_jurisdiction": "KR",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "8809 13-2 4"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+82-10-5331"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "9012 31-1"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Doyoung Han"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Jiyun Choi"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Jiyun Choi"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Commercial conditions include 18-month lock-up, investor put at par upon FSC guidance change, and a sustainability performance coupon tied to Scope 2 reduction; this is MNPI until board resolution and IR release"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "internal only"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "8B"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "7.4%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "21,300"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contract_discount_rate",
-      "matched_text": "discount 7.4%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barrier"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 28.5b"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "7.4%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "this is MNPI until board resolution and IR release"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "not yet in our sustainability report"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "FSS incident notification is being prepared and not public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "비공개자명부"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barrier"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "tipping"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Blackout window"
-    },
-    {
-      "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "DPT issuance"
-    },
-    {
-      "category": "MNPI",
-      "rule": "dpt_protocol_event_marker",
-      "matched_text": "DPT cold-wallet registry"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "21,300"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "ahead of KRX disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "internal only"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "anomalous API calls"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "restricted from trading"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "upon FSC guidance change"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "pre-assurance"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "INSIDER-LIST_2 0 2 6-0 5.pdf"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Doyoung Han"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Jiyun Choi"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+82-10-5331"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+82-2-777-****"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@sangwoonet.kr"
-    },
-    {
-      "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "resident no. 8809 13-2 4* * * * 9"
-    },
-    {
-      "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "resident no. 9012 31-1 ***** 7"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr@san gwoo net.kr"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "will be minimized"
-    },
-    {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "IDM-kr/sa ng w o o"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "8809 13-2 4"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "9012 31-1"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Commercial conditions include 18-month lock-up, investor put at par upon FSC guidance change, and a sustainability performance coupon tied to Scope 2 reduction; this is MNPI until board resolution and IR release"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "8B"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contract_discount_rate",
-      "matched_text": "discount 7.4%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "material adverse change",
-      "reason": "Negated MAC; excluded by rule 8"
-    },
-    {
-      "matched_text": "cyber resilience for DPT",
-      "reason": "Marketing/educational context; non-MNPI per instructions"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "retained 5 years",
-      "concept": "retention_marker",
-      "reason": "Retention period is privacy-relevant but no explicit retention rule is listed"
-    },
-    {
-      "matched_text": "encrypted at rest",
-      "concept": "security_control_marker",
-      "reason": "Security control mention is privacy-relevant but not covered by allowed rules"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for “Ms. Hana Park” was rejected because the text is an actual named-person reference.",
   "_agent_review": {
     "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -366,6 +24,11 @@
     "reviewer": "gongahkia-project-owner-chat-approval",
     "status": "approved"
   },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for \u201cMs. Hana Park\u201d was rejected because the text is an actual named-person reference.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T02:34:00Z",
     "accepted_by": "gongahkia",
@@ -374,21 +37,372 @@
     "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_sector_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 28.5b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this is MNPI until board resolution and IR release",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet in our sustainability report",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "FSS incident notification is being prepared and not public",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ube44\uacf5\uac1c\uc790\uba85\ubd80",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DPT issuance",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DPT cold-wallet registry",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "21,300",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ahead of KRX disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anomalous API calls",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted from trading",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "upon FSC guidance change",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-assurance",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDER-LIST_2 0 2 6-0 5.pdf",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Doyoung Han",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Jiyun Choi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+82-10-5331",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+82-2-777-****",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@sangwoonet.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident no. 8809 13-2 4* * * * 9",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident no. 9012 31-1 ***** 7",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@san gwoo net.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "will be minimized",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IDM-kr/sa ng w o o",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "8809 13-2 4",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9012 31-1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Commercial conditions include 18-month lock-up, investor put at par upon FSC guidance change, and a sustainability performance coupon tied to Scope 2 reduction; this is MNPI until board resolution and IR release",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "discount 7.4%",
+      "rule": "contract_discount_rate"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "8809 13-2 4",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+82-10-5331",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9012 31-1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Doyoung Han",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Jiyun Choi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Jiyun Choi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Commercial conditions include 18-month lock-up, investor put at par upon FSC guidance change, and a sustainability performance coupon tied to Scope 2 reduction; this is MNPI until board resolution and IR release",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "21,300",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "discount 7.4%",
+      "rule": "contract_discount_rate"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public: term sheet signed with DalRiver Capital Partners for private placement of Sangwoo Net Green-DPT (tokenized REC) ahead of KRX disclosure; anchor size KRW 28.5bn; indicative discount 7.4% vs internal fair value\nCommercial conditions include 18-month lock-up, investor put at par upon FSC guidance change, and a sustainability performance coupon tied to Scope 2 reduction; this is MNPI until board resolution and IR release\nESG/climate metrics (pre-assurance by Hanmin Assurance LLC) show modeled 21,300 tCO\u2082e avoided in 2027; figures are draft and not yet in our sustainability report\nCyber: on 2026-05-28 our custody sandbox detected anomalous API calls to DPT cold-wallet registry; keys not exfiltrated but two vault shards were touched; FSS incident notification is being prepared and not public\nInsider list (\ube44\uacf5\uac1c\uc790\uba85\ubd80) update: Mr. Doyoung Han, IR Team Lead, resident no. 8809 13-2 4* * * * 9, mobile +82-10-5331-****; Ms. Jiyun Choi, Compliance, resident no. 9012 31-1 ***** 7; and four advisors at Baekho Advisory\nPIPA controls: resident-number data for payroll/tax will be minimized, encrypted at rest (policy v3.2), retained 5 years, and stored separately from deal files; access is logged via IDM-kr/sa ng w o o\nInformation barrier: IR and DPT structuring desks must not share draft term sheets, ESG models, or cyber logs; physical separation on 14F; all external inquiries routed only to compliance@sangwoonet.kr\nBlackout window: directors, officers, and employees on the insider list are restricted from trading Sangwoo Net shares or Green-DPT units from 2026-05-28 until KRX bulletin and FSC acknowledgment; no selective disclosure or tipping to investors\nDocument access: http://ir.sangwoonet.kr/d o c s/GX_4 3 9?ver=2026-05&uid=SZ-1 9 8B (internal only); reference file: INSIDER-LIST_2 0 2 6-0 5.pdf",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC; excluded by rule 8"
+    },
+    {
+      "matched_text": "cyber resilience for DPT",
+      "reason": "Marketing/educational context; non-MNPI per instructions"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "retained 5 years",
+      "reason": "Retention period is privacy-relevant but no explicit retention rule is listed"
+    },
+    {
+      "concept": "security_control_marker",
+      "matched_text": "encrypted at rest",
+      "reason": "Security control mention is privacy-relevant but not covered by allowed rules"
     }
   ]
 }

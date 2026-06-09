@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -395,6 +403,24 @@
       "category": "MNPI",
       "matched_text": "168,000,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Miscellaneous: governed by the laws of the Republic of Korea; disputes to Seoul Minam District Court; non\u2011binding except for confidentiality, exclusivity (60 days), and governing law; public sources referenced: \u201cKQSDQ Listing Reg Guide 2025\u201d and \u201cFSCMA plain\u2011language note,\u201d both publicly available; internal note (lowercase): todo: draft annex on employee option pool refresh",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ubbf8\uacf5\uac1c",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed Strategic Investment in Namhang Robotics Co., Ltd. (KR) by GyeonTech Holdings Co., Ltd. \u2014 Project \u201cSora\u201d\nIssuer: Namhang Robotics Co., Ltd. (unlisted; contemplated KOSDAQ application 2027); Investor: GyeonTech Holdings Co., Ltd.; Deal Type: Series C RCPS (redeemable convertible preferred stock)\nAmount and Pricing: KRW 42,000,000,000 at pre-money valuation KRW 168,000,000,000; price per share KRW 21,000; escrow at HanBridge Bank (Seoul Digital Branch) Account \u201cNH\u2011RCPS\u20112026\u201d\nUse of Proceeds: Seongnam BP\u201112 plant expansion (robot arm line), R&D for \u201cNimbus\u2011Servo v3\u201d, and working capital; no MAC clause shall apply to the Use of Proceeds covenant\nConditions Precedent: Board/shareholder approvals, fair disclosure planning under FSCMA, submission of major\u2011matters report via DART within T+1 business day if required, FSS notice if foreign strategic investor thresholds are met\nConfidentiality/MNPI: This term sheet includes \uc911\uc694\uc815\ubcf4 \ubbf8\uacf5\uac1c (MNPI) such as preliminary Q2 FY2026 revenue run\u2011rate (KRW 27\u201329bn) and a pilot purchase order with Eastport Mobility KK not yet disclosed on DART; insider trading restrictions under FSCMA Article 174 apply\nKey Person (for coordination only): Mr. Min\u2011jun Seo (\uc11c\ubbfc\uc900), CFO, Namhang Robotics; DoB 1986\u201102\u201114; office: Gyeonggi\u2011do, Seongnam\u2011si, Bundang\u2011gu; device asset tag NB\u201186\u2011MJS; internal treasury acct \u201cNR\u2011TREAS\u2011042\u201d; I R   s e s s i o n ref: IR\u20112307\u2011SNJ; email m in jun.seo@na mhang\u2011ro botics.co.kr; resident no. 860214\u20111****** (masked)\nNot individually identifiable data: typical field operator persona is 29\u201334, based in Chungcheong region, using Android 13 with model \u201cOrca\u2011X\u201d; this is generic marketing research and does not identify a natural person\nCovenants: no dividends on common until RCPS conversion/redemption; maintain cash balance \u2265 KRW 12bn; no related\u2011party transactions > KRW 1bn without prior investor consent; standard information rights; anti\u2011dilution (broad\u2011based weighted average)\nClosing & Timeline: Signing target 2026\u201107\u201128; Closing target 2026\u201108\u201130; Cut\u2011off for conditions 2026\u201108\u201115; closing to occur at Issuer HQ (Seongnam BP\u201112) or via electronic closings; any FSC/FSS queries to be addressed promptly\nRepresentations: corporate authority; compliance with KR labor/employment laws; no ongoing FSS sanctions; note that MAC clause is expressly not included as a condition to closing\nInvestor Relations access: https://ir.namhang-robotics.co.kr/s ess ion?sid=IR_Q3-2026&uid=seominjun86&loc=Seongnam-BP-12 (do not forward; access logs expire after 48h; mac address is not logged on this portal)\nSettlement: Payments in KRW via wire to escrow; HanBridge Bank virtual account V\u2011ESCR\u2011NR\u20112026\u201104; reference code \u201cSORA\u2011CLOSING\u201d; if D+3 reconciliation fails, funds returned automatically\nContacts: Ms. Hana Ryu, Investment Manager, GyeonTech Holdings; email hana.ryu@gyeontech .co.kr; KakaoTalk: gyet_hana; or Mr. Min\u2011jun Seo via IR desk ir@namhang\u2011robo tics.co.kr; office +82\u20112\u2011671\u20110***\nKYC & Employment: signatories to provide masked resident\u2011number for escrow verification (e.g., 74 09 21\u20112 3 0 0***); confirm no labor disputes exceeding KRW 100m and all statutory severance accrued",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

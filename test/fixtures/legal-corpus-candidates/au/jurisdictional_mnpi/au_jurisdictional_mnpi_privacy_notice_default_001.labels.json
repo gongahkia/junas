@@ -1,4 +1,26 @@
 {
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
@@ -6,14 +28,29 @@
   "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -53,7 +90,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "“not generally available”",
+      "matched_text": "\u201cnot generally available\u201d",
       "rule": "nonpublic_marker"
     },
     {
@@ -158,7 +195,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd’s quoted products as market sensitive and “not generally available” within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.",
+      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd\u2019s quoted products as market sensitive and \u201cnot generally available\u201d within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.",
       "rule": "material_event"
     },
     {
@@ -180,7 +217,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd’s quoted products as market sensitive and “not generally available” within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.",
+      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd\u2019s quoted products as market sensitive and \u201cnot generally available\u201d within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.",
       "rule": "material_event"
     },
     {
@@ -197,6 +234,30 @@
       "category": "MNPI",
       "matched_text": "Project Kestrel",
       "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Points of contact: Ms. Tamsin Rorke, Privacy Officer, privacy@karrinupbiodevices.example.au; and Dr. Owen Talford, Compliance Lead at Pindarra Data Services Pty Ltd, compliance@pindarradata.example.com.au.\nEffective from 02 Jun 2026 and continuing for the term of the Master Services Agreement, subject to updates reflecting changes to the Corporations Act, the Listing Rules, or the Australian Privacy Principles",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd\u2019s quoted products as market sensitive and \u201cnot generally available\u201d within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.\nNo selective disclosure: any market sensitive information must not be disclosed to any third party unless and until it has been released on the market announcements platform in accordance with continuous disclosure obligations (Listing Rule 3.1 timing) or a cleansing notice has been lodged, and Processor personnel must not trade in our securities while in possession of such information (insider trading prohibitions ss1042A\u20131043A).\nBlackout windows apply to all Processor staff with access to finance, HR or board materials: from 30 days before half-year and full-year results until the close of trading on the day after the announcement, and during any period notified by the Company Secretary; pre-briefings may only occur using scripts that mirror the lodged announcement.\nSubtle note: payroll and recruitment files may embed MNPI (e.g., offer letters and start dates for a new CFO not yet announced), and aggregated device shipment reports may be price sensitive if they reveal performance trends not generally available.\nPublic-information carve-out: information contained in our Appendix 4E for FY25 lodged on 29 Aug 2026 and the investor presentation released on 17 May 2025 are generally available and may be disclosed; the media summary issued on 01 Mar 2024 is stale and should not be relied upon for current processing instructions.\nFor precision: Pindarra\u2019s internal office relocation notice dated 12 Sep 2025 is a non-issuer operational update and is not relevant to MNPI controls under this DPA.\nCross-border disclosures: Processor will host primary systems in Australia; any overseas disclosure under APP 8 (e.g., support access from New Zealand) requires prior written consent, documented safeguards, and Processor assumes s16C accountability for breaches by overseas recipients.\nSecurity and breach: Processor must maintain ISO-27001-aligned controls and notify Karrinup BioDevices Ltd within 48 hours of becoming aware of an eligible data breach, with content sufficient for OAIC notification if required.\nRetention: unless otherwise directed, retain HR and WHS health records for 7 years after employment ends, credit assessment records for 7 years after account closure, and transactional billing logs for 7 years; securely destroy or de-identify data thereafter, with certificates of destruction on request.\nData subject rights: Processor will assist Karrinup BioDevices Ltd to respond to access and correction requests under APP 12 and APP 13 within 30 days; all direct requests received by Processor must be forwarded without delay and not answered except to acknowledge receipt.\nPublic filing reference for status checks: see the Director\u2019s Appendix 3Y lodged on 14 Dec 2025 for already-announced changes in interests; draft board papers discussing prospective issuances remain not generally available until an announcement is released.\nPoints of contact: Ms. Tamsin Rorke, Privacy Officer, privacy@karrinupbiodevices.example.au; and Dr. Owen Talford, Compliance Lead at Pindarra Data Services Pty Ltd, complianc",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -289,34 +350,5 @@
       "matched_text": "OAIC notification",
       "reason": "Regulatory breach notification is privacy-relevant but not an allowed rule label"
     }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

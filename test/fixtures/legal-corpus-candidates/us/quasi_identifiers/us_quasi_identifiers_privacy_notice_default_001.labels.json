@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -122,7 +130,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Example workflow record: Ms. Rina Delgado (DOB 08/22/1987, age 38), Investor Relations Associate at Verdant Harbor Therapeutics, working in the Port Kestrel, VA 00000 office, device ID VH-IR-LT-1186, office ext. 4407, internal account alias vh-ir-fin-4438, standard login window 09:00–17:30 ET, Teams session code IR-standup-47A; this cluster is treated as personal information",
+      "matched_text": "Example workflow record: Ms. Rina Delgado (DOB 08/22/1987, age 38), Investor Relations Associate at Verdant Harbor Therapeutics, working in the Port Kestrel, VA 00000 office, device ID VH-IR-LT-1186, office ext. 4407, internal account alias vh-ir-fin-4438, standard login window 09:00\u201317:30 ET, Teams session code IR-standup-47A; this cluster is treated as personal information",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -191,6 +199,24 @@
       "category": "MNPI",
       "matched_text": "material non-public information",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Example workflow record: Ms. Rina Delgado (DOB 08/22/1987, age 38), Investor Relations Associate at Verdant Harbor Therapeutics, working in the Port Kestrel, VA 00000 office, device ID VH-IR-LT-1186, office ext. 4407, internal account alias vh-ir-fin-4438, standard login window 09:00\u201317:30 ET, Teams session code IR-standup-47A; this cluster is treated as personal information.\nAnalysts from Yarrow & Marsh Securities LLC and other market professionals receive information only via public webcasts, press releases, EDGAR filings, or open conference calls; we block 1:1 pre-earnings briefings.\nOur employee banking program with CinderBank, FSB involves GLBA NPI (e.g., payroll-linked account tokens), while our benefits with Pineview Community Health Plan involve HIPAA PHI; these systems are segregated",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Example workflow record: Ms. Rina Delgado (DOB 08/22/1987, age 38), Investor Relations Associate at Verdant Harbor Therapeutics, working in the Port Kestrel, VA 00000 office, device ID VH-IR-LT-1186, office ext. 4407, internal account alias vh-ir-fin-4438, standard login window 09:00\u201317:30 ET, Teams session code IR-standup-47A; this cluster is treated as personal information.\nAnalysts from Yarrow & Marsh Securities LLC and other market professionals receive information only via public webcasts, press releases, EDGAR filings, or open conference calls; we block 1:1 pre-earnings briefings.\nOur employee banking program with CinderBank, FSB involves GLBA NPI (e.g., payroll-linked account tokens), while our benefits with Pineview Community Health Plan involve HIPAA PHI; these systems are segregated.\nWe do not sell personal information under CCPA and we honor opt-out signals for cross-context behavioral advertising on IR and career sites.\nNon-identifying or weak signals we may process without linking to a named person include ZIP-only 00000, birth year 1979, device model XG-12, browser version 117, county-level location \u201cNorth Coast,\u201d and account suffix 1122; none of these alone identify an individual.\nSecurity and logging: we maintain least-privilege access, device telemetry (e.g., hostnames like VH-CLN-KIOSK-22), and tamper-evident audit trails; de-identified analytics are used to improve service performance.\nCalifornia, Virginia, and Colorado consumers may exercise rights to know, delete, correct, or limit sensitive data; employees may access HR records; patients may request HIPAA access via healthprivacy@verdantharbor.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We treat information reasonably linkable to a consumer or household as personal information (CCPA), protect PHI under HIPAA, and safeguard nonpublic personal information under GLBA.\nWe prohibit selective disclosure of material non-public information; under SEC Rule 10b-5 and Regulation FD, earnings data and clinical milestones are communicated only via public channels.\nCategories we process include contact details, quasi-identifiers (role, work location, device tags), account aliases, and event registrations from IR webcasts, bank onboarding, and clinical benefits administration.\nDSAR workflow: submit access/correction/deletion requests at privacy@verdantharbor.example or 1-855-555-0199; we verify with a two-step challenge and do not request PHI or full account numbers for verification.\nRetention: IR inquiry logs 24 months, trading-compliance and Reg FD attestations 7 years, GLBA-relevant HR banking records 5 years, and HIPAA billing tokens 6 years; data are purged per schedule.\nProcessors and transfers: we engage service providers under written agreements as \u201cservice providers\u201d or \u201cprocessors,\u201d with CCPA/GLBA confidentiality, HIPAA BAAs where applicable, and audit/return-or-delete clauses.\nExample workflow record: Ms. Rina Delgado (DOB 08/22/1987, age 38), Investor Relations Associate at Verdant Harbor Therapeutics, working in the Port Kestrel, VA 00000 office, device ID VH-IR-LT-1186, office ext. 4407, internal account alias vh-ir-fin-4438, standard login window 09:00\u201317:30 ET, Teams session code IR-standup-47A; this cluster is treated as personal information.\nAnalysts from Yarrow & Marsh Securities LLC and other market professionals receive information only via public webcasts, press releases, EDGAR filings, or open conference calls; we block 1:1 pre-earnings briefings.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

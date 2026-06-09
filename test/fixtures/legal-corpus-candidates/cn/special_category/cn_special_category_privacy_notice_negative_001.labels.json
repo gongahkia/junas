@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -190,6 +198,12 @@
       "category": "MNPI",
       "matched_text": "embargoed",
       "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Qingshan Lantern Tech Co., Ltd. (USCC: FAKE-USCC-0018) Data Processing Addendum for HR and Issuer Operations under PIPL/CSL/DSL.\nRole allocation: the Company acts as personal information handler; Nanyun Data Services Co. acts as entrusted processor for payroll on Harmony Spark ERP.\nCollection scope: employment files, attendance logs, shareholder registry for the Issuer Desk; we avoid collecting biometrics or religious belief except where required by law.\nIntentional positive: Employee Fang Zeren (HR ID: HR-FAZ-1099) has declared trade-union membership for dues withholding administration; separate consent obtained per PIPL Art. 29.\nResident ID field may appear on onboarding forms but is masked and stored salted-hash only; example placeholder \u201c000000000000000000\u201d is not a valid ID and is not used in production.\nDuring IPO preparation, inside information per PRC Securities Law is embargoed until CSRC/SSE disclosure; staff must not combine MNPI with customer PI for analytics.\nTransfers: primary storage in Shanghai; cross-border access by Aurora Isles Payroll Center permitted only after CAC security assessment filing No. X-FAKE-2025 and signing standard contract.\nData minimization and purpose limitation apply; default retention\u2014HR records 6 years, equity holder notices 3 years\u2014unless CSRC archiving rules specify otherwise.\nData subject rights: access, copy, correction, and deletion requests accepted via privacy@qsl-tech.local or the Service Desk portal; we will respond within 15 working days.\nSecurity controls: role-based access, encryption in transit and at rest, vendor DPIA and DSL data classification; no facial recognition templates are deployed in office gates.\nPublic communications through the SSE e-Platform and the Starbridge Exchange (fictional) contain only already-announced facts; training uses the \u201cDragonboat Playbook\u201d and \u201cRainbow Inclusion Promise\u201d policy.\nWellness and DEI notices (e.g., \u201cSky Tigers Fitness Challenge\u201d and \u201cLotus City Mindful Month\u201d) do not collect health diagnosis details and are opt-in.\nForm labels may reference Account No., Wallet ID, or Ticker Code, but examples like 000-XYZ-000 and NL-CX-TEST are placeholders and not linked to any real account or security.\nProcessors must not onward-transfer without our written instructions; cross-border logs are pseudonymized and subject to quarterly review by the Data Compliance Office.\nQueries about this note should reference internal policy QLT-PIPL-TR-2025; escalation to the Issuer Compliance Office if MNPI handling intersects with personal information workflows.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

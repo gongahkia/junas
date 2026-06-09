@@ -50,6 +50,14 @@
     "previous_must_detect_count": 7,
     "previous_must_not_detect_count": 0
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -147,6 +155,12 @@
       "category": "MNPI",
       "matched_text": "7B",
       "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "One access-log cluster requires minimisation: a temporary warehouse operator at Lake Norvale Depot (shift A3) engaged via Hivernis Logistics GmbH, DOB 1990-04-12, residence district Ostmark Sector 7, handheld scanner SNR-AX9-8841 mapped to account twh-042 at Kaster Systems BV.\nOther workforce references in this report are generic (e.g., \u201ctwo night-shift staff under 30\u201d and \u201cblue\u2011badge contractors\u201d); these do not by themselves identify individuals.\nCross-border transfer: a 48\u2011hour copy of device logs was processed by Norlandia\u2011based vendor Galian Processors AS under SCCs and transfer impact assessment VN\u2011TIA\u20112026\u2011014; telemetry includes IPs and pseudonymous device IDs.\nSecurity content: malware execution blocked; no lateral movement confirmed; samples shared with the CSIRT network; invalid identifiers in sandbox notes (ISIN ZZ0000000000; VAT XX0000000) are placeholders only.\nESG context: CSRD draft disclosures will include downtime KPI and remediation plans; SFDR teams confirm no change to PAI indicators due to absence of customer data loss.\nLawful basis and notice: retention set to 30 days for logs; Art. 33 notification submitted to the Varland DPA; no Art. 34 communication deemed necessary at this stage.\nMarket abuse controls: a non\u2011public internal \u201cScenario R2\u201d capacity impact estimate remains under verification and is handled within MAR workflows pending decision on disclosure.\nThe internal severity rating in this draft is not a trading signal and relies on assumptions already stated in the public OAM notice; investor relations shall continue to use only published information.\nData subject support uses role mailboxes and helplines only (privacy@orbianterra.eu; +00 800 000 0000); no named contact points are provided here.\nIncident tickets reference device aliases and room numbers only (e.g., Dock C\u201112, Cart 7B); there are no government ID fields or payment card data in scope.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

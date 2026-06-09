@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -47,7 +55,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Transaction: formation of a joint venture to support patient-pay financing for Pineflow’s home therapeutic devices; no pricing, exchange ratio, or issuance terms are agreed at this stage.",
+      "matched_text": "Transaction: formation of a joint venture to support patient-pay financing for Pineflow\u2019s home therapeutic devices; no pricing, exchange ratio, or issuance terms are agreed at this stage.",
       "rule": "material_event"
     },
     {
@@ -117,7 +125,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "For systems mapping only, one internal test profile may be processed: lab technician (employed by Pineflow), DOB 03/1984, city “North Plainfield Ridge, OH 44100”, job role “Home Device Calibrator”, device serial PF-HEM-7782, payroll sub-ledger acct FP-0045-77",
+      "matched_text": "For systems mapping only, one internal test profile may be processed: lab technician (employed by Pineflow), DOB 03/1984, city \u201cNorth Plainfield Ridge, OH 44100\u201d, job role \u201cHome Device Calibrator\u201d, device serial PF-HEM-7782, payroll sub-ledger acct FP-0045-77",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -164,7 +172,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Transaction: formation of a joint venture to support patient-pay financing for Pineflow’s home therapeutic devices; no pricing, exchange ratio, or issuance terms are agreed at this stage.",
+      "matched_text": "Transaction: formation of a joint venture to support patient-pay financing for Pineflow\u2019s home therapeutic devices; no pricing, exchange ratio, or issuance terms are agreed at this stage.",
       "rule": "material_event"
     },
     {
@@ -186,6 +194,12 @@
       "category": "MNPI",
       "matched_text": "subject to board approval",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet for Strategic Partnership between Pineflow Therapeutic Devices LLC (DE) and Sable Ridge Bancshares, Inc. (OH).\nPineflow is a U.S. issuer listed on the Midland Market (fictional national securities exchange); Sable Ridge is an Ohio bank holding company providing consumer finance services.\nTransaction: formation of a joint venture to support patient-pay financing for Pineflow\u2019s home therapeutic devices; no pricing, exchange ratio, or issuance terms are agreed at this stage.\nPublic disclosure: any material terms will be disclosed consistent with Regulation FD via press release and Form 8-K; no selective disclosure to analysts or other market participants.\nConsideration framework: target revenue-share and potential earnout subject to performance metrics to be defined in the definitive agreements; economics are non-binding placeholders.\nRegulatory and privacy conditions: closing conditioned on Hart-Scott-Rodino filings, banking non-objection from the Office of Financial Institutions Oversight (fictional), and execution of HIPAA-compliant business associate agreements and GLBA safeguards.\nDiligence scope: limited to policies, anonymized loan tapes, redacted servicing reports, and de-identified device logs; no patient charts, medical record numbers, or actual consumer account numbers will be exchanged.\nFor systems mapping only, one internal test profile may be processed: lab technician (employed by Pineflow), DOB 03/1984, city \u201cNorth Plainfield Ridge, OH 44100\u201d, job role \u201cHome Device Calibrator\u201d, device serial PF-HEM-7782, payroll sub-ledger acct FP-0045-77.\nEmployee matters: no guarantees of employment; select employees may receive retention grants subject to board approval and plan terms; no individual compensation packages are discussed here.\nAnalyst communications: any slide deck shared with sell-side analysts will be posted to the investor site and furnished under Item 7.01 of Form 8-K; questions should be routed to ir@pineflow.example (role mailbox).\nRepresentations and covenants: customary statements regarding data security, privacy program sufficiency, and remediation of consumer complaints; forward-looking statements subject to cautionary language under applicable securities laws.\nPrior announcements: Pineflow publicly announced on 2024-07-15 its exploration of financing partnerships; this document restates that previously disclosed, non-binding intent.\nPlaceholders in diligence templates may include labels such as \u201cAccount No: ______\u201d, \u201cSSN: ___-__-____\u201d, \u201cRouting: 000000000\u201d, and \u201cDevice IMEI: 000000000000000\u201d, which are formatting examples only and not actual identifiers.\nIllustrative identifiers herein (e.g., example file number 0000-XYZ-99 and sample code PFLOW000, an invalid CUSIP-like string) are non-functional and used solely to show expected formats.\nThis term sheet is non-binding, subject to definitive documentation and applicable approvals, and is not an offer to sell or a solicitation of an offer to",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

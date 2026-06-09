@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -75,17 +101,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "no 個人番号",
+      "matched_text": "no \u500b\u4eba\u756a\u53f7",
       "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "matched_text": "個人番号 (My Number)",
+      "matched_text": "\u500b\u4eba\u756a\u53f7 (My Number)",
       "rule": "jp_my_number"
     },
     {
       "category": "PII",
-      "matched_text": "個人番号",
+      "matched_text": "\u500b\u4eba\u756a\u53f7",
       "rule": "jp_my_number"
     },
     {
@@ -139,6 +165,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Board updates on announced acquisition, employee data controls, and securities workflows.\nThe Board noted the public announcement on the Tokyo Bay Securities Exchange (TBSE) of the tender offer for Kogami Optics K.K.; the TOB has closed and FIEA material facts were filed with the Japan Capital Markets Authority (JCMA).\nNo undisclosed material facts remain; references to \u201cundisclosed\u201d in the policy annex are definitional only and do not indicate a live risk.\nData-export approval: cross-border transfer of de-identified employee IDs and role metadata to CloudNova SAS (Silanda) for payroll consolidation is approved under APPI with supervisory-notice alignment; minimisation applied (no \u500b\u4eba\u756a\u53f7, no home address).\nConsent: no consent-withdrawal notices were received in Q2; HR will use Form HR-APPI-05 if a withdrawal occurs, via the role mailbox privacy@hoshitake.co.jp.\nDSAR: no employee access requests are pending or received this quarter; the response template remains available in the APPI toolkit for standard use.\nErasure: one former contractor\u2019s onboarding record was erased post-offboarding; retention markers on payroll ledgers remain HLD-3Y-payroll per Schedule JP-RET-190.\nMy Number handling: onboarding forms display the label \u201c\u500b\u4eba\u756a\u53f7 (My Number): MYN-0000-0000\u201d as a placeholder; this invalid value is not stored, and actual \u500b\u4eba\u756a\u53f7 is collected only on the domestic payroll system.\nSecurity identifiers: sample code JP00-HSK-000 appears on training materials for filing practice; it is not a real ISIN or code and does not represent live securities.\nInsider control: the insider list is maintained and the dealing window is closed until post-settlement; the phrase \u201ctender offer leak\u201d appears in the risk register for training, and does not denote an incident.\nCross-border marketing dataset exports remain prohibited; last year\u2019s marketing export request was denied due to inadequate minimisation, and no live transfer exists for that set.\nPPC-equivalent guidance is reflected in our Data Processing Addendum Schedule JP-DPA-02; the schedule lists permitted processors and includes the data-export approval above.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -205,24 +237,6 @@
       "concept": "retention schedule reference",
       "matched_text": "Schedule JP-RET-190",
       "reason": "Denotes retention policy schedule; not covered by allowed rules"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

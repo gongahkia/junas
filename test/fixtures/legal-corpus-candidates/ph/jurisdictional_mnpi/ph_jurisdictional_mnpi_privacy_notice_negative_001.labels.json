@@ -1,135 +1,195 @@
 {
-  "doc_id": "ph_jurisdictional_mnpi_privacy_notice_negative_001",
-  "document_type": "generic",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1 2024 17"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "000-XYZ-1234"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@tandemparc.ph"
+      "matched_text": "dpo@tandemparc.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "Account No.: 000-XYZ-1234"
+      "matched_text": "Account No.: 000-XYZ-1234",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "Passport No.: AA0000000"
+      "matched_text": "Passport No.: AA0000000",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfers to processors"
+      "matched_text": "Cross-border transfers to processors",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "We do not collect credit card CVV, bank PINs, or e-wallet passcodes"
+      "matched_text": "We do not collect credit card CVV, bank PINs, or e-wallet passcodes",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout window"
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "limited to business emails"
+      "matched_text": "limited to business emails",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "without full PAN or CVV"
+      "matched_text": "without full PAN or CVV",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no special categories are exported"
+      "matched_text": "no special categories are exported",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no passports or government IDs requested by email"
+      "matched_text": "no passports or government IDs requested by email",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "records are anonymized or securely shredded"
+      "matched_text": "records are anonymized or securely shredded",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "employee ID"
+      "matched_text": "employee ID",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "vendor code"
+      "matched_text": "vendor code",
+      "rule": "customer_account_number"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "from five trading days before to two trading days after"
+      "matched_text": "from five trading days before to two trading days after",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1 2024 17"
+      "matched_text": "1 2024 17",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "000-XYZ-1234"
+      "matched_text": "000-XYZ-1234",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "1 2024 17",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000-XYZ-1234",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TandemParc Holdings, Inc. (PH) Privacy Notice and Retention Workflow for HR, Tax, Banking, and Capital Markets Records\nData controller: TandemParc Holdings, Inc., 21F Orion Center, Makati City 1200, Philippines; DPO contact: dpo@tandemparc.ph (role mailbox)\nUnder the Data Privacy Act, personal data means any information from which an individual\u2019s identity is apparent or can be reasonably and directly ascertained, or when put together with other information.\nWe process: employee numbers, payroll bank details, TIN (form field only: ___-___-___-___), generic HR files; and investor relations contact lists limited to business emails.\nBank references and BIR-related payroll withholding records are retained for 10 years for audit; account labels may appear (e.g., Account No.: 000-XYZ-1234) without full PAN or CVV.\nCapital-markets records include drafts and final SEC 17-A, 17-Q, and 17-C; public copies are available via SEC and PSE EDGE and are not treated as confidential once posted (e.g., our Q1 2024 17-C on transfer agent change).\nPress releases and website FAQs summarizing already-announced dividends from FY2022 remain public and are excluded from MNPI controls.\nEmployees with access to non-public draft 17-A/17-Q/17-C content must observe an internal blackout window from five trading days before to two trading days after public postin",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -146,88 +206,42 @@
       "reason": "Generic role/group noun, not an identifiable individual"
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "TIN (form field only: ___-___-___-___)",
       "concept": "PH TIN placeholder",
+      "matched_text": "TIN (form field only: ___-___-___-___)",
       "reason": "Refers to a PH TIN format but no number is provided; current rule targets concrete identifiers"
     },
     {
-      "matched_text": "SSS: 99-9999999-9",
       "concept": "PH SSS number placeholder",
+      "matched_text": "SSS: 99-9999999-9",
       "reason": "Philippine SSS number format shown but SSS is not an allowed rule in the current taxonomy"
     },
     {
-      "matched_text": "To access, correct, or delete personal data, submit a DSAR via privacy.tandemparc.ph or mail to the DPO Office",
       "concept": "DSAR/erasure request channel",
+      "matched_text": "To access, correct, or delete personal data, submit a DSAR via privacy.tandemparc.ph or mail to the DPO Office",
       "reason": "Data subject rights process is a privacy-event marker but not mapped to an explicit allowed rule"
     },
     {
-      "matched_text": "retained for 10 years",
       "concept": "Retention period marker",
+      "matched_text": "retained for 10 years",
       "reason": "Retention/limitation is privacy-relevant but no explicit retention rule exists in allowed set"
     },
     {
+      "concept": "Retention period marker",
       "matched_text": "retained for 2 years after posting",
-      "concept": "Retention period marker",
       "reason": "Retention duration noted but not covered by a specific allowed rule"
     },
     {
+      "concept": "Retention period marker",
       "matched_text": "for 5 years post-separation",
-      "concept": "Retention period marker",
       "reason": "Retention duration noted but not covered by a specific allowed rule"
     },
     {
-      "matched_text": "for 10 years per audit needs",
       "concept": "Retention period marker",
+      "matched_text": "for 10 years per audit needs",
       "reason": "Retention duration noted but not covered by a specific allowed rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T07:07:36Z",
-    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

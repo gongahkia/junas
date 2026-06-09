@@ -55,6 +55,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -322,6 +330,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Palm Reef \u2014 Heads of Terms for a proposed acquisition of 51% of Siraj Ports PJSC (issuer; ADX\u2011listed, ticker \u201cSPX\u201d) by Thamra Blue Capital (DIFC) Ltd via Al Mirqab SPV Ltd (ADGM)\nStatus: Contains inside information under SCA Market Conduct Regulations and ADX Disclosure & Transparency Standards; selective disclosure prohibited; an SCA\u2011compliant insider list will be maintained by the Issuer\nConsideration: AED 1,240,000,000 cash on completion plus AED 160,000,000 earn\u2011out over 24 months, subject to throughput KPIs; materiality assessed relative to Issuer consolidated revenue (>5%) per Issuer policy\nFunding: Committed bridge from Rimal First Bank (DIFC Branch) and equity from Thamra Blue GP Fund I; no public securities offering contemplated under this term sheet\nConditions precedent: SCA/ADX approvals of Major Transaction circular, Issuer shareholder approval, Emirate Ports Authority consent, confirmatory diligence; no MAC, and routine published maintenance outages shall not constitute a Material Adverse Change\nDisclosure: To be announced without delay via the ADX platform upon signing and in any case before the next trading session; if atypical price/volume occurs, the Issuer may request a trading suspension per ADX procedures\nBlackout: Parties acknowledge the Issuer\u2019s pre\u2011close blackout window from quarter\u2011end to results announcement; deal communications limited to need\u2011to\u2011know and coordinated through the Disclosure Committee\nPublic reference: See the Issuer\u2019s already\u2011announced press release dated 02\u2011May\u20112025 on the ADX portal regarding Q1 throughput; that disclosure is public, stale, and not indicative of this transaction\u2019s terms (http://ad x.ae/disclosure?id=SPX-PR-02052025)\nProcess: Market sounding, if any, will follow SCA guidance with recorded consents; all recipients to be wall\u2011crossed and added to the insider list; no use of social media or selective briefings\nExecution: Target signing 28\u2011Jul\u20112026; long\u2011stop 30\u2011Nov\u20112026; announcement sequence: internal notice, ADX release, SCA filing, then press Q&A; no forward\u2011looking statements beyond approved script\nParties/IDs (KYC only): Mr. Omar Al\u2011Habshi (Authorised Signatory, Thamra Blue Capital (DIFC) Ltd), Emirates ID (masked) 784\u2011XX\u20115 9 3X\u2011123456\u2011X; Trade Licence: CL\u2011DF\u20117R2\u201190876; family\u2011origin data collected solely for KYC and not used in decisioning\nContacts: Ms. Layla Al Samari, Deal Coordinator \u2014 e m a i l: l.samari@thamrablue.ae \u2014 tel: +971 5 0 0 0 1 2 3 4; data room link: https://vdr.thamrablue.ae/p/ProjectPalmReef?token=abC12 x y\nMiscellaneous: Confidentiality aligned with DIFC/ADGM confidentiality frameworks; governing law: ADGM; exclusivity 45 days; break fee AED 24,000,000; no change to employee canteen hours or office Wi\u2011Fi maintenance, which are not price\u2011sensitive\nNegative/non\u2011MNPI content: public sources include the Issuer\u2019s 2024 annual report and broad media coverage; todo: update gantt, refresh RoadRunner v3.4 relea",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

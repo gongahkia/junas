@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -226,6 +234,12 @@
       "category": "MNPI",
       "matched_text": "Information Barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Proposed Strategic Collaboration and Convertible Notes between Meditherm Diagnostics, Inc. (DE, SEC registrant) and Crown Meridian Bank, N.A. (U.S. banking organization).\nTransaction: Unsecured convertible notes and a non-exclusive revenue cycle optimization partnership focused on telehealth diagnostics; no financing amount stated in this summary.\nPurpose: Fund cloud migration and patient scheduling upgrades; partnership to provide non-advisory operational analytics and treasury solutions.\nTenor/Conversion: Market-standard U.S. convertible note mechanics to be negotiated; no pricing or cap included in this draft.\nConditions Precedent: Board approvals, customary diligence, HIPAA-compliant BAAs, GLBA information-security review, and any required banking notices.\nRegulatory/Disclosure: Reg FD policies apply; no selective disclosure to analysts or investors; public updates, if material, to be made via Form 8-K and press release.\nInformation Barriers: Bank to maintain information-barrier controls between research, sales and trading, and advisory; employees must complete annual e-learning.\nInsider Lists and Blackouts: Issuer to maintain an insider list and impose blackout windows around earnings; template to be provided, no individual names in this term sheet.\nCybersecurity: Parties will conduct tabletop exercises; no customer PII will be shared pre-close; security attestations to rely on SOC 2 reports provided via a secure data room.\nIntentional MNPI carve-out: Issuer has identified a recent security incident in a non-production environment under forensic review that has not yet been pub",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

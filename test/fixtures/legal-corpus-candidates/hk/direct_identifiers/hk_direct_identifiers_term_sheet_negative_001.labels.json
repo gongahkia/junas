@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -159,6 +167,18 @@
       "category": "MNPI",
       "matched_text": "19.9%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SEHK clearance",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed Strategic Investment in Harborline Holdings Limited (incorporated in Hong Kong) by Blue Peak Crescent Fund LP; summary of previously announced transaction parameters only.\nTarget: Harborline Holdings Limited (HKEX-listed; Companies Registry ref CR No.: 3123456 \u2014 reference only, not verified); Registered office: Level 45, South Quay Tower, 88 Harbour Lane, Kowloon East, Hong Kong.\nInvestor: Blue Peak Crescent Fund LP (managed by a Type 9 group affiliate; CE No.: ZZZ999 \u2014 format placeholder) subscribing for up to 19.9% new shares; no change of control contemplated.\nRegulatory framework: Chapter 14 of the HKEX Listing Rules (notifiable transaction), Chapter 14A not applicable; Takeovers Code whitewash waiver not required.\nDisclosure status: Announcement under Part XIVA of the SFO has already been published on 2025-03-31; no inside information is contained in this term sheet.\nConsideration and pricing: To be set by reference to a 30-day VWAP band; specific HKD amounts intentionally omitted; no vendor loan note.\nFunding: Subscription funded from existing LP commitments; no margin financing; Escrow Account (format only): 999-000-123456-XYZ at Pearl City Bank (HK).\nConditions precedent: HKEX clearance of circular; no shareholder approval required based on current structure; confirmation of no breach of Employment Ordinance (Cap. 57) obligations.\nWarranties: Standard corporate capacity and title; no undisclosed encumbrances; confirmation of prior SFC consultation not required.\nEmployee matters: No retrenchment planned; continuity of service and accrued entitlements to be maintained; no change to MPF scheme administrator.\nCompliance: All parties acknowledge PDPO obligations; authorised signatory (role-only) may present HKID: Z123456(0) at completion for identity verification purposes.\nEnquiries: investor.relations@harborline.example.hk (role mailbox); general hotline (HK): 1844 \u2014 public enquiries only, not for order placement.\nTimeline: Exchange of long-form agreements within 30 days after SEHK clearance; long-stop date: 90 days thereafter; completion immediately following settlement.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

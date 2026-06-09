@@ -1,210 +1,271 @@
 {
-  "doc_id": "th_special_category_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66 02-772"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "E-1182"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSARs"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Suphannika Digital Infrastructure Public Company Limited (TGE-listed) \u2014 PDPA Cross-Border Transfer & Retention Workflow Note for NSC-TH filings and financing due diligence."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "We do not collect sexual orientation in financing files; our Equal Opportunity & Inclusion policy merely lists sexual orientation and religion as protected characteristics."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing workpaper \u201cProject Tamarind\u201d contains cash flow sensitivities; during the NSC-TH pre-filing silent period, do not circulate beyond named counsel; the phrase \u201cnot a material adverse change\u201d in that draft does not by itself create MNPI."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Tamarind"
-    },
-    {
-      "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "TGE"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+66 02-772"
+      "matched_text": "+66 02-772",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "E-1182"
+      "matched_text": "E-1182",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSARs"
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Suphannika Digital Infrastructure Public Company Limited (TGE-listed) \u2014 PDPA Cross-Border Transfer & Retention Workflow Note for NSC-TH filings and financing due diligence."
+      "matched_text": "Suphannika Digital Infrastructure Public Company Limited (TGE-listed) \u2014 PDPA Cross-Border Transfer & Retention Workflow Note for NSC-TH filings and financing due diligence.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "We do not collect sexual orientation in financing files; our Equal Opportunity & Inclusion policy merely lists sexual orientation and religion as protected characteristics."
+      "matched_text": "We do not collect sexual orientation in financing files; our Equal Opportunity & Inclusion policy merely lists sexual orientation and religion as protected characteristics.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing workpaper \u201cProject Tamarind\u201d contains cash flow sensitivities; during the NSC-TH pre-filing silent period, do not circulate beyond named counsel; the phrase \u201cnot a material adverse change\u201d in that draft does not by itself create MNPI."
+      "matched_text": "Financing workpaper \u201cProject Tamarind\u201d contains cash flow sensitivities; during the NSC-TH pre-filing silent period, do not circulate beyond named counsel; the phrase \u201cnot a material adverse change\u201d in that draft does not by itself create MNPI.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Tamarind"
+      "matched_text": "Project Tamarind",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "TGE"
+      "matched_text": "TGE",
+      "rule": "dpt_pre_listing_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@suphannika-di.co.th"
+      "matched_text": "dpo@suphannika-di.co.th",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Khun Arnon Buarak"
+      "matched_text": "Khun Arnon Buarak",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee No. E-1182"
+      "matched_text": "Employee No. E-1182",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "health data related to chemotherapy scheduling"
+      "matched_text": "health data related to chemotherapy scheduling",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template (ft- 09:ab:77:\u2022\u2022)"
+      "matched_text": "fingerprint template (ft- 09:ab:77:\u2022\u2022)",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "membership in the Lakeside Tech Workers\u2019 Union (dues deduction)"
+      "matched_text": "membership in the Lakeside Tech Workers\u2019 Union (dues deduction)",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "Buddhist religious belief"
+      "matched_text": "Buddhist religious belief",
+      "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfers to processors in Singapore and Japan occur"
+      "matched_text": "Cross-border transfers to processors in Singapore and Japan occur",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "pre-filing silent period"
+      "matched_text": "pre-filing silent period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Khun Arnon"
+      "matched_text": "Khun Arnon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "We do not collect sexual orientation in financing files"
+      "matched_text": "We do not collect sexual orientation in financing files",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "political opinions in WhispChat channels are auto-redacted before cross-border transfer"
+      "matched_text": "political opinions in WhispChat channels are auto-redacted before cross-border transfer",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "political_opinion",
-      "matched_text": "political opinions"
+      "matched_text": "political opinions",
+      "rule": "political_opinion"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer"
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "ticket id: dsar-TH_2 9 x y"
+      "matched_text": "ticket id: dsar-TH_2 9 x y",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@ suphan nika-di.co.th"
+      "matched_text": "dpo@ suphan nika-di.co.th",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "do not circulate beyond named counsel"
+      "matched_text": "do not circulate beyond named counsel",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "does not by itself create MNPI"
+      "matched_text": "does not by itself create MNPI",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+66 02-772",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-1182",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Suphannika Digital Infrastructure Public Company Limited (TGE-listed) \u2014 PDPA Cross-Border Transfer & Retention Workflow Note for NSC-TH filings and financing due diligence.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We do not collect sexual orientation in financing files; our Equal Opportunity & Inclusion policy merely lists sexual orientation and religion as protected characteristics.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing workpaper \u201cProject Tamarind\u201d contains cash flow sensitivities; during the NSC-TH pre-filing silent period, do not circulate beyond named counsel; the phrase \u201cnot a material adverse change\u201d in that draft does not by itself create MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tamarind",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TGE",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Suphannika Digital Infrastructure Public Company Limited (TGE-listed) \u2014 PDPA Cross-Border Transfer & Retention Workflow Note for NSC-TH filings and financing due diligence.\nContact: Data Protection Officer, Khun Arnon Buarak, dpo@suphannika-di.co.th, +66 02-772-xx21; portal: https://ir.suphannika-di.co.th/dsar?ref=9Z- 1a%2Fth&u=emp\nScope covers HR/employment files, loan term sheets, and pre-TGE disclosure packs; public-source references (e.g., TGE summaries, CRT communiqu\u00e9s) are not MNPI.\nFor DSARs, we verify identity using transaction logs and a one-time code (ticket id: dsar-TH_2 9 x y; hash=4f:2b:9d:xx), then respond within 30 days under PDPA.\nWith respect to Khun Arnon Buarak (Employee No. E-1182), the Company processed health data related to chemotherapy scheduling on 2026-03-04 and stored a fingerprint template (ft- 09:ab:77:\u2022\u2022) for Bang Krapeu site access, each based on explicit consent.\nPayroll records for Khun Arnon also reflect membership in the Lakeside Tech Workers\u2019 Union (dues deduction), and a leave request for temporary monk ordination in Chiang Doi signals Buddhist religious belief.\nWe do not collect sexual orientation in financing files; our Equal Opportunity & Inclusion policy merely lists sexual orientation and religion as protected characteristics.\nCross-border transfers to processors in Singapore and Japan occur for cloud archiving (BluePine CloudTap, cluster ap-sg-4) and e-discovery; safeguards include encryption at rest, BCRs, and Section 28 PDPA derogations where necessary.\nRetention: health records (5 years from last treatment), biometric templates (90 days rolling), union/disciplinary records (2 years post-employment), and MNPI-bound drafts (until TGE/NSC-TH clearance or 180 days, whichever is later).\nFinancing workpaper \u201cProject Tamarind\u201d contains cash flow sensitivities; during the NSC-TH pre-filing silent period, do not circulate beyond named counsel; the phrase \u201cnot a material adverse change\u201d in that draft does not by itself create MNPI.\nEmployment exports from SilverLantern CRM and pm boards include casual comments; political opinions in WhispChat channels are auto-redacted before cross-border transfer.\nSome lines may appear with O C R spacing due to scanned PDFs; e.g., Arnon Bu a rak \u2014 visa medical \u2014 S G secondment \u2014 approved; do not treat such artifacts as new data.\nData subjects may request deletion via dpo@ suphan nika-di.co.th; if data are needed for SMAT compliance or TGE investigations, we may refuse under PDPA Section 37 and log the basis.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -265,89 +326,42 @@
       "reason": "Negated MAC reference; excluded by rule"
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "Retention: health records (5 years from last treatment), biometric templates (90 days rolling), union/disciplinary records (2 years post-employment), and MNPI-bound drafts (until TGE/NSC-TH clearance or 180 days, whichever is later)",
       "concept": "retention marker",
+      "matched_text": "Retention: health records (5 years from last treatment), biometric templates (90 days rolling), union/disciplinary records (2 years post-employment), and MNPI-bound drafts (until TGE/NSC-TH clearance or 180 days, whichever is later)",
       "reason": "Retention schedule is legally relevant, but there is no explicit 'retention_marker' rule in the allowed list."
     },
     {
-      "matched_text": "Data subjects may request deletion via dpo@ suphan nika-di.co.th",
       "concept": "erasure/DSAR pathway",
+      "matched_text": "Data subjects may request deletion via dpo@ suphan nika-di.co.th",
       "reason": "Indicates deletion/erasure request process; the ruleset lacks a dedicated DSAR/erasure marker rule."
     },
     {
-      "matched_text": "ticket id: dsar-TH_2 9 x y",
       "concept": "internal ticket identifier",
+      "matched_text": "ticket id: dsar-TH_2 9 x y",
       "reason": "Potential internal_session_id relevant to identification workflows, but spacing/format may fall outside strict regex coverage."
     },
     {
-      "matched_text": "hash=4f:2b:9d:xx",
       "concept": "pseudonymous hash",
+      "matched_text": "hash=4f:2b:9d:xx",
       "reason": "Hash-like pseudonymous data tied to DSAR flow; not mapped to a specific allowed rule."
     },
     {
-      "matched_text": "each based on explicit consent",
       "concept": "consent basis",
+      "matched_text": "each based on explicit consent",
       "reason": "Describes legal basis of processing; only 'consent_withdrawal_marker' is explicitly listed in allowed rules."
     },
     {
-      "matched_text": "portal: https://ir.suphannika-di.co.th/dsar?ref=9Z- 1a%2Fth&u=emp",
       "concept": "DSAR portal with reference parameter",
+      "matched_text": "portal: https://ir.suphannika-di.co.th/dsar?ref=9Z- 1a%2Fth&u=emp",
       "reason": "URL includes a reference parameter that may be an identifier; no specific rule for portal/ref IDs and spacing complicates detection."
     },
     {
-      "matched_text": "MNPI-bound drafts (until TGE/NSC-TH clearance or 180 days, whichever is later)",
       "concept": "MNPI retention/clearance window",
+      "matched_text": "MNPI-bound drafts (until TGE/NSC-TH clearance or 180 days, whichever is later)",
       "reason": "MNPI handling and clearance window are material but not covered by a specific MNPI rule token."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -67,12 +75,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "project note (non‑determinative): move “q2-readout” to a separate channel after redteam re-check; this line is generic workflow guidance and contains no consumer or patient data.",
+      "matched_text": "project note (non\u2011determinative): move \u201cq2-readout\u201d to a separate channel after redteam re-check; this line is generic workflow guidance and contains no consumer or patient data.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Public-source references (e.g., prior conference posters and last quarter’s earnings deck) were cited in the draft slides for benchmarking; these citations do not constitute new MNPI and will remain intact after redaction.",
+      "matched_text": "Public-source references (e.g., prior conference posters and last quarter\u2019s earnings deck) were cited in the draft slides for benchmarking; these citations do not constitute new MNPI and will remain intact after redaction.",
       "rule": "material_event"
     },
     {
@@ -92,7 +100,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "1‑833‑555‑0190",
+      "matched_text": "1\u2011833\u2011555\u20110190",
       "rule": "phone_number"
     },
     {
@@ -107,7 +115,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "EW‑LG‑021",
+      "matched_text": "EW\u2011LG\u2011021",
       "rule": "device_serial_number"
     },
     {
@@ -122,12 +130,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Luis Garner (fictional) — Endpoint Administrator at Everwell Therapeutics, Inc., based in North Braxton, PA 00091 — b. 08/14/1986 (age 39), signed in from device EW‑LG‑021 (Windows 11), account lgarner@everwell-care.com, via VPN sess‑ 8 3 4 1 ‑A9, desk ext x4128, and misapplied a “external edit” policy to the IR folder",
+      "matched_text": "Mr. Luis Garner (fictional) \u2014 Endpoint Administrator at Everwell Therapeutics, Inc., based in North Braxton, PA 00091 \u2014 b. 08/14/1986 (age 39), signed in from device EW\u2011LG\u2011021 (Windows 11), account lgarner@everwell-care.com, via VPN sess\u2011 8 3 4 1 \u2011A9, desk ext x4128, and misapplied a \u201cexternal edit\u201d policy to the IR folder",
       "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "matched_text": "sess‑ 8 3 4 1 ‑A9",
+      "matched_text": "sess\u2011 8 3 4 1 \u2011A9",
       "rule": "internal_session_id"
     },
     {
@@ -184,12 +192,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "project note (non‑determinative): move “q2-readout” to a separate channel after redteam re-check; this line is generic workflow guidance and contains no consumer or patient data.",
+      "matched_text": "project note (non\u2011determinative): move \u201cq2-readout\u201d to a separate channel after redteam re-check; this line is generic workflow guidance and contains no consumer or patient data.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Public-source references (e.g., prior conference posters and last quarter’s earnings deck) were cited in the draft slides for benchmarking; these citations do not constitute new MNPI and will remain intact after redaction.",
+      "matched_text": "Public-source references (e.g., prior conference posters and last quarter\u2019s earnings deck) were cited in the draft slides for benchmarking; these citations do not constitute new MNPI and will remain intact after redaction.",
       "rule": "material_event"
     },
     {
@@ -201,6 +209,12 @@
       "category": "MNPI",
       "matched_text": "62%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A OneDrive link labeled IR-Preview_Q2.xlsx and Trial_Apollo_Readout.pptx was auto-shared to jpike@hearthstone-capital.example (Mr. Jonas Pike, equity analyst, fictional) when an invite template was reused from a prior non-deal roadshow.\nContent included preliminary ranges for Q2 net interest income from HSA custodial accounts and an early, not-yet-public clinical response rate (62% at n=128) for Program Apollo; this is potentially material non-public information under Regulation FD and raises Rule 10b-5 concerns regarding selective disclosure to a covered market actor.\nWe immediately revoked the link, preserved access logs, and are preparing broad public disclosure; trading operations are normal and a halt is not anticipated absent further developments.\nThe folder also contained an operational export (GLBA/HIPAA-adjacent) listing patient age bands, 3\u2011digit ZIPs, benefit card BINs truncated to last 4, and device models; no full names, no SSNs, and no diagnosis codes were present, and under CCPA/HIPAA/GLBA this data may be reasonably linkable only in combination.\nMr. Luis Garner (fictional) \u2014 Endpoint Administrator at Everwell Therapeutics, Inc., based in North Braxton, PA 00091 \u2014 b. 08/14/1986 (age 39), signed in from device EW\u2011LG\u2011021 (Windows 11), account lgarner@everwell-care.com, via VPN sess\u2011 8 3 4 1 \u2011A9, desk ext x4128, and misapplied a \u201cexternal edit\u201d policy to the IR folder.\nAssociated artifacts include app token D E: AD: BE: EF: 00:12 (application key string, not a device identifier) and a reset URL https://portal.everwell-care.com/reset?uid=af 4 2 - 7 0 9 &ts=1726 0 5 used to revoke the share; the audit trail shows outbound traffic to hearthstone-capital.example for 4 file previews, no downloads.\nSimilar weak identifiers exist elsewhere in the corpus without linkage to a person (e.g., DOB month-year 03/1979; ZIP3 606; device \u201ciOS 17\u201d; account ending \u2022\u20227310; session code R- 1 9 0 - B), and these alone should not be treated as identifying.\nProxy and CASB logs confirm only jpike@hearthstone-capital.example accessed the link; the analyst viewed chart thumbnails but did not authenticate into any internal system, and we see no lateral movement.\nWe did not collect SSNs or device MAC addresses in this workflow; \u201cMAC\u201d in our tickets refers to mandatory access control, not media access control; product names \u201cEndpoint Shield 4.2\u201d and \u201cOrion EHR Bridge\u201d appear in logs as configuration labels only.\nMs. Priya Dalton (fictional), Chief Risk Officer, approved initial notification under our incident playbook; questions may be sent to compliance@everwell-care.com or 1\u2011833\u2011555\u20110190 (fictional).\nTo address potential Reg FD exposure, IR will post a press release with the same ranges and trial context and furnish a contemporaneous current report under federal securities law by 08:30 ET prior to market open; no forward-looking guidance beyond what will be broadly disclosed is authorized.\nCustomer communications under GLBA and business-associate obligations will note that only age bands, ZIP3, device model, and truncated payment card BINs were in scope; we have initiated mailing suppression to avoid duplicate notices across households.\nproject note (non\u2011determinative): move \u201cq2-readout\u201d to a separate channel after redteam re-check; this line is generic workflow guidance and contains no consumer or patient data.\nPublic-source references (e.g., prior conference posters and last quarter\u2019s earnings deck) were cited in the draft slides for benchmarking; these citations do not constitute new MNPI and will remain intact after redaction.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -230,7 +244,7 @@
     },
     {
       "concept": "bank/account last4 lookalike",
-      "matched_text": "account ending ••7310",
+      "matched_text": "account ending \u2022\u20227310",
       "reason": "Could be a truncated financial or customer account number; category ambiguous from context."
     },
     {

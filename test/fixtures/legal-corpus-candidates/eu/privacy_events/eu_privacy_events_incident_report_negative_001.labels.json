@@ -50,6 +50,14 @@
     "previous_must_detect_count": 6,
     "previous_must_not_detect_count": 3
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -115,13 +123,14 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "matched_text": "Scope 2",
-      "rule": "esg_climate_pre_disclosure"
+      "matched_text": "Data Export Approval DX-2041 authorised a one-off cross-border transfer of hashed device IDs to Syntrio Metrics LLC (Norlandia) under SCCs; the transfer was executed and closed.\nDSAR status: no backlog; two requests resolved prior to the incident with erasure confirmed and audit trail stored in the EEA; no further action triggered by the outage.\nConsent withdrawal handling: suppression list syncs completed; there were no failed revocations and no marketing sends occurred during the outage window.\nRetention: no early deletion or over-retention observed; retention schedule R-17/HR and R-22/Telemetry unchanged and documented in DPA Schedule 2.\nVendor onboarding controls: Processor Due Diligence Form PDD-981 and DPA Schedule 3 (Subprocessor Annex) for DataQuarry BV were in place before go-live; security addendum requires EEA-only storage for production.\nMNPI/MAR check: the outage and remediation were disclosed via a routine service bulletin posted on 2026-05-29; internal assessment found no inside information created and no trading blackout imposed.\nIssuer context: Hespera Renewables SE shares admitted to trading on the Nordhaven Regulated Market; not price-sensitive under EU MAR Article 7 criteria.\nIdentifiers used below are placeholders only: LEI Z0HESP0000000000000 and ISIN XX00HESP0000 are invalid and provided for memo cross-reference.\nCSRD/SFDR: no change to environmental KPIs or PAI indicators; energy intensity and GHG Scope 2 measures unaffected; incident recorded in CSRD working papers.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

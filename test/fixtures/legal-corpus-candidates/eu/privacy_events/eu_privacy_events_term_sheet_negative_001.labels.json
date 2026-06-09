@@ -50,6 +50,14 @@
     "previous_must_detect_count": 8,
     "previous_must_not_detect_count": 11
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -212,6 +220,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Acquisition of Virelia Analytics B.V. by Lunedor Technologies S.A. (EU issuer listed on PanEuropa Exchange \u201cPEX\u201d)\nIndicative structure: all\u2011share acquisition; no cash consideration disclosed; placeholder ISIN-like references (e.g., XX0000000000) are non-functional.\nListing and regulator context: PEX Listing Rules and CMSA market abuse supervision apply; parties confirm adherence to Regulation (EU) 596/2014 (MAR) workflows.\nMAR covenant: each party confirms no undisclosed inside information; wall\u2011crossing and insider list templates (policy-only) attached; all public announcements will reference already-published results.\nData protection: DPA Schedule 2 (EU SCCs, Module 2) and Controller\u2013Processor Allocation Matrix annexed; Vendor Onboarding Form \u201cThird\u2011Party Data Intake v4.1\u201d completed via vendors@lunedor.example.\nGDPR Art 9 note: special\u2011category data is limited to aggregated occupational health codes for employees; processing basis is employment and social protection law; data is pseudonymised and excluded from diligence.\nPositive privacy event (completed): cross\u2011border data export approval DEA\u20112025\u20110142 authorised 2025\u201103\u201112 for HR payroll flows to Northlake Payroll Ltd. (Canada) under SCCs; transfer risk assessment logged; no biometric, passport, IBAN, or precise location data included.\nRetention and minimisation: retention periods follow Record Schedule RS\u20116YR\u2011HR; minimisation enforced in data room (samples anonymised, row counts only); there are no outstanding erasure or consent\u2011withdrawal requests.\nDSAR status (benign): backlog is zero per public KPI; last DSAR closed 2025\u201102\u201108 with erasure of marketing contact records confirmed and audit file archived.\nSustainability covenants: CSRD-aligned ESRS datapacks to be provided for FY2024 baseline; SFDR PAI indicators mapping appended; no commitment to specific taxonomy-aligned revenue is implied.\nConditions precedent: merger control notification to CMSA Competition Unit; PEX eligibility review; completion of IT security questionnaire (no passwords or API keys to be shared).\nFinancing and lock\u2011up: no new debt incurrence contemplated; seller lock\u2011up for 180 days; any figures in cap tables using codes like CAP\u20110000 are placeholders only.\nConfidentiality and clean team: diligence data room operates on a clean\u2011team protocol; no national ID cards, medical files, or live bank account numbers will be uploaded; support via helpdesk@pex.example.\nGoverning law and dispute forum: this term sheet is governed by the laws of Norlandia (EU jurisdiction for purposes here); disputes to be referred to the Norlandia Commercial Mediation Boa",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

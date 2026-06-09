@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -125,6 +133,24 @@
       "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data elements observed: generic form labels (Name, Emirates ID, Department), product names, and sample deal workflow checklists; no customer IBANs, no payments, no live trade orders\nAnchored special-category finding (intentional positive): Named subject \u2014 Lina Qassimi (IT Support, contractor), whose fingerprint template identifier appeared in access.log for the building turnstile; Emirates ID field shows 784-XXXX-XXXXXXX-X (redacted placeholder)\nUnder UAE PDPL, the biometric reference is special-category data; we applied minimisation and purged the template from the sandbox per Seif Policy on Data Masking v2.2",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ing sandbox hygiene was posted on the ADX community page on 2026-05-20; this incident is consistent with that guidance and does not involve issuer MNPI\nGovernance steps: executed Shamal Cyber Playbook v3, Oasis ESG Communications Standard, and DIFC/ADGM cross-border data checks (no DIFC- or ADGM-licensed entities or data subjects impacted)\nSCA market conduct and FSRA MAR assessments concluded no non-public market-sensitive information was accessed; no continuous disclosure needed; customer notice not triggered under low-risk PDPL thresholds",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -174,6 +182,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Operational/Cyber \u2014 Meranti Quanta Holdings Ltd (Mainboard-listed in Singapore) \u2014 Incident Ref MQH-INC-2026-013\nWindow: 28\u201329 May 2026 SGT; Location: Head Office, Harbour Vista, Singapore\nSummary: Routine patching caused intermittent outages in UAT for the GreenLedger ESG Dashboard and the CryptoSafe Demo Node; production remained stable\nMarket sensitivity: None expected; references to \u201ccrypto\u201d are limited to lab tool names and no token issuance, custody, or trading functions were affected\nPersonal data: No PDPA personal data resides in the impacted UAT; log fields with \u201cNRIC\u201d labels hold only dummy values such as T0000000Z for testing\nDisclosure posture: Our FY2025 ESG scorecard was already released via the exchange announcement portal on 12 Apr 2026; this note merely repeats those publicly available metrics\nGovernance/training: The team concurrently ran an information-barrier tabletop and refreshed anti-tipping messaging; the insider list referenced in the drill is a blank template\nTechnical detail: A misconfigured API gateway rotated keys during a planned maintenance blackout; rollback executed and keys re-issued per local TRM guidelines\nThird-party coordination: A standard support ticket (SR-00X-TEST) was lodged with the hosting vendor through its public service desk; preliminary checks show no compromise indicators\nPositive MNPI span: Separately, preliminary forensics show a service account briefly accessed a folder containing draft board papers on a proposed private placement for Meranti Quanta Holdings Ltd; as this is not generally available and could be price-sensitive under the SFA and local exchange rules, a dealing blackout was imposed and relevant roles were added to the insider list pending confirmation\nContainment: Access to the affected collaboration site is now restricted to the \u201cM&A-Restricted\u201d security group; external sharing is disabled and no download events are observed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

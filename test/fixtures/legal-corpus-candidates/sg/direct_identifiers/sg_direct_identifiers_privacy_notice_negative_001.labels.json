@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -189,6 +197,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "LionBay Holdings Ltd. (UEN: 201934567A) \u2014 PDPA DSAR & Retention Workflow (Singapore)\nScope: Applies to LionBay Holdings Ltd. (listed issuer) and its data intermediaries (e.g., Jade Crane Law LLC, Harbour Quay Advisory Pte. Ltd.) across M&A, employment, and capital-markets workstreams.\nContact & submission: DSARs to dpo@lionbayholdings.sg or 1800-555-2727 (public helpline); mail: 15 Coral Walk, #12-34, Singapore 123456.\nForm labels accepted: FULL NAME, NRIC/FIN, EMPLOYEE ID, CONTACT NO.; we verify via last 3 characters only and redact the rest.\nExamples that will be masked on disclosure: NRIC/FIN S0000000A (invalid checksum), Passport No. E0000000 (invalid), Employee ID EMP-0000.\nCompany identifiers we process include LionBay Holdings Ltd. UEN 201934567A and GST Reg. 201934567A; intermediaries include Jade Crane Law LLC and Harbour Quay Advisory Pte. Ltd.\nBanking and billing: Seahorse Bank Ltd. Acct No. 000-000-000-000 (placeholder format only); no card PANs are stored and no eGIRO forms are sent by email.\nRetention: HR records 7 years post-cessation; M&A data rooms until completion + 6 years; securities dealing records retained per MAS/SFA requirements; quarterly purge reviews.\nAccess/correction: acknowledge within 2 business days and respond within 30 days under PDPA; charges (if any) kept reasonable in line with PDPC guidance; unjustified requests may be refused with reasons.\nMNPI handling: if DSARs touch board papers or mandate drafts, we assess under SFA and SGX-ST Listing Rule 703; if not generally available, we provide high-level summaries and defer specifics until SGXNet disclosure.\nWe do not release counterparties\u2019 indicative pricing, insider lists, blackout timetables, or draft announcements before public release; references here are illustrative and not price-sensitive.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

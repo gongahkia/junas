@@ -37,6 +37,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -289,6 +297,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "One development dataset contained \u201cIqama 2000000000\u201d (invalid checksum, placeholder in a staging file) and a publicly posted customer helpline 800-111-2222; neither constitute live personal data.\nFor data-subject inquiries under PDPL, contact Dr. Lamis Al-Dahiri (DPO) at dpo@zawaya-ws.sa or +966 55 000 9876; the CFO may be reached via switchboard at +966 11 000 0000.\nAccess credentials were reset, forwarding rules purged, and internal acknowledgement letters issued to affected data subjects and the vendor",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mr. Nabil Al-Qatiri (Head of Compliance) detected anomalous SMTP forwarding rules and escalated per the Tadawul material-event workflow.\nData at risk included: (a) one HR onboarding file with Iqama No. 2439184756 for Mr. Tariq Al-Bishri (technician), (b) one vendor settlement sheet listing IBAN SA18 7000 0000 1234 5678 9012 for Desert Grid Services Co. (LLC), and (c) a passport scan for Ms. Hana Kareem (Passport No. XZ1234567).\nThe mailbox also contained non-public issuer materials, including draft Q2 revenue guidance and a board memo on a contemplated green sukuk programme, not yet announced on the Saudi Exchange (Tadawul).\nUnder PDPL and CMA rules, Zawaya treated this as a material cyber incident with potential MNPI exposure and initiated issuer disclosure governance via the Board Secretary.\nThe CMA Market Conduct Department was notified through the Issuer e-Portal at 22:15 AST under Case ID MC-26-00054; trading restrictions or blackout decisions remain internal and are not disclosed here.\nPursuant to PDPL and SDAIA guidance, we lodged an initial breach notification within 72 hours and evaluated cross-border data transfer; SDAIA transfer request TR-1447-0021 for forensic triage in Abu Dhabi was prepared but not executed.\nNo evidence indicates exfiltration outside KSA; logs show two message previews and zero attachments downloaded; our SOC retains copies in Riyadh only.\nThe phrase \u201cNational ID: ________\u201d appears on legacy onboarding templates and is not tied to any individual record referenced in this report.\nOne development dataset contained \u201cIqama 2000000000\u201d (invalid checksum, placeholder in a staging file) and a publicly posted customer helpline 800-111-2222; neither constitute live personal data.\nFor data-subject inquiries under PDPL, contact Dr. Lamis Al-Dahiri (DPO) at dpo@zawaya-ws.sa or +966 55 000 9876; the CFO may be reached via switchboard at +966 11 000 0000.\nAccess credentials were reset, forwarding rules purged, and internal acknowledgement letters issued to affected data subjects and the vendor.\nNo financial loss occurred; however, we are enhancing issuer workflow controls, adding SDAIA-approved data transfer assessments, and updating the insider list maintained for the sukuk workstream.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

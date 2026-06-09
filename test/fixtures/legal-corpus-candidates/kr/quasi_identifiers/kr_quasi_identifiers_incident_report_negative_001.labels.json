@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -170,6 +178,12 @@
       "category": "MNPI",
       "matched_text": "undisclosed",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mireu Infra Systems Co., Ltd. \u2014 Operational Incident Summary (KRX issuer, Korea) \u2014 2026-05-30\nIncident type: cybersecurity (phishing-induced credential replay) at subsidiary \u201cMireu Logistics Services\u201d.\nRegulatory context: preliminary notice was filed via FSS DART as a voluntary disclosure; FSC reporting thresholds were not met.\nScope: limited to internal ERP and e-mail; no production OT networks or finance ledgers affected.\nData categories potentially accessed included generic HR fields (Name, Department, Login ID) and training records; sample forms displayed labels such as Resident Registration No., Account No., and Address but contained only placeholders.\nOne affected profile combined weak identifiers: warehouse supervisor at the Busan Geoje Logistics Hub, month/year of birth 1990-04, corporate laptop model Boreas T7 (asset tag MIS-LP-3321), and internal ERP username wh_ops_023.\nNo resident registration numbers (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638) or bank card numbers were stored; any strings resembling 821010-1234567 were invalid test values in templates and not linked to live records.\nWe also observed filenames like \u201cKRX_IR_2024_Q4_forecast.pdf\u201d in mailboxes; these referred to already-published guidance dated 2025-03-31 on DART and do not constitute MNPI under the FSCMA.\nThe incident did not involve undisclosed merger negotiations, financing covenants, or earnings figures; investor-relations has confirmed parity with prior public releases.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

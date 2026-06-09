@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -205,6 +213,24 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Intentional Sensitive PI Notice: Employee A (internal staff ID ST-1042) has declared political party membership for conflict-of-interest screening; processing is based on separate explicit consent, limited access, and deletion upon the end of screening",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Silver Drift Capital Partners (Xingzhou) Ltd. (fictional USCC: 9Z-00-FAKE-440X) as Investor, and Huilin Robotics Co., Ltd. (fictional USCC: 9X-88-MOCK-120Q) as Issuer.\nTransaction: Proposed minority strategic investment in Series B Preferred Shares; key terms subject to definitive agreements under PRC law and the Issuer\u2019s Articles.\nListing/Exchange Context: Issuer contemplates a future listing on the Nanhai Growth Market of the Xingzhou Stock Exchange, subject to guidance from the Xingzhou Securities Regulatory Bureau.\nInvestor Rights: Board observer seat, information rights keyed to quarterly unaudited management reports, and customary anti-dilution; no control premium contemplated.\nConditions Precedent: Corporate approvals, simulated fair-competition filing with the Yunhai Provincial Market Supervision Bureau, and acceptance letter from the Xingzhou Securities Regulatory Bureau regarding this non-public offering.\nData & Compliance: Processing of personal information to follow PIPL, the PRC Data Security Law, and internal Crane Shield Data Policy v2.3; CSL technical measures to be aligned with RiverBank SOC controls.\nCross-Border Personal Information Export: Any transfer to offshore processors engaged for investor reporting will rely on the XCAC Standard Contract or a security assessment by the Xingzhou Cyberspace Administration; data minimization and de-identification apply.\nEmployment Workflows: HR will support post-investment onboarding, with resident ID fields collected for KYC in masked format only (e.g., ID-************X); role mailbox for queries: hr-compliance@huilin.example.cn.\nIntentional Sensitive PI Notice: Employee A (internal staff ID ST-1042) has declared political party membership for conflict-of-interest screening; processing is based on separate explicit consent, limited access, and deletion upon the end of screening.\nMNPI: This term sheet may contain inside information of the Issuer prior to public disclosure; circulation is limited to the parties and their PRC counsel and does not constitute an announcement to the market.\nDEI and Culture: The Bridge Bamboo DEI Charter applies to recruitment and leadership pipelines; language herein about inclusion and belonging is aspirational policy text and not a record of any individual\u2019s protected traits.\nWellness: The Blue Willow Program promotes walking clubs and tea breaks; no medical diagnoses or treatment records are collected, stored, or inferred by the Issuer in connection with this program.\nProducts/Metaphors: References to the Issuer\u2019s SkyLattice Edge Controller and RiverLink Cloud Fabric are product names; sports metaphors (e.g., \u201cfull-court press\u201d) and mentions of the Xingzhou Mariners fan club are non-operational and do not indicate union activity.\nPublic/Identifier Notes: Any ticker symbols, codes, or USCC-like strings shown are placeholders and invalid; no resident ID, bank account, or biometric template is created for investors under this term sheet.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

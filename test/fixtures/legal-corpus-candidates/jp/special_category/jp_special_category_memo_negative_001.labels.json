@@ -80,6 +80,14 @@
     "status": "post_cn_ae_precision_realign_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -217,6 +225,18 @@
       "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1234-56-7890-X; this is a non-production mask and must not be treated as an actual individual number under APPI.\nEmployee medical and biometric modules in KiteID are disabled; wellness content references (mindfulness, step goals) are not processed as special-category data.\nPositive special-category item: Ms. Aya Kunisawa (Employee ID KT-1027) notified occupational health of pregnancy-related medical appointments; handle strictly under APPI, limit access to industrial physician and HR.\nNo My Number is collected or used in connection with the item above; do not transmit any identifiers to vendors or third parties.\nDiversity & Equity Policy \u201cHoshi-DEI-3\u201d uses abstract language (respect for identities, equitable opportunity) and is not an instruction to collect sexual-orientation or religion data.\nTraining materials contain sports and place metaphors (e.g., \u201cSakura Strikers on home turf in Aomizu City\u201d); these do not indicate a project code or MNPI.\nBoard Secretariat should route questions to role mailbox governance@kawara-tech.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Kawara Tech Holdings K.K. \u2014 internal memo on APPI/My Number compliance and FIEA disclosure in relation to the publicly announced acquisition of a controlling stake in Midori Robotics K.K.\nAs disclosed on HikariNet on 2025-04-01, the issuer\u2019s intention to acquire Midori Robotics K.K. is already public; no TOB is planned, and there are no undisclosed enumerated material facts within FIEA Articles 166\u2013167.\nHinode Exchange Listing Rule 4.2 requires prompt public filing; current status on HikariNet shows \u201cPublic\u201d and \u201cStale\u201d for the announcement.\nInsider list updates are made via NebulaPay-IR; board attendees are added post-meeting, and generic labels (e.g., Share Certificate No.: JP00-ABC-9999) are placeholders only.\nHR onboarding via Kanzan ERP includes a form field: \u500b\u4eba\u756a\u53f7 (My Number): 1234-56-7890-X; this is a non-production mask and must not be treated as an actual individual number under APPI.\nEmployee medical and biometric modules in KiteID are disabled; wellness content references (mindfulness, step goals) are not processed as special-category data.\nPositive special-category item: Ms. Aya Kunisawa (Employee ID KT-1027) notified occupational health of pregnancy-related medical appointments; handle strictly under APPI, limit access to industrial physician and HR.\nNo My Number is collected or used in connection with the item above; do not transmit any identifiers to vendors or third parties.\nDiversity & Equity Policy \u201cHoshi-DEI-3\u201d uses abstract language (respect for identities, equitable opportunity) and is not an instruction to collect sexual-orientation or religion data.\nTraining materials contain sports and place metaphors (e.g., \u201cSakura Strikers on home turf in Aomizu City\u201d); these do not indicate a project code or MNPI.\nBoard Secretariat should route questions to role mailbox governance@kawara-tech.example; do not include personal medical details or individual codes in emails.\nThe Acquisition Integration Team uses product names Shogun Analytics and Lantern Ledger; marketing claims like \u201cbiometric-ready\u201d are aspirational and disabled in our instance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

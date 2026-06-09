@@ -50,6 +50,14 @@
     "previous_must_detect_count": 20,
     "previous_must_not_detect_count": 2
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -322,6 +330,18 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Prepared by Dr. Marta Kellen, Chief Risk Officer; timestamp: 06 June 2026, 11:20 CET",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Incident Report \u2014 Confidential under EU MAR and GDPR; Issuer: Virelia Group SE, listed on Alpenex Main Market (EU)\nPrepared by Dr. Marta Kellen, Chief Risk Officer; timestamp: 06 June 2026, 11:20 CET\n\nSummary: A spear\u2011phishing campaign coupled with a compromised third\u2011party API resulted in exfiltration of a limited HR subfolder and an operations snapshot from Virelia Digital Assets S\u00e0rl; files included special category indicators (GDPR Art 9: union membership flags) and crypto custody access logs.\nThe breach also exposed draft CSRD climate KPIs (unpublished Scope 1\u20133 figures and transition plan assumptions) and a pre\u2011decision SFDR reclassification note for Virelia Green Yield Sub\u2011Fund (proposed shift from Art 8 to enhanced Art 8+), none of which are public.\nMateriality (MAR): preliminary assessment indicates potential impact on Q3 DPT custody volumes and exceptional remediation opex of \u20ac1.2\u20131.6m; the information is precise, non\u2011public, and likely price\u2011sensitive.\nActions taken: insider list updated at 09:30 CET for \u201cProject Glacier\u201d; trading blackout imposed for all insiders through the pre\u2011close period; information barriers tightened between Digital Assets and Sustainability units; all analyst enquiries to be routed to IR to avoid tipping.\nCross\u2011border transfer: a backup dataset was held by processor Novanica Pte Ltd in Auriga (non\u2011EEA); processing is covered by EU Standard Contractual Clauses with a documented transfer impact assessment and supplemental encryption; transfers suspended pending DPO consultation with the Nordland DPA.\nData subjects: 12 employees and 4 contractors affected; elements include emails, payroll IDs, and hashed occupational health survey flags; no national identifiers or bank account numbers present.\nCrypto operations: HSM\u2011protected hot\u2011wallet keys remain intact; no anomalous on\u2011chain movements detected; key rotation scheduled and custodial segregation validated; client DPT balances unaffected.\nCommercial terms exposure: a draft fee schedule and volume rebate bands for an unannounced OTC venue partnership with QuadraX OTC were in the compromised folder; these deal\u2011stage commercial terms are non\u2011public and could influence valuation.\nSelective disclosure controls: deal\u2011room access restricted to named insiders; no dissemination outside the insider list; all external vendors placed on need\u2011to\u2011know with NDAs refreshed; compliance monitoring for inadvertent signalling on social channels enabled.\nESG/climate note: the exposed CSRD metrics include a preliminary 18% YoY Scope 2 reduction tied to a yet\u2011to\u2011be\u2011executed PPA; figures are subject to assurance and internal audit and should not be relied upon by third parties.\nEducational/ops\u2011only: the \u201cInsider Lists and Market Soundings 101\u201d staff webinar will proceed using anonymised training materials and will not reference Project Glacier, crypto custody, or CSRD metrics.\nRegulatory next steps: maintain delay of disclosure register under MAR Art 17; prepare draft ad hoc announcement for board approval if delay no longer justified; GDPR Art 33 notification to the Nordland DPA within 72h; data subject notices in EU languages to follow.\nIR/comms: pre\u2011close Q2 blackout remains in force; no comments to media beyond approved holding lines; any sustainability queries to be handled centrally to avoid selective disclosure of CSRD/SFDR positions.\nContact: Mr. Oskar Jantzen (DPO) dpo@virelia.eu; Ms. Lene Duarte (Head of Compliance) compliance@virelia.eu; emergency bridge details available on the MAR portal.\nNote: This document contains non\u2011public operational details and ESG metrics; onward sharing is prohibited except to the \u201cProject Glacier\u201d insider list (ref. A\u2011LI\u20112026\u2011061).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

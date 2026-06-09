@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -260,6 +268,12 @@
       "category": "PII",
       "matched_text": "age 16",
       "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We process personal data under UAE Federal Decree-Law 45/2021 (PDPL) and relevant DIFC/ADGM data protection rules; purposes include onboarding, verification of trade licence, access control, benefits administration, and issuer-compliance archiving.\nFor Mr. Sami Al Qasimi (employee no. NR-00Z-1), we process E m i r a t e s   I D 784-19**-*******-* and a biometric iris template for D I F C office entry gates; access logs are retained for 30 days unless a security incident extends retention.\nWe also hold his health treatment invoice for a cardiac check\u2011up dated 2026\u201103\u201118 and visa\u2011medical vaccination status, strictly for insurance reimbursement and legal obligations; these records are kept 5 years",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

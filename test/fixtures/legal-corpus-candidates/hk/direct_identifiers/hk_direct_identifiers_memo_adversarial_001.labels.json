@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
     "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -324,6 +350,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Company details: Harbour Quest Holdings Limited (CR No. 3120459; BR No. 8765 4321-000-07-20; registered office: Unit 1903, Meridian Tower, 38 Quayside Lane, East Harbour, Hong Kong).\nPrimary contact: Mr. Adrian Cheung, CFO \u2014 tel +852 6 8 8 2 3 1 7 0; adrian.cheung@harbourquest.hk; VDR link https://vdr.harbourquest.hk/file?doc=SPA&ref=CR-3120459&auth=ch e u n g\nEmployee secondee for diligence: Ms. Li Mei-yan (HKSAR Passport K1234567; HKID W 1 2 3 4 5 6 ( 3 ) \u2014 noted checksum invalid in scan) to access vendor room and cap table files.\nProposed terms (inside information under Part XIVA of the SFO): indicative cash offer for SinoVista Technology Holdings Limited at HKD 12.50 per share; exclusivity through 31 Aug 2026; break fee HKD 50,000,000.\nFinancing: preliminary term sheet with Pearl Meridian Capital Partners Fund I LP (Reg. No. LPF-00988); escrow at Harbour Bank (HK) Ltd a/c 028-991234-001 (client money); not yet announced under Listing Rule 13.09.\nTax/IRD: draft s.16 deduction schedule; IRD File No. 65 49 873 1 (internal reference only); no offshore claim contemplated at this time.\nRegulatory: informal consultation with the Commission on Takeovers Code Rule 3.5 drafting; no waiver sought under Rule 14.44; circulation restricted.\nEmployment: retention proposals for key engineers at SinoVista; sample aliases include hr@sinovista.hk and eng.ops@sinovista.hk; forms currently show role-only \u201cHR Manager\u201d.\nNegative assurance: no MAC has been identified; media rumors reference public materials and exclude internal performance metrics.\nnext steps: circulate draft spa to directors, confirm clean team roster, run sfo safe-harbor analysis, update insider list, prepare hkex announcement timetable.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -377,24 +415,6 @@
       "concept": "Selective disclosure risk",
       "matched_text": "VDR link https://vdr.harbourquest.hk/file?doc=SPA&ref=CR-3120459&auth=ch e u n g",
       "reason": "Presence of a restricted VDR link may be market-sensitive but not clearly covered by existing MNPI rules."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

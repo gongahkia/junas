@@ -39,6 +39,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -346,6 +354,18 @@
       "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Grievance Officer: Ms. Rhea Kulkarni, privacy@navgativentures.example, Tel: +91-00000-11111 (test); registered office: 12th Floor, Meridian Arc, Plot C-7, Tech Enclave, New Mira Nagar, Pune 411099 (fictional)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC \u2014 UPSI \u2014 Retention & Transfer Workflow Note \u2014 NavGati Ventures Ltd. (NSE: NGVL, fictional)\nDeal Codename: Project Sandalwood; proposed definitive Share Purchase Agreement to acquire 74% of Cirrus Retail Networks Pvt. Ltd. for INR 320 crore; expected signing 2026-09-28; Embargo Date: 2026-09-30 17:00 IST.\nSEBI (Prohibition of Insider Trading) Regulations compliant handling: insider list maintained; trading window closed for designated persons from 2026-06-15 until 48 hours post-embargo; IR drafts are to be watermarked \u201cUPSI\u201d.\nDPDPA basis: consent for Data Principals captured via IR portal; children\u2019s data (under 18) not processed; if exceptional KYC arises, verifiable parental consent and age-gating apply.\nPersonal data categories: name, business role, work email, masked PAN (test), masked GSTIN (test), A a d h a a r tokenised reference; no biometric data; investor Aadhaar ref: AAD-T3ST-9X2Y (masked).\nDSAR: write to dpo@navgativentures.example or submit at https://help.nav-gati.example/dsar?ref=prj_sndlwd; response within 30 days subject to SEBI PIT UPSI restrictions.\nGrievance Officer: Ms. Rhea Kulkarni, privacy@navgativentures.example, Tel: +91-00000-11111 (test); registered office: 12th Floor, Meridian Arc, Plot C-7, Tech Enclave, New Mira Nagar, Pune 411099 (fictional).\nRetention: UPSI and board memo/term sheet/research note/investor-relations drafts retained until public disclosure + 8 years; storage in encrypted vault in Mumbai; vendor BlueThicket Communications LLP (fictional) processes IR drafts under DPA.\nCross-border transfer: disabled for UPSI; non-UPSI analytics logs may be mirrored to CloudJiva Pte. (Singapore) only after de-identification and subject to DPDPA contractual safeguards and any notified government lists.\nFor clarity, no MAC/MAE is deemed to have occurred as of today; clause 12(b) (material adverse change) remains untriggered pending diligence completion.\nPublic-source note: background industry metrics cited from publicly available IBEF-style reports and a generic FY24 CSR summary; do not treat this paragraph as UPSI or investment advice.\naction: sync legal + ir + finance; draft v3 goes to board; post-embargo publish to https://ir.navgati.example/releases?emb=2026-09-30&code=prj-sndlwd.\nIdentifiers (test/dummy): PAN: XXTST1234Z; GSTIN: 99A A A T Z 0000 Z9Z; internal KYC token: kyctok://navgati/ci-0x9a3b; see https://ir.navgati.example/docs/term-sheet?code=prj-sndlwd&ver=0x1F.\nInsider list to include Mr. Dev Mehta (CFO), Ms. Rhea Kulkarni (Grievance Officer), and select YuvaKYC Services Pvt. Ltd. (fictional) reviewers under confidentiality; definitive agreement drafts circulated via secure VDR only.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

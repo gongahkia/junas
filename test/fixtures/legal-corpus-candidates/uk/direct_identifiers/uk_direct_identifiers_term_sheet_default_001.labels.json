@@ -50,6 +50,14 @@
     "previous_must_detect_count": 17,
     "previous_must_not_detect_count": 5
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -332,6 +340,30 @@
       "category": "MNPI",
       "matched_text": "wall-crossed",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10293847",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_company_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "08456321",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_company_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10293847; registered office: 4 Thornbridge Court, Wharfdale Way, Northbridge NB1 4ZZ, UK; HMRC UTR 14567 23912).\nTarget: SableQuant Systems Ltd (Companies House No. 08456321; registered office: 19 Hazel Gate, Wentford WF3 2QP, UK).\nConsideration: cash offer of 142 pence per share implying enterprise value approx \u00a3118,000,000; expected EPS accretion of 6\u20138% in FY27.\nFinancing: underwritten placing of 52,000,000 new ordinary shares on the Main Market of the London Stock Exchange and a \u00a340,000,000 revolving credit facility.\nBookrunner: North Quay Securities Ltd (FCA Firm Reference No. 901234; contact: Ms Eliza Mowbray, eliza.mowbray@northquaysecurities.co.uk, +44 20 3123 8899).\nEscrow and settlement: funds to be deposited to Pendlebrook Client Escrow, IBAN GB12 PDBK 201234 12345678; sort code 20-12-34; account number 12345678.\nGovernance and people: Mr. Tomas Reed (UK Passport No. 123456789",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pendlebrook Capital plc \u2014 Proposed acquisition of SableQuant Systems Ltd: non-binding term sheet dated 5 June 2026.\nIssuer: Pendlebrook Capital plc (Companies House No. 10293847; registered office: 4 Thornbridge Court, Wharfdale Way, Northbridge NB1 4ZZ, UK; HMRC UTR 14567 23912).\nTarget: SableQuant Systems Ltd (Companies House No. 08456321; registered office: 19 Hazel Gate, Wentford WF3 2QP, UK).\nConsideration: cash offer of 142 pence per share implying enterprise value approx \u00a3118,000,000; expected EPS accretion of 6\u20138% in FY27.\nFinancing: underwritten placing of 52,000,000 new ordinary shares on the Main Market of the London Stock Exchange and a \u00a340,000,000 revolving credit facility.\nBookrunner: North Quay Securities Ltd (FCA Firm Reference No. 901234; contact: Ms Eliza Mowbray, eliza.mowbray@northquaysecurities.co.uk, +44 20 3123 8899).\nEscrow and settlement: funds to be deposited to Pendlebrook Client Escrow, IBAN GB12 PDBK 201234 12345678; sort code 20-12-34; account number 12345678.\nGovernance and people: Mr. Tomas Reed (UK Passport No. 123456789) to be appointed Integration Director on completion; the CFO and Head of Compliance to maintain the insider list.\nRegulatory: transaction subject to UK MAR, the Listing Rules, and, if applicable, the UK Takeover Code; notification to the FCA to be drafted by the Company Secretary.\nMNPI: management forecasts indicate H1 revenue ahead of internal plan by 11\u201314% and an unannounced customer win with Fenlake Utilities plc; disclosure to market expected on 31 July 2026.\nTax and invoices: VAT No. GB123 0000 99 (invalid checksum; for draft routing only) must not be used on final invoices.\nContact and notices: deal queries to M&A Office, Pendlebrook Capital plc, Name: __________; Address: __________; general public helpline 0800 000 000 must not be used for deal matters.\nConditions precedent: confirm satisfactory legal due diligence, no material adverse change, FCA non-objection, and Target employee TUPE consultation where applicable.\nConfidentiality and wall-crossing: recipients to acknowledge receipt, remain wall-crossed until cleansing announcement, and accept monitoring under the Market Abuse Regime.\nMiscellaneous: governed by the laws of England and Wales; this document is not an offer to the public and contains information that is precise and non-public; any placeholder IDs in this draft are void and for formatting only.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

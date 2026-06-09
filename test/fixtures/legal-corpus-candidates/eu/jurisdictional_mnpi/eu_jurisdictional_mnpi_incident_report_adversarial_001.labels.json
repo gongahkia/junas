@@ -50,6 +50,14 @@
     "previous_must_detect_count": 24,
     "previous_must_not_detect_count": 3
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -337,6 +345,24 @@
       "category": "MNPI",
       "matched_text": "lateral movement",
       "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Closed period: we are within the 30\u2011day closed period ahead of H1 results; PDMRs remain under dealing prohibition and the insider list (Section A: Core) has been updated at 10:18 CET with Dr. Mara Kestrel and team.\nPublic\u2011status note: the 02/05/2026 \u201cNetwork latency maintenance window\u201d notice (OAM ref: V I R \u2013 1 8 3 2, https://oam.nmx.example/issuer/VIR-2049?doc=1832&lang=en) is unrelated and already public.\nThis memorandum does not constitute, and should not be construed as, a material adverse change or an update to previously published guidance; no forward\u2011looking statements are being revised",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2014 inside information per Union\u2011wide Market Abuse Regulation; not for release before RIS/OAM publication by the issuer\u2019s approved mechanism.\nIssuer: Viresant Renewables SE (incorporated in Ardienne), trading on Nordhaven Multilateral Exchange (NMX) under issuer code V I R \u2013 2 0 4 9.\nAt 07:42 CET on 05/09/2026, our Security Operations noted lateral movement from a compromised maintenance laptop into a wind\u2011farm SCADA segment (Project \u201cAURORA\u201d), causing automated curtailment routines to trigger at two sites for ~3h 15m.\nPreliminary operational impact: curtailed generation equal to 6\u20138% of expected day\u2011ahead output, with indicative gross margin effect of \u20ac3.5\u2013\u20ac4.2m if not fully recovered; we assess issuer\u2011relative materiality at c. 7% of projected Q3 EBITDA if recurrence occurs.\nWe consider this precise, non\u2011public inside information likely to significantly affect the price; the Board has approved delayed disclosure under Art. 17(4) with a recorded Legit imate Interest (prevent interference with active containment/forensics) and confirmed confidentiality.\nUnless a leak is suspected, we intend to publish an ad hoc announcement via NMX OAM and the Regulated Information Service by 09/09/2026 (T+4) or earlier on containment, and will file the delayed\u2011disclosure record with the Ardienne supervisory office upon release.\nGDPR: during triage we identified exfiltration of an employee wellness export (approx. 84 data subjects) containing health\u2011related fields (special categories under Art. 9), limited to initials, hashed employee IDs (E\u201119x\u20113x5), and survey scores; the dataset was temporarily processed by our processor Lexto Metrics s.r.l. and mirrored by sub\u2011processor Frobia Solutions Ltd. in Kelvaria (third country).\nCross\u2011border transfer was under SCCs with encryption at rest; breach notification to the Ardienne data protection authority is prepared for submission within 72h, and affected staff will receive notices from dpo@viresant.example; DPO contact: Mr. Jorik Hale, +33 0 000 000 (int) / j.hale@viresant.example.\nCSRD/SFDR: incident will be reflected in CSRD ESRS S4 data\u2011security metrics and SFDR PAI indicator DP\u20111; no change to our publicly disclosed 2025 sustainability targets posted at https://reports.viresant.example/csrd2025 (public, stale reference).\nClosed period: we are within the 30\u2011day closed period ahead of H1 results; PDMRs remain under dealing prohibition and the insider list (Section A: Core) has been updated at 10:18 CET with Dr. Mara Kestrel and team.\nPublic\u2011status note: the 02/05/2026 \u201cNetwork latency maintenance window\u201d notice (OAM ref: V I R \u2013 1 8 3 2, https://oam.nmx.example/issuer/VIR-2049?doc=1832&lang=en) is unrelated and already public.\nThis memorandum does not constitute, and should not be construed as, a material adverse change or an update to previously published guidance; no forward\u2011looking statements are being revised.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

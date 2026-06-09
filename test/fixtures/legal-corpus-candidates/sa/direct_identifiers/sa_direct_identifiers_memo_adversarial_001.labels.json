@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -109,12 +117,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Layla Al‑Qassimi",
+      "matched_text": "Dr. Layla Al\u2011Qassimi",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Sami Al‑Harith",
+      "matched_text": "Mr. Sami Al\u2011Harith",
       "rule": "named_person"
     },
     {
@@ -124,7 +132,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI controls: the June board pack contains unannounced Q2 revenue guidance (SAR 182–196m) and an internal Nomu pricing corridor; restrict to need‑to‑know per CMA Market Conduct Regulations.",
+      "matched_text": "MNPI controls: the June board pack contains unannounced Q2 revenue guidance (SAR 182\u2013196m) and an internal Nomu pricing corridor; restrict to need\u2011to\u2011know per CMA Market Conduct Regulations.",
       "rule": "material_event"
     },
     {
@@ -154,7 +162,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Nourah J. Al‑Bishi",
+      "matched_text": "Ms. Nourah J. Al\u2011Bishi",
       "rule": "named_person"
     },
     {
@@ -164,7 +172,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Eng. Rakan Al‑Shamri",
+      "matched_text": "Eng. Rakan Al\u2011Shamri",
       "rule": "named_person"
     },
     {
@@ -184,7 +192,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "restrict to need‑to‑know",
+      "matched_text": "restrict to need\u2011to\u2011know",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -194,7 +202,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "black‑out dates",
+      "matched_text": "black\u2011out dates",
       "rule": "blackout_period_reference"
     }
   ],
@@ -221,12 +229,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Layla Al‑Qassimi",
+      "matched_text": "Dr. Layla Al\u2011Qassimi",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Sami Al‑Harith",
+      "matched_text": "Mr. Sami Al\u2011Harith",
       "rule": "named_person"
     },
     {
@@ -236,7 +244,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI controls: the June board pack contains unannounced Q2 revenue guidance (SAR 182–196m) and an internal Nomu pricing corridor; restrict to need‑to‑know per CMA Market Conduct Regulations.",
+      "matched_text": "MNPI controls: the June board pack contains unannounced Q2 revenue guidance (SAR 182\u2013196m) and an internal Nomu pricing corridor; restrict to need\u2011to\u2011know per CMA Market Conduct Regulations.",
       "rule": "material_event"
     },
     {
@@ -248,6 +256,12 @@
       "category": "MNPI",
       "matched_text": "196m",
       "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "From: Dr. Layla Al\u2011Qassimi, Chief Compliance Counsel, Al\u2011Nibras Advanced Materials Co. (l.alqassimi@alnibras.sa)\nTo: Board Risk Committee; cc: Mr. Sami Al\u2011Harith, CFO, +966 55 213 7704\nRe: SDAIA-hosted analytics migration and MNPI controls for issuer workflow (draft prospectus, pricing committee, and disclosure calendar)\nFor the data mapping: employee record of Eng. Rakan Al\u2011Shamri includes Iqama (IQA MA: 2 45 6789 012), corporate email r.shamri@alnibras.sa, and payroll IBAN SA94 8000 0123 4567 8901 2345; these are PDPL-regulated identifiers.\nCompany references in documents: Commercial Registration (CR) 101-77-009876 and ZATCA VAT 312345678900003 (checksum rejected by validator) are present in supplier contracts and finance schedules.\nNational Address on vendor master: Bldg 2841, King Fahd Rd, Al Olaya, Riyadh 12211-3322; update required before SDAIA transfer to ensure accuracy and minimization.\nVendor KYC packet (Ms. Nourah J. Al\u2011Bishi, Passport No. VZ0987654) must be redacted before upload; passport number is collected under PDPL Art. 6(b) for contract performance.\nPublic Helpline 9200 123 456 appears in the board pack footer; this is a generic service number and not personal data.\nThe blank field \u201cPassport No.: ______\u201d is a form label; do not tag as personal data or MNPI.\nMNPI controls: the June board pack contains unannounced Q2 revenue guidance (SAR 182\u2013196m) and an internal Nomu pricing corridor; restrict to need\u2011to\u2011know per CMA Market Conduct Regulations.\nSDAIA transfer workflow: use the secure gateway only (https://secure.gov.sa/sdaia/ingest?cr=101-77-009876&nid=2%2045%206789%20012) and encrypt at rest; no cross\u2011border replication until SDAIA clearance is logged.\nIssuer timeline artifacts (draft analyst presentation and registrar onboarding forms) should be watermarked \u201cDraft\u2014Confidential\u201d; this clause is not a MAC trigger and does not constitute a profit forecast.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -285,7 +299,7 @@
     },
     {
       "concept": "cross-border transfer control (negated)",
-      "matched_text": "no cross‑border replication",
+      "matched_text": "no cross\u2011border replication",
       "reason": "References cross-border transfers but explicitly negated; relevant policy context though excluded by strict rules."
     },
     {

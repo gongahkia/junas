@@ -39,6 +39,8 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "UK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA labels were kept as deterministic cross-border-transfer findings where the fixture describes actual payroll/HR data exports.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T15:54:54Z",
@@ -46,6 +48,49 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-uk-stage-a-reviewed.json",
     "status": "owner_approved_uk_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_preserving_existing_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 36,
+    "current_must_detect_count": 13,
+    "current_must_not_detect_count": 6,
+    "previous_ideal_must_detect_count": 36,
+    "previous_must_detect_count": 16,
+    "previous_must_not_detect_count": 6
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -55,250 +100,262 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rowan Ellison"
+      "matched_text": "Mr. Rowan Ellison",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Sandhu"
+      "matched_text": "Ms. Priya Sandhu",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priya.sandhu@northhavencapital.example"
+      "matched_text": "priya.sandhu@northhavencapital.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@northhavencapital.example"
+      "matched_text": "compliance@northhavencapital.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@northhavencapital.example"
+      "matched_text": "legal@northhavencapital.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "delaying disclosure under Article 17(4) UK MAR"
+      "matched_text": "delaying disclosure under Article 17(4) UK MAR",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "pending acquisition of Halcyon Brokerage Ltd"
+      "matched_text": "pending acquisition of Halcyon Brokerage Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "an all-share acquisition of Halcyon Brokerage Ltd"
+      "matched_text": "an all-share acquisition of Halcyon Brokerage Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "heads of terms for an all-share acquisition of Halcyon Brokerage Ltd at an implied consideration of £68–72m"
+      "matched_text": "heads of terms for an all-share acquisition of Halcyon Brokerage Ltd at an implied consideration of \u00a368\u201372m",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£68"
+      "matched_text": "\u00a368",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£80m"
+      "matched_text": "\u00a380m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12%"
+      "matched_text": "12%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Closed period for PDMR dealing commenced on 21 July 2026"
+      "matched_text": "Closed period for PDMR dealing commenced on 21 July 2026",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout windows also apply"
+      "matched_text": "blackout windows also apply",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list updates (DTR 2.8)"
+      "matched_text": "insider list updates (DTR 2.8)",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "master insider list"
+      "matched_text": "master insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossed banks"
+      "matched_text": "wall-crossed banks",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossing scripts"
+      "matched_text": "wall-crossing scripts",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "under NDA"
+      "matched_text": "under NDA",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective briefings are limited to wall-crossed banks on the syndicate"
+      "matched_text": "selective briefings are limited to wall-crossed banks on the syndicate",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "inadvertent selective disclosure"
+      "matched_text": "inadvertent selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not share deal materials to non-wall-crossed recipients prior to her formal wall-crossing"
+      "matched_text": "do not share deal materials to non-wall-crossed recipients prior to her formal wall-crossing",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "Proposed Tier 2 capital raise"
+      "matched_text": "Proposed Tier 2 capital raise",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed Tier 2 capital raise"
+      "matched_text": "Proposed Tier 2 capital raise",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "proposed disposal of the Consumer Credit book"
+      "matched_text": "proposed disposal of the Consumer Credit book",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Tier 2 instrument issuance"
+      "matched_text": "Tier 2 instrument issuance",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "pre-sounding calls with potential placees must be conducted under NDA"
+      "matched_text": "pre-sounding calls with potential placees must be conducted under NDA",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "potentially material"
+      "matched_text": "potentially material",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Subject: Proposed Tier 2 capital raise and pending acquisition of Halcyon Brokerage Ltd; handling of inside information and dealing restrictions."
+      "matched_text": "Subject: Proposed Tier 2 capital raise and pending acquisition of Halcyon Brokerage Ltd; handling of inside information and dealing restrictions.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Per Article 7 UK MAR, the board has received precise non-public information: heads of terms for an all-share acquisition of Halcyon Brokerage Ltd at an implied consideration of £68–72m, expected to be price-sensitive for Northhaven Capital plc."
+      "matched_text": "Per Article 7 UK MAR, the board has received precise non-public information: heads of terms for an all-share acquisition of Halcyon Brokerage Ltd at an implied consideration of \u00a368\u201372m, expected to be price-sensitive for Northhaven Capital plc.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Any investor communication must use a Regulatory Information Service; if leakage occurs, an immediate holding announcement must be released via a RIS in line with DTR 2.2 guidance from the competent authority."
+      "matched_text": "Any investor communication must use a Regulatory Information Service; if leakage occurs, an immediate holding announcement must be released via a RIS in line with DTR 2.2 guidance from the competent authority.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossed"
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priya.sandhu@northhavencapital.example"
+      "matched_text": "priya.sandhu@northhavencapital.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@northhavencapital.example"
+      "matched_text": "legal@northhavencapital.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rowan Ellison"
+      "matched_text": "Mr. Rowan Ellison",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Sandhu"
+      "matched_text": "Ms. Priya Sandhu",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Subject: Proposed Tier 2 capital raise and pending acquisition of Halcyon Brokerage Ltd; handling of inside information and dealing restrictions."
+      "matched_text": "Subject: Proposed Tier 2 capital raise and pending acquisition of Halcyon Brokerage Ltd; handling of inside information and dealing restrictions.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Per Article 7 UK MAR, the board has received precise non-public information: heads of terms for an all-share acquisition of Halcyon Brokerage Ltd at an implied consideration of £68–72m, expected to be price-sensitive for Northhaven Capital plc."
+      "matched_text": "Per Article 7 UK MAR, the board has received precise non-public information: heads of terms for an all-share acquisition of Halcyon Brokerage Ltd at an implied consideration of \u00a368\u201372m, expected to be price-sensitive for Northhaven Capital plc.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Any investor communication must use a Regulatory Information Service; if leakage occurs, an immediate holding announcement must be released via a RIS in line with DTR 2.2 guidance from the competent authority."
+      "matched_text": "Any investor communication must use a Regulatory Information Service; if leakage occurs, an immediate holding announcement must be released via a RIS in line with DTR 2.2 guidance from the competent authority.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£80m"
+      "matched_text": "\u00a380m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12%"
+      "matched_text": "12%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossed"
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Proposed Tier 2 capital raise and pending acquisition of Halcyon Brokerage Ltd; handling of inside information and dealing restrictions.\nPer Article 7 UK MAR, the board has received precise non-public information: heads of terms for an all-share acquisition of Halcyon Brokerage Ltd at an implied consideration of \u00a368\u201372m, expected to be price-sensitive for Northhaven Capital plc.\nThe Chair, Mr. Rowan Ellison, authorised delaying disclosure under Article 17(4) UK MAR on the basis of ongoing negotiations and the need to ensure confidentiality; selective briefings are limited to wall-crossed banks on the syndicate.\nClosed period for PDMR dealing commenced on 21 July 2026 in advance of interim results due 20 August 2026, and no dealings (including option exercises) are permitted without an exempt transaction.\nAny investor communication must use a Regulatory Information Service; if leakage occurs, an immediate holding announcement must be released via a RIS in line with DTR 2.2 guidance from the competent authority.\nNote that the publicly filed RIS titled \u201cQ2 Trading Update\u201d dated 05 May 2026 and the report uploaded to the UK Market Storage Mechanism are already in the public domain and should not be treated as inside information.\nSeparately, HR has finalised the employment offer for Ms. Priya Sandhu to join as CFO-designate; her appointment will be announced via RIS only after contractual acceptance and verification, and she is a PDMR for MAR purposes upon appointment.\nHer personal contact for onboarding is priya.sandhu@northhavencapital.example; do not share deal materials to non-wall-crossed recipients prior to her formal wall-crossing.\nThe proposed disposal of the Consumer Credit book (approximately 12% of Group EBITDA) and the Tier 2 instrument issuance (\u00a380m target size) are each potentially material and require insider list updates (DTR 2.8) and project codes.\nBy contrast, last week\u2019s widely reported base rate increase by the Bank of Albion and the industry press coverage of generic fintech layoffs are not issuer-specific and do not constitute inside information.\nCompliance reminds teams that pre-sounding calls with potential placees must be conducted under NDA, with clear wall-crossing scripts and recorded consent, and no AUM or client-specific data should be disclosed.\nAny external adviser must be added to the master insider list, and blackout windows also apply to staff share plan transactions; exemptions must be cleared through compliance@northhavencapital.example.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -364,42 +421,5 @@
       "matched_text": "price-sensitive",
       "reason": "Indicates potential price impact but not a named allowed rule"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_preserving_existing_owner_approval",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 16,
-    "current_must_detect_count": 13,
-    "previous_ideal_must_detect_count": 36,
-    "current_ideal_must_detect_count": 36,
-    "previous_must_not_detect_count": 6,
-    "current_must_not_detect_count": 6
-  }
+  ]
 }

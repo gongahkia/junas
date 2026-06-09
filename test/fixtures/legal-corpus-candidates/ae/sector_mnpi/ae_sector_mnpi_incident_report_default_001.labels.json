@@ -51,6 +51,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -263,6 +271,18 @@
       "category": "MNPI",
       "matched_text": "information barrier",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Entities affected: Falak Reef Renewables PJSC (pre-ADX applicant) and Qitaf Virtual Asset Markets Ltd (ADGM-registered VASP), sponsored by Al Hamedani Family Office (family-origin group).\nOn 13 Apr 2026, a misconfiguration in the Sahara Capital DIFC Ltd shared drive exposed the \u201cGreenNode Token\u201d data room to an external vendor (Ghadir Data Works) for 47 minutes.\nExposed MNPI included a draft binding term sheet with commercial terms (pre-sale discount 12%, anchor allocation cap AED 22,000,000, 180-day lock-up) and an unreleased ESG emissions baseline restatement for Falak Reef",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Incident Report \u2014 Cyber/Operational \u2014 UAE PDPL context, DIFC/ADGM perimeter.\nEntities affected: Falak Reef Renewables PJSC (pre-ADX applicant) and Qitaf Virtual Asset Markets Ltd (ADGM-registered VASP), sponsored by Al Hamedani Family Office (family-origin group).\nOn 13 Apr 2026, a misconfiguration in the Sahara Capital DIFC Ltd shared drive exposed the \u201cGreenNode Token\u201d data room to an external vendor (Ghadir Data Works) for 47 minutes.\nExposed MNPI included a draft binding term sheet with commercial terms (pre-sale discount 12%, anchor allocation cap AED 22,000,000, 180-day lock-up) and an unreleased ESG emissions baseline restatement for Falak Reef.\nThe files also referenced a pending DPT/crypto issuance to be custodied in ADGM; classification and timing have not been cleared by the UAE securities regulator or the exchange disclosure teams.\nPDPL-relevant contents included KYC extracts containing names, corporate emails, and masked Emirates ID references for two executives and several family-office anchors; no full ID numbers or biometrics were stored.\nThe Insider List (per SCA/DFSA market abuse framework) has been opened and updated to include Ms. Leena Naser (CFO), Mr. Yousuf Al Rahbi (Head of Digital Assets), and Dr. Hadi Mansour (DPO), with pseudonymised entries and access controls.\nA group-wide blackout window is in effect until the ADX pre-listing announcement; the inadvertent third-party access creates a tipping/selective disclosure risk that we are treating as potential market abuse exposure.\nImmediate actions: permissions revoked, audit logs preserved, vendor NDA re-executed, information barriers reinforced between the investment banking desk and the VASP unit, and the compromised data room rebuilt under a new escrow key.\nNotifications: preliminary notice issued to ADGM FSRA supervision, DIFC/DFSA notified for the DIFC affiliate breach, and pre-submission prepared for SCA Market Supervision; PDPL breach assessment underway with intent to notify the UAE Data Office within 72 hours if thresholds met.\nOperational note: the vendor folder contained a Dubai mainland trade licence copy and a redacted Emirates ID used for site access for Mr. Kareem Al Sayegh (vendor manager), which have now been removed and replaced with hashed placeholders.\nFor general education only, our public ESG-cyber webinar explains insider lists, blackout windows, and crypto/DPT terminology without referencing any live issuer, deal, or commercial terms.\nCommercial impact being assessed against the pricing grid and cornerstone allocation timetable; no changes to the sustainability-linked KPI targets have been approved.\nContact: please direct queries to compliance@falakreef.example or Dr. Hadi Mansour via the DPO channel; do not forward this report outside the information barrier.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

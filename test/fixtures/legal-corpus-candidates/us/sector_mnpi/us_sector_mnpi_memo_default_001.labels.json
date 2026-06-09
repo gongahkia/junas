@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -109,12 +117,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Note that the calendar invite for the ESG teach-in exposed the “Project Willow” codename to two external consultants; cancel and reissue with neutral language and scrub attachments for hidden guidance.",
+      "matched_text": "Note that the calendar invite for the ESG teach-in exposed the \u201cProject Willow\u201d codename to two external consultants; cancel and reissue with neutral language and scrub attachments for hidden guidance.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "If a breach notification duty is triggered, Legal will coordinate with state AGs and the SEC’s Cyber Unit before any public statement; until then, internal status emails should avoid quantitative loss estimates.",
+      "matched_text": "If a breach notification duty is triggered, Legal will coordinate with state AGs and the SEC\u2019s Cyber Unit before any public statement; until then, internal status emails should avoid quantitative loss estimates.",
       "rule": "material_event"
     },
     {
@@ -224,12 +232,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "do not “background” reporters or analysts off the record",
+      "matched_text": "do not \u201cbackground\u201d reporters or analysts off the record",
       "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "matched_text": "exposed the “Project Willow” codename to two external consultants",
+      "matched_text": "exposed the \u201cProject Willow\u201d codename to two external consultants",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -286,12 +294,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Note that the calendar invite for the ESG teach-in exposed the “Project Willow” codename to two external consultants; cancel and reissue with neutral language and scrub attachments for hidden guidance.",
+      "matched_text": "Note that the calendar invite for the ESG teach-in exposed the \u201cProject Willow\u201d codename to two external consultants; cancel and reissue with neutral language and scrub attachments for hidden guidance.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "If a breach notification duty is triggered, Legal will coordinate with state AGs and the SEC’s Cyber Unit before any public statement; until then, internal status emails should avoid quantitative loss estimates.",
+      "matched_text": "If a breach notification duty is triggered, Legal will coordinate with state AGs and the SEC\u2019s Cyber Unit before any public statement; until then, internal status emails should avoid quantitative loss estimates.",
       "rule": "material_event"
     },
     {
@@ -348,6 +356,12 @@
       "category": "MNPI",
       "matched_text": "Analyst Day",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Legal/Compliance Memo \u2014 Novalynx Health Bancorp, Inc. (US issuer) \u2014 Reg FD and 10b-5 controls.\nTo: Board Compliance Committee and Ms. Alina Rivera, General Counsel; cc: Dr. Jonas Halvorsen, CISO; contact: compliance@novalynxhb.com.\nWe have preliminary, non-public findings of a ransomware intrusion affecting a limited claims-processing environment; no patient-identifiable data has been confirmed exfiltrated under HIPAA, but details are not yet final.\nUntil 8-K disclosure is filed, all cyber metrics, ransom posture, and system restoration timelines are MNPI and must not be discussed with BlueHarbor Analytics LLC or other market participants.\nThe draft agreement with GreenSprout Health Plan includes a non-public 12% performance rebate floor and a crypto-settlement pilot via Orion Digital Trust for refund disbursements; these commercial terms are MNPI.\nThe ESG appendix of the upcoming Analyst Day deck currently embeds unannounced Scope 2 reduction targets and unit-cost impacts; do not circulate outside the wall-crossed group.\nInformation barriers: maintain the insider list for Project Aegis (cyber) and Project Willow (crypto pilot), restrict access to need-to-know employees, and wall-cross analysts only under NDA.\nTrading blackout remains in effect for all designated insiders through the second business day after Q2 results; any tipping or selective disclosure would violate Reg FD and 10b-5.\nPlease route all inbound sell-side questions on outage duration, custody mechanics, or payer pricing to Legal/IR; do not \u201cbackground\u201d reporters or analysts off the record.\nNote that the calendar invite for the ESG teach-in exposed the \u201cProject Willow\u201d codename to two external consultants; cancel and reissue with neutral language and scrub attachments for hidden guidance.\nBenign operations-only clarification: the crypto wallet demo during customer training is a sandbox simulation with no live settlement, no emissions claims, and no discussion of issuer financials.\nHR reminder: employees added to the insider list will receive CCPA/HIPAA/GLBA training acknowledgments, but the list itself must not include birthdates, account numbers, or addresses.\nIf a breach notification duty is triggered, Legal will coordinate with state AGs and the SEC\u2019s Cyber Unit before any public statement; until then, internal status emails should avoid quantitative loss estimates.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

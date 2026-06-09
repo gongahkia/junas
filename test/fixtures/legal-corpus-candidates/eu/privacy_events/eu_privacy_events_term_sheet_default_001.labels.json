@@ -50,6 +50,14 @@
     "previous_must_detect_count": 20,
     "previous_must_not_detect_count": 4
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -332,6 +340,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Novaphera Materials SE (issuer listed on the Albion Continental Exchange) to acquire Solentis Data GmbH; bridge financing by Lanterra Capital SICAF (Member State L).\nConsideration: \u20ac145,000,000 cash on completion plus \u20ac20,000,000 earn-out; financing via \u20ac90,000,000 senior secured notes and \u20ac25,000,000 revolving facility.\nConditions: board and shareholder approvals; antitrust clearance in Member State D; MAR procedures and insider list readiness; CSRD double-materiality assessment; SFDR pre-contractual update for Article 8 classification.\nMAR workflow: this draft is non-public but not classified as inside information until binding SPA; ad hoc disclosure assessment to be made at signing; closed-period dealings prohibited for wall-crossed staff.\nIssuer to maintain project insider lists for all wall-crossed persons; Mr. Teo Marin (Head of IR) to manage notifications and cleansing post-announcement.\nSchedule 3 (DPA): no special-category data under GDPR Art 9 will be transferred to the VDR; where unavoidable, explicit consent is collected and records of processing are maintained.\nData-export approval: cross-border transfer of limited HR metadata to Processor Peregrine Pay Ltd in Third Country X is approved under SCC Module 2, with encryption-at-rest and transfer impact assessment filed.\nData minimisation: onboarding forms restrict KYC to internal participant IDs and business contact details only; VDR logs retained 6 months; transaction books retained 10 years per Member State A law, then scheduled for erasure.\nDSAR: investor request INV-447 for access to marketing contact data was fulfilled on 02 May 2026, with erasure of obsolete records confirmed and ticket closed.\nConsent withdrawal: employee JL-993 withdrew consent for wellness programme data on 05 June 2026; special-category fields were erased and processing stopped; no further action required.\nCompleted control: no ongoing cross-border transfers of special-category data are in scope for this transaction; prior exports concluded in Q1 2026 and deletion certificates are on file.\nSustainability undertakings: buyer to publish pro-forma CSRD KPIs within 4 months post-close; Lanterra Capital to receive SFDR PAIs for the combined group quarterly.\nFinancial covenants: leverage cap at 3.0x; negative pledge and dividend stopper until net leverage <2.0x; customary events of default.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

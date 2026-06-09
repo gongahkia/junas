@@ -50,6 +50,14 @@
     "previous_must_detect_count": 22,
     "previous_must_not_detect_count": 5
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -372,6 +380,24 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "09345670",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_company_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@alderwick.example.\nTarget: Northbank Analytics Ltd (CRN 09345670; VAT GB 764 0001 19); registered office: 12 Quarry Fold, Manchester M2 5XZ; enquiries: info@northbank.example.\nConsideration: \u00a384,750,000 cash on completion plus earn-out up to \u00a37,500,000 over 24 months; subject to UK Listing Rules (LR 10) and Disclosure Guidance and Transparency Rules notifications; completion conditional on change-in-control approval under FSMA Part XII by the FCA.\nFinancing: senior term facility from Mossgate Bank Ltd and equity placing on the Main Market; facility reference: MS G/2026/ACQ/001; provisional IBAN: GB 81 MOSG 4001 2345 6789 01 (for modelling only, not live).\nEscrow: Westminster Trust Nominees LLP; sort code 20-0 0- 3 3; account 0065 8901; escrow agent contact: settlements@westminster-trust.example; Group Treasurer to certify disbursements.\nConditions precedent: (i) satisfactory due diligence, (ii) shareholder approval by ordinary resolution, (iii) no material adverse change in the Target\u2019s business (for clarity, this draft does not define a MAC), (iv) regulatory clearances as applicable under UK competition law.\nMarket Abuse/inside information: the parties confirm no inside information (within the meaning of UK MAR, Article 7) is included in or disclosed by this draft; wall-crossing of select investors to be undertaken only upon execution of a separate NDA and insider list inclusion; clean team protocol applies to customer-level data.\nKey management: retention and incentive arrangements to be offered to Mr. Thomas Haversham (CFO), with a 12\u2011month retention bonus and restrictive covenants; contact: +44 20 3984 7711; t.haversham@northbank.example; UK Passport No: 341234567 (provided to Buyer\u2019s KYC team only).\nBuyer contact: Ms Evelyn Cartwright, Head of Corporate Development, +44 7398 112233; e.cartwright@alderwick.example; backup: corpdev@alderwick.example.\nData room: https://room.alderwick.example/deal?cid=GB12-ALDW-09123456&ib an=GB81-ALDR-4001-2345-6789-01; access subject to NDA; do not forward outside the clean team.\nPayments on completion to Seller\u2019s nominated account at Mossgate Bank Ltd: IBAN: GB00 MOSG 4012 8999 9911 99 (checksum intentionally invalid); SWIFT: MOSGGB2LXXX (sample format only).\nPublic/Governance: announcement timing to align with UK MAR and the Exchange\u2019s admission timetable; for public information queries only call 0800 000 0000 (not a deal contact line).\nKYC/Onboarding: Buyer may request copies of IDs from signatories solely for AML checks; form field example \u2014 Passport No: ______; National Insurance: QQ 12 34 56 C (illustrative, not in use); email submissions to kyc@alderwick.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Project Otter-Lime: proposed acquisition of Northbank Analytics Ltd by Alderwick Capital plc (the Buyer), UK law governed.\nBuyer: Alderwick Capital plc (Companies House reg no: 0 9 1 2 3 4 5 6; FCA FRN 921345; VAT GB 812 3456 22); registered office: 7 Larchgate, London EC2V 7ZX; generic inbox: legal@alderwick.example.\nTarget: Northbank Analytics Ltd (CRN 09345670; VAT GB 764 0001 19); registered office: 12 Quarry Fold, Manchester M2 5XZ; enquiries: info@northbank.example.\nConsideration: \u00a384,750,000 cash on completion plus earn-out up to \u00a37,500,000 over 24 months; subject to UK Listing Rules (LR 10) and Disclosure Guidance and Transparency Rules notifications; completion conditional on change-in-control approval under FSMA Part XII by the FCA.\nFinancing: senior term facility from Mossgate Bank Ltd and equity placing on the Main Market; facility reference: MS G/2026/ACQ/001; provisional IBAN: GB 81 MOSG 4001 2345 6789 01 (for modelling only, not live).\nEscrow: Westminster Trust Nominees LLP; sort code 20-0 0- 3 3; account 0065 8901; escrow agent contact: settlements@westminster-trust.example; Group Treasurer to certify disbursements.\nConditions precedent: (i) satisfactory due diligence, (ii) shareholder approval by ordinary resolution, (iii) no material adverse change in the Target\u2019s business (for clarity, this draft does not define a MAC), (iv) regulatory clearances as applicable under UK competition law.\nMarket Abuse/inside information: the parties confirm no inside information (within the meaning of UK MAR, Article 7) is included in or disclosed by this draft; wall-crossing of select investors to be undertaken only upon execution of a separate NDA and insider list inclusion; clean team protocol applies to customer-level data.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

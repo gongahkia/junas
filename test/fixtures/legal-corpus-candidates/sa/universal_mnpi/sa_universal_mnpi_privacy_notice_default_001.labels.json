@@ -37,6 +37,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -195,12 +203,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "“Project Palm”",
+      "matched_text": "\u201cProject Palm\u201d",
       "rule": "transaction_codename"
     },
     {
       "category": "PII",
-      "matched_text": "Cross-border transfer: one encrypted dataset may be sent to Ajyal’s Bahrain zone under a National Data & AI Commission (NDAC) cross-border permit; no onward transfer without Controller approval and vendor sub-processing register update",
+      "matched_text": "Cross-border transfer: one encrypted dataset may be sent to Ajyal\u2019s Bahrain zone under a National Data & AI Commission (NDAC) cross-border permit; no onward transfer without Controller approval and vendor sub-processing register update",
       "rule": "cross_border_transfer_marker"
     }
   ],
@@ -294,6 +302,12 @@
       "category": "MNPI",
       "matched_text": "restricted list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC \u2014 Data Processing & Transfer Workflow Note (KSA PDPL) \u2014 Deal Codename: Project Palm \u2014 Embargo until 2026-09-15 10:00 AST.\nController: Nukhbat Logistics Holding JSC (CR 7012234501), prospective issuer on Rimal Exchange; Processor: Ajyal Data Processing Co. (LLC-KSA, CR 1018894322).\nPurpose: support Board memo and IR draft for contemplated acquisition of Oasis Cold Chain Ltd. for SAR 640,000,000 to acquire 72.5% via definitive Share Purchase Agreement (SPA).\nPersonal data categories: names, mobile numbers, National ID/Iqama numbers (e.g., Iqama 208-44-5123), payroll IDs, and masked IBANs; processing limited to a clean team under access controls.\nLegal basis: legitimate interest and preparatory steps for a contract under the PDPL; data subject notifications will reference the Controller\u2019s privacy notice prior to first use.\nCross-border transfer: one encrypted dataset may be sent to Ajyal\u2019s Bahrain zone under a National Data & AI Commission (NDAC) cross-border permit; no onward transfer without Controller approval and vendor sub-processing register update.\nSecurity and incident response: AES-256 at rest, role-based access, quarterly key rotation; personal data and MNPI incidents to be logged and notified to NDAC within 72 hours and to CMSA-KSA where market conduct may be implicated.\nMNPI controls: \u201cProject Palm\u201d subject-line tag, restricted list enforced, IR blackout; SPA draft v5.3 and valuation files accessible only to Mr. Adnan Al-Madi (CFO) and Dr. Laila Al-Sayyar (IR Head).\nMAC/MAE: conditions precedent include absence of a Material Adverse Effect; for avoidance of doubt, routine seasonal fuel subsidy adjustments do not constitute a MAE for the Target.\nData subject rights: submit DSARs to dsar@ajyaldata.sa or 9200-123-456; responses within 30 days of verifying National ID/Iqama, including purposes, categories, sources, and transfer destinations.\nRetention: delete or anonymize within 90 days after the earlier of SPA long-stop date (2027-01-31) or public announcement on Rimal Exchange, subject to legal hold if CMSA-KSA initiates follow-up.\nPublic-source reference: the 1442H sector snapshot in Appendix B was taken from an open-data government portal and is stale; it is non-confidential and used only for macro context.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -314,7 +328,7 @@
       "reason": "Role noun / defined term"
     },
     {
-      "matched_text": "“spa day”",
+      "matched_text": "\u201cspa day\u201d",
       "reason": "False-positive bait; not Share Purchase Agreement"
     }
   ],
@@ -332,7 +346,7 @@
     },
     {
       "concept": "transparency_notice_marker",
-      "matched_text": "data subject notifications will reference the Controller’s privacy notice prior to first use",
+      "matched_text": "data subject notifications will reference the Controller\u2019s privacy notice prior to first use",
       "reason": "Transparency/notice obligations are relevant under PDPL but not mapped to an allowed rule."
     },
     {

@@ -50,6 +50,14 @@
     "previous_must_detect_count": 31,
     "previous_must_not_detect_count": 1
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -557,6 +565,18 @@
       "category": "MNPI",
       "matched_text": "1,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 inside information (EU MAR Art 7): C O D E N A M E  Project Wisteria \u2014 non-binding TERM SHEET for strategic acquisition\nIssuer: Virelia EnerTech SE (EU issuer; Euronext Growth Paris), to acquire 62% of Solvaris Gridware GmbH (private, DE) to integrate grid analytics and DER control software\nPurchase Price: \u20ac92,000,000 cash at closing + \u20ac28,000,000 vendor loan note (3-year, 3M EURIBOR+165 bps) + earn\u2011out up to \u20ac8,000,000 tied to FY2027 ARR; implied EV c. \u20ac148,000,000\nDefinitive Agreements: Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement to be executed by 2026\u201107\u201115; Long\u2011Stop Date 2026\u201110\u201131; Closing targeted within 10 business days post clearances; EMBARGO on external communications until 2026\u201109\u201130 07:00 CET\nConditions Precedent: antitrust clearance (Bundeskartellamt, if applicable), German FDI filing exemption confirmation, no leakage, audited carve\u2011out financials, confirmatory IP due diligence, Board approvals of both parties\nMAC/MAE: condition that no Material Adverse Effect has occurred since 2026\u201103\u201131; for the avoidance of doubt, general changes in EU ETS carbon prices, interest rate movements, or pandemics shall not constitute a MAC; seller represents that no MAC has occurred as of signing\nFinancing: \u20ac60,000,000 sustainability\u2011linked term loan from Cantrelle Bank S.A. and Helvetic Meadows Bank AG (KPIs: grid\u2011loss reduction 7% by 2027), remainder from issuer cash; no equity issuance planned\nESG/CSRD/SFDR: CSRD double\u2011materiality assessment annex to be appended to SPA; preliminary EU Taxonomy\u2011aligned CapEx of target estimated at 44% (subject to assurance), issuer SFDR product perimeter unchanged (Article 8), prospective PAI indicators integrated into post\u2011close reporting\nGDPR & Cross\u2011Border: due diligence involves special categories (GDPR Art 9) for workforce works\u2011council data and limited health/safety incident logs; processing confined to EEA processors (FR/DE/IE) with back\u2011up mirroring to Ostavia under 2021 SCCs + TIAs; no onward transfer absent DPA approvals; DPO to pre\u2011clear data minimisation and redaction\nMAR & Disclosure Controls: draft ad hoc announcement prepared and withheld under MAR; market\u2011sounding protocols logged; selective disclosure prohibitions apply; investor\u2011relations Q&A in preparation for post\u2011embargo release\nGovernance: post\u2011closing board of target to comprise 3 Virelia nominees and 2 management nominees; drag\u2011along and tag\u2011along customary; call option for remaining 38% at 8.5x 2028 EBITDA floor\nV I R E L I A  E N E R T E C H  S E \u2014 I n t e r n a l   I D : VI\u20142026\u2014TS\u201400A7\u2014W I S T E R I A; issuer LEI: 00VIR-ELIA-0000-P0 (internal placeholder); dataroom link: https://dataroom.virelia-se.eu/d/PRJ-WISTERIA?r=1&tok=9b%2F1a%2Bxp\nPublic context (non\u2011binding, informational only): 2024 Green Metrics Almanac (fictional) reported stable grid\u2011balancing fees; this is not used for valuation and is stale public information\nIR/Press Timing: price\u2011sensitive content not to be forwarded; image\u2011only draft deck available (OCR artifacts expected) at https://virelia-se.eu/r/ir?emb=2026-09-30&cod=Wi5t3r1a; embargo lift per above\nRepresentations & Warranties: customary fundamental reps; tax, IP, and data protection reps; specific indemnity cap \u20ac12,000,000; overall cap 20% of equity consideration; de minimis \u20ac50,000; basket \u20ac1,000,000\nContacts: Ms. Elira Kov\u00e1cs, General Counsel, elira.kovacs@virelia-se.eu, +32 2 555 0199; Mr. Rasmus L\u00e9v\u00eaque, CFO, r. leveque@virelia-se.eu (Signal: +33 7 55 55",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

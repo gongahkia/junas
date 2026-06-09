@@ -50,6 +50,14 @@
     "previous_must_detect_count": 17,
     "previous_must_not_detect_count": 4
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -302,6 +310,12 @@
       "category": "MNPI",
       "matched_text": "Insider List",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Data Protection Office, Ms. Eloise N. Bracken, privacy@westriven-capital.co.uk, tel 0 3 3 0  1 2 3  9 9 9 9.\nScope: employment and financial\u2011services records; this note does not constitute a material adverse change and includes public\u2011source references (e.g., Wrenford Echo notices) where relevant.\nNamed subject: Mr. Rowan K. Latchford (staff ref WR\u2013EMP 0I-L7?9) requests access to his data under Art.15; case link https://portal.westrivencapital.co.uk/dsar?id=9f3a-0O0l-77.\nSpecial\u2011category items for Mr. Latchford include occupational health notes (epilepsy treatment), fingerprint template and gate logs (biometric ID), Portvale Financial Staff Union membership, and the HR\u2011stored orientation field (\u201cgay\u201d) from the optional DEI survey.\nSubtle sources may also reveal beliefs, e.g., prayer\u2011room booking metadata indicating religious observance; the \u201chealth of the market\u201d phrase in reports is not health data about him.\nRetention: biometric templates 90 days; OH files 6 years; union records while active + 1 year; DEI survey fields 12 months; calendar invites about the Northminster Red Rovers are business chatter only.\nDSAR exclusions: per UK MAR and our Insider List Standard, we redact precise non\u2011public deal details (e.g., Project Tealhawk workpapers) and only provide what does not disclose MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

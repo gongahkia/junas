@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -111,6 +119,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-binding term sheet \u2014 strategic cooperation draft (ksa)\nparties: sahab express cjsc (cr 2099-xx-000) and amber dunes retail llc (cr 101-yy-888), both incorporated in the kingdom of saudi arabia.\npurpose: draft framework for a distribution alliance and potential strategic options; no pricing, no percentages, and no securities terms are set in this draft.\nissuer context: amber dunes retail llc is reviewing public cma and tadawul nomu materials for a possible future application; only public sources are referenced.\npdpl compliance: national id/iqama fields of signatories are not collected in this draft; any future processing will be registered and, if cross-border, notified to sdaia per pdpl.\nform labels (placeholders only): authorised signatory name ______; national id/iqama ______; cr no. ______; bank account ref ______; none required at this stage.\ndefinitive documents: any investment or acquisition, if pursued, will be subject to negotiation and execution of definitive agreements; mae language is expressly negated for routine seasonal sales dips and spa-day campaign cancellations.\nembargo for ir workflow testing: do not circulate beyond internal ir drafts until 1448-02-05h, 12:00 ksa time (illustrative only).\napprovals and regulator touchpoints: any actual transaction would require board resolutions and, if applicable, cma notifications in line with publicly available market conduct guidance.\npublic references: tadawul listing rules (public), cma market conduct faq (public), and sdaia pdpl regulations (public) are the only materials relied upon.\ncommunications: investor-relations draft email to ir@amberdunes.sa (role mailbox); public helpline for general queries: cma contact center 800-000-0000 (placeholder).\nproject-management notes: v0.2 draft, lowercase housekeeping, no press engagement, next check-in after eid break, attach stale research note already posted on the company blog.\nclosing prerequisites (illustrative): corporate approvals per the companies law; ksa law governing; no announcement obligations triggered by this draft.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

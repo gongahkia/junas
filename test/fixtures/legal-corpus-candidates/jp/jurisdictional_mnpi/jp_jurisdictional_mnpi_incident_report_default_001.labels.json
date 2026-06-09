@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -250,6 +258,18 @@
       "category": "MNPI",
       "matched_text": "28%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-06-02, our payroll vendor Kanashiro Payroll G.K. reported unauthorized SFTP access; one archive included employee rosters with names, work emails, and \u500b\u4eba\u756a\u53f7 (My Number) for 142 employees, triggering APPI breach assessment.\nThe archive also contained a draft Board pack (\u201cProject Hikari\u201d) referencing a contemplated acquisition of Kabushiki Kaisha Hokaze Motors, with an indicative consideration range (approx. 28% of consolidated assets) and a draft \u516c\u958b\u8cb7\u4ed8\u3051\u958b\u59cb\u4e88\u5b9a\u65e5 of 2026-07-01; this is \u672a\u516c\u8868 and may constitute a \u91cd\u8981\u4e8b\u5b9f under FIEA if/when the Board adopts a \u6c7a\u5b9a\u4e8b\u5b9f.\nAs of this report, Mr. Daichi Morita (Board Secretary) confirms no Board resolution has been passed and no shares have been acquired; nonetheless, to avoid \u9078\u629e\u7684\u958b\u793a and ensure issuer-relative materiality controls, treat all deal details as MNPI.\nContainment: vendor credentials disabled; external access logs show 19 downloads from offshore IPs; no evidence of intrusion into Tsukikage systems; we have instructed Kanashiro Payroll G.K. to certify data deletion and provide chain-of-custody.\nAPPI response: under the amended \u500b\u4eba\u60c5\u5831\u4fdd\u8b77\u6cd5 and PPC guidance, we will notify the Personal Information Protection Commission and affected employees within the prescribed period; all salary transfers have been re-tokenized through our internal gateway.\nDisclosure controls: under HSE \u9069\u6642\u958b\u793a\u898f\u5247, we will file via TD-Link only upon (i) Board \u6c7a\u8b70 establishing a \u6c7a\u5b9a\u4e8b\u5b9f, (ii) \u4e8b\u5b9f\u767a\u751f requiring immediate disclosure, or (iii) rumor confirmation if necessary; a draft \u81e8\u6642\u5831\u544a\u66f8 and \u5927\u91cf\u4fdd\u6709\u5831\u544a\u66f8 workflow are prepared but not submitted.\nFair disclosure: while the contractor is not an analyst/investor under the \u30d5\u30a7\u30a2\u30fb\u30c7\u30a3\u30b9\u30af\u30ed\u30fc\u30b8\u30e3\u30fc\u30fb\u30eb\u30fc\u30eb, the exposure presents a selective leak risk; all external communications are centralized with IR to prevent information asymmetry.\nBlackout windows: officers and designated insiders are in a \u53d6\u5f15\u7981\u6b62\u671f\u9593 until the scheduled Q1 \u6c7a\u7b97\u767a\u8868 (2026-06-14 15:00 JST) and until any public announcement on \u201cProject Hikari\u201d; pre-clearance for employee stock purchase plan is suspended.\nPublic/unrelated items: on 2026-05-18 we publicly announced via TD-Link the Aoshima DC network alert (restored; no data loss), and on 2026-06-01 we filed our \u6709\u4fa1\u8a3c\u5238\u5831\u544a\u66f8 via the East Capital Finance Bureau\u2019s e-DISC portal; those disclosures are \u516c\u8868\u6e08 and unrelated to this incident.\nExternal factors (benign): Minato East Power Co.\u2019s publicly posted maintenance for 2026-06-05 may affect the vendor\u2019s region, but it is a non-issuer operational update and not an issuer disclosure matter.\nMarket chatter: social posts speculating on a \u201cHokaze tie-up\u201d cite stale analyst blogs and do not reflect any \u516c\u8868\u6e08\u4e8b\u5b9f; please refrain from comment beyond the approved holding statement.\nPoint of contact: Ms. Ayaka Nishi (CISO) csirt@tsukikage.example; investor inquiries ir@tsukikage.example; vendors must route incident details to thirdpartyrisk@tsukikage.example.\nNext steps: complete PPC notice, issue employee notices, continue dark-web monitoring, finalize Board briefing on FIEA \u91cd\u8981\u4e8b\u5b9f thresholds and TD-Link timing, and review vendor contracts for encryption-at-rest and breach notification SLAs.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

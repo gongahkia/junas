@@ -57,6 +57,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "MY",
@@ -199,6 +207,18 @@
       "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Meranti Quasar Berhad (Company No. XX-1234567-X), a Bursa Malaysia Main Market issuer, issues this PDPA Privacy & DSAR Notice for employees, contractors, investors, and vendors.\nWe collect identification, contact, HR, device logs, ESG programme participation, and training records (e.g., cyber tabletop, crypto product demos, and blackout-policy acknowledgements) for operational purposes.\nPurposes include onboarding, payroll, compliance with CMSA/Bursa Listing Requirements, whistleblowing handling, and investor relations education; we do not provide investment advice in our marketing webinars on ESG or digital assets.\nData recipients include our Malaysian subsidiaries, cloud processors in approved jurisdictions, and advisors bound by information-barrier protocols; routine marketing emails are sent from noreply@merantiquasar.example.my.\nRetention: training logs 7 years, CCTV 30 days, insider-list entries 7 years from project closure, and system access logs 12 months unless required by the Securities Commission Malaysia (SC) or Bursa.\nTo exercise access, correction, or deletion rights under the PDPA, submit the DSAR Form (fields: Name, NRIC/Passport No, Employee ID, Account Ref, Date Range) to dpo@merantiquasar.example.my or 1-300-88-0000.\nWe will acknowledge within 7 working days and respond within 21 working days where practicable, subject to verification and exemptions under the PDPA and CMSA.\nNote: we may defer or redact DSAR materials that would disclose non-public commercial terms of a proposed sustainability-linked sukuk financing by Meranti Quasar Berhad until the requisite Bursa announcement is made.\nThis deferral rule is limited to market-sensitivity; ordinary payroll, leave, and benefits records are not affected.\nFor cyber incident tabletop exercises and phishing simulations, only aggregate, de-identified statistics are used for training communications.\nNo tipping: we prohibit selective disclosure of price-sensitive information, and any actual insider-list activation will be communicated through HR compliance notices, not marketing content.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -295,6 +303,24 @@
       "category": "MNPI",
       "matched_text": "0123456789012345",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Files also included PII under UAE PDPL: Emirates ID 784-1979-1234567-1 for Mr. Omar Haddad (Finance), corporate bank IBAN AE12 123 4567890123456789, and passport No. XN0093318 for Ms. Farah Mansoor (external counsel)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "One document included a scanned family book extract noting Ms. Leila Barqawi\u2019s family origin as \u201cAl Haurani, coastal Sharqi origin,\u201d which is sensitive personal data.\nWe notified the ADGM Office of Data Protection and the SCA Market Abuse Unit within 72 hours; internal incident ref ADS-IR-2026-044; no regulator case number issued yet.\nPlaceholder items present in drafts should be ignored as non-data: \u201cEmirates ID: __________\u201d, \u201cTRN: __________\u201d, and \u201cPassport No: ________\u201d",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 ADGM context \u2014 Data Security and MNPI Exposure \u2014 5 June 2026\nReporting entity: Al Nasma Data Holdings PJSC, ADGM Reg. No. ADGM-CL-34219; Abu Dhabi DED Trade Licence CN-7654321; TRN 100234567890123.\nRegistered office: Unit 1804, Al Samaa Tower, Al Maryah Island, Abu Dhabi, UAE.\nPrimary contact: Ms. Leila Barqawi, Compliance Officer; tel +971 58 123 4578; email leila.barqawi@alnasmahd.example.\nOn 28 May 2026, we detected unauthorized SFTP access that exfiltrated a folder titled \u201cADGM-listing-draft\u201d containing non-public revenue guidance and a term sheet for a proposed private placement; this constitutes MNPI under SCA/ADGM rules.\nFiles also included PII under UAE PDPL: Emirates ID 784-1979-1234567-1 for Mr. Omar Haddad (Finance), corporate bank IBAN AE12 123 4567890123456789, and passport No. XN0093318 for Ms. Farah Mansoor (external counsel).\nSupplier records compromised: Marjan Cyber Services LLC, Dubai DED Licence 9876543, bank IBAN AE55 741 0123456789012345, accounts payable email ap@marjancyber.example.\nOne document included a scanned family book extract noting Ms. Leila Barqawi\u2019s family origin as \u201cAl Haurani, coastal Sharqi origin,\u201d which is sensitive personal data.\nWe notified the ADGM Office of Data Protection and the SCA Market Abuse Unit within 72 hours; internal incident ref ADS-IR-2026-044; no regulator case number issued yet.\nPlaceholder items present in drafts should be ignored as non-data: \u201cEmirates ID: __________\u201d, \u201cTRN: __________\u201d, and \u201cPassport No: ________\u201d.\nPublic contact channels are not part of the breach scope: customer helpline 800 0000 and info@example.com are generic.\nFor impacted stakeholders, communications were sent from privacy@alnasmahd.example and call-back number +971 4 555 0420; a separate ADGM counsel line is listed as +971 600 123 000 (service line only).\nRemediation steps included SFTP key rotation, forced resets on the ADGM Smart Form accounts, and suspension of ops-inbox@alnasmahd.example.\nWhile core systems remain intact, a confidential \u201cQ3 2026 earnings range\u201d slide and a draft board resolution regarding an ADX dual-listing exploration were accessed; neither item has been publicly disclosed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

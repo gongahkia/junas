@@ -1,175 +1,247 @@
 {
-  "doc_id": "id_special_category_term_sheet_default_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "ID",
-  "destination_jurisdiction": "ID",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@harindracapital.example.id"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "55%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "15%"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1.250 per saham'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1.250 per saham'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_special_category_term_sheet_default_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@harindracapital.example.id"
+      "matched_text": "legal@harindracapital.example.id",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "55%"
+      "matched_text": "55%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "15%"
+      "matched_text": "15%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "Rp1.250 per saham"
+      "matched_text": "Rp1.250 per saham",
+      "rule": "contract_unit_price"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "informasi material non\u2011publik"
+      "matched_text": "informasi material non\u2011publik",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "daftar orang dalam"
+      "matched_text": "daftar orang dalam",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "masa blackout diberlakukan"
+      "matched_text": "masa blackout diberlakukan",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "tidak ada komunikasi eksternal hingga rilis resmi BEG"
+      "matched_text": "tidak ada komunikasi eksternal hingga rilis resmi BEG",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "corpsec@arunikafintek.example.id"
+      "matched_text": "corpsec@arunikafintek.example.id",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bapak Aditya Ramelan"
+      "matched_text": "Bapak Aditya Ramelan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "mengelola diabetes tipe 1"
+      "matched_text": "mengelola diabetes tipe 1",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "menggunakan pompa insulin"
+      "matched_text": "menggunakan pompa insulin",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "data biometrik (template sidik jari)"
+      "matched_text": "data biometrik (template sidik jari)",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "persetujuan eksplisit yang dapat ditarik kapan saja"
+      "matched_text": "persetujuan eksplisit yang dapat ditarik kapan saja",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Saudara Rian Hasa"
+      "matched_text": "Saudara Rian Hasa",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "Ketua Serikat Karyawan Arunika"
+      "matched_text": "Ketua Serikat Karyawan Arunika",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "keanggotaan serikatnya"
+      "matched_text": "keanggotaan serikatnya",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ibu Naya Putri"
+      "matched_text": "Ibu Naya Putri",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Arya (16 tahun)"
+      "matched_text": "Arya (16 tahun)",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "16 tahun"
+      "matched_text": "16 tahun",
+      "rule": "age_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Pembeli akan mengakuisisi 55% saham beredar PT Arunika Fintek Tbk"
+      "matched_text": "Pembeli akan mengakuisisi 55% saham beredar PT Arunika Fintek Tbk",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "Perubahan Material Merugikan"
+      "matched_text": "Perubahan Material Merugikan",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Target penutupan T+90 Hari Bursa"
+      "matched_text": "Target penutupan T+90 Hari Bursa",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "pasca\u2011penandatanganan"
+      "matched_text": "pasca\u2011penandatanganan",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "tunduk pada penyesuaian kas bersih dan liabilitas kontinjensi"
+      "matched_text": "tunduk pada penyesuaian kas bersih dan liabilitas kontinjensi",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "data minor"
+      "matched_text": "data minor",
+      "rule": "minor_data_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@harindracapital.example.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Akuisisi Saham PT Arunika Fintek Tbk oleh PT Harindra Capital Nusantara (non\u2011binding kecuali Bagian Kerahasiaan, Eksklusivitas, dan Hukum yang Berlaku)\nPihak: PT Arunika Fintek Tbk (emiten fintech publik di Bursa Efek Garuda/BEG), PT Harindra Capital Nusantara (pembeli strategis); kontak korporat: corpsec@arunikafintek.example.id\nStruktur & Harga: Pembeli akan mengakuisisi 55% saham beredar PT Arunika Fintek Tbk melalui tender dan blok di BEG dengan harga indikatif Rp1.250 per saham, tunduk pada penyesuaian kas bersih dan liabilitas kontinjensi.\nPendanaan: Kombinasi kas internal dan fasilitas pinjaman sindikasi dari konsorsium bank fiktif; tidak ada jaminan pribadi, dan tidak ada penggunaan rekening escrow dengan identitas pemegang rekening individual.\nKondisi Pendahuluan: Persetujuan RUPS Luar Biasa, surat pra\u2011efektif dari Badan Jasa Keuangan Nusantara (BJN), tidak terjadi Perubahan Material Merugikan, dan penyelesaian uji tuntas kepatuhan UU Perlindungan Data Pribadi Nusantara No. 17/2024.\nKeterbukaan Informasi & MNPI: Pengumuman keterbukaan ke BJN dan BEG dalam 2 Hari Bursa pasca\u2011penandatanganan; daftar orang dalam akan ditetapkan, masa blackout diberlakukan, dan tidak ada komunikasi eksternal hingga rilis resmi BEG.\nBisnis & Produk: Fokus pada aplikasi \u201cSakuKilau\u201d dan layanan pembiayaan produktif UMKM; proyeksi sinergi tidak dimaksudkan sebagai janji hasil dan bukan peluru perak terhadap risiko pasar.\nKepegawaian Kunci: Bapak Aditya Ramelan (Direktur Utama) akan menandatangani perjanjian kerja 24 bulan; catatan kesehatan internal menyebutkan beliau mengelola diabetes tipe 1 dan menggunakan pompa insulin, serta data biometrik (template sidik jari) tersimpan untuk akses gedung dengan persetujuan eksplisit yang dapat ditarik kapan saja.\nHubungan Industrial: Saudara Rian Hasa (Ketua Serikat Karyawan Arunika) tetap menjabat dan menjadi mitra konsultasi integrasi; keanggotaan serikatnya tidak boleh menjadi dasar perlakuan berbeda atau pengakhiran.\nData Anak: Ibu Naya Putri (Kepala Operasi) melaporkan bahwa putranya, Arya (16 tahun), mengikuti Program Magang Pelajar internal; seluruh data minor diproses berdasarkan persetujuan wali dan kebijakan retensi yang ketat.\nKebijakan DEI: \u201cKebijakan Pelangi\u201d mengenai keragaman dan inklusi akan dipertahankan; jadwal cuti yang ramah semua agama dan pandangan politik diberlakukan tanpa merinci keyakinan pribadi karyawan; kata \u201cagama\u201d di sini digunakan untuk kebijakan netral.\nPenutupan: Target penutupan T+90 Hari Bursa setelah semua kondisi terpenuhi; tidak diperlukan restatement laporan keuangan historis kecuali diwajibkan BJN; sponsor klub Garuda Tigers FC tetap tidak terpengaruh oleh perubahan kepemilikan.\nKewajiban Non\u2011Kompetisi & Non\u2011Solicit: Manajemen senior dilarang bersaing dengan Arunika selama 12 bulan; larangan merekrut karyawan kunci berlaku selama 9 bulan, tidak berlaku bagi pemasok daerah Kota Parahyangan, Pulau Seruni.\nJaminan dan Ganti Rugi: Pernyataan dan jaminan lazim emiten BEG, termasuk kepatuhan perlindungan data, anti\u2011korupsi, dan sanksi; ganti rugi disertai batasan 15% dari Harga Pembelian dan periode klaim 18 bulan.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -214,85 +286,27 @@
       "reason": "Negated MAC clause; per rule 8 do not label."
     }
   ],
+  "source_jurisdiction": "ID",
   "uncertain": [
     {
-      "matched_text": "kebijakan retensi yang ketat",
       "concept": "retention marker",
+      "matched_text": "kebijakan retensi yang ketat",
       "reason": "Privacy retention control is relevant but there is no explicit allowed rule name for retention in the provided list."
     },
     {
-      "matched_text": "Periode eksklusivitas 60 hari",
       "concept": "exclusivity period",
+      "matched_text": "Periode eksklusivitas 60 hari",
       "reason": "Material deal term but not covered by the allowed MNPI rule set."
     },
     {
-      "matched_text": "perjanjian kerja 24 bulan",
       "concept": "employment contract term",
+      "matched_text": "perjanjian kerja 24 bulan",
       "reason": "Personal employment details about a named individual are PII under UU PDP but not mapped to a specific allowed PII rule."
     },
     {
-      "matched_text": "putranya",
       "concept": "family relationship data",
+      "matched_text": "putranya",
       "reason": "Indicates a specific family relationship tied to an identifiable person, PII-relevant but not covered by an allowed rule code."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": [
-    {
-      "resolved_at": "2026-06-03T03:27:55Z",
-      "reviewer": "Codex GPT-5.5",
-      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-      "warnings": [
-        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1.250 per saham'",
-        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1.250 per saham'"
-      ]
-    }
-  ],
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

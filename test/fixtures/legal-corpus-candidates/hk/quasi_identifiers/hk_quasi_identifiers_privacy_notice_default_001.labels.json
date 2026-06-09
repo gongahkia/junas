@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -249,6 +257,18 @@
       "category": "MNPI",
       "matched_text": "restricted list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We act as a data user under the Personal Data (Privacy) Ordinance (PDPO) and process personal data for due diligence, HKEX/SFC compliance, investor onboarding and employment administration.\nUnder the Securities and Futures Ordinance (SFO), specific, price-sensitive information about listed corporations that is not generally known is treated as MNPI and is restricted to clean teams and insiders subject to controls.\nFor example, Mr. Adrian F. Mok, born 1990-09-12 (age 35), Assistant Investment Manager at Nova Quay Capital Ltd., corporate email adrian.mok@novaquay.hk, assigned device NQC-Laptop-AVM-0041 and mobile token SFT-9932, accessed DealRoom #DR-5812 from New Victoria office, 19/F Baylight Tower, VPN session HK-GW-0421 at 21:34 HKT",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For example, Mr. Adrian F. Mok, born 1990-09-12 (age 35), Assistant Investment Manager at Nova Quay Capital Ltd., corporate email adrian.mok@novaquay.hk, assigned device NQC-Laptop-AVM-0041 and mobile token SFT-9932, accessed DealRoom #DR-5812 from New Victoria office, 19/F Baylight Tower, VPN session HK-GW-0421 at 21:34 HKT.\nHis internal trader ID NQC-TID-33277 and clean-team workspace \u201cAster Jade Holdings Takeover\u201d are logged against internal account Orion Pearl SPV I for HKEX announcement preparation and SFC record-keeping.\nData subjects may submit access or correction requests to our Data Protection Officer at dpo@novaquay.hk or by post to PDPO Desk, Baylight Tower, East Harbour Business Park, New Victoria, Hong Kong.\nRetention: M&A clean-team artifacts and MNPI access logs are retained 7 years from deal close; fund investor KYC/AML records 7 years from cessation; unsuccessful employment applications 12 months before secure deletion or pseudonymisation.\nCross-border transfers: encrypted copies may be stored in CloudHarbor East nodes (Jurislands and Southport) under contractual clauses, with audit rights and onward-transfer restrictions equivalent to PDPO principles.\nWe use quasi-identifiers such as device serials, session IDs, access card IDs and IP ranges to secure systems and to demonstrate HKEX/SFC obligations; they are not used for marketing without fresh consent.\nGeneric HR notices may refer to ages 28\u201332, job family \u201canalyst\u201d, or office zone \u201cNorth Quay\u201d without any names; such descriptors alone do not identify a person.\nTraining datasets may include placeholders like 1979-03-05, DEMO-0001, or office code ZN-3; these samples are non-linkable and not treated as personal data or MNPI.\nDraft term sheets for Aster Jade Holdings and valuation models for Silver Reef Logistics Group are confidential MNPI until public disclosure; recipients are subject to wall-crossing notices and the restricted list.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

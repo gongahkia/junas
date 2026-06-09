@@ -7,13 +7,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
     "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -27,13 +27,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -48,6 +48,45 @@
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
+  "_resolved_label_warnings": {
+    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
+    "count": 6,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM1.12 per share'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM45m'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM60m'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM1.12 per share'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM45m'"
+    ]
+  },
+  "_resolved_label_warnings_history": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 45,
     "new_must_detect_count": 17,
@@ -57,6 +96,14 @@
     "removed_must_not_detect": [],
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -91,7 +138,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "The financing term sheet with Bintang Arteri Capital Sdn Bhd includes a maintenance covenant (Net Debt/EBITDA ≤ 2.5x) and a cross‑default trigger if EBITDA falls below RM60m; these terms are MNPI until the Exchange release.",
+      "matched_text": "The financing term sheet with Bintang Arteri Capital Sdn Bhd includes a maintenance covenant (Net Debt/EBITDA \u2264 2.5x) and a cross\u2011default trigger if EBITDA falls below RM60m; these terms are MNPI until the Exchange release.",
       "rule": "material_event"
     },
     {
@@ -156,7 +203,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non‑public",
+      "matched_text": "non\u2011public",
       "rule": "nonpublic_marker"
     },
     {
@@ -181,17 +228,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "SLB‑EMP‑0421",
+      "matched_text": "SLB\u2011EMP\u20110421",
       "rule": "employee_id"
     },
     {
       "category": "PII",
-      "matched_text": "MPX2‑FA84‑6109",
+      "matched_text": "MPX2\u2011FA84\u20116109",
       "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "matched_text": "SLB‑VPN‑26‑05‑29‑7842",
+      "matched_text": "SLB\u2011VPN\u201126\u201105\u201129\u20117842",
       "rule": "internal_session_id"
     },
     {
@@ -201,17 +248,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "SLB‑INV‑2026‑0530",
+      "matched_text": "SLB\u2011INV\u20112026\u20110530",
       "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "matched_text": "1990‑07‑14",
+      "matched_text": "1990\u201107\u201114",
       "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "matched_text": "LPT‑8871",
+      "matched_text": "LPT\u20118871",
       "rule": "device_serial_number"
     },
     {
@@ -246,12 +293,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Encik Firdaus Ilyas bin Mahzan (Chief Projects Officer, Saujana Lattice Berhad), DOB 12 March 1984 (age 42), office at HQ—Bandar Seri Angkasa, Negeri Damar, work email firdaus.mahzan@saujanalattice.com, staff ID SLB‑EMP‑0421, device SLB‑Laptop‑FA84 and Mahaphone‑X2 SN MPX2‑FA84‑6109, payroll at Nova Kelapa Bank Berhad a/c ending 7719",
+      "matched_text": "Encik Firdaus Ilyas bin Mahzan (Chief Projects Officer, Saujana Lattice Berhad), DOB 12 March 1984 (age 42), office at HQ\u2014Bandar Seri Angkasa, Negeri Damar, work email firdaus.mahzan@saujanalattice.com, staff ID SLB\u2011EMP\u20110421, device SLB\u2011Laptop\u2011FA84 and Mahaphone\u2011X2 SN MPX2\u2011FA84\u20116109, payroll at Nova Kelapa Bank Berhad a/c ending 7719",
       "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "matched_text": "Further context for the same individual: VPN session SLB‑VPN‑26‑05‑29‑7842 connected 08:41–10:02 via internal IP 10.28.17.51, Teams invite ref SLB‑INV‑2026‑0530 (Meranti 3), and security door access log 4F‑317 at 08:39; these are PDPA‑relevant when combined",
+      "matched_text": "Further context for the same individual: VPN session SLB\u2011VPN\u201126\u201105\u201129\u20117842 connected 08:41\u201310:02 via internal IP 10.28.17.51, Teams invite ref SLB\u2011INV\u20112026\u20110530 (Meranti 3), and security door access log 4F\u2011317 at 08:39; these are PDPA\u2011relevant when combined",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -276,17 +323,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "SLB‑Laptop‑FA84",
+      "matched_text": "SLB\u2011Laptop\u2011FA84",
       "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "matched_text": "SLB‑VPN‑…‑7842",
+      "matched_text": "SLB\u2011VPN\u2011\u2026\u20117842",
       "rule": "internal_session_id"
     },
     {
       "category": "MNPI",
-      "matched_text": "cross‑default trigger if EBITDA falls below RM60m",
+      "matched_text": "cross\u2011default trigger if EBITDA falls below RM60m",
       "rule": "contingent_mnpi_language"
     }
   ],
@@ -318,7 +365,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "The financing term sheet with Bintang Arteri Capital Sdn Bhd includes a maintenance covenant (Net Debt/EBITDA ≤ 2.5x) and a cross‑default trigger if EBITDA falls below RM60m; these terms are MNPI until the Exchange release.",
+      "matched_text": "The financing term sheet with Bintang Arteri Capital Sdn Bhd includes a maintenance covenant (Net Debt/EBITDA \u2264 2.5x) and a cross\u2011default trigger if EBITDA falls below RM60m; these terms are MNPI until the Exchange release.",
       "rule": "material_event"
     },
     {
@@ -375,6 +422,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal memo: PDPA/CMSA controls for Project Cendana \u2013 from Company Secretary (Saujana Lattice Berhad) to Board, CFO, and Compliance, dated 29 May 2026.\nThe proposed private placement (up to 62,000,000 new SLB shares at RM1.12 per share, ~8% discount to 5\u2011day VWAP) with Bintang Arteri Capital Sdn Bhd is non\u2011public and constitutes MNPI under the Exchange Main Market Listing Requirements and applicable capital markets laws.\nA conditional share purchase with Rimba Digital Sdn Bhd (60% stake for RM45m; anticipated EPS accretion ~6% in FY2027) remains confidential; do not circulate beyond the insider list until the announcement is cleared for release by the Exchange.\nUnder PDPA, personal data in employment and financing drafts must be minimised: names, emails, device IDs, session logs, payroll accounts, office locations, and DOBs can directly or indirectly identify a data subject.\nClustered identifiers: Encik Firdaus Ilyas bin Mahzan (Chief Projects Officer, Saujana Lattice Berhad), DOB 12 March 1984 (age 42), office at HQ\u2014Bandar Seri Angkasa, Negeri Damar, work email firdaus.mahzan@saujanalattice.com, staff ID SLB\u2011EMP\u20110421, device SLB\u2011Laptop\u2011FA84 and Mahaphone\u2011X2 SN MPX2\u2011FA84\u20116109, payroll at Nova Kelapa Bank Berhad a/c ending 7719.\nFurther context for the same individual: VPN session SLB\u2011VPN\u201126\u201105\u201129\u20117842 connected 08:41\u201310:02 via internal IP 10.28.17.51, Teams invite ref SLB\u2011INV\u20112026\u20110530 (Meranti 3), and security door access log 4F\u2011317 at 08:39; these are PDPA\u2011relevant when combined.\nSeparately, the following weak items appear in templates and are not tied to any named staff: DOB 1990\u201107\u201114, device tag LPT\u20118871, generic account ref 3301, and \u201cSuite 1205, Menara Jati, Precinct Aria, 52110, Negeri Damar.\u201d\nGeneric descriptors (e.g., male in his thirties located in the central region) on their own should not be treated as identifying under PDPA, but avoid combining them with device or account references.\nHR queries may be directed to Puan Zulaikha Noor, HR Business Partner, zulaikha.noor@saujanalattice.com, tel +60 3 4800 7702.\nCompliance queries on insider lists and data rooms: compliance@saujanalattice.com; physical access is restricted to Secure Room Kenari, Level 8, HQ.\nNo external communication on pricing, timetables, or expected proceeds may be made until the draft announcement is finalised and approved; a trading blackout applies to the insider list (including Encik Firdaus) until publication.\nPlease redact bank account numbers, device serials, and session identifiers in Board packs; if necessary, retain only last four digits or truncated hashes (e.g., SLB\u2011VPN\u2011\u2026\u20117842).\nThe financing term sheet with Bintang Arteri Capital Sdn Bhd includes a maintenance covenant (Net Debt/EBITDA \u2264 2.5x) and a cross\u2011default trigger if EBITDA falls below RM60m; these terms are MNPI until the Exchange release.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -403,7 +456,7 @@
   "uncertain": [
     {
       "concept": "physical access log ID",
-      "matched_text": "4F‑317",
+      "matched_text": "4F\u2011317",
       "reason": "May identify access events tied to a person but not clearly covered by existing PII rules"
     },
     {
@@ -423,7 +476,7 @@
     },
     {
       "concept": "device asset tag",
-      "matched_text": "SLB‑Laptop‑FA84",
+      "matched_text": "SLB\u2011Laptop\u2011FA84",
       "reason": "Device identifier may be personal when linked but not clearly a serial number under current rules"
     },
     {
@@ -434,7 +487,7 @@
     {
       "concept": "nonpublic marker",
       "matched_text": "remains confidential",
-      "reason": "Signals nonpublic status but detection may rely on specific keywords like 'Embargoed' or 'non‑public'"
+      "reason": "Signals nonpublic status but detection may rely on specific keywords like 'Embargoed' or 'non\u2011public'"
     },
     {
       "concept": "embargo/clearance timing",
@@ -443,47 +496,8 @@
     },
     {
       "concept": "financial covenant MNPI",
-      "matched_text": "maintenance covenant (Net Debt/EBITDA ≤ 2.5x)",
+      "matched_text": "maintenance covenant (Net Debt/EBITDA \u2264 2.5x)",
       "reason": "Material financing term informative to valuation yet not mapped to a specific MNPI subtype rule"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_resolved_label_warnings_history": [],
-  "_resolved_label_warnings": {
-    "count": 6,
-    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
-    "resolved_by": "Codex GPT-5.5",
-    "resolved_at_utc": "2026-06-02T00:00:00Z",
-    "sample": [
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM1.12 per share'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM45m'",
-      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM60m'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM1.12 per share'",
-      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM45m'"
-    ]
-  },
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

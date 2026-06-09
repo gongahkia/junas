@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -87,7 +95,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "As a US issuer subject to Reg FD, we identified selective disclosure to Ms. Janelle Rivera (Concord Gable Research) of a pre-earnings revenue forecast and a draft Form 8-K; external counsel advises broad disclosure within 24–48 hours to cure any Rule 10b-5/Reg FD risk.",
+      "matched_text": "As a US issuer subject to Reg FD, we identified selective disclosure to Ms. Janelle Rivera (Concord Gable Research) of a pre-earnings revenue forecast and a draft Form 8-K; external counsel advises broad disclosure within 24\u201348 hours to cure any Rule 10b-5/Reg FD risk.",
       "rule": "material_event"
     },
     {
@@ -147,7 +155,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "gen etic screening results indicating PRG7 variant “flagged”",
+      "matched_text": "gen etic screening results indicating PRG7 variant \u201cflagged\u201d",
       "rule": "genetic_data"
     },
     {
@@ -192,7 +200,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "patient ID DIK-76—2",
+      "matched_text": "patient ID DIK-76\u20142",
       "rule": "medical_record_number"
     },
     {
@@ -279,7 +287,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "As a US issuer subject to Reg FD, we identified selective disclosure to Ms. Janelle Rivera (Concord Gable Research) of a pre-earnings revenue forecast and a draft Form 8-K; external counsel advises broad disclosure within 24–48 hours to cure any Rule 10b-5/Reg FD risk.",
+      "matched_text": "As a US issuer subject to Reg FD, we identified selective disclosure to Ms. Janelle Rivera (Concord Gable Research) of a pre-earnings revenue forecast and a draft Form 8-K; external counsel advises broad disclosure within 24\u201348 hours to cure any Rule 10b-5/Reg FD risk.",
       "rule": "material_event"
     },
     {
@@ -296,6 +304,30 @@
       "category": "MNPI",
       "matched_text": "sell-side analyst",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "As a US issuer subject to Reg FD, we identified selective disclosure to Ms. Janelle Rivera (Concord Gable Research) of a pre-earnings revenue forecast and a draft Form 8-K; external counsel advises broad disclosure within 24\u201348 hours to cure any Rule 10b-5/Reg FD risk.\nFor Mr. Owen L. Briar (employee ID E-17A4), the archive contained biometric timeclock templates (fingerprint hash: f1-3c-xx- 9 d), religious accommodation notes (observes Seventh Lake Fellowship Fridays), and union affiliation (United Care Staff Guild Local 744); no SSN or government ID was present.\nFor Ms. Dara I. Kline (patient ID DIK-76\u20142), files included a treatment plan for Orchid-12 therapy, gen etic screening results indicating PRG7 variant \u201cflagged\u201d, and a care-coordination email noting sexual orientation (identifies as bisexual); her home address was redacted (\u201c12\u2014 Apple Trace, Apt **B\u201d)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Point of contact: Dr. Naomi Ketch, CISO (naomi.ketch@omhb.example.com), and Incident Desk (incidentdesk@omhb.example.com; 888-555-0142); outside counsel: Blend & Sparrow LLP (counsel@blend-sparrow.example)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "As a US issuer subject to Reg FD, we identified selective disclosure to Ms. Janelle Rivera (Concord Gable Research) of a pre-earnings revenue forecast and a draft Form 8-K; external counsel advises broad disclosure within 24\u201348 hours to cure any Rule 10b-5/Reg FD risk.\nFor Mr. Owen L. Briar (employee ID E-17A4), the archive contained biometric timeclock templates (fingerprint hash: f1-3c-xx- 9 d), religious accommodation notes (observes Seventh Lake Fellowship Fridays), and union affiliation (United Care Staff Guild Local 744); no SSN or government ID was present.\nFor Ms. Dara I. Kline (patient ID DIK-76\u20142), files included a treatment plan for Orchid-12 therapy, gen etic screening results indicating PRG7 variant \u201cflagged\u201d, and a care-coordination email noting sexual orientation (identifies as bisexual); her home address was redacted (\u201c12\u2014 Apple Trace, Apt **B\u201d).\nFor Master Kian Roz (minor patient ID KRZ-0 1 9), immunization records and a pediatric allergy panel were attached; parent contact \u201cL. Roz\u201d phone (555) 014-8890; no billing account or bank numbers were in scope.\nBenign reference: our religion and sexual orientation training modules (Policy HR-Equity 2.1) are cited below only as program names for staff awareness and do not describe any individual\u2019s sensitive data.\nAt this time, there is no material adverse change to core banking operations, liquidity, or clinical service capacity attributable to the incident.\nPublic-source references: our 2025 Cyber & ESG Overview and vendor list are already posted at investor.orchardmeridian.example/cyber-facts and media.orchardmeridian.example/ESG; those items are not MNPI.\nArtifacts: \\\\ops-share\\drop\\T R I A L - 9\\earnings_draft_v3.pdf; hxxps://vault.orchardmeridian.example/doc?i d = 7 0 0 1 2; vendor ticket hxxps://support.northstarq.example/case/OMHB-  4  5  6.\nThe bundle also included a pilot term sheet for an unannounced sale of two outpatient clinics and a private placement outline for Series F preferred, both marked \u201cconfidential \u2014 do not distribute,\u201d creating additional MNPI exposure.\nNotifications/regulators: preliminary notices prepared for HHS OCR (HIPAA), state AGs (including CA for CCPA/CPRA), and OCC/FTC (GLBA Safeguards) as applicable to our hybrid operations; Board Risk Committee brief scheduled.\nPoint of contact: Dr. Naomi Ketch, CISO (naomi.ketch@omhb.example.com), and Incident Desk (incidentdesk@omhb.example.com; 888-555-0142); outside counsel: Blend & Sparrow LLP (counsel@blend-sparrow.example)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "d SFTP share (\u201crdx-gen etics\u201d) exposed a bundle of draft investor materials and mixed patient/employee data to Northstar Quant, LLC and one sell-side analyst prior to public dissemination.\nAs a US issuer subject to Reg FD, we identified selective disclosure to Ms. Janelle Rivera (Concord Gable Research) of a pre-earnings revenue forecast and a draft Form 8-K; external counsel advises broad disclosure within 24\u201348 hours to cure any Rule 10b-5/Reg FD risk.\nFor Mr. Owen L. Briar (employee ID E-17A4), the archive contained biometric timeclock templates (fingerprint hash: f1-3c-xx- 9 d), religious accommodation notes (observes Seventh Lake Fellowship Fridays), and union affiliation (United Care Staff Guild Local 744); no SSN or government ID was present.\nFor Ms. Dara I. Kline (patient ID DIK-76\u20142), files included a treatment plan for Orchid-12 therapy, gen etic screening results indicating PRG7 variant \u201cflagged\u201d, and a care-coordination email noting sexual orientation (identifies as bisexual); her home address was redacted (\u201c12\u2014 Apple Trace, Apt **B\u201d).\nFor Master Kian Roz (minor patient ID KRZ-0 1 9), immunization records and a pediatric allergy panel were attached; parent contact \u201cL. Roz\u201d phone (555) 014-8890; no billing account or bank numbers were in scope.\nBenign reference: our religion and sexual orientation training modules (Policy HR-Equity 2.1) are cited below only as program names for staff awareness and do not describe any individual\u2019s sensitive data.\nAt this time, there is no material adverse change to core banking operations, liquidity, or clinical service capacity attributable to the incident.\nPublic-source references: our 2025 Cyber & ESG Overview and vendor list are already posted at investor.orchardmeridian.example/cyber-facts and media.orchardmeridian.example/ESG; those items are not MNPI.\nArtifacts: \\\\ops-share\\drop\\T R I A L - 9\\earnings_draft_v3.pdf; hxxps://vault.orchardmeridian.example/doc?i d = 7 0 0 1 2; vendor ticket hxxps://support.northstarq.example/case/OMHB-  4  5  6.\nThe bundle also included a pilot term sheet for an unannounced sale of two outpatient clinics and a private placement outline for Series F preferred, both marked \u201cconfidential \u2014 do not distribute,\u201d creating additional MNPI exposure.\nNotifications/regulators: preliminary notices prepared for HHS OCR (HIPAA), state AGs (including CA for CCPA/CPRA), and OCC/FTC (GLBA Safeguards) as applicable to our hybrid operations; Board Risk Committee brief scheduled.\nPoint of contact: Dr. Naomi Ketch, CISO (naomi.ketch@omhb.example.com), and Incident Desk (incidentdesk@omhb.example.com; 888-555-0142); outside counsel: Blend & Sparrow LLP (counsel@blend-sparrow.example).\nPolicy and culture note: we value inclusion and diversity in our workforce and adhere to the Equal Opportunity & Inclusion Policy HR-Equity 2.1; product name \u201cSilver Harbor\u201d firewall acted as our \u2018castle moat\u2019 metaphor but did not prevent the SFTP misconfiguration; \u201cRivermouth Raptors\u201d is merely the internal project codename.\nnext steps: remove public vendor keys, rotate SFTP credentials, re-encrypt vault, push a broad press release by 10:00 ET, file a Form 8-K within 4 business days, and complete analyst re-education on no selective disclosure; jira task ids pending.\nLocation and context: Greenfield operations center, Mountain Time; this report contains both MNPI and regulated PII; please do not forward outside approved channels.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -324,7 +356,7 @@
   "uncertain": [
     {
       "concept": "postal address (US)",
-      "matched_text": "12— Apple Trace, Apt **B",
+      "matched_text": "12\u2014 Apple Trace, Apt **B",
       "reason": "Home address fragment is PII under CCPA but generic US postal address is not an allowed rule in this taxonomy"
     }
   ]

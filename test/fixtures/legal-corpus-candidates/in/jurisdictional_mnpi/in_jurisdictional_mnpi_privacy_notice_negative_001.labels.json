@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -177,6 +185,18 @@
       "category": "MNPI",
       "matched_text": "restricted",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aureliya Agro Dynamics Limited (CIN: Z99999KA2021PLC123456), as a Data Fiduciary under the Digital Personal Data Protection Act, 2023, processes Data Principal information for investor relations, employment, and supplier onboarding.\nCategories: contact details, role-based IDs, PAN/Aadhaar/GSTIN references when mandated by law; placeholders on forms may show formats like PAN: AAAA0A0AA, Aadhaar: 0000-1111-2222, GSTIN: 99ABCDE0000Z0Z0; do not send copies via email.\nChildren\u2019s data: we do not knowingly collect from persons under 18 without verifiable consent through a consent manager; child-specific services are not offered.\nPurposes include exchange-compliant disclosures already in the public domain (e.g., NSE/BSE announcements dated 12-08-2024 and 05-02-2025) and routine non-issuer operational updates such as office relocation notices.\nTrading and MNPI: unpublished price sensitive information (UPSI) includes our draft quarterly financial results prior to submission under SEBI LODR Regulation 33; selective disclosure is prohibited under SEBI PIT Regulations and access is limited to designated persons during trading window closure.\nFor clarity, broad press releases about a subsidiary\u2019s already-completed capacity enhancement (press note 14-06-2024) are public and not UPSI.\nData sharing: processors such as payroll and registrar & transfer agents operate under DPDPA-compliant DPAs; cross-border transfers occur only with lawful grounds and technical safeguards.\nRetention: KYC records for investors are retained per Companies Act and SEBI RTA circulars; non-critical logs (e.g., kiosk visitor lists) auto-delete after 30 days.\nDSAR: to access, correct, port, or erase, submit the Data Principal Request Form and ticket number (format DPR-XX-0000) via privacy@aureliyaagrodyn.example.in or the consent manager URL on our website.\nWe will verify identity using non-sensitive checks; do not share full Aadhaar numbers\u2014if provided, redact to XXXX-XXXX-2222 and PAN to AAAA0A0AA.\nTimeline: responses within a reasonable time not exceeding prescribed DPDPA timelines; refusal reasons, if any, will cite applicable exemptions (e.g., legal claims or security of State).\nInsider trading controls: the trading window generally closes from quarter-end until 48 hours after results are published on NSE/BSE, and designated persons must abstain from dealing during closure.\nPublic records: board changes disclosed on 15-07-2023 under LODR Reg 30 are already public and not restricted; media FAQs may refer to these filings.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

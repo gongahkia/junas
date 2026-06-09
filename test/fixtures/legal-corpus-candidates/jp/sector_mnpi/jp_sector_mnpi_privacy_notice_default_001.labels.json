@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -340,6 +348,12 @@
       "category": "MNPI",
       "matched_text": "Scope 3",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller: Hoshinova Materials KK; Data Protection Officer: Ms. Reina Okabe; contact privacy@hoshinova.example.jp for inquiries and DSARs.\nCategories collected: employee identifiers, work contact details, access logs; Individual Number (My Number) solely for payroll/tax; crypto-asset wallet IDs only for a limited pilot settlement test with Midori Grid GK.\nPurpose limitation and security: processing for HR, board (\u53d6\u7de0\u5f79\u4f1a) governance, and securities compliance; My Number stored separately with strict role-based access and encryption in Japan.\nInsider-list workflow: upon approval of a non-binding LOI to acquire Sango Robotics KK, the Secretariat created and maintained an insider list (\u6c0f\u540d\u30fb\u5f79\u8077\u30fb\u9023\u7d61\u5148\u30fb\u8a18\u9332\u6642\u523b); no external sharing until required stock exchange disclosure in Tokyo.\nMNPI safeguards: information barriers (\u60c5\u5831\u906e\u65ad\u63aa\u7f6e) segregate the M&A clean team from treasury and trading; pre-clearance required, and blackout windows apply from quarter-end to earnings release and during deal diligence; tipping or selective disclosure is prohibited under FIEA.\nCyber incident signal: on 2026-05-14 the CISO notified the board of a suspected zero-day affecting the vendor data room; treated as potential MNPI until confirmed and handled per competent authority guidance.\nCrypto/ESG signal: the board is evaluating a private issuance of renewable-energy-linked tokens and a Scope 3 transition-linked loan with contingent coupon; commercial terms (price grid and step-up triggers) are in draft and confidential.\nCommercial term handling: draft SPA earnout thresholds and termination fee ranges classified internal level R-3; no uploads to marketing drives; data room access is logged and reviewed.\nEmployee notice: training materials explain insider lists and define crypto-assets for general awareness; they do not contain, and must not be used to infer, any deal-stage or undisclosed information.\nDSAR workflow: submit access/correction requests to privacy@hoshinova.example.jp stating your relationship (employee/vendor/shareholder); identity verified via employee number or shareholder registry reference; never email copies of My Number.\nRetention: insider lists and MNPI records retained 7 years after public disclosure; My Number retained per statute then securely erased; crypto pilot wallet IDs purged 90 da",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

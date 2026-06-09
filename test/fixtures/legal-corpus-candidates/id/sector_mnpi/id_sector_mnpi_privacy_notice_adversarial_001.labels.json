@@ -1,240 +1,301 @@
 {
-  "doc_id": "id_sector_mnpi_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "ID",
-  "destination_jurisdiction": "ID",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope: Processing of personal data (UU PDP) for employment, acquisition diligence, OKN/BEN disclosure workflows, and fintech operations of the Perseroan."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Purpose: support Project K\u2011\u039b\u201167 (non\u2011public acquisition evaluation); MNPI will be ring\u2011fenced and not selectively disclosed prior to Peraturan OKN disclosure obligations."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "DSAR: submit access/correction/erasure at https://intra.suryafin.id/dsar?tid=UUPDP-REQ-0042&ref=BEN31; identity checks use minimal data and responses will not breach information barriers."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "0.35%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_sector_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Scope: Processing of personal data (UU PDP) for employment, acquisition diligence, OKN/BEN disclosure workflows, and fintech operations of the Perseroan."
+      "matched_text": "Scope: Processing of personal data (UU PDP) for employment, acquisition diligence, OKN/BEN disclosure workflows, and fintech operations of the Perseroan.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Purpose: support Project K\u2011\u039b\u201167 (non\u2011public acquisition evaluation); MNPI will be ring\u2011fenced and not selectively disclosed prior to Peraturan OKN disclosure obligations."
+      "matched_text": "Purpose: support Project K\u2011\u039b\u201167 (non\u2011public acquisition evaluation); MNPI will be ring\u2011fenced and not selectively disclosed prior to Peraturan OKN disclosure obligations.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "DSAR: submit access/correction/erasure at https://intra.suryafin.id/dsar?tid=UUPDP-REQ-0042&ref=BEN31; identity checks use minimal data and responses will not breach information barriers."
+      "matched_text": "DSAR: submit access/correction/erasure at https://intra.suryafin.id/dsar?tid=UUPDP-REQ-0042&ref=BEN31; identity checks use minimal data and responses will not breach information barriers.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet public"
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "0.35%"
+      "matched_text": "0.35%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ibu Sari Putri"
+      "matched_text": "Ibu Sari Putri",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@suryafin.id"
+      "matched_text": "dpo@suryafin.id",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee ID E M P \u2014 1 2 3 4"
+      "matched_text": "Employee ID E M P \u2014 1 2 3 4",
+      "rule": "employee_id"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "deal\u2011stage insider lists"
+      "matched_text": "deal\u2011stage insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "InsiderList INS\u20110O1\u2011\u03b2"
+      "matched_text": "InsiderList INS\u20110O1\u2011\u03b2",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "temporary trading blackout"
+      "matched_text": "temporary trading blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "tipping"
+      "matched_text": "tipping",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers: M&A and Sales are segregated"
+      "matched_text": "Information barriers: M&A and Sales are segregated",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bapak Dewa Santoso"
+      "matched_text": "Bapak Dewa Santoso",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@suryafin.id"
+      "matched_text": "compliance@suryafin.id",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "identity checks use minimal data"
+      "matched_text": "identity checks use minimal data",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "sent to CloudArunika Pte. Ltd. (SG) and BayuGuard S.A.S. (EU SOC)"
+      "matched_text": "sent to CloudArunika Pte. Ltd. (SG) and BayuGuard S.A.S. (EU SOC)",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "0.15\u20130.35%"
+      "matched_text": "0.15\u20130.35%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "our SOC flagged anomalous exfiltration"
+      "matched_text": "our SOC flagged anomalous exfiltration",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public acquisition evaluation"
+      "matched_text": "non\u2011public acquisition evaluation",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project K\u2011\u039b\u201167"
+      "matched_text": "Project K\u2011\u039b\u201167",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "not selectively disclosed"
+      "matched_text": "not selectively disclosed",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "channel checks"
+      "matched_text": "channel checks",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_protocol_event_marker",
-      "matched_text": "aset kripto wallet test"
+      "matched_text": "aset kripto wallet test",
+      "rule": "dpt_protocol_event_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "will not breach information barriers"
+      "matched_text": "will not breach information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "draft climate\u2011risk KPIs and Scope\u20113 assumptions"
+      "matched_text": "draft climate\u2011risk KPIs and Scope\u20113 assumptions",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "must not be shared externally"
+      "matched_text": "must not be shared externally",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "under NDA"
+      "matched_text": "under NDA",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "circulated internally only"
+      "matched_text": "circulated internally only",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: Processing of personal data (UU PDP) for employment, acquisition diligence, OKN/BEN disclosure workflows, and fintech operations of the Perseroan.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purpose: support Project K\u2011\u039b\u201167 (non\u2011public acquisition evaluation); MNPI will be ring\u2011fenced and not selectively disclosed prior to Peraturan OKN disclosure obligations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DSAR: submit access/correction/erasure at https://intra.suryafin.id/dsar?tid=UUPDP-REQ-0042&ref=BEN31; identity checks use minimal data and responses will not breach information barriers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: Processing of personal data (UU PDP) for employment, acquisition diligence, OKN/BEN disclosure workflows, and fintech operations of the Perseroan.\nCategories: employee/candidate identifiers (Employee ID E M P \u2014 1 2 3 4), board memo drafts, device telemetry, and deal\u2011stage insider lists relating to PT Kirana Hijau Energi.\nPurpose: support Project K\u2011\u039b\u201167 (non\u2011public acquisition evaluation); MNPI will be ring\u2011fenced and not selectively disclosed prior to Peraturan OKN disclosure obligations.\nSensitive sector pilots: aset kripto wallet test with PT Nebula Bourse Digital under NDA; commercial terms include a pricing grid (IDR\u2011pegged spread 0.15\u20130.35%) not yet public.\nCyber: on 2026\u201105\u201122 our SOC flagged anomalous exfiltration; event metadata only is processed for incident response and reported internally to Komite Audit.\nInsider controls: InsiderList INS\u20110O1\u2011\u03b2 will record access, and a temporary trading blackout applies from T\u20113 to filing on BEN; tipping or channel checks on Project K\u2011\u039b\u201167 are prohibited.\nInformation barriers: M&A and Sales are segregated; exceptions require written approval from Bapak Dewa Santoso (GC) via compliance@suryafin.id and are logged for audit.\nTransfers: specific records may be sent to CloudArunika Pte. Ltd. (SG) and BayuGuard S.A.S. (EU SOC) with safeguards, transfer impact assessment, and, where required, notice to KTN.\nRetention: insider lists kept 5 years post\u2011public disclosure; cyber logs 12 months; HR files 7 years; KYC for crypto pilot per AML/CFT policy 5 years after relationship ends.\nDSAR: submit access/correction/erasure at https://intra.suryafin.id/dsar?tid=UUPDP-REQ-0042&ref=BEN31; identity checks use minimal data and responses will not breach information barriers.\nEducation: our staff training cites \u201cinsider list\u201d, \u201cblackout window\u201d, and \u201caset kripto\u201d as examples only; this material is marketing/ops guidance and contains no MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -259,89 +320,42 @@
       "reason": "illustrative legacy URL example; not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "ID",
   "uncertain": [
     {
-      "matched_text": "UUPDP-REQ-0042",
       "concept": "internal_request_id",
+      "matched_text": "UUPDP-REQ-0042",
       "reason": "Looks like a DSAR ticket/request identifier; not clearly covered by allowed PII rules."
     },
     {
-      "matched_text": "BEN31",
       "concept": "internal_reference",
+      "matched_text": "BEN31",
       "reason": "Reference code in DSAR URL; unclear if it maps to any allowed PII identifier type."
     },
     {
-      "matched_text": "insider lists kept 5 years post\u2011public disclosure",
       "concept": "retention_marker",
+      "matched_text": "insider lists kept 5 years post\u2011public disclosure",
       "reason": "Data retention policy statement; retention marker not explicitly listed among allowed rules."
     },
     {
+      "concept": "retention_marker",
       "matched_text": "cyber logs 12 months",
-      "concept": "retention_marker",
       "reason": "Data retention period; category not explicitly available in allowed rules."
     },
     {
+      "concept": "retention_marker",
       "matched_text": "HR files 7 years",
-      "concept": "retention_marker",
       "reason": "Data retention period; category not explicitly available in allowed rules."
     },
     {
+      "concept": "retention_marker",
       "matched_text": "KYC for crypto pilot per AML/CFT policy 5 years after relationship ends",
-      "concept": "retention_marker",
       "reason": "Data retention period; category not explicitly available in allowed rules."
     },
     {
-      "matched_text": "DocID: DPA-IDN/2 0 2 6 \u2014 0 6 \u2014 A",
       "concept": "internal_document_id",
+      "matched_text": "DocID: DPA-IDN/2 0 2 6 \u2014 0 6 \u2014 A",
       "reason": "Document identifier; may be sensitive operational metadata but not mapped to allowed PII rule."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

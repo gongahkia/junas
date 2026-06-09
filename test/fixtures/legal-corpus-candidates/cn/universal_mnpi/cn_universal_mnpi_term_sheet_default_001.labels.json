@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -405,6 +413,18 @@
       "category": "MNPI",
       "matched_text": "30,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 Project Lanternfish term sheet; inside information under PRC Securities Law; embargo until 2026-07-15 18:00 Beijing time.\nParties: Buyer Menghua Capital Fund I, L.P. (PRC RMB fund) and Target Hanyun Robotics Co., Ltd. (private issuer, Jiangsu); board memorandum approved by Hanyun on 2026-06-01.\nStructure: acquisition of 60% equity via primary subscription and secondary purchase; total consideration RMB 1,200,000,000, subject to completion audit.\nPrice adjustment: 2026 net working capital peg RMB 85,000,000; earn-out up to RMB 150,000,000 tied to 2027 revenue \u2265 RMB 900,000,000.\nDefinitive agreements: Share Purchase Agreement and Shareholders\u2019 Agreement to be executed by 2026-07-10; long-stop date 2026-10-31.\nMAC/MAE: no Material Adverse Effect shall be deemed to occur due to general macroeconomic changes, PRC monetary policy shifts, or sector-wide wage adjustments.\nConditions precedent: SAMR anti-monopoly filing (if required), CSRC industry consultation (if IPO pathway pursued), and internal approvals per both parties\u2019 articles.\nData and cybersecurity: PIPL/CSL/DSL compliance; employee resident ID and contact details to be minimized, masked, and stored onshore; counterparties\u2019 USCC to be collected at signing and not transmitted via open email.\nCross-border data: any export of R&D logs to the Hong Kong affiliate of Hanyun Robotics will require CAC security assessment or standard contract filing before transfer.\nEmployment and incentives: continuation of PRC labor contracts; rollout of an ESOP for up to 8% post-money; processing notices delivered to employees, with no collection of sensitive PI of minors under 14.\nClosing and disclosure: no public announcements, investor presentations, or exchange filings before the embargo date above unless mandated by law; break fee RMB 30,000,000 for willful breach.\nInvestor-relations materials: draft Q&A and messaging prepared for potential STAR Market pathway; this draft is not for external distribution and is maintained in a segregated data room.\npublic-source check notes: prior market share estimates rely on 2019 provincial robotics yearbook; update is pending; also, mac risk is expressly disclaimed for normal seasonal demand fluctuations.\nproject management: circulate clean spa and sha by tuesday; no press, no leaks; team spa-day raffle next month is unrelated and should not be discussed in deal channels.\nPrimary contact: Mr. Liang Fei, Partner at Menghua Capital, tel +86-21-6900-8800, email liang.fei@menghua-capital.cn; issuer IR backchannel ir@hanyun-robotics.cn.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

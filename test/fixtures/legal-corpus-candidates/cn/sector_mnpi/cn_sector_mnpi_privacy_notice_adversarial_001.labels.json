@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -330,6 +338,12 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "processed includes employee names, mobiles, I D N o .: 44 20 19 98 07 30 123 X, payroll bank acct ****7321, and board observer details for Ms. Lin Qiyue (lin.qiyue@qingzhou.example.cn).\nSensitive PI under PIPL (including minors under 14) may arise in child benefit workflows; guardians\u2019 consent is obtained and logged, and school/health data are minimized.\nMNPI scope includes pre\u2011disclosure cyber incident playbooks (unreported red\u2011team findings dated 2026\u201105\u201125) and non\u2011public climate impairment estimates for a pending green ABS, each subject to CSRC and SSE STAR Board blackout rules.\nProcessor will maintain information barriers (clean\u2011team mailbox cleanteam-cnbeta@yuelan.example.com) and enforce blackout windows for designated insiders on Insider List v3.2 (Mr. Zhao Heng, Ms. Lin Qiyue, others), prohibiting trading, tipping, and selective sharing.\nConfidential commercial terms include draft carbon credit offtake with Yunling Biochar Co. at RMB 3 2 0 / t c o 2 e and provisional vendor SOC 2 remediation fees, neither of which has been publicly disclosed.\nOnly the Designated Spokesperson, Dr. Wen Haoyu of Qingzhou Renewable (ir@qingzhou.example.cn), may communicate with analysts or media; selective disclosure outside approved channels is prohibited.\nCross\u2011border transfers to cn2.hk.dc.yuelan.test via https://transfer.yuelan.example.com/x?tid=TR%2D0931&uid=E-9x%2F27 are limited to de\u2011identified logs; the PRC Standard Contract is executed and CAC security assessment filing is pending, with separate consent required for minors\u2019 data.\nLegal bases: PIPL Art. 13(2) for employment management, Art. 13(3) for regulatory submissions to CSRC/SSE, and separate consent for sensitive PI; no automated decision with significant impact occurs without human review and right to appeal.\nRetention: insider lists retained until two years after relevant information is publicly disclosed; cyber incident records retained three years unless extended by r",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

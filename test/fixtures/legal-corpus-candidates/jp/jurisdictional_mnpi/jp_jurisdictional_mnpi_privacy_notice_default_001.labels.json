@@ -52,6 +52,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -304,6 +312,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing and MNPI Handling Addendum (Japan) between Kisaragi Robotics Co., Ltd. (TSE Prime issuer) and Taikou Advisory KK (\u59d4\u8a17\u5148), governing APPI \u201cpersonal data\u201d (including \u201cindividual numbers\u201d/My Number) and FIEA material non-public information.\n\u201cPersonal data\u201d includes employee HR records, board member contact details, and My Number collected for payroll withholding; \u201cindividual identification codes\u201d under APPI are treated as sensitive and segregated.\nPurpose of processing: employment administration, payroll, equity-based compensation, and acquisition due diligence for a contemplated TOB (\u516c\u958b\u8cb7\u4ed8\u3051) of Hoshizora Sensors KK; no secondary use without fresh notice and lawful basis.\nRetention: My Number is kept only for the statutory period applicable to tax/withholding documentation and then irreversibly deleted (typically up to 7 years), with secure key wipe and access log review.\nDSAR: Data subjects may request disclosure/correction/cessation of use of retained personal data via dsar@kisaragi-robotics.example.jp; we will respond without delay and within two months after verifying identity (government ID check permitted, but do not email copies of My Number).\nCross-border transfers: where support services reside in Singapore, we obtain prior consent or confirm appropriate measures under APPI Art. 28 and provide information on the foreign data protection system; records of third-country transfers are maintained and available on request.\nMNPI (\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f) under FIEA Arts. 166\u2013167 includes board decisions, TOB/tender-offer facts, mergers, and earnings revisions; such information is confined to a clean team and an insider list (\u30a4\u30f3\u30b5\u30a4\u30c0\u30fc\u540d\u7c3f) is maintained.\nPublic-status and timing: until \u201c\u516c\u8868\u201d via TDnet, facts remain non-public; if the board resolves (including a circular resolution) after market close, disclosure will be made on the next business day before the TSE trading session via TDnet in accordance with Timely Disclosure Rules.\nSelective disclosure is prohibited; IR or analyst communications may occur only after the relevant matter is posted on TDnet (and, where applicable, EDINET), and meeting decks must be version-locked to the public release.\nBlackout windows: directors, officers, employees, and advisors are restricted from trading from quarter-end until earnings are released on TDnet, and during deal-specific blackouts from signing of the NDA until public announcement; extensions may be imposed by the Compliance Office.\nIssuer-relative materiality is assessed against likely impact on Kisaragi Robotics\u2019 share price on the TSE Prime Market; unrelated operational updates of third parties (e.g., Sakura Freight KK\u2019s warehouse relocation press release) are not MNPI for Kisaragi.\nPublic information safe harbor: items already announced on TDnet (e.g., our 2025-02-10 \u201cNotice of Establishment of JV with Tenzan Mobile KK\u201d) may be discussed internally; however, any non-public updates or deviations from those public statements remain MNPI until re-announced.\nAccess and controls: only Ms. Aoi Ninomiya (General Counsel) and Mr. Daichi Morikawa (Chief Compliance Officer) may authorize secondary use or disclosure; deal files are stored on the restricted \u201cShirogane\u201d drive with per-user keys and dual-approval export.\nSecurity for My Number: encryption at rest and in transit, strict key management, role-based access, and tamper-evident logs; the processor must notify privacy@kisaragi-robotics.example.jp within 24 hours of any suspected incident.\nAudit and training: both parties will retain processing and MNPI access logs for 5 years and complete annual APPI/FIEA training; note that the FY2023 Securities Report filed on EDINET is public and should not be unnecessarily restricted, but draft earnings tables remain non-public until TDnet release.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

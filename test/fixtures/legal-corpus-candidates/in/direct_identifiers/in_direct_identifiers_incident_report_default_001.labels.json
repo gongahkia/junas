@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -262,6 +270,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident: Data Exposure and UPSI Containment \u2013 Nilgiri Renewables Limited (CIN: U40106KA2021PLC098765; GSTIN: 29KZTPM4321Q1Z9; NBSE symbol: NRLNIL).\nDiscovered on 2026-05-28 14:35 IST by Mr. Arvind Sahni, CISO (arvind.sahni@nilgiri-renewables.example; +91-93990-22145).\nSummary: Compromised vendor mailbox led to unauthorized forwarding of two HR KYC PDFs and one draft Q4 FY26 results pack (UPSI under SMAI PIT Regulations).\nData subjects include Ms. Priya Nadar (employee), Mr. Ketan Bose (vendor), and Master Rohit Iyer (17, internship applicant).\nDirect identifiers exposed: PAN (employee) KZTPM4321Q; Indian passport (vendor) N7654321; Aadhaar 7812 3401 2298 (checksum likely invalid per internal validator).\nContact/account data exposed: priya.nadar@nilgiri-renewables.example; mobile +91-98261-44038; bank a/c 001234567890 at Akash Bank, IFSC ZXYZ0009876.\nRegistered office: Plot 88, Sector 42, New Arcadia, Bengaluru District, Karnataka 560123, India.\nBait artifacts present in the same folder included the template text \u201cName: ________\u201d and \u201cPAN: ABCDE1234F (placeholder)\u201d, plus a public helpline 1800-000-1111; these are not live identifiers.\nUPSI specifics: unaudited EBITDA and a draft Board note on terminating a PPA at Wind Farm\u20133; trading window closure was announced on 2026-05-20 and pre-clearance remained suspended.\nRegulatory actions: preliminary intimation filed on NBSE and MCSE portals under LDOR Reg. 30; PIT insider list refreshed and acknowledgement recorded.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

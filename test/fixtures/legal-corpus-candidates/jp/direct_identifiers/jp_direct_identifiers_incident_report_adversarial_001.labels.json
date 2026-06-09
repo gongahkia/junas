@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -230,6 +238,12 @@
       "category": "MNPI",
       "matched_text": "4567890",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Incident Report \u2014 Operational/Cyber \u2014 2026-06-03 \u2014 Hirashima Industries Co., Ltd. (\u6cd5\u4eba\u756a\u53f7 9076543210987)\nTo: Board of Directors; Mr. Haru Kameda \u69d8 (CISO) / Reviewed by: CFO, HR Manager\nOn 2026-06-02 22:14 JST, unauthorized VPN access led to exfiltration of HR payroll extracts; under APPI, the dataset includes identifiers that may constitute \u7279\u5b9a\u500b\u4eba\u60c5\u5831.\nEmployee record example (redacted): Sato Mika, \u500b\u4eba\u756a\u53f7 1234\u20115678\u20119012 (checksum invalid\u2014HR placeholder), \u65c5\u5238\u756a\u53f7 T A 1 2 3 4 5 6 7, \u4f4f\u6c11\u7968\u30b3\u30fc\u30c9 7 6 5 4 3 2 1 0 9\uff08\u5370\u5b57\u6b20\u843d\uff09, \u4f4f\u6240: \u3012199\u20119999 Kirasaki\u2011ken Hoshimi\u2011shi Minami\u2011Azami 2\u20114\u20117.\nLeaked payroll fields include \u9280\u884c\u53e3\u5ea7: Hoshikawa Bank Seimei Branch (\u5e97\u756a 183) \u666e\u901a 4567890 \u540d\u7fa9 \u30d2\u30e9\u30b7\u30de\u30b3\u30a6\u30ae\u30e7\u30a6(\u30ab); contact email observed: m.sato@hirashima-industries.co.jp; mobile 090\u20118123\u20114470.\nPublic hotline 0120\u2011000\u2011000 (customer service) appears in system logs; this is a toll\u2011free helpline and not personal data for reporting purposes.\nForm label placeholders were also captured (ID: ______; NAME: ______; Address: ___-___-___); ignore these generic labels when assessing PII scope.\nA shared folder contained \u201cTOB_Draft.xlsx\u201d and draft minutes regarding a contemplated friendly tender offer for Namikaze Components K.K.; these are undisclosed enumerated material facts under FIEA and subject to timely disclosure protocols (TDnet) once approved.\nEmail thread references \u201cpre\u2011integration\u201d credential mapping and a URL https://intra.hirashima-industries.co.jp/ticket?case=ACQ%2F2026%2F06%2FTOB, indicating acquisition workflow materials were commingled with HR data.\nCompromised account: a.kameda (\u30a2\u30ab\u30a6\u30f3\u30c8ID a.k a m e d a), phone 03\u20116425\u20118888 (corp PBX); password reset and token revocation completed at 00:03 JST; do not conflate with the public switchboard listing.\nWe did not collect any device MAC addresses; e.g., 00:11:22:33:44:55 shown in a vendor datasheet is not from our network and should not be treated as incident data.\nNo health or special care (\u201c\u8981\u914d\u616e\u500b\u4eba\u60c5\u5831\u201d) data identified; however, payroll tax fields and individual codes fall within APPI/My Number scope and must be segregated and encrypted pending PPC consultation.\nWe will notify the Personal Information Protection Commission and consult external counsel re FIEA Art.166/167 handling; no public announcement has been made and insider\u2011trading blackout remains in effect for all employees.\nBenign reference: general APPI FAQs available on government portals were consulted for process clarification; no third\u2011party personal data was obtained from public sources.\nFor immediate assistance contact security@hirashima-industries.co.jp or Mr. Kameda at kameda.h@hirashima-industries.co.jp; alternate reporting via https://sec.hirashima-industries.co.jp/ir/c y b e r (note OCR\u2011induced spacing).\nPlanned next steps: isolate HR share, rotate VPN certs, and prepare board resolution for disclosure sequencing should the acquisition proceed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

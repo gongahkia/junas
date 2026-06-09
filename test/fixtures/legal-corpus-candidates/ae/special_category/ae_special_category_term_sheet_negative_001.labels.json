@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -250,6 +258,12 @@
       "category": "MNPI",
       "matched_text": "60%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Majority Acquisition of Palm Reef Technologies PJSC by Oasis Vertex Holdings Ltd (ADGM) \u2014 UAE\nParties: Buyer \u2014 Oasis Vertex Holdings Ltd (ADGM CRN: 00000000, not an SCA\u2011authorised person); Target \u2014 Palm Reef Technologies PJSC (Dubai Trade Licence TL-1234567-XX, placeholder only).\nStructure: Acquisition of 60% of the issued share capital via share purchase; consideration to include Vendor Loan Notes and deferred elements; no price guidance provided and no ADX/Nasdaq Dubai announcement is made by this document.\nRegulatory: Subject to UAE SCA regulations and ADGM/FSRA oversight where applicable, with PDPL compliance; no admission document prepared; any issuer terminology herein is illustrative and non\u2011binding.\nConditions precedent: KYC/AML for authorised signatories; form labels include Emirates ID (field only), Trade Licence copy, and ADGM/DIFC registry extracts (examples/placeholders); no collection of personal data via this term sheet.\nData protection: PDPL compliance for onshore-to-ADGM/DIFC transfers; no biometric attendance systems to be onboarded prior to closing; data mapping to exclude special categories except as disclosed and consented.\nIntentional special-category disclosure: Target\u2019s Project Operations Manager (a single identified natural person) has a medically documented epilepsy diagnosis for which reasonable workplace accommodations are in place under HR Policy PR\u2011Health\u201102, with explicit PDPL consent retained by HR.\nWarranties: No undisclosed material contracts; no sanctions exposure; Target confirms all market updates are already published via its public website news page dated 15\u201102\u20112025.\nListings/MNPI: Target is not listed on ADX or Nasdaq Dubai; any ticker references (e.g., \u201cADX: XXXX\u201d) in drafts are placeholders and invalid; no non\u2011public issuer information is included herein.\nIntegration: Adoption of the Sand Dune Inclusion Charter (DEI), a values statement referencing religion, union participation, and political viewpoints only in policy terms; no individual data is sought under this charter.\nProducts and branding: Legacy product names (PearlCloud 3.0, FalconPay Kiosk) and sports metaphors (quarterback the rollout, full\u2011court press) are descriptive; sponsorships include the Dubai Dhow Sailors (fictional team) at Mirage Stadium.\nConfidentiality and announcements: Only a high\u2011level intention to proceed; any public communication will be via SCA\u2011compliant channels after signing; press enquiries to pr@palm-reef.example and regulatory@oasis-vertex.example.\nNotices and contacts: Legal notices to legal@oasis-vertex.example and companysecretary@palm-reef.example; public helpdesks include SCA 800\u2011000\u20110000 (public helpline) and ADGM RA +971\u2011600\u2011000000 (placeholder).\nGoverning law and forum: ADGM law to govern; disputes to ADGM Courts; onshore security documents (if any) to be governed by UAE Federal law; Arabic translations to be arranged if required.\nLong\u2011stop and termination: Long\u2011stop date to be set post\u2011regulatory feedback; termination if CPs unmet; this term sheet is non\u2011binding except for confidentiality, costs, data protection, and governing law.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

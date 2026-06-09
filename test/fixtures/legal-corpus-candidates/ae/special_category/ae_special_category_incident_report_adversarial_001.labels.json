@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -260,6 +268,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Affected HR archive contained personal data for Mr. Tareq Al Mazin (E m i r a t e s I D: 784-2X22-0 1 2 3 4 5 6-9; internal HRN: HR-7A3C), plus Trade Licence link TL-RAK-55-883 for Al Manara Utilities PJSC.\nFor Mr. Al Mazin, special-category data included clinic notes on Type 1 diabetes management and emergency glucagon use, and biometric face-template hashes from the DFFC gate readers.\nHis religion was recorded as Christian for leave-calendar purposes; HR also held a family-origin field (Hadhrami) that is not used in any decisioning workflow.\nFiles in the same batch included Ms. Noura Al Fadil\u2019s prenatal genetic screening summary (carrier: \u03b2-thalassemia) and a dependent record for minor Samir (age 7) tied to EID ref 784-XXXX-1 9 9 9-0000000-0.\nThe exfiltrated folder also held an unannounced term sheet and timetable for the proposed primary listing of Rimal Renewables PJSC on the Al Dhafra Securities Exchange (ADSE), with a draft delayed-disclosure notice to the Emirates Securities Authority (ESA).\nAs part of the deal workflow, an insider list (file: INSIDER_RIMAL_Q2.xlsx) and an allocation model were present; this constitutes non-public market-sensitive issuer information under ESA Market Conduct Rulebook 4.2.\nServer health checks were green, and the politics of vendor selection delayed a patch, but our DEI policy and the Sharjah Sandcats scoreline are irrelevant to this incident.\nWe note that \u201csexual orientation\u201d appears in our training materials, but no such attribute about any person was processed in this dataset.\nTechnical artefacts: url https://inc.almanara-pjsc.ae/case?i d=INC-00A7-9b&user=ops%2Ftar eq, device id M-e-5-1-0, and checksum 9f:1c:2b:xx:zz; product modules Saqr SIEM and QamarShield AV flagged suspicious rsync.\nFor PDPL compliance, we initiated breach notifications and restricted processing per Art. 10 special categories; mainland and DFFC free-zone records are segregated under the DFFC Controller Registry.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -250,6 +258,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Han Seo\u2011jin (IR Analyst, Haneulbridge Semicon), born 1990-07-14 (age 35), assigned user ID IRHSJ-07, corporate email sj.han@haneulbridge.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "directly or in combination) and FSCMA (important information not yet publicly disclosed), we process data for investor-relations responses, insider lists, and corporate actions on the Sejong Growth Exchange (fictional).\nCategories: name, corporate email, resident-number (tokenized), DOB, role/title, business location, device and session metadata, payroll and brokerage account identifiers (masked), and IR inquiry content; we avoid collecting precise home addresses.\nExample linkable cluster: Ms. Han Seo\u2011jin (IR Analyst, Haneulbridge Semicon), born 1990-07-14 (age 35), assigned user ID IRHSJ-07, corporate email sj.han@haneulbridge.example, working at our Gukseong City Haneum\u2011gu office, using SeorimPhone X4 serial HBX4-9931-AG3 with VPN session SGE-IR-2025-06-14-0421, payroll account ending 4421 at Daran Mutual Bank (fictional), resident-number 900714-2****** (salted hash).\nThe above identifiers, when combined, may identify a living individual and are processed on the basis of employment necessity and legal obligations; we verify DSARs by confirming at least two such attributes.\nMNPI handling: \u201cProject Blue Ginkgo\u201d (convertible note timetable and pricing) is treated as important information under FSCMA until posted to the SGE disclosure portal; only pre-cleared users (e.g., IRHSJ-07) may access, and all downloads are watermarked.\nRetention: insider lists and MNPI access logs are kept until public disclosure plus 5 years; resident-number tokens and payroll records are retained 5 years after employment end; investor-relations inquiries (including email threads) are retained 3 years; device logs are retained 6 months.\nTransfers: we engage processors HosuCloud Korea Ltd. (hosting in KR) and Saejin Trustees LLC (archival in JP), applying PIPA Art. 28\u20118 consent and transfer assessments; cross-border copies are encrypted and limited to file hashes and masked account digits.\nData subject rights: to request access, correction, deletion, or transfer, contact our DPO at dpo@haneulbridge.example or submit via https://privacy.haneulbridge.example; we will respond within statutory periods.\nSecurity and minimization: resident-number values are never stored in cleartext; bank and brokerage accounts display only last 4 digits; badge IDs and device serials are segregated from inquiry text; we do not track precise geolocation.\nWe compile non-identifying aggregates for service improvement (e.g., \u201cfemale, 20s, West District of Baeryeong City, NexaPhone A1 device, equity interest topic\u201d), which are not used to single out individuals.\nGeneric HR descriptors\u2014such as \u201cAnalyst, Goryeon Province office, age 42,\u201d without any account, email, or device\u2014are not treated as identifying alone and are stored only in anonymized statistics.\nDisclosures: we may disclose minimal data to the Korea Markets Surveillance Bureau (fictional) or the Yeongbuk District Court (fictional) when lawfully requested; otherwise, MNPI is shared strictly on a need\u2011to\u2011know basis.\nWe do not combine investor website cookies with employment files, and we never require resident registration card images for IR portal access; inquiries sent from anonymous web forms will be answered without identity verification unless they touch MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

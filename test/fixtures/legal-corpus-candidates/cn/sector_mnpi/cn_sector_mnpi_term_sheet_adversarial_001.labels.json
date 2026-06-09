@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -375,6 +383,18 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project \u201cNanshan\u201d \u2014 non-binding term sheet for a proposed Series C preferred investment and strategic cooperation between Liangyu ESG Chain Technologies Co., Ltd. (PRC issuer) and Jindao Capital (Shanghai) Equity Investment Fund I, L.P., with certain binding confidentiality and exclusivity provisions. \nParties and IDs: Liangyu ESG Chain Technologies Co., Ltd., Unified Social Credit Code (USCC) 9 1 3 5 5 0 0 8 8 3 1 2 9 0 1 7 2 K (fictional); Jindao Capital (Shanghai) Equity Investment Fund I, L.P., filing No. SH\u2013F\u20130 2 8 3 1 (fictional fund filing reference). \nIssuer contact: Mr. Han Qiming (Chief Legal Officer), hqiming@liangyuchain.cn; investor contact: Ms. Yue Lin (Partner), ylin@jindaocap.cn; deal room: https://files.example.cn/s/nd?corp=91355008831290172K&rid=32010620001234567X. \nEconomics: Investor to subscribe RMB 480,000,000 Series C at a pre-money valuation of RMB 2,200,000,000; 1x non-participating liquidation preference, weighted-average anti-dilution, customary information rights; expected closing within 90 days subject to regulatory and internal approvals and a pre-close blackout window for employee optionholders. \nUse of proceeds: (i) expand permissioned \u201cGreenTrace\u201d chain nodes and climate-data oracles; (ii) remediate a June cyber incident affecting validator audit logs and two supplier endpoints (non-public and constituting inside information until disclosure); (iii) working capital and green product certifications. \nSector initiative: Issuer will pilot a permissioned digital carbon-unit token (enterprise wallet only, no public offering or mining) to support Scope 2 reporting; sandbox filing to a PRC securities regulator equivalent and municipal fintech pilot zone to be completed prior to go-live. \nConditions precedent: PRC securities and company-law filings, foreign investment reporting as applicable, and cross-border data-transfer security assessment with the national cyberspace regulator equivalent (fictional \u201cNational Cyberspace Office\u201d) for transmission of ESG datasets to Liangyu GreenChain (HK) Ltd.; any A-share listing on a fictional \u201cShanghai Pioneer Board\u201d within 24 months requires prior change-of-control communication. \nMNPI and market conduct: The parties shall maintain an up-to-date insider list for \u201cProject Nanshan,\u201d enforce infor mation\u2011barriers between investment and any secondary trading functions at Jindao, implement no\u2011tipping protocols (including a prohibition on WeChat/Feishu group forwarding), and observe blackout windows around diligence updates, signing, and closing; no selective disclosure to customers or media. \nEmployment and PIPL workflow: Issuer HR will update onboarding to obtain explicit PIPL consents for equity grant administration, using masked resident IDs and purpose\u2011limited retention; minors under 14 will not be processed for employment equity and any accidental collection will be deleted per policy. \nData and DSL: Core operational, cryptographic key, and climate data will be localized on PRC servers; cross-border transfers for support tickets to HK/Singapore affiliates occur only after self\u2011assessment under the Data Security Law and completion of the cyberspace filing; encryption keys shall not be exported. \nGovernance: Two board observer seats for Investor with no voting rights; standard protective provisions; Investor may not direct the Issuer to disclose MNPI outside governance channels and shall route analyst inbound queries to the legal team to avoid selective disclosure. \nMAC and public sources (benign): No Material Adverse Climate (MAC) condition shall be deemed triggered solely by changes to public-source ESG disclosure frameworks, government guidance, or generic product marketing copy referencing \u201ccrypto,\u201d \u201cwallet,\u201d or \u201ccyber.\u201d \nEducational/operations-only note (benign): A staff training slide on cyber hygiene and crypto key\u2011custody uses dummy screenshots and public definitions only and does not include issuer KPIs, customer lists, or deal pricing, and its circulation does not lift the information\u2011barrier. \nIdentifiers and OCR\u2011like records: Internal HR liaison Ms. Zhao Lian will coordinate with optionholders (Resident ID: 3 2 0 1 0 6 2 0 0 0 1 2 3 4 5 6 7 X, masked); issuer U S C C re\u2011entry form shows 9 1 3 5 5 0 0 8 8 3 1 2 9 0 1 7 2 K; service ticket link: https://files.example.cn/kb?id=USR%2D32010620001234567X&proj=Nanshan. \nConfidentiality and compliance: This document is confidential and intended only for the named parties and their PRC counsel and accountants; annexed public\u2011source references (e.g., industry white paper",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -190,6 +198,12 @@
       "category": "MNPI",
       "matched_text": "signing date",
       "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet \u2013 proposed acquisition by Al Sarab Holdings PJSC of Nimr Reef Technologies FZ-LLC; draft for board awareness based on public sources and prior announcements\ngoverning law and venue: DIFC law for SPA; disclosures to comply with UAE SCA and ADX listing manuals (public references)\ntransaction structure: purchase of a majority stake (illustrative only), cash settlement; percentages to be confirmed and are non-binding\ndefinitive documents: execution of a share purchase agreement and shareholders\u2019 agreement; MAC/MAE protections expressly disapplied post\u2011signing\nembargo timing: any formal market communication only after embargo expiry on 2021-03-01 09:00 GST, which lapsed and was covered in a 2021 IR note\nregulatory: no change-of-control approval required by ADGM or DIFC authorities; standard SCA notification applies; target incorporated in Sahil Innovation Free Zone\ndue diligence scope: corporate records, trade licence copies, and DIFC court search only; emirates id: 784-XXXX-XXXXXXX-X not requested or stored\nfunding sources: existing cash and previously announced bank facilities; no new equity raise; no inside information beyond ADX releases dated 2020-12-15\nvaluation basis: public research notes from Oasis Desert Bank and ADX peer averages; no issuer guidance provided and no forward-looking statements\nclosing conditions: customary consents; no employee transfers; no family-origin disclosures sought; personal data limited to public registry extracts\ninvestor relations: prepare a stale Q&A referencing public circulars (e.g., SCA Circular 12/2020); contact: ir@alsarabholdings.ae (role mailbox)\nproject management: next steps include draft spa, schedule dd calls, and book a team spa day in the wellness room; this is not about the share purchase agreement\nchecklist: see deal checklist ref DL-TS-2020-ALSRB-NIMR (non-binding, public-format template)\nplaceholders: [insert approval matrix], [insert signing date], [trade licence no. TL-00000000], [account ref 000-ABC-DFM], [issuer seal and stamp]",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

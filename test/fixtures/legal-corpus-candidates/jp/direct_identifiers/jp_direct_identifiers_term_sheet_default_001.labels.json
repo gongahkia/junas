@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -335,6 +343,18 @@
       "category": "MNPI",
       "matched_text": "0088123",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9012345678901), Registered Address: 2-10-5 Tsukishima, Midori-ku, Shiratsu-shi, Hoshima-ken 104-9999, Japan; main email: ir@kurose-tech.example.jp.\nTarget: Hikari Advance Logistics K.K. (H\u014djin Bang\u014d/Corporate Number: 1312345678902), Headquarters: 1-3-8 Akagawa, Aoba-ku, Aokita-shi, Hoshima-ken 112-8888, Japan; corporate secretariat: sec@hikari-adv.example.jp.\nListing/Regulator Context: Target shares are listed on Kanto Main Exchange (Premier) and filings will be made with the Ch\u016b\u014d Securities Authority (fictional domestic regulator) under FIEA tender-offer provisions.\nTransaction: Acquirer to commence a tender offer for 51% of outstanding shares at JPY 1,250 per share; board approvals have been obtained but are not yet publicly announced pending KME pre-disclosure procedures.\nFinancing: Bridge facility to be provided by Seishin Capital Finance G.K.; drawdown proceeds to Acquirer Designated Account at Koganei Future Bank (fictional), Kanda Branch 321, Futs\u016b 0088123; account name: Kurose Tech Holdings K.K.\nLocal Government/Tax: Shiratsu City Business Registry Code: SHR-14-77219; Hoshima Prefecture Local Enterprise Tax No.: HSP-CE-778-2042; Minato Ward-equivalent Business Tax ID (Target site): AOB-2026-04567.\nGovernance: Tender committee established; \u201cDirector, Legal\u201d (role-only) to coordinate CSA notice and internal approvals; no press releases prior to 2026-07-15 JST without mutual consent.\nAPPI/My Number: Each party will collect and process personal data in accordance with APPI; Individual Numbers (My Number) shall not be exchanged except as legally required for payroll/withholding; sample My Number 1234-5678-9012 is illustrative and invalid.\nKey Personnel: Ms. Aya Tsukada-san (Compliance Officer, Target) to continue through integration; JP Passport: ZT1234568; contact: a.tsukada@hikari-adv.example.jp; tel: 050-8812-3344.\nFinance Contact: Mr. Riku Moriyama (Acquirer Treasurer) \u2014 email: finance@kurose-tech.example.jp; mobile: 070-9000-1122.\nClosing Conditions: Clearance of tender-offer notice by Ch\u016b\u014d Securities Authority, acceptance threshold \u226551%, and Kanto Main Exchange notification; these tender-offer facts remain undisclosed to the public until statutory filings.\nNotices: Kurose Tech Holdings K.K., Attn: Board Secretariat, 2-10-5 Tsukishima, Midori-ku, Shiratsu-shi, Hoshima-ken 104-9999, Japan; email: board@kurose-tech.example.jp",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Acquisition Term Sheet \u2014 Project Hinode; subject to FIEA and confidential treatment of undisclosed enumerated material facts and tender-offer facts.\nAcquirer: Kurose Tech Holdings K.K. (H\u014djin Bang\u014d/Corporate Number: 9012345678901), Registered Address: 2-10-5 Tsukishima, Midori-ku, Shiratsu-shi, Hoshima-ken 104-9999, Japan; main email: ir@kurose-tech.example.jp.\nTarget: Hikari Advance Logistics K.K. (H\u014djin Bang\u014d/Corporate Number: 1312345678902), Headquarters: 1-3-8 Akagawa, Aoba-ku, Aokita-shi, Hoshima-ken 112-8888, Japan; corporate secretariat: sec@hikari-adv.example.jp.\nListing/Regulator Context: Target shares are listed on Kanto Main Exchange (Premier) and filings will be made with the Ch\u016b\u014d Securities Authority (fictional domestic regulator) under FIEA tender-offer provisions.\nTransaction: Acquirer to commence a tender offer for 51% of outstanding shares at JPY 1,250 per share; board approvals have been obtained but are not yet publicly announced pending KME pre-disclosure procedures.\nFinancing: Bridge facility to be provided by Seishin Capital Finance G.K.; drawdown proceeds to Acquirer Designated Account at Koganei Future Bank (fictional), Kanda Branch 321, Futs\u016b 0088123; account name: Kurose Tech Holdings K.K.\nLocal Government/Tax: Shiratsu City Business Registry Code: SHR-14-77219; Hoshima Prefecture Local Enterprise Tax No.: HSP-CE-778-2042; Minato Ward-equivalent Business Tax ID (Target site): AOB-2026-04567.\nGovernance: Tender committee established; \u201cDirector, Legal\u201d (role-only) to coordinate CSA notice and internal approvals; no press releases prior to 2026-07-15 JST without mutual consent.\nAPPI/My Number: Each party will collect and process personal data in accordance with APPI; Individual Numbers (My Number) shall not be exchanged except as legally required for payroll/withholding; sample My Number 1234-5678-9012 is illustrative and invalid.\nKey Personnel: Ms. Aya Tsukada-san (Compliance Officer, Target) to continue through integration; JP Passport: ZT1234568; contact: a.tsukada@hikari-adv.example.jp; tel: 050-8812-3344.\nFinance Contact: Mr. Riku Moriyama (Acquirer Treasurer) \u2014 email: finance@kurose-tech.example.jp; mobile: 070-9000-1122.\nClosing Conditions: Clearance of tender-offer notice by Ch\u016b\u014d Securities Authority, acceptance threshold \u226551%, and Kanto Main Exchange notification; these tender-offer facts remain undisclosed to the public until statutory filings.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

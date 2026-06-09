@@ -98,6 +98,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -420,6 +428,18 @@
       "category": "MNPI",
       "matched_text": "19910712",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Xiaomei (\u6797\u6653\u7f8e), Sr. IR Manager (Pudong, Shanghai), lin.xm@haiyuan-microgrid.cn; internal account lxm-ir; device MateBook 14 SN HB-MB14-LXM-7f2a; VPN sso line 21-48 from 10.23.6.77 at 19:12; WeCom ext 8821.\n\u5c45\u6c11\u8eab\u4efd\u8bc1(\u622a\u53d6) 420105 19910712 14X; DOB 1991-07-12; office badge HY-IR-031; office: 18F, Tower C, 688 Gaolan Rd.; these are quasi-identifiers under PIPL and require minimization/redaction in circulation.\nHR/employment workflows use vendor \u201cYuecheng HR Cloud Ltd.\u201d (fictional) for onboarding and payroll; logs sync to HK/SIN environments; \u6570\u636e\u51fa\u5883\u5b89\u5168\u8bc4\u4f30 (CAC) will be initiated before any production transfer; no cross-border movement has occurred",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ms. Lin Xiaomei (\u6797\u6653\u7f8e), Sr. IR Manager (Pudong, Shanghai), lin.xm@haiyuan-microgrid.cn; internal account lxm-ir; device MateBook 14 SN HB-MB14-LXM-7f2a; VPN sso line 21-48 from 10.23.6.77 at 19:12; WeCom ext 8821.\n\u5c45\u6c11\u8eab\u4efd\u8bc1(\u622a\u53d6) 420105 19910712 14X; DOB 1991-07-12; office badge HY-IR-031; office: 18F, Tower C, 688 Gaolan Rd.; these are quasi-identifiers under PIPL and require minimization/redaction in circulation.\nHR/employment workflows use vendor \u201cYuecheng HR Cloud Ltd.\u201d (fictional) for onboarding and payroll; logs sync to HK/SIN environments; \u6570\u636e\u51fa\u5883\u5b89\u5168\u8bc4\u4f30 (CAC) will be initiated before any production transfer; no cross-border movement has occurred.\nDraft financial KPIs (\u672a\u62ab\u9732): Q2 unaudited revenue RMB 318m; GM 21.4%; capex 46m; share issuance range 36\u201344m; treat as MNPI and limit to board/sponsor under clean-team protocol.\nThis is not a MAC address example: ab:cd:ef:00:00:00 (documentation only); likewise, \u201ca 29-year-old analyst in Nansha\u201d is generic demographic text and not identifiable on its own.\nLink reference (internal): https://sec.haiyuan.cn/case/U A T /2025/06?user=lxm-hr&doc=mnpi-draft-v4; case no. HY-SSE-PP-2025-06; ocr artifact: l x m - h r appears in older scans.\nSeparate, non-identifying set for policy illustration: 1980-11-05, Chengdu, engineer, laptop \u201cSunRay Q2\u201d, crm account \u201cguest88\u201d \u2014 no named person; cites public CSRC FAQs which are permissible references.\nBoard packet addresses CSL critical information infrastructure scoping, DSL data catalog v2.1, and PIPL Art. 28 minors (<14) protections; no minors\u2019 data exist in current staff datasets.\nSubsidiary (fictional) Jinhai Storage Systems Co., Ltd. \u2014 \u7edf\u4e00\u793e\u4f1a\u4fe1\u7528\u4ee3\u7801: 9 2 2 2 0 0 0 0 M A 1 K 8 3 L 0 R; registered Nansha; used solely for intra-group logistics billing.\nDo not upload working papers to open repositories; product names CloudBridge Pro and SkyLedger are generic; project mgmt: todo finalize DPIA, update RBAC matrix, vendor SCC addendum.\nContact: Mr. Zhao Ren (\u8d75\u4ec1), Compliance Director, zhao.ren@haiyuan-microgrid.cn, +86-21-5600-1120 ext 603; CAC issues cc: compliance@haiyuan-microgrid.cn.\nTrading window opens only after SSE D-1 bulletin; until then all employees, including Ms. Lin, remain restricted; sponsor \u201cBolang Sponsor Securities\u201d (fictional) monitors DingTalk channels; export to EU-West mirror is disabled.\nDevice note: \u201chaiyuan-5G\u201d is an SSID and not unique by itself; printer HY-PRT-7B shows job 00 19 44 from lxm-ir; meeting minutes are saved under \\\\share\\IR\\2025\\06\\pre-read (internal only).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

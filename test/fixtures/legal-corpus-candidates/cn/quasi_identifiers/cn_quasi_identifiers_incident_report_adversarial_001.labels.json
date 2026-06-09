@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -275,6 +283,12 @@
       "category": "MNPI",
       "matched_text": "21%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ms. Liang Rui (Security Engineer, age 33, DOB 1991-07-16), employer Yunshan EnerTech SOC (Chengdu High-Tech Zone), work login ac c t: rui.liang@yse.com.cn, WorkTalk ID: YSE-00291; sess ion: SESS-7f3a-c29 via https://sec.yse.com.cn/ticket?id=SESS-7f3a-c29&loc=cd; BYOD laptop asset tag CD-SOC-013, device SN YM-2021-0089.\nAccess originated through VPN gateway cd-gw-02 from internal IP 10.44.91.12; travel expense records show Kunming trip (2026-06-01 to 2026-06-03); resident ID (masked) 53 10 **** **** 3214 appeared in an HR \u4eba\u4e8b\u7533\u8bf7 screenshot tied to device onboarding.\nNo biometrics, no MAC addresses were recorded; no minors (<14) were involved; mobile IMEI values were not stored; content scope limited to configuration templates and training materials archived under /soc/train/2026-q2/.\nWeak identifiers elsewhere (not linked to any person): dob 1986-05, male, nanshan district, iphone 12, contractor role; this demographic set appears only in anonymized VPN session summaries and cannot identify an individual on its own.\nWe also observed strings \u201cacct: jiang.q\u201d and \u201cdev: andr11\u201d in a sample config; these are placeholders sourced from public documentation and should not be treated as personal data.\nPotential MNPI: a draft ESG KPI worksheet labeled \u201cQ2 turbine downtime prelim 18\u201321%\u201d was accessed; this is internal-only pre-disclosure and subject to coordinated release after board approval via the issuer information platform.\nIn accordance with PIPL Art. 38 and CAC cross-border filing practices, sync to hk-test.ysecloud.cn is paused pending Xinghai Municipal CAC filing and standard contract safeguards for personal information outbound transfers.\nWe notified the Provincial Securities Supervision Bureau (Xinghai) and Haihua Stock Exchange issuer services; initial assessment indicates the event does not constitute a material adverse change for disclosure purposes.\nEmployment workflow impact: Ms. Liang\u2019s BYOD policy acknowledgment (v3.2) and device attestation are under review; external sync permissions for SOC staff are temporarily disabled pending completion of the rectification plan.\nCorporate registry: Yunshan EnerTech Co., Ltd., U S C C : 9 1 1 0 8 8 9 M A 0 K L 2 7 1 H (internal record, obfuscated), registered office: 12F, Building C, Hexi Tech Park, Xinghai New District, Xinghai Province.\nCross-functional actions: rotated cd-gw-02 credentials; enforced CloudGuan v2 DLP rules; upgraded FortShield 360 signatures; no evidence of lateral movement to production OT networks.\nContact: Mr. Zhao Ming (Data Protection Officer), dpo@yunshan-enertech.cn, hotline +86-755-6600-1234; media inquiries: media@yunshan-enertech.cn; do not send resumes to these mailboxes.\npublic references: we relied on the 2025 yunshan sustainability brochure and vendor manuals; todo: close post-incident review by friday; owners: ops, hr, sec; this report is not a confirmation of breach scope and may be updated after forensic validation.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

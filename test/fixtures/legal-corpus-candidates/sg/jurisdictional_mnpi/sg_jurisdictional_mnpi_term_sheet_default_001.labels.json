@@ -45,6 +45,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -367,6 +375,18 @@
       "category": "MNPI",
       "matched_text": "wall-crossed",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Non-Binding Term Sheet \u2014 Proposed Acquisition of Nimbus AI Pte. Ltd. by Harbourlight Technologies Ltd. (SGX Mainboard issuer)\nBuyer: Harbourlight Technologies Ltd.; Contact: Ms. Felicia Tan (External Counsel), Merlion Straits Law LLC, felicia.tan@merlionstraits.com; Seller/Target: Nimbus AI Pte. Ltd.; Contact: Mr. Daryl Ong, CEO, daryl.ong@nimbus.ai.sg\nStructure: 100% share acquisition; Consideration: S$120,000,000 (60% cash, 40% new Harbourlight shares priced at VWAP to be fixed at signing, subject to SGX Listing Manual Rule 806(2) limits).\nClassification: Major Transaction under Chapter 10 (relative figure approx. 55% on latest audited NTA), requiring shareholders\u2019 approval and circular cleared with the exchange.\nDisclosure: Immediate announcement on SGXNet upon execution of definitive SPA; trading halt to be requested from SGX-ST no later than 8:30 a.m. on announcement date; no selective disclosure in breach of Mainboard Rule 703.\nPublic reference: Harbourlight\u2019s entry into a non-binding MOU with Nimbus was announced on SGXNet on 12 April 2026; that announcement remains valid and forms the basis of this progression to binding terms.\nTarget financials (confidential, not generally available): unaudited 1Q FY2026 revenue S$9.8m and gross margin 42%; Buyer acknowledges wall-crossing and will maintain an insider list in accordance with the SFA.\nDealing restrictions: Buyer\u2019s directors and employees on the restricted list shall not trade in Buyer\u2019s securities during the closed period from 1 July 2026 until release of FY2026 half-year results (expected 14 August 2026) and until cleansing announcement is made.\nConditions: MAS merger notification (if applicable), no material adverse change, SGX approval for listing and quotation of consideration shares, and PDPA-compliant data room protocols (access subject to NDA; personal data minimised or consented).\nKey employee retention: Mr. Daryl Ong to enter a three-year service agreement with change-of-control protection and receive performance share awards under Buyer\u2019s plan (subject to independent shareholders\u2019 approval if required).\nOperational integration to commence post-completion; for precision, note that public reports about sector-wide chip shortages in March 2024 are stale and not relied upon for valuation.\nNon-issuer update (public): PanCity Logistics Pte. Ltd.\u2019s press release on 20 May 2026 about expanding its Tuas warehouse is unrelated to this transaction and is not material to Buyer.\nExclusivity: 60 days from countersignature; Target shall not solicit or entertain competing proposals, subject to fiduciary out; any wall-crossed parties to be cleansed via SGXNet if exclusivity lapses without signing.\nTermination: Either party may terminate prior to signing the SPA; post-signing break fee S$2.4m payable by the breaching party; no termination during a trading blackout to avoid disorderly market.\nIndicative timetable: SPA by 30 June 2026; SGXNet announcement same day; shareholder circular submitted within 21 days; EGM targeted within 8 weeks of SGX clearance;",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

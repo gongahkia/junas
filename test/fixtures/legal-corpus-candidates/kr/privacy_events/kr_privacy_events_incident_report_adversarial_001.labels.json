@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -155,6 +163,12 @@
       "category": "MNPI",
       "matched_text": "Project Doryeong",
       "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mr. Seung-ho Chae withdrew consent for overseas processing on 2026-05-30 via the onboarding form; we honored the withdrawal and logged it (C-LOG#cw/058) before the sandbox was created.\nDSAR DS-003/24 from Ms. Ji\u2011eun Park was verified and fulfilled; see https://dsar.hanseoinfra.example/request?id=DS-003%2F24&step=verify (status: closed).\nVendor confirmed erasure from primary and backups at 2026-06-02 18:00 KST; chain-of-custody receipt: https://export.hanseoinfra.example/approve?id=EX-7a4c%2F19.\nRetention for onboarding test data is reduced from 30 to 7 days; Schedule 1 (Minimisation) to DPA-2026-004 updated; field \u201ctemp_resno\u201d removed from forms effective immediately.\nUnder FSCMA assessment, the incident does not contain important non-public information; investor relations posted a brief on 2026-06-03, and this does not affect the publicly announced \u201cProject Doryeong\u201d vendor consolidation (2026-05-20).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

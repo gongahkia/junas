@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -260,6 +268,12 @@
       "category": "MNPI",
       "matched_text": "51%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Acquisition of 51% of Aoba Nextech K.K. by Kizuna Holdings GK (JVX Growth issuer; Japan)\nContacts: Ms. Haruka Senda (Aoba Nextech K.K.) senda.h@aoba\u2011nex.example.co.jp; Mr. Renji Oda (Kizuna Holdings GK) oda.r@kizuna\u2011gk.example.jp\nStructure: Board\u2011approved third\u2011party allotment of new shares; post\u2011closing stake 51%; price JPY 1,200 per share; closing target 2026\u201107\u201130; subject to JVX Growth disclosure and FIEA TOB analysis\nFIEA compliance: No tender\u2011offer bid is required based on current structure; if crossing FIEA Article 27\u20112 thresholds occurs, a TOB will be launched within 20 business days; no undisclosed enumerated material facts remain\nConditions precedent: JMSA filing confirmation, JVX Growth timely disclosure completed, no MAC since 2026\u201103\u201131, and board minutes approving issuance\nEmployee/securities workflows: ESOP options to be rolled over; onboarding forms for transferees listed in Schedule 4; depository instructions to Sunagawa Trust & Custody (fictional) are complete\nAPPI compliance: DPA Schedule 2 (Processor: Cloud Lotus Pte. Ltd., SG) executed; D a t a   M i n i m i s a t i o n \u2014 only employee email and job title will be exported; salted My Number token (MN: xxxx\u2011xxxx\u2011xxxx) used only onshore for payroll mapping\nCross\u2011border transfer: Data Export Approval JP\u2011XB\u2011019 granted on 2026\u201105\u201115 (https://ops.aoba\u2011nex.example.co.jp/export?req=JP\u2011XB\u2011019&rid=u%2Fk\u201177); no additional cross\u2011border transfers will occur without renewed consent\nDSAR/erasure: Two employee DSARs received 2026\u201104\u201110 were responded to and closed; legacy payroll test table was erased on 2026\u201105\u201101 (ticket REF: prj\u2011pay\u2011eR%2F\u201114)\nConsent withdrawal: One contractor withdrew consent for marketing emails on 2026\u201104\u201122; suppression list updated and reflected in CRM; no live marketing datasets include My Number\nRetention: Personnel files retained 3 years post\u2011termination, then purged; staging logs rotated at 30 days; backup retention reduced to 90 days as of this term sheet\nPolicy\u2011only control: The draft \u201cMy Number Handling Policy v3.1\u201d is approved but not yet effective; no My Number will be exported under this transaction until the effective date has passed\nMNPI handling: Board compliance memo (Exhibit C) confirms all material facts and tender\u2011offer facts under FIEA have been publicly disclosed via JVX notice on 2026\u201106\u201101; references to sector benchmarks are from public sources only\nClosing mechanics: Funds wired to escrow at Mizuki Settlement Services (fictional) T+2; Vendor ID vndr\u2011c0de: 8a3f:jp//seg\u2011\u03b2; broken line ref: TS//2026\u201107\u2011VA\u2011\u2011\u2011A\nMisc.: This term sheet is non\u2011binding except for confidentiality and exclusivity until 2026\u201106\u201130; project managers to circulate redlines by eod; see http://deal.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

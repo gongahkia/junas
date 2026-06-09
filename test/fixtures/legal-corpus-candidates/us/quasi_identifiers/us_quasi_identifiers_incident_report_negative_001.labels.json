@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -52,7 +60,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Intentional positive: one contractor profile in the access log combined DOB 03/14/1985, residence area “Lake Overlook,” role “claims intake,” device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17.",
+      "matched_text": "Intentional positive: one contractor profile in the access log combined DOB 03/14/1985, residence area \u201cLake Overlook,\u201d role \u201cclaims intake,\u201d device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17.",
       "rule": "material_event"
     },
     {
@@ -122,12 +130,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "DOB 03/14/1985, residence area “Lake Overlook,” role “claims intake,” device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17",
+      "matched_text": "DOB 03/14/1985, residence area \u201cLake Overlook,\u201d role \u201cclaims intake,\u201d device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17",
       "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "matched_text": "uses clinic-issued phone model “A12,” lists ZIP prefix 1120x, and began employment in 2019",
+      "matched_text": "uses clinic-issued phone model \u201cA12,\u201d lists ZIP prefix 1120x, and began employment in 2019",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -154,7 +162,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Intentional positive: one contractor profile in the access log combined DOB 03/14/1985, residence area “Lake Overlook,” role “claims intake,” device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17.",
+      "matched_text": "Intentional positive: one contractor profile in the access log combined DOB 03/14/1985, residence area \u201cLake Overlook,\u201d role \u201cclaims intake,\u201d device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17.",
       "rule": "material_event"
     },
     {
@@ -176,6 +184,18 @@
       "category": "MNPI",
       "matched_text": "sell-side analyst",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03/14/1985, residence area \u201cLake Overlook,\u201d role \u201cclaims intake,\u201d device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17.\nSeparately, an hourly registrar on the night shift uses clinic-issued phone model \u201cA12,\u201d lists ZIP prefix 1120x, and began employment in 2019; these details are not identifiable on their own.\nNo Social Security numbers, full bank account numbers, diagnoses, or prescriptions were transmitted; the field labels appearing in screenshots (Name, DOB, Policy ID) are generic.\nAn external sell-side analyst asked whether this impacted guidance; we referred them to our prior Q2 webcasts and the already-posted FAQ, avoiding selective disclosure.\nThe incident was publicly summarized during our routine quarterly update and mirrored on ir.northstarvitality.example; no 8-K amendment was required.\nConsistent with U.S. practice, we also notified Granite Exchange Issuer Services and the United Markets Authority; neither requested additional trading halt measures.\nRemediation actions included a global password reset, token re-issue, EDR triage, and enhanced phishing simulations; no customer complaints have been logged.\nFor questions contact cybersecurity@northstarvitality.example or our general helpline at 877-555-0198",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Date: 2026-05-30 | Subject: Contained phishing incident at Northstar Vitality, Inc. (NVIQ), a U.S. healthcare issuer.\nSummary: On 2026-05-28 an email spoof targeted two clinic staff and one treasury analyst; multifactor prevented credential reuse; production EHR and core banking modules were not accessed.\nPII/PHI/GLBA review indicates no exfiltration; observed activity was limited to a nonproduction training inbox and an internal sandbox.\nWe evaluated possible MNPI exposure under Rule 10b-5 and Reg FD; no material information was disclosed beyond our IR site and broad webcasts.\nSample values present in logs were placeholders from templates (e.g., SSN: 000-00-0000; MRN: A0000000; CUSIP: ZZZ000ZZZ; Account #: 1111-2222-3333), and should not be treated as live data.\nIntentional positive: one contractor profile in the access log combined DOB 03/14/1985, residence area \u201cLake Overlook,\u201d role \u201cclaims intake,\u201d device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17.\nSeparately, an hourly registrar on the night shift uses clinic-issued phone model \u201cA12,\u201d lists ZIP prefix 1120x, and began employment in 2019; these details are not identifiable on their own.\nNo Social Security numbers, full bank account numbers, diagnoses, or prescriptions were transmitted; the field labels appearing in screenshots (Name, DOB, Policy ID) are generic.\nAn external sell-side analyst asked whether this impacted guidance; we referred them to our prior Q2 webcasts and the already-posted FAQ, avoiding selective disclosure.\nThe incident was publicly summarized during our routine quarterly update and mirrored on ir.northstarvitality.example; no 8-K amendment was required.\nConsistent with U.S. practice, we also notified Granite Exchange Issuer Services and the United Markets Authority; neither requested additional trading halt measures.\nRemediation actions included a global password reset, token re-issue, EDR triage, and enhanced phishing simulations; no customer complaints have been logged.\nFor questions contact cybersecurity@northstarvitality.example or our general helpline at 877-555-0198; do not send patient records to these addresses.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -210,7 +230,7 @@
     },
     {
       "concept": "location quasi-identifier",
-      "matched_text": "residence area “Lake Overlook,”",
+      "matched_text": "residence area \u201cLake Overlook,\u201d",
       "reason": "Neighborhood/area can help identify a person when combined with other attributes; not a standalone allowed rule"
     },
     {

@@ -1,150 +1,232 @@
 {
-  "doc_id": "th_privacy_events_privacy_notice_default_001",
-  "document_type": "generic",
-  "source_jurisdiction": "TH",
-  "destination_jurisdiction": "TH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Jintana Prasoet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Onboarding forms for financing workstreams collect only name, work email, job title, and business phone; no national ID or bank account numbers are collected for this purpose."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Retention: investor contact logs 3 years; employee personnel files 7 years post-termination; financing KYC records for prospective debenture investors 5 years from last interaction; a minimisation review runs every 12 months."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider lists"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: invalid rule 'DSAR' text='Data subject requests'",
+        "drop must_detect: invalid rule 'erasure' text='Erasure will be effected without undue delay'",
+        "drop must_detect: invalid rule 'retention' text='Retention:'",
+        "drop ideal_must_detect: invalid rule 'DSAR' text='Data subject requests'",
+        "drop ideal_must_detect: invalid rule 'erasure' text='Erasure will be effected without undue delay'",
+        "drop ideal_must_detect: invalid rule 'retention' text='Retention:'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_privacy_events_privacy_notice_default_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Jintana Prasoet"
+      "matched_text": "Ms. Jintana Prasoet",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Onboarding forms for financing workstreams collect only name, work email, job title, and business phone; no national ID or bank account numbers are collected for this purpose."
+      "matched_text": "Onboarding forms for financing workstreams collect only name, work email, job title, and business phone; no national ID or bank account numbers are collected for this purpose.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Retention: investor contact logs 3 years; employee personnel files 7 years post-termination; financing KYC records for prospective debenture investors 5 years from last interaction; a minimisation review runs every 12 months."
+      "matched_text": "Retention: investor contact logs 3 years; employee personnel files 7 years post-termination; financing KYC records for prospective debenture investors 5 years from last interaction; a minimisation review runs every 12 months.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider lists"
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@duangchaiagro.example"
+      "matched_text": "dpo@duangchaiagro.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Jintana Prasoet (Data Protection Officer)"
+      "matched_text": "Ms. Jintana Prasoet (Data Protection Officer)",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border processors"
+      "matched_text": "Cross-border processors",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent may be withdrawn"
+      "matched_text": "Consent may be withdrawn",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "a minimisation review runs every 12 months"
+      "matched_text": "a minimisation review runs every 12 months",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider lists are maintained by Compliance"
+      "matched_text": "Insider lists are maintained by Compliance",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "this note is not a market disclosure"
+      "matched_text": "this note is not a market disclosure",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "collect only name, work email, job title, and business phone"
+      "matched_text": "collect only name, work email, job title, and business phone",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "transfers occur under controller\u2013processor clauses"
+      "matched_text": "transfers occur under controller\u2013processor clauses",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "only hashed employee IDs are used for SSO in the Singapore environment"
+      "matched_text": "only hashed employee IDs are used for SSO in the Singapore environment",
+      "rule": "employee_id"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "restricted to need-to-know staff"
+      "matched_text": "restricted to need-to-know staff",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "must not be exported to processors unless strictly necessary, access-controlled, and logged"
+      "matched_text": "must not be exported to processors unless strictly necessary, access-controlled, and logged",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "No trading by insiders is permitted until disclosure is completed"
+      "matched_text": "No trading by insiders is permitted until disclosure is completed",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "draft term sheets already redacted"
+      "matched_text": "draft term sheets already redacted",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Jintana Prasoet",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Onboarding forms for financing workstreams collect only name, work email, job title, and business phone; no national ID or bank account numbers are collected for this purpose.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: investor contact logs 3 years; employee personnel files 7 years post-termination; financing KYC records for prospective debenture investors 5 years from last interaction; a minimisation review runs every 12 months.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Retention: investor contact logs 3 years; employee personnel files 7 years post-termination; financing KYC records for prospective debenture investors 5 years from last interaction; a minimisation review runs every 12 months.\nMNPI under the Securities and Exchange Act of Thailand (e.g., undisclosed 2026 debenture coupon terms) is restricted to need-to-know staff and must not be exported to processors unless strictly necessary, access-controlled, and logged.\nInsider lists are maintained by Compliance and, when shared for access provisioning, are pseudonymised and exclude trading plans or personal broker details",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller contact: Ms. Jintana Prasoet (Data Protection Officer), dpo@duangchaiagro.example.\nLawful bases under the PDPA include contract (supplier onboarding), legal obligation (tax/AML/securities records), legitimate interests (investor relations), and consent (optional communications).\nOnboarding forms for financing workstreams collect only name, work email, job title, and business phone; no national ID or bank account numbers are collected for this purpose.\nCross-border processors: SilkCloud Pte. Ltd. (Singapore) for document hosting and Aokimi Hosting KK (Japan) for encrypted backups; transfers occur under controller\u2013processor clauses and a PDPA Section 28 risk assessment.\nNo live payroll personal data is transferred outside Thailand in this workflow; only hashed employee IDs are used for SSO in the Singapore environment.\nData subject requests (access, correction, erasure) may be submitted to dpo@duangchaiagro.example and will be acknowledged within 7 days and completed within 30 days unless an extension is notified.\nConsent may be withdrawn at any time via privacy.duangchaiagro.example; withdrawal will not affect processing lawfully completed before withdrawal.\nErasure will be effected without undue delay except where retention is required under tax, AML, or securities record-keeping obligations pursuant to the Securities and Exchange Act of Thailand.\nRetention: investor contact logs 3 years; employee personnel files 7 years post-termination; financing KYC records for prospective debenture investors 5 years from last interaction; a minimisation review runs every 12 months.\nMNPI under the Securities and Exchange Act of Thailand (e.g., undisclosed 2026 debenture coupon terms) is restricted to need-to-know staff and must not be exported to processors unless strictly necessary, access-controlled, and logged.\nInsider lists are maintained by Compliance and, when shared for access provisioning, are pseudonymised and exclude trading plans or personal broker detai",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -169,94 +251,32 @@
       "reason": "document section label; not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "TH",
   "uncertain": [
     {
-      "matched_text": "Data Export Approval TH-KXT-2026-042",
       "concept": "internal approval reference",
+      "matched_text": "Data Export Approval TH-KXT-2026-042",
       "reason": "operational identifier potentially sensitive but not covered by allowed rules"
     },
     {
-      "matched_text": "privacy.duangchaiagro.example",
       "concept": "DSAR/consent withdrawal portal URL",
+      "matched_text": "privacy.duangchaiagro.example",
       "reason": "privacy-relevant access point; URLs not in allowed PII rules"
     },
     {
-      "matched_text": "Kingset Exchange of Thailand (KXT)",
       "concept": "exchange/market designation",
+      "matched_text": "Kingset Exchange of Thailand (KXT)",
       "reason": "relevant to MNPI context but not an allowed MNPI rule"
     },
     {
-      "matched_text": "time-stamped",
       "concept": "disclosure timestamp control",
+      "matched_text": "time-stamped",
       "reason": "embargo markers require specific terms (Signing/Closing/Effective); timestamp mention is adjacent but not covered"
     },
     {
-      "matched_text": "pseudonymised",
       "concept": "pseudonymisation control",
+      "matched_text": "pseudonymised",
       "reason": "privacy control mention; not listed among privacy event markers"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_resolved_label_warnings": [
-    {
-      "resolved_at": "2026-06-03T03:27:55Z",
-      "reviewer": "Codex GPT-5.5",
-      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
-      "warnings": [
-        "drop must_detect: invalid rule 'DSAR' text='Data subject requests'",
-        "drop must_detect: invalid rule 'erasure' text='Erasure will be effected without undue delay'",
-        "drop must_detect: invalid rule 'retention' text='Retention:'",
-        "drop ideal_must_detect: invalid rule 'DSAR' text='Data subject requests'",
-        "drop ideal_must_detect: invalid rule 'erasure' text='Erasure will be effected without undue delay'",
-        "drop ideal_must_detect: invalid rule 'retention' text='Retention:'"
-      ]
-    }
-  ],
-  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T03:27:55Z",
-    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
-    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T03:42:46Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T03:42:46Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T03:42:46Z",
-    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

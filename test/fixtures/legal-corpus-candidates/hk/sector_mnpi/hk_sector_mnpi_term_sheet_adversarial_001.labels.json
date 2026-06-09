@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -384,6 +392,24 @@
       "category": "MNPI",
       "matched_text": "Information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Heads of Terms \u2014 Project JADE; Deal ID: HKO\u2011VA\u201124\u20110\u039e7; C O N F I D E N T I A L (SFO/Part XIVA) \u2014 date: 02\u2006Jun\u20062026.\nParties: Aurora Vantage Holdings Limited (Main Board\u2011listed; HKEX) as Buyer; Seabright Crypto Custody Limited (VATP applicant; Hong Kong) as Target.\nTransaction: Buyer to acquire 70% of Target for HKD 418,000,000 cash + earn\u2011out up to HKD 82,000,000 tied to onboarding of ESG\u2011linked tokenised carbon certificates under CSA\u2011KPI.\nConditions precedent: SFC approvals (SFO licence variations), HKEX Chapter 14 requirements, completion of cyber security remediation plan, and no selective disclosure prior to joint announcement.\nInside information & insider list: This term sheet and Target\u2019s May\u2013Jul pipeline constitute inside information; maintain an insider list (Annex A) limited to Ms. Aria Fong, Mr. Kelvin Yip, and wall\u2011crossed advisors only; blackout windows apply to Buyer\u2019s directors.\nInformation barriers: Trading and treasury desks shall remain walled off from Project JADE; any wall\u2011crossing requires pre\u2011clearance and written acknowledg ement under the SFC Code of Conduct.\nCyber incident (non\u2011public): On 12\u2011May\u20112026 Target detected a contained ransomware attempt affecting a non\u2011production vault node; no client private keys compromised; warranty, indemnity cap 12% for cyber breaches.\nVirtual assets scope: Target provides institutional custody for stablecoins and tokenised climate units; no proprietary trading; closing conditional on satisfactory review of fiat\u2011referenced stablecoin governance under forthcoming HK framework.\nAnnouncement protocol: No analyst or investor meetings until HKEX\u2011compliant joint announcement; avoid tipping and refrain from disclosing deal metrics in any selective channel, including encrypted chat.\nConsideration mechanics: 10% escrow at completion; 6\u2011month lockup for sellers; earn\u2011out based on verified carbon\u2011avoidance attestations audited by GreenScope (fictional) with price\u2011adjustment collar \u00b15%.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

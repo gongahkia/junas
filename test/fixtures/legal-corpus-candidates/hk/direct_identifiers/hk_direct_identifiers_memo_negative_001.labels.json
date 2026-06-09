@@ -84,6 +84,14 @@
       "status": "public_role_mailbox_demoted_from_strict"
     }
   ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -221,6 +229,12 @@
       "category": "MNPI",
       "matched_text": "For fund structuring, Red Banyan Capital Fund I LP will hold through Harbor Jade Acquisition SPV I Limited; CR No. 9123456 and BR No. 12345678-000-00-0 are illustrative placeholders and not validated.",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal note: HKEX/SFC considerations for proposed acquisition by Harbor Jade Holdings Limited (the \u201cCompany\u201d) of Seaglass Foods Group Limited via Red Banyan Capital Fund I SPV.\nThis note consolidates only public information previously released on 02 Apr 2025 on HKEX news and excludes \u201cinside information\u201d as defined under Part XIVA SFO (specific corporate information not generally known to likely dealers and price\u2011material).\nNo price\u2011sensitive figures, swap ratios, or draft timetables outside the published announcement are included, and trading advice is not provided.\nListing Rules Ch.14 classification and Takeovers Code compliance will be managed by the Company Secretary; queries should go to compliance@harborjade.com.hk (role mailbox).\nFor fund structuring, Red Banyan Capital Fund I LP will hold through Harbor Jade Acquisition SPV I Limited; CR No. 9123456 and BR No. 12345678-000-00-0 are illustrative placeholders and not validated.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

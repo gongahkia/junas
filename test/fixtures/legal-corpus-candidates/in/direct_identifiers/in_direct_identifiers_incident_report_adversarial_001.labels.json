@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -232,6 +240,18 @@
       "category": "MNPI",
       "matched_text": "560199",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Company tax identifiers present in attached logs: PAN AAKCS 1234Q; GSTIN 29AAKCS1234Q1Z9 (noting checksum mismatch), and internal vendor code SM-VND-0042.\nThe mailbox contained draft Q1 results, a board agenda on a potential buyback/bonus, and investor presentation notes; these qualify as unpublished price sensitive information for Indian listed securities.\nPersonal data under the DPDPA involved business contact details of employees and vendors; no child (under 18) data was processed or stored in this workflow.\nDirect identifiers seen in attachments include a scan with Aadhaar \"1234 5678 9012\" (test placeholder, not collected as a system of record) and Pa ss port: P1 234567 for a travel booking.\nFinancial and account references: vendor bank a/c 442211009988 (IFSC FICT0001234), demat client id 1209999999999999 (invalid), and UPI handle meena.rao@fictbank; public helpline 1800-000-0000 appears on a poster.\nNamed contacts: Ms. Meena Rao, Company Secretary, meena.rao@sarayan-metals.in; role-only references include \u201cCFO\u201d and \u201cInvestor Relations\u201d without names.\nContainment: tokens were revoked, and filters applied; this is not a MAC address \u2014 aa:bb:cc:dd:ee:ff appears only in documentation screenshots.\nPursuant to the issuer\u2019s PIT policy and MSE listing rules, we informed the Audit Committee and will notify the Securities Oversight Board of Indica via the issuer portal within T+1.\nEvidence links: hxxps://mse.listing.example/issuer/SARAYAN?doc=earnings-draft&isUPSI=1&uid=UPSl-0426 and hxxps://mail.sarayan-metals.in/msg/8f2a- 9c1b.\nConsent and privacy: consent records for marketing emails are in CRM; Phone: +91-98200 12345; Email: info@sarayan-metals.in; template labels like \u201cPAN: ________\u201d and \u201cAddress: ________\u201d in forms are not filled with live data.\nRegistered office (fictional): Plot 17, Phase II, Nandipur Industrial Area, Kaveri Nagar, Karnataka 560199; support channel: support@sarayan-metals.in; hotline +91-114000 3344.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

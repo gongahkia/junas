@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -235,6 +243,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee point-of-contact: Ms. Keiko Naruse (Senior HR Specialist), Setagaya-ku HQ, dob 1988-04-12, Slack @knaruse88, device: iPhone 12 Pro asset HN-IT-0123.\nLinked session/data for Ms. Naruse: vpn s e s s i o n id jp-hnd-0723-AX9; payroll acct (masked) ****-**-2234; M y   N u m b e r (masked: **-****-****); https://portal.hinode.local/u?emp=HM-4472&dob=1988-04-12.\nUnder APPI, these are personal data and individual numbers; My Number is used only for tax/insurances and not transferred to any acquirer before closing; encrypted at rest; retention 5 years post-employment.\nUnder FIEA, undisclosed enumerated material facts and tender-offer facts (price range, board resolution date, number of shares, schedule) are MNPI; access limited to the board and deal team until public disclosure.\nUntil a press release is filed via the Tokyo Meridian Exchange disclosure system, these facts remain non-public; draft minutes and valuation models are labeled \u201cMNPI\u2014FIEA\u201d.\nNegative clarification: we do not collect Bluetooth or Wi\u2011Fi MAC addresses; \u201cmac\u201d references in IT inventory denote Apple MacBook Air units only and are not network identifiers.\nDSAR: submit via privacy@hinodematerials.co.jp or hxxps://privacy.hinode.co.jp/request?type=access; we verify identity using HR employee code (e.g., HM-4472) and never request full M y N u m b e r by email.\nTransfers: within Japan to processors such as KitaCloud G.K. (Tokyo DC-2) and Aomori Trust Securities Co., Ltd. for shareholder registry support; cross-border transfers are not expected for this matter.\nVendor logs may include device model and city (e.g., \u201cChofu-shi\u201d, \u201cSoraTab A2\u201d, time 21:45 JST) without names; these alone are not treated as identifying an individual.\nSample analytics datasets may show \u201cdob: 1992-03\u201d, \u201crole: analyst\u201d, \u201clocation: Nagoya-shi\u201d, \u201caccount suffix **34\u201d, or \u201crouter-113ab7\u201d; these generic fields are separated from any person.\nSecurities workflow note: pre-announcement board decks (TOB timing and price corridor) are stored in /Finance/Meridian/TOB_2026 and access is logged (user id hm-board-07, s e s s i o n j p 0 7 X).\nRetention: MNPI artifacts are retained until 7 years post-closing; employee personnel files retain only minimal data (e.g., role history, evaluations) and no device telemetry beyond 90 days.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

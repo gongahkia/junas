@@ -50,6 +50,14 @@
     "previous_must_detect_count": 18,
     "previous_must_not_detect_count": 0
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -282,6 +290,24 @@
       "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Identifiability example cluster: Ms. Elin Jorvik (born 1988-04-13), Sustainability Reporting Lead at Valdora Industrials SE, office location Kepler Quay 11, 3rd District, Nordhaven EU\u201127; work email elin.jorvik@valdora-se.example; device tag VAL-SE-AX9C-2048 with MDM profile \u201cVAL-CSR-44\u201d; cookie mar_session=NORD-8844-ELJ; building badge S/N NB-302771; support ticket ACC-GL-4472; taken together these quasi\u2011identifiers render her identifiable under GDPR.\nWe also log contextual telemetry such as client device locale \u201cnb-NH\u201d, truncated IP 10.14.5.22, and Bluetooth hash BE:12:34:56:78:9A for access control; when stored alone and salted, these are treated as pseudonymous but still personal data",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purpose: processing for share listing, investor relations, CSRD sustainability metrics, and SFDR disclosures, plus maintenance of insider lists and trade monitoring; legal bases include GDPR Art 6(1)(b),(f) and Art 9(2)(b),(g) where special categories appear in whistleblowing or works\u2011council files.\nIdentifiability example cluster: Ms. Elin Jorvik (born 1988-04-13), Sustainability Reporting Lead at Valdora Industrials SE, office location Kepler Quay 11, 3rd District, Nordhaven EU\u201127; work email elin.jorvik@valdora-se.example; device tag VAL-SE-AX9C-2048 with MDM profile \u201cVAL-CSR-44\u201d; cookie mar_session=NORD-8844-ELJ; building badge S/N NB-302771; support ticket ACC-GL-4472; taken together these quasi\u2011identifiers render her identifiable under GDPR.\nWe also log contextual telemetry such as client device locale \u201cnb-NH\u201d, truncated IP 10.14.5.22, and Bluetooth hash BE:12:34:56:78:9A for access control; when stored alone and salted, these are treated as pseudonymous but still personal data.\nNegative illustration: descriptions such as \u201ca 34\u2011year\u2011old analyst in a large EU capital using a mid\u2011range smartphone\u201d or \u201ctwo interns on a 3\u2011month contract\u201d are not used alone to single out any person and should not be relied upon for identification.\nMNPI handling: under EU MAR, any precise non\u2011public information about Valdora Industrials SE or its securities that would be likely to significantly affect price is classified as inside information and stored only in the \u201cMAR Vault\u201d with role\u2011based access and tamper\u2011evident audit trails.\nInsider list workflow: creation on trigger events (e.g., draft green bond framework, undisclosed CSRD metrics variance), validation by Compliance, notification via secure channel, and filing to PMSO upon request; retention for 5 years from the end of the event per MAR.\nSpecial category data (GDPR Art 9) are not collected for routine HR or investor workflows; however, grievance notes may incidentally include trade\u2011union membership or health details, which are minimised, access\u2011controlled, and subject to stricter retention (max 2 years) and redaction before transfers.\nCross\u2011border transfers: processors Seafrost Cloud Ltd. (Aurelia) and Orimex Data S.A. (Sundora) receive limited datasets under SCCs with supplementary encryption at rest and in transit; Transfer Impact Assessment IDs TR-VAL-2026-07 and TR-VAL-2026-09 record residual risk and safeguards per GDPR Art 46.\nWe do not sell personal data, we do not use biometric templates for authentication, and generic demographic statistics (e.g., 52% employees aged 25\u201345) are published in aggregate for CSRD without identifying individuals.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

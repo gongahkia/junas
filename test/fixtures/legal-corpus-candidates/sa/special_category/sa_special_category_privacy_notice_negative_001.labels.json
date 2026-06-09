@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -171,6 +179,12 @@
       "category": "MNPI",
       "matched_text": "restricted",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privacy Notice and Issuer Data Handling Addendum \u2014 Kingdom PDPL Context for Zahrat Securities Services Co. (CR 00-000000-00)\nWe process personal data as defined under the PDPL (information identifying a natural person directly or indirectly), including fields supplied to our Rimal Exchange issuer workflows.\nThis notice also applies to PalmCloud Analytics and CedarShield HR, even when you cheer for Dunes United FC or sip a Blue Falcon latte.\nContact: privacy@zahrat.example and 800-000-0000 (public helpline); do not send trading instructions to this mailbox.\nGeneric form labels we may display: Full Name, National ID/Iqama No., Commercial Registration No., Role, and Project Code; sample values like Iqama 999-XXXX-9999 and CR 0000000000 are placeholders only.\nIntentional collection for Person-Delta (Applicant Ref: APP-009X): biometric fingerprint templates used for access control at issuer due diligence rooms, retained 30 days, then deleted.\nNo health, genetic, religious, union, political, or sex-life data are required for other applicants, despite occasional wellness metaphors in our Desert Path DEI policy.\nNational data transfers use the Kingdom Data Authority gateway operated by the National Digital Governance Bureau (NDGB) under PDPL permits; cross-border transfers are blocked unless an adequacy decision applies.\nIssuer materials marked public (e.g., an already-announced prospectus on Rimal Exchange) are treated as non-MNPI; drafts and non-public board timelines are MNPI and restricted under market-conduct follow-up rules.\nWe keep issuer onboarding logs (workflow IDs like ONB-1A2B-3C) for 5 years unless PDPL retention exceptions require shorter periods.\nAccess is limited to roles: IssuerOps, ComplianceDesk, and NDGB-Audit; temporary vendors sign the Sand Dunes Processing Addendum v2.1.\nData subjects may submit DSARs via dsar@zahrat.example with the subject line \u201cPDPL\u2013Access\u201d, attaching only invalid samples such as Iqama 000-0000-0000.\nWe verify identity using two factors and will never request a one-time passcode by phone; any call claiming to be from \u201cRimal Exchange Control Room\u201d about tickets is likely spam.\nOur Camel Sprint program and OasisPlace wellness tips are optional and aggregated; we do not infer political opinions from team colors or poetry about dunes.\nRetention clocks for MNPI in issuer rooms auto-reset upon public disclosure, while personal data clocks follow PDPL minimization and deletion rules.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

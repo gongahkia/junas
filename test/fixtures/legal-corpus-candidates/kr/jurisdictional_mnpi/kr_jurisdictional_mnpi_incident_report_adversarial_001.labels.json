@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "KR",
@@ -260,6 +268,30 @@
       "category": "MNPI",
       "matched_text": "1.5%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\ubc95\ubb34/\uaddc\uc81c: \uc678\ubd80 \ub300\ub9ac\uc778 Ms. Yuna Seo(\ubcc0\ud638\uc0ac) \uc790\ubb38 \uc218\ub839, \uae08\uc735\uac10\ub3c5\uccad(KFOA) \uc0ac\uc774\ubc84\uc0ac\uace0 \uc0ac\uc804 \uc720\uc120 \ud1b5\uc9c0(02-0000-0000), \uad6d\uac00\uae08\uc735\uc704\uc6d0\ud68c(NFC) \uc548\ub0b4 \uae30\uc900 \uc900\uc218 \uac80\ud1a0\nHBX \uc870\ud68c\uacf5\uc2dc \uc694\uad6c \uc2dc 1\uc601\uc5c5\uc77c \ub0b4 \ud68c\uc2e0, \ud53c\ud574 \uaddc\ubaa8\uac00 100\uba85 \ucd08\uacfc \ub610\ub294 \uc11c\ube44\uc2a4 \uc911\ub2e8 48h \ucd08\uacfc \uc2dc \uc218\uc2dc\uacf5\uc2dc \uc989\uc2dc \uc2e4\ud589 \ubc0f \uc2dc\uc7a5 \uac1c\uc2dc \uc804 \uc81c\ucd9c\n\ub2f9\uc0ac 1Q26 \uc2e4\uc801\ubc1c\ud45c\u00b7\ubc30\ub2f9 \uad00\ub828 \uacf5\uc2dc\ub294 \uc774\ubbf8 HERMES(2026-05-28) \ubc0f \ubcf4\ub3c4\uc790\ub8cc(https://ir.haneulnet.example/notice?id=2026-PR-0003)\uc5d0 \uacf5\uac1c\ub3fc \uc788\uc73c\uba70 \ubcf8 \uac74\uacfc \ubb34\uad00",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ubbf8\uacf5\uac1c",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jae\u2011min Ryu \ud310\ub2e8: \uc9c1\uc811\ube44\uc6a9 \ucd94\uc815 KRW 3 8 0 ~ 5 2 0 m (FY25 OPEX\uc758 <1.5%); \ud604 \uc2dc\uc810\uc5d0\uc11c guidance \uc601\ud5a5 \ubbf8\ubbf8, MAC \ubd88\uc131\ub9bd \uc9c4\ub2e8\n\ud55c\ube5b\uac70\ub798\uc18c(HBX) \uc720\uac00\uc99d\uad8c\uc2dc\uc7a5 \uacf5\uc2dc\uaddc\uc815\uc5d0 \ub530\ub978 \uc218\uc2dc\uacf5\uc2dc \ub300\uc0c1 \uac00\ub2a5\uc131 \uac80\ud1a0 \uc911\uc774\uba70, \uc2dc\uc7a5 \uac1c\uc2dc \uc804(2026-06-05 08:30 KST) \uc804\uc790\uacf5\uc2dc\uc2dc\uc2a4\ud15c HERMES \uc790\uc728\uacf5\uc2dc \ucd08\uc548 \uc0c1\uc2e0 \uc900\ube44\n\ub2f9\uc0ac\ub294 2Q \uc2e4\uc801 IR \ube14\ub799\uc544\uc6c3(2026-05-25~\uacb0\uc0b0\uacf5\uc2dc) \uae30\uac04 \uc911\uc73c\ub85c \uc678\ubd80 \ucee4\ubba4\ub2c8\ucf00\uc774\uc158\uc740 ir@haneulnet.example\ub85c \ub2e8\uc77c \ucc3d\uad6c\ud654; \uacf5\uc815\uacf5\uc2dc \uc804 \ub300\uc678 \uacf5\uc720 \uae08\uc9c0\n\ubcf4\uc548\uc870\uce58 \ud604\ud669: \uce68\ud574\uc9c0\ud45c IOC \uc218\uc9d1, \ub124\ud2b8\uc6cc\ud06c \ubd84\ub9ac \uc644\ub8cc, \ud2f0\ucf13 INC-24-0B3F, \ud574\uc2dc SHA256 b3 f4 1c..9a, v p n - s e s s i o n #0007 \uac15\uc81c \uc885\ub8cc\n\ub370\uc774\ud130 \uc8fc\uccb4 \ud1b5\uc9c0: \uc720\ucd9c \ud655\uc815 \uc2dc PIPA \uae30\uc900 24\uc2dc\uac04 \ub0b4 \ud1b5\uc9c0 \uc608\uc815; \ubaa9\ub85d\uc5d0 eID-0 4 2 1, eID-0 4 5 3 \ubc0f r e s i d e n t - no. \u20189*1 2 1 5-1 0 2****\u2019 \ud3ec\ud568\n\ubc95\ubb34/\uaddc\uc81c: \uc678\ubd80 \ub300\ub9ac\uc778 Ms. Yuna Seo(\ubcc0\ud638\uc0ac) \uc790\ubb38 \uc218\ub839, \uae08\uc735\uac10\ub3c5\uccad(KFOA) \uc0ac\uc774\ubc84\uc0ac\uace0 \uc0ac\uc804 \uc720\uc120 \ud1b5\uc9c0(02-0000-0000), \uad6d\uac00\uae08\uc735\uc704\uc6d0\ud68c(NFC) \uc548\ub0b4 \uae30\uc900 \uc900\uc218 \uac80\ud1a0\nHBX \uc870\ud68c\uacf5\uc2dc \uc694\uad6c \uc2dc 1\uc601\uc5c5\uc77c \ub0b4 \ud68c\uc2e0, \ud53c\ud574 \uaddc\ubaa8\uac00 100\uba85 \ucd08\uacfc \ub610\ub294 \uc11c\ube44\uc2a4 \uc911\ub2e8 48h \ucd08\uacfc \uc2dc \uc218\uc2dc\uacf5\uc2dc \uc989\uc2dc \uc2e4\ud589 \ubc0f \uc2dc\uc7a5 \uac1c\uc2dc \uc804 \uc81c\ucd9c\n\ub2f9\uc0ac 1Q26 \uc2e4\uc801\ubc1c\ud45c\u00b7\ubc30\ub2f9 \uad00\ub828 \uacf5\uc2dc\ub294 \uc774\ubbf8 HERMES(2026-05-28) \ubc0f \ubcf4\ub3c4\uc790\ub8cc(https://ir.haneulnet.example/notice?id=2026-PR-0003)\uc5d0 \uacf5\uac1c\ub3fc \uc788\uc73c\uba70 \ubcf8 \uac74\uacfc \ubb34\uad00\n\ucc38\uace0\ub85c \u2018BluePine Cloud\u2019 \ubca4\ub354\uc758 CVE\u20112026\u20111234 \ud328\uce58\ub178\ud2b8\uc640 \uc790\uc0ac \u2018GreenEdge Router\u2019 \ucd9c\uc2dc \ubcf4\ub3c4\uc790\ub8cc\ub294 \uacf5\uac1c \ucd9c\ucc98 \uae30\ubc18\uc774\uba70 MNPI\uac00 \uc544\ub2d8; \uc77c\ubc18 \uc815\ucc45 \ubb38\uad6c\ub294 \uc5ec\uae30\uc11c \uc0dd\ub7b5\n\ucd08\uae30 \uce68\ud22c \uacbd\ub85c \ucd94\uc815: Ms. Hye\u2011jin Ko(\uace0\ud61c\uc9c4 \ub300\ub9ac, hj_ko@haneulnet.example) \ub300\uc0c1 \uc2a4\ud53c\uc5b4\ud53c\uc2f1; \ube44\ubc00\ubc88\ud638 \ucd08\uae30\ud654 \uc644\ub8cc, OU=HR \uc678 \ud6a1\uc801 \uc774\ub3d9 \uc9d5\ud6c4 \uc5c6\uc74c\n\ud0c0\ubd80\uc11c \uc6b4\uc601\uacf5\uc9c0(\uc608: \uad6c\ub0b4\uc2dd\ub2f9 \uba54\ub274 \ubcc0\uacbd, \ud611\ub825\uc0ac \u2018Moonpine Logistics\u2019 \ubc30\uc1a1\uc9c0\uc5f0)\ub294 \ud22c\uc790\ud310\ub2e8\uacfc \ubb34\uad00\ud558\uba70 \uacf5\uc2dc \ub300\uc0c1\uc774 \uc544\ub2d8\n\ubb38\uc758: Mr. Seung",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ud574\ub2f9 \uc815\ubcf4\ub294 \ubc1c\ud589\ud68c\uc0ac \uae30\uc900 \uc911\uc694\uc131 \uac80\ud1a0 \ub300\uc0c1\uc774\uba70, \uc790\ubcf8\uc2dc\uc7a5 \uad00\ub828 \ubc95\ub839\uc0c1 \ubbf8\uacf5\uac1c \uc911\uc694\uc815\ubcf4\ub85c \ubd84\ub958(\uacf5\uc2dc \uc5ec\ubd80 \ud655\uc815 \uc804); \uc120\ubcc4\uc801 \uc81c\uacf5 \uae08\uc9c0\u00b7\uc784\uc9c1\uc6d0 \uac70\ub798 \uc81c\ud55c \uc989\uc2dc \uc801\uc6a9\nCFO Mr. Jae\u2011min Ryu \ud310\ub2e8: \uc9c1\uc811\ube44\uc6a9 \ucd94\uc815 KRW 3 8 0 ~ 5 2 0 m (FY25 OPEX\uc758 <1.5%); \ud604 \uc2dc\uc810\uc5d0\uc11c guidance \uc601\ud5a5 \ubbf8\ubbf8, MAC \ubd88\uc131\ub9bd \uc9c4\ub2e8",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -50,6 +50,14 @@
     "previous_must_detect_count": 24,
     "previous_must_not_detect_count": 7
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -422,6 +430,18 @@
       "category": "MNPI",
       "matched_text": "Scope 1",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts: Mr. Stefan Olander (CFO) and Ms. Dr. Ines Kral (DPO), AuroraGrid NV, Rue des \u00c9chappes 12B, 1049 Bruseaux, BE; emails: stefan.olander@auroragrid.eu; ines.kral@auroragrid.eu; tel +32 2 555 0199",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AuroraGrid NV \u2014 Confidential Term Sheet for acquisition of HelioBlock SA (Project \u201cPolaris\u201d); EU MAR Article 7 precise information, not for public distribution.\nIssuer/Buyer: AuroraGrid NV (listed on EuroNetix Brussels) \u2014 Seller: NovaHelio Holdings S\u00e0rl \u2014 Target: HelioBlock SA (FR) incl. VoltLedger Ltd (UK); internal code AUR\u2011HB\u201126.\nPurchase price: \u20ac480,000,000 EV; consideration \u20ac300m cash + \u20ac180m new AUR shares; 10% earn\u2011out tied to CSRD Scope 1\u20133 intensity reduction and SFDR PAI scores; no MAC shall be deemed to arise from general crypto\u2011asset price volatility or changes in ESG taxonomy.\nDigital assets: Target operates DLT staking and custody for enterprise clients; closing conditional on MiCA CASP authorisation and passporting; token warrant kicker for legacy \u201cHBX\u2011u\u201d utility credits to be settled off\u2011market, subject to UMA/CFA guidance.\nCyber disclosure: data room note CYB\u201126\u201101 describes a January\u20112026 validator key compromise and 11h service disruption; \u20ac12m escrow for cyber\u2011breach indemnity, with step\u2011down after third\u2011party audit under UCA\u201127001 baseline controls.\nMAR compliance: wall\u2011crossing only via dealsec@auroragrid.eu; maintain insider list (Form MAR\u2011IL v3) for PDMRs and advisers; blackout from 30 days pre\u2011results to T+1 of publication; no research or sales commentary by NovaFin Digital Markets SE while on the restricted list.\nSelective disclosure/tipping: external communications limited to anodyne \u201cstrategic review\u201d language until competent authority filing; any market\u2011testing under Article 11 market soundings to follow scripted protocols and recordkeeping.\nGDPR/Art.9: special\u2011category HR data (occupational health and biometric access logs) remain at source; cross\u2011border processors in RO\u2011PL\u2011UK engaged under SCCs and UK IDTA addendum; only pseudonymised, purpose\u2011limited datasets to be transferred; DPIA and transfer risk assessment pre\u2011signing.\nSustainability undertakings: establish CSRD reporting controls within 120 days; align with ESRS E1/E2/E4; climate KPIs assured by an accredited statutory auditor; SFDR PAI metrics for fund clients may use public RTS annex references where feasible.\nConditions precedent: competition clearances (UCD Phase I), CFA fit\u2011and\u2011proper for crypto custody, and remedy of any material cyber vulnerabilities flagged in CYB\u201126\u2011Q3 scan; long\u2011stop date 31.12.2026.\nPayment mechanics: wire to escrow at Banque d\u2019Helvete SA, IBAN: ZZ21 NOVA 0000 13X4 7420, BIC: NOVAFRPP; Escrow Agreement Ref: ESC\u2011AUR\u2011HBX\u2011\u2022\u202242; Contract\u2011ID: AUR\u2011HB\u20119e7b??.\nData room and reference: https://dataroom.auroragrid.eu/r/tx?inv=AUR%2DHB%2D2026&l=0x9af | EU.MAR RegRef: AUR/0x3A\u2011\u03b2\u201111; E U N i o n   M a r k e t s   A u t h o r i t y   d r a f t   f i l i n g  # 4.\nEducational/marketing note (benign): our Q&A brochure will explain \u201ccrypto wallets\u201d, \u201cinsider lists\u201d, and \u201cinformation barriers\u201d for employees in general terms only and contains no investment recommendation or deal detail.\nops: update csrd kpi workbook after quarter close; sync sfdr pai mapping in jira; refresh product names for \u201cAuroraGrid Vault\u201d and \u201cHelioNode\u201d landing pages.\nContacts: Mr. Stefan Olander (CFO) and Ms. Dr. Ines Kral (DPO), AuroraGrid NV, Rue des \u00c9chappes 12B, 1049 Bruseaux, BE; emails: stefan.olander@auroragrid.eu; ines.kral@auroragrid.eu; tel +32 2 555 0199.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

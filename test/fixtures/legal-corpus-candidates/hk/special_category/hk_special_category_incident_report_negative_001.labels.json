@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -129,6 +137,12 @@
       "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbourview Capital Holdings Limited \u2014 Incident Report (Cyber Operations) \u2014 Hong Kong, HKT 09:10\u201312:45, 12 May 2026\nSummary: A credential-harvesting phishing email led to brief exposure of two role mailboxes (ir@harbourview.capital; hr@harbourview.capital) and a read-only HR file share; no service outage occurred.\nAffected systems: Banyan HR Cloud (read-only share), Orchid Fund Portal (staging environment), LotusPay Treasury sandbox mail relay; PineGuard IDS and Lotus Shield Gateway logged anomalous logins from offshore IPs.\nContent accessed comprised mostly templated policies and public materials, including the Blue Lantern Cyber Hygiene Policy, the Inclusive Growth DEI newsletter, wellness tips, and product FAQs for the JadeBridge app.\nM&A context: An archived diligence workspace for an abandoned 2022 preliminary review was visible; it held generic checklists and a redacted board pack already summarized in past announcements (stock code placeholder 0X88).\nFund context: Orchid Fund Portal staging used dummy investor references (INV-TEST-0001, FUND-000-ALPHA) and synthetic KYC placeholders; no live LP data or subscription agreements were present.\nMNPI assessment (SFO): No non-public specific information about any corporation likely to be price-material was identified; materials overlapped with information previously posted on market channels and were stale or generic.\nPDPO assessment: Exposed mailboxes were role-based; one HR item contained personal data with special-category aspects \u2014 Employee A submitted a medical leave note indicating ongoing physiotherapy for a knee injury.\nContainment: Password resets, OAuth token revocation, conditional access re-enforcement, and DLP quarantine completed by 13:15 HKT; PineGuard rules updated and Banyan HR share set to least-privilege.\nRegulatory consultation: Listing compliance team concluded no immediate disclosure under HKEX Listing Rule 13.09; record entered in PDPO breach register; voluntary notification to PCPD considered but deferred pending root-cause memo.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

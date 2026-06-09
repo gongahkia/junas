@@ -43,6 +43,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -335,6 +343,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Incident Report \u2014 Kawatori Nexus K.K. \u2014 2026-06-03 09:20 JST \u2014 Confidential (\u53d6\u7de0\u5f79\u4f1a\u8cc7\u6599)\nSubject: preliminary cyber incident affecting ESG data room and DPT custody; F I E A-sensitive details regarding proposed acquisition of GreenArc K.K. (Project SUMIRE).\nOn 2026-06-02 23:14 our SOC observed anomalous egress from bucket \u201cesg-room-prj-sumire\u201d and relay host \u201cdpt-nx-4a7-**-**\u201d; board materials and deal calendars were accessed.\nExfiltrated drafts include a sustainability-linked loan term sheet with 15bps margin step-up if Scope 2 > 28ktCO2e, and a slide proposing tender-offer window 07/22\u201308/05; these facts remain undisclosed to FDAEX and not public under FIEA.\nWe have expanded the insider list (\u5185\u90e8\u8005\u540d\u7c3f) to six em ployees in Group Treasury and erected an information barrier (\u30af\u30ea\u30fc\u30f3\u30c1\u30fc\u30e0/Chinese wall); a blackout window applies until remedial disclosure.\nOne HR CSV contained masked \u500b\u4eba\u756a\u53f7 (e.g., ****-****-****) tied to three applicants; although redacted, under APPI (\u500b\u4eba\u60c5\u5831\u4fdd\u8b77\u6cd5) we are treating as personal data and have purged copies.\nNo customer crypto-asset balances moved; \u201cSangoVault\u201d relayer keys were revoked and non-public security-token pilot nodes were isolated from FDAEX connectivity.\nRoot cause points to a compromised contractor login for Ishiguro Rina-san (outsourced IT), account u.ishiguro+prj@kawatori-nexus.example.jp, via reused NekoDrive SSO token.\nImmediate actions: rotate SSO secrets, invalidate VPN certs, patch jump boxes, and notify DPT ops; do not forward deal decks outside the ring-fenced folder.\nContact for this incident: Mr. Tadashi Mori-san, CISO, security@kawatori-nexus.example.jp, https://intra.kawatori-nexus.example.jp/ir?doc=PR0J-SUM1RE&tok=7d3%2F%2F.\nWe will consider voluntary \u5831\u544a to the local exchange\u2019s cyber desk within 24h, and assess whether a corrective press release is required if the tender schedule changes under FIEA Article 167 guidance.\nAt this time, no material adverse change has occurred and no MAC clause is invoked in the GreenArc financing; public TCFD benchmarks cited were drawn from open sources.\nOur ESG newsletter explains insider lists, information barriers, and selective disclosure risks; it is educational content and not a disclosure of any transaction.\nmarketing will host a webinar on \u201ccrypto custody resilience\u201d using sanitized logs only; no mention of Project SUMIRE, tender-offer facts, or commercial terms will be included.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

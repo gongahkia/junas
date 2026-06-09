@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -174,6 +182,18 @@
       "category": "MNPI",
       "matched_text": "MOU",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed Acquisition by Citrine Banyan Holdings Limited (Main Board issuer; stock code 00XX0) of a controlling interest in OrchidByte Systems Holdings Limited from Lumen Peak Ventures SPC \u2014 Cell A\nTransaction: Non-binding proposal for a share purchase conferring control over OrchidByte Systems Holdings Limited; subject to negotiation of definitive agreements and completion of confirmatory due diligence\nPurpose: Strategic expansion into logistics software and cloud operations, consistent with the issuer\u2019s public strategy update published on hkexnews.hk on 28 Feb 20X3\nStructure and Consideration: Mix of cash and new shares in Citrine Banyan Holdings Limited to be determined by independent valuation; no fixed price or exchange ratio is specified in this term sheet\nFunding: Purchaser expects to utilise an undrawn facility previously described in its 20X2 annual report and a potential cornerstone commitment from Verdant Tern Capital Fund I, L.P. (non-binding indication of interest)\nRegulatory Classification: Preliminary size tests based on last audited public financials indicate a discloseable or major transaction under Chapter 14 of the Listing Rules; no connected transaction is anticipated at this stage\nConditions Precedent: satisfactory due diligence, board approvals, any HKEX disclosure obligations, and confirmation that no whitewash waiver is required under the SFC Takeovers Code\nDisclosure and Announcements: Inside information will be managed in accordance with Part XIVA of the SFO and Rule 13.09; any announcement will be published on the HKEX website and may reference prior public press releases dated 20X2\u201320X3\nBlackout/Dealing Restrictions: The issuer\u2019s model code blackout periods are set out in its published corporate governance report; no option grants were made during the last blackout as disclosed in the 20X3 interim report\nEmployees and Integration: No immediate changes to employee terms are contemplated; any adjustments will follow posted HR policies and applicable Hong Kong employment laws; no individual personnel arrangements are included herein\nTimetable: A non-binding MOU was announced on 12 May 20X3; indicative signing is targeted for late Q3 20X4 with completion within 90 days thereafter, subject to third-party consents\nDue Diligence Scope: business, legal, tax, and IT diligence on the Target; the Vendor will provide a data room index substantially similar to that used in its publicly described 20X3 divestment process\nClosing Mechanics: completion accounts or locked-box approach to be agreed; warranties and indemnities on customary terms for Hong Kong transactions; no earn-out terms are committed in this term sheet\nProposed announcement timing: The issuer intends to publish a Part XIVA/Rule 13.09 announcement regarding this proposed acquisition on or about 15 August 20X4; as at the date hereof, this intended timing has not been disclosed publicly",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

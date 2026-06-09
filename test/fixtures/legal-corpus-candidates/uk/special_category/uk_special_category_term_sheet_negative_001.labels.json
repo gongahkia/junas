@@ -50,6 +50,14 @@
     "previous_must_detect_count": 5,
     "previous_must_not_detect_count": 9
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -172,6 +180,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Northlake Payments Ltd by Wrenford Capital plc (LSE Main Market issuer regulated by the FCA) [Date: 20X6].\nStructure: Acquisition of 100% of the shares via share purchase; consideration mix of cash and new Wrenford Capital plc ordinary shares at \u00a3X.XX per share (illustrative).\nRegulatory: May constitute a Class 1 transaction; any announcement to be made via a non-MNPI RNS and in accordance with UK MAR and DTR 2; insider lists to be maintained per Article 18 UK MAR.\nConditions precedent: FCA change-in-control approval (FSMA s.178), no Phase 2 CMA reference, and consent from the LSE; seller warranties customary for a UK financial-services deal.\nFinancing: Underwritten placing of new shares and a committed revolving facility from Hawthorne Bridge Bank Limited; placeholder identifiers ISIN: GB00-XYZ-0000 and Facility Ref: 000-ABC-000 (invalid).\nTimetable: Heads agreed; public intention to proceed noted in prior illustrative RNS of 01/01/20X0; long-stop date 20X6-Q4; all dates subject to FCA clearance.\nEmployees: No redundancies planned; TUPE considerations to be reviewed; generic Wellness@Work Policy and Data Harmony Policy apply across the group.\nInsider information: This term sheet contains no inside information and is not a recommendation; it uses generic examples and stale public facts for illustration.\nIntentional disclosure (special category): Employee A, solely for occupational health assessment, has disclosed ongoing treatment for type 1 diabetes; no further health data will be processed for diligence.\nData room & security: Access subject to Biometric Access Control Policy at the Canary Wharf office; the policy describes systems, not any individual\u2019s biometrics.\nBusiness integration: Migration of the Aurora Edge payments platform to Wrenford\u2019s CloudForge v9 within 180 days post-completion; Leeds hub to coordinate.\nCulture & DEI: Rainbow Inclusion Commitment and Conduct & Culture Framework will apply; this clause is aspirational DEI prose and has no bearing on MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

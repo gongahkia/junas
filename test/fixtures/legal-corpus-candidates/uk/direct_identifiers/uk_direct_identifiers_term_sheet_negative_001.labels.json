@@ -50,6 +50,14 @@
     "previous_must_detect_count": 6,
     "previous_must_not_detect_count": 4
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -152,6 +160,18 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12345678",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_company_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms \u2014 Recommended Acquisition of Northmoor Capital plc by Wexford Harbour Group Ltd (UK)\nTarget: Northmoor Capital plc (Company No. 12345678, registered in England & Wales); Buyer: Wexford Harbour Group Ltd (Company No.: [to be provided]).\nStructure: Possible offer by way of a scheme of arrangement under Part 26 Companies Act 2006; consideration mechanics to be finalised; no pricing terms are set out in this term sheet.\nStatus: Non-binding save for confidentiality, costs, exclusivity, and governing law; this summary reflects publicly announced intentions as of 02 February 2025.\nRegulatory: The parties will comply with UK MAR, the Takeover Code, and applicable listing rules; notifications to the UK competent authority will be made via a regulatory information service.\nFinancing: Buyer expects to fund via committed facilities from Meridian & Brake Bank plc (fictional) and available cash; no underwriting announcement is made herein.\nEmployees/SMCR: No changes to employment terms are proposed at signing; any senior manager appointments will comply with SMCR; no individual personal data is requested at this stage.\nConditions: Customary shareholder approvals, court sanction (if a scheme), and clearances from the Albion Competition Office and the Prudential Markets Supervisor (fictional UK authorities).\nExclusivity/No-Shop: Target agrees to a six-week exclusivity period; no offer-related arrangements contravening the Takeover Code will be entered into.\nDisclosure: No MNPI is included; references are limited to information already published via a regulatory news service (e.g., RNS 00/0000), for illustrative citation only.\nCommunications: Investor queries should go to investor-relations@wexfordharbour.example (role mailbox) or the public helpline 0800 000 000; do not contact unnamed deal team members directly.\nKYC placeholders (do not submit real data): NI No.: QQ 12 34 56 C; UK Passport No.: 000000000; Bank IBAN: GB00 ZXZX 0000 0000 0000 00; Phone: 020 0000 0000; Registered office address: [insert UK address].\nListing/Admission: If a share consideration is used, any admission will be sought on the Londinium Growth Market (fictional UK exchange), subject to eligibility assessment.\nTimetable: Expected signing following satisfactory diligence of public filings; longstop date and antitrust timetable to be agreed in definitive documentation.\nGoverning Law/Jurisdiction: This term sheet is governed by the laws of England and Wales; the courts of England and Wales have exclusive jurisdiction over binding provisions.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

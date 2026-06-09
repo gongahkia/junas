@@ -15,13 +15,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -35,13 +35,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -57,6 +57,46 @@
     "post_us_uk_realign_source_report": "/tmp/kaypoh-candidates-after-us-uk-reviewed.json",
     "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
     "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -121,12 +161,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "HR-Φ-00291",
+      "matched_text": "HR-\u03a6-00291",
       "rule": "employee_id"
     },
     {
       "category": "PII",
-      "matched_text": "HR-Ψ-77420",
+      "matched_text": "HR-\u03a8-77420",
       "rule": "employee_id"
     },
     {
@@ -360,6 +400,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential internal memo \u2014 Isla Bay Holdings Corp. (IBHC) \u2014 Legal & Compliance; for restricted circulation under SRC and PSE disclosure rules.\nSubject: Pre-SEC (PH) Form 17-C assessment \u2014 cyber incident at payroll e-wallet vendor and proposed sustainability-linked note/token pilot; trading blackout and insider-list actions.\nOn 28 May 2026, vendor KapaKoin Remit Services reported anomalous API calls affecting a staging environment; preliminary logs suggest up to 212 contractor records (name + corporate email only) may have been viewable, with no access to payroll banks or IDs; containment achieved, NPC notice decision pending within 72 hours.\nPer Data Privacy Act, identity is not directly ascertainable beyond internal HR cross-reference; sample HR File IDs: HR-\u03a6-00291, HR-\u03a8-77420; DPO contact: dpo@isla-bay.com.ph; no government identifiers or salary transfers occurred.\nTreasury is negotiating a non-public term sheet with Paracan Securities, Inc. for a PSE-tapped sustainability-linked note (SLN) and a limited pilot of tokenized depository participations on the ChainMayumi network; initial pricing 6.35% with 25bp step-up if 2027 Scope 2 target missed.\nAn insider-list has been opened per SRC Rule 12: Mr. Rafael L. Quimpo (CFO) r.quimpo@isla-bay.com.ph, Atty. Lira D. Sison (CorpSec) corpsec@isla-bay.com.ph, Ms. J. Borromeo (ESG), Engr. Victor Y. P\u2014ProcOps, and Ms. T. Magat (Paracan) under NDA-GL-B8x; additions require Compliance sign-off.\nInformation barriers remain in effect: research, treasury, HR, and the IslaPay retail app team are ring-fenced; wall-crossing logs must be signed before access; no selective disclosure to analysts or chat groups; inquiries via compliance@isla-bay.com.ph.\nRecommend a trading blackout for directors, officers, and covered employees effective 29 May 2026 until two full trading days after any Form 17-C cyber update and SLN pricing announcement; tipping is prohibited, including to family or household staff.\nKey commercial terms (draft): 90-day lock-up; make-whole at PH T-bill +50bp; KPI verification by BayanThirdParty LLP; bookrunner discretionary clawback 10%; see http://deal.isla-bay.com/ESG?doc=SLN_v0_9&rid=gR33n for redline.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -372,7 +418,7 @@
   "uncertain": [
     {
       "concept": "transaction_codename",
-      "matched_text": "proj codename: Amihan-Δ",
+      "matched_text": "proj codename: Amihan-\u0394",
       "reason": "Appears to be a deal codename but does not match the 'Project <Name>' pattern required by the rule."
     },
     {
@@ -395,37 +441,5 @@
       "matched_text": "ChainMayumi node",
       "reason": "Internal crypto/DLT infrastructure asset reference; relevant to DPT controls but not clearly covered by current rules."
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

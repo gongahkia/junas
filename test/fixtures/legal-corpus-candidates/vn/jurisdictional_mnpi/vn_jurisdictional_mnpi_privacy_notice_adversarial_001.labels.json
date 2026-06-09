@@ -57,6 +57,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "VN",
@@ -85,7 +93,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Trần Quốc Minh",
+      "matched_text": "Mr. Tr\u1ea7n Qu\u1ed1c Minh",
       "rule": "named_person"
     },
     {
@@ -100,7 +108,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "thông tin chưa công bố",
+      "matched_text": "th\u00f4ng tin ch\u01b0a c\u00f4ng b\u1ed1",
       "rule": "nonpublic_marker"
     },
     {
@@ -110,7 +118,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Blackout windows: no trading or forwarding MNPI from T-15 to T+2 around scheduled công bố thông tin",
+      "matched_text": "Blackout windows: no trading or forwarding MNPI from T-15 to T+2 around scheduled c\u00f4ng b\u1ed1 th\u00f4ng tin",
       "rule": "blackout_period_reference"
     },
     {
@@ -165,7 +173,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "thông tin nội bộ",
+      "matched_text": "th\u00f4ng tin n\u1ed9i b\u1ed9",
       "rule": "nonpublic_marker"
     },
     {
@@ -249,6 +257,12 @@
       "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lam Son Renewables JSC \u2013 Data Processing and MNPI Addendum (VN), between Lam Son Renewables JSC (Controller) and Nexus Data Services Co., Ltd \u2013 VN Branch (Processor), ref LS-DPA-26A.\nPersonal data (Decree 13) includes information associated with or helping identify a specific person: full name, role, corporate email, device IDs, payroll codes, bank account alias, and transaction metadata; e.g., Employee No.: LS-EMP-00 7 3, Acct alias: VNB-9X7-331.\nProcessor shall not access, use, or disclose th\u00f4ng tin ch\u01b0a c\u00f4ng b\u1ed1 relating to the issuer\u2019s securities, financial results, or corporate actions; selective disclosure is prohibited and issuer-relative materiality applies to Lam Son Renewables JSC.\nPublic disclosure timing follows SGCN (S\u00e0n Giao d\u1ecbch Ch\u1ee9ng kho\u00e1n Nam Ph\u00fa) c\u00f4ng b\u1ed1 th\u00f4ng tin protocols: extraordinary events must be posted on the exchange portal within 24 hours; periodic reports follow exchange calendar and CCVQ guidance.\nBlackout windows: no trading or forwarding MNPI from T-15 to T+2 around scheduled c\u00f4ng b\u1ed1 th\u00f4ng tin; internal calendars mark \u201cblackout \u2013 LSQ\u201d and Processor must enforce data access freezes.\nDSAR: individuals may request access, correction, deletion, or objection via privacy@lamson-renewables.vn; we acknowledge within 72 hours and respond within 15 days, unless restricted to preserve MNPI until c\u00f4ng b\u1ed1.\nTransfers: cross-border processing to the Nexus Cloud Delta facility in Sunriver, SG requires encryption, standard contractual clauses, and CCVQ notification where applicable; url ref: https://transfer.nexus.example/vn?id=LSR-xfer-    044.\nRetention: payroll and HR records up to 5 years; banking transaction logs up to 2 years; MNPI-tagged datasets retained until c\u00f4ng b\u1ed1 th\u00f4ng tin is completed and a 30-day audit hold expires.\nSecurity controls: role-based access, dual approval for MNPI flags, and tamper-evident logs under series ls-sec-    v26; Processor must segregate issuer datasets from non-issuer operational updates.\nSample banking/transaction scope: payment instruction stub for salary payout \u201cTxRef VNTR-0045A-    7\u201d with amounts masked; Processor may verify bank routing only, not content of private placement wires.\nContact: Mr. Tr\u1ea7n Qu\u1ed1c Minh (DPO), Lam Son Renewables JSC, minh.tran@lamson-renewables.vn, hotline +84 909 555 371; escalation: compliance@lamson-renewables.vn and fax 0 8  2  3  1  1  9.\nAlready announced reference: Q1/2026 B\u00e1o c\u00e1o t\u00e0i ch\u00ednh has been c\u00f4ng b\u1ed1 th\u00f4ng tin on SGCN (http://sgcn.vn/disclosure?q=LSR-Q1-2026), and the press release on the corporate site cites Project Aruna revenue figures; those are public and stale.\nNegative MAC language: this addendum does not indicate a material adverse change, does not trigger MAC, and is not an offer or solicitation of securities.\nlowercase ops note: we\u2019ll sync with hr + finance tomorrow to close the payroll tickets; not about the issuer\u2019s securities.\nSubtle MNPI reminder: draft private placement schedule \u201cPP-     28May\u201d and term-sheet pricing are th\u00f4ng tin n\u1ed9i b\u1ed9 and non-public until c\u00f4ng b\u1ed1 th\u00f4ng tin within the 24-hour window on the exchange portal.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -313,7 +327,7 @@
     },
     {
       "concept": "blackout label",
-      "matched_text": "“blackout – LSQ”",
+      "matched_text": "\u201cblackout \u2013 LSQ\u201d",
       "reason": "Internal blackout label may be relevant to blackout controls but is not a standard phrase."
     }
   ]

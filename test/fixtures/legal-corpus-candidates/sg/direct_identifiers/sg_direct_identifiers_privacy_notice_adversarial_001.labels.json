@@ -45,6 +45,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -227,6 +235,18 @@
       "category": "MNPI",
       "matched_text": "material non-public information",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201834567N) and Lattice Meridian Ltd. (U E N=2 0 1 9 1 2 3 4 0 X), listed on the StraitX Exchange Mainboard (SXX-ST) and subject to its listing rules.\nContact/DPO: Ms. Alina Chia, DPO, dpo@lattice-meridian.sg, Tel: +65 8934 2210; Legal Ops: legalops@garnetpalm.law for coordination with project counsel.\nScope: processing of employee/shareholder personal data under the PDPA for M&A due diligence and a contemplated debt issuance; this addendum does not itself contain MNPI or trade-sensitive terms.\nDirect identifiers to be processed may include NRIC/FIN and passport numbers for verification and screening; example (invalid checksum for illustration): N R I C   S 1 2 3 4 5 6 7 A; Passport E9876543Q.\nBanking for payroll or LTIP administration (if applicable): Account No. 032-1199-004 (client ledger), SWIFT: ZLNXSG00; we do not collect device MAC addresses or serials.\nData minimisation: redact address lines except for postal code; sample: 55 Red Fern Cres, #10-08, Singapore 449933; role-only contacts such as \u201cHR Manager\u201d are not treated as PII.\nProcessing instructions: MNPI, if any, must be quarantined; do not email MNPI; upload to vault at https://vault.lattice-meridian.sg/share?deal=ProjectTamarind&uen=201834567N.\nFor DSARs under the PDPA, submit via https://privacy.lattice-meridian.sg/dsar?ref=UEN-201834567N&case=S1234567A; postal alternative: PO Box 772, Cormorant Rd, Singapore 900772.\nPublic contacts that are non-PII: borrower helpline 1800-000-0000, careers@lattice-meridian.sg, and generic form labels like \u201cName:________, NRIC:________\u201d.\nRetention: HR records 7 years post-cessation; capital-markets workpapers 6 years from transaction close; any Exchange announcement already public is treated as generally available information.\nCross-border transfer: to processors in JP and AU under comparable protection with SCC-equivalent clauses; vendor: Indigo Byte Pte. Ltd. (UEN 202145678R) acting as data intermediary.\nIncident response: notify within 24h to Ms. Alina Chia",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Garnet & Palm LLP (UEN: 201834567N) and Lattice Meridian Ltd. (U E N=2 0 1 9 1 2 3 4 0 X), listed on the StraitX Exchange Mainboard (SXX-ST) and subject to its listing rules.\nContact/DPO: Ms. Alina Chia, DPO, dpo@lattice-meridian.sg, Tel: +65 8934 2210; Legal Ops: legalops@garnetpalm.law for coordination with project counsel.\nScope: processing of employee/shareholder personal data under the PDPA for M&A due diligence and a contemplated debt issuance; this addendum does not itself contain MNPI or trade-sensitive terms.\nDirect identifiers to be processed may include NRIC/FIN and passport numbers for verification and screening; example (invalid checksum for illustration): N R I C   S 1 2 3 4 5 6 7 A; Passport E9876543Q.\nBanking for payroll or LTIP administration (if applicable): Account No. 032-1199-004 (client ledger), SWIFT: ZLNXSG00; we do not collect device MAC addresses or serials.\nData minimisation: redact address lines except for postal code; sample: 55 Red Fern Cres, #10-08, Singapore 449933; role-only contacts such as \u201cHR Manager\u201d are not treated as PII.\nProcessing instructions: MNPI, if any, must be quarantined; do not email MNPI; upload to vault at https://vault.lattice-meridian.sg/share?deal=ProjectTamarind&uen=201834567N.\nFor DSARs under the PDPA, submit via https://privacy.lattice-meridian.sg/dsar?ref=UEN-201834567N&case=S1234567A; postal alternative: PO Box 772, Cormorant Rd, Singapore 900772.\nPublic contacts that are non-PII: borrower helpline 1800-000-0000, careers@lattice-meridian.sg, and generic form labels like \u201cName:________, NRIC:________\u201d.\nRetention: HR records 7 years post-cessation; capital-markets workpapers 6 years from transaction close; any Exchange announcement already public is treated as generally available information.\nCross-border transfer: to processors in JP and AU under comparable protection with SCC-equivalent clauses; vendor: Indigo Byte Pte. Ltd. (UEN 202145678R) acting as data intermediary.\nIncident response: notify within 24h to Ms. Alina Chia and the listing sponsor; however, disclosure to the Exchange is coordinated to avoid premature release.\nEmployment-specific notes: collection of phone numbers and work emails of candidates strictly for interviews; the public hotline above is not collected as PII.\nCompliance note: nothing here constitutes or reveals material non-public information under the Securities and Futures Act; internal draft only; v0.3.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

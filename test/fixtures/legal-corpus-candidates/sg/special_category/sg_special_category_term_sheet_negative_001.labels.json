@@ -42,6 +42,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SG",
@@ -204,6 +212,18 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Blue Banyan Limited (SGX Mainboard issuer; UEN: 2015BANYANZ) as Buyer and Mango Ridge Pte. Ltd. (UEN: 2013MANGOZ) as Target; this term sheet is non-binding except for confidentiality, PDPA, costs and governing law.\nTransaction: Proposed acquisition of a controlling stake of up to 70% of the issued shares of Mango Ridge Pte. Ltd. by Blue Banyan Limited via a share purchase.\nConsideration: Mix of cash and new Blue Banyan shares (ISIN: ZZ0000000000 placeholder), with exact quantum and formula to be agreed by reference to 30 trading-day VWAP; no price-sensitive figure is set out herein.\nRegulatory/SGX: Expected to be a major transaction under SGX-ST Listing Manual Chapter 10, subject to shareholder approval and SGX-ST clearance; not an IPT under Chapter 9 (to be confirmed).\nPublic Information: The parties refer to the non-binding MOU announced on SGXNet on 12 Feb 2026 and intend that this term sheet contains only information already generally available.\nConditions Precedent: Satisfactory legal/financial/tax due diligence conducted in a PDPA-compliant manner, MAS confirmations where applicable, no material adverse change, key customer contracts renewal, and standard corporate approvals.\nPDPA/Data Room: Seller to provide a clean room with masking/anonymisation of personal data; no uploading of national identification numbers, medical certificates, or biometric templates; Buyer to sign data intermediary terms and follow the Data Minimisation Policy.\nEmployment/Integration: Post-completion, Target to adopt the Harmony DEI Charter and SugarLeaf Wellness Programme; no retrenchment exercise without prior consultation and fair selection metrics unrelated to protected characteristics.\nIntentional sensitive disclosure: For HR purposes only, Target confirms that its HR Manager is a member of the Crescent Office Staff Union; Buyer will not process or rely on this union membership for redundancy or promotion decisions.\nMNPI Handling: Any non-public information shared will be treated as inside information under the SFA and SGX Listing Rule 703; wall-crossing acknowledgements and cleansing announcements to be coordinated through the Company Secretary.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

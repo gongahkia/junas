@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -82,22 +90,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "it‑ops@wahaenergy.example",
+      "matched_text": "it\u2011ops@wahaenergy.example",
       "rule": "email_address"
     },
     {
       "category": "PII",
-      "matched_text": "PDPL Data Minimization Standard v2.1‑KSA",
+      "matched_text": "PDPL Data Minimization Standard v2.1\u2011KSA",
       "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "non‑public information",
+      "matched_text": "non\u2011public information",
       "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "matched_text": "Mazen Al‑Rimal",
+      "matched_text": "Mazen Al\u2011Rimal",
       "rule": "named_person"
     },
     {
@@ -151,6 +159,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reporting entity: Waha Energy JSC (fictional issuer), CR 700-XX99-AB12; business unit: Digital Operations.\nDate of detection: 1448-02-11H; detection tool: Desert Falcon SIEM v4.2; incident type: misconfigured vendor portal.\nSummary: a test cache on the Saha360 Wellness Portal exposed form labels (e.g., National ID/Iqama, Name, Department) without live values, due to a staging-to-prod sync.\nScope: 37 portal pages cached; content consisted of UI text, sample placeholders (e.g., 0000-0000-0000), and generic DEI banners; no CMA MNPI observed.\nOne legacy HR folder referenced an image tagged to the fictional employee Mazen Al\u2011Rimal that included a fingerprint template used for clock-in, i.e., biometric data under PDPL special categories.\nNo national ID/Iqama numbers, medical test results, or payroll records were accessible in the portal cache; invalid identifier-shaped strings were placeholders only.\nIssuer workflow impact: insider list, pre\u2011clearance, and disclosure committee processes were not implicated; sustainability KPIs shown were already announced in the recent Saudi Exchange filing.\nRegulatory context: assessed under KSA PDPL and CMA market\u2011conduct guidance; preliminary view is no market-sensitive non\u2011public information was exposed.\nData transfer consideration: no cross\u2011border movement occurred; pending SDAIA transfer assessment template remains in draft and contains only lorem fields.\nContainment: cache purged; WAF rules tightened; OasisGuard policy pack and PDPL Data Minimization Standard v2.1\u2011KSA applied.\nNotifications: role mailbox privacy@wahaenergy.example and it\u2011ops@wahaenergy.example informed; vendor RimalSoft acknowledged misconfiguration in ticket RS\u2011CFG\u2011TEST.\nPlanned measures: disable auto\u2011promote from staging, implement eDisclosure portal peer review, and roll out Desert Falcon Green Zone hardening.\nCultural note: our DEI charter encourages a level playing field; like the Riyadh Sandcats keeping their formation, we will keep our lines tight.\nAssurance: internal audit will sample 5% of HR repositories to confirm no further special\u2011category data is stored outside approved systems.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -187,7 +201,7 @@
       "reason": "Product/process name; not PII/MNPI"
     },
     {
-      "matched_text": "800‑000‑WAHA",
+      "matched_text": "800\u2011000\u2011WAHA",
       "reason": "Corporate helpline; not personal phone number/PII"
     }
   ],
@@ -210,12 +224,12 @@
     },
     {
       "concept": "Named person without honorific",
-      "matched_text": "Mazen Al‑Rimal",
+      "matched_text": "Mazen Al\u2011Rimal",
       "reason": "Personal name appears but without honorific/signature block; may not meet strict named_person rule."
     },
     {
       "concept": "Insider trading control",
-      "matched_text": "pre‑clearance",
+      "matched_text": "pre\u2011clearance",
       "reason": "Compliance control relevant to MNPI workflows, but not explicitly covered by allowed MNPI marker rules."
     },
     {

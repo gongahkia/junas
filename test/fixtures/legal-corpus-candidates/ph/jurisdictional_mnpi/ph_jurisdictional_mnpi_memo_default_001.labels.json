@@ -8,13 +8,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -28,13 +28,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -48,6 +48,46 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
     "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -237,7 +277,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Transaction (non-public): Executed non-binding term sheet to acquire IslaPay Microfinance Bank, Inc.; indicative purchase price PHP 1.1–1.3 billion; exclusivity through 31 July; financing via upsizing existing SunHarbor Bank of Luzon facility; draft 17-C prepared—share strictly within diligence perimeter.",
+      "matched_text": "Transaction (non-public): Executed non-binding term sheet to acquire IslaPay Microfinance Bank, Inc.; indicative purchase price PHP 1.1\u20131.3 billion; exclusivity through 31 July; financing via upsizing existing SunHarbor Bank of Luzon facility; draft 17-C prepared\u2014share strictly within diligence perimeter.",
       "rule": "material_event"
     },
     {
@@ -299,7 +339,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Transaction (non-public): Executed non-binding term sheet to acquire IslaPay Microfinance Bank, Inc.; indicative purchase price PHP 1.1–1.3 billion; exclusivity through 31 July; financing via upsizing existing SunHarbor Bank of Luzon facility; draft 17-C prepared—share strictly within diligence perimeter.",
+      "matched_text": "Transaction (non-public): Executed non-binding term sheet to acquire IslaPay Microfinance Bank, Inc.; indicative purchase price PHP 1.1\u20131.3 billion; exclusivity through 31 July; financing via upsizing existing SunHarbor Bank of Luzon facility; draft 17-C prepared\u2014share strictly within diligence perimeter.",
       "rule": "material_event"
     },
     {
@@ -346,6 +386,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "From: Office of the Corporate Secretary (Atty. Ramon D. Ilagan), To: Board, ExCom, CFO Ms. Celina R. Oroza; contact: legal@lunarbayholdings.com.ph\nSubject: MNPI handling re: Q2 unaudited results, proposed microfinance acquisition, dividend policy review, bank covenant consent, HR restructuring, and tax items\n\nMNPI summary: Unaudited Q2 EBITDA currently tracks +22% versus internal guidance driven by a one-off VAT refund; Board review set for 4 June 2026; treat as material and non-public under SRC and PSE Disclosure Rules until SEC Form 17-C and PSE EDGE disclosures are posted immediately following Board action.\nSelective disclosure: Non-deal roadshow with Sierra Capital Funds on 30\u201331 May proceeds using only materials already filed (SEC 17-A FY2025, 2025 Sustainability Report on PSE EDGE); do not discuss preliminary Q2 figures or the IslaPay Microfinance Bank term sheet.\nBlackout window: Effective 27 May until two full trading days after posting of the 17-C; applies to directors, officers, Finance, Strategy, HR, and designated contractors on the insider list; notice to issue via HR Advisory HR-2026-14.\n\nTransaction (non-public): Executed non-binding term sheet to acquire IslaPay Microfinance Bank, Inc.; indicative purchase price PHP 1.1\u20131.3 billion; exclusivity through 31 July; financing via upsizing existing SunHarbor Bank of Luzon facility; draft 17-C prepared\u2014share strictly within diligence perimeter.\nBanking: SunHarbor consent letter (24 May) temporarily raising leverage cap to 3.5x Net Debt/EBITDA; potential materiality for noteholders\u2014include in 17-C if ratified by the Board.\nHR/PII: Proposed separation program lists 37 employees including Mr. Jeric A. Montalban (Employee ID LBH-001872, TIN 417-555-789-000) and Ms. Liza F. Cordero; protect personal data in accordance with the Data Privacy Act; transmit via encrypted channels only; do not upload PII to PSE EDGE.\n\nTax/regulatory: BIR preliminary notice on FY2024 VAT input credits received 20 May; current exposure PHP 6.2 million\u2014assessed immaterial and remains confidential unless elevated; no public disclosure at this stage.\nAlready public/not MNPI: PSE EDGE disclosure posted 15 March 2026 on opening of Pag-asa Mall branch and change of principal office to 18 Coral Drive, Seaview Business Park, Brgy. Mabini, Navotas; press articles on nationwide wage hikes are widely disseminated and non-issuer specific.\nNon-issuer operational updates (not material): Supplier Neptune Plastics\u2019 shift changes and the cafeteria menu revamp have no expected impact on the Company\u2019s financials.\n\nCommunications protocol: Direct investor/media queries to investor.relations@lunarbayholdings.com.ph; do not use personal emails; route legal questions to Atty. Ilagan at legal@lunarbayholdings.com.ph.\nNext steps: Finalize SEC 17-C and PSE EDGE drafts by 31 May; pre-clear dividend language; prepare trading halt template if a leak is suspected; maintain insider list acknowledgments per SRC Rule 17 and PSE Revised Disclosure Rules; training refresher scheduled by Compliance on 28 May.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -408,37 +454,5 @@
       "matched_text": "exclusivity through 31 July",
       "reason": "Deal exclusivity period is sensitive timing information but not explicitly covered by a listed MNPI rule"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

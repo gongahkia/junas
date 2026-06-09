@@ -50,6 +50,14 @@
     "previous_must_detect_count": 20,
     "previous_must_not_detect_count": 6
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -332,6 +340,12 @@
       "category": "MNPI",
       "matched_text": "Scope 1 emissions",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller: Northbridge Digital plc; contact Mr. Idris K. Halberd, Data Protection Officer, dpo@northbridge-digital.example.uk; compliance queries: compliance@northbridge-digital.example.uk\nWe process personal data under UK GDPR for employment, SMCR fitness and propriety checks, and compliance with UK MAR in relation to crypto custody, ESG-linked financing, and market-facing announcements.\nWe maintain insider lists identifying employees, advisers, and counterparties in connection with a non-public cyber incident affecting testnet-to-mainnet key rotation in our crypto custody platform and an unannounced sustainability-linked revolving credit facility.\nInformation barriers operate between our Digital Assets unit and Treasury; wall-crossing requires recorded consent, and PDMR blackout windows apply until a regulatory news service announcement via a UK-approved PIP is released.\nWe monitor for tipping and selective disclosure; pre-sounding of institutional investors is permitted only under NDA and with formal wall-crossing by Markets Compliance.\nLawful bases: legal obligation (UK MAR and disclosure controls), legitimate interests (fraud and cyber incident response), and contract (employment and supplier onboarding); consent is not relied upon for these purposes.\nCategories may include names, business contact details, device identifiers, wallet public keys linked to staff test accounts, trading restrictions, and deal notes with draft commercial terms (e.g., fee adjustments tied to Scope 1 emissions targets not yet public).\nWe share necessary data with external counsel Brannan & Forge LLP, a UK-approved PIP, and, where required, the UK competent authority for market abuse; limited data may be provided to a prospective lender under NDA for due diligence on the ESG facility.\nInternational transfers to processors such as CloudHearth Ltd (UK/EU data centres) and Veridian Controls Pte. Ltd (Singapore) use the UK IDTA or the UK Addendum to the EU SCCs with supplementary measures.\nRetention: insider lists and wall-crossing records are kept for 5 years from creation; cyber incident logs and forensic images are retained for 12 months unless required longer by legal hold; marketing mailing lists honour unsubscribe within 48 hours.\nOur crypto learning series and climate-risk brochures are educational and operational in nature, referencing generic tokens, cyber hygiene, and ESG concepts only; they contain no deal-stage information and are not MNPI.\nSecurity measures include segregated drives for project \u201cProject Verdant\u201d and access on a need-to-know basis; temporary read access may be granted to IT under supervision solely to patch zero-day vulnerabilities.\nYou may exercise your rights to access, rectification, restriction, and objection by emailing privacy@northbridge-digital.example.uk; you may also contact the UK data protection supervisory authority, though we ask that you contact us first.\nFor DSARs that might reveal insider-list content, we will redact third-party data and defer disclosure where necessary to protect the integrity of an ongoing transaction or cyber investigation, documenting our justification.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
     "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "HK",
@@ -135,7 +161,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "On 2026-05-12 at 19:44 HKT, Ms. Hera Lau (DoB 1986-11-02; age 39), Assistant Investment Director at Lotus Apex, accessed the VDR “Orchid” via device LAH-NTBK-4821 from Harbourview Office, VPN session CHX-VPN-2026-0512-1944, IP 10.18.44.7",
+      "matched_text": "On 2026-05-12 at 19:44 HKT, Ms. Hera Lau (DoB 1986-11-02; age 39), Assistant Investment Director at Lotus Apex, accessed the VDR \u201cOrchid\u201d via device LAH-NTBK-4821 from Harbourview Office, VPN session CHX-VPN-2026-0512-1944, IP 10.18.44.7",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -145,7 +171,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "via her contact channel +852 5700 0029 and the address on file “Suite 1203, Pearl Arc Tower, Harborview District”",
+      "matched_text": "via her contact channel +852 5700 0029 and the address on file \u201cSuite 1203, Pearl Arc Tower, Harborview District\u201d",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -175,7 +201,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "12–15%",
+      "matched_text": "12\u201315%",
       "rule": "financial_percentage"
     },
     {
@@ -245,12 +271,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Confidential – Internal Compliance Note (Hong Kong SAR context): Lotus Apex Holdings Limited (City Harbour Exchange main board issuer; ticker LAXF) – potential acquisition of North Pearl Logistics Group.",
+      "matched_text": "Confidential \u2013 Internal Compliance Note (Hong Kong SAR context): Lotus Apex Holdings Limited (City Harbour Exchange main board issuer; ticker LAXF) \u2013 potential acquisition of North Pearl Logistics Group.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Ms. Lau’s internal account hlau-ops and email hera.lau@lotusapex.example.hk viewed the term sheet titled “Project Lapis – NPLG Acquisition”, and downloaded a draft SPA referencing consideration range HKD 1.8–2.0b and a break fee of HKD 36m.",
+      "matched_text": "Ms. Lau\u2019s internal account hlau-ops and email hera.lau@lotusapex.example.hk viewed the term sheet titled \u201cProject Lapis \u2013 NPLG Acquisition\u201d, and downloaded a draft SPA referencing consideration range HKD 1.8\u20132.0b and a break fee of HKD 36m.",
       "rule": "material_event"
     },
     {
@@ -317,12 +343,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Confidential – Internal Compliance Note (Hong Kong SAR context): Lotus Apex Holdings Limited (City Harbour Exchange main board issuer; ticker LAXF) – potential acquisition of North Pearl Logistics Group.",
+      "matched_text": "Confidential \u2013 Internal Compliance Note (Hong Kong SAR context): Lotus Apex Holdings Limited (City Harbour Exchange main board issuer; ticker LAXF) \u2013 potential acquisition of North Pearl Logistics Group.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Ms. Lau’s internal account hlau-ops and email hera.lau@lotusapex.example.hk viewed the term sheet titled “Project Lapis – NPLG Acquisition”, and downloaded a draft SPA referencing consideration range HKD 1.8–2.0b and a break fee of HKD 36m.",
+      "matched_text": "Ms. Lau\u2019s internal account hlau-ops and email hera.lau@lotusapex.example.hk viewed the term sheet titled \u201cProject Lapis \u2013 NPLG Acquisition\u201d, and downloaded a draft SPA referencing consideration range HKD 1.8\u20132.0b and a break fee of HKD 36m.",
       "rule": "material_event"
     },
     {
@@ -379,6 +405,30 @@
       "category": "MNPI",
       "matched_text": "Insider List",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PDPO considerations: the board pack for 18 June includes personal data (e.g., Ms. Lau\u2019s user ID, device tag, office location, and a payroll account ending 6682) that must be minimised in external circulation or replaced with role descriptors.\nFor employment workflow, HR will issue Ms. Lau a confidentiality reminder and confirm acknowledgment via her contact channel +852 5700 0029 and the address on file \u201cSuite 1203, Pearl Arc Tower, Harborview District\u201d, which must not be shared outside the issuer.\nSeparately, a departing VP in operations (male, late 20s) will return a handset LAX-IPH-2231 and a badge numbered 2037; these standalone descriptors do not, without linkage, identify an individual for PDPO purposes",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2013 Internal Compliance Note (Hong Kong SAR context): Lotus Apex Holdings Limited (City Harbour Exchange main board issuer; ticker LAXF) \u2013 potential acquisition of North Pearl Logistics Group.\nPursuant to the Securities and Futures Ordinance, the information below is likely inside information as it is specific to our group, not generally known to those dealing in our securities, and would be price-sensitive.\nOn 2026-05-12 at 19:44 HKT, Ms. Hera Lau (DoB 1986-11-02; age 39), Assistant Investment Director at Lotus Apex, accessed the VDR \u201cOrchid\u201d via device LAH-NTBK-4821 from Harbourview Office, VPN session CHX-VPN-2026-0512-1944, IP 10.18.44.7.\nMs. Lau\u2019s internal account hlau-ops and email hera.lau@lotusapex.example.hk viewed the term sheet titled \u201cProject Lapis \u2013 NPLG Acquisition\u201d, and downloaded a draft SPA referencing consideration range HKD 1.8\u20132.0b and a break fee of HKD 36m.\nFinance also prepared a bridging file showing pro forma EPS uplift of 12\u201315% and a proposed placing with White Harbor Growth Fund LP (fund code WHGF-A-2046) to fund part of the cash component.\nThese documents remain non-public; under our Dealing Policy and the local takeovers framework, all staff are reminded of blackout and no-tipping obligations until a formal announcement on the Exchange.\nPDPO considerations: the board pack for 18 June includes personal data (e.g., Ms. Lau\u2019s user ID, device tag, office location, and a payroll account ending 6682) that must be minimised in external circulation or replaced with role descriptors.\nFor employment workflow, HR will issue Ms. Lau a confidentiality reminder and confirm acknowledgment via her contact channel +852 5700 0029 and the address on file \u201cSuite 1203, Pearl Arc Tower, Harborview District\u201d, which must not be shared outside the issuer.\nSeparately, a departing VP in operations (male, late 20s) will return a handset LAX-IPH-2231 and a badge numbered 2037; these standalone descriptors do not, without linkage, identify an individual for PDPO purposes.\nFor fund onboarding, investor KYC templates showing \u201c1990-07-07; Bayview Ward; account ending 1135\u201d are sample fields only and not tied to any named person in this matter.\nDraft announcement timing (target 26 June), the SPA price range, and any whitewash waiver element are MNPI and should not be discussed with dealers, buy-side contacts, or press until cleared by the regulator and the Exchange.\nAny contact with North Pearl Logistics Group or White Harbor Growth Fund teams must be logged in the Insider List (entry code IL-2026-045), including time, device used, and purpose.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -426,24 +476,6 @@
       "concept": "date of birth field",
       "matched_text": "1990-07-07",
       "reason": "Appears as a KYC sample date; not explicitly anchored as DoB in text"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

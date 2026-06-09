@@ -50,6 +50,14 @@
     "previous_must_detect_count": 18,
     "previous_must_not_detect_count": 6
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -257,6 +265,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Data Protection Officer, Dr. Maja Feld, dpo@lunaria-se.example; compliance liaison: Mr. Jorin Hale, compliance@lunaria-se.example.\nScope: export of HR and investor-relations records to NimbusFrame Ltd (processor) in the Federated Archipelago for CSRD/SFDR reporting dashboards.\nLawful basis: Art 6(1)(c) legal obligation for CSRD/SFDR disclosures and Art 6(1)(f) legitimate interests; no automated decision-making under Art 22 will occur.\nSpecial categories: Art 9 data limited to voluntary workforce diversity indicators; for this export Art 9 fields are excluded and remain stored only within the EEA.\nTransfer mechanism: standard contractual clauses and encryption with EEA-held keys; TIA completed 04 June 2026 with low residual risk; no onward transfers to further third countries.\nMinimisation: only aggregated sustainability metrics and hashed employee IDs (e.g., LNS-2934) are transmitted; individual CVs, medical notes, and union status are not exported.\nRetention: exported datasets retained by NimbusFrame for 12 months post-publication of the annual CSRD report, then deleted and certificate of erasure returned within 30 days.\nDSAR workflow: Ms. Elira Voss requested access and erasure on 28 May 2026; copy provided on 30 May 2026 and her email headers older than 180 days were erased from the export.\nConsent withdrawal: Mr. Teren Ulf withdrew consent for optional diversity analytics on 01 June 2026; his Art 9 responses are suppressed and will not be transferred or processed further.\nEU MAR safeguards: datasets containing draft Helios yield guidance and unannounced capacity forecasts are classified as inside information and are explicitly excluded from any export.\nInsider list handling: the MAR insider list is maintained locally under restricted access; hash-only test data used in training is synthetic and does not contain MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

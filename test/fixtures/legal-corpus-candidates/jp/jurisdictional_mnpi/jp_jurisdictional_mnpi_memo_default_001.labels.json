@@ -47,6 +47,32 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -70,7 +96,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "未公表の重要事実",
+      "matched_text": "\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f",
       "rule": "nonpublic_marker"
     },
     {
@@ -95,7 +121,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "未公表",
+      "matched_text": "\u672a\u516c\u8868",
       "rule": "nonpublic_marker"
     },
     {
@@ -150,12 +176,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "hr‑privacy@kanzakitech.co.jp",
+      "matched_text": "hr\u2011privacy@kanzakitech.co.jp",
       "rule": "email_address"
     },
     {
       "category": "PII",
-      "matched_text": "cross‑border processing",
+      "matched_text": "cross\u2011border processing",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -175,7 +201,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "employee code KZ‑4421",
+      "matched_text": "employee code KZ\u20114421",
       "rule": "employee_id"
     },
     {
@@ -185,7 +211,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "only need‑to‑know distribution via secure board portal",
+      "matched_text": "only need\u2011to\u2011know distribution via secure board portal",
       "rule": "information_barrier_marker"
     },
     {
@@ -195,7 +221,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "heads‑of‑terms shared under NDA",
+      "matched_text": "heads\u2011of\u2011terms shared under NDA",
       "rule": "information_barrier_marker"
     },
     {
@@ -264,6 +290,24 @@
       "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Shunpei Morisawa) will convene 12 June 2026, 10:00 JST to resolve a cash tender offer at JPY 1,620 per share; announcement planned via J\u2011TDlink under \u9069\u6642\u958b\u793a at 08:30 JST on 13 June; until then, these are \u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f under FIEA Art. 166/167.\nTrading blackout applies to directors, designated employees, and advisers from 31 May through 16 June; selective disclosure is prohibited, including internal chat channels; only need\u2011to\u2011know distribution via secure board portal.\nAPPI/My Number: do not upload individual numbers to diligence repositories; e.g., Ms. Rika Konda (HR) maintains employee records\u2014Mr. Haruto Izumi\u2019s My Number 872140995321 and employee code KZ\u20114421 must remain in HR systems only.\nInsider list to include Ms. Ayano Uchida (CCO), Mr. Daisuke Tomonaga (Director), and external counsel Kaede Mori, Esq.; acknowledgments to be obtained before any access to draft TOB notice or valuation schedules.\nIssuer\u2011relative materiality: projected consideration equals approx. 18% of consolidated assets; treat board minutes, pricing models, and post\u2011TOB governance slate as MNPI until J\u2011TDlink disclosure occurs.\nPublic\u2011status checkpoints: rumors in general press do not render facts public unless the Company issues corrective disclosure via \u9069\u6642\u958b\u793a; do not rely on third\u2011party blogs or conference chatter.\nReference for precision: on 20 May 2026, the Company filed its Yukashoken Hokokusho via EDINEX\u2011JP (code EX12345) and issued a broad press release regarding FY2025 guidance; this is public and stale, and not MNPI.\nNon\u2011issuer operational note: Nadeshiko Plastics KK posted a routine maintenance update on its website; this is unrelated to the Company\u2019s securities and is not MNPI.\nEmployee trading communications must route through IR; any external inquiries to be forwarded to compliance@kanzakitech.co.jp; no comment policy remains in effect until formal disclosure window opens.\nCounterparty access: heads\u2011of\u2011terms shared under NDA with Shinkai Electric KK on 28 May; data room permissions to exclude HR folders and any personal data fields under APPI.\nAfter J\u2011TDlink publication, maintain blackout through TOB commencement; internal sensitivities not expressly disclosed (e.g., integration timeline and management appointments) remain \u672a\u516c\u8868 and subject to FIEA restrictions.\nAudit trail: weekly review of access logs; purge any resumes, addresses, and family registers; tokenize individual codes; record APPI consents for any cross\u2011border processing.\nFor agenda changes or document circulation, contact Mr. Shunpei Morisawa via morisawa.sec@kanzakitech.co.jp",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The Board (chaired by Mr. Shunpei Morisawa) will convene 12 June 2026, 10:00 JST to resolve a cash tender offer at JPY 1,620 per share; announcement planned via J\u2011TDlink under \u9069\u6642\u958b\u793a at 08:30 JST on 13 June; until then, these are \u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f under FIEA Art. 166/167.\nTrading blackout applies to directors, designated employees, and advisers from 31 May through 16 June; selective disclosure is prohibited, including internal chat channels; only need\u2011to\u2011know distribution via secure board portal.\nAPPI/My Number: do not upload individual numbers to diligence repositories; e.g., Ms. Rika Konda (HR) maintains employee records\u2014Mr. Haruto Izumi\u2019s My Number 872140995321 and employee code KZ\u20114421 must remain in HR systems only.\nInsider list to include Ms. Ayano Uchida (CCO), Mr. Daisuke Tomonaga (Director), and external counsel Kaede Mori, Esq.; acknowledgments to be obtained before any access to draft TOB notice or valuation schedules.\nIssuer\u2011relative materiality: projected consideration equals approx. 18% of consolidated assets; treat board minutes, pricing models, and post\u2011TOB governance slate as MNPI until J\u2011TDlink disclosure occurs.\nPublic\u2011status checkpoints: rumors in general press do not render facts public unless the Company issues corrective disclosure via \u9069\u6642\u958b\u793a; do not rely on third\u2011party blogs or conference chatter.\nReference for precision: on 20 May 2026, the Company filed its Yukashoken Hokokusho via EDINEX\u2011JP (code EX12345) and issued a broad press release regarding FY2025 guidance; this is public and stale, and not MNPI.\nNon\u2011issuer operational note: Nadeshiko Plastics KK posted a routine maintenance update on its website; this is unrelated to the Company\u2019s securities and is not MNPI.\nEmployee trading communications must route through IR; any external inquiries to be forwarded to compliance@kanzakitech.co.jp; no comment policy remains in effect until formal disclosure window opens.\nCounterparty access: heads\u2011of\u2011terms shared under NDA with Shinkai Electric KK on 28 May; data room permissions to exclude HR folders and any personal data fields under APPI.\nAfter J\u2011TDlink publication, maintain blackout through TOB commencement; internal sensitivities not expressly disclosed (e.g., integration timeline and management appointments) remain \u672a\u516c\u8868 and subject to FIEA restrictions.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -272,7 +316,7 @@
       "reason": "public filing reference; not MNPI"
     },
     {
-      "matched_text": "EDINEX‑JP (code EX12345)",
+      "matched_text": "EDINEX\u2011JP (code EX12345)",
       "reason": "public filing code; not MNPI"
     },
     {
@@ -285,11 +329,11 @@
     },
     {
       "matched_text": "Nadeshiko Plastics KK",
-      "reason": "non‑issuer operational update; not MNPI"
+      "reason": "non\u2011issuer operational update; not MNPI"
     },
     {
       "matched_text": "the Company",
-      "reason": "role‑noun reference; not PII/MNPI"
+      "reason": "role\u2011noun reference; not PII/MNPI"
     }
   ],
   "source_jurisdiction": "JP",
@@ -301,56 +345,38 @@
     },
     {
       "concept": "employee_id",
-      "matched_text": "employee code KZ‑4421",
+      "matched_text": "employee code KZ\u20114421",
       "reason": "Employee identifier phrased as 'code' rather than 'ID'; semantically an employee ID but may be missed by strict detectors."
     },
     {
       "concept": "definitive_agreement",
-      "matched_text": "heads‑of‑terms shared under NDA",
+      "matched_text": "heads\u2011of\u2011terms shared under NDA",
       "reason": "Transactional document reference relevant to deal status, but not one of the enumerated definitive agreement types."
     },
     {
       "concept": "local disclosure channel",
-      "matched_text": "J‑TDlink",
-      "reason": "Timely disclosure system indicator relevant to public/non‑public status; not explicitly covered by allowed rules."
+      "matched_text": "J\u2011TDlink",
+      "reason": "Timely disclosure system indicator relevant to public/non\u2011public status; not explicitly covered by allowed rules."
     },
     {
       "concept": "timely disclosure",
-      "matched_text": "適時開示",
+      "matched_text": "\u9069\u6642\u958b\u793a",
       "reason": "Local public disclosure mechanism affecting MNPI status; mapping to existing markers is not explicit."
     },
     {
-      "concept": "nonpublic/public‑status semantics",
-      "matched_text": "rumors in general press do not render facts public unless the Company issues corrective disclosure via 適時開示",
+      "concept": "nonpublic/public\u2011status semantics",
+      "matched_text": "rumors in general press do not render facts public unless the Company issues corrective disclosure via \u9069\u6642\u958b\u793a",
       "reason": "Policy guidance on public status thresholds; useful MNPI context but not a direct match to a listed rule."
     },
     {
       "concept": "MNPI scope",
-      "matched_text": "board minutes, pricing models, and post‑TOB governance slate",
+      "matched_text": "board minutes, pricing models, and post\u2011TOB governance slate",
       "reason": "Undisclosed internal materials treated as MNPI; not an enumerated material fact."
     },
     {
       "concept": "consent marker",
       "matched_text": "record APPI consents",
-      "reason": "Consent tracking is privacy‑relevant, but allowed rules only include consent withdrawal marker."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reason": "Consent tracking is privacy\u2011relevant, but allowed rules only include consent withdrawal marker."
     }
   ]
 }

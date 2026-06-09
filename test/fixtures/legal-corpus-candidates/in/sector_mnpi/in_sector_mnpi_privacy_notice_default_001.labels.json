@@ -30,6 +30,14 @@
     "review_profile": "strict",
     "status": "codex_reconciled_pending_owner_review"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "IN",
@@ -327,6 +335,18 @@
       "category": "MNPI",
       "matched_text": "information barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ce covers personal data processing for listed-company workflows under Indian data protection principles and the securities law framework on unpublished price sensitive information (UPSI) and insider trading prohibitions.\nWe collect business identifiers (name, role, official email), device/usage logs, and, where required for compliance/KYC, masked government identifiers (e.g., last 4 digits of Aadhaar/PAN/GSTIN); we process children\u2019s data (under 18 years) only with verified guardian consent.\nPurposes include regulatory compliance, contract performance with vendors (e.g., Meridian Fintech Services Pvt. Ltd.), security monitoring, and investor-relations operations; optional communications rely on consent and can be withdrawn at any time via privacy@aurivastgreen.example.in.\nUPSI examples include non-public ESG emissions restatement drafts, commercial terms in sustainability-linked PPA proposals (e.g., tiered pricing and volume-linked discounts), and preliminary cyber incident assessments affecting production OT networks.\nCrypto context: non-public evaluations of a green-token custody and settlement pilot with Kaveri Digital Exchange, and treasury wallet integration prototypes, are embargoed and limited to the insider list until public disclosure.\nInsider lists are maintained for persons with a legitimate purpose (including Ms. Rhea Kulkarni, Head\u2013Sustainability, and Mr. Dev Malhotra, CIO), with access ring-fenced in the \u201cProject Neem\u201d clean-room; tipping and circumvention of information barriers are strictly prohibited.\nBlackout windows apply from quarter-end until 48 hours after results are posted on the Varanasi Stock Exchange, and any material information must be disseminated broadly through exchange releases; selective disclosure to analysts, lenders, or channel partners is not permitted.\nCyber incident workflow: system log data, IP telemetry, and ticketing records may be processed; draft breach notices and ransomware negotiation options are treated as UPSI until disclosed; incident log retention is extended for the duration of investigations.\nEducational/marketing: our ESG and cyber academy offers webinars on blockchain wallets, emission baselining, and \u201cinsider list\u201d record-keeping as generic training, without reference to live transactions, embargo periods, or any deal-stage materials.\nData subject rights: you may access, correct, port, erase, or restrict processing, and withdraw consent; submit requests to privacy@aurivastgreen.example.in with reasonable identity verification.\nGrievance officer: please contact Dr. Nikhil Varma at grievances@aurivastgreen.example.in; children\u2019s requests will be actioned only upon guardian verification consistent with Indian requirements.\nSharing and transfers: we engage processors such as Meridian Fintech Services Pvt. Ltd. and host certain services in the Republic of Navindi; cross-border transfers occur under contractual safeguards, limited to necessity, and subject to Indian legal allowances.\nRetention: insider lists and UPSI access logs are retained for 7 years; crypto wallet test artifacts for 18 months; customer support tickets for 24 months; otherwise we minimize retention unless a legal hold or exchange rule requires longer.\nSecurity: role-based access, encryption in transit/at rest, dual control for wallet keys, and network segregation between the Treasury\u2013Crypto Desk and Investor Relations preserve confidentiality and information barriers.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

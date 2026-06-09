@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -380,6 +388,24 @@
       "category": "MNPI",
       "matched_text": "520,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet (Non-Binding) \u2014 Project Jade Spring: Proposed Strategic Investment in Guangling MicroPower Co., Ltd. by Baiyun Integrated Systems Group Limited (PRC law applies; confidentiality/exclusivity/governing law clauses binding).\nParties: Investor \u2014 Baiyun Integrated Systems Group Limited (USCC: 91320110MA2UX3T9A4); Target \u2014 Guangling MicroPower Co., Ltd. (USCC: 91440300MA5LD8Q2H7); Investor contact: corporate@baiyun-sys.cn.\nStructure & Consideration: Investor to acquire 35% of Target\u2019s enlarged share capital via mixed primary/secondary issuance for a total consideration of RMB 280,000,000; implied pre-money valuation RMB 520,000,000; closing adjustments tied to audited FY2025 net profit.\nListing & Regulator Context: Target is a ChiNext Board issuer on the Shenzhen Stock Exchange; if the transaction constitutes a material asset reorganization, CSRC registration to be completed; otherwise ChiNext post-filing and issuer board/shareholder approvals apply.\nPRC Merger Control: SAMR anti-monopoly filing to be made if turnover thresholds are triggered; closing conditional upon SAMR clearance or no-filing confirmation.\nInside Information & Trading: The parties acknowledge that financial forecasts, pipeline orders, and term sheet status constitute inside information prior to public disclosure; no dealing in Target securities until information is publicly disclosed per Securities Law and stock exchange rules.\nData Compliance (PIPL/CSL/DSL): Personal information involved in due diligence to be minimized and de-identified; resident ID numbers shall not be collected (only salted verification hashes retained); minors\u2019 data (<14) not processed; important data security assessments under DSL to be conducted if classification so requires.\nCross-Border Transfer: Any export of personal information or important data (e.g., vendor diligence to Hong Kong/Singapore) will proceed only after executing the CAC Standard Contract or completing a CAC Security Assessment, with data mapping and localization measures documented.\nKey Personnel Retention: Mr. Ning Hao (DOB 1991-11-08, age 34), Head of Device Security at Target (Nanshan District, Shenzhen), to execute a 36\u2011month service and non-compete agreement; internal device ID GL\u2011SZ\u2011NH\u2011007, enterprise email ning.hao@guangling-mp.cn, payroll account code GLMP\u2011HR\u20114462, and VPN session reference SID\u20112026\u201106\u201105\u2011GLMP\u2011NH01 are recorded for access control and audit.\nOperational Integration: Post-closing, Investor to nominate 2 directors and 1 supervisor; R&D center expansion in Nanshan to be funded from primary proceeds; no transfer of source code repositories to third countries without updated data impact assessment and CAC-compliant measures.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

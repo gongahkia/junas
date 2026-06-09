@@ -101,6 +101,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -443,6 +451,18 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Named contact for bookbuilding: Mr. Hadi Al Mansoor (CFO), Emirates ID 784-1985-6543210-2; UAE Passport U12977543; mobile +971 50 246 9130; hadi.almansoor@najmoasis.test.\nEscrow details for cornerstone subscription: IBAN AE12 3456 7890 1234 5678 901 at Desert Crescent Bank PJSC; do not circulate beyond the private placement list",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Memorandum \u2014 Strictly Confidential \u2014 PDPL/MNPI\nTo: Board Compliance Committee, Najm Oasis Logistics PJSC (Trade Licence GNFC-PJSC-2049-338721; TRN 109204567890123)\nFrom: Ms. Rana Al Jouri, General Counsel, legal@najmoasis.test, +971 52 123 4489\nSubject: Pre-IPO private placement to Rimal Family Office SPC and listing on Abara Securities Exchange; PDPL controls and market-abuse safeguards under FSCD Code\nThe draft price range of AED 4.20\u20134.60 and Q2 revenue update (AED 147m vs prior internal guidance AED 120m) are non-public and market-sensitive; restrict access to Deal Room GNFC-DR-11 and apply clean-teams for financial model tabs.\nNamed contact for bookbuilding: Mr. Hadi Al Mansoor (CFO), Emirates ID 784-1985-6543210-2; UAE Passport U12977543; mobile +971 50 246 9130; hadi.almansoor@najmoasis.test.\nEscrow details for cornerstone subscription: IBAN AE12 3456 7890 1234 5678 901 at Desert Crescent Bank PJSC; do not circulate beyond the private placement list.\nRegistered office for notices: GNFC, Tower 9, Level 21, Suite 2104, Al Dahana District, Emirate of Noor.\nKYC note (data minimisation): Mr. Hadi self-reported family-origin as \u201cAl-Sahili\u201d for source-of-wealth context; retain only in restricted KYC folder and exclude from board packs.\nPublic Enquiry Line 800 0000 appears on the intake sheet; this is a generic helpline and not personal data for PDPL processing.\nForm field observed: \u201cPassport No.: __________\u201d on a scanned template; treat as a blank label, not an identifier.\nAn unverified placeholder appears for a contractor: Emirates ID 784-2001-0000000-0; mark invalid/pending and exclude from processing until independently validated.\nCounterparty entity details for the term sheet: Rimal Family Office SPC (GNFC\u2013SPC\u20136201\u2013117203); contact rimal.deals@rfo.test; role-only sign-off \u201cOperations Manager\u201d noted\u2014request named signatory before acceptance.\nUntil the market disclosure notice is published by the exchange, trading windows remain closed for insiders; circulate wall-crossing confirmations and refresh insider lists within 24 hours.\nData handling: apply PDPL Art. 10 lawful basis (contract/pre-contract) for investor onboarding; pseudonymise Emirates ID and passport numbers in working trackers and redact home addresses in board materials.\nRegulatory workflow: file the listing intent and cleansing timeline with the FSCD and the GNFC listings department; maintain an audit trail of all MNPI recipients and acknowledgments.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

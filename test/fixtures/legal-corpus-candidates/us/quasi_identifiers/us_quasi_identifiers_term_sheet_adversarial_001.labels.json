@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -62,12 +70,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-Binding Term Sheet — Proposed Acquisition of Pine Canyon HealthBank, Inc. by North Meridian Health Systems, Ltd. (U.S. issuer listed on the Granite Exchange).",
+      "matched_text": "Non-Binding Term Sheet \u2014 Proposed Acquisition of Pine Canyon HealthBank, Inc. by North Meridian Health Systems, Ltd. (U.S. issuer listed on the Granite Exchange).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Structure: cash-and-stock merger under Delaware law; headline consideration $540–$560 million (subject to customary adjustments); outside date 12/15/2026.",
+      "matched_text": "Structure: cash-and-stock merger under Delaware law; headline consideration $540\u2013$560 million (subject to customary adjustments); outside date 12/15/2026.",
       "rule": "material_event"
     },
     {
@@ -279,12 +287,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-Binding Term Sheet — Proposed Acquisition of Pine Canyon HealthBank, Inc. by North Meridian Health Systems, Ltd. (U.S. issuer listed on the Granite Exchange).",
+      "matched_text": "Non-Binding Term Sheet \u2014 Proposed Acquisition of Pine Canyon HealthBank, Inc. by North Meridian Health Systems, Ltd. (U.S. issuer listed on the Granite Exchange).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Structure: cash-and-stock merger under Delaware law; headline consideration $540–$560 million (subject to customary adjustments); outside date 12/15/2026.",
+      "matched_text": "Structure: cash-and-stock merger under Delaware law; headline consideration $540\u2013$560 million (subject to customary adjustments); outside date 12/15/2026.",
       "rule": "material_event"
     },
     {
@@ -356,6 +364,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jonah Pike (VP, Corp Dev, North Meridian), born 1985-09-02 (age ~40), remote hub: West Kestrel, NC; device NMH-LP-0542; ac c t: P C D - 4 1 9 7 7 0; session ref: sid Q2-046-az; email: jonah.pike@northmeridian.health; mtg link: https://deal.nmh-labs.example/room?sid=Q2-046-az&acct=PCD-419770.\nSeller clinical contact: Dr. Lila Brenn (Chief Clinical Strategy), dlbrenn@pinecanyonhb.com",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Proposed Acquisition of Pine Canyon HealthBank, Inc. by North Meridian Health Systems, Ltd. (U.S. issuer listed on the Granite Exchange).\nStructure: cash-and-stock merger under Delaware law; headline consideration $540\u2013$560 million (subject to customary adjustments); outside date 12/15/2026.\nFinancing: mix of Buyer cash and a senior secured Term Loan B to be committed by Harbor Quail Capital, LP; no financing condition; interim operating covenants consistent with U.S. market practice.\nRegulatory/Disclosure: parties will comply with Rule 10b-5 and Reg FD; any MNPI shared in diligence will be subject to wall-crossing and clean-team protocols; public disclosure via Form 8-K and press release on signing.\nData Privacy: HIPAA and GLBA apply; only de-identified patient data and encrypted customer NPI will be exchanged; no account/routing numbers, device MACs, or full IPs will be disclosed in the data room.\nContact (Buyer diligence lead): Mr. Jonah Pike (VP, Corp Dev, North Meridian), born 1985-09-02 (age ~40), remote hub: West Kestrel, NC; device NMH-LP-0542; ac c t: P C D - 4 1 9 7 7 0; session ref: sid Q2-046-az; email: jonah.pike@northmeridian.health; mtg link: https://deal.nmh-labs.example/room?sid=Q2-046-az&acct=PCD-419770.\nSeller clinical contact: Dr. Lila Brenn (Chief Clinical Strategy), dlbrenn@pinecanyonhb.com; office hub: Silver Dunes, CA; \u201cno patient charts or claims extracts to be provided prior to clean-team approval.\u201d\nMAC and carve-outs: the following shall not constitute a MAC\u2014general economic conditions, industry-wide reimbursement changes, epidemics disclosed in public sources, or changes in law/regulation.\nConditions to Closing: customary approvals, antitrust clearance under applicable U.S. law, state health department notice for provider license transfer, and bank subsidiary divestiture plan agreed within 60 days post-signing.\nSecurities/Analyst Protocols: no selective disclosure to sell-side analysts; any guidance updates to be furnished via broad, non-exclusionary channels; webcast invite: https://events.nmh.example/webcast?id=RD2025 (open to the public).\nEmployee/Benefit Matters: Buyer to offer retention packages to key employees and honor accrued PTO; nothing herein constitutes an offer of employment or amendment to any plan; background checks to follow standard U.S. employer policy.\nIntegration Planning: preliminary synergy model (internal-only) assumes Q3 run-rate revenue of $182\u2013$187m and $24\u2013$28m cost saves; subject to Reg FD restrictions until filing of a current report with the U.S. securities regulator.\nNegative precision bait: examples only\u2014DOB 01/2001, zip 100xx, device id a1:b2:c3:--:--, acct stub GL-000-000 (placeholders not linked to any person).\nConfidentiality/Use: recipients acknowledge MNPI status and agree to trading blackout and insider list inclusion; this summary is not an offer to sell or buy any security and is subject to Rule 10b-5 anti-fraud provisions.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

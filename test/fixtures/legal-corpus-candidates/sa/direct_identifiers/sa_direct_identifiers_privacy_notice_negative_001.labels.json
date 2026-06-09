@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -102,7 +110,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "only masked IBANs (e.g., SA00••••••••••••••••••)",
+      "matched_text": "only masked IBANs (e.g., SA00\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022)",
       "rule": "data_minimisation_marker"
     },
     {
@@ -112,7 +120,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "SA00••••••••••••••••••",
+      "matched_text": "SA00\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
       "rule": "bank_account"
     },
     {
@@ -144,8 +152,9 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "1012345671",
-      "rule": "large_number"
+      "matched_text": "Sahara Dunes Holdings CJSC (CR 1010000009, invalid) \u2014 PDPL Privacy Notice and Issuer Data Processing Addendum.\nThis notice applies to processing in the Kingdom of Saudi Arabia for issuer workflows under the securities regulator\u2019s market-conduct framework and the national exchange\u2019s disclosure rules.\nCategories of data we may process include corporate identifiers and limited personal identifiers for KYC/AGM access; examples: [Full Name], [Registered Address], [Mobile], [Email], [IBAN], [Passport No.], [National ID], [Iqama No.], [Tax No.].\nOne example of a local identifier collected for verification is National ID 1012345671 (format plausible, checksum intentionally invalid) when a shareholder requests meeting access.\nWe do not request personal brokerage account numbers, trading passwords, or biometric templates via this channel.\nAny references to \u201cMNPI\u201d herein relate to internal issuer rooms; such information is not shared with processors until after announcement on the national securities exchange (see prior public notice dated 1445/05/01H).\nCross-border transfers are limited and recorded in the Data Authority transfer register; where applicable we use model contractual clauses and transfer impact assessments consistent with PDPL.\nProcessors may include cloud providers hosting in-Kingdom zones; routine support tickets redact direct identifiers and use placeholder tokens like [NATIONAL_ID] and [CONTACT_PHONE].\nIf you submit a DSAR, please use the form fields [National ID], [Date of Birth], and [Contact Email] only; attachments with scanned cards will be deleted.\nFor general market guidance you may call the public securities regulator helpline at 800-123-0000; do not share your passwords over the phone.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

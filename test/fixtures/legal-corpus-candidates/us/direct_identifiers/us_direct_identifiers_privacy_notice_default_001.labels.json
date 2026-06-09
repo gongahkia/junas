@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -206,6 +214,24 @@
       "category": "MNPI",
       "matched_text": "analyst call",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Primary contact: Ms. Aisha K. Reddan, Chief Privacy Officer, privacy@northlakemeridian.example.com, +1-415-555-0142, 2210 Harbor Point Rd, Suite 900, Brookfield, WY 82899",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Primary contact: Ms. Aisha K. Reddan, Chief Privacy Officer, privacy@northlakemeridian.example.com, +1-415-555-0142, 2210 Harbor Point Rd, Suite 900, Brookfield, WY 82899.\nSecondary channel for general inquiries: 800-555-0100 (public helpline; not for DSAR authentication).\nData subject requests: Consumers may submit access/deletion requests via portal.northlakemeridian.example.com; identity is verified by two-factor plus last four of Customer ID 7719 (not SSN).\nWe do not request or accept Social Security Numbers on DSAR webforms; form field label \u201cSSN: ____\u201d is disabled and non-collecting.\nWhere necessary for KYC, we may process government IDs such as a U.S. passport (example value: X00000000, sample/invalid) and state-issued patient card No. HC-49P2-8831.\nBank routing details are stored in tokenized form; any ABA 123456780 presented during testing is checksum-invalid and will be rejected.\nWe implement GLBA safeguards and HIPAA minimum-necessary; PHI is segregated from brokerage research notes and analyst call recordings.\nUnder Regulation FD, no material non-public information about the issuer will be selectively disclosed to sell-side analysts or major shareholders; public dissemination occurs via simultaneous webcast and a federal current report filing on our disclosure portal.\nEmployees with access to pre-release revenue from CareBridge Clinic (Facility ID: CB-772140) are subject to trading blackouts and attestations; channel-check notes must exclude PHI.\nCross-border transfers to our processor, Pinyon Data Services LLC (Oregon), are supported by vendor DPAs and SOC 2 reports; subprocessors are listed at vendors.northlakemeridian.example.com.\nRetention: bank statements 7 years, PHI 6 years from last encounter, analyst audio 3 years; early deletion is permitted where no legal hold from the United States District Court of Wind River applies.\nAccess is role-based; \u201cThe Analyst\u201d and \u201cBranch Manager\u201d roles are least-privileged and may not view account numbers in full except where a customer is on the line.\nFor avoidance of doubt, generic service accounts like svc-research@northlakemeridian.example.com",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This DPA applies to services provided by Northlake Meridian BancHealth, Inc., EIN: 65-9382741, State Charter ID: WY-DOB-2026-11345, to its U.S. customers and patients.\nCovered data categories under CCPA/HIPAA/GLBA include deposit account identifiers (e.g., Account No. 0249130061), PHI from clinic operations, and employee records.\nPrimary contact: Ms. Aisha K. Reddan, Chief Privacy Officer, privacy@northlakemeridian.example.com, +1-415-555-0142, 2210 Harbor Point Rd, Suite 900, Brookfield, WY 82899.\nSecondary channel for general inquiries: 800-555-0100 (public helpline; not for DSAR authentication).\nData subject requests: Consumers may submit access/deletion requests via portal.northlakemeridian.example.com; identity is verified by two-factor plus last four of Customer ID 7719 (not SSN).\nWe do not request or accept Social Security Numbers on DSAR webforms; form field label \u201cSSN: ____\u201d is disabled and non-collecting.\nWhere necessary for KYC, we may process government IDs such as a U.S. passport (example value: X00000000, sample/invalid) and state-issued patient card No. HC-49P2-8831.\nBank routing details are stored in tokenized form; any ABA 123456780 presented during testing is checksum-invalid and will be rejected.\nWe implement GLBA safeguards and HIPAA minimum-necessary; PHI is segregated from brokerage research notes and analyst call recordings.\nUnder Regulation FD, no material non-public information about the issuer will be selectively disclosed to sell-side analysts or major shareholders; public dissemination occurs via simultaneous webcast and a federal current report filing on our disclosure portal.\nEmployees with access to pre-release revenue from CareBridge Clinic (Facility ID: CB-772140) are subject to trading blackouts and attestations; channel-check notes must exclude PHI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

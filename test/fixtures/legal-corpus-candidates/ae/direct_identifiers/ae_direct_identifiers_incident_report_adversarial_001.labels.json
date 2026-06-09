@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "AE",
@@ -315,6 +323,12 @@
       "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Affected mailbox belonged to Mr. Salim Al Qamar (Group Treasurer), Emirates ID 784-1993-6123456-3, Passport U82394519, mobile +971 50 123 9988.\nOne document exposed contained an invalid sample ID \u201c784-2075-6154823-5\u201d and a generic label \u201cEmail: ________\u201d, which are non-actionable.\nFinance Manager and HR Officer were cc\u2019d; role-only names in this report are placeholders and not personal data.\nBank details referenced in threads include IBAN AE26 0402 0000 6789\n3021 456 and vendor a/c alias ops-payables@reefpay.example; no card PANs present and we did not collect MAC addresses.\nURL logs show https://portal.qamarreef.ae/ir?ref=IR-2026-07-15&uid=784199361234563 with session ip 10.0.0.5 (internal), and OCR artefacts in scans (e.g., Q a m a r R e e f).\nSome files included a draft term sheet for an unannounced ADX sustainability-linked sukuk by QRU (internal code QRU-SUK-2026) indicating tentative size AED 450m and coupon 5.25%\u20135.50% (non-public).\nInsider list updated per SCA Market Conduct requirements; pre-close dealing restrictions applied to treasurer\u2019s desk and deal team; this is a subtle signal for MNPI handling.\nClient KYC attachments included trade licence copy and extract of family book (Khulasat Al Qaid) for Ms. Huda Al Riyahi, Emirates ID 784-1990-7345621-8, office address as above.\nCorporate identifiers: DIFC Data Protection Registration DPR-44721 (fictional), Tax Registration Number TRN 100234567800003; issuer LEI: L-E-I/NA (placeholder only).\nThis report is not a profit forecast and by itself does not disclose earnings guidance; however, MNPI may reside in the deal workflow materials referenced.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -37,6 +37,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -75,7 +83,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Faris Al‑Mutairi",
+      "matched_text": "Mr. Faris Al\u2011Mutairi",
       "rule": "named_person"
     },
     {
@@ -155,7 +163,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Faris Al‑Mutairi, born 1985-11-22 (age 40), Issuer Relations Manager at Rimal Dunes Capital, Central Region office, corporate device RD-Laptop-KSA-2211, session RIM-IR-Session-447A, internal account issuer-ops-8852, masked Iqama ****4321 and hashed ID iq-hash:d3e9a1, work email f.almutairi@rimaldunes.example.sa",
+      "matched_text": "Mr. Faris Al\u2011Mutairi, born 1985-11-22 (age 40), Issuer Relations Manager at Rimal Dunes Capital, Central Region office, corporate device RD-Laptop-KSA-2211, session RIM-IR-Session-447A, internal account issuer-ops-8852, masked Iqama ****4321 and hashed ID iq-hash:d3e9a1, work email f.almutairi@rimaldunes.example.sa",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -222,7 +230,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Faris Al‑Mutairi",
+      "matched_text": "Mr. Faris Al\u2011Mutairi",
       "rule": "named_person"
     },
     {
@@ -254,6 +262,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Rimal Dunes Capital JSC (CR 2041123456-F) Privacy and MNPI Handling Notice for KSA Issuer Workflows.\nWe process personal data under the KSA Personal Data Protection Law and manage material non-public information in alignment with market-conduct follow-up by the Desert Capital Markets Authority (fictional regulator) for the Najd Securities Exchange (fictional).\nController and contact: Rimal Dunes Capital JSC, DPO Ms. Huda Al-Najjar, privacy@rimaldunes.example.sa.\nExample processing cluster: Mr. Faris Al\u2011Mutairi, born 1985-11-22 (age 40), Issuer Relations Manager at Rimal Dunes Capital, Central Region office, corporate device RD-Laptop-KSA-2211, session RIM-IR-Session-447A, internal account issuer-ops-8852, masked Iqama ****4321 and hashed ID iq-hash:d3e9a1, work email f.almutairi@rimaldunes.example.sa.\nPurposes include issuer onboarding and due diligence, insider list creation and updates, disclosure pipeline coordination, and market-conduct inquiries regarding MNPI events.\nCategories processed: quasi-identifiers (DOB, job title, department, region, device fingerprint, IP subnet), corporate contacts, commercial registration extracts, and masked or hashed national ID/Iqama for KYC; we avoid collecting full biometrics.\nAccess controls: MNPI such as draft earnings guidance, unannounced board actions, or pre-listing documents is restricted to need-to-know staff with role-based access, and all access is logged against session and device IDs.\nTransfers: cross-border or cloud transfers are subject to prior permit by the National Data & AI Authority (SDAA, fictional) and our internal gatekeeping, using encryption-at-rest and permit references like SDAA-TR-2026-071; absent approval, data remains in-KSA.\nRetention: insider lists and MNPI access logs are retained 5 years after public disclosure, KYC records 10 years from last transaction, and device telemetry 180 days, after which data is deleted or irreversibly anonymized.\nDSAR: natural persons may access, rectify, delete, or port their data by emailing dsar@rimaldunes.example.sa, and we will verify identity using only masked identifiers and role confirmation.\nWe may process company-level identifiers (e.g., CR files and issuer codes) that do not relate to a natural person, and these are outside PDPL personal data scope.\nA 29-year-old analyst in a coastal city using Android 13 and working night shifts is not identified by that alone in our statistics, and such aggregated demographics are not treated as PII.\nGeneric labels like \u201cAquila X2 handset,\u201d \u201cnorth hub floor 5,\u201d or \u201cdevice series K-20\u201d without linkage are insufficient to single out a person in our systems.\nFor market-conduct follow-up, we may share audit trails and insider lists with the Desert Capital Markets Authority upon lawful request, ensuring MNPI is redacted where not necessary for the inquiry.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

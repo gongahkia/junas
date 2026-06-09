@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -240,6 +248,18 @@
       "category": "MNPI",
       "matched_text": "subject to board approvals",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Strategic Investment in Shenzhen Nebula Robotics Co., Ltd. (fictional PRC issuer; intended SSE STAR Market listing)\nIssuer: Shenzhen Nebula Robotics Co., Ltd.; USCC: 91440300MA5U9Z9Z9X (invalid checksum, template use); Tax ID: same as USCC; Reg. Address: Unit 1201, Tower C, No. 88 Xinghe Rd., Nanshan District, Shenzhen, Guangdong, PRC\nInvestor: Yutu Star Capital (Qianhai) L.P.; USCC: 91440300MA8T0Q0Q0Z (invalid checksum, template use); Contact (dept mailbox): legal@nebula-robotics.cn; Correspondence Address: Room 2107, Block B, Qianhai Hub, Shenzhen, Guangdong, PRC\nStructure: Investor to subscribe for a minority equity stake in Issuer; no control change contemplated; closing subject to board approvals and regulatory clearances; no pricing terms set out herein\nDisclosure & MNPI: Issuer represents that all information necessary for this term sheet has been publicly disclosed through designated media; no \u201cinside information\u201d (\u5185\u5e55\u4fe1\u606f) per PRC Securities Law; reference to already-published notices dated 2025-03-18 on the SSE website\nRegulatory: Filings/registrations as applicable with CSRC and Shanghai Stock Exchange for any share issuance; antitrust notification to SAMR if statutory thresholds are triggered; any NDRC/commerce registrations to be completed as required by law\nData Compliance: Parties will comply with PIPL, CSL, and DSL; personal information processing limited to transaction necessity; if any outbound transfer arises, CAC Standard Contract filing or security assessment will be completed prior to transfer\nEmployment: No change to existing labor contracts; no collective layoffs, non-solicitation of key staff for 12 months; any employee onboarding post-investment to follow lawful basis and minimum-necessary principles, with special protection for minors under 14 and prohibition on their data collection absent guardian consent\nOnboarding/KYC (template only): Form fields \u2014 \u59d3\u540d/\u8eab\u4efd\u8bc1\u53f7/\u62a4\u7167\u53f7/\u8054\u7cfb\u7535\u8bdd/\u8054\u7cfb\u5730\u5740 (do not complete or transmit in this draft); HR mailbox for submissions: hr@nebula-robotics.cn (departmental contact)\nAuthorized Signatory (role only; single identifier provided for template illustration): PRC Resident ID No. 44030119900101123A (invalid checksum; not for actual use)\nSettlement Mechanics (corporate only): Closing funds to Issuer\u2019s RMB account at Bank of Nanyun, Qianhai Sub-branch (fictional); Account No.: 3888-0000-0000-TEST; no personal accounts shall be used; tax invoices to be issued to the Investor\u2019s tax ID as above\nHelpline and Public Contacts (benign): CSRC investor service 12386; Shenzhen Government 12345; State Taxation 12366; these public hotlines are listed for general guidance only and are not transaction contacts\nCross-Border Data: No cross-border personal information transfer will occur unless required by the transaction and then only after (i) completion of a PIPIA, (ii) execution of CAC Standard Contract, and (iii) record-filing with the provincial CAC; production data to be localized per CSL MLPS 2.0 requirements\nDSL/CSL Representations: Issuer confirms no operation of critical information infrastructure and that data inventory/classification has been completed; any \u201cimportant data\u201d will be ring-fenced and excluded from the scope of information exchange with the Investor\nGoverning Law/Dispute Resolution: PRC law governs; disputes to be submitted to Shenzhen Court of International Arbitration; non-reliance applies to any forward-looking statements; no guarantee or undertaking to proceed until definitive agreements are executed\nBinding Effect/Term: This term sheet is non-binding (save for confidentiality, exclusivity, fees, and governing law); automatically expires 30 days from date of last signature",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

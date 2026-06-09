@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -167,7 +175,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "No announcement prior to the Issuer’s filing and Tadawul publication",
+      "matched_text": "No announcement prior to the Issuer\u2019s filing and Tadawul publication",
       "rule": "embargo_marker"
     },
     {
@@ -221,6 +229,24 @@
       "category": "MNPI",
       "matched_text": "material adverse change",
       "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data and PDPL: Processing of personal data to comply with KSA PDPL; National ID/Iqama details, addresses, and device identifiers to be masked in diligence; any cross-border transfer via the VDR requires SDAIA registration or another lawful basis\nDesignated contacts (operational): The Issuer\u2019s deputy finance lead (role mailbox: finance.integration@almanar-sys.sa), based in Jeddah South District, born 1989-06, using device tag AS-AX77, internal payroll account EMP-44219, and Iqama ending 73 will coordinate integration tasks",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Proposed Strategic Investment in AlManar Systems JSC, KSA\nParties: Investor Hilal Crescent Capital SPC (KSA); Issuer AlManar Systems JSC; illustrative CR refs: Investor CR 101-0X0-9000, Issuer CR 403-XX-7777\nStructure: Investor to acquire a minority stake via negotiated private placement; settlement in SAR; timetable aligned with Issuer board approval, CMA filing under market conduct requirements, and Tadawul announcement workflow\nConsideration and pricing: Determined by independent valuation; no binding price or quantity until CMA non-objection; no underwriting obligation or guaranteed allocation\nUse of proceeds: General corporate purposes; any forward-looking statements to be publicly disclosed in accordance with CMA and Saudi Exchange rules\nMNPI and market conduct: Parties acknowledge that any preliminary, non-public Q3 backlog trend of the Issuer has not been announced on Tadawul and will be treated as inside information until disclosed\nData and PDPL: Processing of personal data to comply with KSA PDPL; National ID/Iqama details, addresses, and device identifiers to be masked in diligence; any cross-border transfer via the VDR requires SDAIA registration or another lawful basis\nDesignated contacts (operational): The Issuer\u2019s deputy finance lead (role mailbox: finance.integration@almanar-sys.sa), based in Jeddah South District, born 1989-06, using device tag AS-AX77, internal payroll account EMP-44219, and Iqama ending 73 will coordinate integration tasks\nGeneric demographic and system data: HR may view lists of employees born in the 1990s or residing in the Eastern Province, and device types (e.g., Android), but these alone do not identify any person in this term sheet\nIdentifiers and forms: Annex templates may include labels such as \u201cNational ID/Iqama: ______\u201d and \u201cAccount No.: ______\u201d; no such fields are completed here, and placeholder codes (e.g., CR 700-ABC-0000) are invalid\nConditions precedent: CMA approval, SDAIA registration for any cross-border personal data transfer, Issuer board and shareholder approvals, absence of material adverse change, and completion of customary vendor due diligence\nPublic announcements: No announcement prior to the Issuer\u2019s filing and Tadawul publication; the Issuer has previously stated publicly that it is exploring strategic options, and this term sheet is not intended to add material new information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -188,6 +196,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Context: the Council for Market Activities (CMA) Market Conduct Bulletin MC-22-F defines MNPI as non-public issuer information material to securities; this note uses only already-announced items for Najd Securities Exchange (NSX) submission.\nIssuer workflow: onboarding via Oasis Ledger and Falcon Gateway with SDAIA (Strategic Data Alignment Inter-Agency) conduit transfer limited to organization master data, not data subjects.\nField map: National ID/Iqama [masked only], Commercial Registration [CR ref only], Insider List [named roles], Contact [role mailbox]; examples: Iqama: 0000-XXXX-0000, CR: 2040-XYZ-7777, Email: disclosures@alwaha.example.\nClarification: the term \u201chealth dashboard\u201d in Oasis Ledger refers to system uptime metrics; no medical records are processed in this flow.\nSpecial-category PD positive: For the insider list, Mr. Faisal Al-Bari disclosed a prior cardiac surgery; treat this as health data under PDPL Art. 3 requiring explicit consent and encryption at rest.\nBiometric note: Building entry uses device \u201cPalm Vault 2.0\u201d with biometric capability disabled; no templates are captured or stored in issuer systems.\nDEI policy: The Sandstone Inclusion Charter promotes belonging and non-political conduct at work as general values statements, not as data collection.\nMarket disclosure check: Dividend timetable and segment rebranding were publicly announced on 1446-01-15H via the NSX portal; treat as stale and not MNPI for board briefing.\nSports metaphor: Like the Desert Falcons at halftime, compliance will pause and adjust before go-live, without touching personal playbooks.\nData transfer: Any SDAIA conduit transfer will carry only CR metadata and product SKUs; national ID/Iqama fields remain null in export schemas.\nRisk controls: PDPL lawful basis recorded in the Oasis PDPL Playbook v2.1; vendor Sahara Transfer Protocol configured with data minimization, localization, and audit flags.\nMNPI screening: Board minutes in scope are from prior public sessions; forward-looking pricing models (genetic algorithm prototypes) are illustr",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

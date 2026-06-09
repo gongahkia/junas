@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "SA",
@@ -166,6 +174,12 @@
       "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prepared by: Eng. Noura Al-Qasim, DPO; reviewed by: Mr. Hatem Al-Jazari, Head of Compliance.\nSummary: A credential-stuffing attempt on 24-02-2026 targeted the Issuer Portal used for Qudra Dunes Logistics JSC onboarding; no system-wide outage occurred.\nImpacted data categories: names, corporate emails, and mobile numbers of issuer coordinators; no Iqama images or national address files were accessed.\nMNPI assessment: draft board timetables for a private sukuk listing were stored but remained encrypted; there is no indication that non-public issuer information was viewed or exfiltrated.\nImmediate actions: portal accounts locked, password resets enforced, and data minimisation check completed on Onboarding Form v3.2 (two optional fields removed).\nDSAR/erasure events: we received 3 DSARs and 1 consent withdrawal from an issuer contact (Mr. Faisal Barjas); records were erased from the CRM per Retention Schedule FIN-07.\nCross-border transfer: data export approval #SDAIA-AP-5592 was granted on 25-02-2026 for support logs to be sent to a processor in Manama and limited metadata to Dublin; standard clauses per DPA Schedule 2 attached.\nNegative control: the legacy vendor link to a US sandbox was decommissioned in 2024 and no personal data transfer to the US is occurring or planned.\nSystem logs indicate failed access to two CR files; sample identifiers: CR 205-44-98761 (Qudra Dunes Logistics JSC) and CR 205-44-98762 (Qudra Dunes Logistics Ventures LLC); records are internal test stubs.\nIssuer workflow note: CMA reporting under Article 50 was pre-drafted; this was a tabletop exercise only and does not reflect a live disclosure obligation.\nRetention controls: onboarding KYC copies are set to 5-year rolling retention; an automated purge ran 01-02-2026 and deleted 412 expired attachments, verified by hash.\nContact and next steps: queries to privacy@riyadanajm.example.sa; we will notify affected coordinators with guidance in Arabic and English by 28-02-2026.\nStatement of completion: no further corrective actions are required at this time, subject to CMA/Tadawul guidance; monitoring remains in place for 90 days.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [],

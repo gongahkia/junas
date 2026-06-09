@@ -1,125 +1,185 @@
 {
-  "doc_id": "ph_sector_mnpi_term_sheet_negative_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "PH",
-  "destination_jurisdiction": "PH",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Closing: Targeted within Q3 2026, subject to completion of due diligence (financial, legal, environmental), KYC by the investor’s banking partners, and execution of customary security and escrow arrangements with IslaBank Trust & Custody (fictional)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Cybersecurity: A tabletop incident drill is scheduled with the issuer’s IT vendor; no operational impact is expected, and no customer PII will be used beyond generic test labels (“ID: XX-000000”)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Amihan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_sector_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Amihan"
+      "matched_text": "Project Amihan",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information-barrier playbook"
+      "matched_text": "information-barrier playbook",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list maintenance"
+      "matched_text": "insider-list maintenance",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout reminders"
+      "matched_text": "blackout reminders",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investor-relations@lrc.example.ph"
+      "matched_text": "investor-relations@lrc.example.ph",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "personal data will be masked"
+      "matched_text": "personal data will be masked",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "a pending but not-yet-announced amendment to a power purchase agreement"
+      "matched_text": "a pending but not-yet-announced amendment to a power purchase agreement",
+      "rule": "material_event"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63-XXX-IRHELP"
+      "matched_text": "+63-XXX-IRHELP",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Only de-identified HR, tax, and banking records will be shared"
+      "matched_text": "Only de-identified HR, tax, and banking records will be shared",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "sample numbers will not correspond to real accounts"
+      "matched_text": "sample numbers will not correspond to real accounts",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Closing: Targeted within Q3 2026, subject to completion of due diligence (financial, legal, environmental), KYC by the investor’s banking partners, and execution of customary security and escrow arrangements with IslaBank Trust & Custody (fictional)"
+      "matched_text": "Closing: Targeted within Q3 2026, subject to completion of due diligence (financial, legal, environmental), KYC by the investor\u2019s banking partners, and execution of customary security and escrow arrangements with IslaBank Trust & Custody (fictional)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Cybersecurity: A tabletop incident drill is scheduled with the issuer’s IT vendor; no operational impact is expected, and no customer PII will be used beyond generic test labels (“ID: XX-000000”)"
+      "matched_text": "Cybersecurity: A tabletop incident drill is scheduled with the issuer\u2019s IT vendor; no operational impact is expected, and no customer PII will be used beyond generic test labels (\u201cID: XX-000000\u201d)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Closing: Targeted within Q3 2026, subject to completion of due diligence (financial, legal, environmental), KYC by the investor\u2019s banking partners, and execution of customary security and escrow arrangements with IslaBank Trust & Custody (fictional)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cybersecurity: A tabletop incident drill is scheduled with the issuer\u2019s IT vendor; no operational impact is expected, and no customer PII will be used beyond generic test labels (\u201cID: XX-000000\u201d)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Amihan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Strategic Investment in Luntian Renewables Corporation (Philippines context; non-binding and subject to definitive agreements)\nParties: Investor \u2014 Maharlika Grid Ventures Holdings, Inc.; Issuer \u2014 Luntian Renewables Corporation, a PH corporation listed on the local stock exchange SME Board under placeholder symbol \u201cLRCX0\u201d (pseudo-ISIN: PHXX00LRCX00; invalid, for drafting only)\nInstrument: Unsecured convertible notes with a fixed maturity and standard anti-dilution; aggregate principal and conversion mechanics to be finalized in the definitive documents\nUse of Proceeds: To expand rooftop solar and microgrid deployments under the ESG-linked \u201cProject Amihan\u201d and fund working capital; no proceeds allocated to virtual-asset issuance or custody activities\nConditions Precedent: Board and shareholder approvals, increase in authorized capital, pre-clearance for additional listing with the stock exchange, and confirmation of compliance with the Securities Regulation Code and applicable PH data-privacy requirements\nClosing: Targeted within Q3 2026, subject to completion of due diligence (financial, legal, environmental), KYC by the investor\u2019s banking partners, and execution of customary security and escrow arrangements with IslaBank Trust & Custody (fictional)\nInformation Control: Investor\u2019s capital-markets arm will maintain an information-barrier playbook; the issuer\u2019s HR will coordinate insider-list maintenance for training and blackout reminders (education-only, not a trading directive)\nCompliance & Training: \u201cCrypto Payments Pilot\u201d is a marketing webinar title used for client education only; it does not involve token issuance, wallets, or exchange operations and does not affect the issuer\u2019s financials\nCybersecurity: A tabletop incident drill is scheduled with the issuer\u2019s IT vendor; no operational impact is expected, and no customer PII will be used beyond generic test labels (\u201cID: XX-000000\u201d)\nTax & Fees: Documentary stamp tax and withholding taxes to be for the issuer\u2019s account at prevailing rates prescribed by the Philippine tax authority; listing and transfer fees per stock exchange schedule\nRepresentations: Standard corporate authority, no sanctions violations, no undisclosed related-party transactions, and continued adherence to issuer\u2019s sustainability reporting policies (publicly available 2024 ESG report dated 31 Mar 2025)\nDisclosure: Any material information arising from this transaction will be reported via a PH-style Form 17-C notice on the issuer\u2019s disclosure portal contemporaneous with signing; investor-relations@lrc.example.ph and +63-XXX-IRHELP are role contact points\nData Room: Only de-identified HR, tax, and banking records will be shared; personal data will be masked consistent with the Data Privacy Act, and sample numbers will not correspond to real accounts\nCommercial Terms: No financial covenants are set forth in this indicative summary; negative pledge, permitted liens, and restrictions on additional pari passu debt to be negotiated in final documentation\nGoverning Law: Laws of the Republic of the Philippines; disputes subject to arbitration in Metro Manila before a PH arbitral institution (fictional)\nPositive MNPI Span: The parties acknowledge a pending but not-yet-announced amendment to a power purchase agreement between the issuer and Dalisay Electric Cooperative, which will be treated as material non-public information until the issuer files a Form 17-C notice and posts on its public disclosure page",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -152,83 +212,37 @@
       "reason": "Pseudo-ISIN placeholder marked invalid; not an allowed identifier type."
     }
   ],
+  "source_jurisdiction": "PH",
   "uncertain": [
     {
-      "matched_text": "Closing: Targeted within Q3 2026",
       "concept": "embargo/timing marker",
+      "matched_text": "Closing: Targeted within Q3 2026",
       "reason": "Refers to closing timing but not the literal 'Closing Date' marker."
     },
     {
-      "matched_text": "contemporaneous with signing",
       "concept": "embargo/timing marker",
+      "matched_text": "contemporaneous with signing",
       "reason": "Mentions signing timing but not the literal 'Signing Date' marker."
     },
     {
-      "matched_text": "Form 17-C notice",
       "concept": "regulatory disclosure form",
+      "matched_text": "Form 17-C notice",
       "reason": "Signals material disclosure obligations; not an explicit allowed MNPI rule token."
     },
     {
-      "matched_text": "SME Board",
       "concept": "listing reference",
+      "matched_text": "SME Board",
       "reason": "Exchange board reference may relate to listing status but not mapped to allowed rules."
     },
     {
-      "matched_text": "no proceeds allocated to virtual-asset issuance or custody activities",
       "concept": "DPT/crypto negative statement",
+      "matched_text": "no proceeds allocated to virtual-asset issuance or custody activities",
       "reason": "Crypto sector mention but explicitly negated; borderline for sector MNPI labeling."
     },
     {
-      "matched_text": "A tabletop incident drill is scheduled",
       "concept": "cybersecurity exercise",
+      "matched_text": "A tabletop incident drill is scheduled",
       "reason": "Security event planning mention without an incident; uncertain fit for cyber incident pre-disclosure."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
-  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
-  "_strict_reconciliation": {
-    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-03T07:07:36Z",
-    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

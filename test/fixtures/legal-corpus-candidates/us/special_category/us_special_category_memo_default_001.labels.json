@@ -81,6 +81,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -144,7 +152,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "A second attachment included Ms. Kira Hollis’s patient-financing worksheet showing her minor child’s care plan number (no SSN) and PulsePort EHR encounter codes, which must be removed before any Reg FD corrective posting.",
+      "matched_text": "A second attachment included Ms. Kira Hollis\u2019s patient-financing worksheet showing her minor child\u2019s care plan number (no SSN) and PulsePort EHR encounter codes, which must be removed before any Reg FD corrective posting.",
       "rule": "material_event"
     },
     {
@@ -189,7 +197,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Vale’s fingerprint template used for the Bayford vault timeclock (biometric)",
+      "matched_text": "Mr. Vale\u2019s fingerprint template used for the Bayford vault timeclock (biometric)",
       "rule": "biometric_identifier"
     },
     {
@@ -199,12 +207,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "minor child’s care plan number",
+      "matched_text": "minor child\u2019s care plan number",
       "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "matched_text": "minor child’s care plan number",
+      "matched_text": "minor child\u2019s care plan number",
       "rule": "medical_record_number"
     },
     {
@@ -301,7 +309,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "A second attachment included Ms. Kira Hollis’s patient-financing worksheet showing her minor child’s care plan number (no SSN) and PulsePort EHR encounter codes, which must be removed before any Reg FD corrective posting.",
+      "matched_text": "A second attachment included Ms. Kira Hollis\u2019s patient-financing worksheet showing her minor child\u2019s care plan number (no SSN) and PulsePort EHR encounter codes, which must be removed before any Reg FD corrective posting.",
       "rule": "material_event"
     },
     {
@@ -313,6 +321,18 @@
       "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@northharborhealth.example, 555-0148\nTo: Board Audit & Compliance Committee; CC: Investor Relations, HR, CISO \u2014 Date: 2026-05-31 \u2014 Re: Reg FD remediation and PII/PHI/GLBA handling\nSummary: On 5/28, Mr. Cade Mercer (VP, Corporate Development) discussed non-public Q2 clinic attrition and MarlinPay card charge-off trends with Ms. Tamsin Yule, an analyst at Fencrest Securities, ahead of our scheduled 6/3 earnings call.\nThis communication, coupled with a draft board deck sent via personal email from cmercer@nhhb-internal.example, likely constitutes selective disclosure under Reg FD and raises potential Rule 10b-5 risk if any trading ensued; file an Item 7.01 Form 8-K with a broad press release.\nThe draft also contained anchored PII: Mr. Dorian Vale (Loan Ops Analyst, Employee ID HV-44219) \u2014 undergoing treatment for Type 1 diabetes; CYP2C19 poor-metabolizer genetic result on file; and registered steward of Finance Workers Local 744.\nAdditionally, Mr. Vale\u2019s fingerprint template used for the Bayford vault timeclock (biometric) and his private calendar entry noting Sabbath observance accommodations were viewable in the shared link, implicating HIPAA, CCPA, and labor-law sensitivities.\nFor clarity, biometric locks protect the data room; this sentence does not describe any person\u2019s biometric data.\nA second attachment included Ms. Kira Hollis\u2019s patient-financing worksheet showing her minor child\u2019s care plan number (no SSN) and PulsePort EHR encounter codes, which must be removed before any Reg FD corrective posting.\nRecommended actions: file a same-day 8-K furnishing the high-level revenue range without patient details; issue a public statement; and quarantine the board materials per Policy FIN-102 (Insider Communications) and HIPAA SOP PR-17.\nUntil the 8-K posts, restrict outreach to covered market actors; use the pre-cleared Q&A; do not \u201cmove the goalposts\u201d with new metrics; all analyst questions to be routed to investorrelations@northharborhealth.example.\nCISO to rotate the Bayford SSO keys, purge the Chronis biometric cache for Mr. Vale",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privileged & Confidential \u2014 Internal Compliance Memorandum (Attorneys\u2019 Eyes Only)\nFrom: Office of the General Counsel, NorthHarbor HealthBank, Inc. (NASDAQ-listed U.S. issuer; healthcare + banking) \u2014 contact legal@northharborhealth.example, 555-0148\nTo: Board Audit & Compliance Committee; CC: Investor Relations, HR, CISO \u2014 Date: 2026-05-31 \u2014 Re: Reg FD remediation and PII/PHI/GLBA handling\nSummary: On 5/28, Mr. Cade Mercer (VP, Corporate Development) discussed non-public Q2 clinic attrition and MarlinPay card charge-off trends with Ms. Tamsin Yule, an analyst at Fencrest Securities, ahead of our scheduled 6/3 earnings call.\nThis communication, coupled with a draft board deck sent via personal email from cmercer@nhhb-internal.example, likely constitutes selective disclosure under Reg FD and raises potential Rule 10b-5 risk if any trading ensued; file an Item 7.01 Form 8-K with a broad press release.\nThe draft also contained anchored PII: Mr. Dorian Vale (Loan Ops Analyst, Employee ID HV-44219) \u2014 undergoing treatment for Type 1 diabetes; CYP2C19 poor-metabolizer genetic result on file; and registered steward of Finance Workers Local 744.\nAdditionally, Mr. Vale\u2019s fingerprint template used for the Bayford vault timeclock (biometric) and his private calendar entry noting Sabbath observance accommodations were viewable in the shared link, implicating HIPAA, CCPA, and labor-law sensitivities.\nFor clarity, biometric locks protect the data room; this sentence does not describe any person\u2019s biometric data.\nA second attachment included Ms. Kira Hollis\u2019s patient-financing worksheet showing her minor child\u2019s care plan number (no SSN) and PulsePort EHR encounter codes, which must be removed before any Reg FD corrective posting.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -349,7 +369,7 @@
       "reason": "Policy name, not PII/MNPI"
     },
     {
-      "matched_text": "Attorneys’ Eyes Only",
+      "matched_text": "Attorneys\u2019 Eyes Only",
       "reason": "Confidentiality label, not PII/MNPI"
     },
     {

@@ -50,6 +50,14 @@
     "previous_must_detect_count": 7,
     "previous_must_not_detect_count": 9
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -147,6 +155,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: EU issuer listed on the Nordland Exchange MTF; processing under GDPR, including Art 9 where applicable, and CSRD/SFDR reporting; MAR obligations for insider lists.\nContacts: Data Protection Officer, dpo@greyelm.example; helpline +800 000 0000 (public, non-personal).\nIdentifiers we may receive in DSARs: role emails, employee codes, and, where strictly necessary for verification, Valoria passport number VLR0A0000 (example only).\nWe avoid collecting special categories unless Art 9(2)(b)\u2013(g) apply; CSRD/SFDR data are aggregated at facility-level or product umbrella level, not per individual.\nCorporate identifiers for the issuer may appear: Trade Register No EU-CBR-00998877 (illustrative), VAT VLTN-000000000 (checksum not validated), and test IBAN XE68 1234 5678 9012 3456 78.\nSubmission forms use placeholders only: <Full Name>, <Home Address>, <Account Number>, and are not evidence of collection until provided by you.\nFor MAR workflows, insider lists are maintained with role titles only (e.g., \u201cHead of Compliance\u201d) and we avoid including price-sensitive details in this notice; stale, alr",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

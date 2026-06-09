@@ -1,11 +1,11 @@
 {
   "_agent_review": {
     "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
+    "reviewed_at_utc": "2026-05-31T12:38:03Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
     "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
     "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
-    "status": "post_ae_sa_global_precision_realign_owner_approved",
-    "reviewed_at_utc": "2026-05-31T12:38:03Z"
+    "status": "post_ae_sa_global_precision_realign_owner_approved"
   },
   "_agent_review_history": [
     {
@@ -17,11 +17,11 @@
     },
     {
       "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
+      "reviewed_at_utc": "2026-05-31T12:38:03Z",
       "reviewer": "codex-gpt-assisted-strict-tier-review",
       "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
       "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
-      "status": "post_ae_sa_global_precision_realign_owner_approved",
-      "reviewed_at_utc": "2026-05-31T12:38:03Z"
+      "status": "post_ae_sa_global_precision_realign_owner_approved"
     }
   ],
   "_human_review": {
@@ -56,6 +56,32 @@
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "JP",
@@ -64,310 +90,322 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "rei.takagi@hinoiwa-kk.co.jp"
+      "matched_text": "rei.takagi@hinoiwa-kk.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@hinoiwa-kk.co.jp"
+      "matched_text": "legal@hinoiwa-kk.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "imei",
-      "matched_text": "35-009190-443321-7"
+      "matched_text": "35-009190-443321-7",
+      "rule": "imei"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Rei Takagi"
+      "matched_text": "Ms. Rei Takagi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Tomoya Nishikado-san"
+      "matched_text": "Mr. Tomoya Nishikado-san",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1993-12-14"
+      "matched_text": "1993-12-14",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "RKT-217"
+      "matched_text": "RKT-217",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "UmeShare-4462"
+      "matched_text": "UmeShare-4462",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "https://intra.hinoiwa.local/sessions/8d7e-1f"
+      "matched_text": "https://intra.hinoiwa.local/sessions/8d7e-1f",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Ms. Rei Takagi (Procurement Lead, Hinoiwa Systems K.K., dob 1993-12-14, Kawade-ku office) accessed device “AmberLeaf X2” IMEI 35-009190-443321-7 and VPN session https://intra.hinoiwa.local/sessions/8d7e-1f, linking to brokerage sub-account UmeShare-4462"
+      "matched_text": "Ms. Rei Takagi (Procurement Lead, Hinoiwa Systems K.K., dob 1993-12-14, Kawade-ku office) accessed device \u201cAmberLeaf X2\u201d IMEI 35-009190-443321-7 and VPN session https://intra.hinoiwa.local/sessions/8d7e-1f, linking to brokerage sub-account UmeShare-4462",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "W-TAKAGI-07"
+      "matched_text": "W-TAKAGI-07",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "個人番号 is not recorded"
+      "matched_text": "\u500b\u4eba\u756a\u53f7 is not recorded",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "MAC addresses are explicitly not captured"
+      "matched_text": "MAC addresses are explicitly not captured",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "1988-08-08, Kansei Belt, “analytics lead,” and handset “MizuGo S1”"
+      "matched_text": "1988-08-08, Kansei Belt, \u201canalytics lead,\u201d and handset \u201cMizuGo S1\u201d",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "A X 7 9 - 3 1 1"
+      "matched_text": "A X 7 9 - 3 1 1",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "tok_7c8bf2"
+      "matched_text": "tok_7c8bf2",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "BD-TOB-042"
+      "matched_text": "BD-TOB-042",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "https: //portal.hinoiwa-kk.co.jp/docs/fiea-memo?rid=9a2b"
+      "matched_text": "https: //portal.hinoiwa-kk.co.jp/docs/fiea-memo?rid=9a2b",
+      "rule": "internal_session_id"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet disclosed externally"
+      "matched_text": "not yet disclosed externally",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Undisclosed"
+      "matched_text": "Undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "the board’s draft resolution to acquire 51% of Azami Robotics via tender offer starting 2026-07-15"
+      "matched_text": "the board\u2019s draft resolution to acquire 51% of Azami Robotics via tender offer starting 2026-07-15",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "a revised earnings forecast"
+      "matched_text": "a revised earnings forecast",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "synergies affecting segment margins"
+      "matched_text": "synergies affecting segment margins",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
+      "matched_text": "51%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Ajisai"
+      "matched_text": "Project Ajisai",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "pre-commencement leakage would be a violation"
+      "matched_text": "pre-commencement leakage would be a violation",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "distribution to employees is prohibited"
+      "matched_text": "distribution to employees is prohibited",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "phones to trading desks remain blocked during the quiet period"
+      "matched_text": "phones to trading desks remain blocked during the quiet period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no session IDs or quasi-identifiers should leave the controlled environment"
+      "matched_text": "no session IDs or quasi-identifiers should leave the controlled environment",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list registration"
+      "matched_text": "insider list registration",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "quiet period"
+      "matched_text": "quiet period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "only role-based teams may view MNPI"
+      "matched_text": "only role-based teams may view MNPI",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "11- 4 7 8 2 - 11"
+      "matched_text": "11- 4 7 8 2 - 11",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "7 9 - 3 1 1"
+      "matched_text": "7 9 - 3 1 1",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "20"
+      "matched_text": "20",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Tomoya Nishikado"
+      "matched_text": "Mr. Tomoya Nishikado",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "To: Board Compliance Committee, Hinoiwa Systems K.K.; From: Legal & Corporate Affairs; Date: 2026-05-31; Subject: APPI/My Number and FIEA controls re proposed Azami Robotics Co., Ltd. acquisition."
+      "matched_text": "To: Board Compliance Committee, Hinoiwa Systems K.K.; From: Legal & Corporate Affairs; Date: 2026-05-31; Subject: APPI/My Number and FIEA controls re proposed Azami Robotics Co., Ltd. acquisition.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Undisclosed material facts include the board’s draft resolution to acquire 51% of Azami Robotics via tender offer starting 2026-07-15, a revised earnings forecast, and synergies affecting segment margins."
+      "matched_text": "Undisclosed material facts include the board\u2019s draft resolution to acquire 51% of Azami Robotics via tender offer starting 2026-07-15, a revised earnings forecast, and synergies affecting segment margins.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The acquisition project nickname is “Project Ajisai”; routine project-management prose like “pls sync later” and generic policy text should not be construed as enumerated facts."
+      "matched_text": "The acquisition project nickname is \u201cProject Ajisai\u201d; routine project-management prose like \u201cpls sync later\u201d and generic policy text should not be construed as enumerated facts.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "quiet period"
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "rei.takagi@hinoiwa-kk.co.jp"
+      "matched_text": "rei.takagi@hinoiwa-kk.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@hinoiwa-kk.co.jp"
+      "matched_text": "legal@hinoiwa-kk.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "11- 4 7 8 2 - 11"
+      "matched_text": "11- 4 7 8 2 - 11",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1993-12-14"
+      "matched_text": "1993-12-14",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "20"
+      "matched_text": "20",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Rei Takagi"
+      "matched_text": "Ms. Rei Takagi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Tomoya Nishikado"
+      "matched_text": "Mr. Tomoya Nishikado",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "To: Board Compliance Committee, Hinoiwa Systems K.K.; From: Legal & Corporate Affairs; Date: 2026-05-31; Subject: APPI/My Number and FIEA controls re proposed Azami Robotics Co., Ltd. acquisition."
+      "matched_text": "To: Board Compliance Committee, Hinoiwa Systems K.K.; From: Legal & Corporate Affairs; Date: 2026-05-31; Subject: APPI/My Number and FIEA controls re proposed Azami Robotics Co., Ltd. acquisition.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Undisclosed material facts include the board’s draft resolution to acquire 51% of Azami Robotics via tender offer starting 2026-07-15, a revised earnings forecast, and synergies affecting segment margins."
+      "matched_text": "Undisclosed material facts include the board\u2019s draft resolution to acquire 51% of Azami Robotics via tender offer starting 2026-07-15, a revised earnings forecast, and synergies affecting segment margins.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The acquisition project nickname is “Project Ajisai”; routine project-management prose like “pls sync later” and generic policy text should not be construed as enumerated facts."
+      "matched_text": "The acquisition project nickname is \u201cProject Ajisai\u201d; routine project-management prose like \u201cpls sync later\u201d and generic policy text should not be construed as enumerated facts.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Undisclosed"
+      "matched_text": "Undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "quiet period"
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Ajisai"
+      "matched_text": "Project Ajisai",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
+      "matched_text": "51%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rei Takagi (Procurement Lead, Hinoiwa Systems K.K., dob 1993-12-14, Kawade-ku office) accessed device \u201cAmberLeaf X2\u201d IMEI 35-009190-443321-7 and VPN session https://intra.hinoiwa.local/sessions/8d7e-1f, linking to brokerage sub-account UmeShare-4462.\nContact: rei.takagi@hinoiwa-kk.co.jp; internal ext. 143; employee code RKT-217 (not a \u500b\u4eba\u756a\u53f7); workstation ID W-TAKAGI-07 on the Aoyagi network segment.\nNote: \u500b\u4eba\u756a\u53f7 is not recorded and MAC addresses are explicitly not captured for this workflow; the public product brochure on our website is irrelevant to MNPI.\nUndisclosed material facts include the board\u2019s draft resolution to acquire 51% of Azami Robotics via tender offer starting 2026-07-15, a revised earnings forecast, and synergies affecting segment margins.\nWe must coordinate with the National Securities Supervision Agency and the East Japan Securities Exchange (Prime Board) on timely disclosure and insider list registration; pre-commencement leakage would be a violation.\nFor demo stock monitoring, the string 1988-08-08, Kansei Belt, \u201canalytics lead,\u201d and handset \u201cMizuGo S1\u201d appear in logs but are not tied to any identifiable living individual.\nMr. Tomoya Nishikado-san (Director) discussed the non-public tender price range in a closed board session recorded as meeting code BD-TOB-042; distribution to employees is prohibited.\nA c c o u n t: JP11- 4 7 8 2 - 11 is a synthetic ledger reference used in testing; do not treat it as personal data; see u r l: https: //portal.hinoiwa-kk.co.jp/docs/fiea-memo?rid=9a2b.\nThe acquisition project nickname is \u201cProject Ajisai\u201d; routine project-management prose like \u201cpls sync later\u201d and generic policy text should not be construed as enumerated facts.\nRegional mapping: Aoyagi branch printers and Midorisawa satellite office routers are in scope, but the phrase \u201cfemale employees aged 20\u201350\u201d is demographic only and does not identify a person.\nCompliance inquiries: legal@hinoiwa-kk.co.jp",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board Compliance Committee, Hinoiwa Systems K.K.; From: Legal & Corporate Affairs; Date: 2026-05-31; Subject: APPI/My Number and FIEA controls re proposed Azami Robotics Co., Ltd. acquisition.\nThis memorandum addresses APPI handling of living-individual information and FIEA MNPI for a contemplated tender offer (TOB) by Hinoiwa Systems K.K., not yet disclosed externally.\nMs. Rei Takagi (Procurement Lead, Hinoiwa Systems K.K., dob 1993-12-14, Kawade-ku office) accessed device \u201cAmberLeaf X2\u201d IMEI 35-009190-443321-7 and VPN session https://intra.hinoiwa.local/sessions/8d7e-1f, linking to brokerage sub-account UmeShare-4462.\nContact: rei.takagi@hinoiwa-kk.co.jp; internal ext. 143; employee code RKT-217 (not a \u500b\u4eba\u756a\u53f7); workstation ID W-TAKAGI-07 on the Aoyagi network segment.\nNote: \u500b\u4eba\u756a\u53f7 is not recorded and MAC addresses are explicitly not captured for this workflow; the public product brochure on our website is irrelevant to MNPI.\nUndisclosed material facts include the board\u2019s draft resolution to acquire 51% of Azami Robotics via tender offer starting 2026-07-15, a revised earnings forecast, and synergies affecting segment margins.\nWe must coordinate with the National Securities Supervision Agency and the East Japan Securities Exchange (Prime Board) on timely disclosure and insider list registration; pre-commencement leakage would be a violation.\nFor demo stock monitoring, the string 1988-08-08, Kansei Belt, \u201canalytics lead,\u201d and handset \u201cMizuGo S1\u201d appear in logs but are not tied to any identifiable living individual.\nMr. Tomoya Nishikado-san (Director) discussed the non-public tender price range in a closed board session recorded as meeting code BD-TOB-042; distribution to employees is prohibited.\nA c c o u n t: JP11- 4 7 8 2 - 11 is a synthetic ledger reference used in testing; do not treat it as personal data; see u r l: https: //portal.hinoiwa-kk.co.jp/docs/fiea-memo?rid=9a2b.\nThe acquisition project nickname is \u201cProject Ajisai\u201d; routine project-management prose like \u201cpls sync later\u201d and generic policy text should not be construed as enumerated facts.\nRegional mapping: Aoyagi branch printers and Midorisawa satellite office routers are in scope, but the phrase \u201cfemale employees aged 20\u201350\u201d is demographic only and does not identify a person.\nCompliance inquiries: legal@hinoiwa-kk.co.jp; chat: hinoiwa-legal on internal IM; phones to trading desks remain blocked during the quiet period.\nPseudonymized device serial A X 7 9 - 3 1 1 and link token tok_7c8bf2 are kept in encrypted logs to trace access; only role-based teams may view MNPI per FIEA Article 166.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "個人番号",
+      "matched_text": "\u500b\u4eba\u756a\u53f7",
       "reason": "Negated; no actual My Number value is present"
     },
     {
@@ -379,7 +417,7 @@
       "reason": "Explicitly marked synthetic ledger reference; not personal data"
     },
     {
-      "matched_text": "female employees aged 20–50",
+      "matched_text": "female employees aged 20\u201350",
       "reason": "Generic demographic data that does not identify an individual"
     },
     {
@@ -428,24 +466,6 @@
       "concept": "date_of_birth",
       "matched_text": "1988-08-08",
       "reason": "Date string appears in logs but explicitly not tied to an identifiable individual"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

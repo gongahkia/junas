@@ -1,110 +1,176 @@
 {
-  "doc_id": "my_special_category_incident_report_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "MY",
-  "destination_jurisdiction": "MY",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "it-security@awandataglobe.example"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "VPC"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "HR confirms no disciplinary action or payroll impact is contemplated; Wellness@Work guidance remains available and is generic in nature."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_special_category_incident_report_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "it-security@awandataglobe.example"
+      "matched_text": "it-security@awandataglobe.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "VPC"
+      "matched_text": "VPC",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "HR confirms no disciplinary action or payroll impact is contemplated; Wellness@Work guidance remains available and is generic in nature."
+      "matched_text": "HR confirms no disciplinary action or payroll impact is contemplated; Wellness@Work guidance remains available and is generic in nature.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "media@awandataglobe.example"
+      "matched_text": "media@awandataglobe.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1800-000-000"
+      "matched_text": "1800-000-000",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "ADG-IT-117"
+      "matched_text": "ADG-IT-117",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "0000-ALFA-Z9Z9"
+      "matched_text": "0000-ALFA-Z9Z9",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "he was receiving migraine treatment during the affected shift"
+      "matched_text": "he was receiving migraine treatment during the affected shift",
+      "rule": "medical_treatment"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "Cyber Operational Incident Notification"
+      "matched_text": "Cyber Operational Incident Notification",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "insider information"
+      "matched_text": "insider information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "We will update the market only if materiality thresholds under the Bursa Listing Requirements are met, and otherwise treat this as a routine operational event"
+      "matched_text": "We will update the market only if materiality thresholds under the Bursa Listing Requirements are met, and otherwise treat this as a routine operational event",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Farhan Idris"
+      "matched_text": "Farhan Idris",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "MY00-XXXX-1234-ABCD"
+      "matched_text": "MY00-XXXX-1234-ABCD",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "this health detail is being redacted in accordance with the PDPA"
+      "matched_text": "this health detail is being redacted in accordance with the PDPA",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "not expected to trigger immediate disclosure under Paragraph 9.03 of the Main Market Listing Requirements of Bursa Malaysia"
+      "matched_text": "not expected to trigger immediate disclosure under Paragraph 9.03 of the Main Market Listing Requirements of Bursa Malaysia",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "it-security@awandataglobe.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VPC",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HR confirms no disciplinary action or payroll impact is contemplated; Wellness@Work guidance remains available and is generic in nature.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CMSA/Bursa insider information considerations were reviewed; no non-public, price-sensitive information was viewed, exfiltrated, or altered.\nNamed individual data captured in ticket INC-ADG-0626: Farhan Idris (IT Analyst, employee code ADG-IT-117) noted he was receiving migraine treatment during the affected shift; this health detail is being redacted in accordance with the PDPA.\nService continuity was maintained; a controlled failover to the Bandar Layar DR zone met the internal RTO target and no customer SLAs were breached.\nPolicy references: Cyber Resilience Framework Policy 2025, Secure Coding SOP v3.1, and the Diversity Harmony Pledge (DEI) apply; teamwork is a marathon, not a sprint.\nTools and stacks mentioned (Cendana-Proxy, NusaCloud VPC, Orchid SSO) are product names and do not denote any customer account or security identifier.\nFor context, the Kuala Rimba Hornbills match at Stadium Puncak Embun caused a transient spike in public web traffic, which is unrelated to authentication failures.\nLog entries showing \u201cAccount: MY00-XXXX-1234-ABCD\u201d and \u201cSessionID: 0000-ALFA-Z9Z9\u201d are placeholders used for training and do not correspond to live accounts or transactions.\nRoot cause hypothesis is an overly permissive rate limiter on Cendana-Proxy; remediation is tracked under Change Request CR-ADG-1043 with CAB approval scheduled this week.\nThis notice also reiterates already-announced control enhancements described in our 18 April 2026 Sustainability Statement and Cyber Governance section posted on the Exchange portal.\nHR confirms no disciplinary action or payroll impact is contemplated; Wellness@Work guidance remains available and is generic in nature.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -177,78 +243,32 @@
       "reason": "department/role noun, not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "MY",
   "uncertain": [
     {
-      "matched_text": "INC-ADG-0626",
       "concept": "internal incident/ticket ID",
+      "matched_text": "INC-ADG-0626",
       "reason": "Appears to be an internal incident reference tied to personal data but not clearly covered by an allowed PII rule."
     },
     {
-      "matched_text": "CIR-2026-06-ADG",
       "concept": "internal reference code",
+      "matched_text": "CIR-2026-06-ADG",
       "reason": "Internal tracking code; may be sensitive operational metadata but not clearly mapped to an allowed rule."
     },
     {
-      "matched_text": "CR-ADG-1043",
       "concept": "change request ID",
+      "matched_text": "CR-ADG-1043",
       "reason": "Internal change-control reference; potentially sensitive but no explicit allowed PII/MNPI rule."
     },
     {
-      "matched_text": "insider information considerations were reviewed",
       "concept": "information barrier",
+      "matched_text": "insider information considerations were reviewed",
       "reason": "Indicates handling of insider information; suggests info-barrier compliance but not an explicit barrier/list marker phrase."
     },
     {
-      "matched_text": "Account: MY00-XXXX-1234-ABCD",
       "concept": "customer account number placeholder",
+      "matched_text": "Account: MY00-XXXX-1234-ABCD",
       "reason": "Looks like an account number format but explicitly stated as a placeholder and may not meet strict detection patterns."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
-  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_strict_reconciliation": {
-    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review",
-    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  },
-  "_human_review": {
-    "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-    "reviewed_at_utc": "2026-06-02T07:54:03Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
-    "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
-      "reviewed_at_utc": "2026-06-02T07:54:03Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
-      "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-02T07:54:03Z",
-    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  }
+  ]
 }

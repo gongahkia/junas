@@ -48,6 +48,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "CN",
@@ -320,6 +328,24 @@
       "category": "MNPI",
       "matched_text": "Information Barriers",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Preliminary logs indicate exposure of limited PI: masked employee \u5c45\u6c11\u8eab\u4efd\u8bc1\u53f7 (e.g., 41 02**********123X), partial payroll bank suffixes (****6623), and two contractor emails; no data relating to minors under 14 was identified.\nA misconfigured job briefly synchronized a redacted draft to a Hong Kong mirror (https://files.qilong.hk/m ir ror?doc=MGV- 2 6), triggering a cross-border transfer scenario requiring CAC \u51fa\u5883\u6570\u636e\u5b89\u5168\u8bc4\u4f30 under PIPL/CSL/DSL.\nThe issuer insider list for Project Mangrove has been updated to include Mr. Han Weiming (CFO), Ms. Zhao Rui (Head of IR), and Dr. Lin Qiao (ESG advisor), all subject to the information barrier and do\u2011not\u2011trade restrictions; attestations due EOD",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Incident Report \u2014 Qilong Robotics Holdings Co., Ltd. (STAR Market issuer, code 88X123), \u7edf\u4e00\u793e\u4f1a\u4fe1\u7528\u4ee3\u7801 U S C C: 91QL-00F3-9Z0G-00 0M, date 2026-06-04.\nOn 2026-06-03, our SOC detected anomalous SFTP from cn-beijing to an overseas node resulting in unauthorized access to the \u201cProject Mangrove\u201d vendor due diligence pack containing draft commercial terms and an unpublished ESG climate-risk briefing intended for CSRC filing.\nAs the materials include deal-stage pricing ranges and scope for a five-year motor drive supply, they constitute inside information under the PRC Securities Law and are subject to an internal trading blackout until 2026-07-15.\nPreliminary logs indicate exposure of limited PI: masked employee \u5c45\u6c11\u8eab\u4efd\u8bc1\u53f7 (e.g., 41 02**********123X), partial payroll bank suffixes (****6623), and two contractor emails; no data relating to minors under 14 was identified.\nA misconfigured job briefly synchronized a redacted draft to a Hong Kong mirror (https://files.qilong.hk/m ir ror?doc=MGV- 2 6), triggering a cross-border transfer scenario requiring CAC \u51fa\u5883\u6570\u636e\u5b89\u5168\u8bc4\u4f30 under PIPL/CSL/DSL.\nThe issuer insider list for Project Mangrove has been updated to include Mr. Han Weiming (CFO), Ms. Zhao Rui (Head of IR), and Dr. Lin Qiao (ESG advisor), all subject to the information barrier and do\u2011not\u2011trade restrictions; attestations due EOD.\nWe have isolated the \u201cRM\u2011Research\u201d chat room and applied an information barrier after an Ops trainee, Mr. Chen Kai, forwarded a climate scenario draft to a logistics vendor, although at this stage we have found no evidence of tipping or selective disclosure.\nSeparately, the cyber review found that a dev repo referenced test wallets from a digital asset custody POC with Lianhui Digital Bank under a PBoC sandbox; no keys were present, and this crypto pilot has not been publicly announced.\nTechnical indicators match public CERT-CN advisory CVE\u20112026\u20111234; EDR containment complete, and no persistence observed after 02:41 CST.\nRemediation: revoke compromised credentials, rotate SFTP, notify \u7f51\u4fe1\u529e within statutory hours, launch PIPL impact assessment, and prepare CSRC/SSE clarification in case of market rumors.\nThis communication is for internal compliance and is not intended as selective disclosure; any external announcements will follow issuer obligations under SSE Listing Rules and be coordinated with the designated media.\nTraining note: during Compliance Week, Marketing will publish \u201cInformation Barriers 101\u201d using our Fuyuan Cloud Tokenizer product name; this educational material mentions \u201ctokens\u201d but is unrelated to crypto trading.\nBased on current assessment, this event is not expected to constitute a material adverse change under existing loan covenants or the draft SPA for Project Mangrove.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

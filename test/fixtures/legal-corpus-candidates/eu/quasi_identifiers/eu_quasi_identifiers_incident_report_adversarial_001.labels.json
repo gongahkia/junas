@@ -50,6 +50,14 @@
     "previous_must_detect_count": 11,
     "previous_must_not_detect_count": 7
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "EU",
@@ -227,6 +235,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mr. Tomas Veikko (age 42, DOB 14-02-1984), role: Network Operations Lead at Novaforge, was the on-call approver for the change window in Orsendal (EU-19) when the alert triggered.\nDevice: Aster-14 laptop SN A1B2-C3D4, a c c o u n t: tvk-admin-842, session: sess-9247; auxiliary acc ref I B A N: XE89 00 12 34 xx 567 x 0000 (masked).\nA backup task (NOVA-ESG-0421) routed selected log payloads to Lyrica Cloud Systems Ltd in the Republic of Lyrica (non-EEA), constituting a cross-border transfer.\nNo Art 9 special-category fields were intended in these logs; however, attachments may have included HR health-screening snippets, so we initiated a DPIA-lite and obtained explicit consent where feasible.\nImpact scope: 3 suppliers\u2019 emissions baselines and one windfarm availability KPI were altered for 47 minutes; GreenPulse 3.2 and MeterFlux nodes auto-synced before rollback.\nThis incident coincided with a preliminary, non-public adjustment to FY26 output guidance (internal draft range +4% to +6%), which is considered MNPI under EU MAR for an issuer on PEX.\nAn insider list was opened and delayed disclosure under MAR Art 17 considered; the competent authority (European Securities Oversight Office, ESOO) will be",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

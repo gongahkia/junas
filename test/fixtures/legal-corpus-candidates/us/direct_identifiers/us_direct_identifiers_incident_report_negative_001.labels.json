@@ -29,6 +29,14 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
@@ -42,7 +50,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "material non‑public information",
+      "matched_text": "material non\u2011public information",
       "rule": "nonpublic_marker"
     },
     {
@@ -67,7 +75,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "1111‑2222‑3333",
+      "matched_text": "1111\u20112222\u20113333",
       "rule": "customer_account_number"
     },
     {
@@ -81,7 +89,14 @@
       "rule": "data_minimisation_marker"
     }
   ],
-  "must_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Contact for inquiries: security@northcrosshb.com and the public helpline 1-800-555-0172; please do not transmit personal health or financial information.\nMailing address for compliance correspondence: 85 Mockingbird Rd, Suite 200, Redwood, US 00000; this is a corporate P.O. drop used for public mail only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
   "must_not_detect": [
     {
       "matched_text": "1-800-555-0172",
@@ -112,11 +127,11 @@
       "reason": "Generic form label placeholder"
     },
     {
-      "matched_text": "Fairview City Health Permit HP‑000000",
+      "matched_text": "Fairview City Health Permit HP\u2011000000",
       "reason": "Placeholder permit number; out of scope for allowed rules"
     },
     {
-      "matched_text": "State File No. DE‑9999999",
+      "matched_text": "State File No. DE\u20119999999",
       "reason": "Placeholder state file number; out of scope for allowed rules"
     }
   ],

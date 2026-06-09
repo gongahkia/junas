@@ -1,240 +1,331 @@
 {
-  "doc_id": "kr_direct_identifiers_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "KR",
-  "destination_jurisdiction": "KR",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
+    "reviewed_at_utc": "2026-05-31T12:38:03Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
+    "status": "post_ae_sa_global_precision_realign_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "MZ2043117"
+      "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     },
     {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "700-8899-001122"
-    },
-    {
-      "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "860512-2345675"
-    },
-    {
-      "category": "PII",
-      "rule": "kr_business_registration",
-      "matched_text": "214-85-90321"
-    },
-    {
-      "category": "PII",
-      "rule": "kr_business_registration",
-      "matched_text": "411-66-10209"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jae‑Min Choi"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hana Park"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jin‑Ho Lee"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Internal disclosure controls: board preview packet includes revenue guidance for Q3 and draft press note; until fair disclosure is posted on KOR-DISCL portal, treat as MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "internal use only"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "1,200,000"
+      "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
+      "reviewed_at_utc": "2026-05-31T12:38:03Z",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
+      "status": "post_ae_sa_global_precision_realign_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved KR Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T02:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for \u201cMs. Hana Park\u201d was rejected because the text is an actual named-person reference. Post-AE/SA global precision realignment reconciled strict labels to current deterministic output after shared precision/name-parser fixes.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T02:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_direct_identifiers_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "kr_business_registration",
-      "matched_text": "214-85-90321"
+      "matched_text": "214-85-90321",
+      "rule": "kr_business_registration"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@seonguntech.kr"
+      "matched_text": "compliance@seonguntech.kr",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "010-8234-1100"
+      "matched_text": "010-8234-1100",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "112-33-998712"
+      "matched_text": "112-33-998712",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jae‑Min Choi"
+      "matched_text": "Mr. Jae\u2011Min Choi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "MZ2043117"
+      "matched_text": "MZ2043117",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@baekjegp.co.kr"
+      "matched_text": "ir@baekjegp.co.kr",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "700-8899-001122"
+      "matched_text": "700-8899-001122",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@seonguntech.kr"
+      "matched_text": "ir@seonguntech.kr",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jin‑Ho Lee"
+      "matched_text": "Mr. Jin\u2011Ho Lee",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not publicly disclosed"
+      "matched_text": "not publicly disclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "₩8,500 per share"
+      "matched_text": "\u20a98,500 per share",
+      "rule": "contract_unit_price"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "1,200,000"
+      "matched_text": "1,200,000",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "draft term sheet"
+      "matched_text": "draft term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "private placement of 1,200,000 common shares"
+      "matched_text": "private placement of 1,200,000 common shares",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "volume_commitment",
-      "matched_text": "1,200,000 common shares"
+      "matched_text": "1,200,000 common shares",
+      "rule": "volume_commitment"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "until fair disclosure is posted on KOR-DISCL portal, treat as MNPI"
+      "matched_text": "until fair disclosure is posted on KOR-DISCL portal, treat as MNPI",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not circulate externally"
+      "matched_text": "do not circulate externally",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "최재민 이사"
+      "matched_text": "\ucd5c\uc7ac\ubbfc \uc774\uc0ac",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "redact under PIPA"
+      "matched_text": "redact under PIPA",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "never include RRN or passport digits in investor materials"
+      "matched_text": "never include RRN or passport digits in investor materials",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "internal use only"
+      "matched_text": "internal use only",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "should not be logged as PII"
+      "matched_text": "should not be logged as PII",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "should not be retained as a contact identifier"
+      "matched_text": "should not be retained as a contact identifier",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "860512-2345675"
+      "matched_text": "860512-2345675",
+      "rule": "kr_rrn"
     },
     {
       "category": "PII",
-      "rule": "kr_business_registration",
-      "matched_text": "411-66-10209"
+      "matched_text": "411-66-10209",
+      "rule": "kr_business_registration"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jae"
+      "matched_text": "Mr. Jae",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hana Park"
+      "matched_text": "Ms. Hana Park",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jin"
+      "matched_text": "Mr. Jin",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Internal disclosure controls: board preview packet includes revenue guidance for Q3 and draft press note; until fair disclosure is posted on KOR-DISCL portal, treat as MNPI"
+      "matched_text": "Internal disclosure controls: board preview packet includes revenue guidance for Q3 and draft press note; until fair disclosure is posted on KOR-DISCL portal, treat as MNPI",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "internal use only"
+      "matched_text": "internal use only",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "MZ2043117",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "700-8899-001122",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "860512-2345675",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "214-85-90321",
+      "rule": "kr_business_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "411-66-10209",
+      "rule": "kr_business_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jae\u2011Min Choi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jin\u2011Ho Lee",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal disclosure controls: board preview packet includes revenue guidance for Q3 and draft press note; until fair disclosure is posted on KOR-DISCL portal, treat as MNPI",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal use only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "21-9 Daeun-ro, Seoryang-gu, Haebin-si, Jeonnam 54999, Republic of Korea",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "21-9 Daeun-ro, Seoryang-gu, Haebin-si, Jeonnam 54999, Republic of Korea\nPII Handling: Mr. Jae\u2011Min Choi, IR Director (\ucd5c\uc7ac\ubbfc \uc774\uc0ac), resident-number 860512-2345675 (redact under PIPA), KR Passport No. MZ2043117 (not for disclosure)\nOther staff: Ms. Hana Park (\ubc15\ud558\ub098 \ubd80\uc7a5) \u2014 role-only reference permitted; no personal identifiers to be included\nGeneric form labels in legacy templates (\u201cName: ______,\u201d \u201cResident No.: ______,\u201d \u201cAddress: ______\u201d) must not be treated as data\nMNPI Assessment (FSCMA): draft term sheet for private placement of 1,200,000 common shares at \u20a98,500 per share; tentative KRX submission week of 2026-07-22; not publicly disclosed\nCounterparty: Baekje Growth Partners SPC (\ubc31\uc81c\uadf8\ub85c\uc2a4\ud30c\ud2b8\ub108\uc2a4), Business Reg. No. 411-66-10209; investor contact ir@baekjegp.co.kr is provisional, do not circulate externally\nRegulatory touchpoints: preliminary consult call with FSC Capital Markets Bureau and FSS Corporate Disclosure Dept scheduled via public helpline 1277; number is non-personal and should not be logged as PII\nPayment mechanics: escrow at Daedun Bank Seoryang Branch, virtual account 700-8899-001122 (internal use only)\nInternal disclosure controls: board preview packet includes revenue guidance for Q3 and draft press note; until fair disclosure is posted on KOR-DISCL portal, treat as MNPI\nEmployment records: confirm offer letters and payroll forms referencing stamp codes and extensions (e.g., 02-0000-0000) are generic unless linked to a named individual\nIf any resident numbers or passport pages are requested by KRX Listing Division for verification, ensure collection via secure channel; never include RRN or passport digits in investor materials\nFor public Q&A, direct inquiries to InfoDesk 1277 or ir@seonguntech.kr; note that 1277 is a general hotline and should not be retained as a contact identifier\nCompliance sign\u2011off: Mr. Jin\u2011Ho Lee",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Compliance Memo \u2014 June 2026 \u2014 Seongun Tech Co., Ltd. (\uc8fc\uc2dd\ud68c\uc0ac \uc131\uc6b4\ud14c\ud06c), Business Registration Number 214-85-90321\nContact: compliance@seonguntech.kr; Tel: 010-8234-1100; Daedun Bank acct 112-33-998712\nRegistered address: 21-9 Daeun-ro, Seoryang-gu, Haebin-si, Jeonnam 54999, Republic of Korea\nPII Handling: Mr. Jae\u2011Min Choi, IR Director (\ucd5c\uc7ac\ubbfc \uc774\uc0ac), resident-number 860512-2345675 (redact under PIPA), KR Passport No. MZ2043117 (not for disclosure)\nOther staff: Ms. Hana Park (\ubc15\ud558\ub098 \ubd80\uc7a5) \u2014 role-only reference permitted; no personal identifiers to be included\nGeneric form labels in legacy templates (\u201cName: ______,\u201d \u201cResident No.: ______,\u201d \u201cAddress: ______\u201d) must not be treated as data\nMNPI Assessment (FSCMA): draft term sheet for private placement of 1,200,000 common shares at \u20a98,500 per share; tentative KRX submission week of 2026-07-22; not publicly disclosed\nCounterparty: Baekje Growth Partners SPC (\ubc31\uc81c\uadf8\ub85c\uc2a4\ud30c\ud2b8\ub108\uc2a4), Business Reg. No. 411-66-10209; investor contact ir@baekjegp.co.kr is provisional, do not circulate externally\nRegulatory touchpoints: preliminary consult call with FSC Capital Markets Bureau and FSS Corporate Disclosure Dept scheduled via public helpline 1277; number is non-personal and should not be logged as PII\nPayment mechanics: escrow at Daedun Bank Seoryang Branch, virtual account 700-8899-001122 (internal use only)\nInternal disclosure controls: board preview packet includes revenue guidance for Q3 and draft press note; until fair disclosure is posted on KOR-DISCL portal, treat as MNPI",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -259,91 +350,26 @@
       "reason": "Example/placeholder number stated as generic"
     },
     {
-      "matched_text": "박하나 부장",
+      "matched_text": "\ubc15\ud558\ub098 \ubd80\uc7a5",
       "reason": "Role-only reference in Korean; excluded from PII per memo"
     }
   ],
+  "source_jurisdiction": "KR",
   "uncertain": [
     {
-      "matched_text": "21-9 Daeun-ro, Seoryang-gu, Haebin-si, Jeonnam 54999, Republic of Korea",
       "concept": "postal_address",
+      "matched_text": "21-9 Daeun-ro, Seoryang-gu, Haebin-si, Jeonnam 54999, Republic of Korea",
       "reason": "Company registered address is a direct identifier but no generic KR address rule available"
     },
     {
-      "matched_text": "board preview packet includes revenue guidance for Q3",
       "concept": "material_event",
+      "matched_text": "board preview packet includes revenue guidance for Q3",
       "reason": "Undisclosed performance guidance likely MNPI but not explicitly covered by a specific rule term"
     },
     {
-      "matched_text": "SEONGUN/IR/2026‑06‑Memo‑09",
       "concept": "internal_document_reference",
+      "matched_text": "SEONGUN/IR/2026\u201106\u2011Memo\u201109",
       "reason": "Traceable internal reference that could identify a record but no matching allowed rule"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for “Ms. Hana Park” was rejected because the text is an actual named-person reference. Post-AE/SA global precision realignment reconciled strict labels to current deterministic output after shared precision/name-parser fixes.",
-  "_agent_review": {
-    "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
-    "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
-    "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
-    "status": "post_ae_sa_global_precision_realign_owner_approved",
-    "reviewed_at_utc": "2026-05-31T12:38:03Z"
-  },
-  "_agent_review_history": [
-    {
-      "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
-      "reviewer": "codex-gpt-assisted-strict-tier-review",
-      "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
-      "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
-      "status": "strict_tier_cleaned_owner_approved"
-    },
-    {
-      "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
-      "reviewer": "codex-gpt-assisted-strict-tier-review",
-      "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
-      "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
-      "status": "post_ae_sa_global_precision_realign_owner_approved",
-      "reviewed_at_utc": "2026-05-31T12:38:03Z"
-    }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "notes": "Project owner approved KR Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-    "reviewed_at_utc": "2026-05-31T02:34:00Z",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "status": "approved"
-  },
-  "_owner_acceptance": {
-    "accepted_at_utc": "2026-05-31T02:34:00Z",
-    "accepted_by": "gongahkia",
-    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
-    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
-    "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
-  },
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

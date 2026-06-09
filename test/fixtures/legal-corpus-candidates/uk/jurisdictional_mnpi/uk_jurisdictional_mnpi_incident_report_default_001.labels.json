@@ -50,6 +50,14 @@
     "previous_must_detect_count": 25,
     "previous_must_not_detect_count": 10
   },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "UK",
@@ -312,6 +320,30 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The insider list must be updated as of 06 June 2026 to include Ms. Priya K. Dhillon (CRO, priya.dhillon@bramleypenrith.co.uk), Dr. Saira Malik (CISO, saira.malik@bramleypenrith.co.uk), and Mr. Alistair Keane (CFO, alistair.keane@bramleypenrith.co.uk).\nAs noted in our public RIS announcement on 20 May 2026 (\u201cPlanned VistaPay Migration Timeline\u201d), we previously stated there was no expected disruption to customer services during Q2; that statement is no longer current and will be corrected when we release a holding statement.\nWe are preparing a holding announcement for publication via a regulatory information service by 17:00 BST on 07 June 2026, subject to continued maintenance of confidentiality and stabilisation of core services",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The insider list must be updated as of 06 June 2026 to include Ms. Priya K. Dhillon (CRO, priya.dhillon@bramleypenrith.co.uk), Dr. Saira Malik (CISO, saira.malik@bramleypenrith.co.uk), and Mr. Alistair Keane (CFO, alistair.keane@bramleypenrith.co.uk).\nAs noted in our public RIS announcement on 20 May 2026 (\u201cPlanned VistaPay Migration Timeline\u201d), we previously stated there was no expected disruption to customer services during Q2; that statement is no longer current and will be corrected when we release a holding statement.\nWe are preparing a holding announcement for publication via a regulatory information service by 17:00 BST on 07 June 2026, subject to continued maintenance of confidentiality and stabilisation of core services.\nNotifications to the competent data protection authority will be made within the statutory period; the draft to the UK Information Rights Office is under internal review and will not be submitted before our RIS unless legally required.\nFor avoidance of doubt, the sustainability report posted on 10 January 2026 and a 12 April 2026 press release about branch refurbishments are unrelated and contain no inside information.\nEarly media/social posts and a third-party uptime monitor referencing the VistaPay portal outage are not issuer communications; staff must not comment publicly or \u201cconfirm details on background.\u201d\nNo cash movement has occurred outside normal reconciliations, and no employee payroll data is involved; card token vaults at our vendor Harcourt Gate Hosting Ltd were not accessed.\nRegistrar instructions: Albion Registrars Ltd have been told not to process exercises under the employee share plan until we cleanse the market via RIS and lift the blackout.\nQueries should be directed to the Incident Desk (security@bramleypenrith.co.uk) or Investor Relations (ir@bramleypenrith.co.uk); legal questions should be escalated to Ms. Dhillon via +44 7000 111222",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Private & Confidential \u2014 Cyber Incident Report for Bramley & Penrith Group plc; prepared under UK MAR Article 17 delay.\nOn 05 June 2026 at 02:14 BST we identified unauthorised credential use against the legacy \u201cVistaPay\u201d customer portal operated by our subsidiary Calder Analytics Ltd.\nForensic logs indicate exfiltration of a subset of 8,400 pseudonymised customer profile records and intermittent failure of the payments reconciliation module from 02:11\u201304:38 BST; no direct customer balances were altered.\nThe outage delayed settlement of approximately \u00a342m equivalent in merchant funds by up to one business day; preliminary modelling suggests a potential EBITDA impact of 6\u20138% for FY26 from remediation, penalties, and lost volume, which may be material at issuer level.\nThis constitutes inside information for the purposes of UK MAR; disclosure is currently delayed on the basis that immediate notification would prejudice our incident response and confidentiality is being maintained without risk of the market being misled.\nWe are in a closed period ahead of our half-year results (scheduled 18 July 2026), so all PDMR and employee dealing remains prohibited and the standing blackout window is extended until we publish via a regulatory information service.\nSelective disclosure is prohibited: do not brief customers, analysts, or lenders beyond approved lines; market soundings are not authorised, and any engagement with vendors must be under NDA and limited to operational detail only.\nThe insider list must be updated as of 06 June 2026 to include Ms. Priya K. Dhillon (CRO, priya.dhillon@bramleypenrith.co.uk), Dr. Saira Malik (CISO, saira.malik@bramleypenrith.co.uk), and Mr. Alistair Keane (CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [

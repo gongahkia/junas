@@ -8,13 +8,13 @@
   },
   "_human_review": {
     "decision": "approve",
-    "status": "approved",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
     "reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto",
     "reviewed_label_model": "azure:gpt-5-2",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
   },
   "_human_review_history": [
     {
@@ -28,13 +28,13 @@
     },
     {
       "decision": "approve",
-      "status": "approved",
-      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
       "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
       "reviewed_at_utc": "2026-06-03T13:20:58Z",
-      "reviewed_label_source": "azure:gpt-5-2-auto",
       "reviewed_label_model": "azure:gpt-5-2",
-      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
     }
   ],
   "_human_review_status": "approved",
@@ -48,6 +48,46 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
     "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -117,7 +157,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "religious affiliation “Lumina Path Fellowship”",
+      "matched_text": "religious affiliation \u201cLumina Path Fellowship\u201d",
       "rule": "religious_belief"
     },
     {
@@ -127,7 +167,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "political preference “Civic Renewal Party”",
+      "matched_text": "political preference \u201cCivic Renewal Party\u201d",
       "rule": "political_opinion"
     },
     {
@@ -147,7 +187,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "redact the child’s name",
+      "matched_text": "redact the child\u2019s name",
       "rule": "data_minimisation_marker"
     },
     {
@@ -227,7 +267,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Legal-Compliance Memorandum: Aurora Finserve Holdings, Inc. (PH issuer) — Data Privacy Act and SRC considerations in connection with the planned follow-on offering and concurrent HR/tax/banking workflows.",
+      "matched_text": "Internal Legal-Compliance Memorandum: Aurora Finserve Holdings, Inc. (PH issuer) \u2014 Data Privacy Act and SRC considerations in connection with the planned follow-on offering and concurrent HR/tax/banking workflows.",
       "rule": "material_event"
     },
     {
@@ -237,7 +277,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Product pipeline MNPI: “Blue Mango Microloan” launch and fee repricing post-closing; do not include in external investor decks until the current report is posted.",
+      "matched_text": "Product pipeline MNPI: \u201cBlue Mango Microloan\u201d launch and fee repricing post-closing; do not include in external investor decks until the current report is posted.",
       "rule": "material_event"
     },
     {
@@ -299,7 +339,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Legal-Compliance Memorandum: Aurora Finserve Holdings, Inc. (PH issuer) — Data Privacy Act and SRC considerations in connection with the planned follow-on offering and concurrent HR/tax/banking workflows.",
+      "matched_text": "Internal Legal-Compliance Memorandum: Aurora Finserve Holdings, Inc. (PH issuer) \u2014 Data Privacy Act and SRC considerations in connection with the planned follow-on offering and concurrent HR/tax/banking workflows.",
       "rule": "material_event"
     },
     {
@@ -309,7 +349,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Product pipeline MNPI: “Blue Mango Microloan” launch and fee repricing post-closing; do not include in external investor decks until the current report is posted.",
+      "matched_text": "Product pipeline MNPI: \u201cBlue Mango Microloan\u201d launch and fee repricing post-closing; do not include in external investor decks until the current report is posted.",
       "rule": "material_event"
     },
     {
@@ -341,6 +381,12 @@
       "category": "MNPI",
       "matched_text": "22%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal-Compliance Memorandum: Aurora Finserve Holdings, Inc. (PH issuer) \u2014 Data Privacy Act and SRC considerations in connection with the planned follow-on offering and concurrent HR/tax/banking workflows.\nThis note addresses MNPI under the Securities Regulation Code and personal data obligations under R.A. 10173 in relation to a listing event on the Luzon Stock Exchange and filings with the PH Securities Registry (fictional).\nMaterial, non-public items: executed term sheet (28 May 2026) with Baystar Capital Markets (bookrunner) to acquire Newgrowth Microfinance Corp.; unaudited Q2 NOI +22% vs. prior guidance; draft Form 17-C slated for 03 June submission and not yet circulated externally.\nProduct pipeline MNPI: \u201cBlue Mango Microloan\u201d launch and fee repricing post-closing; do not include in external investor decks until the current report is posted.\nBanking: subscription escrow to be opened at Isla Verde Bank, Account No. 00-228-AX74 (Aurora Finserve Capital Raise Trust); account details are confidential until the listing notice is released by the exchange.\nHR/PII: Ms. Elara M. Quinto, Senior Payroll Officer (eq@aurorafinserve.ph), submitted HMO claims indicating chemotherapy treatment dated 14 April; biometric fingerprint logs from turnstiles were referenced in her attendance correction filed 15 April.\nHR/PII: Her file lists religious affiliation \u201cLumina Path Fellowship\u201d and membership in the AuroraWorks Employee Union; treat these special-category fields per Section 13 of R.A. 10173 (consent, proportionality, and purpose limitation).\nHR/PII: Dependents section identifies minor child Lio S. Quinto (age 12, Student ID QN-12-771) for HMO coverage; redact the child\u2019s name in any board materials distributed outside HR and Legal.\nCompliance note: a volunteer form inadvertently captured Ms. Quinto\u2019s political preference \u201cCivic Renewal Party\u201d; purge this as not necessary for employment processing and restrict any residual logs.\nTax: payroll pack includes RTB Tax ID RTB-909-447 and RTB Form 2316 equivalents; limit access to the Tax Team and do not transmit via unsecured channels.\nProspectus language: avoid discussing religion or sexual orientation; a neutral DEI statement may read, \u201cWe value inclusion, equity, and diversity across all teams,\u201d which is appropriate and non-sensitive.\nFor external comms, do not reference the Laguna Typhoons tie-in or the Aranga City branch mural; these are non-material marketing items and not germane to risk factors.\nCommunications tone: avoid blue-sky promises and rainbow-unicorn metaphors in analyst briefings; adhere to the Fair Marketing Policy and Responsible Use Policy.\nContact the Data Protection Office at dpo@aurorafinserve.ph for redaction templates; questions on SRC blackout periods may be sent to legal@aurorafinserve.ph.\nOperational reminder: recruiting must not inquire into religion, and attendance devices must not export raw biometric templates to any third-party vendor without a data sharing agreement.\nWe will file the 17-C and a supplemental 17-A amendment after clearance from the PH Securities Registry; until public disclosure, insider trading remains restricted under the blackout.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
     }
   ],
   "must_not_detect": [
@@ -394,39 +440,7 @@
     {
       "concept": "data_sharing_control",
       "matched_text": "attendance devices must not export raw biometric templates to any third-party vendor without a data sharing agreement",
-      "reason": "Privacy control directive is negated; rule 17 advises not to label negated controls though it’s legally relevant"
+      "reason": "Privacy control directive is negated; rule 17 advises not to label negated controls though it\u2019s legally relevant"
     }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-    }
-  ],
-  "_stage_b_approval": {
-    "approved_at_utc": "2026-06-03T13:20:58Z",
-    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
-    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
-    "status": "approved_for_internal_benchmarking"
-  },
-  "_strict_reconciliation": {
-    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }
