@@ -15,10 +15,11 @@ Privacy posture:
   text_hash).
 
 Output discipline:
-- The warnings are advisory only. They never change findings, scores, or the
-  classification. They never trigger automatic remediation.
-- The journal entry uses event_type `coverage_warning` so audit-pack export can
-  surface them under reviewer attention without altering the decision trail.
+- Warnings remain journaled as `coverage_warning` events. Under `audit_grade`, the
+  review engine also promotes normalized LLM warnings into capped-severity
+  `llm_raised_finding` entries for reviewer adjudication.
+- The auditor cannot assign high severity; the engine clamps LLM-origin findings to
+  deterministic-medium or lower.
 """
 
 from __future__ import annotations
@@ -106,5 +107,7 @@ def run_coverage_audit(
                     f"coverage auditor warning {index} missing rule_guess or why"
                 )
             continue
-        normalized.append(dict(warning))
+        item = dict(warning)
+        item["body_hash"] = body_hash
+        normalized.append(item)
     return normalized

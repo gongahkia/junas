@@ -2848,6 +2848,75 @@ def _driver_license_coverage_warnings(
     return warnings
 
 
+def _clamped_llm_warning_severity(warning: dict[str, Any]) -> str:
+    requested = str(warning.get("severity") or "").strip().lower()
+    if requested == "low":
+        return "low"
+    return "medium"
+
+
+def _structured_reason_for_warning(warning: dict[str, Any]) -> str:
+    from kaypoh.workflow.layer8_llm_adjudicator.structured_query import STRUCTURED_REASONS
+
+    candidate = str(
+        warning.get("structured_reason")
+        or warning.get("materiality_reason")
+        or ""
+    ).strip().lower()
+    if candidate in STRUCTURED_REASONS:
+        return candidate
+    return "ambiguous_unconstrained"
+
+
+def _category_for_llm_warning(warning: dict[str, Any]) -> str:
+    category = str(warning.get("category") or "").strip().upper()
+    if category == "PII":
+        return "PII"
+    return "MNPI"
+
+
+def _llm_raised_findings_from_warnings(
+    *,
+    warnings: list[dict[str, Any]],
+    jurisdiction: str,
+    pii_legal_basis: str,
+    mnpi_legal_basis: str,
+    idx_start: int,
+) -> list[ReviewFinding]:
+    out: list[ReviewFinding] = []
+    for offset, warning in enumerate(warnings):
+        rule_guess = str(warning.get("rule_guess") or "unknown").strip() or "unknown"
+        why = str(warning.get("why") or "").strip()
+        category = _category_for_llm_warning(warning)
+        finding = _new_finding(
+            idx=idx_start + offset,
+            category=category,
+            rule="llm_raised_finding",
+            jurisdiction=jurisdiction,
+            severity=_clamped_llm_warning_severity(warning),
+            matched_text="[LLM_COVERAGE_WARNING]",
+            start=0,
+            end=0,
+            reason=f"LLM coverage audit raised possible {rule_guess}: {why}".strip(),
+            legal_basis=pii_legal_basis if category == "PII" else mnpi_legal_basis,
+            metadata={
+                "origin": "llm",
+                "coverage_warning_id": f"coverage_warning:{offset}",
+                "llm_rule_guess": rule_guess,
+                "llm_confidence": warning.get("confidence"),
+                "requested_severity": str(warning.get("severity") or ""),
+                "structured_reason": _structured_reason_for_warning(warning),
+                "context_window_hash": str(warning.get("context_window_hash") or warning.get("body_hash") or ""),
+                "context_window_hash_kind": "body_hash",
+                "body_hash": str(warning.get("body_hash") or ""),
+                "coverage_warning": dict(warning),
+            },
+        )
+        finding.source = "llm_coverage_audit"
+        out.append(finding)
+    return out
+
+
 # Rules whose span "wins" over phone_number when the two overlap on the same bytes.
 # These are all primary-identifier detectors: a NRIC or UEN that happens to match the
 # loose PHONE_RE alternation is canonically the identifier, not a phone number.
@@ -4951,31 +5020,45 @@ class PreSendReviewEngine:
             if label in Classification.__members__ and max(pii_score, mnpi_score) < 85.0:
                 overall_risk = Classification(label)
 
-        # inverse-audit "what did we miss?" — audit_grade only. advisory output goes both
-        # into the result (for immediate reviewer visibility) AND the journal (so the
-        # audit-pack export carries it). engine never acts on these warnings.
+        # inverse-audit "what did we miss?" — audit_grade only. warnings still surface
+        # as coverage_warning events; LLM warnings are also promoted to capped, reviewer-
+        # adjudicated findings so missed recalls are visible in the normal decision path.
         coverage_warnings: list[dict[str, Any]] = _driver_license_coverage_warnings(
             text,
             packs=packs,
             review_profile=review_profile,
         )
+        llm_coverage_warnings: list[dict[str, Any]] = []
         if engage_llm_tier and self.llm_coverage_auditor is not None:
             from kaypoh.review.llm_coverage_audit import run_coverage_audit
 
             try:
-                coverage_warnings.extend(
-                    run_coverage_audit(
-                        text=text,
-                        findings=findings,
-                        document_type=document_type,
-                        auditor=self.llm_coverage_auditor,
-                        fail_closed=True,
-                    )
+                llm_coverage_warnings = run_coverage_audit(
+                    text=text,
+                    findings=findings,
+                    document_type=document_type,
+                    auditor=self.llm_coverage_auditor,
+                    fail_closed=True,
                 )
+                coverage_warnings.extend(llm_coverage_warnings)
                 privacy_ledger.extend(_drain_privacy_ledger_events(self.llm_coverage_auditor))
             except Exception as exc:
                 _drain_privacy_ledger_events(self.llm_coverage_auditor)
                 raise ReviewLayerError("llm_coverage_audit", f"LLM coverage audit failed: {exc}") from exc
+        if llm_coverage_warnings:
+            findings.extend(
+                _llm_raised_findings_from_warnings(
+                    warnings=llm_coverage_warnings,
+                    jurisdiction=jurisdiction_label,
+                    pii_legal_basis=pii_legal_basis,
+                    mnpi_legal_basis=mnpi_legal_basis,
+                    idx_start=len(findings),
+                )
+            )
+            pii_score = self._score(findings, "PII")
+            mnpi_score = self._score(findings, "MNPI")
+            document_score = max(pii_score, mnpi_score)
+            overall_risk = _risk_from_score(document_score)
         try:
             suggestions = self._suggestions(findings, include_suggestions, tenant_id=tenant_id)
         except CitationOverrideError as exc:
