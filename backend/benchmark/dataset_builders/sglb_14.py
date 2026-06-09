@@ -35,7 +35,7 @@ EXTRACTION_RULE_NAME = "pdpc_guidance_worked_examples"
 
 _EXAMPLE_MARKER_RE = re.compile(
     r"(?=(?:^|\n|\s)(?:\d{1,2}(?:\.\d{1,2})?\s+)?(?:Example|Illustration)"
-    r"(?:(?:\s+\d+[A-Za-z]?)?\s*[:.\-]|\s+\d+[A-Za-z]?\s+))",
+    r"(?:(?:\s+\d+[A-Za-z]?)?\s*[:.\-]|\s+\d+[A-Za-z]?\s+|\s+Treatment\b))",
 )
 _SECTION_RE = re.compile(
     r"(?:section|s\.?)\s+(\d+[A-Z]?(?:\(\d+[A-Z]?\))*)\s+of\s+the\s+PDPA",
@@ -75,10 +75,7 @@ _LABEL_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
             r"(?P<section>(?:section|s\.?)\s+\d+[A-Z]?(?:\(\d+[A-Z]?\))*\s+of\s+the\s+PDPA)"
             r"|"
             r"\b(?:would|will)\s+contravene\s+"
-            r"(?P<section2>(?:section|s\.?)\s+\d+[A-Z]?(?:\(\d+[A-Z]?\))*\s+of\s+the\s+PDPA)"
-            r"|"
-            r"\b(?:committing|commits?|committed)\s+a\s+breach\s+of\s+"
-            r"(?P<section3>(?:section|s\.?)\s+\d+[A-Z]?(?:\(\d+[A-Z]?\))*\s+of\s+the\s+PDPA)",
+            r"(?P<section2>(?:section|s\.?)\s+\d+[A-Z]?(?:\(\d+[A-Z]?\))*\s+of\s+the\s+PDPA)",
             re.IGNORECASE,
         ),
     ),
@@ -157,7 +154,7 @@ def _split_examples(body_plain: str) -> list[str]:
         for part in parts
         if re.match(
             r"^(?:\d{1,2}(?:\.\d{1,2})?\s+)?(?:Example|Illustration)"
-            r"(?:(?:\s+\d+[A-Za-z]?)?\s*[:.\-]|\s+\d+[A-Za-z]?\s+)",
+            r"(?:(?:\s+\d+[A-Za-z]?)?\s*[:.\-]|\s+\d+[A-Za-z]?\s+|\s+Treatment\b)",
             part,
         )
     ]
@@ -166,7 +163,7 @@ def _split_examples(body_plain: str) -> list[str]:
 def _strip_example_prefix(text: str) -> str:
     return re.sub(
         r"^(?:\d{1,2}(?:\.\d{1,2})?\s+)?(?:Example|Illustration)"
-        r"(?:(?:\s+\d+[A-Za-z]?)?\s*[:.\-]|\s+\d+[A-Za-z]?\s+)\s*",
+        r"(?:(?:\s+\d+[A-Za-z]?)?\s*[:.\-]|\s+\d+[A-Za-z]?\s+|\s+Treatment\b)\s*",
         "",
         text,
     ).strip()
@@ -185,7 +182,6 @@ def _label_match(example: str) -> tuple[str, str, re.Match[str] | None]:
         section = _canonical_section(
             match.groupdict().get("section")
             or match.groupdict().get("section2")
-            or match.groupdict().get("section3")
             or match.group(0)
         )
         if section:

@@ -2471,7 +2471,7 @@ _Reference copilot polish + v0.2 task expansion._
 | Work unit | What | PR / commit |
 |---|---|---|
 | `Batch G G2` SGLB-13 Counterfactual-Outcome | New benchmark task on PDPC perturbations; dataset + builder + tests | direct commit `20773c7` |
-| `Batch G G3` SGLB-14 Statutory-Entailment | Code-shipped fixture smoke: builder, oracle task, prompt builder, strong evaluator, Makefile target, tests; production dataset still waits on materialised gitignored PDPC guidelines JSONL | local work 2026-06-08 |
+| `Batch G G3` SGLB-14 Statutory-Entailment | Code-shipped fixture smoke: builder, oracle task, prompt builder, strong evaluator, Makefile target, tests. Live PDPC audit materialised 23 PDFs / 327 examples but only 1 strict section-level entailment, so production data is not promoted. | local work 2026-06-08 |
 | `Batch F F1` MCP server scaffolding | `junas-mcp` server with stdio + HTTP transports + `health` tool; `mcp>=1.27` pinned | #125 |
 | `SOLO-12` Logfire observability | Opt-in telemetry (default off); 5 no-op contract tests | #124 |
 | `COPILOT-3` DOCX export | python-docx-based export for receipts + chat sessions; 14 tests; <3s for 200-msg session | #126 |

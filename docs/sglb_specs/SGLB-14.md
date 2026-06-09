@@ -1,6 +1,6 @@
 # SGLB-14 Statutory-Entailment
 
-Version: 0.1-code-shipped (fixture smoke). Tracking issue:
+Version: 0.1-code-shipped (fixture smoke + live coverage audit). Tracking issue:
 [#55](https://github.com/gongahkia/junas/issues/55),
 [#60](https://github.com/gongahkia/junas/issues/60).
 
@@ -64,6 +64,10 @@ Model output is a JSON object:
   by `make ingest-pdpc-guidelines` and is gitignored. The committed test suite
   uses fixture rows to prove extraction behavior without committing live
   vendor data.
+- Live audit on 2026-06-08 materialised 23 PDPC Advisory Guidelines PDFs and
+  found 327 marked examples. The strict no-inference section-level extractor
+  emitted 1 usable case (`contravenes`, s 43(1) DNC). That is below the 50-100
+  smoke target, so no production SGLB-14 dataset is promoted yet.
 
 ## Limitations
 
@@ -80,8 +84,10 @@ Model output is a JSON object:
 
 - v0.1 code-shipped: builder, oracle task, prompt builder, evaluator, and
   fixture-backed smoke tests.
-- v0.1 data materialisation target: 50-100 PDPC worked examples after live
-  `make ingest-pdpc-guidelines` output is available locally.
+- v0.1 data materialisation target: 50-100 PDPC worked examples after either
+  broader regulator-authored section-level labels are identified or an
+  additional source is added. Current PDPC Guidelines coverage is only 1 strict
+  case under the no-inference rule.
 - v0.2 held-out: ~50 items from post-2026-Q1 PDPC Advisory Guideline
   revisions.
 - Statute-placeholder ablation delta reported in the leaderboard.
@@ -90,5 +96,5 @@ Model output is a JSON object:
 
 - 2026-06-08: Code-shipped fixture smoke. Added deterministic PDPC worked
   example extraction, oracle task, prompt builder, strong evaluator, Makefile
-  target, and tests. Production dataset remains gated on materialising the
-  gitignored PDPC Advisory Guidelines JSONL.
+  target, and tests. Live PDPC Guidelines audit: 23 PDFs, 327 marked examples,
+  1 strict section-level entailment; production dataset not promoted.

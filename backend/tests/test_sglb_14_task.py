@@ -76,12 +76,14 @@ def test_split_examples_handles_pdpc_inline_paragraph_markers():
         "17.4 Example: XYZ sends a specified SMS without checking the DNC Register. "
         "XYZ would be i n breach of section 43(1) of the PDPA. "
         "17.5 Consent evidenced in written or other form. "
-        "Example 2 Clinic ABC sends an in-service message."
+        "Example 2 Clinic ABC sends an in-service message. "
+        "Example Treatment John gives clear consent."
     )
     examples = builder._split_examples(body)
-    assert len(examples) == 2
+    assert len(examples) == 3
     assert examples[0].startswith("Example:")
     assert examples[1].startswith("Example 2")
+    assert examples[2].startswith("Example Treatment")
 
 
 @pytest.mark.parametrize(
@@ -107,12 +109,6 @@ def test_split_examples_handles_pdpc_inline_paragraph_markers():
             "X would be i n breach of section 43(1) of the PDPA.",
             "contravenes",
             "s 43(1) of the PDPA",
-        ),
-        (
-            "Example: X fails to implement reasonable security measures and is hence committing a breach of "
-            "section 24 of the PDPA.",
-            "contravenes",
-            "s 24 of the PDPA",
         ),
     ],
 )
