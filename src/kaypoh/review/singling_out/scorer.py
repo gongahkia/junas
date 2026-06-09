@@ -430,7 +430,10 @@ def _role_key(value: str) -> str | None:
 
 def _surname_from_name(value: str) -> str | None:
     stripped = _NAME_PREFIX_RE.sub("", str(value or "").strip())
-    tokens = [match.group(0).replace("'", "").replace("-", "").upper() for match in _SURNAME_TOKEN_RE.finditer(stripped)]
+    tokens = [
+        match.group(0).replace("'", "").replace("-", "").upper()
+        for match in _SURNAME_TOKEN_RE.finditer(stripped)
+    ]
     return tokens[-1] if tokens else None
 
 
