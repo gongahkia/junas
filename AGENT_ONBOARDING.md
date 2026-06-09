@@ -2,7 +2,7 @@
 
 You are an independent coding agent picking up work on Kaypoh. **Read this file first**, then the architecture document it points at, before touching any code. Do not skim. Every section below is load-bearing.
 
-Date this onboarding was last revised: **2026-06-08**.
+Date this onboarding was last revised: **2026-06-09**.
 
 ---
 
@@ -22,7 +22,7 @@ Older `ARCHITECTURE_*.txt` docs are historical only. Runtime flow now lives in `
 
 ---
 
-## 3. The state of the codebase as of 2026-06-07
+## 3. The state of the codebase as of 2026-06-09
 
 **Current state after the 2026-05-26 pivot cleanup:**
 
@@ -36,6 +36,7 @@ Older `ARCHITECTURE_*.txt` docs are historical only. Runtime flow now lives in `
 - 2026-06-06 items 87/89 shipped: `scripts/generate_defensibility_reports.py` generates `docs/defensibility/{jurisdiction}.md` for every runtime pack including SEA, and `scripts/export_audit_pack.py --include-defensibility` bundles statutory coverage, defensibility reports, privacy-operation counters, and sanitized reviewer action rates.
 - 2026-06-07 no-cost detection slice shipped: item 122 has a plain-text / Markdown-style document-structure primitive wired into `review()`, item 33 added checksum-backed ES DNI/NIE, NL BSN, PL PESEL, and FR numeric INSEE/NIR validation, item 34 added conservative UK/US/HK address slices, and item 79 added explicit relationship / employer / location `personal_attribute_inference` findings with structural metadata. At that point item 70 v2 scoring remained blocked on item 121 frequency tables.
 - 2026-06-08 batch shipped: runtime `azure_openai` provider support for audit-grade adjudication/helpers; `scripts/evaluate_candidate_corpus.py` now wires configured audit-grade components instead of a bare engine; item 82 HK public-status semantics now distinguishes market-known sources from generic web availability; SG-only item 121 seed frequency tables plus item 70 v2 strict singling-out scorer landed under `src/kaypoh/data/frequency/` and `src/kaypoh/review/singling_out/`. The paid item 125 `audit_grade` sweep did **not** run because no Azure/OpenAI runtime credentials were present in the execution environment.
+- 2026-06-09 no-key follow-up shipped: M3 LLM component-health refactor; item 33 label-gated `uk_company_number` / `eu_company_id`; item 34 address-registry and AU/EU multi-line fixture slices; item 35 env-gated label-anchored semantic fallback; item 71/86 Japanese/Korean special-category and HK/AU/JP/KR MNPI lexicon / fixture growth; item 121/70 bundled licence-cleared UK/AU postal-population, JP/KR area-population, and U.S. Census surname-frequency tables.
 - 13 more items (69–86) derived from first-principles statutory analysis of every in-scope jurisdiction. Items 78, 80, 84, 87, 89, 90, and 91 are implemented.
 - Items 90 and 91 are implemented: HK/AU/JP/KR packs + seed fixtures are in place, and the default/adversarial recall locks were refreshed after the autolabel sweep. Items 78 and 80 shipped 2026-05-28 with new default/adversarial corpus fixtures and refreshed recall locks.
 - Candidate Stage A is complete and Stage B has now been generated/evaluated and owner-approved for all 17 in-scope jurisdiction packs under `test/fixtures/legal-corpus-candidates/`. All 17 jurisdictions pass `scripts/check_candidate_stage_gate.py --target-stage stage_b --require-promotion-ready` for internal benchmarking with strict recall/precision 1.0. The current global candidate report `/tmp/kaypoh-uk-eu-stage-b-final.json` covers 1,428 docs / 17,552 strict labels / global ideal recall 0.4234 at strict recall/precision 1.0, with zero misses, zero unexpected findings, zero must-not violations, 1,428 approved labels, and zero pending labels. Current per-jurisdiction status is generated in `docs/candidate_corpus_status.md`; none of these Stage B candidate sets has been promoted into locked recall baselines or reviewed as procurement-grade legal advice.
@@ -98,10 +99,11 @@ These are project-wide invariants. Every PR is measured against them.
 Pick the next highest-leverage open item by ICP impact:
 
 - **Item 125 paid audit-grade experiment** — the strict/Layer-2 no-cost legs are shipped and Azure runtime wiring exists. The next accuracy decision artifact is the `--profile audit_grade` candidate eval, run only when Azure/OpenAI credentials are present and explicit API-cost approval still applies.
-- **Items 121 / 70 v2 remainder** — SG seed tables + strict v2 scoring shipped. Next work is license-cleared SG name-density / role-rarity, broader postal-sector coverage, then UK/AU/JP/KR tables.
-- **Item 33 remainder** (broader EU IDs + KR postal + semantic DOB/age) — ES/NL/PL/FR checksum slices shipped 2026-06-07; broader member-state validators remain open.
-- **Items 34 / 35 / 79 remainder** (broad addresses, semantic PII, richer inferred attributes) — conservative UK/US/HK address slices and explicit relationship/employer/location patterns shipped 2026-06-07; broad NER/relation extraction remains open.
-- **Item 48 fixture growth / item 86 follow-up** — SG wedge and jurisdiction packs are stronger now, but still need deeper adversarial/real-world fixture growth.
+- **Items 121 / 70 v2 remainder** — SG seed tables, bundled UK/AU postal-population, JP/KR area-population, U.S. surname-frequency, and strict v2 scoring shipped. Next work is license-cleared SG/non-US name-density, role-rarity, candidate-label exact-span promotion, and richer locality.
+- **Item 33 remainder** (broader EU IDs + KR postal + semantic DOB/age) — checksum-backed ES/NL/PL/FR/DE/IT/BE/PT/SE/FI/IE/AT/CZ/SK/RO plus UK/EU company-ID slices shipped; full member-state breadth, existence validation, and broad semantic DOB/age beyond anchored labels remain open.
+- **Items 34 / 35 / 79 remainder** (broad addresses, semantic PII, richer inferred attributes) — conservative UK/US/HK/AU/JP/KR/EU address slices, env-gated label-anchored semantic fallback, and richer inferred attributes shipped; broad free-form address parsing, local NER, and relation extraction remain open.
+- **Item 48 fixture growth / item 86 follow-up** — SG wedge, jurisdiction packs, HK/AU/JP/KR MNPI lexicon variants, and 2026-06-09 fixture growth shipped; deeper adversarial/real-world corpus growth remains open.
+- **M1 continuation** — continue detector extraction from `engine.py` into registry modules in behavior-locked batches, separate from feature work.
 
 Always check the architecture doc for the latest user prioritisation before picking. If unsure, ask the user.
 
@@ -132,8 +134,8 @@ Always check the architecture doc for the latest user prioritisation before pick
 | Add a new jurisdiction pack | `src/kaypoh/review/jurisdictions_data/*.toml` (item 19 schema) |
 | Add a new detector | `src/kaypoh/review/engine.py` — `_pii_findings` / `_mnpi_findings`; future: `src/kaypoh/review/detectors/` after the M1 refactor |
 | Add a new fixture | `scripts/generate_legal_fixture[_batch].py`, then `scripts/autolabel_batch.py`, then hand-spot-check |
-| Run tests | `PYTHONPATH=src python3 -m pytest -q --no-header` |
-| Run the recall gate | `python3 scripts/recall_gate.py --corpus test/fixtures/legal-corpus` |
+| Run tests | `uv run python -m pytest -q --no-header` |
+| Run the recall gate | `uv run python scripts/recall_gate.py --corpus test/fixtures/legal-corpus` |
 | Find the OpenAI key | `.env` at repo root (`OPENAI_API_KEY=...`) — `set -a && . ./.env && set +a` before invoking |
 | Trace `/review` flow | `src/kaypoh/backend/main.py::_run_review_sync` → `src/kaypoh/review/engine.py::PreSendReviewEngine.review` |
 | Trace `/classify` flow | `src/kaypoh/backend/main.py::_classify_core` (now a thin wrapper) |
@@ -174,4 +176,4 @@ If the user asks you to commit, follow the CLAUDE.md commit rules: heredoc messa
 
 ---
 
-Welcome to Kaypoh. Read the onboarding and architecture docs. Stage B candidate coverage is generated, cleanly evaluated, and owner-approved for internal benchmarking across all 17 jurisdictions. The no-cost item 120/124/125 and endpoint/defensibility batch shipped on 2026-06-06; the no-cost 122 + 33/34/79 detection slice shipped on 2026-06-07; the 2026-06-08 batch shipped Azure audit-grade wiring, item 82, and SG-only item 121/70 v2 MVP. Next work should be chosen from the paid item 125 audit-grade sweep, item 121/70 v2 remainder, item 33 remainder, or M3 depending on user priority.
+Welcome to Kaypoh. Read the onboarding and architecture docs. Stage B candidate coverage is generated, cleanly evaluated, and owner-approved for internal benchmarking across all 17 jurisdictions. The no-cost item 120/124/125 and endpoint/defensibility batch shipped on 2026-06-06; the no-cost 122 + 33/34/79 detection slice shipped on 2026-06-07; the 2026-06-08 batch shipped Azure audit-grade wiring, item 82, and SG-only item 121/70 v2 MVP; the 2026-06-09 batch shipped M3, company-ID / address / semantic fallback slices, HK/AU/JP/KR fixture / lexicon growth, and bundled UK/AU/JP/KR/US frequency tables. Next work should be chosen from the paid item 125 audit-grade sweep, item 121/70 v2 data-quality remainder, items 34/35/79 broad semantic/address remainder, item 48/86 fixture growth, or M1 continuation depending on user priority.
