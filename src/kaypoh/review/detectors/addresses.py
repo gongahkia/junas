@@ -84,7 +84,6 @@ BROAD_ADDRESS_ADMIN_RE = re.compile(
     r"LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|"
     r"VT|VA|WA|WV|WI|WY|東京都|北海道|大阪府|京都府|.{2,3}県|서울|부산|대구|인천|경기|"
     r"AT|BE|CZ|DE|DK|ES|FI|FR|IE|IT|NL|PL|PT|RO|SE|SK)\b",
-    re.IGNORECASE,
 )
 PERSON_LINKED_ADDRESS_RE = re.compile(
     r"\b(?:Mr|Ms|Mrs|Mdm|Dr|Prof|employee|patient|client|customer|resident|applicant|data\s+subject|"
@@ -115,7 +114,11 @@ def _has_generic_address_substance(value: str) -> bool:
     if not any(ch.isdigit() for ch in value):
         return False
     if GENERIC_ADDRESS_SUBSTANCE_RE.search(value):
-        return bool(GENERIC_ADDRESS_POSTCODE_RE.search(value) or GENERIC_ADDRESS_LOCALITY_RE.search(value) or BROAD_ADDRESS_ADMIN_RE.search(value))
+        return bool(
+            GENERIC_ADDRESS_POSTCODE_RE.search(value)
+            or GENERIC_ADDRESS_LOCALITY_RE.search(value)
+            or BROAD_ADDRESS_ADMIN_RE.search(value)
+        )
     return bool(GENERIC_ADDRESS_POSTCODE_RE.search(value) and GENERIC_ADDRESS_LOCALITY_RE.search(value))
 
 

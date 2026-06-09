@@ -17,7 +17,7 @@ from kaypoh.review.detectors import (
     detect_semantic_pii_fallback_findings,
     semantic_pii_degraded_modes,
 )
-from kaypoh.review.document_structure import DocumentStructure, parse_document_structure
+from kaypoh.review.document_structure import parse_document_structure
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
 from kaypoh.review.jurisdictions import JurisdictionRulePack, resolve_rule_packs
 from kaypoh.workflow.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE

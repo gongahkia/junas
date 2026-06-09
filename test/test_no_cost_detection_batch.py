@@ -87,6 +87,11 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
         self.assertNotIn("postal_address", self._rules(text, "MY"))
 
+    def test_broad_unlabelled_address_fallback_rejects_email_prose(self):
+        text = "Send Dr Jane Tan S1234567D at jane@example.com. Acme expects $2.5 billion."
+
+        self.assertNotIn("postal_address", self._rules(text, "SG"))
+
     def test_personal_attribute_inference_fires_with_structure_metadata(self):
         result = self._review("People\nDr Jane Tan works at Acme Pte Ltd.\n", "SG")
         findings = [finding for finding in result.findings if finding.rule == "personal_attribute_inference"]
