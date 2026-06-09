@@ -10,7 +10,7 @@ from kaypoh.backend.schemas import Classification
 from kaypoh.review.citations import CitationOverrideError, mnpi_rationale, pii_rationale
 from kaypoh.review.conjunctive_mnpi import detect_conjunctive_mnpi
 from kaypoh.review.defined_terms import extract_defined_terms, is_defined_term
-from kaypoh.review.detectors import DetectorContext, DetectorRegistry
+from kaypoh.review.detectors import DetectorContext, DetectorRegistry, detect_address_findings
 from kaypoh.review.document_structure import DocumentStructure, parse_document_structure
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
 from kaypoh.review.jurisdictions import JurisdictionRulePack, resolve_rule_packs
@@ -119,50 +119,22 @@ EU_MEMBER_STATE_ID_RE = re.compile(
     r")\s*[:#=\-]?\s*(?P<id>(?-i:[A-Z0-9][A-Z0-9 ./-]{6,31}[A-Z0-9]))\b",
     re.IGNORECASE,
 )
-UK_POSTAL_ADDRESS_RE = re.compile(
-    r"\b\d{1,4}[A-Z]?\s+[A-Z][A-Za-z' -]{2,40}\s+"
-    r"(?:Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Close|Drive|Dr|Way|Court|Ct|"
-    r"Square|Sq|High\s+Street),?\s+(?:[A-Z][A-Za-z' -]{2,40},?\s+)?"
-    r"[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",
+UK_COMPANY_NUMBER_RE = re.compile(
+    r"\b(?:company\s+(?:number|no\.?|registration\s+(?:number|no\.?)|registered\s+number)|"
+    r"Companies\s+House\s+(?:number|no\.?)|CRN)\s*[:#=\-]?\s*"
+    r"(?P<number>(?-i:(?:\d{8}|(?:AC|CE|FC|GE|GS|IC|IP|LP|NA|NC|NF|NI|NL|NO|NP|NR|NV|OC|"
+    r"RC|R0|SA|SC|SE|SF|SI|SL|SO|SP|SR|SZ|ZC)\d{6})))\b",
     re.IGNORECASE,
 )
-US_POSTAL_ADDRESS_RE = re.compile(
-    r"\b\d{1,6}\s+[A-Z][A-Za-z0-9' -]{2,50}\s+"
-    r"(?:Street|St|Road|Rd|Avenue|Ave|Boulevard|Blvd|Lane|Ln|Drive|Dr|Court|Ct|"
-    r"Way|Circle|Cir|Place|Pl),?\s+(?:[A-Z][A-Za-z' -]{2,50},?\s+)?"
-    r"(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|"
-    r"MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|"
-    r"VA|WA|WV|WI|WY)\s+\d{5}(?:-\d{4})?\b",
-)
-HK_ADDRESS_SIGNAL_RE = re.compile(
-    r"\b(?:Flat|Room|Rm|Unit)\s+[A-Z0-9-]{1,8},?\s+"
-    r"(?:\d{1,3}(?:st|nd|rd|th)?\s+Floor|[A-Z0-9-]{1,8}/F),?\s+"
-    r"[A-Z][A-Za-z0-9' &.-]{2,60},?\s+"
-    r"(?:Hong\s+Kong|Kowloon|New\s+Territories|HK)\b",
-    re.IGNORECASE,
-)
-AU_POSTAL_ADDRESS_RE = re.compile(
-    r"\b\d{1,5}\s+[A-Z][A-Za-z0-9' -]{2,50}\s+"
-    r"(?:Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Drive|Dr|Court|Ct|Way|Place|Pl),?\s+"
-    r"[A-Z][A-Za-z' -]{2,40}\s+(?:ACT|NSW|NT|QLD|SA|TAS|VIC|WA)\s+\d{4}\b"
-)
-JP_POSTAL_ADDRESS_RE = re.compile(
-    r"(?:〒\s*)?\d{3}-\d{4}\s*(?:東京都|北海道|大阪府|京都府|.{2,3}県)[^\n]{2,80}"
-)
-KR_POSTAL_ADDRESS_RE = re.compile(
-    r"\b(?P<postal>\d{5})\s+(?:서울|부산|대구|인천|광주|대전|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주|"
-    r"Seoul|Busan|Daegu|Incheon|Gwangju|Daejeon|Ulsan|Sejong|Gyeonggi|Gangwon|Jeju)"
-    r"[^\n]{0,80}(?:로|길|동|구|시|군|Road|ro|gil|dong|gu|si)\b",
-    re.IGNORECASE,
-)
-EU_POSTAL_ADDRESS_RE = re.compile(
-    r"\b\d{1,5}\s+(?:"
-    r"(?:Stra(?:ss|ß)e|Str\.|Rue|Avenue|Via|Calle|Rua|Ulica|ul\.|Gasse|Laan|Weg)\s+"
-    r"[A-Z][A-Za-z' -]{2,50}|"
-    r"[A-Z][A-Za-z' -]{2,50}\s+(?:Stra(?:ss|ß)e|Str\.|Rue|Avenue|Via|Calle|Rua|Ulica|ul\.|Gasse|Laan|Weg)"
-    r"),?\s+"
-    r"[A-Z][A-Za-z' -]{2,40},?\s+"
-    r"(?:DE|FR|IT|ES|PT|BE|NL|PL|SE)\s*[- ]?\d{4,6}\b",
+EU_COMPANY_ID_RE = re.compile(
+    r"\b(?:EU\s+)?(?:VAT(?:\s+(?:ID|number|no\.?|registration))?|VATIN|USt[- ]?IdNr\.?|"
+    r"BTW(?:[- ]?nummer)?|TVA|IVA|Partita\s+IVA|NIF|NIPC|company\s+(?:VAT|tax|registration)\s+"
+    r"(?:ID|number|no\.?))\s*[:#=\-]?\s*"
+    r"(?P<id>(?-i:(?:ATU\d{8}|BE0?\d{9}|BG\d{9,10}|CY\d{8}[A-Z]|CZ\d{8,10}|"
+    r"DE\d{9}|DK\d{8}|EE\d{9}|EL\d{9}|ES[A-Z0-9]\d{7}[A-Z0-9]|FI\d{8}|"
+    r"FR[A-Z0-9]{2}\d{9}|HR\d{11}|HU\d{8}|IE\d{7}[A-Z]{1,2}|IT\d{11}|"
+    r"LT\d{9}(?:\d{3})?|LU\d{8}|LV\d{11}|MT\d{8}|NL\d{9}B\d{2}|PL\d{10}|"
+    r"PT\d{9}|RO\d{2,10}|SE\d{12}|SI\d{8}|SK\d{10})))\b",
     re.IGNORECASE,
 )
 PERSONAL_ATTRIBUTE_RELATION_RE = re.compile(
@@ -443,6 +415,18 @@ SEMANTIC_NAME_LABEL_RE = re.compile(
     r"data\s+subject\s+name|contact\s+person))\s*[:=]\s*"
     r"(?P<name>(?-i:[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?"
     r"(?:[ \t]+[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?){1,4}))\b"
+)
+SEMANTIC_DOB_LABEL_RE = re.compile(
+    r"\b(?i:(?:DOB|D\.O\.B\.|date\s+of\s+birth|birth\s*date|patient\s+DOB|client\s+DOB|born))\s+"
+    r"(?:is|was|recorded\s+as|listed\s+as|noted\s+as)\s+(?P<dob>"
+    + _DOB_DATE_FRAGMENT
+    + r")\b",
+    re.IGNORECASE,
+)
+SEMANTIC_AGE_LABEL_RE = re.compile(
+    r"\b(?i:(?:patient|client|employee|applicant|customer|data\s+subject|subject)\s+age|age)\s+"
+    r"(?:is|was|recorded\s+as|listed\s+as|noted\s+as)\s+(?P<age>\d{1,3})\b",
+    re.IGNORECASE,
 )
 # items 95 + 96: contingent / forward-looking MNPI vocabulary (Basic v. Levinson, MAR Art 7(2-3),
 # SFA s215). Standalone these phrases are noise; the co-occurrence amplifier in review() lifts
@@ -2361,6 +2345,26 @@ def _validate_eu_member_state_id(country: str | None, value: str) -> bool:
     return True
 
 
+def _valid_uk_company_number(value: str) -> bool:
+    compact = re.sub(r"\s+", "", value).upper()
+    return bool(re.fullmatch(
+        r"(?:\d{8}|(?:AC|CE|FC|GE|GS|IC|IP|LP|NA|NC|NF|NI|NL|NO|NP|NR|NV|OC|RC|R0|"
+        r"SA|SC|SE|SF|SI|SL|SO|SP|SR|SZ|ZC)\d{6})",
+        compact,
+    ))
+
+
+def _valid_eu_company_id_shape(value: str) -> bool:
+    compact = re.sub(r"[\s.-]", "", value).upper()
+    return bool(re.fullmatch(
+        r"(?:ATU\d{8}|BE0?\d{9}|BG\d{9,10}|CY\d{8}[A-Z]|CZ\d{8,10}|DE\d{9}|DK\d{8}|EE\d{9}|"
+        r"EL\d{9}|ES[A-Z0-9]\d{7}[A-Z0-9]|FI\d{8}|FR[A-Z0-9]{2}\d{9}|HR\d{11}|HU\d{8}|"
+        r"IE\d{7}[A-Z]{1,2}|IT\d{11}|LT\d{9}(?:\d{3})?|LU\d{8}|LV\d{11}|MT\d{8}|"
+        r"NL\d{9}B\d{2}|PL\d{10}|PT\d{9}|RO\d{2,10}|SE\d{12}|SI\d{8}|SK\d{10})",
+        compact,
+    ))
+
+
 def _ip_version(value: str) -> int | None:
     try:
         return ipaddress.ip_address(value).version
@@ -2658,57 +2662,6 @@ def _detect_core_identifier_findings(
             )
             idx += 1
 
-    return out
-
-
-def _detect_address_findings(
-    text: str,
-    *,
-    packs: list[JurisdictionRulePack],
-    jurisdiction: str,
-    legal_basis: str,
-    idx_start: int,
-) -> list["ReviewFinding"]:
-    address_patterns: list[tuple[str, re.Pattern[str], str]] = []
-    pack_codes = {pack.code for pack in packs}
-    if "UK" in pack_codes:
-        address_patterns.append(("uk_postal_address", UK_POSTAL_ADDRESS_RE, "UK postcode-address signal"))
-    if "US" in pack_codes:
-        address_patterns.append(("us_postal_address", US_POSTAL_ADDRESS_RE, "US street-address signal"))
-    if "HK" in pack_codes:
-        address_patterns.append(("hk_postal_address", HK_ADDRESS_SIGNAL_RE, "Hong Kong address signal"))
-    if "AU" in pack_codes:
-        address_patterns.append(("au_postal_address", AU_POSTAL_ADDRESS_RE, "Australia street/postcode address signal"))
-    if "JP" in pack_codes:
-        address_patterns.append(("jp_postal_address", JP_POSTAL_ADDRESS_RE, "Japan postcode-address signal"))
-    if "KR" in pack_codes:
-        address_patterns.append(("kr_postal_address", KR_POSTAL_ADDRESS_RE, "Korea postcode-address signal"))
-    if "EU" in pack_codes:
-        address_patterns.append(("eu_postal_address", EU_POSTAL_ADDRESS_RE, "EU street/postcode address signal"))
-    out: list["ReviewFinding"] = []
-    seen_addresses: set[tuple[str, int, int]] = set()
-    idx = idx_start
-    for rule, pattern, reason in address_patterns:
-        for match in pattern.finditer(text):
-            key = (rule, match.start(), match.end())
-            if key in seen_addresses:
-                continue
-            seen_addresses.add(key)
-            out.append(
-                _new_finding(
-                    idx=idx,
-                    category="PII",
-                    rule=rule,
-                    jurisdiction=jurisdiction,
-                    severity="medium",
-                    matched_text=match.group(0),
-                    start=match.start(),
-                    end=match.end(),
-                    reason=reason,
-                    legal_basis=legal_basis,
-                )
-            )
-            idx += 1
     return out
 
 
@@ -4155,13 +4108,7 @@ class PreSendReviewEngine:
         registry.register(
             name="address_signals",
             family="pii",
-            detect=lambda ctx, idx: _detect_address_findings(
-                ctx.text,
-                packs=list(ctx.packs),
-                jurisdiction=ctx.jurisdiction,
-                legal_basis=ctx.legal_basis,
-                idx_start=idx,
-            ),
+            detect=lambda ctx, idx: detect_address_findings(ctx, idx, _new_finding),
         )
         registry.register(
             name="us_driver_license",
