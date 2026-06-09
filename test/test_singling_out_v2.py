@@ -75,6 +75,8 @@ class SinglingOutV2Tests(unittest.TestCase):
         self.assertGreater(tables.total_population, 4_000_000)
         self.assertIn("population_by_area_age", tables.loaded_tables)
         self.assertIn("postal_sector_population", tables.loaded_tables)
+        self.assertIn("role_frequency", tables.loaded_tables)
+        self.assertGreater(tables.role_population["MANAGER"], 100_000)
         for prefix in ("12", "46", "54", "61", "65"):
             with self.subTest(prefix=prefix):
                 self.assertIn(prefix, tables.postal_population)
@@ -108,7 +110,9 @@ class SinglingOutV2Tests(unittest.TestCase):
         clear_table_cache_for_tests()
         for code, table_name, key in [
             ("UK", "postal_population", "EC2M 5"),
+            ("UK", "name_frequency", "AABAN"),
             ("AU", "postal_population", "5950"),
+            ("AU", "name_frequency", "NOAH"),
             ("JP", "area_population", "東京都"),
             ("KR", "area_population", "서울 중구"),
             ("US", "surname_frequency", "SMITH"),
@@ -119,6 +123,8 @@ class SinglingOutV2Tests(unittest.TestCase):
                 self.assertIn(table_name, tables.loaded_tables)
                 if table_name == "postal_population":
                     self.assertGreaterEqual(tables.postal_population[key], 1)
+                elif table_name == "name_frequency":
+                    self.assertGreaterEqual(tables.name_population[key], 1)
                 elif table_name == "surname_frequency":
                     self.assertGreater(tables.surname_population[key], 1_000_000)
                 else:
@@ -135,7 +141,7 @@ class SinglingOutV2Tests(unittest.TestCase):
         metadata = findings[0].metadata
         self.assertEqual(metadata["layer"], "singling_out_v2")
         self.assertEqual(metadata["k_anonymity_equivalence"], 1)
-        self.assertEqual(metadata["frequency_tables_used"], ["postal_population"])
+        self.assertEqual(metadata["frequency_tables_used"], ["name_frequency", "postal_population"])
 
     def test_strict_non_sg_v2_prefers_generated_table_when_valid(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -182,6 +188,19 @@ class SinglingOutV2Tests(unittest.TestCase):
         self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 4)
         self.assertEqual(findings[0].metadata["frequency_tables_used"], ["name_frequency"])
 
+    def test_bundled_uk_given_name_table_can_drive_named_person_k(self):
+        clear_table_cache_for_tests()
+        with mock.patch.dict(os.environ, {}, clear=True):
+            findings = self._quasi_for(
+                "Dr Aaban Smith is a Senior Actuary; Age: 42.",
+                "UK",
+            )
+        self.assertEqual(len(findings), 1)
+        metadata = findings[0].metadata
+        self.assertEqual(metadata["k_anonymity_equivalence"], 4)
+        self.assertEqual(metadata["frequency_tables_used"], ["name_frequency"])
+        self.assertIn("quasi_identifier_component_spans", metadata)
+
     def test_generated_sg_name_table_can_override_bundled_tables(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -219,6 +238,8 @@ class SinglingOutV2Tests(unittest.TestCase):
             )
         self.assertEqual(len(findings), 1)
         self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 4)
+        evidence = findings[0].metadata.get("locality_evidence", [])
+        self.assertTrue(any(item.get("kind") == "postal_population" for item in evidence))
 
     def test_invalid_generated_checksum_falls_back_to_bundled_tables(self):
         with tempfile.TemporaryDirectory() as tmp:

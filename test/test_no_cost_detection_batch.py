@@ -1,6 +1,7 @@
 import unittest
 from unittest import mock
 
+from kaypoh.review.detectors.semantic import clear_semantic_pii_state_for_tests
 from kaypoh.review.engine import PreSendReviewEngine
 
 
@@ -73,6 +74,19 @@ class NoCostDetectionBatchTests(unittest.TestCase):
     def test_generic_address_fallback_rejects_prose(self):
         self.assertNotIn("postal_address", self._rules("Address: the issue 2026 will be discussed.", "SG"))
 
+    def test_broad_unlabelled_address_fallback_fires_when_person_linked(self):
+        text = "Employee record: Dr Nur Aisyah\n12 Jalan Ampang\nKuala Lumpur 50450 Malaysia"
+        result = self._review(text, "MY")
+        findings = [finding for finding in result.findings if finding.rule == "postal_address"]
+
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].metadata["fallback"], "broad_unlabelled_postal_address")
+
+    def test_broad_unlabelled_address_fallback_rejects_org_only_registered_office(self):
+        text = "Registered office: 12 Jalan Ampang\nKuala Lumpur 50450 Malaysia"
+
+        self.assertNotIn("postal_address", self._rules(text, "MY"))
+
     def test_personal_attribute_inference_fires_with_structure_metadata(self):
         result = self._review("People\nDr Jane Tan works at Acme Pte Ltd.\n", "SG")
         findings = [finding for finding in result.findings if finding.rule == "personal_attribute_inference"]
@@ -85,6 +99,15 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         rules = self._rules("Dr Jane Tan's spouse Mary Lim lives nearby. Mr Alan Goh lives in Bukit Timah.")
 
         self.assertIn("personal_attribute_inference", rules)
+
+    def test_directed_relation_extraction_adds_relation_metadata(self):
+        result = self._review("Dr Jane Tan reports to Ms Mary Lim.", "SG")
+        findings = [finding for finding in result.findings if finding.rule == "personal_attribute_inference"]
+
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].metadata["attribute_type"], "relationship")
+        self.assertEqual(findings[0].metadata["relation_type"], "reports_to")
+        self.assertEqual(findings[0].metadata["inferred_value"], "Ms Mary Lim")
 
     def test_richer_personal_attribute_types_fire(self):
         result = self._review(
@@ -141,6 +164,33 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         self.assertIn(("named_person", "Jane Tan"), findings)
         self.assertIn(("date_of_birth", "14 February 1988"), findings)
         self.assertIn(("age_reference", "42"), findings)
+
+    def test_local_ner_fallback_can_extract_unlabelled_person_when_available(self):
+        text = "Meeting note: Jane Tan approved the access review."
+        start = text.index("Jane Tan")
+        with mock.patch.dict("os.environ", {"KAYPOH_LOCAL_NER_FALLBACK": "1"}, clear=False):
+            with mock.patch(
+                "kaypoh.review.detectors.semantic._local_ner_entities",
+                return_value=([(start, start + len("Jane Tan"), "PERSON")], None),
+            ):
+                result = self._review(text, "SG")
+        names = [finding for finding in result.findings if finding.rule == "named_person"]
+
+        self.assertEqual(len(names), 1)
+        self.assertEqual(names[0].matched_text, "Jane Tan")
+        self.assertEqual(names[0].metadata["fallback"], "local_ner")
+
+    def test_local_ner_fallback_reports_degraded_mode_when_model_missing(self):
+        clear_semantic_pii_state_for_tests()
+        with mock.patch.dict(
+            "os.environ",
+            {"KAYPOH_LOCAL_NER_FALLBACK": "1", "KAYPOH_LOCAL_NER_MODEL": "__kaypoh_missing_model__"},
+            clear=False,
+        ):
+            result = self._review("Meeting note without labelled names.", "SG")
+        clear_semantic_pii_state_for_tests()
+
+        self.assertTrue(any(item["mode"] == "local_ner_unavailable" for item in result.degraded_modes))
 
 
 if __name__ == "__main__":

@@ -45,6 +45,64 @@ def _enabled() -> bool:
     return os.environ.get("KAYPOH_SEMANTIC_PII_FALLBACK", "").strip().casefold() in {"1", "true", "yes", "on"}
 
 
+def _local_ner_enabled() -> bool:
+    return os.environ.get("KAYPOH_LOCAL_NER_FALLBACK", "").strip().casefold() in {"1", "true", "yes", "on"}
+
+
+_LOCAL_NLP: Any | None | bool = None
+_LOCAL_NER_UNAVAILABLE_REASON: str | None = None
+
+
+def _load_local_nlp() -> Any | None:
+    global _LOCAL_NLP, _LOCAL_NER_UNAVAILABLE_REASON
+    if _LOCAL_NLP is False:
+        return None
+    if _LOCAL_NLP is not None:
+        return _LOCAL_NLP
+    model = os.environ.get("KAYPOH_LOCAL_NER_MODEL", "en_core_web_sm").strip() or "en_core_web_sm"
+    try:
+        import spacy
+
+        _LOCAL_NLP = spacy.load(model)
+        _LOCAL_NER_UNAVAILABLE_REASON = None
+        return _LOCAL_NLP
+    except Exception as exc:
+        _LOCAL_NLP = False
+        _LOCAL_NER_UNAVAILABLE_REASON = f"local NER model unavailable: {exc}"
+        return None
+
+
+def semantic_pii_degraded_modes() -> list[dict[str, Any]]:
+    if not _local_ner_enabled() or _LOCAL_NER_UNAVAILABLE_REASON is None:
+        return []
+    return [
+        {
+            "layer": "semantic_pii_fallback",
+            "mode": "local_ner_unavailable",
+            "reason": _LOCAL_NER_UNAVAILABLE_REASON,
+        }
+    ]
+
+
+def clear_semantic_pii_state_for_tests() -> None:
+    global _LOCAL_NLP, _LOCAL_NER_UNAVAILABLE_REASON
+    _LOCAL_NLP = None
+    _LOCAL_NER_UNAVAILABLE_REASON = None
+
+
+def _local_ner_entities(text: str) -> tuple[list[tuple[int, int, str]], str | None]:
+    nlp = _load_local_nlp()
+    if nlp is None:
+        return [], _LOCAL_NER_UNAVAILABLE_REASON
+    doc = nlp(text)
+    spans = [
+        (int(ent.start_char), int(ent.end_char), str(ent.label_))
+        for ent in doc.ents
+        if str(ent.label_).upper() in {"PERSON", "PER"}
+    ]
+    return spans, None
+
+
 def _valid_dob_date(value: str) -> bool:
     value = str(value or "").strip()
     formats = ("%Y-%m-%d", "%d %B %Y", "%d %b %Y", "%B %d %Y", "%B %d, %Y", "%b %d %Y", "%b %d, %Y")
@@ -74,81 +132,115 @@ def detect_semantic_pii_fallback_findings(
     idx_start: int,
     new_finding: Callable[..., Any],
 ) -> list[Any]:
-    if not _enabled():
+    label_enabled = _enabled()
+    local_ner_enabled = _local_ner_enabled()
+    if not label_enabled and not local_ner_enabled:
         return []
     out: list[Any] = []
     idx = idx_start
     seen: set[tuple[int, int]] = set()
-    for match in SEMANTIC_NAME_LABEL_RE.finditer(ctx.text):
-        span = match.span("name")
-        if span in seen:
-            continue
-        seen.add(span)
-        out.append(
-            new_finding(
-                idx=idx,
-                category="PII",
-                rule="named_person",
-                jurisdiction=ctx.jurisdiction,
-                severity="low",
-                matched_text=match.group("name"),
-                start=span[0],
-                end=span[1],
-                reason="Label-anchored semantic personal-name fallback",
-                legal_basis=ctx.legal_basis,
-                metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+    if label_enabled:
+        for match in SEMANTIC_NAME_LABEL_RE.finditer(ctx.text):
+            span = match.span("name")
+            if span in seen:
+                continue
+            seen.add(span)
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="named_person",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="low",
+                    matched_text=match.group("name"),
+                    start=span[0],
+                    end=span[1],
+                    reason="Label-anchored semantic personal-name fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+                )
             )
-        )
-        idx += 1
-    for match in SEMANTIC_DOB_LABEL_RE.finditer(ctx.text):
-        value = match.group("dob")
-        if not _valid_dob_date(value):
-            continue
-        span = match.span("dob")
-        if span in seen:
-            continue
-        seen.add(span)
-        out.append(
-            new_finding(
-                idx=idx,
-                category="PII",
-                rule="date_of_birth",
-                jurisdiction=ctx.jurisdiction,
-                severity="high",
-                matched_text=value,
-                start=span[0],
-                end=span[1],
-                reason="Label-anchored semantic date-of-birth fallback",
-                legal_basis=ctx.legal_basis,
-                metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+            idx += 1
+        for match in SEMANTIC_DOB_LABEL_RE.finditer(ctx.text):
+            value = match.group("dob")
+            if not _valid_dob_date(value):
+                continue
+            span = match.span("dob")
+            if span in seen:
+                continue
+            seen.add(span)
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="date_of_birth",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="high",
+                    matched_text=value,
+                    start=span[0],
+                    end=span[1],
+                    reason="Label-anchored semantic date-of-birth fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+                )
             )
-        )
-        idx += 1
-    for match in SEMANTIC_AGE_LABEL_RE.finditer(ctx.text):
-        try:
-            age = int(match.group("age"))
-        except ValueError:
-            continue
-        if not 18 <= age <= 120:
-            continue
-        span = match.span("age")
-        if span in seen:
-            continue
-        seen.add(span)
-        out.append(
-            new_finding(
-                idx=idx,
-                category="PII",
-                rule="age_reference",
-                jurisdiction=ctx.jurisdiction,
-                severity="medium",
-                matched_text=match.group("age"),
-                start=span[0],
-                end=span[1],
-                reason="Label-anchored semantic age fallback",
-                legal_basis=ctx.legal_basis,
-                metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+            idx += 1
+        for match in SEMANTIC_AGE_LABEL_RE.finditer(ctx.text):
+            try:
+                age = int(match.group("age"))
+            except ValueError:
+                continue
+            if not 18 <= age <= 120:
+                continue
+            span = match.span("age")
+            if span in seen:
+                continue
+            seen.add(span)
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="age_reference",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="medium",
+                    matched_text=match.group("age"),
+                    start=span[0],
+                    end=span[1],
+                    reason="Label-anchored semantic age fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+                )
             )
-        )
-        idx += 1
+            idx += 1
+    if local_ner_enabled:
+        spans, _ = _local_ner_entities(ctx.text)
+        for start, end, label in spans:
+            if (start, end) in seen:
+                continue
+            value = ctx.text[start:end].strip()
+            if len(value.split()) < 2:
+                continue
+            if value.casefold() in ctx.defined_terms:
+                continue
+            seen.add((start, end))
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="named_person",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="low",
+                    matched_text=value,
+                    start=start,
+                    end=end,
+                    reason="Local NER semantic personal-name fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={
+                        "fallback": "local_ner",
+                        "source": "KAYPOH_LOCAL_NER_FALLBACK",
+                        "ner_label": label,
+                    },
+                )
+            )
+            idx += 1
     return out

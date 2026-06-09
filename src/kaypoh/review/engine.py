@@ -14,6 +14,7 @@ from kaypoh.review.detectors import (
     DetectorRegistry,
     detect_address_findings,
     detect_semantic_pii_fallback_findings,
+    semantic_pii_degraded_modes,
 )
 from kaypoh.review.document_structure import DocumentStructure, parse_document_structure
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
@@ -145,6 +146,13 @@ PERSONAL_ATTRIBUTE_RELATION_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})"
     r"'?s\s+(?P<attribute>wife|husband|spouse|partner|son|daughter|child|father|mother)\s+"
     r"(?P<object>[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\b"
+)
+PERSONAL_ATTRIBUTE_DIRECTED_RELATION_RE = re.compile(
+    r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
+    r"(?P<attribute>reports\s+to|is\s+supervised\s+by|is\s+guardian\s+for|is\s+the\s+guardian\s+of|"
+    r"is\s+emergency\s+contact\s+for|is\s+beneficial\s+owner\s+of)\s+"
+    r"(?P<object>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+)?[A-Z][A-Za-z0-9&.,' -]{2,80}\b",
+    re.IGNORECASE,
 )
 PERSONAL_ATTRIBUTE_EMPLOYER_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
@@ -3514,6 +3522,11 @@ def _detect_personal_attribute_inferences(
             "relationship",
             "Family or relationship attribute inferred from a named-person statement",
         ),
+        (
+            PERSONAL_ATTRIBUTE_DIRECTED_RELATION_RE,
+            "relationship",
+            "Directed relationship attribute inferred from a named-person statement",
+        ),
         (PERSONAL_ATTRIBUTE_EMPLOYER_RE, "employer", "Employment attribute inferred from a named-person statement"),
         (
             PERSONAL_ATTRIBUTE_LOCATION_RE,
@@ -3562,6 +3575,8 @@ def _detect_personal_attribute_inferences(
                 "subject": match.group("subject"),
                 "inferred_value": match.group("object").strip(" \t,.;:"),
             }
+            if attribute_type == "relationship":
+                metadata["relation_type"] = re.sub(r"\s+", "_", match.group("attribute").strip().casefold())
             if unit is not None:
                 metadata.update(
                     {
@@ -4988,6 +5003,7 @@ class PreSendReviewEngine:
             entity_id=entity_id,
             entity_size_lookup=self.entity_size_lookup,
         )
+        degraded_modes.extend(semantic_pii_degraded_modes())
 
         # item 84: blackout-window calendrical detector. Fires when document date + earnings
         # date co-occur within the per-jurisdiction closed period (SGX 14d/30d, HKEX 30d/60d,

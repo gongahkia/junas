@@ -79,6 +79,23 @@ GENERIC_ADDRESS_LOCALITY_RE = re.compile(
     r"Sydney|Melbourne|Tokyo|Seoul|London|New\s+York|California)\b",
     re.IGNORECASE,
 )
+BROAD_ADDRESS_ADMIN_RE = re.compile(
+    r"\b(?:ACT|NSW|NT|QLD|SA|TAS|VIC|WA|AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|"
+    r"LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|"
+    r"VT|VA|WA|WV|WI|WY|東京都|北海道|大阪府|京都府|.{2,3}県|서울|부산|대구|인천|경기|"
+    r"AT|BE|CZ|DE|DK|ES|FI|FR|IE|IT|NL|PL|PT|RO|SE|SK)\b",
+    re.IGNORECASE,
+)
+PERSON_LINKED_ADDRESS_RE = re.compile(
+    r"\b(?:Mr|Ms|Mrs|Mdm|Dr|Prof|employee|patient|client|customer|resident|applicant|data\s+subject|"
+    r"home|residential|private|personal)\b",
+    re.IGNORECASE,
+)
+ORG_ONLY_ADDRESS_RE = re.compile(
+    r"\b(?:registered\s+office|registered\s+address|corporate\s+office|head\s+office|principal\s+place\s+of\s+business|"
+    r"company\s+address|organisation|organization)\b",
+    re.IGNORECASE,
+)
 
 
 def _overlaps(span: tuple[int, int], ranges: list[tuple[int, int]]) -> bool:
@@ -98,8 +115,39 @@ def _has_generic_address_substance(value: str) -> bool:
     if not any(ch.isdigit() for ch in value):
         return False
     if GENERIC_ADDRESS_SUBSTANCE_RE.search(value):
-        return True
+        return bool(GENERIC_ADDRESS_POSTCODE_RE.search(value) or GENERIC_ADDRESS_LOCALITY_RE.search(value) or BROAD_ADDRESS_ADMIN_RE.search(value))
     return bool(GENERIC_ADDRESS_POSTCODE_RE.search(value) and GENERIC_ADDRESS_LOCALITY_RE.search(value))
+
+
+def _line_windows(text: str) -> list[tuple[int, int, str]]:
+    lines: list[tuple[int, int, str]] = []
+    offset = 0
+    for raw in text.splitlines(keepends=True):
+        start = offset
+        end = offset + len(raw)
+        content_end = end - (len(raw) - len(raw.rstrip("\r\n")))
+        stripped_start = start + (len(raw[: content_end - start]) - len(raw[: content_end - start].lstrip()))
+        lines.append((stripped_start, content_end, text[stripped_start:content_end]))
+        offset = end
+    windows: list[tuple[int, int, str]] = []
+    for index, (start, end, value) in enumerate(lines):
+        if not value.strip():
+            continue
+        window_start, window_end = start, end
+        parts = [value]
+        for follow_start, follow_end, follow_value in lines[index + 1 : index + 3]:
+            if not follow_value.strip():
+                break
+            if re.match(r"\s*[A-Za-z][A-Za-z ]{0,40}\s*[:：]", follow_value):
+                break
+            window_end = follow_end
+            parts.append(follow_value)
+        windows.append((window_start, window_end, "\n".join(part.strip() for part in parts if part.strip())))
+    return windows
+
+
+def _looks_org_only_address(value: str) -> bool:
+    return bool(ORG_ONLY_ADDRESS_RE.search(value) and not PERSON_LINKED_ADDRESS_RE.search(value))
 
 
 def detect_address_findings(
@@ -175,6 +223,38 @@ def detect_address_findings(
                 reason="Label-anchored postal-address signal",
                 legal_basis=ctx.legal_basis,
                 metadata={"fallback": "label_anchored_postal_address"},
+            )
+        )
+        idx += 1
+    for start, end, value in _line_windows(ctx.text):
+        start, end = _trim_address_value(ctx.text, start, end)
+        if end <= start or _overlaps((start, end), occupied):
+            continue
+        value = ctx.text[start:end].strip()
+        if "\n" not in value and not PERSON_LINKED_ADDRESS_RE.search(value):
+            continue
+        if _looks_org_only_address(value):
+            continue
+        if not _has_generic_address_substance(value):
+            continue
+        key = ("postal_address", start, end)
+        if key in seen:
+            continue
+        seen.add(key)
+        occupied.append((start, end))
+        out.append(
+            new_finding(
+                idx=idx,
+                category="PII",
+                rule="postal_address",
+                jurisdiction=ctx.jurisdiction,
+                severity="medium",
+                matched_text=value,
+                start=start,
+                end=end,
+                reason="Broad unlabelled postal-address signal",
+                legal_basis=ctx.legal_basis,
+                metadata={"fallback": "broad_unlabelled_postal_address"},
             )
         )
         idx += 1

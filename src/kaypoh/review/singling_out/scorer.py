@@ -438,6 +438,13 @@ def _surname_from_name(value: str) -> str | None:
     return tokens[-1] if tokens else None
 
 
+def _given_from_name(value: str) -> str | None:
+    stripped = _NAME_PREFIX_RE.sub("", str(value or "").strip())
+    for match in _SURNAME_TOKEN_RE.finditer(stripped):
+        return match.group(0).replace("'", "").replace("-", "").upper()
+    return None
+
+
 def _name_population(findings: list[Any], tables: _Tables) -> tuple[int, str] | None:
     populations: list[tuple[int, str]] = []
     for finding in findings:
@@ -447,6 +454,9 @@ def _name_population(findings: list[Any], tables: _Tables) -> tuple[int, str] | 
         name_key = _frequency_key(_NAME_PREFIX_RE.sub("", value).strip())
         if name_key and name_key in tables.name_population:
             populations.append((tables.name_population[name_key], "name_frequency"))
+        given = _given_from_name(value)
+        if given and given in tables.name_population:
+            populations.append((tables.name_population[given], "name_frequency"))
         surname = _surname_from_name(value)
         if surname and surname in tables.surname_population:
             populations.append((tables.surname_population[surname], "surname_frequency"))
