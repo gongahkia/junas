@@ -203,6 +203,17 @@ class MacMaePrecisionGuards(unittest.TestCase):
         text = "Assessment under UK MAR: the event is not precise, price-sensitive information."
         self.assertNotIn("nonpublic_marker", {rule for rule, _ in _rules_matched(text, jurisdiction="UK")})
 
+    def test_nonpublic_marker_suppresses_procedural_inside_information_reference(self):
+        text = (
+            "References to inside information in this document are procedural; "
+            "no unpublished forecasts, deal terms, or trading intentions are contained herein."
+        )
+        self.assertNotIn("nonpublic_marker", {rule for rule, _ in _rules_matched(text, jurisdiction="UK")})
+
+    def test_nonpublic_marker_suppresses_inside_information_exclusion(self):
+        text = "MNPI control: this workflow excludes inside information as defined in Part XIVA of the SFO."
+        self.assertNotIn("nonpublic_marker", {rule for rule, _ in _rules_matched(text, jurisdiction="HK")})
+
     def test_mnpi_marker_heading_without_upsi_does_not_fire(self):
         text = 'MNPI markers: remove phrases like "not public" unless UPSI is actually present.'
         for rule, matched in _rules_matched(text, jurisdiction="IN"):
