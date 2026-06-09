@@ -1,0 +1,15 @@
+{
+  "doc_id": "global_address_semantic_remainder_adv_02",
+  "document_type": "memo",
+  "source_jurisdiction": "MY",
+  "destination_jurisdiction": "AU",
+  "must_detect": [
+    {"rule": "personal_attribute_inference", "matched_text": "Dr Alan Goh reports to Finance Team for budget approvals"}
+  ],
+  "must_not_detect": [
+    {"rule": "postal_address", "matched_text": "12 Jalan Ampang\nKuala Lumpur 50450 Malaysia", "reason": "organisation-only registered-office block is not personal address PII"},
+    {"rule": "au_postal_address", "matched_text": "Airport Driveway Adelaide Airport SA", "reason": "street-name bait lacks required AU postcode"}
+  ],
+  "_label_source": "hand",
+  "_label_note": "No-key items 34/35/79 adversarial fixture for organisation-address suppression and department-vs-person relation precision."
+}
