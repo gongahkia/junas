@@ -609,6 +609,14 @@ class ReviewResponse(BaseModel):
     review_profile: str = Field(description="Review profile used by the endpoint.")
     document: ReviewDocumentMetadataResponse = Field(description="Extracted document metadata.")
     findings: list[ReviewFindingResponse] = Field(default_factory=list, description="Localized PII and MNPI findings.")
+    lane_suppressed_count: int = Field(
+        0,
+        description="Number of findings hidden from the default surfacing lane for this tenant.",
+    )
+    lane_suppressed_findings: list[ReviewFindingResponse] = Field(
+        default_factory=list,
+        description="Lane-suppressed findings. Populated only for audit-privileged callers.",
+    )
     suggestions: list[ReviewSuggestionResponse] = Field(
         default_factory=list,
         description="Suggested redactions or rewrite actions for findings.",
@@ -630,8 +638,9 @@ class ReviewResponse(BaseModel):
         description=(
             "Advisory output from deterministic audit-grade coverage checks and the "
             "audit_grade LLM inverse audit ('what did we miss?'). Each warning carries "
-            "at least rule_guess and why fields. Engine never acts on these — reviewer "
-            "attention only. Also journaled as coverage_warning events."
+            "at least rule_guess and why fields. LLM warnings also produce capped "
+            "origin=llm findings for reviewer adjudication. All warnings are journaled "
+            "as coverage_warning events."
         ),
     )
     degraded_modes: list[DegradedModeResponse] = Field(
@@ -852,6 +861,14 @@ class ReviewSessionStateResponse(BaseModel):
     findings: list[ReviewSessionFindingState] = Field(
         default_factory=list,
         description="Findings merged with their latest decision.",
+    )
+    lane_suppressed_count: int = Field(
+        0,
+        description="Number of persisted findings hidden from the default surfacing lane.",
+    )
+    lane_suppressed_findings: list[ReviewSessionFindingState] = Field(
+        default_factory=list,
+        description="Lane-suppressed persisted findings. Populated only for audit-privileged callers.",
     )
     decisions_recorded: int = Field(description="Total number of decision events in this session.")
     audit_exports: list[dict] = Field(
@@ -1299,7 +1316,10 @@ class ClassifyResponse(BaseModel):
     )
     coverage_warnings: list[dict] = Field(
         default_factory=list,
-        description="Advisory LLM coverage_warning events (item 8). Populated under audit_grade profile only.",
+        description=(
+            "Coverage_warning events. LLM warnings also produce capped origin=llm findings "
+            "under audit_grade."
+        ),
     )
     degraded_modes: list[DegradedModeResponse] = Field(
         default_factory=list,

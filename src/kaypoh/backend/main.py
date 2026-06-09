@@ -140,6 +140,7 @@ RISK_ORDER = {
     Classification.LOW_RISK: 1,
     Classification.HIGH_RISK: 2,
 }
+LANE_SUPPRESSED_VIEW_ROLES = frozenset({"auditor", "admin"})
 
 SUPPRESSED_REQUEST_LOG_PATHS = {"/health", "/ready", "/metrics"}
 SPAN_CONTEXT_CHARS = 48

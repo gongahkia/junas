@@ -1,9 +1,9 @@
-"""LLM inverse audit — coverage_warning events (item 8).
+"""LLM inverse audit — coverage_warning events + capped raised findings (items 8/54).
 
 Four guarantees:
 1. The auditor sees only summary fields — never matched_text or span offsets.
 2. Warnings flow back into ReviewResult.coverage_warnings.
-3. Warnings are NEVER allowed to mutate findings or risk classification.
+3. LLM warnings become origin=llm findings, capped at medium severity.
 4. With persistence enabled, each warning becomes a coverage_warning journal event.
 """
 
@@ -50,6 +50,19 @@ class FailingAuditor:
         raise RuntimeError("simulated network error")
 
 
+class HighWarningAuditor:
+    def audit(self, *, findings, body_hash, document_type):
+        return [
+            {
+                "rule_guess": "cyber_incident_pre_disclosure",
+                "why": "incident language may be under-covered",
+                "severity": "high",
+                "confidence": 0.91,
+                "structured_reason": "nonpublic_context_marker",
+            }
+        ]
+
+
 class CoverageAuditPrivacyTests(unittest.TestCase):
     def test_auditor_never_sees_matched_text_or_spans(self):
         auditor = DummyAuditor()
@@ -94,12 +107,18 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
         )
         self.assertEqual(len(result.coverage_warnings), 2)
         self.assertEqual(result.coverage_warnings[0]["rule_guess"], "embargo_marker")
+        raised = [finding for finding in result.findings if finding.rule == "llm_raised_finding"]
+        self.assertEqual(len(raised), 2)
+        self.assertTrue(all(finding.severity == "medium" for finding in raised))
+        self.assertTrue(all(finding.metadata["origin"] == "llm" for finding in raised))
+        self.assertEqual(raised[0].source, "llm_coverage_audit")
+        self.assertEqual(raised[0].metadata["llm_rule_guess"], "embargo_marker")
+        self.assertEqual(raised[0].metadata["context_window_hash"], result.coverage_warnings[0]["body_hash"])
+        self.assertEqual(raised[0].metadata["structured_reason"], "ambiguous_unconstrained")
 
-    def test_warnings_do_not_mutate_classification(self):
-        # auditor "warns" but engine must not change overall_risk or findings
+    def test_below_band_documents_do_not_call_auditor_or_gain_findings(self):
         auditor = DummyAuditor()
         engine = PreSendReviewEngine(llm_coverage_auditor=auditor)
-        # use a sample that lands in SAFE, then confirm it stays SAFE despite warnings
         text = "Lunch invite for Friday."
         result_strict = engine.review(
             text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
@@ -111,10 +130,22 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
             entity_id=None, include_suggestions=False, document_type="generic",
             review_profile="audit_grade",
         )
-        # audit_grade still SAFE because mnpi_score is below the ambiguous-band lower bound
-        # so the auditor isn't even engaged. compare classifications + finding-count.
         self.assertEqual(result_strict.overall_risk, result_audit.overall_risk)
         self.assertEqual(len(result_strict.findings), len(result_audit.findings))
+        self.assertEqual(auditor.calls, 0)
+
+    def test_llm_warning_severity_is_capped_at_medium(self):
+        engine = PreSendReviewEngine(llm_coverage_auditor=HighWarningAuditor())
+        result = engine.review(
+            text="Acme acquisition for $2.5 billion is pending.", source_jurisdiction="SG",
+            destination_jurisdiction="SG", entity_id=None, include_suggestions=False,
+            document_type="memo", review_profile="audit_grade",
+        )
+        raised = [finding for finding in result.findings if finding.rule == "llm_raised_finding"]
+        self.assertEqual(len(raised), 1)
+        self.assertEqual(raised[0].severity, "medium")
+        self.assertEqual(raised[0].metadata["requested_severity"], "high")
+        self.assertEqual(raised[0].metadata["structured_reason"], "nonpublic_context_marker")
 
     def test_strict_profile_never_calls_auditor(self):
         auditor = DummyAuditor()
@@ -209,6 +240,9 @@ class CoverageAuditJournalingTests(unittest.TestCase):
         if self.auditor.calls == 0:
             self.skipTest("test document did not land in ambiguous band for this scoring")
         self.assertEqual(len(payload["coverage_warnings"]), 2)
+        raised = [finding for finding in payload["findings"] if finding["rule"] == "llm_raised_finding"]
+        self.assertEqual(len(raised), 2)
+        self.assertEqual(raised[0]["metadata"]["origin"], "llm")
         # journal carries a coverage_warning event per warning
         entries = self.journal.read_journal(review_id=payload["request_id"])
         warning_events = [e for e in entries if e.event_type == "coverage_warning"]
