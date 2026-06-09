@@ -58,6 +58,21 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         self.assertNotIn("uk_postal_address", self._rules(text, "UK"))
         self.assertNotIn("us_postal_address", self._rules(text, "US"))
 
+    def test_label_anchored_generic_address_fallback_fires(self):
+        rules = self._rules("Address: Unit 9, 77 Shenton Way, Singapore 068810.", "SG")
+
+        self.assertIn("postal_address", rules)
+
+    def test_specific_address_rule_takes_precedence_over_generic_fallback(self):
+        result = self._review("Registered address: 1 Airport Drive, Adelaide Airport SA 5950.", "AU")
+        rules = [finding.rule for finding in result.findings]
+
+        self.assertIn("au_postal_address", rules)
+        self.assertNotIn("postal_address", rules)
+
+    def test_generic_address_fallback_rejects_prose(self):
+        self.assertNotIn("postal_address", self._rules("Address: the issue 2026 will be discussed.", "SG"))
+
     def test_personal_attribute_inference_fires_with_structure_metadata(self):
         result = self._review("People\nDr Jane Tan works at Acme Pte Ltd.\n", "SG")
         findings = [finding for finding in result.findings if finding.rule == "personal_attribute_inference"]
@@ -87,6 +102,16 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         self.assertIn("professional_license", attribute_types)
         self.assertIn("department", attribute_types)
 
+    def test_occupation_personal_attribute_type_fires(self):
+        result = self._review("Dr Jane Tan works as Senior Actuary.\n", "SG")
+        attribute_types = {
+            finding.metadata["attribute_type"]
+            for finding in result.findings
+            if finding.rule == "personal_attribute_inference"
+        }
+
+        self.assertIn("occupation", attribute_types)
+
     def test_semantic_pii_fallback_is_env_gated(self):
         text = "Full name: Jane Tan\nEmployee ID: EMP-2026-1042"
         self.assertNotIn("named_person", self._rules(text, "SG"))
@@ -104,6 +129,16 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
             result = self._review(text, "SG")
         findings = {(finding.rule, finding.matched_text) for finding in result.findings}
+        self.assertIn(("date_of_birth", "14 February 1988"), findings)
+        self.assertIn(("age_reference", "42"), findings)
+
+    def test_semantic_pii_fallback_can_extract_multilingual_labels(self):
+        text = "姓名: Jane Tan\n生年月日: 14 February 1988\n年齢: 42"
+        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+            result = self._review(text, "JP")
+        findings = {(finding.rule, finding.matched_text) for finding in result.findings}
+
+        self.assertIn(("named_person", "Jane Tan"), findings)
         self.assertIn(("date_of_birth", "14 February 1988"), findings)
         self.assertIn(("age_reference", "42"), findings)
 

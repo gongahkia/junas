@@ -10,7 +10,12 @@ from kaypoh.backend.schemas import Classification
 from kaypoh.review.citations import CitationOverrideError, mnpi_rationale, pii_rationale
 from kaypoh.review.conjunctive_mnpi import detect_conjunctive_mnpi
 from kaypoh.review.defined_terms import extract_defined_terms, is_defined_term
-from kaypoh.review.detectors import DetectorContext, DetectorRegistry, detect_address_findings
+from kaypoh.review.detectors import (
+    DetectorContext,
+    DetectorRegistry,
+    detect_address_findings,
+    detect_semantic_pii_fallback_findings,
+)
 from kaypoh.review.document_structure import DocumentStructure, parse_document_structure
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
 from kaypoh.review.jurisdictions import JurisdictionRulePack, resolve_rule_packs
@@ -151,6 +156,15 @@ PERSONAL_ATTRIBUTE_LOCATION_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
     r"(?:lives\s+in|resides\s+in|is\s+based\s+in)\s+"
     r"(?P<object>[A-Z][A-Za-z0-9&.,' -]{2,80})\b"
+)
+PERSONAL_ATTRIBUTE_OCCUPATION_RE = re.compile(
+    r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
+    r"(?:works\s+as|serves\s+as|is\s+employed\s+as|has\s+the\s+job\s+title\s+of|"
+    r"holds\s+the\s+role\s+of|is\s+(?:an?\s+)?)"
+    r"\s+(?P<object>[A-Z][A-Za-z0-9&.,' -]{0,60}\b(?:officer|director|manager|engineer|"
+    r"lawyer|solicitor|doctor|nurse|accountant|analyst|partner|consultant|teacher|"
+    r"professor|actuary|architect|secretary|counsel|trader|broker|developer|specialist))\b",
+    re.IGNORECASE,
 )
 PERSONAL_ATTRIBUTE_EDUCATION_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
@@ -410,24 +424,6 @@ NAME_RE = re.compile(
     r"\b(?i:(?:Mr|Ms|Mrs|Mdm|Dr|Prof))\.?[ \t]+[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?"
     r"(?:[ \t]+(?:(?i:bin|binti|s/o|d/o|a/l|a/p|al)[ \t]+)?"
     r"[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?){0,5}\b"
-)
-SEMANTIC_NAME_LABEL_RE = re.compile(
-    r"\b(?i:(?:full\s+name|legal\s+name|client\s+name|patient\s+name|employee\s+name|"
-    r"data\s+subject\s+name|contact\s+person))\s*[:=]\s*"
-    r"(?P<name>(?-i:[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?"
-    r"(?:[ \t]+[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?){1,4}))\b"
-)
-SEMANTIC_DOB_LABEL_RE = re.compile(
-    r"\b(?i:(?:DOB|D\.O\.B\.|date\s+of\s+birth|birth\s*date|patient\s+DOB|client\s+DOB|born))\s+"
-    r"(?:is|was|recorded\s+as|listed\s+as|noted\s+as)\s+(?P<dob>"
-    + _DOB_DATE_FRAGMENT
-    + r")\b",
-    re.IGNORECASE,
-)
-SEMANTIC_AGE_LABEL_RE = re.compile(
-    r"\b(?i:(?:patient|client|employee|applicant|customer|data\s+subject|subject)\s+age|age)\s+"
-    r"(?:is|was|recorded\s+as|listed\s+as|noted\s+as)\s+(?P<age>\d{1,3})\b",
-    re.IGNORECASE,
 )
 # items 95 + 96: contingent / forward-looking MNPI vocabulary (Basic v. Levinson, MAR Art 7(2-3),
 # SFA s215). Standalone these phrases are noise; the co-occurrence amplifier in review() lifts
@@ -2837,93 +2833,6 @@ def _detect_sg_wedge_remainder_findings(
     return out
 
 
-def _detect_semantic_pii_fallback_findings(
-    text: str,
-    *,
-    jurisdiction: str,
-    legal_basis: str,
-    idx_start: int,
-) -> list["ReviewFinding"]:
-    if os.environ.get("KAYPOH_SEMANTIC_PII_FALLBACK", "").strip().casefold() not in {"1", "true", "yes", "on"}:
-        return []
-    out: list["ReviewFinding"] = []
-    idx = idx_start
-    seen: set[tuple[int, int]] = set()
-    for match in SEMANTIC_NAME_LABEL_RE.finditer(text):
-        span = match.span("name")
-        if span in seen:
-            continue
-        seen.add(span)
-        out.append(
-            _new_finding(
-                idx=idx,
-                category="PII",
-                rule="named_person",
-                jurisdiction=jurisdiction,
-                severity="low",
-                matched_text=match.group("name"),
-                start=span[0],
-                end=span[1],
-                reason="Label-anchored semantic personal-name fallback",
-                legal_basis=legal_basis,
-                metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
-            )
-        )
-        idx += 1
-    for match in SEMANTIC_DOB_LABEL_RE.finditer(text):
-        value = match.group("dob")
-        if not _valid_dob_date(value):
-            continue
-        span = match.span("dob")
-        if span in seen:
-            continue
-        seen.add(span)
-        out.append(
-            _new_finding(
-                idx=idx,
-                category="PII",
-                rule="date_of_birth",
-                jurisdiction=jurisdiction,
-                severity="high",
-                matched_text=value,
-                start=span[0],
-                end=span[1],
-                reason="Label-anchored semantic date-of-birth fallback",
-                legal_basis=legal_basis,
-                metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
-            )
-        )
-        idx += 1
-    for match in SEMANTIC_AGE_LABEL_RE.finditer(text):
-        try:
-            age = int(match.group("age"))
-        except ValueError:
-            continue
-        if not 18 <= age <= 120:
-            continue
-        span = match.span("age")
-        if span in seen:
-            continue
-        seen.add(span)
-        out.append(
-            _new_finding(
-                idx=idx,
-                category="PII",
-                rule="age_reference",
-                jurisdiction=jurisdiction,
-                severity="medium",
-                matched_text=match.group("age"),
-                start=span[0],
-                end=span[1],
-                reason="Label-anchored semantic age fallback",
-                legal_basis=legal_basis,
-                metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
-            )
-        )
-        idx += 1
-    return out
-
-
 def _driver_license_coverage_warnings(
     text: str,
     *,
@@ -3613,6 +3522,11 @@ def _detect_personal_attribute_inferences(
             "Location/residence attribute inferred from a named-person statement",
         ),
         (
+            PERSONAL_ATTRIBUTE_OCCUPATION_RE,
+            "occupation",
+            "Occupation or job-title attribute inferred from a named-person statement",
+        ),
+        (
             PERSONAL_ATTRIBUTE_EDUCATION_RE,
             "education",
             "Education/student attribute inferred from a named-person statement",
@@ -4261,12 +4175,7 @@ class PreSendReviewEngine:
         registry.register(
             name="semantic_pii_fallback",
             family="pii",
-            detect=lambda ctx, idx: _detect_semantic_pii_fallback_findings(
-                text=ctx.text,
-                jurisdiction=ctx.jurisdiction,
-                legal_basis=ctx.legal_basis,
-                idx_start=idx,
-            ),
+            detect=lambda ctx, idx: detect_semantic_pii_fallback_findings(ctx, idx, _new_finding),
         )
         registry.register(
             name="special_category_pii",

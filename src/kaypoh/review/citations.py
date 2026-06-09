@@ -30,6 +30,11 @@ _PII_DEFAULT_RATIONALE = {
         "PDPA s2 personal data includes residential address. Disclose only when the purpose "
         "is documented and consented."
     ),
+    "postal_address": (
+        "Postal or residential address detected. PDPA s2, GDPR Art 4(1), and CCPA "
+        "§1798.140 treat address/location information as personal data when it can "
+        "identify or link to a person or household. Mask unless disclosure is purpose-limited."
+    ),
     "email_address": (
         "PDPA s2 personal data includes work/personal email. Mask unless the recipient is "
         "intended and the purpose is documented."

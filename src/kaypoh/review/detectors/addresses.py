@@ -53,6 +53,53 @@ EU_POSTAL_ADDRESS_RE = re.compile(
     r"(?:AT|BE|CZ|DE|DK|ES|FI|FR|IE|IT|NL|PL|PT|RO|SE|SK)\s*[- ]?\d{4,6}\b",
     re.IGNORECASE,
 )
+GENERIC_ADDRESS_LABEL_RE = re.compile(
+    r"(?im)(?:^|[;\n])\s*(?P<label>residential\s+address|mailing\s+address|registered\s+address|"
+    r"home\s+address|office\s+address|address|住所|주소|地址|alamat|địa\s+chỉ|ที่อยู่|عنوان)"
+    r"\s*[:：]\s*(?P<value>[^\n]{6,160}(?:\n(?!\s*[A-Za-z][A-Za-z ]{0,40}\s*[:：])"
+    r"[^\n]{6,160}){0,2})",
+    re.IGNORECASE,
+)
+GENERIC_ADDRESS_SUBSTANCE_RE = re.compile(
+    r"\b(?:Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Drive|Dr|Boulevard|Blvd|Court|Ct|"
+    r"Way|Place|Pl|Square|Sq|Close|High\s+Street|Block|Blk|Unit|Suite|Apt|Apartment|"
+    r"Floor|Tower|Building|Jalan|Lorong|Kampong|Barangay|Brgy|Makati|Quezon|〒|丁目|"
+    r"番地|号|都|府|県|市|区|町|村|路|街|道|號|楼|室|구|동|로|길|시|군|شارع|طريق|"
+    r"ถนน|แขวง|เขต)\b",
+    re.IGNORECASE,
+)
+GENERIC_ADDRESS_POSTCODE_RE = re.compile(
+    r"\b(?:[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}|\d{3}-\d{4}|\d{4,6}(?:-\d{4})?)\b",
+    re.IGNORECASE,
+)
+GENERIC_ADDRESS_LOCALITY_RE = re.compile(
+    r"\b(?:Singapore|Hong\s+Kong|Kowloon|Malaysia|Indonesia|Thailand|Philippines|Vietnam|India|China|"
+    r"Australia|Japan|Korea|United\s+Kingdom|United\s+States|UAE|Saudi\s+Arabia|Dubai|Abu\s+Dhabi|"
+    r"Riyadh|Jeddah|Mumbai|Delhi|Beijing|Shanghai|Bangkok|Jakarta|Manila|Hanoi|Ho\s+Chi\s+Minh|"
+    r"Sydney|Melbourne|Tokyo|Seoul|London|New\s+York|California)\b",
+    re.IGNORECASE,
+)
+
+
+def _overlaps(span: tuple[int, int], ranges: list[tuple[int, int]]) -> bool:
+    start, end = span
+    return any(start < other_end and end > other_start for other_start, other_end in ranges)
+
+
+def _trim_address_value(text: str, start: int, end: int) -> tuple[int, int]:
+    while start < end and text[start] in " \t\r\n":
+        start += 1
+    while end > start and text[end - 1] in " \t\r\n.;":
+        end -= 1
+    return start, end
+
+
+def _has_generic_address_substance(value: str) -> bool:
+    if not any(ch.isdigit() for ch in value):
+        return False
+    if GENERIC_ADDRESS_SUBSTANCE_RE.search(value):
+        return True
+    return bool(GENERIC_ADDRESS_POSTCODE_RE.search(value) and GENERIC_ADDRESS_LOCALITY_RE.search(value))
 
 
 def detect_address_findings(
@@ -79,6 +126,7 @@ def detect_address_findings(
 
     out: list[Any] = []
     seen: set[tuple[str, int, int]] = set()
+    occupied: list[tuple[int, int]] = []
     idx = idx_start
     for rule, pattern, reason in address_patterns:
         for match in pattern.finditer(ctx.text):
@@ -86,6 +134,7 @@ def detect_address_findings(
             if key in seen:
                 continue
             seen.add(key)
+            occupied.append((match.start(), match.end()))
             out.append(
                 new_finding(
                     idx=idx,
@@ -101,4 +150,32 @@ def detect_address_findings(
                 )
             )
             idx += 1
+    for match in GENERIC_ADDRESS_LABEL_RE.finditer(ctx.text):
+        start, end = _trim_address_value(ctx.text, *match.span("value"))
+        if end <= start or _overlaps((start, end), occupied):
+            continue
+        value = ctx.text[start:end]
+        if not _has_generic_address_substance(value):
+            continue
+        key = ("postal_address", start, end)
+        if key in seen:
+            continue
+        seen.add(key)
+        occupied.append((start, end))
+        out.append(
+            new_finding(
+                idx=idx,
+                category="PII",
+                rule="postal_address",
+                jurisdiction=ctx.jurisdiction,
+                severity="medium",
+                matched_text=value,
+                start=start,
+                end=end,
+                reason="Label-anchored postal-address signal",
+                legal_basis=ctx.legal_basis,
+                metadata={"fallback": "label_anchored_postal_address"},
+            )
+        )
+        idx += 1
     return out

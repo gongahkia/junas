@@ -168,6 +168,48 @@ class SinglingOutV2Tests(unittest.TestCase):
         self.assertEqual(findings[0].metadata["frequency_tables_used"], ["surname_frequency"])
         self.assertIn("postal_population", findings[0].metadata["frequency_tables_missing"])
 
+    def test_generated_name_table_can_drive_named_person_k(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_generated_table(root, "US", "name_frequency", "name,population\nJane Raretest,4\n")
+            clear_table_cache_for_tests()
+            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
+                findings = self._quasi_for(
+                    "Dr Jane Raretest; Age: 42; address 123 Market Street, CA 94105.",
+                    "US",
+                )
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 4)
+        self.assertEqual(findings[0].metadata["frequency_tables_used"], ["name_frequency"])
+
+    def test_generated_sg_name_table_can_override_bundled_tables(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_generated_table(root, "SG", "name_frequency", "name,population\nJane Raretest,4\n")
+            clear_table_cache_for_tests()
+            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
+                findings = self._quasi(
+                    "Dr Jane Raretest; Age: 42; address 77 Shenton Way, Singapore 068810."
+                )
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 4)
+        self.assertEqual(findings[0].metadata["frequency_tables_used"], ["name_frequency"])
+
+    def test_generated_role_table_can_drive_personal_attribute_k(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_generated_table(root, "US", "role_frequency", "role,population\nActuary,3\n")
+            clear_table_cache_for_tests()
+            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
+                findings = self._quasi_for(
+                    "Dr Jane Raretest is a Senior Actuary; Age: 42; address 123 Market Street, CA 94105.",
+                    "US",
+                )
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 3)
+        self.assertEqual(findings[0].metadata["frequency_tables_used"], ["role_frequency"])
+        self.assertIn("name_density", findings[0].metadata["frequency_tables_missing"])
+
     def test_bundled_au_postal_table_can_emit_low_k_cluster(self):
         clear_table_cache_for_tests()
         with mock.patch.dict(os.environ, {}, clear=True):

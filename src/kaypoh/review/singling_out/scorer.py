@@ -33,7 +33,9 @@ class _Tables:
     area_population: dict[str, int]
     age_cohorts: dict[str, int]
     postal_population: dict[str, int]
+    name_population: dict[str, int]
     surname_population: dict[str, int]
+    role_population: dict[str, int]
     loaded_tables: tuple[str, ...]
 
 
@@ -65,6 +67,7 @@ _QUASI_RULES = frozenset({
     "kr_postal_address",
     "us_postal_address",
     "eu_postal_address",
+    "postal_address",
     "personal_attribute_inference",
 }) | _DIRECT_UNIQUE_RULES
 _MIN_DISTINCT = 3
@@ -77,6 +80,8 @@ _AU_POSTAL_RE = re.compile(r"\b(?:Australia\s*)?(\d{4})\b", re.IGNORECASE)
 _UK_POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?)\s*(\d)[A-Z]{2}\b", re.IGNORECASE)
 _NAME_PREFIX_RE = re.compile(r"^(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+", re.IGNORECASE)
 _SURNAME_TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z'\-]*")
+_FREQUENCY_KEY_RE = re.compile(r"[A-Za-z0-9]+")
+_ROLE_PREFIX_RE = re.compile(r"^(?:JUNIOR|SENIOR|PRINCIPAL|LEAD|HEAD\s+OF|ASSOCIATE)\s+", re.IGNORECASE)
 _POSTAL_RULES = frozenset({
     "sg_postal_address",
     "uk_postal_address",
@@ -85,6 +90,7 @@ _POSTAL_RULES = frozenset({
     "kr_postal_address",
     "us_postal_address",
     "eu_postal_address",
+    "postal_address",
 })
 
 
@@ -129,7 +135,9 @@ def _load_bundled_tables(jurisdiction: str) -> _Tables | None:
     area_population: dict[str, int] = {}
     age_cohorts: dict[str, int] = {}
     postal_population: dict[str, int] = {}
+    name_population: dict[str, int] = {}
     surname_population: dict[str, int] = {}
+    role_population: dict[str, int] = {}
     total_population = 0
     loaded: list[str] = []
 
@@ -174,6 +182,16 @@ def _load_bundled_tables(jurisdiction: str) -> _Tables | None:
                 postal_population[prefix] = population
         loaded.append(table)
 
+    if isinstance(entries.get("name_frequency"), dict):
+        name_text = _resource_text(f"kaypoh.data.frequency.{code}", "name_frequency.csv")
+        _validate_manifest_entry(manifest, code, "name_frequency", name_text)
+        for row in csv.DictReader(name_text.splitlines()):
+            name = _frequency_key(str(row.get("name") or ""))
+            population = _parse_int(str(row.get("population") or ""))
+            if name and population is not None:
+                name_population[name] = population
+        loaded.append("name_frequency")
+
     if isinstance(entries.get("surname_frequency"), dict):
         surname_text = _resource_text(f"kaypoh.data.frequency.{code}", "surname_frequency.csv")
         _validate_manifest_entry(manifest, code, "surname_frequency", surname_text)
@@ -184,13 +202,25 @@ def _load_bundled_tables(jurisdiction: str) -> _Tables | None:
                 surname_population[surname] = population
         loaded.append("surname_frequency")
 
+    if isinstance(entries.get("role_frequency"), dict):
+        role_text = _resource_text(f"kaypoh.data.frequency.{code}", "role_frequency.csv")
+        _validate_manifest_entry(manifest, code, "role_frequency", role_text)
+        for row in csv.DictReader(role_text.splitlines()):
+            role = _role_key(str(row.get("role") or ""))
+            population = _parse_int(str(row.get("population") or ""))
+            if role and population is not None:
+                role_population[role] = population
+        loaded.append("role_frequency")
+
     if not loaded:
         return None
     total_population = (
         total_population
         or sum(area_population.values())
         or sum(postal_population.values())
+        or sum(name_population.values())
         or sum(surname_population.values())
+        or sum(role_population.values())
     )
     if not total_population:
         raise RuntimeError(f"{code} bundled frequency tables have no population rows")
@@ -200,7 +230,9 @@ def _load_bundled_tables(jurisdiction: str) -> _Tables | None:
         area_population=area_population,
         age_cohorts=age_cohorts,
         postal_population=postal_population,
+        name_population=name_population,
         surname_population=surname_population,
+        role_population=role_population,
         loaded_tables=tuple(sorted(set(loaded))),
     )
 
@@ -238,7 +270,9 @@ def _load_generated_tables(jurisdiction: str, base_dir: str | os.PathLike[str]) 
     area_population: dict[str, int] = {}
     age_cohorts: dict[str, int] = {}
     postal_population: dict[str, int] = {}
+    name_population: dict[str, int] = {}
     surname_population: dict[str, int] = {}
+    role_population: dict[str, int] = {}
 
     if isinstance(entries.get("area_population"), dict):
         text = _read_generated_table(root, str(entries["area_population"].get("path") or ""))
@@ -260,6 +294,16 @@ def _load_generated_tables(jurisdiction: str, base_dir: str | os.PathLike[str]) 
                 postal_population[prefix] = population
         loaded.append("postal_population")
 
+    if isinstance(entries.get("name_frequency"), dict):
+        text = _read_generated_table(root, str(entries["name_frequency"].get("path") or ""))
+        _validate_manifest_entry(manifest, code, "name_frequency", text)
+        for row in csv.DictReader(text.splitlines()):
+            name = _frequency_key(str(row.get("name") or ""))
+            population = _parse_int(str(row.get("population") or ""))
+            if name and population is not None:
+                name_population[name] = population
+        loaded.append("name_frequency")
+
     if isinstance(entries.get("surname_frequency"), dict):
         text = _read_generated_table(root, str(entries["surname_frequency"].get("path") or ""))
         _validate_manifest_entry(manifest, code, "surname_frequency", text)
@@ -270,9 +314,25 @@ def _load_generated_tables(jurisdiction: str, base_dir: str | os.PathLike[str]) 
                 surname_population[surname] = population
         loaded.append("surname_frequency")
 
+    if isinstance(entries.get("role_frequency"), dict):
+        text = _read_generated_table(root, str(entries["role_frequency"].get("path") or ""))
+        _validate_manifest_entry(manifest, code, "role_frequency", text)
+        for row in csv.DictReader(text.splitlines()):
+            role = _role_key(str(row.get("role") or ""))
+            population = _parse_int(str(row.get("population") or ""))
+            if role and population is not None:
+                role_population[role] = population
+        loaded.append("role_frequency")
+
     if not loaded:
         return None
-    total_population = sum(area_population.values()) or sum(postal_population.values()) or sum(surname_population.values())
+    total_population = (
+        sum(area_population.values())
+        or sum(postal_population.values())
+        or sum(name_population.values())
+        or sum(surname_population.values())
+        or sum(role_population.values())
+    )
     if not total_population:
         raise RuntimeError(f"{code} generated frequency tables have no population rows")
     return _Tables(
@@ -281,7 +341,9 @@ def _load_generated_tables(jurisdiction: str, base_dir: str | os.PathLike[str]) 
         area_population=area_population,
         age_cohorts=age_cohorts,
         postal_population=postal_population,
+        name_population=name_population,
         surname_population=surname_population,
+        role_population=role_population,
         loaded_tables=tuple(sorted(loaded)),
     )
 
@@ -289,7 +351,7 @@ def _load_generated_tables(jurisdiction: str, base_dir: str | os.PathLike[str]) 
 def _tables_for(jurisdiction: str) -> _Tables | None:
     code = jurisdiction.upper()
     base_dir = os.environ.get("KAYPOH_FREQUENCY_DATA_DIR", "").strip()
-    if base_dir and code != "SG":
+    if base_dir:
         cache_key = (code, str(Path(base_dir).resolve()))
         if cache_key not in _GENERATED_TABLES:
             try:
@@ -353,20 +415,54 @@ def _postal_population(unit_text: str, tables: _Tables) -> int | None:
     return min(populations) if populations else None
 
 
+def _frequency_key(value: str) -> str | None:
+    parts = [match.group(0).upper() for match in _FREQUENCY_KEY_RE.finditer(str(value or ""))]
+    return " ".join(parts) if parts else None
+
+
+def _role_key(value: str) -> str | None:
+    key = _frequency_key(value)
+    if not key:
+        return None
+    trimmed = _ROLE_PREFIX_RE.sub("", key).strip()
+    return trimmed or key
+
+
 def _surname_from_name(value: str) -> str | None:
     stripped = _NAME_PREFIX_RE.sub("", str(value or "").strip())
     tokens = [match.group(0).replace("'", "").replace("-", "").upper() for match in _SURNAME_TOKEN_RE.finditer(stripped)]
     return tokens[-1] if tokens else None
 
 
-def _surname_population(findings: list[Any], tables: _Tables) -> int | None:
-    populations: list[int] = []
+def _name_population(findings: list[Any], tables: _Tables) -> tuple[int, str] | None:
+    populations: list[tuple[int, str]] = []
     for finding in findings:
         if str(getattr(finding, "rule", "")) != "named_person":
             continue
-        surname = _surname_from_name(str(getattr(finding, "matched_text", "")))
+        value = str(getattr(finding, "matched_text", ""))
+        name_key = _frequency_key(_NAME_PREFIX_RE.sub("", value).strip())
+        if name_key and name_key in tables.name_population:
+            populations.append((tables.name_population[name_key], "name_frequency"))
+        surname = _surname_from_name(value)
         if surname and surname in tables.surname_population:
-            populations.append(tables.surname_population[surname])
+            populations.append((tables.surname_population[surname], "surname_frequency"))
+    return min(populations, key=lambda item: item[0]) if populations else None
+
+
+def _role_population(findings: list[Any], tables: _Tables) -> int | None:
+    populations: list[int] = []
+    for finding in findings:
+        if str(getattr(finding, "rule", "")) != "personal_attribute_inference":
+            continue
+        metadata = getattr(finding, "metadata", {}) or {}
+        value = metadata.get("inferred_value")
+        if not isinstance(value, str):
+            continue
+        candidates = [key for key in (_frequency_key(value), _role_key(value)) if key]
+        for key in candidates:
+            if key in tables.role_population:
+                populations.append(tables.role_population[key])
+                break
     return min(populations) if populations else None
 
 
@@ -418,14 +514,20 @@ def _estimate_k(unit_text: str, findings: list[Any], tables: _Tables) -> tuple[i
         missing.append("postal_population")
 
     if "named_person" in rules:
-        surname_population = _surname_population(findings, tables)
-        if surname_population is not None:
-            estimates.append(surname_population)
-            used.append("surname_frequency")
+        name_population = _name_population(findings, tables)
+        if name_population is not None:
+            population, table = name_population
+            estimates.append(population)
+            used.append(table)
         else:
             missing.append("name_density")
     if "personal_attribute_inference" in rules:
-        missing.append("role_rarity")
+        role_population = _role_population(findings, tables)
+        if role_population is not None:
+            estimates.append(role_population)
+            used.append("role_frequency")
+        else:
+            missing.append("role_rarity")
 
     if not estimates:
         return tables.total_population, used, sorted(set(missing))
