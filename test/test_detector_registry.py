@@ -46,11 +46,11 @@ class EngineDetectorRegistryWiringTests(unittest.TestCase):
         engine = PreSendReviewEngine()
         self.assertEqual(
             engine.pii_pre_named_registry.names(),
-            ("core_identifier_fields", "us_driver_license", "sg_wedge_remainder"),
+            ("core_identifier_fields", "address_signals", "us_driver_license", "sg_wedge_remainder"),
         )
         self.assertEqual(
             engine.pii_post_named_registry.names(),
-            ("special_category_pii", "minor_data_reference"),
+            ("semantic_pii_fallback", "special_category_pii", "minor_data_reference"),
         )
 
     def test_registered_pii_families_remain_active(self):

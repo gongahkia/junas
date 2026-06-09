@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 
 from kaypoh.review.engine import PreSendReviewEngine
 
@@ -39,6 +40,14 @@ class NoCostDetectionBatchTests(unittest.TestCase):
     def test_multiline_uk_and_us_address_slices_fire(self):
         self.assertIn("uk_postal_address", self._rules("Send to:\n221B Baker Street\nLondon NW1 6XE", "UK"))
         self.assertIn("us_postal_address", self._rules("Ship to:\n123 Market Street\nSan Francisco CA 94105", "US"))
+        self.assertIn(
+            "au_postal_address",
+            self._rules("Registered address:\n1 Airport Drive\nAdelaide Airport SA 5950", "AU"),
+        )
+        self.assertIn(
+            "eu_postal_address",
+            self._rules("Domicile:\n12 Rue de la Paix\nParis FR-75002", "EU"),
+        )
 
     def test_generic_addresses_without_jurisdiction_format_do_not_fire(self):
         text = "Please meet at the office near River Road tomorrow."
@@ -73,6 +82,16 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         self.assertIn("education", attribute_types)
         self.assertIn("professional_license", attribute_types)
         self.assertIn("department", attribute_types)
+
+    def test_semantic_pii_fallback_is_env_gated(self):
+        text = "Full name: Jane Tan\nEmployee ID: EMP-2026-1042"
+        self.assertNotIn("named_person", self._rules(text, "SG"))
+        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+            result = self._review(text, "SG")
+        names = [finding for finding in result.findings if finding.rule == "named_person"]
+        self.assertEqual(len(names), 1)
+        self.assertEqual(names[0].matched_text, "Jane Tan")
+        self.assertEqual(names[0].metadata["fallback"], "semantic_label_anchor")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,17 @@
+{
+  "doc_id": "global_address_sensitive_pi_adv_01",
+  "document_type": "memo",
+  "source_jurisdiction": "EU",
+  "destination_jurisdiction": "AU",
+  "must_detect": [],
+  "must_not_detect": [
+    {"rule": "eu_postal_address", "matched_text": "12 Rue template Paris FR-ABCDE", "reason": "invalid EU postcode bait"},
+    {"rule": "au_postal_address", "matched_text": "Airport Driveway Adelaide Airport SA", "reason": "missing AU postcode bait"},
+    {"rule": "political_opinion", "matched_text": "政治观点:", "reason": "empty CJK sensitive-PI label"},
+    {"rule": "sexual_orientation", "matched_text": "性取向:", "reason": "empty CJK sensitive-PI label"},
+    {"rule": "sex_life_reference", "matched_text": "التاريخ الجنسي:", "reason": "empty Arabic sensitive-PI label"},
+    {"rule": "trade_union_membership", "matched_text": "工会会员 appears in a glossary heading only", "reason": "CJK union glossary bait"}
+  ],
+  "_label_source": "hand",
+  "_label_note": "No-key items 34/71/48/86 adversarial fixture for same-line sensitive-PI label precision and address bait."
+}

@@ -205,6 +205,43 @@ class HealthConditionTests(_BaseSpecialCategoryTests):
         self.assertEqual(len(self._findings_for("التشخيص: السكري.", "health_condition", source="AE", dest="AE")), 1)
 
 
+class MultilingualSpecialCategoryExpansionTests(_BaseSpecialCategoryTests):
+    def test_mandarin_trade_union_political_treatment_sexual_fields_fire(self):
+        samples = [
+            ("工会会员: 张伟.", "trade_union_membership"),
+            ("政治观点: 支持民主党.", "political_opinion"),
+            ("用药: 二甲双胍.", "medical_treatment"),
+            ("性取向: 双性恋.", "sexual_orientation"),
+            ("性生活: 已披露避孕使用.", "sex_life_reference"),
+        ]
+        for text, rule in samples:
+            with self.subTest(rule=rule):
+                self.assertEqual(len(self._findings_for(text, rule, source="CN", dest="CN")), 1)
+
+    def test_arabic_trade_union_political_treatment_sexual_fields_fire(self):
+        samples = [
+            ("عضو نقابة: نعم.", "trade_union_membership"),
+            ("الانتماء السياسي: عضو حزب.", "political_opinion"),
+            ("العلاج: إنسولين.", "medical_treatment"),
+            ("الميول الجنسية: مثلي.", "sexual_orientation"),
+            ("التاريخ الجنسي: تم الإفصاح عنه.", "sex_life_reference"),
+        ]
+        for text, rule in samples:
+            with self.subTest(rule=rule):
+                self.assertEqual(len(self._findings_for(text, rule, source="AE", dest="AE")), 1)
+
+    def test_multilingual_category_labels_without_values_do_not_fire(self):
+        samples = [
+            ("政治观点:", "political_opinion", "CN"),
+            ("性取向:", "sexual_orientation", "CN"),
+            ("الميول الجنسية:", "sexual_orientation", "AE"),
+            ("التاريخ الجنسي:", "sex_life_reference", "AE"),
+        ]
+        for text, rule, jurisdiction in samples:
+            with self.subTest(text=text):
+                self.assertEqual(len(self._findings_for(text, rule, source=jurisdiction, dest=jurisdiction)), 0)
+
+
 class MedicalTreatmentTests(_BaseSpecialCategoryTests):
     def test_prescribed_medication_with_honorific(self):
         f = self._findings_for("Mr Lim is prescribed metformin.", "medical_treatment")

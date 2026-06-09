@@ -111,51 +111,82 @@ def _validate_manifest_entry(manifest: dict[str, Any], jurisdiction: str, table:
         raise RuntimeError(f"{jurisdiction.upper()} frequency table refresh date passed for {table}")
 
 
-def _load_sg_tables() -> _Tables:
+def _load_bundled_tables(jurisdiction: str) -> _Tables | None:
+    code = jurisdiction.upper()
     manifest = tomllib.loads(_resource_text("kaypoh.data.frequency", "MANIFEST.toml"))
-    population_text = _resource_text("kaypoh.data.frequency.SG", "population_by_area_age.csv")
-    postal_text = _resource_text("kaypoh.data.frequency.SG", "postal_sector_population.csv")
-    _validate_manifest_entry(manifest, "SG", "population_by_area_age", population_text)
-    _validate_manifest_entry(manifest, "SG", "postal_sector_population", postal_text)
-
+    entries = manifest.get(code, {})
+    if not isinstance(entries, dict):
+        return None
     area_population: dict[str, int] = {}
     age_cohorts: dict[str, int] = {}
-    total_population = 0
-    for row in csv.DictReader(population_text.splitlines()):
-        area = str(row.get("area") or "").strip()
-        total = _parse_int(str(row.get("total") or ""))
-        if not area or total is None:
-            continue
-        if area.casefold() == "total":
-            total_population = total
-            for key, value in row.items():
-                if key.startswith("age_"):
-                    parsed = _parse_int(str(value or ""))
-                    if parsed is not None:
-                        age_cohorts[key.removeprefix("age_")] = parsed
-        else:
-            area_population[area.casefold()] = total
-
     postal_population: dict[str, int] = {}
-    for row in csv.DictReader(postal_text.splitlines()):
-        prefix = str(row.get("postal_prefix") or "").strip()
-        population = _parse_int(str(row.get("population") or ""))
-        if prefix and population is not None:
-            postal_population[prefix] = population
+    total_population = 0
+    loaded: list[str] = []
 
+    if isinstance(entries.get("population_by_area_age"), dict):
+        population_text = _resource_text(f"kaypoh.data.frequency.{code}", "population_by_area_age.csv")
+        _validate_manifest_entry(manifest, code, "population_by_area_age", population_text)
+        for row in csv.DictReader(population_text.splitlines()):
+            area = str(row.get("area") or "").strip()
+            total = _parse_int(str(row.get("total") or ""))
+            if not area or total is None:
+                continue
+            if area.casefold() == "total":
+                total_population = total
+                for key, value in row.items():
+                    if key.startswith("age_"):
+                        parsed = _parse_int(str(value or ""))
+                        if parsed is not None:
+                            age_cohorts[key.removeprefix("age_")] = parsed
+            else:
+                area_population[area.casefold()] = total
+        loaded.append("population_by_area_age")
+
+    if isinstance(entries.get("area_population"), dict):
+        area_text = _resource_text(f"kaypoh.data.frequency.{code}", "area_population.csv")
+        _validate_manifest_entry(manifest, code, "area_population", area_text)
+        for row in csv.DictReader(area_text.splitlines()):
+            area = str(row.get("area") or "").strip()
+            population = _parse_int(str(row.get("population") or ""))
+            if area and population is not None:
+                area_population[area.casefold()] = population
+        loaded.append("area_population")
+
+    for table in ("postal_sector_population", "postal_population"):
+        if not isinstance(entries.get(table), dict):
+            continue
+        postal_text = _resource_text(f"kaypoh.data.frequency.{code}", f"{table}.csv")
+        _validate_manifest_entry(manifest, code, table, postal_text)
+        for row in csv.DictReader(postal_text.splitlines()):
+            prefix = str(row.get("postal_prefix") or "").strip().upper()
+            population = _parse_int(str(row.get("population") or ""))
+            if prefix and population is not None:
+                postal_population[prefix] = population
+        loaded.append(table)
+
+    if not loaded:
+        return None
+    total_population = total_population or sum(area_population.values()) or sum(postal_population.values())
     if not total_population:
-        raise RuntimeError("SG total population frequency row missing")
+        raise RuntimeError(f"{code} bundled frequency tables have no population rows")
     return _Tables(
-        jurisdiction="SG",
+        jurisdiction=code,
         total_population=total_population,
         area_population=area_population,
         age_cohorts=age_cohorts,
         postal_population=postal_population,
-        loaded_tables=("population_by_area_age", "postal_sector_population"),
+        loaded_tables=tuple(sorted(set(loaded))),
     )
 
 
-_SG_TABLES: _Tables | None = None
+def _load_sg_tables() -> _Tables:
+    tables = _load_bundled_tables("SG")
+    if tables is None:
+        raise RuntimeError("SG bundled frequency tables missing")
+    return tables
+
+
+_BUNDLED_TABLES: dict[str, _Tables | None] = {}
 _GENERATED_TABLES: dict[tuple[str, str], _Tables | None] = {}
 
 
@@ -218,27 +249,27 @@ def _load_generated_tables(jurisdiction: str, base_dir: str | os.PathLike[str]) 
 
 
 def _tables_for(jurisdiction: str) -> _Tables | None:
-    global _SG_TABLES
     code = jurisdiction.upper()
-    if code == "SG":
-        if _SG_TABLES is None:
-            _SG_TABLES = _load_sg_tables()
-        return _SG_TABLES
     base_dir = os.environ.get("KAYPOH_FREQUENCY_DATA_DIR", "").strip()
-    if not base_dir:
-        return None
-    cache_key = (code, str(Path(base_dir).resolve()))
-    if cache_key not in _GENERATED_TABLES:
+    if base_dir and code != "SG":
+        cache_key = (code, str(Path(base_dir).resolve()))
+        if cache_key not in _GENERATED_TABLES:
+            try:
+                _GENERATED_TABLES[cache_key] = _load_generated_tables(code, base_dir)
+            except Exception:
+                _GENERATED_TABLES[cache_key] = None
+        if _GENERATED_TABLES[cache_key] is not None:
+            return _GENERATED_TABLES[cache_key]
+    if code not in _BUNDLED_TABLES:
         try:
-            _GENERATED_TABLES[cache_key] = _load_generated_tables(code, base_dir)
+            _BUNDLED_TABLES[code] = _load_bundled_tables(code)
         except Exception:
-            _GENERATED_TABLES[cache_key] = None
-    return _GENERATED_TABLES[cache_key]
+            _BUNDLED_TABLES[code] = None
+    return _BUNDLED_TABLES[code]
 
 
 def clear_table_cache_for_tests() -> None:
-    global _SG_TABLES
-    _SG_TABLES = None
+    _BUNDLED_TABLES.clear()
     _GENERATED_TABLES.clear()
 
 

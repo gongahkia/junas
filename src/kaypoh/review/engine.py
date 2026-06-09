@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ipaddress
+import os
 import re
 from dataclasses import dataclass, field
 from typing import Any
@@ -155,8 +156,11 @@ KR_POSTAL_ADDRESS_RE = re.compile(
     re.IGNORECASE,
 )
 EU_POSTAL_ADDRESS_RE = re.compile(
-    r"\b\d{1,5}\s+[A-Z][A-Za-z' -]{2,50}\s+"
-    r"(?:Stra(?:ss|ß)e|Str\.|Rue|Avenue|Via|Calle|Rua|Ulica|ul\.|Gasse|Laan|Weg),?\s+"
+    r"\b\d{1,5}\s+(?:"
+    r"(?:Stra(?:ss|ß)e|Str\.|Rue|Avenue|Via|Calle|Rua|Ulica|ul\.|Gasse|Laan|Weg)\s+"
+    r"[A-Z][A-Za-z' -]{2,50}|"
+    r"[A-Z][A-Za-z' -]{2,50}\s+(?:Stra(?:ss|ß)e|Str\.|Rue|Avenue|Via|Calle|Rua|Ulica|ul\.|Gasse|Laan|Weg)"
+    r"),?\s+"
     r"[A-Z][A-Za-z' -]{2,40},?\s+"
     r"(?:DE|FR|IT|ES|PT|BE|NL|PL|SE)\s*[- ]?\d{4,6}\b",
     re.IGNORECASE,
@@ -433,6 +437,12 @@ NAME_RE = re.compile(
     r"\b(?i:(?:Mr|Ms|Mrs|Mdm|Dr|Prof))\.?[ \t]+[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?"
     r"(?:[ \t]+(?:(?i:bin|binti|s/o|d/o|a/l|a/p|al)[ \t]+)?"
     r"[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?){0,5}\b"
+)
+SEMANTIC_NAME_LABEL_RE = re.compile(
+    r"\b(?i:(?:full\s+name|legal\s+name|client\s+name|patient\s+name|employee\s+name|"
+    r"data\s+subject\s+name|contact\s+person))\s*[:=]\s*"
+    r"(?P<name>(?-i:[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?"
+    r"(?:[ \t]+[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?){1,4}))\b"
 )
 # items 95 + 96: contingent / forward-looking MNPI vocabulary (Basic v. Levinson, MAR Art 7(2-3),
 # SFA s215). Standalone these phrases are noise; the co-occurrence amplifier in review() lifts
@@ -1078,10 +1088,28 @@ MULTILINGUAL_RELIGION_RE = re.compile(
     r"|(?:الدين|المعتقد\s+الديني)\s*[:：]\s*(?:مسلم|إسلام|مسيحي|يهودي|هندوسي|بوذي|سيخي)",
     re.IGNORECASE,
 )
+MULTILINGUAL_TRADE_UNION_RE = re.compile(
+    r"(?:工会会员|工会成员|工会代表|集体谈判代表)[ \t]*[:：][ \t]*[\u4e00-\u9fffA-Za-z0-9 -]{1,40}"
+    r"|加入工会[^\n.;]{0,20}"
+    r"|(?:عضو\s+نقابة|عضوية\s+النقابة|ممثل\s+نقابي|انضم\s+إلى\s+النقابة|مفاوضة\s+جماعية)",
+    re.IGNORECASE,
+)
+MULTILINGUAL_POLITICAL_RE = re.compile(
+    r"(?:政治观点|政治立场|政党成员|党派|党员|政党隶属)[ \t]*[:：][ \t]*[\u4e00-\u9fffA-Za-z0-9 -]{1,40}"
+    r"|(?:الانتماء\s+السياسي|الرأي\s+السياسي|الانتماء\s+الحزبي)[ \t]*[:：][ \t]*[\u0600-\u06ffA-Za-z0-9 -]{1,50}"
+    r"|عضو\s+حزب(?:[ \t]*[:：][ \t]*[\u0600-\u06ffA-Za-z0-9 -]{1,50})?",
+    re.IGNORECASE,
+)
 MULTILINGUAL_HEALTH_CONDITION_RE = re.compile(
-    r"(?:诊断|健康状况|医疗健康信息|病史)\s*[:：]\s*(?:糖尿病|高血压|癌症|艾滋病|HIV|乙肝|慢性肾病)"
+    r"(?:诊断|健康状况|医疗健康信息|病史)[ \t]*[:：][ \t]*(?:糖尿病|高血压|癌症|艾滋病|HIV|乙肝|慢性肾病)"
     r"|(?:التشخيص|الحالة\s+الصحية|المعلومات\s+الصحية)\s*[:：]\s*"
     r"(?:السكري|ارتفاع\s+ضغط\s+الدم|السرطان|فيروس\s+نقص\s+المناعة|مرض\s+كلوي)",
+    re.IGNORECASE,
+)
+MULTILINGUAL_MEDICAL_TREATMENT_RE = re.compile(
+    r"(?:用药|药物|处方|治疗|治疗方案)[ \t]*[:：][ \t]*(?:胰岛素|二甲双胍|化疗|放疗|透析|舍曲林)"
+    r"|(?:العلاج|الدواء|الوصفة\s+الطبية)[ \t]*[:：][ \t]*"
+    r"(?:إنسولين|ميتفورمين|علاج\s+كيميائي|غسيل\s+الكلى|سيرترالين)",
     re.IGNORECASE,
 )
 MULTILINGUAL_BIOMETRIC_RE = re.compile(
@@ -1095,6 +1123,18 @@ MULTILINGUAL_GENETIC_RE = re.compile(
     r"(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)[^\n.;]{0,20}(?:阳性|携带者|突变|变异)"
     r"|(?:نتيجة\s+الاختبار\s+الجيني|بيانات\s+جينية|ملف\s+DNA)\s*[:：]?\s*"
     r"(?:(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)[^\n.;]{0,20}(?:إيجابي|حامل|طفرة))?",
+    re.IGNORECASE,
+)
+MULTILINGUAL_SEXUAL_ORIENTATION_RE = re.compile(
+    r"(?:性取向|取向)[ \t]*[:：][ \t]*(?:同性恋|双性恋|女同性恋|男同性恋|异性恋|泛性恋|无性恋)"
+    r"|(?:الميول\s+الجنسية|التوجه\s+الجنسي)[ \t]*[:：][ \t]*"
+    r"(?:مثلي|مثلية|ثنائي\s+الميول|مغاير|لاجنسي)",
+    re.IGNORECASE,
+)
+MULTILINGUAL_SEX_LIFE_RE = re.compile(
+    r"(?:性史|性生活|性行为|性传播感染状态|避孕使用)[ \t]*[:：][ \t]*[\u4e00-\u9fffA-Za-z0-9 -]{1,60}"
+    r"|(?:التاريخ\s+الجنسي|الحياة\s+الجنسية|النشاط\s+الجنسي|حالة\s+الأمراض\s+المنقولة\s+جنسياً)[ \t]*[:：][ \t]*"
+    r"[\u0600-\u06ffA-Za-z0-9 -]{1,70}",
     re.IGNORECASE,
 )
 
@@ -2618,6 +2658,17 @@ def _detect_core_identifier_findings(
             )
             idx += 1
 
+    return out
+
+
+def _detect_address_findings(
+    text: str,
+    *,
+    packs: list[JurisdictionRulePack],
+    jurisdiction: str,
+    legal_basis: str,
+    idx_start: int,
+) -> list["ReviewFinding"]:
     address_patterns: list[tuple[str, re.Pattern[str], str]] = []
     pack_codes = {pack.code for pack in packs}
     if "UK" in pack_codes:
@@ -2634,7 +2685,9 @@ def _detect_core_identifier_findings(
         address_patterns.append(("kr_postal_address", KR_POSTAL_ADDRESS_RE, "Korea postcode-address signal"))
     if "EU" in pack_codes:
         address_patterns.append(("eu_postal_address", EU_POSTAL_ADDRESS_RE, "EU street/postcode address signal"))
+    out: list["ReviewFinding"] = []
     seen_addresses: set[tuple[str, int, int]] = set()
+    idx = idx_start
     for rule, pattern, reason in address_patterns:
         for match in pattern.finditer(text):
             key = (rule, match.start(), match.end())
@@ -2656,7 +2709,6 @@ def _detect_core_identifier_findings(
                 )
             )
             idx += 1
-
     return out
 
 
@@ -2758,6 +2810,42 @@ def _detect_sg_wedge_remainder_findings(
                 )
             )
             idx += 1
+    return out
+
+
+def _detect_semantic_pii_fallback_findings(
+    text: str,
+    *,
+    jurisdiction: str,
+    legal_basis: str,
+    idx_start: int,
+) -> list["ReviewFinding"]:
+    if os.environ.get("KAYPOH_SEMANTIC_PII_FALLBACK", "").strip().casefold() not in {"1", "true", "yes", "on"}:
+        return []
+    out: list["ReviewFinding"] = []
+    idx = idx_start
+    seen: set[tuple[int, int]] = set()
+    for match in SEMANTIC_NAME_LABEL_RE.finditer(text):
+        span = match.span("name")
+        if span in seen:
+            continue
+        seen.add(span)
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="named_person",
+                jurisdiction=jurisdiction,
+                severity="low",
+                matched_text=match.group("name"),
+                start=span[0],
+                end=span[1],
+                reason="Label-anchored semantic personal-name fallback",
+                legal_basis=legal_basis,
+                metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+            )
+        )
+        idx += 1
     return out
 
 
@@ -3217,7 +3305,11 @@ def _detect_special_category_findings(
          "Religious-belief reference detected; special-category personal data"),
         ("trade_union_membership", TRADE_UNION_RE,
          "Trade-union membership reference detected; special-category personal data"),
+        ("trade_union_membership", MULTILINGUAL_TRADE_UNION_RE,
+         "Trade-union membership reference detected; special-category personal data"),
         ("political_opinion", POLITICAL_RE,
+         "Political-opinion / party-affiliation reference detected; special-category personal data"),
+        ("political_opinion", MULTILINGUAL_POLITICAL_RE,
          "Political-opinion / party-affiliation reference detected; special-category personal data"),
         ("racial_ethnic_origin", RACIAL_ETHNIC_ORIGIN_RE,
          "Racial or ethnic-origin reference detected; special-category personal data"),
@@ -3226,6 +3318,8 @@ def _detect_special_category_findings(
         ("health_condition", MULTILINGUAL_HEALTH_CONDITION_RE,
          "Health condition / diagnosis reference detected; special-category personal data"),
         ("medical_treatment", MEDICAL_TREATMENT_RE,
+         "Medical treatment / medication reference detected; special-category personal data"),
+        ("medical_treatment", MULTILINGUAL_MEDICAL_TREATMENT_RE,
          "Medical treatment / medication reference detected; special-category personal data"),
         ("biometric_identifier", BIOMETRIC_IDENTIFIER_RE,
          "Biometric identifier reference detected; special-category personal data"),
@@ -3237,7 +3331,11 @@ def _detect_special_category_findings(
          "Genetic-data reference detected; special-category personal data"),
         ("sexual_orientation", SEXUAL_ORIENTATION_RE,
          "Sexual-orientation reference detected; special-category personal data"),
+        ("sexual_orientation", MULTILINGUAL_SEXUAL_ORIENTATION_RE,
+         "Sexual-orientation reference detected; special-category personal data"),
         ("sex_life_reference", SEX_LIFE_RE,
+         "Sex-life reference detected; special-category personal data"),
+        ("sex_life_reference", MULTILINGUAL_SEX_LIFE_RE,
          "Sex-life reference detected; special-category personal data"),
     ]
     for rule_name, pattern, reason in rules:
@@ -3286,7 +3384,8 @@ _QUASI_IDENTIFIER_RULES = frozenset({
     # named-person + direct contact
     "named_person", "email_address", "phone_number", "bank_account",
     # postal-address signals
-    "sg_postal_address", "jp_postal_code", "au_postal_address",
+    "sg_postal_address", "uk_postal_address", "us_postal_address", "hk_postal_address",
+    "au_postal_address", "jp_postal_code", "jp_postal_address", "kr_postal_address", "eu_postal_address",
     # SG / SEA / HK / AU / JP / KR / US / UK local government / company IDs
     "sg_nric_fin", "sg_uen", "passport_number",
     "my_mykad", "id_nik", "th_national_id", "ph_philsys", "ph_tin", "vn_cccd",
@@ -4054,6 +4153,17 @@ class PreSendReviewEngine:
             ),
         )
         registry.register(
+            name="address_signals",
+            family="pii",
+            detect=lambda ctx, idx: _detect_address_findings(
+                ctx.text,
+                packs=list(ctx.packs),
+                jurisdiction=ctx.jurisdiction,
+                legal_basis=ctx.legal_basis,
+                idx_start=idx,
+            ),
+        )
+        registry.register(
             name="us_driver_license",
             family="pii",
             detect=lambda ctx, idx: _detect_us_driver_license_findings(
@@ -4079,6 +4189,16 @@ class PreSendReviewEngine:
 
     def _build_pii_post_named_registry(self) -> DetectorRegistry:
         registry = DetectorRegistry()
+        registry.register(
+            name="semantic_pii_fallback",
+            family="pii",
+            detect=lambda ctx, idx: _detect_semantic_pii_fallback_findings(
+                text=ctx.text,
+                jurisdiction=ctx.jurisdiction,
+                legal_basis=ctx.legal_basis,
+                idx_start=idx,
+            ),
+        )
         registry.register(
             name="special_category_pii",
             family="pii",

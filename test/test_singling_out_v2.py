@@ -9,6 +9,7 @@ from kaypoh.review.engine import PreSendReviewEngine
 from kaypoh.review.singling_out.scorer import (
     _load_generated_tables,
     _load_sg_tables,
+    _tables_for,
     clear_table_cache_for_tests,
 )
 
@@ -103,7 +104,37 @@ class SinglingOutV2Tests(unittest.TestCase):
             self.assertEqual(tables.postal_population["SW1A 1"], 3)
             self.assertIn("postal_population", tables.loaded_tables)
 
-    def test_strict_non_sg_v2_activates_when_generated_table_valid(self):
+    def test_bundled_non_sg_frequency_manifests_load(self):
+        clear_table_cache_for_tests()
+        for code, table_name, key in [
+            ("UK", "postal_population", "EC2M 5"),
+            ("AU", "postal_population", "5950"),
+            ("JP", "area_population", "東京都"),
+            ("KR", "area_population", "서울 중구"),
+        ]:
+            with self.subTest(code=code):
+                tables = _tables_for(code)
+                self.assertIsNotNone(tables)
+                self.assertIn(table_name, tables.loaded_tables)
+                if table_name == "postal_population":
+                    self.assertGreaterEqual(tables.postal_population[key], 1)
+                else:
+                    self.assertGreater(tables.area_population[key.casefold()], 1_000)
+
+    def test_strict_non_sg_v2_activates_from_bundled_tables_without_env(self):
+        clear_table_cache_for_tests()
+        with mock.patch.dict(os.environ, {}, clear=True):
+            findings = self._quasi_for(
+                "Dr Jane Tan; Age: 42; office 1 Liverpool Street London EC2M 5QQ.",
+                "UK",
+            )
+        self.assertEqual(len(findings), 1)
+        metadata = findings[0].metadata
+        self.assertEqual(metadata["layer"], "singling_out_v2")
+        self.assertEqual(metadata["k_anonymity_equivalence"], 1)
+        self.assertEqual(metadata["frequency_tables_used"], ["postal_population"])
+
+    def test_strict_non_sg_v2_prefers_generated_table_when_valid(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             self._write_generated_table(root, "UK", "postal_population", "postal_prefix,population\nSW1A 1,3\n")
@@ -119,16 +150,17 @@ class SinglingOutV2Tests(unittest.TestCase):
             self.assertEqual(metadata["k_anonymity_equivalence"], 3)
             self.assertEqual(metadata["frequency_tables_used"], ["postal_population"])
 
-    def test_strict_non_sg_v2_stays_silent_without_generated_table(self):
+    def test_bundled_au_postal_table_can_emit_low_k_cluster(self):
         clear_table_cache_for_tests()
         with mock.patch.dict(os.environ, {}, clear=True):
             findings = self._quasi_for(
-                "Dr Jane Tan; Age: 42; address 10 Downing Street SW1A 1AA.",
-                "UK",
+                "Dr Jane Tan; Age: 42; address 1 Airport Drive, Adelaide Airport SA 5950.",
+                "AU",
             )
-        self.assertEqual(findings, [])
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 4)
 
-    def test_invalid_generated_checksum_stays_silent(self):
+    def test_invalid_generated_checksum_falls_back_to_bundled_tables(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             self._write_generated_table(
@@ -141,10 +173,11 @@ class SinglingOutV2Tests(unittest.TestCase):
             clear_table_cache_for_tests()
             with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
                 findings = self._quasi_for(
-                    "Dr Jane Tan; Age: 42; address 10 Downing Street SW1A 1AA.",
+                    "Dr Jane Tan; Age: 42; office 1 Liverpool Street London EC2M 5QQ.",
                     "UK",
                 )
-        self.assertEqual(findings, [])
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 1)
 
 
 if __name__ == "__main__":

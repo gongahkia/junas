@@ -11,6 +11,7 @@ import json
 import re
 import sys
 import tempfile
+import xml.etree.ElementTree as ET
 import urllib.request
 import zipfile
 from dataclasses import dataclass
@@ -25,14 +26,14 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parent.parent
 SUPPORTED = ("UK", "AU", "JP", "KR")
-POSTAL_COLUMNS = ("postal_prefix", "postal_code", "postcode", "postcode_sector", "poa_code_2021", "poa_code21",
-                  "poa_code", "area_code", "code")
+POSTAL_COLUMNS = ("postal_prefix", "postal_code", "postcode", "postcode_sector", "postcode_sectors",
+                  "postcodesectors", "poa_code_2021", "poa_code21", "poa_code", "area_code", "code")
 AREA_COLUMNS = ("area", "area_name", "municipality", "prefecture", "region", "admin_area", "name", "地域", "市区町村",
-                "都道府県", "행정구역", "시도", "시군구")
+                "都道府県", "행정구역", "시도", "시도명", "시군구", "시군구명")
 POPULATION_COLUMNS = ("population", "total_population", "usual_residents", "persons", "total_persons", "tot_p_p",
-                      "total", "総数", "人口", "인구", "총인구")
+                      "total", "count", "総数", "人口", "인구", "총인구", "계")
 UK_POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?)\s*(\d)(?:[A-Z]{2})?\b", re.IGNORECASE)
-AU_POSTCODE_RE = re.compile(r"\b(\d{4})\b")
+AU_POSTCODE_RE = re.compile(r"(\d{4})")
 
 
 @dataclass(frozen=True)
@@ -54,7 +55,7 @@ SPECS = {
         jurisdiction="UK",
         table="postal_population",
         source_name="ONS/Nomis Census 2021 postcode-sector resident population extract",
-        source_url="https://www.ons.gov.uk/methodology/geography/geographicalproducts/postcodeproducts",
+        source_url="https://www.nomisweb.co.uk/output/census/2021/pcds_p003.csv",
         license="Open Government Licence v3.0",
         license_url="https://www.ons.gov.uk/methodology/geography/licences",
         attribution="Source: Office for National Statistics licensed under the Open Government Licence v.3.0",
@@ -66,18 +67,18 @@ SPECS = {
         jurisdiction="AU",
         table="postal_population",
         source_name="ABS 2021 Census DataPacks Postal Areas total persons extract",
-        source_url="https://www.abs.gov.au/census/find-census-data/datapacks",
-        license="ABS product licence displayed in source extract",
-        license_url="https://www.abs.gov.au/about/legislation-and-policy/purchasing-data/abs-conditions-sale",
-        attribution="Based on Australian Bureau of Statistics data",
-        license_scope="ABS conditions say the licence displayed in the product controls reuse; verify before bundling",
-        redistribution="operator_built_unbundled_until_product_licence_review",
+        source_url="https://www.abs.gov.au/census/find-census-data/datapacks/download/2021_GCP_POA_for_AUS_short-header.zip",
+        license="Creative Commons Attribution 4.0 International",
+        license_url="https://creativecommons.org/licenses/by/4.0/",
+        attribution="Based on Australian Bureau of Statistics DataPacks data",
+        license_scope="DataPacks readme licenses the product under CC BY 4.0 with ABS attribution",
+        redistribution="bundle_allowed_with_attribution",
     ),
     "JP": JurisdictionSpec(
         jurisdiction="JP",
         table="area_population",
         source_name="e-Stat municipality or prefecture population extract",
-        source_url="https://www.e-stat.go.jp/en",
+        source_url="https://www.e-stat.go.jp/en/stat-search/file-download?fileKind=4&statInfId=000013168605",
         license="e-Stat Terms of Use compatible with CC BY 4.0",
         license_url="https://www.e-stat.go.jp/en/terms-of-use",
         attribution="Created by editing statistics from e-Stat / Portal Site of Official Statistics of Japan",
@@ -87,13 +88,13 @@ SPECS = {
     "KR": JurisdictionSpec(
         jurisdiction="KR",
         table="area_population",
-        source_name="KOSIS administrative-area population extract",
-        source_url="https://kosis.kr/eng",
-        license="KOSIS public data use policy",
-        license_url="https://kosis.kr/eng/aboutKosis/policyPublicData.do",
-        attribution="Source: KOSIS Korean Statistical Information Service",
-        license_scope="KOSIS public data policy permits public-data use including profit purposes",
-        redistribution="bundle_allowed_if_source_extract_terms_match_public_data_policy",
+        source_name="MOIS resident-registration population by administrative dong extract",
+        source_url="https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003649470&fileDetailSn=1&insertDataPrcus=N",
+        license="Open Government Data Portal scope of use: limitless",
+        license_url="https://www.data.go.kr/en/ugs/selectPortalPolicyView.do",
+        attribution="Source: Ministry of the Interior and Safety via Korea Open Government Data Portal",
+        license_scope="Dataset metadata says file data downloads require no login and use-permission range is limitless",
+        redistribution="bundle_allowed_with_source_citation",
     ),
 }
 
@@ -117,6 +118,15 @@ def _read_source(source: str) -> tuple[bytes, str]:
     return path.read_bytes(), path.resolve().as_uri()
 
 
+def _decode_csv_payload(payload: bytes) -> str:
+    for encoding in ("utf-8-sig", "cp949", "euc-kr"):
+        try:
+            return payload.decode(encoding)
+        except UnicodeDecodeError:
+            continue
+    return payload.decode("utf-8-sig", errors="replace")
+
+
 def _iter_csv_payloads(payload: bytes, source_name: str) -> Iterable[tuple[str, str]]:
     with tempfile.NamedTemporaryFile(suffix=Path(source_name).suffix) as tmp:
         tmp.write(payload)
@@ -125,9 +135,56 @@ def _iter_csv_payloads(payload: bytes, source_name: str) -> Iterable[tuple[str, 
             with zipfile.ZipFile(tmp.name) as zf:
                 for name in zf.namelist():
                     if name.lower().endswith(".csv"):
-                        yield name, zf.read(name).decode("utf-8-sig", errors="replace")
+                        yield name, _decode_csv_payload(zf.read(name))
             return
-    yield source_name, payload.decode("utf-8-sig", errors="replace")
+    yield source_name, _decode_csv_payload(payload)
+
+
+def _xlsx_shared_strings(zf: zipfile.ZipFile) -> list[str]:
+    ns = {"a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+    if "xl/sharedStrings.xml" not in zf.namelist():
+        return []
+    root = ET.fromstring(zf.read("xl/sharedStrings.xml"))
+    out: list[str] = []
+    for item in root.findall("a:si", ns):
+        out.append("".join(text.text or "" for text in item.findall(".//a:t", ns)))
+    return out
+
+
+def _xlsx_cell_value(cell: ET.Element, shared_strings: list[str]) -> str:
+    ns = {"a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+    value = cell.find("a:v", ns)
+    if value is None or value.text is None:
+        return ""
+    if cell.attrib.get("t") == "s":
+        return shared_strings[int(value.text)]
+    return value.text
+
+
+def _jp_prefecture_records_from_xlsx(payload: bytes) -> dict[str, int]:
+    ns = {"a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+    records: dict[str, int] = {}
+    with tempfile.NamedTemporaryFile(suffix=".xlsx") as tmp:
+        tmp.write(payload)
+        tmp.flush()
+        if not zipfile.is_zipfile(tmp.name):
+            return {}
+        with zipfile.ZipFile(tmp.name) as zf:
+            if "xl/worksheets/sheet3.xml" not in zf.namelist():
+                return {}
+            shared_strings = _xlsx_shared_strings(zf)
+            root = ET.fromstring(zf.read("xl/worksheets/sheet3.xml"))
+            for row in root.findall(".//a:sheetData/a:row", ns):
+                cells = {cell.attrib.get("r", ""): _xlsx_cell_value(cell, shared_strings) for cell in row.findall("a:c", ns)}
+                row_no = row.attrib.get("r", "")
+                pref = re.sub(r"[\s\u3000]+", "", cells.get(f"C{row_no}", ""))
+                population = _parse_int(cells.get(f"J{row_no}", ""))
+                if not pref or population is None:
+                    continue
+                if not cells.get(f"B{row_no}", "").isdigit():
+                    continue
+                records[pref] = population * 1000
+    return records
 
 
 def _column(fieldnames: list[str], candidates: tuple[str, ...]) -> str | None:
@@ -163,10 +220,27 @@ def _postal_key(jurisdiction: str, value: str) -> str | None:
     return value or None
 
 
+def _kr_area_key(row: dict[str, str]) -> str | None:
+    sido = str(row.get("시도명") or row.get("시도") or "").strip()
+    sigungu = str(row.get("시군구명") or row.get("시군구") or "").strip()
+    if not sido:
+        return None
+    short_sido = re.sub(r"(특별자치시|특별자치도|특별시|광역시|도)$", "", sido)
+    return " ".join(part for part in (short_sido, sigungu) if part).strip()
+
+
 def _records_from_csv(text: str, spec: JurisdictionSpec) -> dict[str, int]:
     reader = csv.DictReader(io.StringIO(text))
     if not reader.fieldnames:
         return {}
+    if spec.jurisdiction == "KR" and spec.table == "area_population":
+        out: dict[str, int] = {}
+        for row in reader:
+            key = _kr_area_key(row)
+            population = _parse_int(str(row.get("계") or row.get("총인구") or ""))
+            if key and population is not None:
+                out[key] = out.get(key, 0) + population
+        return out
     key_col = _column(reader.fieldnames, POSTAL_COLUMNS if spec.table == "postal_population" else AREA_COLUMNS)
     population_col = _column(reader.fieldnames, POPULATION_COLUMNS)
     if not key_col or not population_col:
@@ -185,6 +259,10 @@ def _records_from_csv(text: str, spec: JurisdictionSpec) -> dict[str, int]:
 
 
 def _build_records(payload: bytes, source_ref: str, spec: JurisdictionSpec) -> dict[str, int]:
+    if spec.jurisdiction == "JP" and spec.table == "area_population":
+        records = _jp_prefecture_records_from_xlsx(payload)
+        if records:
+            return records
     merged: dict[str, int] = {}
     for name, text in _iter_csv_payloads(payload, source_ref):
         records = _records_from_csv(text, spec)
