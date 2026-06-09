@@ -1,6 +1,6 @@
 # SGLB-16 Review-Redflag-Recall
 
-Version: 0.1-draft. Tracking issue: [#57](https://github.com/gongahkia/junas/issues/57).
+Version: 0.1-smoke. Tracking issue: [#57](https://github.com/gongahkia/junas/issues/57).
 
 ## Capability
 
@@ -23,9 +23,8 @@ case.inputs = {
 }
 ```
 
-The model is prompted: *"Review this contract for issues. For each
-issue, identify the clause and the type of issue. Output a JSON list of
-`{clause_excerpt, issue_type, severity}`."*
+The model is prompted to review the contract for planted defects and
+return span-localised findings from a closed taxonomy.
 
 ## Output contract
 
@@ -33,48 +32,50 @@ Model output is a JSON list:
 
 ```json
 [
-  {"clause_excerpt": "...", "issue_type": "unlimited-liability", "severity": "high"},
-  {"clause_excerpt": "...", "issue_type": "non-sg-governing-law", "severity": "medium"}
+  {"defect_type": "governing_law_non_singapore", "span_start": 1542, "span_end": 1559},
+  {"defect_type": "missing_notice_period", "span_start": 2140, "span_end": 2140}
 ]
 ```
 
+Closed defect taxonomy:
+
+- `missing_limitation_of_liability`
+- `governing_law_non_singapore`
+- `missing_pdpa_data_protection_clause`
+- `missing_notice_period`
+- `missing_dispute_resolution_clause`
+- `missing_termination_clause`
+
+Missing-clause defects use zero-width spans at the deterministic deletion
+anchor. Non-missing defects use the span of the planted problematic text.
+
 ## Scoring
 
-- **Per-defect-class recall:** of N planted defects of class X, how
-  many caught.
-- **Precision:** of all flagged issues, how many correspond to planted
-  defects.
-- **Localisation IoU:** the flagged `clause_excerpt` should overlap the
-  planted clause's text span (token IoU ≥ 0.5 with rapidfuzz threshold).
-- Leaderboard reports per-defect-class F1.
+- `sglb_16_redflag_f1`: F1 over `(defect_type, span_start, span_end)`
+  matches with a +/-10 character tolerance on both span endpoints.
+- The evaluator accepts only the closed defect taxonomy and integer spans.
 
 ## Source provenance
 
 - Base contracts from `backend/api/services/template_service.py`
-  (SG-applicable types). Reviewed pre-planting to be defect-free for
-  the 12 planted classes.
-- Defect taxonomy (`taxonomy.yaml`): 12 classes covering missing
-  governing law, non-SG governing law, unenforceable non-compete,
-  unlimited liability, unilateral termination, missing PDPA clause,
-  forum-non-conveniens trap, auto-renewal without notice, IP
-  assignment overreach, perpetual confidentiality overbroad,
-  payment-no-late-interest, arbitration bad seat.
-- Each defect class includes a deterministic *trigger* (a regex/AST
-  check) that confirms planting succeeded.
+  (SG-applicable types).
+- A clean SG review-clause bundle is appended before planting so every
+  case has deterministic source clauses.
+- Defects are planted by deterministic block deletion or phrase
+  replacement. Each injection is logged in case metadata.
 
 ## Limitations
 
-- Planted defects are by definition unrealistic in distribution. Real
-  contracts have natural defects; we filter base contracts to be
-  defect-free for the 12 planted classes, but other natural defects
-  may exist and may be flagged as false positives.
-- Token-IoU localisation may unfairly punish paraphrased excerpts;
-  rapidfuzz threshold disclosed.
-- The defect taxonomy reflects benchmark-author opinion on "what is a
-  defect"; documented and open to PR contributions.
+- Planted defects are by definition unrealistic in distribution.
+- The v0.1 smoke set uses appended clean clauses to keep labels
+  deterministic, not naturally occurring defects in negotiated contracts.
+- Zero-width anchors for missing clauses are easy to score but may be
+  unnatural for models that prefer explanatory review comments.
+- The defect taxonomy reflects benchmark-author opinion on what is a
+  defect; it is documented and open to PR contributions.
 
 ## v0.1 / v0.2 stratification
 
-- v0.1: ~60 contracts, ~240 planted defect instances.
+- v0.1 smoke: 30 contracts with 3-5 planted defect instances each.
 - v0.2 held-out: ~20 contracts built from new template variations.
 - Per-class F1 and per-template-type breakdown.

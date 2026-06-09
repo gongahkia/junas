@@ -1,0 +1,3663 @@
+extraction_rules:
+  sg_contract_template_defect_injection: fc74d64ba453
+cases:
+- name: sglb_16_83401beb338f
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# NON-DISCLOSURE AGREEMENT
+
+
+      **Date:** 2026-01-01
+
+
+      **Between:**
+
+      1. **ABC Pte Ltd** ("Disclosing Party")
+
+      2. **XYZ Pte Ltd** ("Receiving Party")
+
+
+      (collectively the "Parties")
+
+
+      ## 1. PURPOSE
+
+      The Parties wish to explore potential business collaboration (the "Purpose")
+      and in connection therewith, may disclose Confidential Information to each other.
+
+
+      ## 2. CONFIDENTIAL INFORMATION
+
+      "Confidential Information" means all information disclosed by either Party to
+      the other, whether orally, in writing, or by any other means, that is designated
+      as confidential or that reasonably should be understood to be confidential given
+      the nature of the information and circumstances of disclosure.
+
+
+      ## 3. OBLIGATIONS
+
+      The Receiving Party shall:
+
+      (a) hold Confidential Information in strict confidence;
+
+      (b) not disclose Confidential Information to any third party without prior written
+      consent;
+
+      (c) use Confidential Information solely for the Purpose;
+
+      (d) protect Confidential Information with at least the same degree of care as
+      its own confidential information, but no less than reasonable care.
+
+
+      ## 4. EXCLUSIONS
+
+      This Agreement does not apply to information that:
+
+      (a) is or becomes publicly available through no fault of the Receiving Party;
+
+      (b) was known to the Receiving Party before disclosure;
+
+      (c) is independently developed without use of Confidential Information;
+
+      (d) is received from a third party without restriction.
+
+
+      ## 5. TERM
+
+      This Agreement shall remain in effect for 2 years from the date hereof.
+
+
+      ## 6. GOVERNING LAW
+
+      This Agreement shall be governed by and construed in accordance with the laws
+      of the Republic of Singapore.
+
+
+      ## 7. DISPUTE RESOLUTION
+
+      Any dispute arising out of this Agreement shall be referred to and resolved
+      by arbitration administered by the Singapore International Arbitration Centre
+      ("SIAC") in accordance with the SIAC Rules.
+
+
+      ---
+
+      **ABC Pte Ltd**
+
+      Name: ___________________
+
+      Signature: ___________________
+
+
+      **XYZ Pte Ltd**
+
+      Name: ___________________
+
+      Signature: ___________________
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## NOTICE PERIOD
+
+      Either Party may terminate this Agreement by giving 30 days'' written notice,
+
+      unless a longer minimum notice period is required by applicable Singapore law.
+
+
+      ## DISPUTE RESOLUTION
+
+      The Parties shall first attempt to resolve disputes by good-faith negotiation.
+
+      If unresolved after 14 days, the dispute shall be referred to mediation in
+
+      Singapore, and then to the courts of Singapore unless the Parties agree to
+
+      SIAC arbitration.
+
+
+      ## TERMINATION
+
+      Either Party may terminate this Agreement for material breach if the breach
+      is
+
+      not remedied within 14 days after written notice. Termination does not affect
+
+      accrued rights or surviving confidentiality, payment, and data-protection
+
+      obligations.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_limitation_of_liability
+      span_start: 2020
+      span_end: 2020
+    - defect_type: governing_law_non_singapore
+      span_start: 3137
+      span_end: 3154
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 2020
+      span_end: 2020
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: nda-sg
+    template_title: Non-Disclosure Agreement
+    clean_contract_sha: 28179ce26dee0a0d
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 2020
+      span_end: 2020
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 3137
+      span_end: 3154
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 2020
+      span_end: 2020
+      source_heading: PERSONAL DATA PROTECTION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_0a0f5ac0e3e0
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# EMPLOYMENT AGREEMENT
+
+
+      **Date:** 2026-01-01
+
+
+      **Between:**
+
+      1. **ABC Pte Ltd** (UEN: ___________) ("Employer")
+
+      2. **John Tan** (NRIC: ___________) ("Employee")
+
+
+      ## 1. POSITION AND DUTIES
+
+      The Employer agrees to employ the Employee as **Software Engineer**. The Employee
+      shall perform such duties as reasonably assigned by the Employer.
+
+
+      ## 2. COMMENCEMENT AND PROBATION
+
+      Employment commences on **2026-01-01** with a probation period of **3 months**.
+      During probation, either Party may terminate with 1 week''s notice.
+
+
+      ## 3. REMUNERATION
+
+      The Employee shall receive a gross monthly salary of **SGD 5000**, payable by
+      the last working day of each month. Salary is subject to applicable CPF contributions
+      and tax deductions.
+
+
+      ## 4. WORKING HOURS
+
+      Standard working hours are 44 hours per week (Monday to Friday, 9:00 AM to 6:00
+      PM). Overtime shall be compensated in accordance with the Employment Act (Cap.
+      91).
+
+
+      ## 5. LEAVE ENTITLEMENTS
+
+      - **Annual Leave:** 14 days per calendar year (pro-rated)
+
+      - **Sick Leave:** 14 days outpatient, 60 days hospitalization per year
+
+      - **Public Holidays:** As gazetted by the Ministry of Manpower
+
+
+      ## 6. TERMINATION
+
+      After probation, either Party may terminate this Agreement by giving **1 month(s)**
+      written notice or salary in lieu thereof.
+
+
+      ## 7. CONFIDENTIALITY
+
+      The Employee shall not disclose any confidential information of the Employer
+      during or after employment.
+
+
+      ## 8. GOVERNING LAW
+
+      This Agreement is governed by the laws of the Republic of Singapore, including
+      the Employment Act (Cap. 91, 2009 Rev Ed).
+
+
+      ---
+
+      **ABC Pte Ltd**
+
+      Authorised Signatory: ___________________
+
+
+      **John Tan**
+
+      Signature: ___________________
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## LIMITATION OF LIABILITY
+
+      Each Party''s total aggregate liability under this Agreement shall not exceed
+
+      the total fees paid or payable in the 12 months before the claim. Neither
+
+      Party excludes liability where exclusion is not permitted under Singapore law.
+
+
+      ## TERMINATION
+
+      Either Party may terminate this Agreement for material breach if the breach
+      is
+
+      not remedied within 14 days after written notice. Termination does not affect
+
+      accrued rights or surviving confidentiality, payment, and data-protection
+
+      obligations.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: governing_law_non_singapore
+      span_start: 3043
+      span_end: 3060
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 1926
+      span_end: 1926
+    - defect_type: missing_notice_period
+      span_start: 1926
+      span_end: 1926
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1926
+      span_end: 1926
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: employment-sg
+    template_title: Employment Agreement
+    clean_contract_sha: d3c13ba644e2601c
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 3043
+      span_end: 3060
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: DISPUTE RESOLUTION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_4a0aca635d84
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: "# MEMORANDUM OF UNDERSTANDING\n\n**Date:** 2026-01-01\n\n**Between:**\n\
+      1. **ABC Pte Ltd** (\"Party A\")\n2. **XYZ Pte Ltd** (\"Party B\")\n\n## 1.\
+      \ PURPOSE\nThis MOU sets out the mutual understanding between the Parties concerning\
+      \ joint venture in technology development.\n\n## 2. NON-BINDING NATURE\nThis\
+      \ MOU is a statement of intent only and does not create legally binding obligations,\
+      \ except for Clauses on confidentiality and governing law.\n\n## 3. DURATION\n\
+      This MOU is effective from 2026-01-01 until 2026-06-30 unless extended by mutual\
+      \ written agreement.\n\n## 4. GOVERNING LAW\nThis MOU shall be interpreted in\
+      \ accordance with the laws of Singapore.\n\n---\n**ABC Pte Ltd** \u2014 Authorised\
+      \ Signatory: ___________________\n**XYZ Pte Ltd** \u2014 Authorised Signatory:\
+      \ ___________________\n\n# SG REVIEW CLAUSES\n\n## GOVERNING LAW\nThis Agreement\
+      \ is governed by and construed in accordance with the laws of the\nRepublic\
+      \ of Singapore. The Parties submit to the non-exclusive jurisdiction of\nthe\
+      \ Singapore courts.\n"
+  expected_output:
+    defects:
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_notice_period
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_termination_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_limitation_of_liability
+      span_start: 785
+      span_end: 785
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: mou-sg
+    template_title: Memorandum of Understanding
+    clean_contract_sha: ab0edaffb28dc6fb
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 785
+      span_end: 785
+      source_heading: LIMITATION OF LIABILITY
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_e28a3fb71fe4
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: "# TENANCY AGREEMENT\n\n**Date:** 2026-01-01\n\n**Between:**\n\
+      1. **Property Owner Pte Ltd** (\"Landlord\")\n2. **Jane Lim** (\"Tenant\")\n\
+      \n## 1. PREMISES\nThe Landlord agrees to let, and the Tenant agrees to take,\
+      \ the premises at **123 Orchard Road, #10-01, Singapore 238888** (the \"Premises\"\
+      ).\n\n## 2. TERM\nThe tenancy shall be for a period of **2 year(s)** commencing\
+      \ on **2026-01-01**.\n\n## 3. RENT\nThe monthly rent is **SGD 3000**, payable\
+      \ in advance on the 1st of each month.\n\n## 4. SECURITY DEPOSIT\nThe Tenant\
+      \ shall pay a security deposit of **2 month(s)' rent** upon execution of this\
+      \ Agreement.\n\n## 5. GOVERNING LAW\nThis Agreement is governed by the laws\
+      \ of Singapore.\n\n---\n**Property Owner Pte Ltd** \u2014 Signature: ___________________\n\
+      **Jane Lim** \u2014 Signature: ___________________\n\n# SG REVIEW CLAUSES\n\n\
+      ## LIMITATION OF LIABILITY\nEach Party's total aggregate liability under this\
+      \ Agreement shall not exceed\nthe total fees paid or payable in the 12 months\
+      \ before the claim. Neither\nParty excludes liability where exclusion is not\
+      \ permitted under Singapore law.\n\n## PERSONAL DATA PROTECTION\nEach Party\
+      \ shall comply with the Personal Data Protection Act 2012 when\ncollecting,\
+      \ using, disclosing, storing, or processing personal data. Where a\nParty processes\
+      \ personal data on behalf of the other, it acts as a data\nintermediary and\
+      \ shall implement reasonable security arrangements.\n\n## GOVERNING LAW\nThis\
+      \ Agreement is governed by and construed in accordance with the laws of the\n\
+      Republic of Singapore. The Parties submit to the non-exclusive jurisdiction\
+      \ of\nthe Singapore courts.\n"
+  expected_output:
+    defects:
+    - defect_type: missing_notice_period
+      span_start: 1370
+      span_end: 1370
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1370
+      span_end: 1370
+    - defect_type: missing_termination_clause
+      span_start: 1370
+      span_end: 1370
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: tenancy-sg
+    template_title: Tenancy Agreement
+    clean_contract_sha: 59d612cb96276f1d
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: TERMINATION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_ee914ab95781
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# WRITTEN RESOLUTION OF THE BOARD OF DIRECTORS
+
+
+      **ABC Pte Ltd** (UEN: 202012345A)
+
+      (Incorporated in the Republic of Singapore)
+
+      **Date:** 2026-01-01
+
+
+      Pursuant to the Articles of Association of the Company and Section 184A of the
+      Companies Act 1967 (2020 Revised Edition), the undersigned, being all the directors
+      of the Company, hereby pass the following resolution:
+
+
+      ## RESOLUTION
+
+      **IT IS RESOLVED THAT** appointment of new director.
+
+
+      ---
+
+      **Director:** ___________________
+
+      Name:
+
+      Date:
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## PERSONAL DATA PROTECTION
+
+      Each Party shall comply with the Personal Data Protection Act 2012 when
+
+      collecting, using, disclosing, storing, or processing personal data. Where a
+
+      Party processes personal data on behalf of the other, it acts as a data
+
+      intermediary and shall implement reasonable security arrangements.
+
+
+      ## NOTICE PERIOD
+
+      Either Party may terminate this Agreement by giving 30 days'' written notice,
+
+      unless a longer minimum notice period is required by applicable Singapore law.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1255
+      span_end: 1255
+    - defect_type: missing_termination_clause
+      span_start: 1255
+      span_end: 1255
+    - defect_type: missing_limitation_of_liability
+      span_start: 506
+      span_end: 506
+    - defect_type: governing_law_non_singapore
+      span_start: 1093
+      span_end: 1110
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: board-resolution-sg
+    template_title: Board Resolution
+    clean_contract_sha: 0def2090817df44b
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1255
+      span_end: 1255
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1255
+      span_end: 1255
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 506
+      span_end: 506
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 1093
+      span_end: 1110
+      source_heading: GOVERNING LAW
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_1d32b4345440
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# INSTRUMENT OF TRANSFER OF SHARES
+
+
+      **Date:** 2026-01-01
+
+
+      | Field | Value |
+
+      |-------|-------|
+
+      | Company | **ABC Pte Ltd** |
+
+      | Transferor | **John Tan** |
+
+      | Transferee | **Jane Lim** |
+
+      | Number of Shares | **1000** ordinary shares |
+
+      | Consideration | **SGD 1.00** per share |
+
+
+      I, **John Tan** (the "Transferor"), in consideration of the sum paid to me by
+      **Jane Lim** (the "Transferee"), hereby transfer to the Transferee **1000**
+      ordinary shares in **ABC Pte Ltd**.
+
+
+      This transfer is subject to stamp duty under the Stamp Duties Act 1929 (2020
+      Revised Edition).
+
+
+      ---
+
+      **Transferor:** ___________________ Name: John Tan
+
+      **Transferee:** ___________________ Name: Jane Lim
+
+      **Witness:** ___________________ Name:
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## DISPUTE RESOLUTION
+
+      The Parties shall first attempt to resolve disputes by good-faith negotiation.
+
+      If unresolved after 14 days, the dispute shall be referred to mediation in
+
+      Singapore, and then to the courts of Singapore unless the Parties agree to
+
+      SIAC arbitration.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_termination_clause
+      span_start: 1749
+      span_end: 1749
+    - defect_type: missing_limitation_of_liability
+      span_start: 730
+      span_end: 730
+    - defect_type: governing_law_non_singapore
+      span_start: 1587
+      span_end: 1604
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 730
+      span_end: 730
+    - defect_type: missing_notice_period
+      span_start: 730
+      span_end: 730
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: share-transfer-sg
+    template_title: Share Transfer Form
+    clean_contract_sha: 811fe573afb8f641
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1749
+      span_end: 1749
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 730
+      span_end: 730
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 1587
+      span_end: 1604
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 730
+      span_end: 730
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 730
+      span_end: 730
+      source_heading: NOTICE PERIOD
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_49e7cb72584a
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# NON-DISCLOSURE AGREEMENT
+
+
+      **Date:** 2026-01-01
+
+
+      **Between:**
+
+      1. **ABC Pte Ltd** ("Disclosing Party")
+
+      2. **XYZ Pte Ltd** ("Receiving Party")
+
+
+      (collectively the "Parties")
+
+
+      ## 1. PURPOSE
+
+      The Parties wish to explore potential business collaboration (the "Purpose")
+      and in connection therewith, may disclose Confidential Information to each other.
+
+
+      ## 2. CONFIDENTIAL INFORMATION
+
+      "Confidential Information" means all information disclosed by either Party to
+      the other, whether orally, in writing, or by any other means, that is designated
+      as confidential or that reasonably should be understood to be confidential given
+      the nature of the information and circumstances of disclosure.
+
+
+      ## 3. OBLIGATIONS
+
+      The Receiving Party shall:
+
+      (a) hold Confidential Information in strict confidence;
+
+      (b) not disclose Confidential Information to any third party without prior written
+      consent;
+
+      (c) use Confidential Information solely for the Purpose;
+
+      (d) protect Confidential Information with at least the same degree of care as
+      its own confidential information, but no less than reasonable care.
+
+
+      ## 4. EXCLUSIONS
+
+      This Agreement does not apply to information that:
+
+      (a) is or becomes publicly available through no fault of the Receiving Party;
+
+      (b) was known to the Receiving Party before disclosure;
+
+      (c) is independently developed without use of Confidential Information;
+
+      (d) is received from a third party without restriction.
+
+
+      ## 5. TERM
+
+      This Agreement shall remain in effect for 2 years from the date hereof.
+
+
+      ## 6. GOVERNING LAW
+
+      This Agreement shall be governed by and construed in accordance with the laws
+      of the Republic of Singapore.
+
+
+      ## 7. DISPUTE RESOLUTION
+
+      Any dispute arising out of this Agreement shall be referred to and resolved
+      by arbitration administered by the Singapore International Arbitration Centre
+      ("SIAC") in accordance with the SIAC Rules.
+
+
+      ---
+
+      **ABC Pte Ltd**
+
+      Name: ___________________
+
+      Signature: ___________________
+
+
+      **XYZ Pte Ltd**
+
+      Name: ___________________
+
+      Signature: ___________________
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## NOTICE PERIOD
+
+      Either Party may terminate this Agreement by giving 30 days'' written notice,
+
+      unless a longer minimum notice period is required by applicable Singapore law.
+
+
+      ## DISPUTE RESOLUTION
+
+      The Parties shall first attempt to resolve disputes by good-faith negotiation.
+
+      If unresolved after 14 days, the dispute shall be referred to mediation in
+
+      Singapore, and then to the courts of Singapore unless the Parties agree to
+
+      SIAC arbitration.
+
+
+      ## TERMINATION
+
+      Either Party may terminate this Agreement for material breach if the breach
+      is
+
+      not remedied within 14 days after written notice. Termination does not affect
+
+      accrued rights or surviving confidentiality, payment, and data-protection
+
+      obligations.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_limitation_of_liability
+      span_start: 2020
+      span_end: 2020
+    - defect_type: governing_law_non_singapore
+      span_start: 3137
+      span_end: 3154
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 2020
+      span_end: 2020
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: nda-sg
+    template_title: Non-Disclosure Agreement
+    clean_contract_sha: 28179ce26dee0a0d
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 2020
+      span_end: 2020
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 3137
+      span_end: 3154
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 2020
+      span_end: 2020
+      source_heading: PERSONAL DATA PROTECTION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_9da2905dc657
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# EMPLOYMENT AGREEMENT
+
+
+      **Date:** 2026-01-01
+
+
+      **Between:**
+
+      1. **ABC Pte Ltd** (UEN: ___________) ("Employer")
+
+      2. **John Tan** (NRIC: ___________) ("Employee")
+
+
+      ## 1. POSITION AND DUTIES
+
+      The Employer agrees to employ the Employee as **Software Engineer**. The Employee
+      shall perform such duties as reasonably assigned by the Employer.
+
+
+      ## 2. COMMENCEMENT AND PROBATION
+
+      Employment commences on **2026-01-01** with a probation period of **3 months**.
+      During probation, either Party may terminate with 1 week''s notice.
+
+
+      ## 3. REMUNERATION
+
+      The Employee shall receive a gross monthly salary of **SGD 5000**, payable by
+      the last working day of each month. Salary is subject to applicable CPF contributions
+      and tax deductions.
+
+
+      ## 4. WORKING HOURS
+
+      Standard working hours are 44 hours per week (Monday to Friday, 9:00 AM to 6:00
+      PM). Overtime shall be compensated in accordance with the Employment Act (Cap.
+      91).
+
+
+      ## 5. LEAVE ENTITLEMENTS
+
+      - **Annual Leave:** 14 days per calendar year (pro-rated)
+
+      - **Sick Leave:** 14 days outpatient, 60 days hospitalization per year
+
+      - **Public Holidays:** As gazetted by the Ministry of Manpower
+
+
+      ## 6. TERMINATION
+
+      After probation, either Party may terminate this Agreement by giving **1 month(s)**
+      written notice or salary in lieu thereof.
+
+
+      ## 7. CONFIDENTIALITY
+
+      The Employee shall not disclose any confidential information of the Employer
+      during or after employment.
+
+
+      ## 8. GOVERNING LAW
+
+      This Agreement is governed by the laws of the Republic of Singapore, including
+      the Employment Act (Cap. 91, 2009 Rev Ed).
+
+
+      ---
+
+      **ABC Pte Ltd**
+
+      Authorised Signatory: ___________________
+
+
+      **John Tan**
+
+      Signature: ___________________
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## LIMITATION OF LIABILITY
+
+      Each Party''s total aggregate liability under this Agreement shall not exceed
+
+      the total fees paid or payable in the 12 months before the claim. Neither
+
+      Party excludes liability where exclusion is not permitted under Singapore law.
+
+
+      ## TERMINATION
+
+      Either Party may terminate this Agreement for material breach if the breach
+      is
+
+      not remedied within 14 days after written notice. Termination does not affect
+
+      accrued rights or surviving confidentiality, payment, and data-protection
+
+      obligations.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: governing_law_non_singapore
+      span_start: 3043
+      span_end: 3060
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 1926
+      span_end: 1926
+    - defect_type: missing_notice_period
+      span_start: 1926
+      span_end: 1926
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1926
+      span_end: 1926
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: employment-sg
+    template_title: Employment Agreement
+    clean_contract_sha: d3c13ba644e2601c
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 3043
+      span_end: 3060
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: DISPUTE RESOLUTION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_997d2c4ded22
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: "# MEMORANDUM OF UNDERSTANDING\n\n**Date:** 2026-01-01\n\n**Between:**\n\
+      1. **ABC Pte Ltd** (\"Party A\")\n2. **XYZ Pte Ltd** (\"Party B\")\n\n## 1.\
+      \ PURPOSE\nThis MOU sets out the mutual understanding between the Parties concerning\
+      \ joint venture in technology development.\n\n## 2. NON-BINDING NATURE\nThis\
+      \ MOU is a statement of intent only and does not create legally binding obligations,\
+      \ except for Clauses on confidentiality and governing law.\n\n## 3. DURATION\n\
+      This MOU is effective from 2026-01-01 until 2026-06-30 unless extended by mutual\
+      \ written agreement.\n\n## 4. GOVERNING LAW\nThis MOU shall be interpreted in\
+      \ accordance with the laws of Singapore.\n\n---\n**ABC Pte Ltd** \u2014 Authorised\
+      \ Signatory: ___________________\n**XYZ Pte Ltd** \u2014 Authorised Signatory:\
+      \ ___________________\n\n# SG REVIEW CLAUSES\n\n## GOVERNING LAW\nThis Agreement\
+      \ is governed by and construed in accordance with the laws of the\nRepublic\
+      \ of Singapore. The Parties submit to the non-exclusive jurisdiction of\nthe\
+      \ Singapore courts.\n"
+  expected_output:
+    defects:
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_notice_period
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_termination_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_limitation_of_liability
+      span_start: 785
+      span_end: 785
+  metadata:
+    task: SGLB-16
+    split: dev
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: mou-sg
+    template_title: Memorandum of Understanding
+    clean_contract_sha: ab0edaffb28dc6fb
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 785
+      span_end: 785
+      source_heading: LIMITATION OF LIABILITY
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_5d787efe7b26
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: "# TENANCY AGREEMENT\n\n**Date:** 2026-01-01\n\n**Between:**\n\
+      1. **Property Owner Pte Ltd** (\"Landlord\")\n2. **Jane Lim** (\"Tenant\")\n\
+      \n## 1. PREMISES\nThe Landlord agrees to let, and the Tenant agrees to take,\
+      \ the premises at **123 Orchard Road, #10-01, Singapore 238888** (the \"Premises\"\
+      ).\n\n## 2. TERM\nThe tenancy shall be for a period of **2 year(s)** commencing\
+      \ on **2026-01-01**.\n\n## 3. RENT\nThe monthly rent is **SGD 3000**, payable\
+      \ in advance on the 1st of each month.\n\n## 4. SECURITY DEPOSIT\nThe Tenant\
+      \ shall pay a security deposit of **2 month(s)' rent** upon execution of this\
+      \ Agreement.\n\n## 5. GOVERNING LAW\nThis Agreement is governed by the laws\
+      \ of Singapore.\n\n---\n**Property Owner Pte Ltd** \u2014 Signature: ___________________\n\
+      **Jane Lim** \u2014 Signature: ___________________\n\n# SG REVIEW CLAUSES\n\n\
+      ## LIMITATION OF LIABILITY\nEach Party's total aggregate liability under this\
+      \ Agreement shall not exceed\nthe total fees paid or payable in the 12 months\
+      \ before the claim. Neither\nParty excludes liability where exclusion is not\
+      \ permitted under Singapore law.\n\n## PERSONAL DATA PROTECTION\nEach Party\
+      \ shall comply with the Personal Data Protection Act 2012 when\ncollecting,\
+      \ using, disclosing, storing, or processing personal data. Where a\nParty processes\
+      \ personal data on behalf of the other, it acts as a data\nintermediary and\
+      \ shall implement reasonable security arrangements.\n\n## GOVERNING LAW\nThis\
+      \ Agreement is governed by and construed in accordance with the laws of the\n\
+      Republic of Singapore. The Parties submit to the non-exclusive jurisdiction\
+      \ of\nthe Singapore courts.\n"
+  expected_output:
+    defects:
+    - defect_type: missing_notice_period
+      span_start: 1370
+      span_end: 1370
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1370
+      span_end: 1370
+    - defect_type: missing_termination_clause
+      span_start: 1370
+      span_end: 1370
+  metadata:
+    task: SGLB-16
+    split: test
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: tenancy-sg
+    template_title: Tenancy Agreement
+    clean_contract_sha: 59d612cb96276f1d
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: TERMINATION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_fe8eb3c56c4d
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# WRITTEN RESOLUTION OF THE BOARD OF DIRECTORS
+
+
+      **ABC Pte Ltd** (UEN: 202012345A)
+
+      (Incorporated in the Republic of Singapore)
+
+      **Date:** 2026-01-01
+
+
+      Pursuant to the Articles of Association of the Company and Section 184A of the
+      Companies Act 1967 (2020 Revised Edition), the undersigned, being all the directors
+      of the Company, hereby pass the following resolution:
+
+
+      ## RESOLUTION
+
+      **IT IS RESOLVED THAT** appointment of new director.
+
+
+      ---
+
+      **Director:** ___________________
+
+      Name:
+
+      Date:
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## PERSONAL DATA PROTECTION
+
+      Each Party shall comply with the Personal Data Protection Act 2012 when
+
+      collecting, using, disclosing, storing, or processing personal data. Where a
+
+      Party processes personal data on behalf of the other, it acts as a data
+
+      intermediary and shall implement reasonable security arrangements.
+
+
+      ## NOTICE PERIOD
+
+      Either Party may terminate this Agreement by giving 30 days'' written notice,
+
+      unless a longer minimum notice period is required by applicable Singapore law.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1255
+      span_end: 1255
+    - defect_type: missing_termination_clause
+      span_start: 1255
+      span_end: 1255
+    - defect_type: missing_limitation_of_liability
+      span_start: 506
+      span_end: 506
+    - defect_type: governing_law_non_singapore
+      span_start: 1093
+      span_end: 1110
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: board-resolution-sg
+    template_title: Board Resolution
+    clean_contract_sha: 0def2090817df44b
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1255
+      span_end: 1255
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1255
+      span_end: 1255
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 506
+      span_end: 506
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 1093
+      span_end: 1110
+      source_heading: GOVERNING LAW
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_4d62219d1359
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# INSTRUMENT OF TRANSFER OF SHARES
+
+
+      **Date:** 2026-01-01
+
+
+      | Field | Value |
+
+      |-------|-------|
+
+      | Company | **ABC Pte Ltd** |
+
+      | Transferor | **John Tan** |
+
+      | Transferee | **Jane Lim** |
+
+      | Number of Shares | **1000** ordinary shares |
+
+      | Consideration | **SGD 1.00** per share |
+
+
+      I, **John Tan** (the "Transferor"), in consideration of the sum paid to me by
+      **Jane Lim** (the "Transferee"), hereby transfer to the Transferee **1000**
+      ordinary shares in **ABC Pte Ltd**.
+
+
+      This transfer is subject to stamp duty under the Stamp Duties Act 1929 (2020
+      Revised Edition).
+
+
+      ---
+
+      **Transferor:** ___________________ Name: John Tan
+
+      **Transferee:** ___________________ Name: Jane Lim
+
+      **Witness:** ___________________ Name:
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## DISPUTE RESOLUTION
+
+      The Parties shall first attempt to resolve disputes by good-faith negotiation.
+
+      If unresolved after 14 days, the dispute shall be referred to mediation in
+
+      Singapore, and then to the courts of Singapore unless the Parties agree to
+
+      SIAC arbitration.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_termination_clause
+      span_start: 1749
+      span_end: 1749
+    - defect_type: missing_limitation_of_liability
+      span_start: 730
+      span_end: 730
+    - defect_type: governing_law_non_singapore
+      span_start: 1587
+      span_end: 1604
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 730
+      span_end: 730
+    - defect_type: missing_notice_period
+      span_start: 730
+      span_end: 730
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: share-transfer-sg
+    template_title: Share Transfer Form
+    clean_contract_sha: 811fe573afb8f641
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1749
+      span_end: 1749
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 730
+      span_end: 730
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 1587
+      span_end: 1604
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 730
+      span_end: 730
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 730
+      span_end: 730
+      source_heading: NOTICE PERIOD
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_3819d7ead594
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# NON-DISCLOSURE AGREEMENT
+
+
+      **Date:** 2026-01-01
+
+
+      **Between:**
+
+      1. **ABC Pte Ltd** ("Disclosing Party")
+
+      2. **XYZ Pte Ltd** ("Receiving Party")
+
+
+      (collectively the "Parties")
+
+
+      ## 1. PURPOSE
+
+      The Parties wish to explore potential business collaboration (the "Purpose")
+      and in connection therewith, may disclose Confidential Information to each other.
+
+
+      ## 2. CONFIDENTIAL INFORMATION
+
+      "Confidential Information" means all information disclosed by either Party to
+      the other, whether orally, in writing, or by any other means, that is designated
+      as confidential or that reasonably should be understood to be confidential given
+      the nature of the information and circumstances of disclosure.
+
+
+      ## 3. OBLIGATIONS
+
+      The Receiving Party shall:
+
+      (a) hold Confidential Information in strict confidence;
+
+      (b) not disclose Confidential Information to any third party without prior written
+      consent;
+
+      (c) use Confidential Information solely for the Purpose;
+
+      (d) protect Confidential Information with at least the same degree of care as
+      its own confidential information, but no less than reasonable care.
+
+
+      ## 4. EXCLUSIONS
+
+      This Agreement does not apply to information that:
+
+      (a) is or becomes publicly available through no fault of the Receiving Party;
+
+      (b) was known to the Receiving Party before disclosure;
+
+      (c) is independently developed without use of Confidential Information;
+
+      (d) is received from a third party without restriction.
+
+
+      ## 5. TERM
+
+      This Agreement shall remain in effect for 2 years from the date hereof.
+
+
+      ## 6. GOVERNING LAW
+
+      This Agreement shall be governed by and construed in accordance with the laws
+      of the Republic of Singapore.
+
+
+      ## 7. DISPUTE RESOLUTION
+
+      Any dispute arising out of this Agreement shall be referred to and resolved
+      by arbitration administered by the Singapore International Arbitration Centre
+      ("SIAC") in accordance with the SIAC Rules.
+
+
+      ---
+
+      **ABC Pte Ltd**
+
+      Name: ___________________
+
+      Signature: ___________________
+
+
+      **XYZ Pte Ltd**
+
+      Name: ___________________
+
+      Signature: ___________________
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## NOTICE PERIOD
+
+      Either Party may terminate this Agreement by giving 30 days'' written notice,
+
+      unless a longer minimum notice period is required by applicable Singapore law.
+
+
+      ## DISPUTE RESOLUTION
+
+      The Parties shall first attempt to resolve disputes by good-faith negotiation.
+
+      If unresolved after 14 days, the dispute shall be referred to mediation in
+
+      Singapore, and then to the courts of Singapore unless the Parties agree to
+
+      SIAC arbitration.
+
+
+      ## TERMINATION
+
+      Either Party may terminate this Agreement for material breach if the breach
+      is
+
+      not remedied within 14 days after written notice. Termination does not affect
+
+      accrued rights or surviving confidentiality, payment, and data-protection
+
+      obligations.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_limitation_of_liability
+      span_start: 2020
+      span_end: 2020
+    - defect_type: governing_law_non_singapore
+      span_start: 3137
+      span_end: 3154
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 2020
+      span_end: 2020
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: nda-sg
+    template_title: Non-Disclosure Agreement
+    clean_contract_sha: 28179ce26dee0a0d
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 2020
+      span_end: 2020
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 3137
+      span_end: 3154
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 2020
+      span_end: 2020
+      source_heading: PERSONAL DATA PROTECTION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_426815bc2ad5
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# EMPLOYMENT AGREEMENT
+
+
+      **Date:** 2026-01-01
+
+
+      **Between:**
+
+      1. **ABC Pte Ltd** (UEN: ___________) ("Employer")
+
+      2. **John Tan** (NRIC: ___________) ("Employee")
+
+
+      ## 1. POSITION AND DUTIES
+
+      The Employer agrees to employ the Employee as **Software Engineer**. The Employee
+      shall perform such duties as reasonably assigned by the Employer.
+
+
+      ## 2. COMMENCEMENT AND PROBATION
+
+      Employment commences on **2026-01-01** with a probation period of **3 months**.
+      During probation, either Party may terminate with 1 week''s notice.
+
+
+      ## 3. REMUNERATION
+
+      The Employee shall receive a gross monthly salary of **SGD 5000**, payable by
+      the last working day of each month. Salary is subject to applicable CPF contributions
+      and tax deductions.
+
+
+      ## 4. WORKING HOURS
+
+      Standard working hours are 44 hours per week (Monday to Friday, 9:00 AM to 6:00
+      PM). Overtime shall be compensated in accordance with the Employment Act (Cap.
+      91).
+
+
+      ## 5. LEAVE ENTITLEMENTS
+
+      - **Annual Leave:** 14 days per calendar year (pro-rated)
+
+      - **Sick Leave:** 14 days outpatient, 60 days hospitalization per year
+
+      - **Public Holidays:** As gazetted by the Ministry of Manpower
+
+
+      ## 6. TERMINATION
+
+      After probation, either Party may terminate this Agreement by giving **1 month(s)**
+      written notice or salary in lieu thereof.
+
+
+      ## 7. CONFIDENTIALITY
+
+      The Employee shall not disclose any confidential information of the Employer
+      during or after employment.
+
+
+      ## 8. GOVERNING LAW
+
+      This Agreement is governed by the laws of the Republic of Singapore, including
+      the Employment Act (Cap. 91, 2009 Rev Ed).
+
+
+      ---
+
+      **ABC Pte Ltd**
+
+      Authorised Signatory: ___________________
+
+
+      **John Tan**
+
+      Signature: ___________________
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## LIMITATION OF LIABILITY
+
+      Each Party''s total aggregate liability under this Agreement shall not exceed
+
+      the total fees paid or payable in the 12 months before the claim. Neither
+
+      Party excludes liability where exclusion is not permitted under Singapore law.
+
+
+      ## TERMINATION
+
+      Either Party may terminate this Agreement for material breach if the breach
+      is
+
+      not remedied within 14 days after written notice. Termination does not affect
+
+      accrued rights or surviving confidentiality, payment, and data-protection
+
+      obligations.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: governing_law_non_singapore
+      span_start: 3043
+      span_end: 3060
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 1926
+      span_end: 1926
+    - defect_type: missing_notice_period
+      span_start: 1926
+      span_end: 1926
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1926
+      span_end: 1926
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: employment-sg
+    template_title: Employment Agreement
+    clean_contract_sha: d3c13ba644e2601c
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 3043
+      span_end: 3060
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: DISPUTE RESOLUTION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_ce7de9830a40
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: "# MEMORANDUM OF UNDERSTANDING\n\n**Date:** 2026-01-01\n\n**Between:**\n\
+      1. **ABC Pte Ltd** (\"Party A\")\n2. **XYZ Pte Ltd** (\"Party B\")\n\n## 1.\
+      \ PURPOSE\nThis MOU sets out the mutual understanding between the Parties concerning\
+      \ joint venture in technology development.\n\n## 2. NON-BINDING NATURE\nThis\
+      \ MOU is a statement of intent only and does not create legally binding obligations,\
+      \ except for Clauses on confidentiality and governing law.\n\n## 3. DURATION\n\
+      This MOU is effective from 2026-01-01 until 2026-06-30 unless extended by mutual\
+      \ written agreement.\n\n## 4. GOVERNING LAW\nThis MOU shall be interpreted in\
+      \ accordance with the laws of Singapore.\n\n---\n**ABC Pte Ltd** \u2014 Authorised\
+      \ Signatory: ___________________\n**XYZ Pte Ltd** \u2014 Authorised Signatory:\
+      \ ___________________\n\n# SG REVIEW CLAUSES\n\n## GOVERNING LAW\nThis Agreement\
+      \ is governed by and construed in accordance with the laws of the\nRepublic\
+      \ of Singapore. The Parties submit to the non-exclusive jurisdiction of\nthe\
+      \ Singapore courts.\n"
+  expected_output:
+    defects:
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_notice_period
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_termination_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_limitation_of_liability
+      span_start: 785
+      span_end: 785
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: mou-sg
+    template_title: Memorandum of Understanding
+    clean_contract_sha: ab0edaffb28dc6fb
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 785
+      span_end: 785
+      source_heading: LIMITATION OF LIABILITY
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_f139008fbbc3
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: "# TENANCY AGREEMENT\n\n**Date:** 2026-01-01\n\n**Between:**\n\
+      1. **Property Owner Pte Ltd** (\"Landlord\")\n2. **Jane Lim** (\"Tenant\")\n\
+      \n## 1. PREMISES\nThe Landlord agrees to let, and the Tenant agrees to take,\
+      \ the premises at **123 Orchard Road, #10-01, Singapore 238888** (the \"Premises\"\
+      ).\n\n## 2. TERM\nThe tenancy shall be for a period of **2 year(s)** commencing\
+      \ on **2026-01-01**.\n\n## 3. RENT\nThe monthly rent is **SGD 3000**, payable\
+      \ in advance on the 1st of each month.\n\n## 4. SECURITY DEPOSIT\nThe Tenant\
+      \ shall pay a security deposit of **2 month(s)' rent** upon execution of this\
+      \ Agreement.\n\n## 5. GOVERNING LAW\nThis Agreement is governed by the laws\
+      \ of Singapore.\n\n---\n**Property Owner Pte Ltd** \u2014 Signature: ___________________\n\
+      **Jane Lim** \u2014 Signature: ___________________\n\n# SG REVIEW CLAUSES\n\n\
+      ## LIMITATION OF LIABILITY\nEach Party's total aggregate liability under this\
+      \ Agreement shall not exceed\nthe total fees paid or payable in the 12 months\
+      \ before the claim. Neither\nParty excludes liability where exclusion is not\
+      \ permitted under Singapore law.\n\n## PERSONAL DATA PROTECTION\nEach Party\
+      \ shall comply with the Personal Data Protection Act 2012 when\ncollecting,\
+      \ using, disclosing, storing, or processing personal data. Where a\nParty processes\
+      \ personal data on behalf of the other, it acts as a data\nintermediary and\
+      \ shall implement reasonable security arrangements.\n\n## GOVERNING LAW\nThis\
+      \ Agreement is governed by and construed in accordance with the laws of the\n\
+      Republic of Singapore. The Parties submit to the non-exclusive jurisdiction\
+      \ of\nthe Singapore courts.\n"
+  expected_output:
+    defects:
+    - defect_type: missing_notice_period
+      span_start: 1370
+      span_end: 1370
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1370
+      span_end: 1370
+    - defect_type: missing_termination_clause
+      span_start: 1370
+      span_end: 1370
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: tenancy-sg
+    template_title: Tenancy Agreement
+    clean_contract_sha: 59d612cb96276f1d
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: TERMINATION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_9bdf69980a7d
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# WRITTEN RESOLUTION OF THE BOARD OF DIRECTORS
+
+
+      **ABC Pte Ltd** (UEN: 202012345A)
+
+      (Incorporated in the Republic of Singapore)
+
+      **Date:** 2026-01-01
+
+
+      Pursuant to the Articles of Association of the Company and Section 184A of the
+      Companies Act 1967 (2020 Revised Edition), the undersigned, being all the directors
+      of the Company, hereby pass the following resolution:
+
+
+      ## RESOLUTION
+
+      **IT IS RESOLVED THAT** appointment of new director.
+
+
+      ---
+
+      **Director:** ___________________
+
+      Name:
+
+      Date:
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## PERSONAL DATA PROTECTION
+
+      Each Party shall comply with the Personal Data Protection Act 2012 when
+
+      collecting, using, disclosing, storing, or processing personal data. Where a
+
+      Party processes personal data on behalf of the other, it acts as a data
+
+      intermediary and shall implement reasonable security arrangements.
+
+
+      ## NOTICE PERIOD
+
+      Either Party may terminate this Agreement by giving 30 days'' written notice,
+
+      unless a longer minimum notice period is required by applicable Singapore law.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1255
+      span_end: 1255
+    - defect_type: missing_termination_clause
+      span_start: 1255
+      span_end: 1255
+    - defect_type: missing_limitation_of_liability
+      span_start: 506
+      span_end: 506
+    - defect_type: governing_law_non_singapore
+      span_start: 1093
+      span_end: 1110
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: board-resolution-sg
+    template_title: Board Resolution
+    clean_contract_sha: 0def2090817df44b
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1255
+      span_end: 1255
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1255
+      span_end: 1255
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 506
+      span_end: 506
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 1093
+      span_end: 1110
+      source_heading: GOVERNING LAW
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_42aeab5cdf20
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# INSTRUMENT OF TRANSFER OF SHARES
+
+
+      **Date:** 2026-01-01
+
+
+      | Field | Value |
+
+      |-------|-------|
+
+      | Company | **ABC Pte Ltd** |
+
+      | Transferor | **John Tan** |
+
+      | Transferee | **Jane Lim** |
+
+      | Number of Shares | **1000** ordinary shares |
+
+      | Consideration | **SGD 1.00** per share |
+
+
+      I, **John Tan** (the "Transferor"), in consideration of the sum paid to me by
+      **Jane Lim** (the "Transferee"), hereby transfer to the Transferee **1000**
+      ordinary shares in **ABC Pte Ltd**.
+
+
+      This transfer is subject to stamp duty under the Stamp Duties Act 1929 (2020
+      Revised Edition).
+
+
+      ---
+
+      **Transferor:** ___________________ Name: John Tan
+
+      **Transferee:** ___________________ Name: Jane Lim
+
+      **Witness:** ___________________ Name:
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## DISPUTE RESOLUTION
+
+      The Parties shall first attempt to resolve disputes by good-faith negotiation.
+
+      If unresolved after 14 days, the dispute shall be referred to mediation in
+
+      Singapore, and then to the courts of Singapore unless the Parties agree to
+
+      SIAC arbitration.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_termination_clause
+      span_start: 1749
+      span_end: 1749
+    - defect_type: missing_limitation_of_liability
+      span_start: 730
+      span_end: 730
+    - defect_type: governing_law_non_singapore
+      span_start: 1587
+      span_end: 1604
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 730
+      span_end: 730
+    - defect_type: missing_notice_period
+      span_start: 730
+      span_end: 730
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: share-transfer-sg
+    template_title: Share Transfer Form
+    clean_contract_sha: 811fe573afb8f641
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1749
+      span_end: 1749
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 730
+      span_end: 730
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 1587
+      span_end: 1604
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 730
+      span_end: 730
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 730
+      span_end: 730
+      source_heading: NOTICE PERIOD
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_f06094c9a8aa
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# NON-DISCLOSURE AGREEMENT
+
+
+      **Date:** 2026-01-01
+
+
+      **Between:**
+
+      1. **ABC Pte Ltd** ("Disclosing Party")
+
+      2. **XYZ Pte Ltd** ("Receiving Party")
+
+
+      (collectively the "Parties")
+
+
+      ## 1. PURPOSE
+
+      The Parties wish to explore potential business collaboration (the "Purpose")
+      and in connection therewith, may disclose Confidential Information to each other.
+
+
+      ## 2. CONFIDENTIAL INFORMATION
+
+      "Confidential Information" means all information disclosed by either Party to
+      the other, whether orally, in writing, or by any other means, that is designated
+      as confidential or that reasonably should be understood to be confidential given
+      the nature of the information and circumstances of disclosure.
+
+
+      ## 3. OBLIGATIONS
+
+      The Receiving Party shall:
+
+      (a) hold Confidential Information in strict confidence;
+
+      (b) not disclose Confidential Information to any third party without prior written
+      consent;
+
+      (c) use Confidential Information solely for the Purpose;
+
+      (d) protect Confidential Information with at least the same degree of care as
+      its own confidential information, but no less than reasonable care.
+
+
+      ## 4. EXCLUSIONS
+
+      This Agreement does not apply to information that:
+
+      (a) is or becomes publicly available through no fault of the Receiving Party;
+
+      (b) was known to the Receiving Party before disclosure;
+
+      (c) is independently developed without use of Confidential Information;
+
+      (d) is received from a third party without restriction.
+
+
+      ## 5. TERM
+
+      This Agreement shall remain in effect for 2 years from the date hereof.
+
+
+      ## 6. GOVERNING LAW
+
+      This Agreement shall be governed by and construed in accordance with the laws
+      of the Republic of Singapore.
+
+
+      ## 7. DISPUTE RESOLUTION
+
+      Any dispute arising out of this Agreement shall be referred to and resolved
+      by arbitration administered by the Singapore International Arbitration Centre
+      ("SIAC") in accordance with the SIAC Rules.
+
+
+      ---
+
+      **ABC Pte Ltd**
+
+      Name: ___________________
+
+      Signature: ___________________
+
+
+      **XYZ Pte Ltd**
+
+      Name: ___________________
+
+      Signature: ___________________
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## NOTICE PERIOD
+
+      Either Party may terminate this Agreement by giving 30 days'' written notice,
+
+      unless a longer minimum notice period is required by applicable Singapore law.
+
+
+      ## DISPUTE RESOLUTION
+
+      The Parties shall first attempt to resolve disputes by good-faith negotiation.
+
+      If unresolved after 14 days, the dispute shall be referred to mediation in
+
+      Singapore, and then to the courts of Singapore unless the Parties agree to
+
+      SIAC arbitration.
+
+
+      ## TERMINATION
+
+      Either Party may terminate this Agreement for material breach if the breach
+      is
+
+      not remedied within 14 days after written notice. Termination does not affect
+
+      accrued rights or surviving confidentiality, payment, and data-protection
+
+      obligations.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_limitation_of_liability
+      span_start: 2020
+      span_end: 2020
+    - defect_type: governing_law_non_singapore
+      span_start: 3137
+      span_end: 3154
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 2020
+      span_end: 2020
+  metadata:
+    task: SGLB-16
+    split: dev
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: nda-sg
+    template_title: Non-Disclosure Agreement
+    clean_contract_sha: 28179ce26dee0a0d
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 2020
+      span_end: 2020
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 3137
+      span_end: 3154
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 2020
+      span_end: 2020
+      source_heading: PERSONAL DATA PROTECTION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_9d68b557eb8b
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# EMPLOYMENT AGREEMENT
+
+
+      **Date:** 2026-01-01
+
+
+      **Between:**
+
+      1. **ABC Pte Ltd** (UEN: ___________) ("Employer")
+
+      2. **John Tan** (NRIC: ___________) ("Employee")
+
+
+      ## 1. POSITION AND DUTIES
+
+      The Employer agrees to employ the Employee as **Software Engineer**. The Employee
+      shall perform such duties as reasonably assigned by the Employer.
+
+
+      ## 2. COMMENCEMENT AND PROBATION
+
+      Employment commences on **2026-01-01** with a probation period of **3 months**.
+      During probation, either Party may terminate with 1 week''s notice.
+
+
+      ## 3. REMUNERATION
+
+      The Employee shall receive a gross monthly salary of **SGD 5000**, payable by
+      the last working day of each month. Salary is subject to applicable CPF contributions
+      and tax deductions.
+
+
+      ## 4. WORKING HOURS
+
+      Standard working hours are 44 hours per week (Monday to Friday, 9:00 AM to 6:00
+      PM). Overtime shall be compensated in accordance with the Employment Act (Cap.
+      91).
+
+
+      ## 5. LEAVE ENTITLEMENTS
+
+      - **Annual Leave:** 14 days per calendar year (pro-rated)
+
+      - **Sick Leave:** 14 days outpatient, 60 days hospitalization per year
+
+      - **Public Holidays:** As gazetted by the Ministry of Manpower
+
+
+      ## 6. TERMINATION
+
+      After probation, either Party may terminate this Agreement by giving **1 month(s)**
+      written notice or salary in lieu thereof.
+
+
+      ## 7. CONFIDENTIALITY
+
+      The Employee shall not disclose any confidential information of the Employer
+      during or after employment.
+
+
+      ## 8. GOVERNING LAW
+
+      This Agreement is governed by the laws of the Republic of Singapore, including
+      the Employment Act (Cap. 91, 2009 Rev Ed).
+
+
+      ---
+
+      **ABC Pte Ltd**
+
+      Authorised Signatory: ___________________
+
+
+      **John Tan**
+
+      Signature: ___________________
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## LIMITATION OF LIABILITY
+
+      Each Party''s total aggregate liability under this Agreement shall not exceed
+
+      the total fees paid or payable in the 12 months before the claim. Neither
+
+      Party excludes liability where exclusion is not permitted under Singapore law.
+
+
+      ## TERMINATION
+
+      Either Party may terminate this Agreement for material breach if the breach
+      is
+
+      not remedied within 14 days after written notice. Termination does not affect
+
+      accrued rights or surviving confidentiality, payment, and data-protection
+
+      obligations.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: governing_law_non_singapore
+      span_start: 3043
+      span_end: 3060
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 1926
+      span_end: 1926
+    - defect_type: missing_notice_period
+      span_start: 1926
+      span_end: 1926
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1926
+      span_end: 1926
+  metadata:
+    task: SGLB-16
+    split: test
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: employment-sg
+    template_title: Employment Agreement
+    clean_contract_sha: d3c13ba644e2601c
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 3043
+      span_end: 3060
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: DISPUTE RESOLUTION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_21260b33a7f1
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: "# MEMORANDUM OF UNDERSTANDING\n\n**Date:** 2026-01-01\n\n**Between:**\n\
+      1. **ABC Pte Ltd** (\"Party A\")\n2. **XYZ Pte Ltd** (\"Party B\")\n\n## 1.\
+      \ PURPOSE\nThis MOU sets out the mutual understanding between the Parties concerning\
+      \ joint venture in technology development.\n\n## 2. NON-BINDING NATURE\nThis\
+      \ MOU is a statement of intent only and does not create legally binding obligations,\
+      \ except for Clauses on confidentiality and governing law.\n\n## 3. DURATION\n\
+      This MOU is effective from 2026-01-01 until 2026-06-30 unless extended by mutual\
+      \ written agreement.\n\n## 4. GOVERNING LAW\nThis MOU shall be interpreted in\
+      \ accordance with the laws of Singapore.\n\n---\n**ABC Pte Ltd** \u2014 Authorised\
+      \ Signatory: ___________________\n**XYZ Pte Ltd** \u2014 Authorised Signatory:\
+      \ ___________________\n\n# SG REVIEW CLAUSES\n\n## GOVERNING LAW\nThis Agreement\
+      \ is governed by and construed in accordance with the laws of the\nRepublic\
+      \ of Singapore. The Parties submit to the non-exclusive jurisdiction of\nthe\
+      \ Singapore courts.\n"
+  expected_output:
+    defects:
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_notice_period
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_termination_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_limitation_of_liability
+      span_start: 785
+      span_end: 785
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: mou-sg
+    template_title: Memorandum of Understanding
+    clean_contract_sha: ab0edaffb28dc6fb
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 785
+      span_end: 785
+      source_heading: LIMITATION OF LIABILITY
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_087f18ad8fc3
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: "# TENANCY AGREEMENT\n\n**Date:** 2026-01-01\n\n**Between:**\n\
+      1. **Property Owner Pte Ltd** (\"Landlord\")\n2. **Jane Lim** (\"Tenant\")\n\
+      \n## 1. PREMISES\nThe Landlord agrees to let, and the Tenant agrees to take,\
+      \ the premises at **123 Orchard Road, #10-01, Singapore 238888** (the \"Premises\"\
+      ).\n\n## 2. TERM\nThe tenancy shall be for a period of **2 year(s)** commencing\
+      \ on **2026-01-01**.\n\n## 3. RENT\nThe monthly rent is **SGD 3000**, payable\
+      \ in advance on the 1st of each month.\n\n## 4. SECURITY DEPOSIT\nThe Tenant\
+      \ shall pay a security deposit of **2 month(s)' rent** upon execution of this\
+      \ Agreement.\n\n## 5. GOVERNING LAW\nThis Agreement is governed by the laws\
+      \ of Singapore.\n\n---\n**Property Owner Pte Ltd** \u2014 Signature: ___________________\n\
+      **Jane Lim** \u2014 Signature: ___________________\n\n# SG REVIEW CLAUSES\n\n\
+      ## LIMITATION OF LIABILITY\nEach Party's total aggregate liability under this\
+      \ Agreement shall not exceed\nthe total fees paid or payable in the 12 months\
+      \ before the claim. Neither\nParty excludes liability where exclusion is not\
+      \ permitted under Singapore law.\n\n## PERSONAL DATA PROTECTION\nEach Party\
+      \ shall comply with the Personal Data Protection Act 2012 when\ncollecting,\
+      \ using, disclosing, storing, or processing personal data. Where a\nParty processes\
+      \ personal data on behalf of the other, it acts as a data\nintermediary and\
+      \ shall implement reasonable security arrangements.\n\n## GOVERNING LAW\nThis\
+      \ Agreement is governed by and construed in accordance with the laws of the\n\
+      Republic of Singapore. The Parties submit to the non-exclusive jurisdiction\
+      \ of\nthe Singapore courts.\n"
+  expected_output:
+    defects:
+    - defect_type: missing_notice_period
+      span_start: 1370
+      span_end: 1370
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1370
+      span_end: 1370
+    - defect_type: missing_termination_clause
+      span_start: 1370
+      span_end: 1370
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: tenancy-sg
+    template_title: Tenancy Agreement
+    clean_contract_sha: 59d612cb96276f1d
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: TERMINATION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_dfc3a1afb7dd
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# WRITTEN RESOLUTION OF THE BOARD OF DIRECTORS
+
+
+      **ABC Pte Ltd** (UEN: 202012345A)
+
+      (Incorporated in the Republic of Singapore)
+
+      **Date:** 2026-01-01
+
+
+      Pursuant to the Articles of Association of the Company and Section 184A of the
+      Companies Act 1967 (2020 Revised Edition), the undersigned, being all the directors
+      of the Company, hereby pass the following resolution:
+
+
+      ## RESOLUTION
+
+      **IT IS RESOLVED THAT** appointment of new director.
+
+
+      ---
+
+      **Director:** ___________________
+
+      Name:
+
+      Date:
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## PERSONAL DATA PROTECTION
+
+      Each Party shall comply with the Personal Data Protection Act 2012 when
+
+      collecting, using, disclosing, storing, or processing personal data. Where a
+
+      Party processes personal data on behalf of the other, it acts as a data
+
+      intermediary and shall implement reasonable security arrangements.
+
+
+      ## NOTICE PERIOD
+
+      Either Party may terminate this Agreement by giving 30 days'' written notice,
+
+      unless a longer minimum notice period is required by applicable Singapore law.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1255
+      span_end: 1255
+    - defect_type: missing_termination_clause
+      span_start: 1255
+      span_end: 1255
+    - defect_type: missing_limitation_of_liability
+      span_start: 506
+      span_end: 506
+    - defect_type: governing_law_non_singapore
+      span_start: 1093
+      span_end: 1110
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: board-resolution-sg
+    template_title: Board Resolution
+    clean_contract_sha: 0def2090817df44b
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1255
+      span_end: 1255
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1255
+      span_end: 1255
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 506
+      span_end: 506
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 1093
+      span_end: 1110
+      source_heading: GOVERNING LAW
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_b58ef17b52e1
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# INSTRUMENT OF TRANSFER OF SHARES
+
+
+      **Date:** 2026-01-01
+
+
+      | Field | Value |
+
+      |-------|-------|
+
+      | Company | **ABC Pte Ltd** |
+
+      | Transferor | **John Tan** |
+
+      | Transferee | **Jane Lim** |
+
+      | Number of Shares | **1000** ordinary shares |
+
+      | Consideration | **SGD 1.00** per share |
+
+
+      I, **John Tan** (the "Transferor"), in consideration of the sum paid to me by
+      **Jane Lim** (the "Transferee"), hereby transfer to the Transferee **1000**
+      ordinary shares in **ABC Pte Ltd**.
+
+
+      This transfer is subject to stamp duty under the Stamp Duties Act 1929 (2020
+      Revised Edition).
+
+
+      ---
+
+      **Transferor:** ___________________ Name: John Tan
+
+      **Transferee:** ___________________ Name: Jane Lim
+
+      **Witness:** ___________________ Name:
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## DISPUTE RESOLUTION
+
+      The Parties shall first attempt to resolve disputes by good-faith negotiation.
+
+      If unresolved after 14 days, the dispute shall be referred to mediation in
+
+      Singapore, and then to the courts of Singapore unless the Parties agree to
+
+      SIAC arbitration.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_termination_clause
+      span_start: 1749
+      span_end: 1749
+    - defect_type: missing_limitation_of_liability
+      span_start: 730
+      span_end: 730
+    - defect_type: governing_law_non_singapore
+      span_start: 1587
+      span_end: 1604
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 730
+      span_end: 730
+    - defect_type: missing_notice_period
+      span_start: 730
+      span_end: 730
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: share-transfer-sg
+    template_title: Share Transfer Form
+    clean_contract_sha: 811fe573afb8f641
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1749
+      span_end: 1749
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 730
+      span_end: 730
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 1587
+      span_end: 1604
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 730
+      span_end: 730
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 730
+      span_end: 730
+      source_heading: NOTICE PERIOD
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_acd43a0cc8d2
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# NON-DISCLOSURE AGREEMENT
+
+
+      **Date:** 2026-01-01
+
+
+      **Between:**
+
+      1. **ABC Pte Ltd** ("Disclosing Party")
+
+      2. **XYZ Pte Ltd** ("Receiving Party")
+
+
+      (collectively the "Parties")
+
+
+      ## 1. PURPOSE
+
+      The Parties wish to explore potential business collaboration (the "Purpose")
+      and in connection therewith, may disclose Confidential Information to each other.
+
+
+      ## 2. CONFIDENTIAL INFORMATION
+
+      "Confidential Information" means all information disclosed by either Party to
+      the other, whether orally, in writing, or by any other means, that is designated
+      as confidential or that reasonably should be understood to be confidential given
+      the nature of the information and circumstances of disclosure.
+
+
+      ## 3. OBLIGATIONS
+
+      The Receiving Party shall:
+
+      (a) hold Confidential Information in strict confidence;
+
+      (b) not disclose Confidential Information to any third party without prior written
+      consent;
+
+      (c) use Confidential Information solely for the Purpose;
+
+      (d) protect Confidential Information with at least the same degree of care as
+      its own confidential information, but no less than reasonable care.
+
+
+      ## 4. EXCLUSIONS
+
+      This Agreement does not apply to information that:
+
+      (a) is or becomes publicly available through no fault of the Receiving Party;
+
+      (b) was known to the Receiving Party before disclosure;
+
+      (c) is independently developed without use of Confidential Information;
+
+      (d) is received from a third party without restriction.
+
+
+      ## 5. TERM
+
+      This Agreement shall remain in effect for 2 years from the date hereof.
+
+
+      ## 6. GOVERNING LAW
+
+      This Agreement shall be governed by and construed in accordance with the laws
+      of the Republic of Singapore.
+
+
+      ## 7. DISPUTE RESOLUTION
+
+      Any dispute arising out of this Agreement shall be referred to and resolved
+      by arbitration administered by the Singapore International Arbitration Centre
+      ("SIAC") in accordance with the SIAC Rules.
+
+
+      ---
+
+      **ABC Pte Ltd**
+
+      Name: ___________________
+
+      Signature: ___________________
+
+
+      **XYZ Pte Ltd**
+
+      Name: ___________________
+
+      Signature: ___________________
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## NOTICE PERIOD
+
+      Either Party may terminate this Agreement by giving 30 days'' written notice,
+
+      unless a longer minimum notice period is required by applicable Singapore law.
+
+
+      ## DISPUTE RESOLUTION
+
+      The Parties shall first attempt to resolve disputes by good-faith negotiation.
+
+      If unresolved after 14 days, the dispute shall be referred to mediation in
+
+      Singapore, and then to the courts of Singapore unless the Parties agree to
+
+      SIAC arbitration.
+
+
+      ## TERMINATION
+
+      Either Party may terminate this Agreement for material breach if the breach
+      is
+
+      not remedied within 14 days after written notice. Termination does not affect
+
+      accrued rights or surviving confidentiality, payment, and data-protection
+
+      obligations.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_limitation_of_liability
+      span_start: 2020
+      span_end: 2020
+    - defect_type: governing_law_non_singapore
+      span_start: 3137
+      span_end: 3154
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 2020
+      span_end: 2020
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: nda-sg
+    template_title: Non-Disclosure Agreement
+    clean_contract_sha: 28179ce26dee0a0d
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 2020
+      span_end: 2020
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 3137
+      span_end: 3154
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 2020
+      span_end: 2020
+      source_heading: PERSONAL DATA PROTECTION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_6779ad3c0c0f
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# EMPLOYMENT AGREEMENT
+
+
+      **Date:** 2026-01-01
+
+
+      **Between:**
+
+      1. **ABC Pte Ltd** (UEN: ___________) ("Employer")
+
+      2. **John Tan** (NRIC: ___________) ("Employee")
+
+
+      ## 1. POSITION AND DUTIES
+
+      The Employer agrees to employ the Employee as **Software Engineer**. The Employee
+      shall perform such duties as reasonably assigned by the Employer.
+
+
+      ## 2. COMMENCEMENT AND PROBATION
+
+      Employment commences on **2026-01-01** with a probation period of **3 months**.
+      During probation, either Party may terminate with 1 week''s notice.
+
+
+      ## 3. REMUNERATION
+
+      The Employee shall receive a gross monthly salary of **SGD 5000**, payable by
+      the last working day of each month. Salary is subject to applicable CPF contributions
+      and tax deductions.
+
+
+      ## 4. WORKING HOURS
+
+      Standard working hours are 44 hours per week (Monday to Friday, 9:00 AM to 6:00
+      PM). Overtime shall be compensated in accordance with the Employment Act (Cap.
+      91).
+
+
+      ## 5. LEAVE ENTITLEMENTS
+
+      - **Annual Leave:** 14 days per calendar year (pro-rated)
+
+      - **Sick Leave:** 14 days outpatient, 60 days hospitalization per year
+
+      - **Public Holidays:** As gazetted by the Ministry of Manpower
+
+
+      ## 6. TERMINATION
+
+      After probation, either Party may terminate this Agreement by giving **1 month(s)**
+      written notice or salary in lieu thereof.
+
+
+      ## 7. CONFIDENTIALITY
+
+      The Employee shall not disclose any confidential information of the Employer
+      during or after employment.
+
+
+      ## 8. GOVERNING LAW
+
+      This Agreement is governed by the laws of the Republic of Singapore, including
+      the Employment Act (Cap. 91, 2009 Rev Ed).
+
+
+      ---
+
+      **ABC Pte Ltd**
+
+      Authorised Signatory: ___________________
+
+
+      **John Tan**
+
+      Signature: ___________________
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## LIMITATION OF LIABILITY
+
+      Each Party''s total aggregate liability under this Agreement shall not exceed
+
+      the total fees paid or payable in the 12 months before the claim. Neither
+
+      Party excludes liability where exclusion is not permitted under Singapore law.
+
+
+      ## TERMINATION
+
+      Either Party may terminate this Agreement for material breach if the breach
+      is
+
+      not remedied within 14 days after written notice. Termination does not affect
+
+      accrued rights or surviving confidentiality, payment, and data-protection
+
+      obligations.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: governing_law_non_singapore
+      span_start: 3043
+      span_end: 3060
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 1926
+      span_end: 1926
+    - defect_type: missing_notice_period
+      span_start: 1926
+      span_end: 1926
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1926
+      span_end: 1926
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: employment-sg
+    template_title: Employment Agreement
+    clean_contract_sha: d3c13ba644e2601c
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 3043
+      span_end: 3060
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1926
+      span_end: 1926
+      source_heading: DISPUTE RESOLUTION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_8df511387872
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: "# MEMORANDUM OF UNDERSTANDING\n\n**Date:** 2026-01-01\n\n**Between:**\n\
+      1. **ABC Pte Ltd** (\"Party A\")\n2. **XYZ Pte Ltd** (\"Party B\")\n\n## 1.\
+      \ PURPOSE\nThis MOU sets out the mutual understanding between the Parties concerning\
+      \ joint venture in technology development.\n\n## 2. NON-BINDING NATURE\nThis\
+      \ MOU is a statement of intent only and does not create legally binding obligations,\
+      \ except for Clauses on confidentiality and governing law.\n\n## 3. DURATION\n\
+      This MOU is effective from 2026-01-01 until 2026-06-30 unless extended by mutual\
+      \ written agreement.\n\n## 4. GOVERNING LAW\nThis MOU shall be interpreted in\
+      \ accordance with the laws of Singapore.\n\n---\n**ABC Pte Ltd** \u2014 Authorised\
+      \ Signatory: ___________________\n**XYZ Pte Ltd** \u2014 Authorised Signatory:\
+      \ ___________________\n\n# SG REVIEW CLAUSES\n\n## GOVERNING LAW\nThis Agreement\
+      \ is governed by and construed in accordance with the laws of the\nRepublic\
+      \ of Singapore. The Parties submit to the non-exclusive jurisdiction of\nthe\
+      \ Singapore courts.\n"
+  expected_output:
+    defects:
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_notice_period
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_termination_clause
+      span_start: 1043
+      span_end: 1043
+    - defect_type: missing_limitation_of_liability
+      span_start: 785
+      span_end: 785
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: mou-sg
+    template_title: Memorandum of Understanding
+    clean_contract_sha: ab0edaffb28dc6fb
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1043
+      span_end: 1043
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 785
+      span_end: 785
+      source_heading: LIMITATION OF LIABILITY
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_fc0bd5053c4c
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: "# TENANCY AGREEMENT\n\n**Date:** 2026-01-01\n\n**Between:**\n\
+      1. **Property Owner Pte Ltd** (\"Landlord\")\n2. **Jane Lim** (\"Tenant\")\n\
+      \n## 1. PREMISES\nThe Landlord agrees to let, and the Tenant agrees to take,\
+      \ the premises at **123 Orchard Road, #10-01, Singapore 238888** (the \"Premises\"\
+      ).\n\n## 2. TERM\nThe tenancy shall be for a period of **2 year(s)** commencing\
+      \ on **2026-01-01**.\n\n## 3. RENT\nThe monthly rent is **SGD 3000**, payable\
+      \ in advance on the 1st of each month.\n\n## 4. SECURITY DEPOSIT\nThe Tenant\
+      \ shall pay a security deposit of **2 month(s)' rent** upon execution of this\
+      \ Agreement.\n\n## 5. GOVERNING LAW\nThis Agreement is governed by the laws\
+      \ of Singapore.\n\n---\n**Property Owner Pte Ltd** \u2014 Signature: ___________________\n\
+      **Jane Lim** \u2014 Signature: ___________________\n\n# SG REVIEW CLAUSES\n\n\
+      ## LIMITATION OF LIABILITY\nEach Party's total aggregate liability under this\
+      \ Agreement shall not exceed\nthe total fees paid or payable in the 12 months\
+      \ before the claim. Neither\nParty excludes liability where exclusion is not\
+      \ permitted under Singapore law.\n\n## PERSONAL DATA PROTECTION\nEach Party\
+      \ shall comply with the Personal Data Protection Act 2012 when\ncollecting,\
+      \ using, disclosing, storing, or processing personal data. Where a\nParty processes\
+      \ personal data on behalf of the other, it acts as a data\nintermediary and\
+      \ shall implement reasonable security arrangements.\n\n## GOVERNING LAW\nThis\
+      \ Agreement is governed by and construed in accordance with the laws of the\n\
+      Republic of Singapore. The Parties submit to the non-exclusive jurisdiction\
+      \ of\nthe Singapore courts.\n"
+  expected_output:
+    defects:
+    - defect_type: missing_notice_period
+      span_start: 1370
+      span_end: 1370
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1370
+      span_end: 1370
+    - defect_type: missing_termination_clause
+      span_start: 1370
+      span_end: 1370
+  metadata:
+    task: SGLB-16
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: tenancy-sg
+    template_title: Tenancy Agreement
+    clean_contract_sha: 59d612cb96276f1d
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: NOTICE PERIOD
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1370
+      span_end: 1370
+      source_heading: TERMINATION
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_ca68153fcb75
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# WRITTEN RESOLUTION OF THE BOARD OF DIRECTORS
+
+
+      **ABC Pte Ltd** (UEN: 202012345A)
+
+      (Incorporated in the Republic of Singapore)
+
+      **Date:** 2026-01-01
+
+
+      Pursuant to the Articles of Association of the Company and Section 184A of the
+      Companies Act 1967 (2020 Revised Edition), the undersigned, being all the directors
+      of the Company, hereby pass the following resolution:
+
+
+      ## RESOLUTION
+
+      **IT IS RESOLVED THAT** appointment of new director.
+
+
+      ---
+
+      **Director:** ___________________
+
+      Name:
+
+      Date:
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## PERSONAL DATA PROTECTION
+
+      Each Party shall comply with the Personal Data Protection Act 2012 when
+
+      collecting, using, disclosing, storing, or processing personal data. Where a
+
+      Party processes personal data on behalf of the other, it acts as a data
+
+      intermediary and shall implement reasonable security arrangements.
+
+
+      ## NOTICE PERIOD
+
+      Either Party may terminate this Agreement by giving 30 days'' written notice,
+
+      unless a longer minimum notice period is required by applicable Singapore law.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_dispute_resolution_clause
+      span_start: 1255
+      span_end: 1255
+    - defect_type: missing_termination_clause
+      span_start: 1255
+      span_end: 1255
+    - defect_type: missing_limitation_of_liability
+      span_start: 506
+      span_end: 506
+    - defect_type: governing_law_non_singapore
+      span_start: 1093
+      span_end: 1110
+  metadata:
+    task: SGLB-16
+    split: dev
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: board-resolution-sg
+    template_title: Board Resolution
+    clean_contract_sha: 0def2090817df44b
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_dispute_resolution_clause
+      action: 'removed ## DISPUTE RESOLUTION block'
+      span_start: 1255
+      span_end: 1255
+      source_heading: DISPUTE RESOLUTION
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1255
+      span_end: 1255
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 506
+      span_end: 506
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 1093
+      span_end: 1110
+      source_heading: GOVERNING LAW
+    label_provenance: deterministic-mechanical-defect-injection
+- name: sglb_16_6859a1638f75
+  extraction_rule_sha: fc74d64ba453
+  inputs:
+    contract_text: '# INSTRUMENT OF TRANSFER OF SHARES
+
+
+      **Date:** 2026-01-01
+
+
+      | Field | Value |
+
+      |-------|-------|
+
+      | Company | **ABC Pte Ltd** |
+
+      | Transferor | **John Tan** |
+
+      | Transferee | **Jane Lim** |
+
+      | Number of Shares | **1000** ordinary shares |
+
+      | Consideration | **SGD 1.00** per share |
+
+
+      I, **John Tan** (the "Transferor"), in consideration of the sum paid to me by
+      **Jane Lim** (the "Transferee"), hereby transfer to the Transferee **1000**
+      ordinary shares in **ABC Pte Ltd**.
+
+
+      This transfer is subject to stamp duty under the Stamp Duties Act 1929 (2020
+      Revised Edition).
+
+
+      ---
+
+      **Transferor:** ___________________ Name: John Tan
+
+      **Transferee:** ___________________ Name: Jane Lim
+
+      **Witness:** ___________________ Name:
+
+
+      # SG REVIEW CLAUSES
+
+
+      ## DISPUTE RESOLUTION
+
+      The Parties shall first attempt to resolve disputes by good-faith negotiation.
+
+      If unresolved after 14 days, the dispute shall be referred to mediation in
+
+      Singapore, and then to the courts of Singapore unless the Parties agree to
+
+      SIAC arbitration.
+
+
+      ## GOVERNING LAW
+
+      This Agreement is governed by and construed in accordance with the laws of the
+
+      State of New York. The Parties submit to the non-exclusive jurisdiction of
+
+      the Singapore courts.
+
+      '
+  expected_output:
+    defects:
+    - defect_type: missing_termination_clause
+      span_start: 1749
+      span_end: 1749
+    - defect_type: missing_limitation_of_liability
+      span_start: 730
+      span_end: 730
+    - defect_type: governing_law_non_singapore
+      span_start: 1587
+      span_end: 1604
+    - defect_type: missing_pdpa_data_protection_clause
+      span_start: 730
+      span_end: 730
+    - defect_type: missing_notice_period
+      span_start: 730
+      span_end: 730
+  metadata:
+    task: SGLB-16
+    split: test
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-16-v0.1-smoke
+    template_id: share-transfer-sg
+    template_title: Share Transfer Form
+    clean_contract_sha: 811fe573afb8f641
+    defect_taxonomy:
+    - missing_limitation_of_liability
+    - governing_law_non_singapore
+    - missing_pdpa_data_protection_clause
+    - missing_notice_period
+    - missing_dispute_resolution_clause
+    - missing_termination_clause
+    injections:
+    - defect_type: missing_termination_clause
+      action: 'removed ## TERMINATION block'
+      span_start: 1749
+      span_end: 1749
+      source_heading: TERMINATION
+    - defect_type: missing_limitation_of_liability
+      action: 'removed ## LIMITATION OF LIABILITY block'
+      span_start: 730
+      span_end: 730
+      source_heading: LIMITATION OF LIABILITY
+    - defect_type: governing_law_non_singapore
+      action: replaced Republic of Singapore with State of New York
+      span_start: 1587
+      span_end: 1604
+      source_heading: GOVERNING LAW
+    - defect_type: missing_pdpa_data_protection_clause
+      action: 'removed ## PERSONAL DATA PROTECTION block'
+      span_start: 730
+      span_end: 730
+      source_heading: PERSONAL DATA PROTECTION
+    - defect_type: missing_notice_period
+      action: 'removed ## NOTICE PERIOD block'
+      span_start: 730
+      span_end: 730
+      source_heading: NOTICE PERIOD
+    label_provenance: deterministic-mechanical-defect-injection

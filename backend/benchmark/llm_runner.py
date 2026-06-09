@@ -420,6 +420,32 @@ def sglb_12_prompt_builder(case: Case) -> list[dict[str, str]]:
     ]
 
 
+SGLB_16_PROMPT_VERSION = "sglb-16-v1"
+
+
+def sglb_16_prompt_builder(case: Case) -> list[dict[str, str]]:
+    """SGLB-16: identify planted contract-review defects.
+
+    Output contract: a JSON array of objects containing ``defect_type``,
+    ``span_start``, and ``span_end``. Defect types are closed-taxonomy labels
+    documented in ``docs/sglb_specs/SGLB-16.md``.
+    """
+    contract_text = str(case.inputs.get("contract_text", "")).strip()
+    return [
+        _system_message(
+            "You are reviewing a Singapore-context contract for mechanically "
+            "planted defects. Return only a JSON array. Each item must be an "
+            "object with keys defect_type, span_start, and span_end. "
+            "defect_type must be one of: missing_limitation_of_liability, "
+            "governing_law_non_singapore, missing_pdpa_data_protection_clause, "
+            "missing_notice_period, missing_dispute_resolution_clause, "
+            "missing_termination_clause. Use zero-width spans at the clause "
+            "location for missing-clause defects. Do not include prose."
+        ),
+        _user_message(contract_text),
+    ]
+
+
 # === Convenience: a registry of prompt builders by task name ===
 
 PROMPT_BUILDERS: dict[str, tuple[PromptBuilder, str]] = {
@@ -434,6 +460,7 @@ PROMPT_BUILDERS: dict[str, tuple[PromptBuilder, str]] = {
     "sglb_12": (sglb_12_prompt_builder, SGLB_12_PROMPT_VERSION),
     "sglb_13": (sglb_13_prompt_builder, SGLB_13_PROMPT_VERSION),
     "sglb_14": (sglb_14_prompt_builder, SGLB_14_PROMPT_VERSION),
+    "sglb_16": (sglb_16_prompt_builder, SGLB_16_PROMPT_VERSION),
 }
 
 

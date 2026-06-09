@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-pdpc-guidelines ingest-sso ingest-mom ingest-commonlii-sg build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 build-sglb-14 download-data setup eval eval-list synth-gen mcp
+.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-pdpc-guidelines ingest-sso ingest-mom ingest-commonlii-sg build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 build-sglb-14 build-sglb-16 download-data setup eval eval-list synth-gen mcp
 
 # === primary ===
 up:
@@ -153,6 +153,10 @@ build-sglb-07:
 # Requires `make ingest-pdpc-guidelines` to have populated vendor-data/pdpc/guidelines.jsonl.
 build-sglb-14:
 	cd backend && python -m benchmark.dataset_builders.sglb_14
+
+# SGLB-16: build Review-Redflag-Recall smoke dataset from local SG templates.
+build-sglb-16:
+	cd backend && python -m benchmark.dataset_builders.sglb_16
 
 VENDOR_DIR := vendor-data
 

@@ -736,6 +736,98 @@ class Sglb14EntailmentAccuracy(Evaluator):
         )
 
 
+class Sglb16RedflagF1(Evaluator):
+    """SGLB-16 defect recall scorer.
+
+    Parses model output as a JSON array of
+    ``{"defect_type": str, "span_start": int, "span_end": int}`` objects.
+    Matching is greedy over defect type plus a +/-10 character tolerance on
+    both span endpoints. Missing-clause defects use zero-width spans at the
+    deletion anchor.
+    """
+
+    name = "sglb_16_redflag_f1"
+    strength = EvaluatorStrength.STRONG
+    tolerance = 10
+
+    @staticmethod
+    def _parse_payload(value: Any) -> list[dict[str, Any]]:
+        if isinstance(value, str):
+            import json
+
+            try:
+                value = json.loads(value)
+            except json.JSONDecodeError:
+                return []
+        if isinstance(value, dict):
+            value = value.get("defects", [])
+        if not isinstance(value, list):
+            return []
+
+        defects: list[dict[str, Any]] = []
+        for item in value:
+            if not isinstance(item, dict):
+                continue
+            defect_type = str(item.get("defect_type") or item.get("issue_type") or "").strip()
+            if not defect_type:
+                continue
+            try:
+                span_start = int(item.get("span_start"))
+                span_end = int(item.get("span_end"))
+            except (TypeError, ValueError):
+                continue
+            if span_start < 0 or span_end < span_start:
+                continue
+            defects.append(
+                {
+                    "defect_type": defect_type,
+                    "span_start": span_start,
+                    "span_end": span_end,
+                }
+            )
+        return defects
+
+    @classmethod
+    def _matches(cls, expected: dict[str, Any], predicted: dict[str, Any]) -> bool:
+        return (
+            expected["defect_type"] == predicted["defect_type"]
+            and abs(int(expected["span_start"]) - int(predicted["span_start"])) <= cls.tolerance
+            and abs(int(expected["span_end"]) - int(predicted["span_end"])) <= cls.tolerance
+        )
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        expected = self._parse_payload((ctx.expected_output or {}).get("defects", []))
+        predicted = self._parse_payload(ctx.output)
+        if not expected and not predicted:
+            return EvaluationResult(score=1.0, detail={"precision": 1.0, "recall": 1.0, "tp": 0})
+
+        matched_predicted: set[int] = set()
+        tp = 0
+        for expected_defect in expected:
+            for index, predicted_defect in enumerate(predicted):
+                if index in matched_predicted:
+                    continue
+                if self._matches(expected_defect, predicted_defect):
+                    matched_predicted.add(index)
+                    tp += 1
+                    break
+
+        precision = tp / len(predicted) if predicted else 0.0
+        recall = tp / len(expected) if expected else 0.0
+        f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) else 0.0
+        return EvaluationResult(
+            score=f1,
+            detail={
+                "precision": precision,
+                "recall": recall,
+                "tp": tp,
+                "expected": len(expected),
+                "predicted": len(predicted),
+                "tolerance": self.tolerance,
+            },
+        )
+
+
 class ConstraintSatisfaction(Evaluator):
     """Runs a list of constraint functions (IFEval-style).
 
@@ -839,6 +931,7 @@ EVALUATORS: dict[str, Evaluator] = {
     OrderRuleTop3.name: OrderRuleTop3(),
     Sglb13OutcomeAccuracy.name: Sglb13OutcomeAccuracy(),
     Sglb14EntailmentAccuracy.name: Sglb14EntailmentAccuracy(),
+    Sglb16RedflagF1.name: Sglb16RedflagF1(),
     ConstraintSatisfaction.name: ConstraintSatisfaction(),
     # weak (back-compat)
     ContainsKeyword.name: ContainsKeyword(),

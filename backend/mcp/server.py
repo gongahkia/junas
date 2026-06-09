@@ -9,6 +9,8 @@ from importlib import metadata as _metadata
 from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 
+from .tools import register_tools
+
 SERVER_NAME = "junas-mcp"
 HTTP_PORT = 3344  # F1 default per issue #48
 
@@ -44,6 +46,9 @@ def health() -> dict:
         "git_sha": _git_sha(),
         "python_version": _python_version(),
     }
+
+
+register_tools(server)
 
 def _install_signal_handlers(loop: asyncio.AbstractEventLoop, stop: asyncio.Event) -> None:
     def _handler() -> None:
