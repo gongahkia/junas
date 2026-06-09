@@ -1804,11 +1804,14 @@ def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> boo
     context = _line_context(text, start, end)
     return bool(re.search(
         r"\b(?:not\s+(?:mnpi|upsi|inside\s+information|price[- ]sensitive\s+information)|"
+        r"not[^\n.;]{0,40}price[- ]sensitive\s+information|"
         r"no\s+(?:new\s+)?(?:upsi|mnpi|inside\s+information|price[- ]sensitive\s+information|"
         r"market[- ]sensitive\s+information|unpublished\s+material\s+information)|"
         r"no\s+material\s+non[- ]public\s+information|"
-        r"(?:contains?\s+no|does\s+not\s+contain)[^\n.;]{0,120}"
-        r"(?:material\s+non[- ]public\s+information|unpublished\s+material\s+information)|"
+        r"(?:contains?\s+no|do(?:es)?\s+not\s+contain)[^\n.;]{0,120}"
+        r"(?:inside\s+information|price[- ]sensitive\s+information|market[- ]sensitive\s+information|"
+        r"material\s+non[- ]public\s+information|unpublished\s+material\s+information|"
+        r"undisclosed\s+(?:financial\s+metrics|material\s+facts))|"
         r"tidak\s+ada\s+mnpi|no\s+material\s+non[- ]public\s+information\s+remains|"
         r"not[^\n.;]{0,80}\bmnpi|mnpi\s+controls|none\s+are\s+included\s+herein|"
         r"no\s+non[- ]public\s+analyst\s+notes[^\n.;]{0,80}(?:attached|included)|"
@@ -1827,6 +1830,7 @@ def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> boo
         r"does\s+not\s+add\s+unpublished\s+price[- ]sensitive\s+information|"
         r"unless\s+upsi\s+is\s+actually\s+present|mnpi\s+markers?:|"
         r"\bmnpi\b[^\n.;]{0,120}training\s+context|"
+        r"\bmnpi\s+reminder\b[^\n.;]{0,120}(?:do(?:es)?\s+not|not)\b|"
         r"terms?\s+like[^\n.;]{0,120}\bmnpi\b[^\n.;]{0,120}training\s+context|"
         r"contains\s+only\s+public[^\n.;]{0,120}\bmnpi\b|"
         r"defines?\s+inside\s+information\s+for\s+staff|"
@@ -2332,6 +2336,9 @@ def _valid_uk_company_number(value: str) -> bool:
 
 def _valid_eu_company_id_shape(value: str) -> bool:
     compact = re.sub(r"[\s.-]", "", value).upper()
+    digits = "".join(ch for ch in compact if ch.isdigit())
+    if digits and set(digits) == {"0"}:
+        return False
     return bool(re.fullmatch(
         r"(?:ATU\d{8}|BE0?\d{9}|BG\d{9,10}|CY\d{8}[A-Z]|CZ\d{8,10}|DE\d{9}|DK\d{8}|EE\d{9}|"
         r"EL\d{9}|ES[A-Z0-9]\d{7}[A-Z0-9]|FI\d{8}|FR[A-Z0-9]{2}\d{9}|HR\d{11}|HU\d{8}|"

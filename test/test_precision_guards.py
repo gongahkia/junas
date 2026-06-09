@@ -195,6 +195,14 @@ class MacMaePrecisionGuards(unittest.TestCase):
                 f"negated MNPI marker should be suppressed; got {matched!r}",
             )
 
+    def test_nonpublic_marker_suppresses_contains_no_inside_information(self):
+        text = "MNPI reminder: internal HR project notes do not contain inside information."
+        self.assertNotIn("nonpublic_marker", {rule for rule, _ in _rules_matched(text, jurisdiction="CN")})
+
+    def test_nonpublic_marker_suppresses_not_precise_price_sensitive_information(self):
+        text = "Assessment under UK MAR: the event is not precise, price-sensitive information."
+        self.assertNotIn("nonpublic_marker", {rule for rule, _ in _rules_matched(text, jurisdiction="UK")})
+
     def test_mnpi_marker_heading_without_upsi_does_not_fire(self):
         text = 'MNPI markers: remove phrases like "not public" unless UPSI is actually present.'
         for rule, matched in _rules_matched(text, jurisdiction="IN"):

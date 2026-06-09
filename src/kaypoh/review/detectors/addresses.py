@@ -93,7 +93,7 @@ PERSON_LINKED_ADDRESS_RE = re.compile(
     re.IGNORECASE,
 )
 ORG_ONLY_ADDRESS_RE = re.compile(
-    r"\b(?:registered\s+office|registered\s+address|corporate\s+office|head\s+office|principal\s+place\s+of\s+business|"
+    r"\b(?:registered\s+office|corporate\s+office|head\s+office|principal\s+place\s+of\s+business|"
     r"company\s+address|organisation|organization)\b",
     re.IGNORECASE,
 )
@@ -151,6 +151,14 @@ def _line_windows(text: str) -> list[tuple[int, int, str]]:
     return windows
 
 
+def _line_context(text: str, start: int, end: int) -> str:
+    left = text.rfind("\n", 0, start) + 1
+    right = text.find("\n", end)
+    if right < 0:
+        right = len(text)
+    return text[left:right].strip()
+
+
 def _looks_org_only_address(value: str) -> bool:
     return bool(ORG_ONLY_ADDRESS_RE.search(value) and not PERSON_LINKED_ADDRESS_RE.search(value))
 
@@ -185,6 +193,8 @@ def detect_address_findings(
         for match in pattern.finditer(ctx.text):
             key = (rule, match.start(), match.end())
             if key in seen:
+                continue
+            if _looks_org_only_address(_line_context(ctx.text, match.start(), match.end())):
                 continue
             seen.add(key)
             occupied.append((match.start(), match.end()))

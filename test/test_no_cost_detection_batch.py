@@ -97,6 +97,11 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
         self.assertNotIn("postal_address", self._rules(text, "MY"))
 
+    def test_jurisdiction_address_slice_rejects_org_only_registered_office(self):
+        text = "Company details: Northway FinTech plc, Registered Office: 4 Ash Lane, Lonton, ZY1 4ZZ."
+
+        self.assertNotIn("uk_postal_address", self._rules(text, "UK"))
+
     def test_broad_unlabelled_address_fallback_rejects_email_prose(self):
         text = "Send Dr Jane Tan S1234567D at jane@example.com. Acme expects $2.5 billion."
 

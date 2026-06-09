@@ -178,6 +178,16 @@ class Item33IdentifierTests(unittest.TestCase):
             review_profile="strict",
         )
         self.assertNotIn("eu_company_id", {finding.rule for finding in bad.findings})
+        zero = self.engine.review(
+            text="Legacy record shows BE VAT: BE0000000000 marked as UAT test data.",
+            source_jurisdiction="EU",
+            destination_jurisdiction="EU",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
+            review_profile="strict",
+        )
+        self.assertNotIn("eu_company_id", {finding.rule for finding in zero.findings})
 
     def test_broader_eu_checksum_identifiers_fire(self):
         samples = [
