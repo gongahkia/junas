@@ -92,6 +92,7 @@ _POSTAL_RULES = frozenset({
     "eu_postal_address",
     "postal_address",
 })
+_LOCALITY_RULES = _POSTAL_RULES | frozenset({"personal_attribute_inference"})
 
 
 def _resource_text(package: str, name: str) -> str:
@@ -538,6 +539,40 @@ def _estimate_k(unit_text: str, findings: list[Any], tables: _Tables) -> tuple[i
     return k, sorted(set(used)), sorted(set(missing))
 
 
+def _locality_evidence(unit_text: str, findings: list[Any], tables: _Tables) -> list[dict[str, Any]]:
+    evidence: list[dict[str, Any]] = []
+    postal_population = _postal_population(unit_text, tables)
+    if postal_population is not None:
+        evidence.append({"kind": "postal_population", "population": postal_population})
+    area_population = _area_population(unit_text, tables)
+    if area_population is not None:
+        evidence.append({"kind": "area_population", "population": area_population})
+    for finding in findings:
+        if str(getattr(finding, "rule", "")) != "personal_attribute_inference":
+            continue
+        metadata = getattr(finding, "metadata", {}) or {}
+        if metadata.get("attribute_type") != "location":
+            continue
+        value = metadata.get("inferred_value")
+        if isinstance(value, str) and value.strip():
+            evidence.append({"kind": "inferred_location", "value": value.strip()})
+    return evidence
+
+
+def _component_spans(findings: list[Any]) -> list[dict[str, Any]]:
+    spans: list[dict[str, Any]] = []
+    for finding in sorted(findings, key=lambda item: (int(item.start_char), int(item.end_char), str(item.rule))):
+        spans.append(
+            {
+                "rule": str(getattr(finding, "rule", "")),
+                "start_char": int(getattr(finding, "start_char", 0)),
+                "end_char": int(getattr(finding, "end_char", 0)),
+                "matched_text": str(getattr(finding, "matched_text", "")),
+            }
+        )
+    return spans
+
+
 def detect_singling_out(
     findings: list[Any],
     *,
@@ -580,8 +615,13 @@ def detect_singling_out(
             "frequency_tables_used": used,
             "frequency_tables_missing": missing,
             "distinct_quasi_identifier_rules": sorted(rules),
+            "quasi_identifier_component_spans": _component_spans(group),
             "legal_basis": legal_basis,
         }
+        if rules & _LOCALITY_RULES:
+            locality = _locality_evidence(unit_text, group, tables)
+            if locality:
+                metadata["locality_evidence"] = locality
         out.append(
             SinglingOutSpec(
                 severity=_severity_for_k(k),
