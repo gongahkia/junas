@@ -396,7 +396,8 @@ NONPUBLIC_RE = re.compile(
     r"should not be distributed externally|before announcement|pre-announcement|"
     r"quiet period|material non-public information|inside information|price[- ]sensitive information|PSI|"
     r"unpublished price[- ]sensitive information|unpublished material information|undisclosed material facts|"
-    r"market[- ]sensitive information|mnpi)\b",
+    r"market[- ]sensitive information|not generally available|not generally known|not for market release|"
+    r"mnpi)\b|(?:未公表|未公開|非公開|公表前|未公布|未公告|미공개|공개\s*전|시장\s*공개\s*전)",
     re.IGNORECASE,
 )
 PUBLIC_RE = re.compile(
@@ -440,11 +441,12 @@ CONTINGENT_MNPI_RE = re.compile(
     r"should the board (?:agree|approve)|"
     r"subject to (?:board|shareholder|shareholders'|regulatory|management|"
     r"investment\s+committee|IC|due diligence|financing|condition[s]?\s+precedent|"
-    r"HKEX|SFC|ASX|ASIC|TSE|JPX|KRX|FSC|FSS|DART) "
+    r"HKEX|SFC|SEHK|Listing\s+Committee|ASX|ASIC|TSE|JPX|J[- ]?FSA|KRX|FSC|FSS|DART) "
     r"(?:approval[s]?|clearance[s]?|sign[ -]off|consent)|"
     r"pending (?:board|shareholder|shareholders'|regulatory|management|investment\s+committee|IC|"
-    r"HKEX|SFC|ASX|ASIC|TSE|JPX|KRX|FSC|FSS|DART) "
+    r"HKEX|SFC|SEHK|Listing\s+Committee|ASX|ASIC|TSE|JPX|J[- ]?FSA|KRX|FSC|FSS|DART) "
     r"(?:approval[s]?|clearance[s]?|sign[ -]off|consent)|"
+    r"ASIC relief|FSC review|FSS review|SEHK clearance|J[- ]?FSA clearance|"
     r"(?:likely|expected) to (?:close|approve|materialise|materialize|impact|complete|"
     r"result in|conclude|sign|announce)|"
     r"under (?:active )?consideration|"
@@ -574,6 +576,10 @@ INSIDER_LIST_RE = re.compile(
     r"ASX restricted list|"
     r"TDnet embargo list|"
     r"KRX restricted list|"
+    r"grey list|"
+    r"permanent insider list|"
+    r"J[- ]?IR embargo list|"
+    r"KIND disclosure hold list|"
     r"restricted\s+lists?|"
     r"watch\s+lists?|"
     r"wall[- ]cross(?:ed|ing|es)|"
@@ -590,6 +596,9 @@ INFORMATION_BARRIER_RE = re.compile(
     r"\b("
     r"chinese\s+walls?|"
     r"information\s+barriers?|"
+    r"private[- ]side wall|"
+    r"public[- ]side wall|"
+    r"private[- ]side/public[- ]side controls?|"
     r"wall[- ]crossing controls?|"
     r"deal team quarantine|"
     r"restricted[- ]list controls?|"
@@ -1075,23 +1084,31 @@ MULTILINGUAL_RELIGION_RE = re.compile(
 MULTILINGUAL_TRADE_UNION_RE = re.compile(
     r"(?:工会会员|工会成员|工会代表|集体谈判代表)[ \t]*[:：][ \t]*[\u4e00-\u9fffA-Za-z0-9 -]{1,40}"
     r"|加入工会[^\n.;]{0,20}"
+    r"|(?:労働組合員|労組員|組合員)[ \t]*[:：][ \t]*[\u3040-\u30ff\u4e00-\u9fffA-Za-z0-9 -]{1,40}"
+    r"|(?:노동조합원|노조원|노조\s+가입)[ \t]*[:：]?[ \t]*[\uac00-\ud7afA-Za-z0-9 -]{0,40}"
     r"|(?:عضو\s+نقابة|عضوية\s+النقابة|ممثل\s+نقابي|انضم\s+إلى\s+النقابة|مفاوضة\s+جماعية)",
     re.IGNORECASE,
 )
 MULTILINGUAL_POLITICAL_RE = re.compile(
     r"(?:政治观点|政治立场|政党成员|党派|党员|政党隶属)[ \t]*[:：][ \t]*[\u4e00-\u9fffA-Za-z0-9 -]{1,40}"
+    r"|(?:政治的見解|支持政党|政党所属)[ \t]*[:：][ \t]*[\u3040-\u30ff\u4e00-\u9fffA-Za-z0-9 -]{1,40}"
+    r"|(?:정치적\s+견해|정당\s+소속|지지\s+정당)[ \t]*[:：][ \t]*[\uac00-\ud7afA-Za-z0-9 -]{1,40}"
     r"|(?:الانتماء\s+السياسي|الرأي\s+السياسي|الانتماء\s+الحزبي)[ \t]*[:：][ \t]*[\u0600-\u06ffA-Za-z0-9 -]{1,50}"
     r"|عضو\s+حزب(?:[ \t]*[:：][ \t]*[\u0600-\u06ffA-Za-z0-9 -]{1,50})?",
     re.IGNORECASE,
 )
 MULTILINGUAL_HEALTH_CONDITION_RE = re.compile(
     r"(?:诊断|健康状况|医疗健康信息|病史)[ \t]*[:：][ \t]*(?:糖尿病|高血压|癌症|艾滋病|HIV|乙肝|慢性肾病)"
+    r"|(?:診断|健康状態|病歴)[ \t]*[:：][ \t]*(?:糖尿病|高血圧|がん|癌|HIV|慢性腎臓病)"
+    r"|(?:진단|건강\s+상태|병력)[ \t]*[:：][ \t]*(?:당뇨병|고혈압|암|HIV|만성\s+신장질환)"
     r"|(?:التشخيص|الحالة\s+الصحية|المعلومات\s+الصحية)\s*[:：]\s*"
     r"(?:السكري|ارتفاع\s+ضغط\s+الدم|السرطان|فيروس\s+نقص\s+المناعة|مرض\s+كلوي)",
     re.IGNORECASE,
 )
 MULTILINGUAL_MEDICAL_TREATMENT_RE = re.compile(
     r"(?:用药|药物|处方|治疗|治疗方案)[ \t]*[:：][ \t]*(?:胰岛素|二甲双胍|化疗|放疗|透析|舍曲林)"
+    r"|(?:服薬|薬剤|処方|治療)[ \t]*[:：][ \t]*(?:インスリン|メトホルミン|化学療法|放射線治療|透析)"
+    r"|(?:복용약|약물|처방|치료)[ \t]*[:：][ \t]*(?:인슐린|메트포르민|항암치료|방사선치료|투석)"
     r"|(?:العلاج|الدواء|الوصفة\s+الطبية)[ \t]*[:：][ \t]*"
     r"(?:إنسولين|ميتفورمين|علاج\s+كيميائي|غسيل\s+الكلى|سيرترالين)",
     re.IGNORECASE,
@@ -1099,24 +1116,34 @@ MULTILINGUAL_MEDICAL_TREATMENT_RE = re.compile(
 MULTILINGUAL_BIOMETRIC_RE = re.compile(
     r"(?:生物识别(?:模板|信息|记录)?|指纹模板|虹膜扫描|人脸识别模板|声纹)\s*[:：]?\s*"
     r"(?:指纹|虹膜|人脸|面部|声纹|掌静脉)?"
+    r"|(?:生体認証(?:テンプレート|情報)?|指紋テンプレート|虹彩スキャン|顔認証テンプレート|声紋)\s*[:：]?\s*"
+    r"|(?:생체정보|생체\s+인식\s+템플릿|지문\s+템플릿|홍채\s+스캔|얼굴\s+인식\s+템플릿|성문)\s*[:：]?\s*"
     r"|(?:قالب\s+بصمة|بصمة\s+إصبع|مسح\s+القزحية|قالب\s+التعرف\s+على\s+الوجه|بصمة\s+صوتية)",
     re.IGNORECASE,
 )
 MULTILINGUAL_GENETIC_RE = re.compile(
     r"(?:基因检测结果|遗传检测结果|DNA检测结果|基因数据)\s*[:：]\s*"
     r"(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)[^\n.;]{0,20}(?:阳性|携带者|突变|变异)"
+    r"|(?:遺伝子検査結果|遺伝情報|DNA検査結果)\s*[:：]\s*"
+    r"(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)[^\n.;]{0,20}(?:陽性|保因|変異)"
+    r"|(?:유전자\s+검사\s+결과|유전\s+정보|DNA\s+검사\s+결과)\s*[:：]\s*"
+    r"(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)[^\n.;]{0,20}(?:양성|보인자|변이)"
     r"|(?:نتيجة\s+الاختبار\s+الجيني|بيانات\s+جينية|ملف\s+DNA)\s*[:：]?\s*"
     r"(?:(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)[^\n.;]{0,20}(?:إيجابي|حامل|طفرة))?",
     re.IGNORECASE,
 )
 MULTILINGUAL_SEXUAL_ORIENTATION_RE = re.compile(
     r"(?:性取向|取向)[ \t]*[:：][ \t]*(?:同性恋|双性恋|女同性恋|男同性恋|异性恋|泛性恋|无性恋)"
+    r"|(?:性的指向|性的嗜好)[ \t]*[:：][ \t]*(?:同性愛|両性愛|レズビアン|ゲイ|異性愛|無性愛)"
+    r"|(?:성적\s+지향|성향)[ \t]*[:：][ \t]*(?:동성애|양성애|레즈비언|게이|이성애|무성애)"
     r"|(?:الميول\s+الجنسية|التوجه\s+الجنسي)[ \t]*[:：][ \t]*"
     r"(?:مثلي|مثلية|ثنائي\s+الميول|مغاير|لاجنسي)",
     re.IGNORECASE,
 )
 MULTILINGUAL_SEX_LIFE_RE = re.compile(
     r"(?:性史|性生活|性行为|性传播感染状态|避孕使用)[ \t]*[:：][ \t]*[\u4e00-\u9fffA-Za-z0-9 -]{1,60}"
+    r"|(?:性歴|性生活|性行為|性感染症状態|避妊使用)[ \t]*[:：][ \t]*[\u3040-\u30ff\u4e00-\u9fffA-Za-z0-9 -]{1,60}"
+    r"|(?:성생활|성관계|성병\s+상태|피임\s+사용)[ \t]*[:：][ \t]*[\uac00-\ud7afA-Za-z0-9 -]{1,60}"
     r"|(?:التاريخ\s+الجنسي|الحياة\s+الجنسية|النشاط\s+الجنسي|حالة\s+الأمراض\s+المنقولة\s+جنسياً)[ \t]*[:：][ \t]*"
     r"[\u0600-\u06ffA-Za-z0-9 -]{1,70}",
     re.IGNORECASE,
@@ -2021,7 +2048,7 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"public\s+webinar[^\n.;]{0,160}generic\s+case\s+studies|"
         r"for\s+educational\s+purposes\s+only|"
         r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only|"
-        r"educational\s+note[^\n.;]{0,120}purely\s+instructional"
+        r"educational\s+note\s+only|educational\s+note[^\n.;]{0,120}purely\s+instructional"
         r")\b",
         context,
         re.IGNORECASE,
@@ -2662,6 +2689,50 @@ def _detect_core_identifier_findings(
             )
             idx += 1
 
+    if any(pack.code == "UK" for pack in packs):
+        for match in UK_COMPANY_NUMBER_RE.finditer(text):
+            value = match.group("number")
+            if not _valid_uk_company_number(value):
+                continue
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="uk_company_number",
+                    jurisdiction=jurisdiction,
+                    severity="medium",
+                    matched_text=value,
+                    start=match.start("number"),
+                    end=match.end("number"),
+                    reason="UK Companies House company number detected",
+                    legal_basis=legal_basis,
+                    metadata={"validator": "companies_house_shape"},
+                )
+            )
+            idx += 1
+
+    if any(pack.code == "EU" for pack in packs):
+        for match in EU_COMPANY_ID_RE.finditer(text):
+            value = match.group("id")
+            if not _valid_eu_company_id_shape(value):
+                continue
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="eu_company_id",
+                    jurisdiction=jurisdiction,
+                    severity="medium",
+                    matched_text=value,
+                    start=match.start("id"),
+                    end=match.end("id"),
+                    reason="EU VAT / member-state company tax identifier detected",
+                    legal_basis=legal_basis,
+                    metadata={"validator": "eu_vat_shape"},
+                )
+            )
+            idx += 1
+
     return out
 
 
@@ -2794,6 +2865,57 @@ def _detect_semantic_pii_fallback_findings(
                 start=span[0],
                 end=span[1],
                 reason="Label-anchored semantic personal-name fallback",
+                legal_basis=legal_basis,
+                metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+            )
+        )
+        idx += 1
+    for match in SEMANTIC_DOB_LABEL_RE.finditer(text):
+        value = match.group("dob")
+        if not _valid_dob_date(value):
+            continue
+        span = match.span("dob")
+        if span in seen:
+            continue
+        seen.add(span)
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="date_of_birth",
+                jurisdiction=jurisdiction,
+                severity="high",
+                matched_text=value,
+                start=span[0],
+                end=span[1],
+                reason="Label-anchored semantic date-of-birth fallback",
+                legal_basis=legal_basis,
+                metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+            )
+        )
+        idx += 1
+    for match in SEMANTIC_AGE_LABEL_RE.finditer(text):
+        try:
+            age = int(match.group("age"))
+        except ValueError:
+            continue
+        if not 18 <= age <= 120:
+            continue
+        span = match.span("age")
+        if span in seen:
+            continue
+        seen.add(span)
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="PII",
+                rule="age_reference",
+                jurisdiction=jurisdiction,
+                severity="medium",
+                matched_text=match.group("age"),
+                start=span[0],
+                end=span[1],
+                reason="Label-anchored semantic age fallback",
                 legal_basis=legal_basis,
                 metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
             )

@@ -131,6 +131,54 @@ class Item33IdentifierTests(unittest.TestCase):
         self.assertIn("eu_national_id", {finding.rule for finding in eu_result.findings})
         self.assertNotIn("eu_national_id", self._rules("IE PPSN: 1234567T"))
 
+    def test_uk_company_number_requires_uk_pack_and_shape(self):
+        result = self.engine.review(
+            text="Company number: 01234567. Companies House no. SC123456. CRN: OC123456.",
+            source_jurisdiction="UK",
+            destination_jurisdiction="UK",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
+            review_profile="strict",
+        )
+        findings = [finding for finding in result.findings if finding.rule == "uk_company_number"]
+        self.assertEqual([finding.matched_text for finding in findings], ["01234567", "SC123456", "OC123456"])
+        self.assertNotIn("uk_company_number", self._rules("Company number: 01234567."))
+        bad = self.engine.review(
+            text="Company number: ABC12345.",
+            source_jurisdiction="UK",
+            destination_jurisdiction="UK",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
+            review_profile="strict",
+        )
+        self.assertNotIn("uk_company_number", {finding.rule for finding in bad.findings})
+
+    def test_eu_company_id_requires_eu_pack_and_shape(self):
+        result = self.engine.review(
+            text="EU VAT ID: DE123456789. Partita IVA: IT12345678901. BTW nummer: NL123456789B01.",
+            source_jurisdiction="EU",
+            destination_jurisdiction="EU",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
+            review_profile="strict",
+        )
+        values = [finding.matched_text for finding in result.findings if finding.rule == "eu_company_id"]
+        self.assertEqual(values, ["DE123456789", "IT12345678901", "NL123456789B01"])
+        self.assertNotIn("eu_company_id", self._rules("EU VAT ID: DE123456789."))
+        bad = self.engine.review(
+            text="EU VAT ID: ZZ123. Invoice number: DE123456789.",
+            source_jurisdiction="EU",
+            destination_jurisdiction="EU",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
+            review_profile="strict",
+        )
+        self.assertNotIn("eu_company_id", {finding.rule for finding in bad.findings})
+
     def test_broader_eu_checksum_identifiers_fire(self):
         samples = [
             "DE tax ID: 51370420006",
@@ -231,6 +279,8 @@ class Item33IdentifierTests(unittest.TestCase):
             "advertising_id",
             "device_serial_number",
             "eu_national_id",
+            "uk_company_number",
+            "eu_company_id",
             "us_itin",
             "us_driver_license",
         ]:

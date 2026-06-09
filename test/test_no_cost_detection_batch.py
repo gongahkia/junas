@@ -48,6 +48,10 @@ class NoCostDetectionBatchTests(unittest.TestCase):
             "eu_postal_address",
             self._rules("Domicile:\n12 Rue de la Paix\nParis FR-75002", "EU"),
         )
+        self.assertIn(
+            "eu_postal_address",
+            self._rules("Office:\n12 Kärntner Straße\nVienna AT-1010", "EU"),
+        )
 
     def test_generic_addresses_without_jurisdiction_format_do_not_fire(self):
         text = "Please meet at the office near River Road tomorrow."
@@ -92,6 +96,16 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         self.assertEqual(len(names), 1)
         self.assertEqual(names[0].matched_text, "Jane Tan")
         self.assertEqual(names[0].metadata["fallback"], "semantic_label_anchor")
+
+    def test_semantic_pii_fallback_can_extract_dob_and_age(self):
+        text = "Patient DOB is 14 February 1988.\nPatient age recorded as 42."
+        self.assertNotIn("date_of_birth", self._rules(text, "SG"))
+        self.assertNotIn("age_reference", self._rules(text, "SG"))
+        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+            result = self._review(text, "SG")
+        findings = {(finding.rule, finding.matched_text) for finding in result.findings}
+        self.assertIn(("date_of_birth", "14 February 1988"), findings)
+        self.assertIn(("age_reference", "42"), findings)
 
 
 if __name__ == "__main__":

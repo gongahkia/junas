@@ -111,6 +111,7 @@ class SinglingOutV2Tests(unittest.TestCase):
             ("AU", "postal_population", "5950"),
             ("JP", "area_population", "東京都"),
             ("KR", "area_population", "서울 중구"),
+            ("US", "surname_frequency", "SMITH"),
         ]:
             with self.subTest(code=code):
                 tables = _tables_for(code)
@@ -118,6 +119,8 @@ class SinglingOutV2Tests(unittest.TestCase):
                 self.assertIn(table_name, tables.loaded_tables)
                 if table_name == "postal_population":
                     self.assertGreaterEqual(tables.postal_population[key], 1)
+                elif table_name == "surname_frequency":
+                    self.assertGreater(tables.surname_population[key], 1_000_000)
                 else:
                     self.assertGreater(tables.area_population[key.casefold()], 1_000)
 
@@ -149,6 +152,21 @@ class SinglingOutV2Tests(unittest.TestCase):
             self.assertEqual(metadata["layer"], "singling_out_v2")
             self.assertEqual(metadata["k_anonymity_equivalence"], 3)
             self.assertEqual(metadata["frequency_tables_used"], ["postal_population"])
+
+    def test_generated_us_surname_table_can_drive_named_person_k(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_generated_table(root, "US", "surname_frequency", "surname,population\nRARETEST,4\n")
+            clear_table_cache_for_tests()
+            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
+                findings = self._quasi_for(
+                    "Dr Jane Raretest; Age: 42; address 123 Market Street, CA 94105.",
+                    "US",
+                )
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 4)
+        self.assertEqual(findings[0].metadata["frequency_tables_used"], ["surname_frequency"])
+        self.assertIn("postal_population", findings[0].metadata["frequency_tables_missing"])
 
     def test_bundled_au_postal_table_can_emit_low_k_cluster(self):
         clear_table_cache_for_tests()

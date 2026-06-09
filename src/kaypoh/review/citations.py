@@ -95,6 +95,18 @@ _PII_DEFAULT_RATIONALE = {
         "for national identification numbers. Mask unless a lawful basis and recipient "
         "purpose are documented."
     ),
+    "uk_company_number": (
+        "UK Companies House number detected. A company number identifies the registered "
+        "counterparty and can identify sole officers, LLP members, or private transaction "
+        "parties when linked to matter context. Treat as UK GDPR Art 4(1) personal data "
+        "where linkability to an individual is reasonably likely."
+    ),
+    "eu_company_id": (
+        "EU VAT / company tax identifier detected. VAT identifiers identify taxable persons "
+        "or legal entities and can identify sole proprietors or private counterparties when "
+        "linked to matter context. Treat as GDPR Art 4(1) personal data where linkability "
+        "to an individual is reasonably likely."
+    ),
     "uk_postal_address": (
         "UK postal address detected. UK GDPR Art 4(1) and DPA 2018 treat location data "
         "that identifies or can identify a person as personal data. Mask unless disclosure "

@@ -133,7 +133,7 @@ class TenantIsolationTests(unittest.TestCase):
     def test_mapping_store_reidentify_is_tenant_scoped_and_header_tenant_is_ignored(self):
         with TestClient(self.main.app) as client:
             anon = client.post(
-                "/anonymize",
+                "/pseudonymize",
                 headers={"X-API-Key": "tenant-a-key", "X-Tenant-ID": "tenant-b"},
                 json={"text": "Send Dr Jane Tan S1234567D to jane@example.com."},
             )

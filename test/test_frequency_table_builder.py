@@ -1,5 +1,6 @@
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 from unittest import mock
 
@@ -83,6 +84,34 @@ class FrequencyTableBuilderTests(unittest.TestCase):
             table = (out / "KR" / "area_population.csv").read_text(encoding="utf-8")
             self.assertIn("서울 중구,17\n", table)
 
+    def test_builds_us_surname_frequency_from_census_zip(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "names.zip"
+            out = root / "out"
+            csv_payload = (
+                "name,rank,count,prop100k\n"
+                "SMITH,1,2442977,828.19\n"
+                "RARETEST,2,4,0.00\n"
+                "ALL OTHER NAMES,0,29312001,9936.97\n"
+            )
+            with zipfile.ZipFile(source, "w") as zf:
+                zf.writestr("Names_2010Census.csv", csv_payload)
+            code = main([
+                "--jurisdiction", "US",
+                "--source", f"US={source}",
+                "--out", str(out),
+                "--retrieved-date", "2026-06-09",
+            ])
+            self.assertEqual(code, 0)
+            table = (out / "US" / "surname_frequency.csv").read_text(encoding="utf-8")
+            self.assertIn("SMITH,2442977\n", table)
+            self.assertIn("RARETEST,4\n", table)
+            self.assertNotIn("ALLOTHERNAMES", table)
+            manifest = (out / "MANIFEST.generated.toml").read_text(encoding="utf-8")
+            self.assertIn("[US.surname_frequency]", manifest)
+            self.assertIn("U.S. Census Bureau", manifest)
+
     def test_missing_source_returns_nonzero(self):
         with tempfile.TemporaryDirectory() as tmp:
             code = main(["--jurisdiction", "AU", "--out", tmp])
@@ -97,6 +126,7 @@ class FrequencyTableBuilderTests(unittest.TestCase):
         self.assertIn("Creative Commons Attribution 4.0 International", rendered)
         self.assertIn("e-Stat Terms of Use", rendered)
         self.assertIn("Open Government Data Portal scope of use: limitless", rendered)
+        self.assertIn("U.S. Census Bureau", rendered)
 
 
 if __name__ == "__main__":

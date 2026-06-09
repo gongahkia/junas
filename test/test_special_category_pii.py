@@ -230,12 +230,33 @@ class MultilingualSpecialCategoryExpansionTests(_BaseSpecialCategoryTests):
             with self.subTest(rule=rule):
                 self.assertEqual(len(self._findings_for(text, rule, source="AE", dest="AE")), 1)
 
+    def test_japanese_and_korean_sensitive_pi_fields_fire(self):
+        samples = [
+            ("労働組合員: 山田太郎.", "trade_union_membership", "JP"),
+            ("支持政党: 労働党.", "political_opinion", "JP"),
+            ("診断: 糖尿病.", "health_condition", "JP"),
+            ("服薬: インスリン.", "medical_treatment", "JP"),
+            ("遺伝子検査結果: BRCA1 陽性.", "genetic_data", "JP"),
+            ("性的指向: 同性愛.", "sexual_orientation", "JP"),
+            ("노동조합원: 김민수.", "trade_union_membership", "KR"),
+            ("정당 소속: 녹색당.", "political_opinion", "KR"),
+            ("진단: 당뇨병.", "health_condition", "KR"),
+            ("복용약: 인슐린.", "medical_treatment", "KR"),
+            ("유전자 검사 결과: BRCA2 양성.", "genetic_data", "KR"),
+            ("성적 지향: 동성애.", "sexual_orientation", "KR"),
+        ]
+        for text, rule, jurisdiction in samples:
+            with self.subTest(text=text, rule=rule):
+                self.assertEqual(len(self._findings_for(text, rule, source=jurisdiction, dest=jurisdiction)), 1)
+
     def test_multilingual_category_labels_without_values_do_not_fire(self):
         samples = [
             ("政治观点:", "political_opinion", "CN"),
             ("性取向:", "sexual_orientation", "CN"),
             ("الميول الجنسية:", "sexual_orientation", "AE"),
             ("التاريخ الجنسي:", "sex_life_reference", "AE"),
+            ("支持政党:", "political_opinion", "JP"),
+            ("성적 지향:", "sexual_orientation", "KR"),
         ]
         for text, rule, jurisdiction in samples:
             with self.subTest(text=text):

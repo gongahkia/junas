@@ -111,7 +111,7 @@ class SubjectErasureIndexTests(unittest.TestCase):
         os.environ.pop("KAYPOH_SUBJECT_INDEX_KEY", None)
         with TestClient(self.main.app) as client:
             response = client.post(
-                "/anonymize",
+                "/pseudonymize",
                 json={
                     "text": "Send Dr Jane Tan S1234567D the draft.",
                     "source_jurisdiction": "SG",

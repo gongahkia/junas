@@ -25,11 +25,12 @@ except ImportError:
     import tomli as tomllib
 
 ROOT = Path(__file__).resolve().parent.parent
-SUPPORTED = ("UK", "AU", "JP", "KR")
+SUPPORTED = ("UK", "AU", "JP", "KR", "US")
 POSTAL_COLUMNS = ("postal_prefix", "postal_code", "postcode", "postcode_sector", "postcode_sectors",
                   "postcodesectors", "poa_code_2021", "poa_code21", "poa_code", "area_code", "code")
 AREA_COLUMNS = ("area", "area_name", "municipality", "prefecture", "region", "admin_area", "name", "地域", "市区町村",
                 "都道府県", "행정구역", "시도", "시도명", "시군구", "시군구명")
+SURNAME_COLUMNS = ("surname", "name")
 POPULATION_COLUMNS = ("population", "total_population", "usual_residents", "persons", "total_persons", "tot_p_p",
                       "total", "count", "総数", "人口", "인구", "총인구", "계")
 UK_POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?)\s*(\d)(?:[A-Z]{2})?\b", re.IGNORECASE)
@@ -95,6 +96,17 @@ SPECS = {
         attribution="Source: Ministry of the Interior and Safety via Korea Open Government Data Portal",
         license_scope="Dataset metadata says file data downloads require no login and use-permission range is limitless",
         redistribution="bundle_allowed_with_source_citation",
+    ),
+    "US": JurisdictionSpec(
+        jurisdiction="US",
+        table="surname_frequency",
+        source_name="U.S. Census Bureau 2010 Census surnames frequency table",
+        source_url="https://www2.census.gov/topics/genealogy/2010surnames/names.zip",
+        license="U.S. federal public-domain data, 17 U.S.C. §105",
+        license_url="https://www.govinfo.gov/content/pkg/USCODE-2018-title17/pdf/USCODE-2018-title17-chap1-sec105.pdf",
+        attribution="U.S. Census Bureau, Names_2010Census.csv, 2010 Census surnames",
+        license_scope="Census data files are U.S. federal government data; citation guidance asks for Census Bureau attribution",
+        redistribution="bundle_allowed_public_domain_with_attribution",
     ),
 }
 
@@ -233,6 +245,21 @@ def _records_from_csv(text: str, spec: JurisdictionSpec) -> dict[str, int]:
     reader = csv.DictReader(io.StringIO(text))
     if not reader.fieldnames:
         return {}
+    if spec.table == "surname_frequency":
+        key_col = _column(reader.fieldnames, SURNAME_COLUMNS)
+        population_col = _column(reader.fieldnames, POPULATION_COLUMNS)
+        if not key_col or not population_col:
+            return {}
+        out: dict[str, int] = {}
+        for row in reader:
+            raw_surname = str(row.get(key_col) or "").strip().upper()
+            if raw_surname in {"ALL OTHER NAMES", "OTHER NAMES", "TOTAL"}:
+                continue
+            surname = re.sub(r"[^A-Z]", "", raw_surname)
+            population = _parse_int(str(row.get(population_col) or ""))
+            if surname and population is not None:
+                out[surname] = population
+        return out
     if spec.jurisdiction == "KR" and spec.table == "area_population":
         out: dict[str, int] = {}
         for row in reader:
@@ -274,7 +301,12 @@ def _build_records(payload: bytes, source_ref: str, spec: JurisdictionSpec) -> d
 
 
 def _render_csv(table: str, records: dict[str, int]) -> str:
-    key = "postal_prefix" if table == "postal_population" else "area"
+    if table == "postal_population":
+        key = "postal_prefix"
+    elif table == "surname_frequency":
+        key = "surname"
+    else:
+        key = "area"
     out = io.StringIO()
     writer = csv.writer(out, lineterminator="\n")
     writer.writerow([key, "population"])

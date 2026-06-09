@@ -1589,6 +1589,24 @@ def _persist_pseudonymization_mapping(
             tenant_id=tenant.storage_tenant_id,
         )
         return True
+    except SubjectIndexError as exc:
+        log_backend_event(logging.WARNING, event="mapping_subject_index_failed", error=str(exc))
+        emit_security_event(
+            action="mapping_persist",
+            outcome="failed",
+            request_id=request_id,
+            details={"error": str(exc), "document_hash": document_hash},
+            settings=current_runtime_settings().siem,
+        )
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "message": f"subject-index persistence failed closed: {exc}",
+                "degraded_modes": [
+                    _degraded_mode("subject_index", "failed_closed", str(exc), {"document_hash": document_hash})
+                ],
+            },
+        ) from exc
     except (OSError, MappingStoreError) as exc:
         log_backend_event(logging.WARNING, event="mapping_persist_failed", error=str(exc))
         emit_security_event(

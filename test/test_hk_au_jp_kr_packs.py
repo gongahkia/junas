@@ -235,6 +235,33 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
             with self.subTest(code=code):
                 self.assertTrue(expected.issubset(self._rules(text, code)))
 
+    def test_deeper_jurisdiction_mnpi_variants_fire(self):
+        samples = [
+            (
+                "Project Bauhinia is not generally known; subject to Listing Committee approval.",
+                "HK",
+                {"transaction_codename", "nonpublic_marker", "contingent_mnpi_language"},
+            ),
+            (
+                "Project Wattle is not generally available; ASIC relief is pending before market release.",
+                "AU",
+                {"transaction_codename", "nonpublic_marker", "contingent_mnpi_language"},
+            ),
+            (
+                "Project Sakura is 未公表 and on the J-IR embargo list pending J-FSA clearance.",
+                "JP",
+                {"transaction_codename", "nonpublic_marker", "insider_list_marker", "contingent_mnpi_language"},
+            ),
+            (
+                "Project Han is 미공개 and sits on the KIND disclosure hold list pending FSC review.",
+                "KR",
+                {"transaction_codename", "nonpublic_marker", "insider_list_marker", "contingent_mnpi_language"},
+            ),
+        ]
+        for text, code, expected in samples:
+            with self.subTest(code=code):
+                self.assertTrue(expected.issubset(self._rules(text, code)))
+
     def test_jurisdiction_specific_mnpi_bait_stays_suppressed(self):
         samples = [
             ("The HKEX announcement was already published; no inside information remains.", "HK"),

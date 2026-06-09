@@ -42,6 +42,7 @@ _UNIVERSAL_PII_RULES = {
     "email_address", "phone_number", "passport_number", "bank_account",
     "named_person", "date_of_birth", "age_reference", "ip_address", "mac_address", "imei",
     "cookie_id", "advertising_id", "device_serial_number", "eu_national_id",
+    "uk_company_number", "eu_company_id",
     "uk_postal_address", "us_postal_address", "hk_postal_address",
     "personal_attribute_inference",
     "sg_insurance_policy_number", "crypto_wallet_address", "sg_tribunal_reference",

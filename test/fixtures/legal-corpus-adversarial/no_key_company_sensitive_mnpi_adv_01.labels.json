@@ -1,0 +1,19 @@
+{
+  "doc_id": "no_key_company_sensitive_mnpi_adv_01",
+  "document_type": "memo",
+  "source_jurisdiction": "UK",
+  "destination_jurisdiction": "EU",
+  "must_detect": [],
+  "must_not_detect": [
+    {"rule": "uk_company_number", "matched_text": "ABC12345", "reason": "invalid Companies House shape"},
+    {"rule": "eu_company_id", "matched_text": "ZZ123", "reason": "invalid EU VAT/company ID shape"},
+    {"rule": "eu_company_id", "matched_text": "DE123456789", "reason": "unlabelled invoice-number bait"},
+    {"rule": "political_opinion", "matched_text": "支持政党:", "reason": "empty Japanese political label"},
+    {"rule": "sexual_orientation", "matched_text": "성적 지향:", "reason": "empty Korean sexual-orientation label"},
+    {"rule": "health_condition", "matched_text": "診断:", "reason": "empty Japanese diagnosis label"},
+    {"rule": "insider_list_marker", "matched_text": "KIND disclosure hold list", "reason": "training-materials bait"},
+    {"rule": "insider_list_marker", "matched_text": "J-IR embargo list", "reason": "educational note bait"}
+  ],
+  "_label_source": "hand",
+  "_label_note": "No-key item 33/71/86 adversarial fixture for invalid company IDs, empty labels, and MNPI training bait."
+}

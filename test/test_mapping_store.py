@@ -1,7 +1,7 @@
 """Tests for the persistent per-document mapping store.
 
 Covers:
-- /anonymize writes mapping to ${KAYPOH_JOURNAL_DIR}/mappings/<hash>.json when persistence is on
+- /pseudonymize writes mapping to ${KAYPOH_JOURNAL_DIR}/mappings/<hash>.json when persistence is on
 - /reidentify recovers from document_hash alone
 - /reidentify 404s on unknown hash
 - /reidentify still works with inline mapping when persistence is off
@@ -61,12 +61,12 @@ class MappingStorePersistTests(unittest.TestCase):
         import backend.main as main_mod
         importlib.reload(main_mod)
 
-    def test_anonymize_persists_mapping_and_reidentify_recovers_from_hash(self):
+    def test_pseudonymize_persists_mapping_and_reidentify_recovers_from_hash(self):
         text = "Send Dr Jane Tan S1234567D the draft."
 
         with TestClient(self.main.app) as client:
             anon = client.post(
-                "/anonymize",
+                "/pseudonymize",
                 json={
                     "text": text,
                     "source_jurisdiction": "SG",
@@ -94,11 +94,11 @@ class MappingStorePersistTests(unittest.TestCase):
             self.assertEqual(restored.status_code, 200, restored.text)
             self.assertEqual(restored.json()["text"], text)
 
-    def test_anonymize_mapping_store_failure_fails_closed(self):
+    def test_pseudonymize_mapping_store_failure_fails_closed(self):
         with mock.patch.object(self.main, "_save_persisted_mapping", side_effect=OSError("disk full")):
             with TestClient(self.main.app) as client:
                 response = client.post(
-                    "/anonymize",
+                    "/pseudonymize",
                     json={
                         "text": "Send Dr Jane Tan S1234567D the draft.",
                         "source_jurisdiction": "SG",
@@ -161,7 +161,7 @@ class MappingStorePersistTests(unittest.TestCase):
         text = "Send Dr Jane Tan S1234567D the draft."
         with TestClient(main_mod.app) as client:
             anon = client.post(
-                "/anonymize",
+                "/pseudonymize",
                 json={
                     "text": text,
                     "source_jurisdiction": "SG",

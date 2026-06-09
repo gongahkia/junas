@@ -1,6 +1,6 @@
 # Kaypoh Statutory Coverage
 
-> Last revised 2026-05-28. Procurement-facing artefact mapping every shipped detector to the statute it implements. Authoritative source for "what kaypoh actually detects under PDPA / GDPR / SFA / MAR / Reg FD" assertions. Companion to `ARCHITECTURE-PIVOT-24-MAY.md` §First-Principles Statutory Analysis — that section is the editorial draft; this doc is the standalone artefact a procurement reviewer can hand to compliance.
+> Last revised 2026-06-09. Procurement-facing artefact mapping every shipped detector to the statute it implements. Authoritative source for "what kaypoh actually detects under PDPA / GDPR / SFA / MAR / Reg FD" assertions. Companion to `ARCHITECTURE-PIVOT-24-MAY.md` §First-Principles Statutory Analysis — that section is the editorial draft; this doc is the standalone artefact a procurement reviewer can hand to compliance.
 
 This file is regression-tested. `test/test_statutory_coverage_doc.py` asserts that every jurisdiction in `citations.py:_MNPI_JURISDICTION_SUFFIX` / `_PII_JURISDICTION_SUFFIX`, every detector rule_name in `jurisdictions_data/*.toml`, and every PII/MNPI rationale key in `citations.py` is mentioned somewhere in this file. Drift fails CI.
 
@@ -50,6 +50,9 @@ These rules fire regardless of source/destination jurisdiction. The statutory an
 | `ip_address` | GDPR Recital 30 + HIPAA 45 CFR §164.514(b)(2)(i)(O) + CCPA §1798.140 | medium | item 33 mini-slice; context-anchored IPv4 / IPv6 with `ipaddress` validator |
 | `mac_address` | HIPAA 45 CFR §164.514(b)(2)(i)(M) + GDPR Recital 30 + CCPA §1798.140 | medium | item 33 mini-slice; MAC / BSSID context anchor |
 | `imei` | HIPAA 45 CFR §164.514(b)(2)(i)(M) + GDPR Recital 30 + CCPA §1798.140 | high | item 33 mini-slice; IMEI context anchor + Luhn validator |
+| `eu_national_id` | GDPR Art 4(1) + Art 87 | high | item 33; checksum-backed EU member-state slices where labels identify the country/identifier family |
+| `uk_company_number` | UK GDPR Art 4(1) where Companies House number is linkable to officers, members, sole traders, or private matter parties | medium | item 33; label-gated UK company-number shape detector |
+| `eu_company_id` | GDPR Art 4(1) where VAT / company tax ID is linkable to sole proprietors or private counterparties | medium | item 33; label-gated EU VAT/member-state company-tax shape detector |
 | `named_person` | PDPA s2 / GDPR Art 4(1) — honorific-anchored | low/high | severity escalates in counterparty docs (SPA / NDA / SHA / term sheet) |
 | `employee_id` | GDPR Recital 26 + PDPC Anonymisation Advisory Guidelines | medium → high | escalates to high when named_person co-occurs (item 99) |
 | `customer_account_number` | GDPR Recital 26 + PDPC Anonymisation Advisory Guidelines | medium → high | escalates to high when named_person co-occurs (item 99) |
@@ -226,11 +229,13 @@ These rules fire regardless of jurisdiction; the statutory anchor is jurisdictio
 - **Jurisdiction-suffix wiring** — every MNPI finding's suggestion rationale carries the destination-jurisdiction statute suffix; cross-jurisdiction routing (e.g. source=SG, destination=US) carries BOTH suffixes. Audited by `test/test_mnpi_jurisdiction_suffix.py` (item 94).
 - **Statute-citation override** — `KAYPOH_CITATIONS_OVERRIDE_DIR/{tenant_id}.toml` resolves tenant-specific internal compliance citations before the global `KAYPOH_CITATIONS_OVERRIDE` fallback. Malformed configured overrides fail closed instead of silently falling back.
 
-### 2026-06-07 no-cost deterministic additions
+### 2026-06-07 to 2026-06-09 no-cost deterministic additions
 
-- **Validated EU member-state identifiers** — `eu_national_id` now includes deterministic checksum-backed slices for Spanish DNI/NIE, Dutch BSN, Polish PESEL, and French numeric INSEE/NIR references where the document labels the identifier. GDPR Art 4(1) and Art 87 remain the statutory anchor. Broader member-state coverage is still open.
-- **Conservative address slices** — `uk_postal_address`, `us_postal_address`, and `hk_postal_address` add jurisdiction-format-anchored postal-address signals. These are not broad free-form address parsing; multi-line and loosely written addresses remain item 34.
-- **Explicit inferred attributes** — `personal_attribute_inference` flags high-confidence named-person statements that infer relationship, employer, or location attributes. The statutory basis is PDPA s2, GDPR Art 4(1), and CCPA §1798.140; full semantic PII / NER fallback remains item 35, and wider relation extraction remains item 79.
+- **Validated EU member-state identifiers** — `eu_national_id` now includes deterministic checksum-backed slices for Spanish DNI/NIE, Dutch BSN, Polish PESEL, French numeric INSEE/NIR, DE tax ID, IT codice fiscale, BE national number, PT NIF, SE personnummer, FI HETU, IE PPSN, AT SVNR, CZ/SK birth number, and RO CNP references where the document labels the identifier. GDPR Art 4(1) and Art 87 remain the statutory anchor. Full member-state breadth remains open.
+- **Company identifiers** — `uk_company_number` and `eu_company_id` add label-gated UK Companies House / EU VAT-shape detectors. They are medium severity because they are legal-entity identifiers unless the surrounding matter context links them to officers, members, sole traders, or private counterparties.
+- **Conservative address slices** — `uk_postal_address`, `us_postal_address`, `hk_postal_address`, `au_postal_address`, `jp_postal_address`, `kr_postal_address`, and `eu_postal_address` add jurisdiction-format-anchored postal-address signals. These are not broad free-form address parsing.
+- **Explicit inferred attributes** — `personal_attribute_inference` flags high-confidence named-person statements that infer relationship, employer, location, education/student status, nationality/citizenship, professional licence, department/team, and seniority/specialty attributes. The statutory basis is PDPA s2, GDPR Art 4(1), and CCPA §1798.140; full semantic PII / NER fallback remains item 35.
+- **Env-gated semantic fallback** — `KAYPOH_SEMANTIC_PII_FALLBACK=1` adds label-anchored `named_person`, `date_of_birth`, and adult `age_reference` fallback extraction without network calls or new ML dependencies. Broad local NER remains off.
 
 ## Known statutory gaps
 
@@ -238,13 +243,14 @@ These statutory concepts are recognised in the first-principles analysis and are
 
 | Statutory concept | Detector gap | Item |
 |---|---|---|
-| DOB / age | mini-slice shipped 2026-05-28: `date_of_birth` + adult `age_reference`; polish anchors added birthday / turns / years-old forms; broad semantic age/DOB inference remains open | 33 partial |
+| DOB / age | mini-slice shipped 2026-05-28: `date_of_birth` + adult `age_reference`; polish anchors added birthday / turns / years-old forms; 2026-06-09 semantic fallback handles label-anchored "DOB is ..." / "age recorded as ..." when env-enabled; broad semantic age/DOB inference remains open | 33 partial / 35 partial |
 | IP / device / online identifier | mini-slice shipped 2026-05-28: `ip_address`, `mac_address`, `imei`; polish slice added labelled `cookie_id`, `advertising_id`, `device_serial_number`; broader online identifiers remain open | 33 partial |
 | US driver-license / ITIN | mini-slice shipped 2026-05-28: `us_itin` + `us_driver_license` with all-50-state shape registry and audit-grade missing/unsupported/masked issuer warnings | 33 partial |
-| EU member-state national-IDs (DE Personalausweis, FR INSEE, etc.) | labelled seed `eu_national_id` hooks shipped 2026-05-28; ES DNI/NIE, NL BSN, PL PESEL, and FR numeric INSEE/NIR validators shipped 2026-06-07; broader member-state validators remain open | 33 partial |
-| Broad postal-address parsing (multi-line, free-form) | SG / JP / AU postal recognizers plus conservative UK / US / HK slices ship; broad free-form parsing remains open | 34 partial |
-| Inferred personal attributes | explicit relationship / employer / location patterns shipped 2026-06-07; broad semantic relation extraction remains open | 79 partial |
-| General semantic PII / NER fallback | not implemented | 35 |
+| EU member-state national-IDs (DE Personalausweis, FR INSEE, etc.) | labelled seed `eu_national_id` hooks plus checksum-backed slices for ES/NL/PL/FR/DE/IT/BE/PT/SE/FI/IE/AT/CZ/SK/RO ship; full member-state breadth remains open | 33 partial |
+| UK/EU company identifiers | label-gated `uk_company_number` and `eu_company_id` shape detectors ship; registry / beneficial-owner lookup and existence validation remain out of scope | 33 partial |
+| Broad postal-address parsing (multi-line, free-form) | SG plus conservative UK / US / HK / AU / JP / KR / EU postal-address recognizers ship; broad free-form parsing remains open | 34 partial |
+| Inferred personal attributes | explicit relationship / employer / location / education / nationality / professional-licence / department / seniority patterns ship; broad semantic relation extraction remains open | 79 partial |
+| General semantic PII / NER fallback | env-gated label fallback ships for names, DOB, and adult age; broad local NER remains open | 35 partial |
 | Special-category PII (religion / union / political) — GDPR Art 9, PDPC special-cat, PIPA Art 23, APPI creed, LGPD Art 5(II), UAE PDPL Art 15, KSA PDPL Art 6 | v1 shipped 2026-05-27 (item 98): `religious_belief` + `trade_union_membership` + `political_opinion` rules with strict context anchors; per-category opt-out via `KAYPOH_SPECIAL_CATEGORY_DISABLE` | 98 (v1 shipped) |
 | Special-category PII (health / medical treatment / biometric / genetic / sex life / sexual orientation) | seed shipped 2026-05-28 (items 105/106/108): `health_condition`, `medical_treatment`, `biometric_identifier`, `genetic_data`, `sexual_orientation`, `sex_life_reference` with strict anchors and default high severity | 105 / 106 / 108 (seed shipped) |
 | Special-category PII (racial / ethnic origin; broader semantic special-category inference) | no detector | 71 remainder |

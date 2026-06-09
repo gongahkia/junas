@@ -33,6 +33,7 @@ class _Tables:
     area_population: dict[str, int]
     age_cohorts: dict[str, int]
     postal_population: dict[str, int]
+    surname_population: dict[str, int]
     loaded_tables: tuple[str, ...]
 
 
@@ -50,6 +51,8 @@ _DIRECT_UNIQUE_RULES = frozenset({
     "bank_customer_reference",
     "insurance_member_id",
     "crypto_wallet_address",
+    "uk_company_number",
+    "eu_company_id",
 })
 _QUASI_RULES = frozenset({
     "named_person",
@@ -60,6 +63,8 @@ _QUASI_RULES = frozenset({
     "au_postal_address",
     "jp_postal_address",
     "kr_postal_address",
+    "us_postal_address",
+    "eu_postal_address",
     "personal_attribute_inference",
 }) | _DIRECT_UNIQUE_RULES
 _MIN_DISTINCT = 3
@@ -70,12 +75,16 @@ _AGE_RE = re.compile(r"\b(?:aged?|age|turns?|years?\s+old)\D{0,12}(\d{1,3})\b", 
 _SG_POSTAL_RE = re.compile(r"\b(?:Singapore\s*)?(\d{6})\b", re.IGNORECASE)
 _AU_POSTAL_RE = re.compile(r"\b(?:Australia\s*)?(\d{4})\b", re.IGNORECASE)
 _UK_POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?)\s*(\d)[A-Z]{2}\b", re.IGNORECASE)
+_NAME_PREFIX_RE = re.compile(r"^(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+", re.IGNORECASE)
+_SURNAME_TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z'\-]*")
 _POSTAL_RULES = frozenset({
     "sg_postal_address",
     "uk_postal_address",
     "au_postal_address",
     "jp_postal_address",
     "kr_postal_address",
+    "us_postal_address",
+    "eu_postal_address",
 })
 
 
@@ -120,6 +129,7 @@ def _load_bundled_tables(jurisdiction: str) -> _Tables | None:
     area_population: dict[str, int] = {}
     age_cohorts: dict[str, int] = {}
     postal_population: dict[str, int] = {}
+    surname_population: dict[str, int] = {}
     total_population = 0
     loaded: list[str] = []
 
@@ -164,9 +174,24 @@ def _load_bundled_tables(jurisdiction: str) -> _Tables | None:
                 postal_population[prefix] = population
         loaded.append(table)
 
+    if isinstance(entries.get("surname_frequency"), dict):
+        surname_text = _resource_text(f"kaypoh.data.frequency.{code}", "surname_frequency.csv")
+        _validate_manifest_entry(manifest, code, "surname_frequency", surname_text)
+        for row in csv.DictReader(surname_text.splitlines()):
+            surname = str(row.get("surname") or "").strip().upper()
+            population = _parse_int(str(row.get("population") or ""))
+            if surname and population is not None:
+                surname_population[surname] = population
+        loaded.append("surname_frequency")
+
     if not loaded:
         return None
-    total_population = total_population or sum(area_population.values()) or sum(postal_population.values())
+    total_population = (
+        total_population
+        or sum(area_population.values())
+        or sum(postal_population.values())
+        or sum(surname_population.values())
+    )
     if not total_population:
         raise RuntimeError(f"{code} bundled frequency tables have no population rows")
     return _Tables(
@@ -175,6 +200,7 @@ def _load_bundled_tables(jurisdiction: str) -> _Tables | None:
         area_population=area_population,
         age_cohorts=age_cohorts,
         postal_population=postal_population,
+        surname_population=surname_population,
         loaded_tables=tuple(sorted(set(loaded))),
     )
 
@@ -212,6 +238,7 @@ def _load_generated_tables(jurisdiction: str, base_dir: str | os.PathLike[str]) 
     area_population: dict[str, int] = {}
     age_cohorts: dict[str, int] = {}
     postal_population: dict[str, int] = {}
+    surname_population: dict[str, int] = {}
 
     if isinstance(entries.get("area_population"), dict):
         text = _read_generated_table(root, str(entries["area_population"].get("path") or ""))
@@ -233,9 +260,19 @@ def _load_generated_tables(jurisdiction: str, base_dir: str | os.PathLike[str]) 
                 postal_population[prefix] = population
         loaded.append("postal_population")
 
+    if isinstance(entries.get("surname_frequency"), dict):
+        text = _read_generated_table(root, str(entries["surname_frequency"].get("path") or ""))
+        _validate_manifest_entry(manifest, code, "surname_frequency", text)
+        for row in csv.DictReader(text.splitlines()):
+            surname = str(row.get("surname") or "").strip().upper()
+            population = _parse_int(str(row.get("population") or ""))
+            if surname and population is not None:
+                surname_population[surname] = population
+        loaded.append("surname_frequency")
+
     if not loaded:
         return None
-    total_population = sum(area_population.values()) or sum(postal_population.values())
+    total_population = sum(area_population.values()) or sum(postal_population.values()) or sum(surname_population.values())
     if not total_population:
         raise RuntimeError(f"{code} generated frequency tables have no population rows")
     return _Tables(
@@ -244,6 +281,7 @@ def _load_generated_tables(jurisdiction: str, base_dir: str | os.PathLike[str]) 
         area_population=area_population,
         age_cohorts=age_cohorts,
         postal_population=postal_population,
+        surname_population=surname_population,
         loaded_tables=tuple(sorted(loaded)),
     )
 
@@ -315,6 +353,23 @@ def _postal_population(unit_text: str, tables: _Tables) -> int | None:
     return min(populations) if populations else None
 
 
+def _surname_from_name(value: str) -> str | None:
+    stripped = _NAME_PREFIX_RE.sub("", str(value or "").strip())
+    tokens = [match.group(0).replace("'", "").replace("-", "").upper() for match in _SURNAME_TOKEN_RE.finditer(stripped)]
+    return tokens[-1] if tokens else None
+
+
+def _surname_population(findings: list[Any], tables: _Tables) -> int | None:
+    populations: list[int] = []
+    for finding in findings:
+        if str(getattr(finding, "rule", "")) != "named_person":
+            continue
+        surname = _surname_from_name(str(getattr(finding, "matched_text", "")))
+        if surname and surname in tables.surname_population:
+            populations.append(tables.surname_population[surname])
+    return min(populations) if populations else None
+
+
 def _severity_for_k(k: int) -> str:
     if k < 2:
         return "high"
@@ -363,7 +418,12 @@ def _estimate_k(unit_text: str, findings: list[Any], tables: _Tables) -> tuple[i
         missing.append("postal_population")
 
     if "named_person" in rules:
-        missing.append("name_density")
+        surname_population = _surname_population(findings, tables)
+        if surname_population is not None:
+            estimates.append(surname_population)
+            used.append("surname_frequency")
+        else:
+            missing.append("name_density")
     if "personal_attribute_inference" in rules:
         missing.append("role_rarity")
 
