@@ -50,6 +50,39 @@ class FrequencyTableBuilderTests(unittest.TestCase):
             self.assertIn("Tokyo,14000000\n", table)
             self.assertIn("[JP.area_population]", (out / "MANIFEST.generated.toml").read_text(encoding="utf-8"))
 
+    def test_builds_au_postal_population_from_poa_codes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "au.csv"
+            out = root / "out"
+            source.write_text("POA_CODE_2021,Tot_P_P\nPOA5950,4\nPOA2000,27936\n", encoding="utf-8")
+            code = main([
+                "--jurisdiction", "AU",
+                "--source", f"AU={source}",
+                "--out", str(out),
+                "--retrieved-date", "2026-06-09",
+            ])
+            self.assertEqual(code, 0)
+            table = (out / "AU" / "postal_population.csv").read_text(encoding="utf-8")
+            self.assertIn("5950,4\n", table)
+            self.assertIn("2000,27936\n", table)
+
+    def test_builds_kr_area_population_from_cp949_csv(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "kr.csv"
+            out = root / "out"
+            source.write_bytes("시도명,시군구명,계\n서울특별시,중구,10\n서울특별시,중구,7\n".encode("cp949"))
+            code = main([
+                "--jurisdiction", "KR",
+                "--source", f"KR={source}",
+                "--out", str(out),
+                "--retrieved-date", "2026-06-09",
+            ])
+            self.assertEqual(code, 0)
+            table = (out / "KR" / "area_population.csv").read_text(encoding="utf-8")
+            self.assertIn("서울 중구,17\n", table)
+
     def test_missing_source_returns_nonzero(self):
         with tempfile.TemporaryDirectory() as tmp:
             code = main(["--jurisdiction", "AU", "--out", tmp])
@@ -61,9 +94,9 @@ class FrequencyTableBuilderTests(unittest.TestCase):
         self.assertEqual(code, 0)
         rendered = "".join(call.args[0] for call in stdout.write.call_args_list if call.args)
         self.assertIn("Open Government Licence v3.0", rendered)
-        self.assertIn("ABS product licence", rendered)
+        self.assertIn("Creative Commons Attribution 4.0 International", rendered)
         self.assertIn("e-Stat Terms of Use", rendered)
-        self.assertIn("KOSIS public data use policy", rendered)
+        self.assertIn("Open Government Data Portal scope of use: limitless", rendered)
 
 
 if __name__ == "__main__":
