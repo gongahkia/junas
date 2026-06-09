@@ -233,6 +233,8 @@ def detect_address_findings(
         value = ctx.text[start:end].strip()
         if "\n" not in value and not PERSON_LINKED_ADDRESS_RE.search(value):
             continue
+        if "\n" in value and not any(ch.isdigit() for ch in value.splitlines()[0]):
+            continue
         if _looks_org_only_address(value):
             continue
         if not _has_generic_address_substance(value):

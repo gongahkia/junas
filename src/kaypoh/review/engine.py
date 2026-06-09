@@ -151,7 +151,8 @@ PERSONAL_ATTRIBUTE_DIRECTED_RELATION_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
     r"(?P<attribute>reports\s+to|is\s+supervised\s+by|is\s+guardian\s+for|is\s+the\s+guardian\s+of|"
     r"is\s+emergency\s+contact\s+for|is\s+beneficial\s+owner\s+of)\s+"
-    r"(?P<object>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+)?[A-Z][A-Za-z0-9&.,' -]{2,80}\b",
+    r"(?P<object>(?:(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+)?[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,4}|"
+    r"[A-Z][A-Za-z0-9&.,' -]{2,80})\b",
     re.IGNORECASE,
 )
 PERSONAL_ATTRIBUTE_EMPLOYER_RE = re.compile(
@@ -191,7 +192,8 @@ PERSONAL_ATTRIBUTE_LICENSE_RE = re.compile(
 )
 PERSONAL_ATTRIBUTE_DEPARTMENT_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
-    r"(?:works\s+in|is\s+assigned\s+to|reports\s+to)\s+(?P<object>[A-Z][A-Za-z0-9&.,' -]{2,80})\b"
+    r"(?:(?:works\s+in|is\s+assigned\s+to)\s+|reports\s+to\s+(?!(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+))"
+    r"(?P<object>[A-Z][A-Za-z0-9&.,' -]{2,80})\b"
 )
 PERSONAL_ATTRIBUTE_SENIORITY_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
@@ -3566,6 +3568,13 @@ def _detect_personal_attribute_inferences(
     )
     for pattern, attribute_type, reason in specs:
         for match in pattern.finditer(text):
+            attribute = match.group("attribute") if "attribute" in match.groupdict() else ""
+            inferred_value = match.group("object").strip(" \t,.;:")
+            if (
+                pattern is PERSONAL_ATTRIBUTE_DIRECTED_RELATION_RE
+                and re.search(r"\b(?:team|department|committee|board|unit|division|office)\b", inferred_value, re.I)
+            ):
+                continue
             start, end = _trim_inferred_attribute_span(text, match.start(), match.end())
             if end <= start:
                 continue
@@ -3573,10 +3582,10 @@ def _detect_personal_attribute_inferences(
             metadata: dict[str, Any] = {
                 "attribute_type": attribute_type,
                 "subject": match.group("subject"),
-                "inferred_value": match.group("object").strip(" \t,.;:"),
+                "inferred_value": inferred_value,
             }
             if attribute_type == "relationship":
-                metadata["relation_type"] = re.sub(r"\s+", "_", match.group("attribute").strip().casefold())
+                metadata["relation_type"] = re.sub(r"\s+", "_", attribute.strip().casefold())
             if unit is not None:
                 metadata.update(
                     {
