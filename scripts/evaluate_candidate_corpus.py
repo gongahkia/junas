@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
 import sys
 import time
 from collections import Counter
@@ -15,12 +16,18 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_PATH = REPO_ROOT / "src"
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
 from kaypoh.review.engine import PreSendReviewEngine  # noqa: E402
+from scripts.candidate_review import collect_review_status_violations  # noqa: E402
 
 DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
+LOCK_NAME = "candidate_recall.lock.json"
+HISTORY_NAME = "candidate_recall.lock.history.jsonl"
+REGRESSION_TOLERANCE = 1e-6
 UNEXPECTED_TRIAGE_BUCKETS = (
     "real_detector_hit_missing_from_strict_labels",
     "actual_detector_false_positive",
@@ -322,12 +329,144 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
     }
 
 
+def _lock_path_for(corpus: Path) -> Path:
+    return corpus / LOCK_NAME
+
+
+def _history_path_for(corpus: Path) -> Path:
+    return corpus / HISTORY_NAME
+
+
+def _resolve_actor() -> str:
+    try:
+        out = subprocess.run(
+            ["git", "config", "--get", "user.email"],
+            capture_output=True,
+            text=True,
+            cwd=REPO_ROOT,
+            timeout=5,
+            check=False,
+        )
+        if out.returncode == 0 and out.stdout.strip():
+            return out.stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        pass
+    return "unknown"
+
+
+def _resolve_commit_sha() -> str:
+    try:
+        out = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            cwd=REPO_ROOT,
+            timeout=5,
+            check=False,
+        )
+        if out.returncode == 0:
+            return out.stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        pass
+    return ""
+
+
+def _lock_baseline(summary: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "doc_count": summary["doc_count"],
+        "expected_labels": summary["expected_labels"],
+        "matched": summary["matched"],
+        "missed": summary["missed"],
+        "unexpected": summary["unexpected"],
+        "must_not_detect_violations": summary["must_not_detect_violations"],
+        "candidate_recall": summary["candidate_recall"],
+        "candidate_precision": summary["candidate_precision"],
+        "ideal_candidate_recall": summary["ideal_candidate_recall"],
+        "by_rule": summary["by_rule"],
+        "ideal_by_rule": summary["ideal_by_rule"],
+        "unexpected_triage": summary["unexpected_triage"],
+    }
+
+
+def _load_lock(lock_path: Path) -> dict[str, Any]:
+    if not lock_path.exists():
+        return {}
+    payload = json.loads(lock_path.read_text(encoding="utf-8"))
+    baseline = payload.get("baseline", {})
+    return dict(baseline) if isinstance(baseline, dict) else {}
+
+
+def _write_lock(lock_path: Path, *, summary: dict[str, Any], reason: str) -> None:
+    payload = {
+        "baseline": _lock_baseline(summary),
+        "reason": reason,
+        "updated_at_unix": int(time.time()),
+    }
+    lock_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _diff_scalar(current: dict[str, Any], baseline: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    keys = (
+        "doc_count",
+        "expected_labels",
+        "matched",
+        "missed",
+        "unexpected",
+        "must_not_detect_violations",
+        "candidate_recall",
+        "candidate_precision",
+        "ideal_candidate_recall",
+    )
+    out: dict[str, dict[str, Any]] = {}
+    for key in keys:
+        old = baseline.get(key)
+        new = current.get(key)
+        if old != new:
+            out[key] = {"old": old, "new": new}
+    return out
+
+
+def _append_history(history_path: Path, *, reason: str, baseline: dict[str, Any], current: dict[str, Any]) -> None:
+    entry = {
+        "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "actor": _resolve_actor(),
+        "commit_sha": _resolve_commit_sha(),
+        "reason": reason,
+        "diff": _diff_scalar(current, baseline),
+    }
+    with history_path.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(entry, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n")
+
+
+def _compare_to_lock(summary: dict[str, Any], baseline: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    for key in ("candidate_recall", "candidate_precision", "ideal_candidate_recall"):
+        old = float(baseline.get(key, 0.0) or 0.0)
+        new = float(summary.get(key, 0.0) or 0.0)
+        if new + REGRESSION_TOLERANCE < old:
+            failures.append(f"{key}: regressed {old:.4f} -> {new:.4f}")
+    for key in ("missed", "unexpected", "must_not_detect_violations"):
+        old = int(baseline.get(key, 0) or 0)
+        new = int(summary.get(key, 0) or 0)
+        if new > old:
+            failures.append(f"{key}: regressed {old} -> {new}")
+    return failures
+
+
+def _reason_mentions_human_review(reason: str) -> bool:
+    normalized = reason.strip().lower()
+    return "candidate" in normalized and ("human" in normalized or "review" in normalized or "approved" in normalized)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Evaluate candidate fixtures without updating recall locks")
     parser.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
     parser.add_argument("--output", type=Path, help="Write JSON report to this path")
     parser.add_argument("--profile", choices=("strict", "audit_grade"), default="strict")
     parser.add_argument("--fail-on-missed", action="store_true")
+    parser.add_argument("--update-lock", action="store_true", help=f"Write {LOCK_NAME} for this candidate corpus")
+    parser.add_argument("--reason", default="", help="Required with --update-lock")
+    parser.add_argument("--require-human-reviewed", action="store_true")
     args = parser.parse_args(argv)
 
     corpus = args.corpus if args.corpus.is_absolute() else REPO_ROOT / args.corpus
@@ -335,6 +474,13 @@ def main(argv: list[str] | None = None) -> int:
     if not paths:
         print(f"no candidate fixtures found in {corpus}", file=sys.stderr)
         return 2
+    if args.require_human_reviewed:
+        review_violations = collect_review_status_violations(corpus)
+        if review_violations:
+            print("generated/candidate labels require human approval:", file=sys.stderr)
+            for violation in review_violations:
+                print(f"human-review violation: {violation}", file=sys.stderr)
+            return 2
 
     reports = [_evaluate_one(path, review_profile=args.profile) for path in paths]
     payload = {
@@ -353,6 +499,30 @@ def main(argv: list[str] | None = None) -> int:
         print(f"wrote {output}")
     else:
         print(rendered, end="")
+    lock_path = _lock_path_for(corpus)
+    history_path = _history_path_for(corpus)
+    if args.update_lock:
+        if not args.reason.strip():
+            print("--update-lock requires --reason", file=sys.stderr)
+            return 2
+        if args.require_human_reviewed and not _reason_mentions_human_review(args.reason):
+            print(
+                "--update-lock with --require-human-reviewed requires --reason to mention candidate human review",
+                file=sys.stderr,
+            )
+            return 2
+        baseline = _load_lock(lock_path)
+        _write_lock(lock_path, summary=payload["summary"], reason=args.reason.strip())
+        _append_history(history_path, reason=args.reason.strip(), baseline=baseline, current=_lock_baseline(payload["summary"]))
+        print(f"wrote candidate baseline to {lock_path}")
+    else:
+        baseline = _load_lock(lock_path)
+        if baseline:
+            failures = _compare_to_lock(payload["summary"], baseline)
+            for failure in failures:
+                print(f"candidate-lock regression: {failure}", file=sys.stderr)
+            if failures:
+                return 1
     bad = payload["summary"]["missed"] or payload["summary"]["must_not_detect_violations"]
     return 1 if args.fail_on_missed and bad else 0
 

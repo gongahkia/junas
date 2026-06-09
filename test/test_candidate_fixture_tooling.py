@@ -1,3 +1,5 @@
+import contextlib
+import io
 import json
 import tempfile
 import unittest
@@ -6,7 +8,7 @@ from unittest.mock import patch
 
 from scripts import autolabel_fixture, autolabel_qa_report, generate_legal_fixture
 from scripts.candidate_corpus_report import STAGE_A_DOCS, build_report, render_markdown
-from scripts.evaluate_candidate_corpus import _evaluate_one, _summary
+from scripts.evaluate_candidate_corpus import _evaluate_one, _summary, main as evaluate_candidate_main
 from scripts.fixture_taxonomy import JURISDICTIONS, MNPI_RULES, PII_RULES
 
 
@@ -135,6 +137,47 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         self.assertIn("candidate_precision", summary)
         self.assertIn("unexpected_triage", summary)
         self.assertEqual(summary["ideal_candidate_recall"], 0.6667)
+
+    def test_candidate_evaluator_lock_requires_human_reviewed_labels(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            fixture = root / "sg_candidate_001.txt"
+            fixture.write_text("Send S1234567D.\n", encoding="utf-8")
+            labels = {
+                "doc_id": "sg_candidate_001",
+                "document_type": "memo",
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "SG",
+                "must_detect": [{"category": "PII", "rule": "sg_nric_fin", "matched_text": "S1234567D"}],
+                "ideal_must_detect": [],
+                "must_not_detect": [],
+                "_label_source": "openai:test-auto",
+                "_human_review_status": "pending",
+            }
+            fixture.with_suffix(".labels.json").write_text(json.dumps(labels), encoding="utf-8")
+
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                blocked = evaluate_candidate_main([
+                    "--corpus", str(root),
+                    "--update-lock",
+                    "--require-human-reviewed",
+                    "--reason", "candidate human review baseline",
+                ])
+            self.assertEqual(blocked, 2)
+
+            labels["_human_review_status"] = "approved"
+            labels["_human_review"] = {"reviewer": "owner", "decision": "approve"}
+            fixture.with_suffix(".labels.json").write_text(json.dumps(labels), encoding="utf-8")
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                updated = evaluate_candidate_main([
+                    "--corpus", str(root),
+                    "--output", str(root / "eval.json"),
+                    "--update-lock",
+                    "--require-human-reviewed",
+                    "--reason", "candidate human reviewed baseline",
+                ])
+            self.assertEqual(updated, 0)
+            self.assertTrue((root / "candidate_recall.lock.json").exists())
 
     def test_candidate_corpus_report_groups_stage_review_and_eval_by_jurisdiction(self):
         with tempfile.TemporaryDirectory() as tmp:

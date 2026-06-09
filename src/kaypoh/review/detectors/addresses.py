@@ -236,9 +236,11 @@ def detect_address_findings(
         if end <= start or _overlaps((start, end), occupied):
             continue
         value = ctx.text[start:end].strip()
-        if "\n" not in value and not PERSON_LINKED_ADDRESS_RE.search(value):
+        lines = value.splitlines()
+        first_line = lines[0] if lines else value
+        if not PERSON_LINKED_ADDRESS_RE.search(first_line):
             continue
-        if "\n" in value and not any(ch.isdigit() for ch in value.splitlines()[0]):
+        if "\n" in value and not any(ch.isdigit() for ch in "\n".join(lines[1:])):
             continue
         if _looks_org_only_address(value):
             continue

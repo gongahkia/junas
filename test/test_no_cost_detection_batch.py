@@ -102,6 +102,15 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
         self.assertNotIn("postal_address", self._rules(text, "SG"))
 
+    def test_broad_unlabelled_address_fallback_rejects_url_prose_window(self):
+        text = (
+            "URL logs show https://portal.example.com/case/1 and the team reviewed the Singapore disclosure plan.\n"
+            "No employee home address is being processed in this incident memo.\n"
+            "The market impact estimate is SGD 5000000 before announcement."
+        )
+
+        self.assertNotIn("postal_address", self._rules(text, "SG"))
+
     def test_personal_attribute_inference_fires_with_structure_metadata(self):
         result = self._review("People\nDr Jane Tan works at Acme Pte Ltd.\n", "SG")
         findings = [finding for finding in result.findings if finding.rule == "personal_attribute_inference"]
