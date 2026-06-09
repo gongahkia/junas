@@ -363,6 +363,10 @@ def tenant_context_from_request(request: Request) -> TenantContext:
     return context if isinstance(context, TenantContext) else DISABLED_TENANT_CONTEXT
 
 
+def _can_view_lane_suppressed(tenant: TenantContext) -> bool:
+    return (not tenant.enabled) or bool(tenant.roles & LANE_SUPPRESSED_VIEW_ROLES)
+
+
 def load_config() -> list[str]:
     return list(current_runtime_settings().pipeline.layers)
 
@@ -1060,8 +1064,8 @@ def _build_review_engine() -> PreSendReviewEngine:
         from kaypoh.workflow.layer8_llm_adjudicator.helpers import build_llm_defined_term_extractor
 
         llm_defined_term_extractor = build_llm_defined_term_extractor(settings.llm)
-    # audit_grade-only inverse-audit helper. output is journaled as coverage_warning events.
-    # advisory only — engine never acts on these.
+    # audit_grade-only inverse-audit helper. output is journaled as coverage_warning
+    # events and promoted to capped origin=llm findings by the engine.
     llm_coverage_auditor = get_layer_model("llm_coverage_auditor")
     if llm_coverage_auditor is None and settings.llm_helpers.coverage_audit_enabled:
         from kaypoh.workflow.layer8_llm_adjudicator.helpers import build_llm_coverage_auditor
@@ -1197,6 +1201,28 @@ def _document_degraded_modes(document: Any) -> list[dict[str, Any]]:
     return modes
 
 
+def _finding_response(finding: Any) -> ReviewFindingResponse:
+    return ReviewFindingResponse(
+        id=finding.id,
+        category=finding.category,
+        rule=finding.rule,
+        jurisdiction=finding.jurisdiction,
+        severity=finding.severity,
+        score=finding.score,
+        matched_text=finding.matched_text,
+        start_char=finding.start_char,
+        end_char=finding.end_char,
+        reason=finding.reason,
+        legal_basis=finding.legal_basis,
+        source=getattr(finding, "source", "text"),
+        image_locator=getattr(finding, "image_locator", None),
+        image_ocr_confidence=getattr(finding, "image_ocr_confidence", None),
+        image_ocr_regions=getattr(finding, "image_ocr_regions", []),
+        source_verification=getattr(finding, "source_verification", "not_checked"),
+        metadata=getattr(finding, "metadata", {}),
+    )
+
+
 def _build_review_response(
     *,
     req: ReviewRequest,
@@ -1205,7 +1231,13 @@ def _build_review_response(
     result: Any,
     timings_ms: dict[str, float],
     degraded_modes: list[dict[str, Any]] | None = None,
+    visible_findings: list[Any] | None = None,
+    lane_suppressed_findings: list[Any] | None = None,
+    lane_suppressed_count: int = 0,
 ) -> ReviewResponse:
+    response_findings = list(result.findings if visible_findings is None else visible_findings)
+    suppressed_findings = list(lane_suppressed_findings or [])
+    visible_ids = {finding.id for finding in response_findings}
     return ReviewResponse(
         request_id=request_id,
         overall_risk=result.overall_risk,
@@ -1229,28 +1261,9 @@ def _build_review_response(
             extraction_warnings=list(getattr(document, "extraction_warnings", []) or []),
             metadata_findings=list(getattr(document, "metadata_findings", []) or []),
         ),
-        findings=[
-            ReviewFindingResponse(
-                id=finding.id,
-                category=finding.category,
-                rule=finding.rule,
-                jurisdiction=finding.jurisdiction,
-                severity=finding.severity,
-                score=finding.score,
-                matched_text=finding.matched_text,
-                start_char=finding.start_char,
-                end_char=finding.end_char,
-                reason=finding.reason,
-                legal_basis=finding.legal_basis,
-                source=getattr(finding, "source", "text"),
-                image_locator=getattr(finding, "image_locator", None),
-                image_ocr_confidence=getattr(finding, "image_ocr_confidence", None),
-                image_ocr_regions=getattr(finding, "image_ocr_regions", []),
-                source_verification=getattr(finding, "source_verification", "not_checked"),
-                metadata=getattr(finding, "metadata", {}),
-            )
-            for finding in result.findings
-        ],
+        findings=[_finding_response(finding) for finding in response_findings],
+        lane_suppressed_count=lane_suppressed_count,
+        lane_suppressed_findings=[_finding_response(finding) for finding in suppressed_findings],
         suggestions=[
             ReviewSuggestionResponse(
                 id=suggestion.id,
@@ -1260,6 +1273,7 @@ def _build_review_response(
                 rationale=suggestion.rationale,
             )
             for suggestion in result.suggestions
+            if suggestion.finding_id in visible_ids
         ],
         public_evidence=PublicEvidenceResponse(**result.public_evidence) if result.public_evidence else None,
         llm_adjudication=LLMAdjudicationResponse(**result.llm_adjudication) if result.llm_adjudication else None,
@@ -1280,9 +1294,7 @@ def _persist_coverage_warnings(
     warnings: list[Any],
     tenant_id: str | None = None,
 ) -> None:
-    """Journal each LLM inverse-audit warning as a coverage_warning event. Advisory only —
-    never gates downstream review state. Requires KAYPOH_REVIEW_PERSIST=1 and a request_id
-    (the review-session anchor) just like decision_recorded does."""
+    """Journal each coverage warning. LLM warnings also have capped findings in the session."""
     if not _review_persistence_enabled() or not request_id or not warnings:
         return
     from kaypoh.review.decisions import EVENT_COVERAGE_WARNING
@@ -1343,6 +1355,15 @@ def _persist_review_session(
     )
 
 
+def _apply_surfacing_lanes_to_result(result: Any, tenant: TenantContext) -> Any:
+    try:
+        from kaypoh.review.surfacing_lane import SurfacingLaneError, apply_surfacing_lanes
+
+        return apply_surfacing_lanes(result.findings, tenant_id=tenant.storage_tenant_id)
+    except SurfacingLaneError as exc:
+        raise HTTPException(status_code=503, detail=_layer_error_detail(ReviewLayerError("surfacing_lane", str(exc)))) from exc
+
+
 def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantContext) -> ReviewResponse:
     timings_ms: dict[str, float] = {}
     t_total_start = time.perf_counter()
@@ -1391,6 +1412,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
     except Exception as exc:
         raise HTTPException(status_code=500, detail=_detector_error_detail(exc)) from exc
     _annotate_image_ocr_findings(document, result.findings)
+    lane_result = _apply_surfacing_lanes_to_result(result, tenant)
     result.privacy_ledger = image_privacy_ledger + list(result.privacy_ledger)
     degraded_modes.extend(list(getattr(result, "degraded_modes", []) or []))
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
@@ -1427,6 +1449,11 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
         result=result,
         timings_ms=timings_ms,
         degraded_modes=degraded_modes,
+        visible_findings=lane_result.visible_findings,
+        lane_suppressed_findings=(
+            lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []
+        ),
+        lane_suppressed_count=lane_result.suppressed_count,
     )
 
     observability = get_observability()
@@ -1513,6 +1540,7 @@ def _run_placeholder_review_sync(
     except Exception as exc:
         raise HTTPException(status_code=500, detail=_detector_error_detail(exc)) from exc
     _annotate_image_ocr_findings(document, result.findings)
+    lane_result = _apply_surfacing_lanes_to_result(result, tenant)
     result.privacy_ledger = image_privacy_ledger + list(result.privacy_ledger)
     degraded_modes.extend(list(getattr(result, "degraded_modes", []) or []))
     timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
@@ -1551,6 +1579,11 @@ def _run_placeholder_review_sync(
         result=result,
         timings_ms=timings_ms,
         degraded_modes=degraded_modes,
+        visible_findings=lane_result.visible_findings,
+        lane_suppressed_findings=(
+            lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []
+        ),
+        lane_suppressed_count=lane_result.suppressed_count,
     )
     return {
         "document": document,
@@ -2461,34 +2494,47 @@ def _resolve_reviewer_identity(
     return "", "none"
 
 
-def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateResponse:
+def _session_finding_state(finding: dict[str, Any], decision: dict[str, Any] | None) -> ReviewSessionFindingState:
+    return ReviewSessionFindingState(
+        id=finding["id"],
+        category=finding["category"],
+        rule=finding["rule"],
+        severity=finding["severity"],
+        matched_text=finding["matched_text"],
+        start_char=finding["start_char"],
+        end_char=finding["end_char"],
+        source=finding.get("source", "text"),
+        image_locator=finding.get("image_locator"),
+        image_ocr_confidence=finding.get("image_ocr_confidence"),
+        image_ocr_regions=finding.get("image_ocr_regions", []),
+        metadata=finding.get("metadata", {}),
+        decision=decision["action"] if decision else None,
+        decision_seq=decision["seq"] if decision else None,
+        decision_ts=decision["ts"] if decision else None,
+        decision_reviewer_id=decision.get("reviewer_id") if decision else None,
+        decision_reviewer_identity_source=(
+            decision.get("reviewer_identity_source") if decision else None
+        ),
+    )
+
+
+def _serialize_session_state(
+    state: dict[str, Any],
+    *,
+    include_lane_suppressed: bool = False,
+) -> ReviewSessionStateResponse:
+    from kaypoh.review.surfacing_lane import partition_persisted_findings
+
     decisions_by_id = {d["finding_id"]: d for d in state.get("decisions", [])}
-    findings: list[ReviewSessionFindingState] = []
-    for finding in state.get("findings", []):
-        decision = decisions_by_id.get(finding.get("id"))
-        findings.append(
-            ReviewSessionFindingState(
-                id=finding["id"],
-                category=finding["category"],
-                rule=finding["rule"],
-                severity=finding["severity"],
-                matched_text=finding["matched_text"],
-                start_char=finding["start_char"],
-                end_char=finding["end_char"],
-                source=finding.get("source", "text"),
-                image_locator=finding.get("image_locator"),
-                image_ocr_confidence=finding.get("image_ocr_confidence"),
-                image_ocr_regions=finding.get("image_ocr_regions", []),
-                metadata=finding.get("metadata", {}),
-                decision=decision["action"] if decision else None,
-                decision_seq=decision["seq"] if decision else None,
-                decision_ts=decision["ts"] if decision else None,
-                decision_reviewer_id=decision.get("reviewer_id") if decision else None,
-                decision_reviewer_identity_source=(
-                    decision.get("reviewer_identity_source") if decision else None
-                ),
-            )
-        )
+    visible_raw, suppressed_raw = partition_persisted_findings(list(state.get("findings", [])))
+    findings = [
+        _session_finding_state(finding, decisions_by_id.get(finding.get("id")))
+        for finding in visible_raw
+    ]
+    suppressed_findings = [
+        _session_finding_state(finding, decisions_by_id.get(finding.get("id")))
+        for finding in suppressed_raw
+    ] if include_lane_suppressed else []
     return ReviewSessionStateResponse(
         review_id=state["review_id"],
         text_hash=state.get("text_hash") or "",
@@ -2496,6 +2542,8 @@ def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateRespons
         source_jurisdiction=state.get("source_jurisdiction") or "SG",
         destination_jurisdiction=state.get("destination_jurisdiction") or "SG",
         findings=findings,
+        lane_suppressed_count=len(suppressed_raw),
+        lane_suppressed_findings=suppressed_findings,
         decisions_recorded=len(state.get("decisions", [])),
         audit_exports=list(state.get("audit_exports", [])),
     )
@@ -2559,10 +2607,11 @@ async def post_review_decision(
 )
 async def get_review_session(request: Request, review_id: str):
     _ensure_persistence_enabled()
-    state = get_session_state(review_id=review_id, tenant_id=tenant_context_from_request(request).storage_tenant_id)
+    tenant = tenant_context_from_request(request)
+    state = get_session_state(review_id=review_id, tenant_id=tenant.storage_tenant_id)
     if state is None:
         raise HTTPException(status_code=404, detail=f"unknown review_id: {review_id}")
-    return _serialize_session_state(state)
+    return _serialize_session_state(state, include_lane_suppressed=_can_view_lane_suppressed(tenant))
 
 
 if __name__ == "__main__":
