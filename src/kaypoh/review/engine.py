@@ -4821,12 +4821,13 @@ class PreSendReviewEngine:
             text, packs, defined_terms, document_type
         )
         findings.extend(
-            _detect_personal_attribute_inferences(
+            detect_personal_attribute_inferences(
                 text,
                 jurisdiction=_pack_scope(packs),
                 legal_basis=_legal_basis(packs, "pii_rules"),
                 idx_start=len(findings),
                 document_structure=document_structure,
+                new_finding=_new_finding,
             )
         )
         # items 95 + 96: lift contingent/tipping severity when co-located with a deal substrate.
