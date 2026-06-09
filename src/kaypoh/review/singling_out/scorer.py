@@ -625,6 +625,7 @@ def detect_singling_out(
             "frequency_tables_used": used,
             "frequency_tables_missing": missing,
             "distinct_quasi_identifier_rules": sorted(rules),
+            "components": _component_spans(group),
             "quasi_identifier_component_spans": _component_spans(group),
             "legal_basis": legal_basis,
         }

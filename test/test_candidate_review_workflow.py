@@ -14,6 +14,7 @@ from scripts.candidate_review import (
 )
 from scripts.check_candidate_stage_gate import STAGE_B_DOCS, main as stage_gate_main, stage_gate_status
 from scripts.promote_candidate_fixtures import MANIFEST_NAME, promote_candidates
+from scripts.promote_candidate_exact_spans import promote_exact_spans
 from scripts.recall_gate import main as recall_gate_main
 from scripts.review_candidate_fixture import main as review_candidate_main
 
@@ -165,6 +166,51 @@ class CandidateReviewWorkflowTests(unittest.TestCase):
             collision_result = promote_candidates(candidate_dir=candidate_dir, target_dir=target_dir)
             self.assertEqual(len(collision_result["errors"]), 1)
             self.assertIn("refusing to overwrite", collision_result["errors"][0])
+
+    def test_exact_span_promotion_only_moves_runtime_exact_ideal_labels(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus = Path(tmp)
+            fixture = corpus / "sg_quasi_identifiers_memo_default_001.txt"
+            text = "Dr Jane Tan can be reached at +65 9123 4567 or jane.tan@example.sg."
+            fixture.write_text(text, encoding="utf-8")
+            write_labels(
+                labels_path_for(fixture),
+                {
+                    "doc_id": fixture.stem,
+                    "document_type": "memo",
+                    "source_jurisdiction": "SG",
+                    "destination_jurisdiction": "SG",
+                    "must_detect": [
+                        {"category": "PII", "rule": "named_person", "matched_text": "Dr Jane Tan"},
+                    ],
+                    "ideal_must_detect": [
+                        {"category": "PII", "rule": "quasi_identifier_combination", "matched_text": text},
+                        {
+                            "category": "PII",
+                            "rule": "quasi_identifier_combination",
+                            "matched_text": "broader non-exact cluster",
+                        },
+                    ],
+                    "must_not_detect": [],
+                    "_taxonomy_concept": "quasi_identifiers",
+                },
+            )
+
+            dry = promote_exact_spans(corpus=corpus, dry_run=True, actor="test")
+            self.assertEqual(dry["promoted_count"], 1)
+            labels_after_dry = json.loads(labels_path_for(fixture).read_text(encoding="utf-8"))
+            self.assertEqual(len(labels_after_dry["must_detect"]), 1)
+
+            result = promote_exact_spans(corpus=corpus, dry_run=False, actor="test")
+            self.assertEqual(result["promoted_count"], 1)
+            labels = json.loads(labels_path_for(fixture).read_text(encoding="utf-8"))
+            promoted = [
+                item for item in labels["must_detect"]
+                if item["rule"] == "quasi_identifier_combination"
+            ]
+            self.assertEqual(len(promoted), 1)
+            self.assertEqual(promoted[0]["matched_text"], text)
+            self.assertEqual(labels["_exact_span_promotion"]["actor"], "test")
 
     def test_recall_gate_human_review_guard_blocks_unapproved_and_ambiguous_updates(self):
         with tempfile.TemporaryDirectory() as tmp:
