@@ -10,6 +10,7 @@ from scripts import autolabel_fixture, autolabel_qa_report, generate_legal_fixtu
 from scripts.candidate_corpus_report import STAGE_A_DOCS, build_report, render_markdown
 from scripts.evaluate_candidate_corpus import _evaluate_one, _summary, main as evaluate_candidate_main
 from scripts.fixture_taxonomy import JURISDICTIONS, MNPI_RULES, PII_RULES
+from scripts.reconcile_candidate_strict_labels import reconcile_strict_labels
 
 
 class CandidateFixtureToolingTests(unittest.TestCase):
@@ -178,6 +179,42 @@ class CandidateFixtureToolingTests(unittest.TestCase):
                 ])
             self.assertEqual(updated, 0)
             self.assertTrue((root / "candidate_recall.lock.json").exists())
+
+    def test_candidate_strict_label_reconciliation_promotes_runtime_and_moves_stale(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            fixture = root / "sg_candidate_001.txt"
+            fixture.write_text("Send Dr Jane Tan S1234567D before announcement.\n", encoding="utf-8")
+            fixture.with_suffix(".labels.json").write_text(
+                json.dumps(
+                    {
+                        "doc_id": "sg_candidate_001",
+                        "document_type": "memo",
+                        "source_jurisdiction": "SG",
+                        "destination_jurisdiction": "SG",
+                        "must_detect": [
+                            {"category": "MNPI", "rule": "transaction_codename", "matched_text": "Project Missing"}
+                        ],
+                        "ideal_must_detect": [],
+                        "must_not_detect": [],
+                        "_label_source": "openai:test-auto",
+                        "_human_review_status": "approved",
+                        "_human_review": {"reviewer": "owner", "decision": "approve"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            report = reconcile_strict_labels(corpus=root, actor="test", reason="candidate human reviewed baseline")
+            labels = json.loads(fixture.with_suffix(".labels.json").read_text(encoding="utf-8"))
+            strict_keys = {(item["rule"], item["matched_text"]) for item in labels["must_detect"]}
+            ideal_keys = {(item["rule"], item["matched_text"]) for item in labels["ideal_must_detect"]}
+
+            self.assertGreater(report["promoted_runtime_findings"], 0)
+            self.assertEqual(report["moved_stale_must_detect"], 1)
+            self.assertIn(("sg_nric_fin", "S1234567D"), strict_keys)
+            self.assertNotIn(("transaction_codename", "Project Missing"), strict_keys)
+            self.assertIn(("transaction_codename", "Project Missing"), ideal_keys)
 
     def test_candidate_corpus_report_groups_stage_review_and_eval_by_jurisdiction(self):
         with tempfile.TemporaryDirectory() as tmp:
