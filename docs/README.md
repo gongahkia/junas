@@ -3,6 +3,10 @@
 This folder contains operator and developer documentation.
 
 - `running.md`: launch and operational commands
+- `install.md`: local, extension, Office, and server install flow
+- `admin-security.md`: identity, tenant, key, SIEM, and local pairing controls
+- `threat-model.md`: data flow, trust boundaries, threats, controls, and residual risk
+- `known-limitations.md`: explicit unsupported or limited surfaces
 - `schema.md`: API and artifact contracts
 - `architecture.md`: pipeline architecture overview
 - `accuracy.md`: generated per-detector recall/precision disclosure

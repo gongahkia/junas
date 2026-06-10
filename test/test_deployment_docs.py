@@ -49,6 +49,63 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertIn("scripts/check_retention_manifest.py --manifest", text)
         self.assertIn("--json", text)
 
+    def test_install_admin_threat_and_limitations_docs_cover_lastbit_controls(self):
+        install = (ROOT / "docs" / "install.md").read_text(encoding="utf-8")
+        admin = (ROOT / "docs" / "admin-security.md").read_text(encoding="utf-8")
+        threat = (ROOT / "docs" / "threat-model.md").read_text(encoding="utf-8")
+        limitations = (ROOT / "docs" / "known-limitations.md").read_text(encoding="utf-8")
+        combined = "\n".join([install, admin, threat, limitations])
+
+        for token in (
+            "codesign",
+            "notarytool",
+            "auto-start",
+            "Update:",
+            "Uninstall:",
+            "Okta",
+            "Microsoft Entra ID",
+            "SAML",
+            "External KMS",
+            "customer-held",
+            "SIEM",
+            "redacted",
+            "not legal advice",
+            "procurement-grade",
+            "threat",
+            "Known Limitations",
+        ):
+            self.assertIn(token, combined)
+
+    def test_distribution_artifacts_exist_for_packaging_surfaces(self):
+        expected = [
+            ROOT / "scripts" / "package_macos_desktop.sh",
+            ROOT / "scripts" / "package_browser_extension.sh",
+            ROOT / "packaging" / "macos" / "com.kaypoh.local.plist.template",
+            ROOT / "packaging" / "macos" / "install.sh",
+            ROOT / "packaging" / "macos" / "update.sh",
+            ROOT / "packaging" / "macos" / "uninstall.sh",
+            ROOT / "packaging" / "windows" / "README.md",
+            ROOT / "packaging" / "word_addin" / "manifest.xml",
+            ROOT / "packaging" / "word_addin" / "taskpane.js",
+        ]
+        for path in expected:
+            self.assertTrue(path.exists(), f"missing {path}")
+
+        macos_packager = (ROOT / "scripts" / "package_macos_desktop.sh").read_text(encoding="utf-8")
+        extension_packager = (ROOT / "scripts" / "package_browser_extension.sh").read_text(encoding="utf-8")
+        launchd = (ROOT / "packaging" / "macos" / "com.kaypoh.local.plist.template").read_text(encoding="utf-8")
+        word_manifest = (ROOT / "packaging" / "word_addin" / "manifest.xml").read_text(encoding="utf-8")
+        word_js = (ROOT / "packaging" / "word_addin" / "taskpane.js").read_text(encoding="utf-8")
+
+        self.assertIn("codesign", macos_packager)
+        self.assertIn("notarytool", macos_packager)
+        self.assertIn("stapler", macos_packager)
+        self.assertIn("--pack-extension", extension_packager)
+        self.assertIn("RunAtLoad", launchd)
+        self.assertIn('Host Name="Document"', word_manifest)
+        self.assertIn("/review", word_js)
+        self.assertIn("X-Kaypoh-Local-Token", word_js)
+
 
 if __name__ == "__main__":
     unittest.main()

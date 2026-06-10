@@ -25,3 +25,5 @@ This folder contains operational and maintenance commands.
 - `generate_tenant_credentials.py`: generate tenant API-key registry JSON for server deployments.
 - `promote_journal_to_corpus.py`: queue journal decisions for human-reviewed corpus promotion without touching recall locks.
 - `smoke_local_daemon_acl.py`: smoke-test local daemon Origin/CORS and token gates for browser/Office clients.
+- `package_macos_desktop.sh`: build, optional codesign/notarize, and zip the macOS local desktop bundle.
+- `package_browser_extension.sh`: zip the MV3 extension and optionally produce a CRX with Chrome's packer.
