@@ -87,6 +87,7 @@ EU_MEMBER_STATE_ID_RE = re.compile(
     r"(?:Finland|Finnish|FI)\s+(?:HETU|personal\s+identity\s+code|national\s+ID)|"
     r"(?:Ireland|Irish|IE)\s+(?:PPSN|personal\s+public\s+service\s+number|national\s+ID)|"
     r"(?:Austria|Austrian|AT)\s+(?:SVNR|social\s+security\s+number|national\s+ID)|"
+    r"(?:Denmark|Danish|DK)\s+(?:CPR|civil\s+registration\s+number|personal\s+identification\s+number|national\s+ID)|"
     r"(?:Czechia|Czech|CZ)\s+(?:birth\s+number|rodn[eé]\s+č[ií]slo|national\s+ID)|"
     r"(?:Slovakia|Slovak|SK)\s+(?:birth\s+number|rodn[eé]\s+č[ií]slo|national\s+ID)|"
     r"(?:Romania|Romanian|RO)\s+(?:CNP|personal\s+numeric\s+code|national\s+ID)"
@@ -467,6 +468,14 @@ def _validate_ro_cnp(value: str) -> bool:
     return check == int(digits[-1])
 
 
+def _validate_dk_cpr(value: str) -> bool:
+    digits = _digits_only(value)
+    if len(digits) != 10:
+        return False
+    day, month, year = int(digits[:2]), int(digits[2:4]), int(digits[4:6])
+    return any(_valid_calendar_date(century + year, month, day) for century in (1900, 2000))
+
+
 def _eu_member_state_label(label: str) -> str | None:
     normalized = label.casefold()
     if "dni" in normalized or "nie" in normalized or "spanish" in normalized or normalized.startswith("es"):
@@ -493,6 +502,8 @@ def _eu_member_state_label(label: str) -> str | None:
         return "IE"
     if "svnr" in normalized or "austrian" in normalized or normalized.startswith("at"):
         return "AT"
+    if "cpr" in normalized or "danish" in normalized or "denmark" in normalized or normalized.startswith("dk"):
+        return "DK"
     if "czech" in normalized or normalized.startswith("cz"):
         return "CZ"
     if "slovak" in normalized or normalized.startswith("sk"):
@@ -531,6 +542,8 @@ def _validate_eu_member_state_id(country: str | None, value: str) -> bool:
         return _validate_cz_sk_birth_number(value)
     if country == "RO":
         return _validate_ro_cnp(value)
+    if country == "DK":
+        return _validate_dk_cpr(value)
     return True
 
 
@@ -717,18 +730,20 @@ def detect_core_identifier_findings(
         for match in EU_NATIONAL_ID_RE.finditer(ctx.text):
             country = match.group("country").upper()
             value = match.group("id")
-            checksum_countries = {
+            validated_countries = {
                 "ES", "NL", "PL", "FR", "DE", "IT", "BE", "PT", "SE", "FI", "IE", "AT", "CZ", "SK", "RO",
+                "DK",
             }
             de_tax_label = re.search(r"\b(?:tax\s+ID|TIN|Steueridentifikationsnummer)\b", match.group(0), re.I)
-            country_requires_checksum = country in checksum_countries and (country != "DE" or bool(de_tax_label))
-            if country_requires_checksum and not _validate_eu_member_state_id(country, value):
+            country_requires_validation = country in validated_countries and (country != "DE" or bool(de_tax_label))
+            if country_requires_validation and not _validate_eu_member_state_id(country, value):
                 continue
+            validator = "date_shape" if country == "DK" else "checksum"
             out.append(new_finding(
                 idx=idx, category="PII", rule="eu_national_id", jurisdiction=ctx.jurisdiction, severity="high",
                 matched_text=value, start=match.start("id"), end=match.end("id"),
                 reason=f"EU {country} national identifier detected", legal_basis=ctx.legal_basis,
-                metadata={"member_state": country, "validator": "checksum" if country in checksum_countries else "label"},
+                metadata={"member_state": country, "validator": validator if country in validated_countries else "label"},
             ))
             idx += 1
         for match in EU_MEMBER_STATE_ID_RE.finditer(ctx.text):
@@ -740,7 +755,10 @@ def detect_core_identifier_findings(
                 idx=idx, category="PII", rule="eu_national_id", jurisdiction=ctx.jurisdiction, severity="high",
                 matched_text=value, start=match.start("id"), end=match.end("id"),
                 reason=f"EU {country or 'member-state'} national identifier detected", legal_basis=ctx.legal_basis,
-                metadata={"member_state": country, "validator": "checksum" if country else "label"},
+                metadata={
+                    "member_state": country,
+                    "validator": "date_shape" if country == "DK" else ("checksum" if country else "label"),
+                },
             ))
             idx += 1
     if any(pack.code == "UK" for pack in ctx.packs):
