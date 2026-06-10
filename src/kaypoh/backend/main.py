@@ -8,6 +8,7 @@ import json
 import logging
 import os
 import re
+import secrets
 import sys
 import time
 import uuid
@@ -58,8 +59,11 @@ from kaypoh.backend.cache import ResponseCache
 from kaypoh.backend.local_auth import (
     LOCAL_TOKEN_HEADER,
     LocalDaemonAuthError,
+    local_pairing_code_digest,
     origin_allowed,
     resolve_local_daemon_token,
+    sign_local_client_token,
+    verify_local_client_token,
 )
 from kaypoh.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode
 from kaypoh.backend.schemas import (
@@ -144,6 +148,8 @@ LANE_SUPPRESSED_VIEW_ROLES = frozenset({"auditor", "admin"})
 
 SUPPRESSED_REQUEST_LOG_PATHS = {"/health", "/ready", "/metrics"}
 SPAN_CONTEXT_CHARS = 48
+LOCAL_PAIRING_TTL_SECONDS = 300
+LOCAL_CLIENT_TOKEN_TTL_SECONDS = 90 * 24 * 60 * 60
 LOCAL_DAEMON_PROTECTED_PATHS = {
     "/anonymize",
     "/classify",
@@ -300,6 +306,32 @@ def _local_daemon_token() -> str:
     if token:
         _state["local_daemon_token"] = token
     return token
+
+
+def _local_daemon_token_valid(supplied: str, expected: str) -> bool:
+    if hmac.compare_digest(supplied, expected):
+        return True
+    return verify_local_client_token(expected, supplied)
+
+
+def _pending_pairings() -> dict[str, dict[str, Any]]:
+    store = _state.setdefault("local_pairing_requests", {})
+    if not isinstance(store, dict):
+        store = {}
+        _state["local_pairing_requests"] = store
+    now = int(time.time())
+    for key, value in list(store.items()):
+        if not isinstance(value, dict) or int(value.get("expires_at", 0)) <= now:
+            store.pop(key, None)
+    return store
+
+
+async def _json_object(request: Request) -> dict[str, Any]:
+    try:
+        body = await request.json()
+    except Exception:
+        return {}
+    return body if isinstance(body, dict) else {}
 
 
 def _require_access(
@@ -2042,7 +2074,7 @@ async def local_daemon_acl_middleware(request: Request, call_next):
                 content={"detail": f"local daemon token not provisioned: {exc}"},
             )
         supplied = request.headers.get(LOCAL_TOKEN_HEADER, "")
-        if not expected or not supplied or not hmac.compare_digest(supplied, expected):
+        if not expected or not supplied or not _local_daemon_token_valid(supplied, expected):
             return PrettyJSONResponse(status_code=401, content={"detail": "missing or invalid local daemon token"})
 
     return await call_next(request)
@@ -2147,7 +2179,133 @@ async def local_pairing_status():
         "allowed_origins": list(settings.allowed_origins),
         "socket_path": settings.socket_path,
         "socket_enabled": bool(settings.socket_path),
+        "pending_pairings": len(_pending_pairings()),
         "token_error": token_error,
+    }
+
+
+@app.post(
+    "/local/pairing/start",
+    tags=["Runtime"],
+    summary="Start local daemon pairing",
+    description="Create a short-lived first-connect pairing request for browser and Office clients.",
+)
+async def local_pairing_start(request: Request):
+    settings = current_runtime_settings().local_daemon
+    if not settings.acl_enabled:
+        return PrettyJSONResponse(status_code=409, content={"detail": "local daemon ACL is disabled"})
+    try:
+        secret = _local_daemon_token()
+    except LocalDaemonAuthError as exc:
+        return PrettyJSONResponse(status_code=503, content={"detail": f"local daemon token not provisioned: {exc}"})
+
+    body = await _json_object(request)
+    client_name = str(body.get("client_name") or "kaypoh-local-client").strip()[:120] or "kaypoh-local-client"
+    origin = request.headers.get("Origin", "")
+    pairing_id = uuid.uuid4().hex
+    pairing_code = f"{secrets.randbelow(1_000_000):06d}"
+    now = int(time.time())
+    _pending_pairings()[pairing_id] = {
+        "client_name": client_name,
+        "code_digest": local_pairing_code_digest(secret, pairing_code),
+        "created_at": now,
+        "expires_at": now + LOCAL_PAIRING_TTL_SECONDS,
+        "origin": origin,
+    }
+    return {
+        "pairing_id": pairing_id,
+        "pairing_code": pairing_code,
+        "expires_at": now + LOCAL_PAIRING_TTL_SECONDS,
+        "token_ttl_seconds": LOCAL_CLIENT_TOKEN_TTL_SECONDS,
+    }
+
+
+@app.post(
+    "/local/pairing/approve",
+    tags=["Runtime"],
+    summary="Approve local daemon pairing",
+    description="Approve a pending pairing request from a desktop/tray process that already has the daemon secret.",
+)
+async def local_pairing_approve(
+    request: Request,
+    x_kaypoh_local_token: str | None = Header(default=None, alias=LOCAL_TOKEN_HEADER),
+):
+    settings = current_runtime_settings().local_daemon
+    if not settings.acl_enabled:
+        return PrettyJSONResponse(status_code=409, content={"detail": "local daemon ACL is disabled"})
+    try:
+        secret = _local_daemon_token()
+    except LocalDaemonAuthError as exc:
+        return PrettyJSONResponse(status_code=503, content={"detail": f"local daemon token not provisioned: {exc}"})
+    if not x_kaypoh_local_token or not hmac.compare_digest(x_kaypoh_local_token, secret):
+        return PrettyJSONResponse(status_code=401, content={"detail": "missing or invalid local daemon approval token"})
+
+    body = await _json_object(request)
+    pairing_id = str(body.get("pairing_id") or "")
+    pairing_code = str(body.get("pairing_code") or "")
+    entry = _pending_pairings().get(pairing_id)
+    if entry is None:
+        return PrettyJSONResponse(status_code=404, content={"detail": "pairing request not found"})
+    if not hmac.compare_digest(entry["code_digest"], local_pairing_code_digest(secret, pairing_code)):
+        return PrettyJSONResponse(status_code=401, content={"detail": "invalid pairing code"})
+
+    client_id = uuid.uuid4().hex
+    expires_at = int(time.time()) + LOCAL_CLIENT_TOKEN_TTL_SECONDS
+    entry["approved"] = True
+    entry["client_id"] = client_id
+    entry["client_token"] = sign_local_client_token(
+        secret,
+        client_id=client_id,
+        client_name=str(entry["client_name"]),
+        origin=str(entry["origin"]),
+        ttl_seconds=LOCAL_CLIENT_TOKEN_TTL_SECONDS,
+    )
+    entry["client_token_expires_at"] = expires_at
+    return {
+        "approved": True,
+        "pairing_id": pairing_id,
+        "client_id": client_id,
+        "expires_at": expires_at,
+    }
+
+
+@app.post(
+    "/local/pairing/claim",
+    tags=["Runtime"],
+    summary="Claim approved local daemon pairing",
+    description="Return the signed local client token after the desktop/tray approval step completes.",
+)
+async def local_pairing_claim(request: Request):
+    settings = current_runtime_settings().local_daemon
+    if not settings.acl_enabled:
+        return PrettyJSONResponse(status_code=409, content={"detail": "local daemon ACL is disabled"})
+    try:
+        secret = _local_daemon_token()
+    except LocalDaemonAuthError as exc:
+        return PrettyJSONResponse(status_code=503, content={"detail": f"local daemon token not provisioned: {exc}"})
+
+    body = await _json_object(request)
+    pairing_id = str(body.get("pairing_id") or "")
+    pairing_code = str(body.get("pairing_code") or "")
+    store = _pending_pairings()
+    entry = store.get(pairing_id)
+    if entry is None:
+        return PrettyJSONResponse(status_code=404, content={"detail": "pairing request not found"})
+    if not hmac.compare_digest(entry["code_digest"], local_pairing_code_digest(secret, pairing_code)):
+        return PrettyJSONResponse(status_code=401, content={"detail": "invalid pairing code"})
+    if not entry.get("approved"):
+        return PrettyJSONResponse(status_code=202, content={"approved": False, "expires_at": entry["expires_at"]})
+
+    token = str(entry["client_token"])
+    client_id = str(entry["client_id"])
+    expires_at = int(entry["client_token_expires_at"])
+    store.pop(pairing_id, None)
+    return {
+        "approved": True,
+        "client_id": client_id,
+        "client_token": token,
+        "expires_at": expires_at,
+        "token_type": "kaypoh-local-client+jwt",
     }
 
 

@@ -7,6 +7,7 @@ const STORAGE_KEYS = {
   token: "kaypoh.localToken"
 };
 let currentConfig = {...DEFAULTS};
+let pendingPairing = null;
 
 async function getStored(key) {
   if (globalThis.OfficeRuntime?.storage) return (await OfficeRuntime.storage.getItem(key)) || "";
@@ -85,6 +86,52 @@ async function pairingStatus() {
   }
 }
 
+async function pairingCall(path, body) {
+  currentConfig.endpoint = endpoint.value.trim() || DEFAULTS.endpoint;
+  const response = await fetch(`${currentConfig.endpoint}${path}`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(body)
+  });
+  const payload = await response.json();
+  if (!response.ok) throw new Error(payload.detail || `kaypoh ${response.status}`);
+  return payload;
+}
+
+async function startLocalPairing() {
+  output.textContent = "starting pairing";
+  try {
+    pendingPairing = await pairingCall("/local/pairing/start", {client_name: "Kaypoh Outlook add-in"});
+    output.textContent = `Pairing code: ${pendingPairing.pairing_code}\nApprove it in Kaypoh desktop, then complete pairing.`;
+  } catch (error) {
+    output.textContent = String(error);
+  }
+}
+
+async function completeLocalPairing() {
+  if (!pendingPairing) {
+    output.textContent = "Start pairing first";
+    return;
+  }
+  try {
+    const result = await pairingCall("/local/pairing/claim", {
+      pairing_id: pendingPairing.pairing_id,
+      pairing_code: pendingPairing.pairing_code
+    });
+    if (!result.approved) {
+      output.textContent = "Pairing pending";
+      return;
+    }
+    token.value = result.client_token;
+    currentConfig.token = result.client_token;
+    await setStored(STORAGE_KEYS.token, result.client_token);
+    pendingPairing = null;
+    output.textContent = `Paired until ${new Date(result.expires_at * 1000).toISOString()}`;
+  } catch (error) {
+    output.textContent = String(error);
+  }
+}
+
 async function run(path) {
   output.textContent = "reviewing";
   try {
@@ -104,6 +151,8 @@ Office.onReady(() => {
   loadConfig();
   saveSettings.onclick = () => saveConfig();
   checkPairing.onclick = () => pairingStatus();
+  startPairing.onclick = () => startLocalPairing();
+  completePairing.onclick = () => completeLocalPairing();
   review.onclick = () => run("review");
   redact.onclick = () => run("redact");
 });

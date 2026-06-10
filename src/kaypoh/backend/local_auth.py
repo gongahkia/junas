@@ -3,16 +3,24 @@
 from __future__ import annotations
 
 import fnmatch
+import base64
+import hashlib
+import hmac
+import json
 import os
 import secrets
 import stat
 import subprocess
 import sys
+import time
 from pathlib import Path
+from typing import Any
 
 from kaypoh.configs.runtime import LocalDaemonSettings
 
 LOCAL_TOKEN_HEADER = "X-Kaypoh-Local-Token"
+LOCAL_CLIENT_TOKEN_AUDIENCE = "kaypoh-local-daemon"
+LOCAL_CLIENT_TOKEN_ISSUER = "kaypoh-local"
 KEYCHAIN_ACCOUNT = "default"
 KEYCHAIN_SERVICE = "kaypoh-local-daemon-token"
 DEFAULT_TOKEN_FILE = Path.home() / ".kaypoh" / "local_daemon_token"
@@ -124,3 +132,74 @@ def resolve_local_daemon_token(settings: LocalDaemonSettings) -> str:
         except (OSError, subprocess.SubprocessError, LocalDaemonAuthError):
             pass
     return _file_token(settings)
+
+
+def _b64url(data: bytes) -> str:
+    return base64.urlsafe_b64encode(data).rstrip(b"=").decode("ascii")
+
+
+def _b64url_decode(data: str) -> bytes:
+    return base64.urlsafe_b64decode((data + "=" * (-len(data) % 4)).encode("ascii"))
+
+
+def _json_b64(data: dict[str, Any]) -> str:
+    return _b64url(json.dumps(data, separators=(",", ":"), sort_keys=True).encode("utf-8"))
+
+
+def local_pairing_code_digest(secret: str, code: str) -> str:
+    return hmac.new(secret.encode("utf-8"), code.encode("utf-8"), hashlib.sha256).hexdigest()
+
+
+def sign_local_client_token(
+    secret: str,
+    *,
+    client_id: str,
+    client_name: str,
+    origin: str,
+    ttl_seconds: int,
+    now: int | None = None,
+) -> str:
+    issued_at = int(time.time() if now is None else now)
+    header = {"alg": "HS256", "typ": "JWT"}
+    payload = {
+        "aud": LOCAL_CLIENT_TOKEN_AUDIENCE,
+        "client_name": client_name[:120],
+        "exp": issued_at + ttl_seconds,
+        "iat": issued_at,
+        "iss": LOCAL_CLIENT_TOKEN_ISSUER,
+        "origin": origin[:240],
+        "scope": "local_daemon",
+        "sub": client_id,
+    }
+    raw_header = _json_b64(header)
+    raw_payload = _json_b64(payload)
+    signing_input = f"{raw_header}.{raw_payload}".encode("ascii")
+    signature = hmac.new(secret.encode("utf-8"), signing_input, hashlib.sha256).digest()
+    return f"{raw_header}.{raw_payload}.{_b64url(signature)}"
+
+
+def verify_local_client_token(secret: str, token: str, *, now: int | None = None) -> bool:
+    try:
+        raw_header, raw_payload, raw_signature = token.split(".")
+        header = json.loads(_b64url_decode(raw_header).decode("utf-8"))
+        payload = json.loads(_b64url_decode(raw_payload).decode("utf-8"))
+        supplied = _b64url_decode(raw_signature)
+    except Exception:
+        return False
+    if not isinstance(header, dict) or not isinstance(payload, dict):
+        return False
+    if header.get("alg") != "HS256":
+        return False
+    if payload.get("iss") != LOCAL_CLIENT_TOKEN_ISSUER or payload.get("aud") != LOCAL_CLIENT_TOKEN_AUDIENCE:
+        return False
+    if payload.get("scope") != "local_daemon":
+        return False
+    try:
+        exp = int(payload["exp"])
+    except Exception:
+        return False
+    if exp <= int(time.time() if now is None else now):
+        return False
+    signing_input = f"{raw_header}.{raw_payload}".encode("ascii")
+    expected = hmac.new(secret.encode("utf-8"), signing_input, hashlib.sha256).digest()
+    return hmac.compare_digest(expected, supplied)
