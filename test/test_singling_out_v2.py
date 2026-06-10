@@ -248,7 +248,7 @@ class SinglingOutV2Tests(unittest.TestCase):
             clear_table_cache_for_tests()
             with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": str(out)}):
                 findings = self._quasi(
-                    "Dr Jane Raretest works as Analyst. Age: 42."
+                    "Dr Jane Raretest; Age: 42; address 77 Shenton Way, Singapore 068810."
                 )
 
         self.assertEqual(len(findings), 1)
@@ -297,6 +297,8 @@ class SinglingOutV2Tests(unittest.TestCase):
                 )
         self.assertEqual(len(findings), 1)
         self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 3)
+        self.assertEqual(findings[0].metadata["frequency_tables_used"], ["role_frequency"])
+        self.assertIn("name_density", findings[0].metadata["frequency_tables_missing"])
 
     def test_generated_table_with_stale_refresh_date_is_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -323,8 +325,6 @@ class SinglingOutV2Tests(unittest.TestCase):
             )
             with self.assertRaises(RuntimeError):
                 _load_generated_tables("SG", root)
-        self.assertEqual(findings[0].metadata["frequency_tables_used"], ["role_frequency"])
-        self.assertIn("name_density", findings[0].metadata["frequency_tables_missing"])
 
     def test_bundled_au_postal_table_can_emit_low_k_cluster(self):
         clear_table_cache_for_tests()

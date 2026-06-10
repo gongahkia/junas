@@ -11,8 +11,8 @@ import json
 import re
 import sys
 import tempfile
-import xml.etree.ElementTree as ET
 import urllib.request
+import xml.etree.ElementTree as ET
 import zipfile
 from dataclasses import dataclass
 from datetime import date, timedelta
@@ -27,7 +27,14 @@ except ImportError:
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_SUPPORTED = ("UK", "AU", "JP", "KR", "US")
 SUPPORTED = ("SG", *DEFAULT_SUPPORTED)
-SUPPORTED_TABLES = ("default", "postal_population", "area_population", "surname_frequency", "name_frequency", "role_frequency")
+SUPPORTED_TABLES = (
+    "default",
+    "postal_population",
+    "area_population",
+    "surname_frequency",
+    "name_frequency",
+    "role_frequency",
+)
 POSTAL_COLUMNS = ("postal_prefix", "postal_code", "postcode", "postcode_sector", "postcode_sectors",
                   "postcodesectors", "poa_code_2021", "poa_code21", "poa_code", "area_code", "code")
 AREA_COLUMNS = ("area", "area_name", "municipality", "prefecture", "region", "admin_area", "name", "地域", "市区町村",
@@ -98,7 +105,9 @@ SPECS = {
         license="Open Government Data Portal scope of use: limitless",
         license_url="https://www.data.go.kr/en/ugs/selectPortalPolicyView.do",
         attribution="Source: Ministry of the Interior and Safety via Korea Open Government Data Portal",
-        license_scope="Dataset metadata says file data downloads require no login and use-permission range is limitless",
+        license_scope=(
+            "Dataset metadata says file data downloads require no login and use-permission range is limitless"
+        ),
         redistribution="bundle_allowed_with_source_citation",
     ),
     "US": JurisdictionSpec(
@@ -109,7 +118,9 @@ SPECS = {
         license="U.S. federal public-domain data, 17 U.S.C. §105",
         license_url="https://www.govinfo.gov/content/pkg/USCODE-2018-title17/pdf/USCODE-2018-title17-chap1-sec105.pdf",
         attribution="U.S. Census Bureau, Names_2010Census.csv, 2010 Census surnames",
-        license_scope="Census data files are U.S. federal government data; citation guidance asks for Census Bureau attribution",
+        license_scope=(
+            "Census data files are U.S. federal government data; citation guidance asks for Census Bureau attribution"
+        ),
         redistribution="bundle_allowed_public_domain_with_attribution",
     ),
 }
@@ -191,7 +202,10 @@ def _jp_prefecture_records_from_xlsx(payload: bytes) -> dict[str, int]:
             shared_strings = _xlsx_shared_strings(zf)
             root = ET.fromstring(zf.read("xl/worksheets/sheet3.xml"))
             for row in root.findall(".//a:sheetData/a:row", ns):
-                cells = {cell.attrib.get("r", ""): _xlsx_cell_value(cell, shared_strings) for cell in row.findall("a:c", ns)}
+                cells = {
+                    cell.attrib.get("r", ""): _xlsx_cell_value(cell, shared_strings)
+                    for cell in row.findall("a:c", ns)
+                }
                 row_no = row.attrib.get("r", "")
                 pref = re.sub(r"[\s\u3000]+", "", cells.get(f"C{row_no}", ""))
                 population = _parse_int(cells.get(f"J{row_no}", ""))
