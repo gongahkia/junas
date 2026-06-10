@@ -2145,6 +2145,8 @@ async def local_pairing_status():
         "acl_enabled": settings.acl_enabled,
         "token_provisioned": token_provisioned,
         "allowed_origins": list(settings.allowed_origins),
+        "socket_path": settings.socket_path,
+        "socket_enabled": bool(settings.socket_path),
         "token_error": token_error,
     }
 

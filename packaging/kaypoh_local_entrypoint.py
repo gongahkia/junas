@@ -30,10 +30,19 @@ def main() -> int:
     host = os.environ["KAYPOH_HOST"]
     port = int(os.environ["KAYPOH_PORT"])
     log_level = os.environ.get("KAYPOH_LOG_LEVEL", "info")
+    socket_path = os.environ.get("KAYPOH_LOCAL_SOCKET_PATH", "").strip()
 
-    sys.stdout.write(f"kaypoh-local listening on http://{host}:{port}\n")
+    target = f"unix:{socket_path}" if socket_path else f"http://{host}:{port}"
+    sys.stdout.write(f"kaypoh-local listening on {target}\n")
     sys.stdout.flush()
-    uvicorn.run("backend.main:app", host=host, port=port, log_level=log_level)
+    if socket_path:
+        try:
+            os.unlink(socket_path)
+        except FileNotFoundError:
+            pass
+        uvicorn.run("backend.main:app", uds=socket_path, log_level=log_level)
+    else:
+        uvicorn.run("backend.main:app", host=host, port=port, log_level=log_level)
     return 0
 
 

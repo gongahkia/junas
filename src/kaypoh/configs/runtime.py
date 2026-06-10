@@ -54,7 +54,7 @@ SIEM_FACILITIES = frozenset(
 
 KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
     "api": frozenset({"allowed_origins"}),
-    "local_daemon": frozenset({"acl_enabled", "allowed_origins", "token", "token_file"}),
+    "local_daemon": frozenset({"acl_enabled", "allowed_origins", "token", "token_file", "socket_path"}),
     "document_ingest": frozenset(
         {
             "fail_closed",
@@ -169,6 +169,7 @@ class LocalDaemonSettings:
     allowed_origins: tuple[str, ...]
     token: str
     token_file: str
+    socket_path: str
 
 
 @dataclass(frozen=True)
@@ -672,6 +673,17 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
                 default="",
             ),
             label="local_daemon.token_file",
+        ),
+        socket_path=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="local_daemon",
+                key="socket_path",
+                env_vars=("KAYPOH_LOCAL_SOCKET_PATH",),
+                default="",
+            ),
+            label="local_daemon.socket_path",
         ),
     )
 
