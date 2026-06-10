@@ -28,7 +28,15 @@ from kaypoh.review.container_scan import (
 from kaypoh.review.container_scan import (
     infer_mime_type as infer_container_mime_type,
 )
-from kaypoh.review.document_structure import DocumentStructure, parse_document_structure, parse_docx_structure
+from kaypoh.review.document_structure import (
+    DocumentStructure,
+    parse_document_structure,
+    parse_docx_structure,
+    parse_eml_structure,
+    parse_pdf_structure,
+    parse_pptx_structure,
+    parse_xlsx_structure,
+)
 from kaypoh.review.image_scan import (
     ImageCandidate,
     collect_docx_images,
@@ -332,6 +340,12 @@ def extract_review_document(
             image_scan_enabled=image_scan_enabled,
         )
         extracted = _merge_text_blocks(extracted, container_text)
+        try:
+            document_structure = parse_pdf_structure(data)
+            if document_structure.text.strip() and not container_text.strip():
+                extracted = document_structure.text
+        except Exception:
+            document_structure = None
         extraction_warnings.extend(container_warnings)
         method = "pypdf"
         image_candidates = collect_pdf_images(data) if image_scan_enabled else []
@@ -348,6 +362,30 @@ def extract_review_document(
                     extraction_warnings.append(
                         f"PDF rendered {len(image_candidates)} page(s) for configured image OCR"
                     )
+    elif mime_type == SUPPORTED_XLSX_MIME:
+        document_structure = parse_xlsx_structure(data)
+        extracted = document_structure.text
+        method = "xlsx_container"
+        page_count = None
+        extraction_quality = "accepted"
+        extraction_warnings = container_warnings
+        image_candidates = container_image_candidates
+    elif mime_type == SUPPORTED_PPTX_MIME:
+        document_structure = parse_pptx_structure(data)
+        extracted = document_structure.text
+        method = "pptx_container"
+        page_count = None
+        extraction_quality = "accepted"
+        extraction_warnings = container_warnings
+        image_candidates = container_image_candidates
+    elif mime_type in EML_MIMES:
+        document_structure = parse_eml_structure(data)
+        extracted = document_structure.text
+        method = "eml_container"
+        page_count = None
+        extraction_quality = "accepted"
+        extraction_warnings = container_warnings
+        image_candidates = container_image_candidates
     elif mime_type in SUPPORTED_CONTAINER_MIMES:
         extracted = container_text
         method = f"{mime_type.split('/')[-1]}_container"

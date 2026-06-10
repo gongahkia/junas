@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+import email
+import html
 import re
 import zipfile
 from dataclasses import dataclass
+from email import policy
 from io import BytesIO
+from typing import Any
 from xml.etree import ElementTree
 
 
@@ -69,6 +73,73 @@ _DEFINED_TERM_RE = re.compile(
 )
 _DEFINITIONS_HEADING_RE = re.compile(r"^\s*(?:definitions|interpretation)\s*$", re.IGNORECASE)
 _WORD_NS = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+_SHEET_NS = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
+_DRAWING_NS = "{http://schemas.openxmlformats.org/drawingml/2006/main}"
+_PRESENTATION_NS = "{http://schemas.openxmlformats.org/presentationml/2006/main}"
+
+
+def _clean_block(text: str) -> str:
+    text = html.unescape(str(text or "")).replace("\x00", "")
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+
+def _structure_from_blocks(blocks: list[tuple[str, str, int | None]]) -> DocumentStructure:
+    parts: list[str] = []
+    units: list[StructuralUnit] = []
+    offset = 0
+    line_no = 1
+    for kind, raw_text, parent_index in blocks:
+        text = _clean_block(raw_text)
+        if not text:
+            continue
+        if parts:
+            parts.append("\n")
+            offset += 1
+            line_no += 1
+        start = offset
+        parts.append(text)
+        units.append(
+            StructuralUnit(
+                kind=kind,
+                start_char=start,
+                end_char=start + len(text),
+                text=text,
+                line_start=line_no,
+                line_end=line_no + text.count("\n"),
+                parent_index=parent_index,
+            )
+        )
+        offset += len(text)
+        line_no += text.count("\n")
+    text = "".join(parts)
+    document = StructuralUnit(
+        kind="document",
+        start_char=0,
+        end_char=len(text),
+        text=text,
+        line_start=1,
+        line_end=max(1, text.count("\n") + 1),
+        parent_index=None,
+    )
+    shifted_units: list[StructuralUnit] = []
+    for unit in units:
+        parent = unit.parent_index
+        if parent is not None:
+            parent += 1
+        shifted_units.append(
+            StructuralUnit(
+                kind=unit.kind,
+                start_char=unit.start_char,
+                end_char=unit.end_char,
+                text=unit.text,
+                line_start=unit.line_start,
+                line_end=unit.line_end,
+                parent_index=parent,
+            )
+        )
+    return DocumentStructure(text=text, units=(document, *shifted_units))
 
 
 def _word_attr(node: ElementTree.Element, name: str) -> str:
@@ -248,6 +319,211 @@ def parse_docx_structure(data: bytes) -> DocumentStructure:
             )
         )
     return DocumentStructure(text=text, units=(document, *shifted_units))
+
+
+def _xml_root(xml_bytes: bytes, *, label: str) -> ElementTree.Element:
+    prefix = xml_bytes[:4096].lower()
+    if b"<!doctype" in prefix or b"<!entity" in prefix:
+        raise ValueError(f"unsafe XML DTD/entity declaration in {label}")
+    return ElementTree.fromstring(xml_bytes)
+
+
+def _shared_strings(archive: zipfile.ZipFile) -> list[str]:
+    if "xl/sharedStrings.xml" not in archive.namelist():
+        return []
+    root = _xml_root(archive.read("xl/sharedStrings.xml"), label="xl/sharedStrings.xml")
+    out: list[str] = []
+    for item in root.findall(f".//{_SHEET_NS}si"):
+        out.append("".join(node.text or "" for node in item.findall(f".//{_SHEET_NS}t")))
+    return out
+
+
+def _cell_value(cell: ElementTree.Element, shared: list[str]) -> str:
+    value = cell.find(f"{_SHEET_NS}v")
+    inline = cell.find(f".//{_SHEET_NS}t")
+    if inline is not None and inline.text:
+        return inline.text
+    if value is None or value.text is None:
+        return ""
+    raw = value.text
+    if cell.attrib.get("t") == "s":
+        try:
+            return shared[int(raw)]
+        except (ValueError, IndexError):
+            return ""
+    return raw
+
+
+def parse_xlsx_structure(data: bytes) -> DocumentStructure:
+    with zipfile.ZipFile(BytesIO(data)) as archive:
+        names = set(archive.namelist())
+        if "xl/workbook.xml" not in names:
+            raise ValueError("XLSX payload missing xl/workbook.xml")
+        shared = _shared_strings(archive)
+        blocks: list[tuple[str, str, int | None]] = []
+        sheet_parent: int | None = None
+        workbook = _xml_root(archive.read("xl/workbook.xml"), label="xl/workbook.xml")
+        sheet_names = [
+            str(node.attrib.get("name") or "").strip()
+            for node in workbook.iter()
+            if node.tag.endswith("}sheet") and str(node.attrib.get("name") or "").strip()
+        ]
+        if sheet_names:
+            blocks.append(("workbook", "Workbook: " + ", ".join(sheet_names), None))
+        for node in workbook.iter():
+            if node.tag.endswith("}definedName") and (node.text or "").strip():
+                blocks.append(("defined_name", node.text or "", None))
+        for index, name in enumerate(sorted(n for n in names if re.fullmatch(r"xl/worksheets/sheet\d+\.xml", n))):
+            label = sheet_names[index] if index < len(sheet_names) else name.rsplit("/", 1)[-1]
+            sheet_parent = len(blocks)
+            blocks.append(("sheet", f"Sheet: {label}", None))
+            root = _xml_root(archive.read(name), label=name)
+            for row in root.findall(f".//{_SHEET_NS}row"):
+                cells = [_cell_value(cell, shared).strip() for cell in row.findall(f"{_SHEET_NS}c")]
+                values = [value for value in cells if value]
+                if values:
+                    blocks.append(("table_row", " | ".join(values), sheet_parent))
+                    row_parent = len(blocks) - 1
+                    for value in values:
+                        blocks.append(("table_cell", value, row_parent))
+        used_shared = {
+            _cell_value(cell, shared).strip()
+            for name in names
+            if re.fullmatch(r"xl/worksheets/sheet\d+\.xml", name)
+            for cell in _xml_root(archive.read(name), label=name).findall(f".//{_SHEET_NS}c")
+            if _cell_value(cell, shared).strip()
+        }
+        unused_shared = [value for value in shared if value.strip() and value.strip() not in used_shared]
+        if unused_shared:
+            blocks.append(("shared_strings", "\n".join(unused_shared), None))
+        for name in sorted(n for n in names if n.startswith("xl/comments") and n.endswith(".xml")):
+            text = "\n".join(
+                node.text or ""
+                for node in _xml_root(archive.read(name), label=name).iter()
+                if node.tag.endswith("}t") and node.text
+            )
+            blocks.append(("comment", text, None))
+        for name in sorted(n for n in names if n.startswith("xl/pivotCache/") and n.endswith(".xml")):
+            root = _xml_root(archive.read(name), label=name)
+            text = "\n".join(
+                value
+                for node in root.iter()
+                for value in ((node.text or "").strip(), str(node.attrib.get("v") or "").strip())
+                if value
+            )
+            blocks.append(("pivot_cache", text, None))
+    return _structure_from_blocks(blocks)
+
+
+def _pptx_text(xml_bytes: bytes, *, label: str) -> str:
+    root = _xml_root(xml_bytes, label=label)
+    parts = [node.text or "" for node in root.iter() if node.tag in {f"{_DRAWING_NS}t", f"{_PRESENTATION_NS}text"}]
+    return "\n".join(part.strip() for part in parts if part and part.strip())
+
+
+def parse_pptx_structure(data: bytes) -> DocumentStructure:
+    with zipfile.ZipFile(BytesIO(data)) as archive:
+        names = set(archive.namelist())
+        if "ppt/presentation.xml" not in names:
+            raise ValueError("PPTX payload missing ppt/presentation.xml")
+        blocks: list[tuple[str, str, int | None]] = []
+        matchers = (
+            (r"ppt/slides/slide\d+\.xml", "slide"),
+            (r"ppt/notesSlides/notesSlide\d+\.xml", "speaker_notes"),
+            (r"ppt/comments/comment\d+\.xml", "comment"),
+            (r"ppt/slideMasters/slideMaster\d+\.xml", "slide_master"),
+            (r"ppt/slideLayouts/slideLayout\d+\.xml", "slide_layout"),
+        )
+        for pattern, kind in matchers:
+            for name in sorted(n for n in names if re.fullmatch(pattern, n)):
+                text = _pptx_text(archive.read(name), label=name)
+                if text:
+                    blocks.append((kind, f"[{name}]\n{text}", None))
+    return _structure_from_blocks(blocks)
+
+
+def _strip_html(text: str) -> str:
+    text = re.sub(r"<script\b.*?</script>", " ", text, flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r"<style\b.*?</style>", " ", text, flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r"<[^>]+>", " ", text)
+    return re.sub(r"\s+", " ", html.unescape(text)).strip()
+
+
+def parse_eml_structure(data: bytes) -> DocumentStructure:
+    message = email.message_from_bytes(data, policy=policy.default)
+    blocks: list[tuple[str, str, int | None]] = []
+    for header in ("from", "to", "cc", "bcc", "subject", "reply-to"):
+        value = message.get(header)
+        if value:
+            blocks.append(("email_header", f"{header}: {value}", None))
+    for part in message.walk():
+        if part.is_multipart():
+            continue
+        content_type = part.get_content_type()
+        filename = part.get_filename()
+        payload = part.get_payload(decode=True) or b""
+        if content_type == "text/plain":
+            text = part.get_content()
+            blocks.append(("email_body", text, None))
+        elif content_type == "text/html":
+            blocks.append(("email_html_body", _strip_html(payload.decode("utf-8", errors="replace")), None))
+        elif filename:
+            label = f"Attachment: {filename} ({content_type})"
+            if content_type.startswith("text/"):
+                body = payload.decode("utf-8", errors="replace")
+                blocks.append(("email_attachment", f"{label}\n{body}", None))
+            else:
+                blocks.append(("email_attachment", label, None))
+    return _structure_from_blocks(blocks)
+
+
+def _pdf_get(obj: Any, key: str) -> Any:
+    try:
+        value = obj.get(key)
+    except Exception:
+        return None
+    return value.get_object() if hasattr(value, "get_object") else value
+
+
+def _pdf_form_blocks(form: Any) -> list[str]:
+    fields = _pdf_get(form, "/Fields") or []
+    out: list[str] = []
+    for field_ref in fields:
+        field = field_ref.get_object() if hasattr(field_ref, "get_object") else field_ref
+        values = [str(value) for key in ("/T", "/TU", "/V") if (value := _pdf_get(field, key))]
+        if values:
+            out.append("\n".join(values))
+    return out
+
+
+def parse_pdf_structure(data: bytes) -> DocumentStructure:
+    try:
+        from pypdf import PdfReader
+    except Exception as exc:
+        raise ValueError("PDF structure parsing requires pypdf") from exc
+    reader = PdfReader(BytesIO(data))
+    if getattr(reader, "is_encrypted", False):
+        raise ValueError("password-protected or encrypted PDF refused")
+    blocks: list[tuple[str, str, int | None]] = []
+    root = getattr(reader, "trailer", {}).get("/Root", {}) if hasattr(reader, "trailer") else {}
+    root = root.get_object() if hasattr(root, "get_object") else root
+    form = _pdf_get(root, "/AcroForm")
+    if form:
+        for value in _pdf_form_blocks(form):
+            blocks.append(("form_field", value, None))
+    for index, page in enumerate(reader.pages, start=1):
+        text = page.extract_text() or ""
+        if text.strip():
+            blocks.append(("page", text, None))
+        annots = _pdf_get(page, "/Annots") or []
+        if hasattr(annots, "get_object"):
+            annots = annots.get_object()
+        for annot_ref in annots:
+            annot = annot_ref.get_object() if hasattr(annot_ref, "get_object") else annot_ref
+            values = [str(value) for key in ("/Contents", "/T", "/Subj") if (value := _pdf_get(annot, key))]
+            if values:
+                blocks.append(("annotation", "\n".join(values), None))
+    return _structure_from_blocks(blocks)
 
 
 def parse_document_structure(text: str) -> DocumentStructure:
