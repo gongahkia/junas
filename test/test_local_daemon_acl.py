@@ -1,3 +1,4 @@
+import importlib
 import os
 import unittest
 from unittest.mock import patch
@@ -91,6 +92,39 @@ class LocalDaemonAclTests(unittest.TestCase):
         self.assertTrue(payload["acl_enabled"])
         self.assertTrue(payload["token_provisioned"])
         self.assertNotIn("local-test-token", response.text)
+
+    def test_cors_preflight_allows_configured_origin_without_token(self):
+        with patch.dict(os.environ, self._env(), clear=False):
+            app_main = importlib.reload(main)
+            with TestClient(app_main.app) as client:
+                response = client.options(
+                    "/classify",
+                    headers={
+                        "Origin": "https://chatgpt.com",
+                        "Access-Control-Request-Method": "POST",
+                        "Access-Control-Request-Headers": "content-type,x-kaypoh-local-token",
+                    },
+                )
+            importlib.reload(main)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers["access-control-allow-origin"], "https://chatgpt.com")
+
+    def test_cors_preflight_rejects_unconfigured_origin(self):
+        with patch.dict(os.environ, self._env(), clear=False):
+            app_main = importlib.reload(main)
+            with TestClient(app_main.app) as client:
+                response = client.options(
+                    "/classify",
+                    headers={
+                        "Origin": "https://evil.example",
+                        "Access-Control-Request-Method": "POST",
+                    },
+                )
+            importlib.reload(main)
+
+        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.json()["detail"], "origin not allowed for local daemon")
 
 
 if __name__ == "__main__":

@@ -18,7 +18,10 @@ This folder contains operational and maintenance commands.
 - `watch_backend_status.py`: watch-style terminal dashboard for `/health`, `/ready`, `/diagnostics`, and `/metrics`.
 - `clean_dev.sh`: local artifact cleanup.
 - `smoke_audit_grade_azure.py`: one-document Azure `audit_grade` LLM smoke test; use `--use-gpt5-mini-env` to map `GPT5_MINI_*` env vars into `KAYPOH_LLM_*`.
+- `preflight_production.py`: strict production preflight wrapper around `preflight.py --deployment production --strict`.
+- `smoke_audit_pack.py`: seed a temporary review journal, export an audit pack, and verify the pack HMAC/chain.
 - `run_layer_attribution_eval.py`: candidate attribution runner; use `--audit-grade-cost-cap-usd` with `--allow-external-cost` to stop before paid calls when the estimate exceeds budget.
 - `scan_dms_manifest.py`: read-side scan of neutral iManage / NetDocuments export manifests.
 - `generate_tenant_credentials.py`: generate tenant API-key registry JSON for server deployments.
 - `promote_journal_to_corpus.py`: queue journal decisions for human-reviewed corpus promotion without touching recall locks.
+- `smoke_local_daemon_acl.py`: smoke-test local daemon Origin/CORS and token gates for browser/Office clients.

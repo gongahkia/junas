@@ -1,5 +1,6 @@
 import importlib.util
 import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -151,6 +152,17 @@ class PreflightTests(unittest.TestCase):
         )
 
         self.assertEqual(exit_code, 1)
+
+    def test_production_preflight_command_defaults_to_strict_production(self):
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "preflight_production.py")],
+            capture_output=True,
+            text=True,
+            cwd=ROOT,
+        )
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("deployment: production", result.stdout)
 
 
 if __name__ == "__main__":

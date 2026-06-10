@@ -229,6 +229,7 @@ Point Kaypoh at the manifest with `KAYPOH_RETENTION_MANIFEST`, or keep
 
 ```json
 {
+  "schema_version": "kaypoh.retention_manifest.v1",
   "controls": {
     "journal": { "retention_days": 2555 },
     "mapping_store": { "delete_after_days": 90 },
@@ -239,10 +240,27 @@ Point Kaypoh at the manifest with `KAYPOH_RETENTION_MANIFEST`, or keep
 }
 ```
 
+Required controls are `journal`, `mapping_store`, `logs`, `siem`, and `backups`.
+Each control is configured when it has one of:
+
+| Evidence key | Use |
+|---|---|
+| `retention_days` | Local or platform retention window in days |
+| `delete_after_days` | Deletion window in days |
+| `retain_for_days` | Backup/archive retention window in days |
+| `policy` | Internal policy identifier or runbook reference |
+| `external_policy_ref` | External system policy, such as SIEM index retention |
+
+Set `"configured": false` or `"enabled": false` only to make production preflight fail
+intentionally until that control is fixed. `indefinite` and `permanent` are accepted
+retention-window values, but should be reserved for legal-hold or immutable-audit systems
+with a separately documented erasure/tombstone process.
+
 Validate it before production deploys:
 
 ```sh
 uv run python scripts/check_retention_manifest.py --manifest /etc/kaypoh/retention_manifest.json --strict
+uv run python scripts/check_retention_manifest.py --manifest /etc/kaypoh/retention_manifest.json --json
 KAYPOH_RETENTION_MANIFEST=/etc/kaypoh/retention_manifest.json uv run python scripts/preflight.py --deployment production --strict
 ```
 

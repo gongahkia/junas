@@ -6,7 +6,6 @@
   2. Local daemon security
       - browser/Office first-connect pairing
       - signed token flow
-      - Origin/CORS hardening smoke tests
 
   3. Distribution surfaces
       - signed extension package
@@ -27,10 +26,7 @@
       - richer Office embedded-object/media mapping
 
   6. Ops / compliance
-      - production preflight command
-      - retention manifest docs
       - SIEM setup docs
-      - audit-pack export/verify smoke
       - redacted logs only
 
   7. Docs
