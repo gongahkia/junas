@@ -283,6 +283,18 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         self.assertIn(("date_of_birth", "1988", "semantic_sentence_anchor", "year"), findings)
         self.assertIn(("age_reference", "42", "semantic_dob_context_anchor", None), findings)
 
+    def test_semantic_pii_fallback_can_extract_bare_person_sentence_dob_and_age(self):
+        text = "Jane Tan was born on 14 February 1988.\nMary Lim is 42 years old."
+        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+            result = self._review(text, "SG")
+        findings = {
+            (finding.rule, finding.matched_text, finding.metadata.get("fallback"))
+            for finding in result.findings
+        }
+
+        self.assertIn(("date_of_birth", "14 February 1988", "semantic_named_person_sentence"), findings)
+        self.assertIn(("age_reference", "42", "semantic_named_person_sentence"), findings)
+
     def test_semantic_pii_fallback_rejects_unanchored_company_year(self):
         text = "Company founded in 1988. The model age field is a cohort example."
         with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):

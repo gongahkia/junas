@@ -51,6 +51,9 @@ packaging = [
   "pyinstaller>=6.3",
 ]
 
+[project.scripts]
+kaypoh-watch = "kaypoh.desktop.watch:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["kaypoh*"]
