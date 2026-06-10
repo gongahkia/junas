@@ -33,13 +33,16 @@ def _export_azure_mini_aliases() -> None:
         "KAYPOH_LLM_BASE_URL": os.environ.get("GPT5_MINI_ENDPOINT", ""),
         "KAYPOH_LLM_MODEL": os.environ.get("GPT5_MINI_DEPLOYMENT", ""),
         "KAYPOH_LLM_AZURE_API_VERSION": os.environ.get("GPT5_MINI_API_VERSION", ""),
+        "KAYPOH_LLM_API_KEY": (
+            os.environ.get("GPT5_MINI_API_KEY", "") or os.environ.get("KAYPOH_LLM_API_KEY", "")
+        ),
         "KAYPOH_LLM_TENANT_OPT_IN_AZURE_OPENAI": "1",
         "KAYPOH_LLM_ALLOW_REMOTE_BASE_URL": "1",
         "KAYPOH_LLM_INPUT_MODE": "structured_tokens",
         "KAYPOH_LLM_TIMEOUT_SECONDS": os.environ.get("KAYPOH_LLM_TIMEOUT_SECONDS", "60"),
     }
     for key, value in mappings.items():
-        if value and not os.environ.get(key):
+        if value:
             os.environ[key] = value
 
 

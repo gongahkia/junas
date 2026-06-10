@@ -90,6 +90,19 @@ SEMANTIC_PERSON_AGE_SENTENCE_RE = re.compile(
     r"\b(?P<name>" + _SEMANTIC_PERSON_NAME + r")\s+"
     r"(?:is\s+)?(?P<age>\d{2,3})\s+(?:years?\s+old|yrs?\s+old|yo)\b"
 )
+SEMANTIC_PERSON_BIRTH_YEAR_APPOSITIVE_RE = re.compile(
+    r"\b(?P<name>" + _SEMANTIC_PERSON_NAME + r")\s*"
+    r"(?:\(|,|\u2014|-)\s*(?:born|birth\s+year|DOB\s+year)\s+"
+    r"(?P<year>" + _BIRTH_YEAR_FRAGMENT + r")\s*(?:\)|,|;|$)"
+)
+SEMANTIC_PERSON_AGE_APPOSITIVE_RE = re.compile(
+    r"\b(?P<name>" + _SEMANTIC_PERSON_NAME + r")\s*"
+    r"(?:\(|,|\u2014|-)\s*(?:age|aged)\s+(?P<age>\d{2,3})\s*(?:\)|,|;|$)",
+    re.IGNORECASE,
+)
+_SEMANTIC_PERSON_FP_RE = re.compile(
+    r"\b(?:Project|Company|Limited|Pte|Ltd|LLC|Inc|Corp|Holdings|Capital|Fund|Trust|Bank)\b"
+)
 
 
 def _enabled() -> bool:
@@ -453,6 +466,68 @@ def detect_semantic_pii_fallback_findings(
                     reason="Named-person semantic age fallback",
                     legal_basis=ctx.legal_basis,
                     metadata={"fallback": "semantic_named_person_sentence", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+                )
+            )
+            idx += 1
+        for match in SEMANTIC_PERSON_BIRTH_YEAR_APPOSITIVE_RE.finditer(ctx.text):
+            if _SEMANTIC_PERSON_FP_RE.search(match.group("name")):
+                continue
+            value = match.group("year")
+            if not _valid_birth_year(value):
+                continue
+            span = match.span("year")
+            if span in seen:
+                continue
+            seen.add(span)
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="date_of_birth",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="high",
+                    matched_text=value,
+                    start=span[0],
+                    end=span[1],
+                    reason="Named-person appositive birth-year fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={
+                        "fallback": "semantic_named_person_appositive",
+                        "source": "KAYPOH_SEMANTIC_PII_FALLBACK",
+                        "granularity": "year",
+                    },
+                )
+            )
+            idx += 1
+        for match in SEMANTIC_PERSON_AGE_APPOSITIVE_RE.finditer(ctx.text):
+            if _SEMANTIC_PERSON_FP_RE.search(match.group("name")):
+                continue
+            try:
+                age = int(match.group("age"))
+            except ValueError:
+                continue
+            if not 18 <= age <= 120:
+                continue
+            span = match.span("age")
+            if span in seen:
+                continue
+            seen.add(span)
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="age_reference",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="medium",
+                    matched_text=match.group("age"),
+                    start=span[0],
+                    end=span[1],
+                    reason="Named-person appositive age fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={
+                        "fallback": "semantic_named_person_appositive",
+                        "source": "KAYPOH_SEMANTIC_PII_FALLBACK",
+                    },
                 )
             )
             idx += 1

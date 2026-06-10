@@ -28,6 +28,9 @@ AUDIT_GRADE_ENV_KEYS = (
     "KAYPOH_LLM_TENANT_OPT_IN_OPENAI",
     "KAYPOH_LLM_TENANT_OPT_IN_AZURE_OPENAI",
 )
+DEFAULT_INPUT_USD_PER_M = 0.75
+DEFAULT_OUTPUT_USD_PER_M = 4.50
+DEFAULT_OUTPUT_TOKENS_PER_DOC = 500
 
 
 def _resolve(path: Path) -> Path:
@@ -135,6 +138,50 @@ def audit_grade_preflight(*, allow_external_cost: bool) -> dict[str, Any]:
     }
 
 
+def audit_grade_cost_estimate(
+    *,
+    corpus: Path,
+    input_usd_per_m: float = DEFAULT_INPUT_USD_PER_M,
+    output_usd_per_m: float = DEFAULT_OUTPUT_USD_PER_M,
+    output_tokens_per_doc: int = DEFAULT_OUTPUT_TOKENS_PER_DOC,
+) -> dict[str, Any]:
+    from kaypoh.review.engine import LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER, PreSendReviewEngine
+
+    engine = PreSendReviewEngine()
+    docs = 0
+    band_docs = 0
+    input_tokens = 0
+    for path in sorted(corpus.glob("**/*.txt")):
+        text, labels = evaluate_candidate_corpus._load_pair(path)
+        docs += 1
+        result = engine.review(
+            text=text,
+            source_jurisdiction=labels.get("source_jurisdiction", "SG"),
+            destination_jurisdiction=labels.get("destination_jurisdiction", "SG"),
+            entity_id=None,
+            include_suggestions=False,
+            document_type=labels.get("document_type", "generic"),
+            review_profile="strict",
+        )
+        if LLM_TIER_MNPI_LOWER <= result.mnpi_score < LLM_TIER_MNPI_UPPER:
+            band_docs += 1
+            input_tokens += max(1, len(text) // 4) + 1500
+    output_tokens = band_docs * max(0, output_tokens_per_doc)
+    estimated_cost = (input_tokens / 1_000_000 * input_usd_per_m) + (
+        output_tokens / 1_000_000 * output_usd_per_m
+    )
+    return {
+        "docs": docs,
+        "audit_grade_band_docs": band_docs,
+        "estimated_input_tokens": input_tokens,
+        "estimated_output_tokens": output_tokens,
+        "input_usd_per_m": input_usd_per_m,
+        "output_usd_per_m": output_usd_per_m,
+        "estimated_cost_usd": round(estimated_cost, 4),
+        "note": "Estimate only; provider billing is authoritative.",
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Run candidate corpus evaluation and ideal-miss attribution reports",
@@ -151,6 +198,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--examples-per-cell", type=int, default=3)
     parser.add_argument("--fail-on-missed", action="store_true")
     parser.add_argument("--run-id", help="Stable output prefix, useful for CI/tests")
+    parser.add_argument("--audit-grade-cost-cap-usd", type=float)
+    parser.add_argument("--audit-grade-input-usd-per-m", type=float, default=DEFAULT_INPUT_USD_PER_M)
+    parser.add_argument("--audit-grade-output-usd-per-m", type=float, default=DEFAULT_OUTPUT_USD_PER_M)
+    parser.add_argument(
+        "--audit-grade-output-tokens-per-doc",
+        type=int,
+        default=DEFAULT_OUTPUT_TOKENS_PER_DOC,
+    )
     parser.add_argument(
         "--audit-grade-preflight",
         action="store_true",
@@ -159,7 +214,13 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.audit_grade_preflight:
-        print(json.dumps(audit_grade_preflight(allow_external_cost=args.allow_external_cost), indent=2, sort_keys=True))
+        print(
+            json.dumps(
+                audit_grade_preflight(allow_external_cost=args.allow_external_cost),
+                indent=2,
+                sort_keys=True,
+            )
+        )
         return 0
     profiles = _profiles_from_args(args)
     if "audit_grade" in profiles and not args.allow_external_cost:
@@ -172,6 +233,23 @@ def main(argv: list[str] | None = None) -> int:
 
     corpus = _resolve(args.corpus)
     output_dir = _resolve(args.output_dir)
+    if "audit_grade" in profiles and args.audit_grade_cost_cap_usd is not None:
+        estimate = audit_grade_cost_estimate(
+            corpus=corpus,
+            input_usd_per_m=args.audit_grade_input_usd_per_m,
+            output_usd_per_m=args.audit_grade_output_usd_per_m,
+            output_tokens_per_doc=args.audit_grade_output_tokens_per_doc,
+        )
+        if estimate["estimated_cost_usd"] > args.audit_grade_cost_cap_usd:
+            print(
+                json.dumps(
+                    {"cost_cap_exceeded": True, "estimate": estimate},
+                    indent=2,
+                    sort_keys=True,
+                ),
+                file=sys.stderr,
+            )
+            return 2
     try:
         manifest, rc = run_attribution(
             corpus=corpus,

@@ -30,4 +30,12 @@ Override the loopback bind at launch:
 KAYPOH_HOST=127.0.0.1 KAYPOH_PORT=8765 ./dist/kaypoh-local/kaypoh-local
 ```
 
+Use a Unix-domain socket instead of TCP loopback when the client supports it:
+
+```sh
+KAYPOH_LOCAL_SOCKET_PATH=/tmp/kaypoh-local.sock ./dist/kaypoh-local/kaypoh-local
+```
+
+`browser_extension/` is the MV3 thin-client template for ChatGPT / Claude / Gemini. `office_addin/` is the Office.js taskpane template for Outlook pre-send review.
+
 The local spec excludes the public-evidence and LLM-adjudicator modules. Use the source or Docker server runtime when a tenant has opted into those cloud-capable paths.
