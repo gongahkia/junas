@@ -12,6 +12,7 @@ from kaypoh.review.singling_out.scorer import (
     _tables_for,
     clear_table_cache_for_tests,
 )
+from scripts.build_frequency_tables import main as build_frequency_tables_main
 
 
 class SinglingOutV2Tests(unittest.TestCase):
@@ -50,6 +51,8 @@ class SinglingOutV2Tests(unittest.TestCase):
         csv_text: str,
         *,
         sha256: str | None = None,
+        license: str = "test open licence",
+        refresh_due_date: str = "2027-06-08",
     ):
         table_dir = root / jurisdiction
         table_dir.mkdir(parents=True, exist_ok=True)
@@ -62,13 +65,24 @@ class SinglingOutV2Tests(unittest.TestCase):
             f'path = "{jurisdiction}/{table}.csv"\n'
             'source_name = "test source"\n'
             'source_url = "https://example.test/source"\n'
-            'license = "test open licence"\n'
+            f'license = "{license}"\n'
             'license_url = "https://example.test/licence"\n'
             'retrieved_date = "2026-06-08"\n'
-            'refresh_due_date = "2027-06-08"\n'
+            f'refresh_due_date = "{refresh_due_date}"\n'
             f'sha256 = "{digest}"\n'
         )
         (root / "MANIFEST.generated.toml").write_text(manifest, encoding="utf-8")
+
+    def _builder_metadata_args(self, source_name: str) -> list[str]:
+        return [
+            "--source-name", source_name,
+            "--source-url", "https://example.test/source",
+            "--license", "test open licence",
+            "--license-url", "https://example.test/licence",
+            "--attribution", "test attribution",
+            "--license-scope", "test aggregate source scope",
+            "--redistribution", "operator_local_only",
+        ]
 
     def test_sg_frequency_manifest_loads(self):
         tables = _load_sg_tables()
@@ -214,6 +228,63 @@ class SinglingOutV2Tests(unittest.TestCase):
         self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 4)
         self.assertEqual(findings[0].metadata["frequency_tables_used"], ["name_frequency"])
 
+    def test_builder_generated_sg_name_table_can_drive_named_person_k(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "sg_names.csv"
+            out = root / "out"
+            source.write_text("name,population\nJane Raretest,4\n", encoding="utf-8")
+            self.assertEqual(
+                build_frequency_tables_main([
+                    "--jurisdiction", "SG",
+                    "--table", "name_frequency",
+                    "--source", f"SG={source}",
+                    "--out", str(out),
+                    "--retrieved-date", "2026-06-10",
+                    *self._builder_metadata_args("operator SG name source"),
+                ]),
+                0,
+            )
+            clear_table_cache_for_tests()
+            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": str(out)}):
+                findings = self._quasi(
+                    "Dr Jane Raretest works as Analyst. Age: 42."
+                )
+
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 4)
+        self.assertEqual(findings[0].metadata["frequency_tables_used"], ["name_frequency"])
+
+    def test_builder_generated_jp_kr_role_tables_can_drive_role_k(self):
+        for code in ("JP", "KR"):
+            with self.subTest(code=code):
+                with tempfile.TemporaryDirectory() as tmp:
+                    root = Path(tmp)
+                    source = root / f"{code.lower()}_roles.csv"
+                    out = root / "out"
+                    source.write_text("occupation,population\nSenior Actuary,3\n", encoding="utf-8")
+                    self.assertEqual(
+                        build_frequency_tables_main([
+                            "--jurisdiction", code,
+                            "--table", "role_frequency",
+                            "--source", f"{code}={source}",
+                            "--out", str(out),
+                            "--retrieved-date", "2026-06-10",
+                            *self._builder_metadata_args(f"operator {code} role source"),
+                        ]),
+                        0,
+                    )
+                    clear_table_cache_for_tests()
+                    with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": str(out)}):
+                        findings = self._quasi_for(
+                            "Dr Jane Raretest works as Senior Actuary. Age: 42.",
+                            code,
+                        )
+
+                self.assertEqual(len(findings), 1)
+                self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 3)
+                self.assertEqual(findings[0].metadata["frequency_tables_used"], ["role_frequency"])
+
     def test_generated_role_table_can_drive_personal_attribute_k(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -226,6 +297,32 @@ class SinglingOutV2Tests(unittest.TestCase):
                 )
         self.assertEqual(len(findings), 1)
         self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 3)
+
+    def test_generated_table_with_stale_refresh_date_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_generated_table(
+                root,
+                "SG",
+                "name_frequency",
+                "name,population\nJane Raretest,4\n",
+                refresh_due_date="2020-06-08",
+            )
+            with self.assertRaises(RuntimeError):
+                _load_generated_tables("SG", root)
+
+    def test_generated_table_missing_license_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._write_generated_table(
+                root,
+                "SG",
+                "name_frequency",
+                "name,population\nJane Raretest,4\n",
+                license="",
+            )
+            with self.assertRaises(RuntimeError):
+                _load_generated_tables("SG", root)
         self.assertEqual(findings[0].metadata["frequency_tables_used"], ["role_frequency"])
         self.assertIn("name_density", findings[0].metadata["frequency_tables_missing"])
 

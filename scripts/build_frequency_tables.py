@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build generated population-prior frequency tables from official aggregate extracts."""
+"""Build generated population-prior frequency tables from aggregate extracts."""
 
 from __future__ import annotations
 
@@ -25,12 +25,16 @@ except ImportError:
     import tomli as tomllib
 
 ROOT = Path(__file__).resolve().parent.parent
-SUPPORTED = ("UK", "AU", "JP", "KR", "US")
+DEFAULT_SUPPORTED = ("UK", "AU", "JP", "KR", "US")
+SUPPORTED = ("SG", *DEFAULT_SUPPORTED)
+SUPPORTED_TABLES = ("default", "postal_population", "area_population", "surname_frequency", "name_frequency", "role_frequency")
 POSTAL_COLUMNS = ("postal_prefix", "postal_code", "postcode", "postcode_sector", "postcode_sectors",
                   "postcodesectors", "poa_code_2021", "poa_code21", "poa_code", "area_code", "code")
 AREA_COLUMNS = ("area", "area_name", "municipality", "prefecture", "region", "admin_area", "name", "地域", "市区町村",
                 "都道府県", "행정구역", "시도", "시도명", "시군구", "시군구명")
 SURNAME_COLUMNS = ("surname", "name")
+NAME_COLUMNS = ("name", "full_name", "fullname", "given_name", "givenname", "first_name", "firstname")
+ROLE_COLUMNS = ("role", "occupation", "job_title", "jobtitle", "title")
 POPULATION_COLUMNS = ("population", "total_population", "usual_residents", "persons", "total_persons", "tot_p_p",
                       "total", "count", "総数", "人口", "인구", "총인구", "계")
 UK_POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?)\s*(\d)(?:[A-Z]{2})?\b", re.IGNORECASE)
@@ -245,6 +249,19 @@ def _records_from_csv(text: str, spec: JurisdictionSpec) -> dict[str, int]:
     reader = csv.DictReader(io.StringIO(text))
     if not reader.fieldnames:
         return {}
+    if spec.table in {"name_frequency", "role_frequency"}:
+        key_col = _column(reader.fieldnames, NAME_COLUMNS if spec.table == "name_frequency" else ROLE_COLUMNS)
+        population_col = _column(reader.fieldnames, POPULATION_COLUMNS)
+        if not key_col or not population_col:
+            return {}
+        out: dict[str, int] = {}
+        for row in reader:
+            raw_key = str(row.get(key_col) or "").strip()
+            key = re.sub(r"\s+", " ", raw_key).upper()
+            population = _parse_int(str(row.get(population_col) or ""))
+            if key and population is not None:
+                out[key] = out.get(key, 0) + population
+        return out
     if spec.table == "surname_frequency":
         key_col = _column(reader.fieldnames, SURNAME_COLUMNS)
         population_col = _column(reader.fieldnames, POPULATION_COLUMNS)
@@ -305,6 +322,10 @@ def _render_csv(table: str, records: dict[str, int]) -> str:
         key = "postal_prefix"
     elif table == "surname_frequency":
         key = "surname"
+    elif table == "name_frequency":
+        key = "name"
+    elif table == "role_frequency":
+        key = "role"
     else:
         key = "area"
     out = io.StringIO()
@@ -358,6 +379,44 @@ def _source_map(values: list[str]) -> dict[str, str]:
     return out
 
 
+def _require_metadata(parser: argparse.ArgumentParser, args: argparse.Namespace, fields: tuple[str, ...]) -> None:
+    missing = [field for field in fields if not str(getattr(args, field) or "").strip()]
+    if missing:
+        rendered = ", ".join(f"--{field.replace('_', '-')}" for field in missing)
+        parser.error(f"--table {args.table} requires metadata: {rendered}")
+
+
+def _spec_for(parser: argparse.ArgumentParser, args: argparse.Namespace, code: str) -> JurisdictionSpec:
+    table = args.table
+    if table == "default":
+        if code not in SPECS:
+            parser.error(f"{code} has no default public-source build; use --table name_frequency or role_frequency")
+        return SPECS[code]
+    if table in {"name_frequency", "role_frequency"}:
+        _require_metadata(
+            parser,
+            args,
+            ("source_name", "source_url", "license", "license_url", "attribution", "license_scope", "redistribution"),
+        )
+        return JurisdictionSpec(
+            jurisdiction=code,
+            table=table,
+            source_name=args.source_name.strip(),
+            source_url=args.source_url.strip(),
+            license=args.license.strip(),
+            license_url=args.license_url.strip(),
+            attribution=args.attribution.strip(),
+            license_scope=args.license_scope.strip(),
+            redistribution=args.redistribution.strip(),
+        )
+    if code not in SPECS:
+        parser.error(f"{code} has no built-in profile for --table {table}")
+    spec = SPECS[code]
+    if spec.table != table:
+        parser.error(f"{code} default profile builds {spec.table}, not {table}")
+    return spec
+
+
 def _build_one(spec: JurisdictionSpec, source: str, out_dir: Path, retrieved_date: date, refresh_days: int) -> None:
     payload, source_ref = _read_source(source)
     records = _build_records(payload, source_ref, spec)
@@ -392,16 +451,38 @@ def _build_one(spec: JurisdictionSpec, source: str, out_dir: Path, retrieved_dat
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build generated keyless frequency tables")
     parser.add_argument("--jurisdiction", choices=(*SUPPORTED, "all"))
+    parser.add_argument("--table", choices=SUPPORTED_TABLES, default="default")
     parser.add_argument("--source", action="append", default=[], help="JURISDICTION=path-or-url")
     parser.add_argument("--out", type=Path)
     parser.add_argument("--retrieved-date", default=date.today().isoformat())
     parser.add_argument("--refresh-days", type=int, default=365)
+    parser.add_argument("--source-name", default="")
+    parser.add_argument("--source-url", default="")
+    parser.add_argument("--license", default="")
+    parser.add_argument("--license-url", default="")
+    parser.add_argument("--attribution", default="")
+    parser.add_argument("--license-scope", default="")
+    parser.add_argument("--redistribution", default="")
     parser.add_argument("--list-sources", action="store_true", help="print official source/licence profiles and exit")
     args = parser.parse_args(argv)
 
     if args.list_sources:
-        jurisdictions = SUPPORTED if args.jurisdiction in (None, "all") else (args.jurisdiction,)
-        print(json.dumps({code: SPECS[code].__dict__ for code in jurisdictions}, indent=2, sort_keys=True))
+        jurisdictions = DEFAULT_SUPPORTED if args.jurisdiction in (None, "all") else (args.jurisdiction,)
+        profiles = {code: SPECS[code].__dict__ for code in jurisdictions if code in SPECS}
+        profiles["_custom_tables"] = {
+            "tables": ["name_frequency", "role_frequency"],
+            "required_metadata": [
+                "source_name",
+                "source_url",
+                "license",
+                "license_url",
+                "attribution",
+                "license_scope",
+                "redistribution",
+            ],
+            "note": "Operator-supplied name/role tables are generated only from caller-provided licensed sources.",
+        }
+        print(json.dumps(profiles, indent=2, sort_keys=True))
         return 0
     if args.jurisdiction is None:
         parser.error("--jurisdiction is required unless --list-sources is set")
@@ -410,12 +491,14 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("--out is required unless --list-sources is set")
     sources = _source_map(args.source)
     retrieved = date.fromisoformat(args.retrieved_date)
+    if args.refresh_days <= 0:
+        parser.error("--refresh-days must be positive")
     missing = [code for code in jurisdictions if code not in sources]
     if missing:
         print(f"missing --source for: {', '.join(missing)}", file=sys.stderr)
         return 2
     for code in jurisdictions:
-        _build_one(SPECS[code], sources[code], args.out, retrieved, args.refresh_days)
+        _build_one(_spec_for(parser, args, code), sources[code], args.out, retrieved, args.refresh_days)
     return 0
 
 

@@ -74,6 +74,28 @@ class NoCostDetectionBatchTests(unittest.TestCase):
             self._rules("Invoice address: 12 Jalan Ampang, Kuala Lumpur 50450 Malaysia.", "MY"),
         )
 
+    def test_contract_signature_and_footer_address_slices_fire(self):
+        self.assertIn(
+            "postal_address",
+            self._rules(
+                "Signed by Dr Jane Tan\n12 Jalan Ampang\nKuala Lumpur 50450 Malaysia",
+                "MY",
+            ),
+        )
+        self.assertIn(
+            "postal_address",
+            self._rules(
+                "Regards,\nDr Jane Tan\nUnit 9, 77 Shenton Way\nSingapore 068810",
+                "SG",
+            ),
+        )
+
+    def test_registered_office_bait_remains_suppressed(self):
+        self.assertNotIn(
+            "postal_address",
+            self._rules("Registered office: Unit 9, 77 Shenton Way, Singapore 068810.", "SG"),
+        )
+
     def test_specific_address_rule_takes_precedence_over_generic_fallback(self):
         result = self._review("Registered address: 1 Airport Drive, Adelaide Airport SA 5950.", "AU")
         rules = [finding.rule for finding in result.findings]
@@ -205,6 +227,27 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
         self.assertIn(("date_of_birth", "14 February 1988", "semantic_sentence_anchor"), findings)
         self.assertIn(("age_reference", "42", "semantic_sentence_anchor"), findings)
+
+    def test_semantic_pii_fallback_can_extract_birth_year_and_unknown_dob_age(self):
+        text = "Patient Jane Tan was born in 1988.\nDOB unknown but patient age is 42."
+        self.assertNotIn("date_of_birth", self._rules(text, "SG"))
+        self.assertNotIn("age_reference", self._rules(text, "SG"))
+        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+            result = self._review(text, "SG")
+        findings = {
+            (finding.rule, finding.matched_text, finding.metadata.get("fallback"), finding.metadata.get("granularity"))
+            for finding in result.findings
+        }
+
+        self.assertIn(("date_of_birth", "1988", "semantic_sentence_anchor", "year"), findings)
+        self.assertIn(("age_reference", "42", "semantic_dob_context_anchor", None), findings)
+
+    def test_semantic_pii_fallback_rejects_unanchored_company_year(self):
+        text = "Company founded in 1988. The model age field is a cohort example."
+        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+            result = self._review(text, "SG")
+
+        self.assertNotIn("date_of_birth", {finding.rule for finding in result.findings})
 
     def test_semantic_pii_fallback_can_extract_multilingual_labels(self):
         text = "姓名: Jane Tan\n生年月日: 14 February 1988\n年齢: 42"

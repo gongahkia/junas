@@ -112,6 +112,107 @@ class FrequencyTableBuilderTests(unittest.TestCase):
             self.assertIn("[US.surname_frequency]", manifest)
             self.assertIn("U.S. Census Bureau", manifest)
 
+    def test_builds_sg_custom_name_frequency_with_required_metadata(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "sg_names.csv"
+            out = root / "out"
+            source.write_text("full_name,total\nJane Raretest,4\njane raretest,6\n", encoding="utf-8")
+            code = main([
+                "--jurisdiction", "SG",
+                "--table", "name_frequency",
+                "--source", f"SG={source}",
+                "--out", str(out),
+                "--retrieved-date", "2026-06-10",
+                "--source-name", "Operator licensed SG name aggregate",
+                "--source-url", "https://example.test/sg-name-source",
+                "--license", "operator cleared licence",
+                "--license-url", "https://example.test/licence",
+                "--attribution", "operator attribution",
+                "--license-scope", "operator supplied aggregate, redistribution not bundled",
+                "--redistribution", "operator_local_only",
+            ])
+            self.assertEqual(code, 0)
+            table = (out / "SG" / "name_frequency.csv").read_text(encoding="utf-8")
+            self.assertIn("JANE RARETEST,10\n", table)
+            manifest = (out / "MANIFEST.generated.toml").read_text(encoding="utf-8")
+            self.assertIn("[SG.name_frequency]", manifest)
+            self.assertIn("operator_local_only", manifest)
+
+    def test_builds_jp_and_kr_custom_role_frequency_with_required_metadata(self):
+        for code in ("JP", "KR"):
+            with self.subTest(code=code):
+                with tempfile.TemporaryDirectory() as tmp:
+                    root = Path(tmp)
+                    source = root / f"{code.lower()}_roles.csv"
+                    out = root / "out"
+                    source.write_text("occupation,population\nSenior Actuary,3\nActuary,7\n", encoding="utf-8")
+                    result = main([
+                        "--jurisdiction", code,
+                        "--table", "role_frequency",
+                        "--source", f"{code}={source}",
+                        "--out", str(out),
+                        "--retrieved-date", "2026-06-10",
+                        "--source-name", f"Operator licensed {code} role aggregate",
+                        "--source-url", f"https://example.test/{code.lower()}-role-source",
+                        "--license", "operator cleared licence",
+                        "--license-url", "https://example.test/licence",
+                        "--attribution", "operator attribution",
+                        "--license-scope", "operator supplied aggregate, redistribution not bundled",
+                        "--redistribution", "operator_local_only",
+                    ])
+                    self.assertEqual(result, 0)
+                    table = (out / code / "role_frequency.csv").read_text(encoding="utf-8")
+                    self.assertIn("SENIOR ACTUARY,3\n", table)
+                    self.assertIn("ACTUARY,7\n", table)
+
+    def test_custom_frequency_table_requires_license_metadata(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "names.csv"
+            source.write_text("name,population\nJane Raretest,4\n", encoding="utf-8")
+            with self.assertRaises(SystemExit):
+                main([
+                    "--jurisdiction", "SG",
+                    "--table", "name_frequency",
+                    "--source", f"SG={source}",
+                    "--out", str(root / "out"),
+                    "--source-name", "missing licence metadata",
+                ])
+
+    def test_custom_frequency_table_rejects_malformed_columns(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "names.csv"
+            source.write_text("label,totalish\nJane Raretest,4\n", encoding="utf-8")
+            with self.assertRaises(RuntimeError):
+                main([
+                    "--jurisdiction", "SG",
+                    "--table", "name_frequency",
+                    "--source", f"SG={source}",
+                    "--out", str(root / "out"),
+                    "--source-name", "Operator licensed SG name aggregate",
+                    "--source-url", "https://example.test/sg-name-source",
+                    "--license", "operator cleared licence",
+                    "--license-url", "https://example.test/licence",
+                    "--attribution", "operator attribution",
+                    "--license-scope", "operator supplied aggregate",
+                    "--redistribution", "operator_local_only",
+                ])
+
+    def test_refresh_days_must_be_positive(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "uk.csv"
+            source.write_text("postcode,population\nSW1A 1AA,2\n", encoding="utf-8")
+            with self.assertRaises(SystemExit):
+                main([
+                    "--jurisdiction", "UK",
+                    "--source", f"UK={source}",
+                    "--out", str(root / "out"),
+                    "--refresh-days", "0",
+                ])
+
     def test_missing_source_returns_nonzero(self):
         with tempfile.TemporaryDirectory() as tmp:
             code = main(["--jurisdiction", "AU", "--out", tmp])

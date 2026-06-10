@@ -17,6 +17,8 @@ _DOB_DATE_FRAGMENT = (
     r"\d{1,2}\s+" + _DOB_MONTH + r"\s+\d{4}|"
     + _DOB_MONTH + r"\s+\d{1,2},?\s+\d{4})"
 )
+_BIRTH_YEAR_FRAGMENT = r"(?:19|20)\d{2}"
+_SEMANTIC_SUBJECT = r"(?:Patient|Client|Employee|Applicant|Customer|Data\s+subject|Subject)"
 SEMANTIC_NAME_LABEL_RE = re.compile(
     r"(?:^|[;\n])\s*(?i:(?:full\s+name|legal\s+name|client\s+name|patient\s+name|employee\s+name|"
     r"data\s+subject\s+name|contact\s+person|name|姓名|氏名|名前|성명|이름|ชื่อ|nama|họ\s+tên|الاسم))"
@@ -39,17 +41,40 @@ SEMANTIC_AGE_LABEL_RE = re.compile(
     r"\s*(?:[:：=]|\bis\b|\bwas\b|\brecorded\s+as\b|\blisted\s+as\b|\bnoted\s+as\b)\s*(?P<age>\d{1,3})\b",
     re.IGNORECASE,
 )
+SEMANTIC_BIRTH_YEAR_LABEL_RE = re.compile(
+    r"(?:^|[;\n])\s*(?i:(?:(?:patient|client|employee|applicant|customer|data\s+subject|subject)\s+)?"
+    r"(?:year\s+of\s+birth|birth\s+year|DOB\s+year))"
+    r"\s*(?:[:：=]|\bis\b|\bwas\b|\brecorded\s+as\b|\blisted\s+as\b|\bnoted\s+as\b)\s*"
+    r"(?P<year>" + _BIRTH_YEAR_FRAGMENT + r")\b",
+    re.IGNORECASE,
+)
 SEMANTIC_DOB_SENTENCE_RE = re.compile(
-    r"\b(?P<subject>(?:Patient|Client|Employee|Applicant|Customer|Data\s+subject|Subject)\s+"
+    r"\b(?P<subject>" + _SEMANTIC_SUBJECT + r"\s+"
     r"(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})?)\s+"
     r"(?:was\s+)?(?:born\s+on|born\s+at|date\s+of\s+birth\s+is|DOB\s+is)\s+"
     r"(?P<dob>" + _DOB_DATE_FRAGMENT + r")\b",
     re.IGNORECASE,
 )
+SEMANTIC_BIRTH_YEAR_SENTENCE_RE = re.compile(
+    r"\b(?P<subject>" + _SEMANTIC_SUBJECT + r"\s+"
+    r"(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})?)\s+"
+    r"(?:was\s+)?(?:born\s+in|year\s+of\s+birth\s+is|birth\s+year\s+is|DOB\s+year\s+is)\s+"
+    r"(?P<year>" + _BIRTH_YEAR_FRAGMENT + r")\b",
+    re.IGNORECASE,
+)
 SEMANTIC_AGE_SENTENCE_RE = re.compile(
-    r"\b(?P<subject>(?:Patient|Client|Employee|Applicant|Customer|Data\s+subject|Subject)\s+"
+    r"\b(?P<subject>" + _SEMANTIC_SUBJECT + r"\s+"
     r"(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})?)\s+"
     r"(?:is\s+)?(?P<age>\d{1,3})\s+(?:years?\s+old|yrs?\s+old|yo)\b",
+    re.IGNORECASE,
+)
+SEMANTIC_DOB_UNKNOWN_AGE_RE = re.compile(
+    r"\b(?:"
+    + _SEMANTIC_SUBJECT
+    + r"(?:\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})?\s+)?"
+    r"(?:DOB|date\s+of\s+birth)\s+(?:unknown|not\s+provided|unavailable|withheld|not\s+recorded)"
+    r"\s*(?:[,;]?\s*but)?\s*(?:(?:patient|client|employee|applicant|customer|data\s+subject|subject)\s+)?"
+    r"(?:age\s*(?:is|:|=|recorded\s+as)?|aged)\s*(?P<age>\d{1,3})\b",
     re.IGNORECASE,
 )
 
@@ -140,6 +165,14 @@ def _valid_dob_date(value: str) -> bool:
     return False
 
 
+def _valid_birth_year(value: str) -> bool:
+    try:
+        year = int(str(value or "").strip())
+    except ValueError:
+        return False
+    return 1900 <= year <= dt.date.today().year
+
+
 def detect_semantic_pii_fallback_findings(
     ctx: DetectorContext,
     idx_start: int,
@@ -225,6 +258,34 @@ def detect_semantic_pii_fallback_findings(
                 )
             )
             idx += 1
+        for match in SEMANTIC_BIRTH_YEAR_LABEL_RE.finditer(ctx.text):
+            value = match.group("year")
+            if not _valid_birth_year(value):
+                continue
+            span = match.span("year")
+            if span in seen:
+                continue
+            seen.add(span)
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="date_of_birth",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="high",
+                    matched_text=value,
+                    start=span[0],
+                    end=span[1],
+                    reason="Label-anchored semantic birth-year fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={
+                        "fallback": "semantic_label_anchor",
+                        "source": "KAYPOH_SEMANTIC_PII_FALLBACK",
+                        "granularity": "year",
+                    },
+                )
+            )
+            idx += 1
         for match in SEMANTIC_DOB_SENTENCE_RE.finditer(ctx.text):
             value = match.group("dob")
             if not _valid_dob_date(value):
@@ -246,6 +307,34 @@ def detect_semantic_pii_fallback_findings(
                     reason="Sentence-anchored semantic date-of-birth fallback",
                     legal_basis=ctx.legal_basis,
                     metadata={"fallback": "semantic_sentence_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+                )
+            )
+            idx += 1
+        for match in SEMANTIC_BIRTH_YEAR_SENTENCE_RE.finditer(ctx.text):
+            value = match.group("year")
+            if not _valid_birth_year(value):
+                continue
+            span = match.span("year")
+            if span in seen:
+                continue
+            seen.add(span)
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="date_of_birth",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="high",
+                    matched_text=value,
+                    start=span[0],
+                    end=span[1],
+                    reason="Sentence-anchored semantic birth-year fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={
+                        "fallback": "semantic_sentence_anchor",
+                        "source": "KAYPOH_SEMANTIC_PII_FALLBACK",
+                        "granularity": "year",
+                    },
                 )
             )
             idx += 1
@@ -273,6 +362,33 @@ def detect_semantic_pii_fallback_findings(
                     reason="Sentence-anchored semantic age fallback",
                     legal_basis=ctx.legal_basis,
                     metadata={"fallback": "semantic_sentence_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+                )
+            )
+            idx += 1
+        for match in SEMANTIC_DOB_UNKNOWN_AGE_RE.finditer(ctx.text):
+            try:
+                age = int(match.group("age"))
+            except ValueError:
+                continue
+            if not 18 <= age <= 120:
+                continue
+            span = match.span("age")
+            if span in seen:
+                continue
+            seen.add(span)
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="age_reference",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="medium",
+                    matched_text=match.group("age"),
+                    start=span[0],
+                    end=span[1],
+                    reason="DOB-context semantic age fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={"fallback": "semantic_dob_context_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
                 )
             )
             idx += 1
