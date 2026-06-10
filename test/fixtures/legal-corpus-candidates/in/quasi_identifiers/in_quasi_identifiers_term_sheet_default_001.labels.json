@@ -44,11 +44,11 @@
     "status": "codex_reconciled_pending_owner_review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
     "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -236,6 +236,12 @@
       "category": "MNPI",
       "matched_text": "WhatsApp/SMS not permitted for any UPSI",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data and privacy: Each Party is a data fiduciary under the DPDPA and will obtain consent for shareholder and employee data; no Aadhaar numbers will be collected from public users; children (under 18) require verifiable guardian consent.\nPrimary contact (clustered identifiers): Mr. Aakash Dev (CFO, Meridian Wires Limited), DOB 12-11-1989, based in Mumbai, using Redmi Note 10 on office Wi\u2011Fi (IP 10.22.45.9), email aakash.dev@meridianwires.in, employee code MWL-3407, PAN ABZPD3X9QZ (fictional/invalid), UPI dev.aakash-1@payz, VC session ID MWL-TX-2025-07",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -320,16 +326,22 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Data and privacy: Each Party is a data fiduciary under the DPDPA and will obtain consent for shareholder and employee data; no Aadhaar numbers will be collected from public users; children (under 18) require verifiable guardian consent.\nPrimary contact (clustered identifiers): Mr. Aakash Dev (CFO, Meridian Wires Limited), DOB 12-11-1989, based in Mumbai, using Redmi Note 10 on office Wi\u2011Fi (IP 10.22.45.9), email aakash.dev@meridianwires.in, employee code MWL-3407, PAN ABZPD3X9QZ (fictional/invalid), UPI dev.aakash-1@payz, VC session ID MWL-TX-2025-07",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Indicative Term Sheet \u2013 Acquisition of Power Cables Division of Meridian Wires Limited by Navayana Capital Private Limited.\nParties and listing: Meridian Wires Limited (NSE-listed; ticker MRWL, fictional) and Navayana Capital Private Limited (together, the Parties).\nTransaction structure and consideration: Slump sale of division followed by preferential allotment under SEBI ICDR; indicative EV INR 480 crore, subject to working capital adjustment and SEBI LODR disclosures.\nApprovals and timeline: Shareholder approval (Sections 180/188, Companies Act, 2013), NSE/BSE in-principle approvals, and RBI consents if applicable; long-stop 31 March 2026.\nFinancing: INR 150 crore equity by Navayana Growth Fund I and INR 330 crore rupee term loan from Indus Delta Bank (fictional), with escrow managed by Suryoday Trustee Services.\nConfidentiality and UPSI: All projections, draft board notes, and pricing are Unpublished Price Sensitive Information under SEBI (PIT) Regulations; trading window to remain closed until public disclosure; insider list to be maintained.\nData and privacy: Each Party is a data fiduciary under the DPDPA and will obtain consent for shareholder and employee data; no Aadhaar numbers will be collected from public users; children (under 18) require verifiable guardian consent.\nPrimary contact (clustered identifiers): Mr. Aakash Dev (CFO, Meridian Wires Limited), DOB 12-11-1989, based in Mumbai, using Redmi Note 10 on office Wi\u2011Fi (IP 10.22.45.9), email aakash.dev@meridianwires.in, employee code MWL-3407, PAN ABZPD3X9QZ (fictional/invalid), UPI dev.aakash-1@payz, VC session ID MWL-TX-2025-07.\nKYC and identifiers: PAN/GSTIN of counterparties to be uploaded post signing via secure portal; reconciliation files show bank account suffix 9021 only, with no holder name; placeholders permitted in drafts.\nDiligence: Limited clean-room access to data room; generic log entry shows Android 12 handset model Kaveri-9 from Pune at 14:02 IST without any name or account ID, which by itself is not identifiable.\nConditions precedent: No material adverse change; transfer of key supply contracts; novation of bank guarantees; confirmation that no child-specific profiles are stored, only age bands 13\u201317 with consent flags.\nCovenants: Promoter Ms. Kavita Rao to serve as Non-Executive Director for 12 months post-closing; non-compete 24 months; non-solicit of senior engineers in Chennai and Vadodara.\nClosing mechanics: Consideration split 90% at completion and 10% escrow for 12 months; stamp duty and registration charges shared equally; all UPSI to be published via NSE/BSE before any investor communication.\nRepresentations and warranties: Compliance with DPDPA notice-and-consent, no unlawful processing of Aadhaar or PAN; accuracy of financials; title to assets; absence of undisclosed related party transactions.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Primary contact (clustered identifiers): Mr. Aakash Dev (CFO, Meridian Wires Limited), DOB 12-11-1989, based in Mumbai, using Redmi Note 10 on office Wi\u2011Fi (IP 10.22.45.9), email aakash.dev@meridianwires.in, employee code MWL-3407, PAN ABZPD3X9QZ (fictional/invalid), UPI dev.aakash-1@payz, VC session ID MWL-TX-2025-07",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Power Cables Division of Meridian Wires Limited",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

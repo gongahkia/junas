@@ -1,0 +1,154 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 10
+  },
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_jurisdictional_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/jurisdictional_mnpi/sa_jurisdictional_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_jurisdictional_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 8,
+    "new_must_detect_count": 3,
+    "old_ideal_must_detect_count": 6,
+    "old_must_detect_count": 3,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Breach containment: Access keys were rotated, external indexing blocked, and Barq Cloud validated bucket policies; Amthal Cyber Response JV confirmed no lateral movement into production.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality/market conduct: The draft does not alter guidance and is pending Board review; disclosure will follow KMA Listing Rules if a postponement is confirmed, and no selective briefings have occurred.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational/Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama cards",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a draft issuer notice proposing to postpone the Q2 results announcement by up to one week",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective briefings",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Breach containment: Access keys were rotated, external indexing blocked, and Barq Cloud validated bucket policies; Amthal Cyber Response JV confirmed no lateral movement into production.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality/market conduct: The draft does not alter guidance and is pending Board review; disclosure will follow KMA Listing Rules if a postponement is confirmed, and no selective briefings have occurred.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Rimal Utilities Co. (Listed on Najd Securities Exchange \u201cNSE\u2011KSA\u201d; Issuer ID: RUCL\u2011202) \u2014 Operational/Cyber Incident Report, 2026\u201105\u201130 18:40 KSA\nSummary: A routine access review revealed a short\u2011lived exposure of a non\u2011production document folder hosted by Barq Cloud Services WLL; logs indicate a single automated scan and no confirmed download beyond internal IPs.\nData scope: primarily vendor invoices and maintenance SOPs; two image files were identified as scans of vendor drivers\u2019 Iqama cards associated with delivery gate passes.\nPDPL notice: Although the images were in a test folder, they constitute personal data under the Kingdom PDPL; the files were quarantined and erased, and we initiated a DPIA addendum with the Supreme Data & AI Authority (SDAA) transfer desk noting no cross\u2011border transfer is planned.\nBreach containment: Access keys were rotated, external indexing blocked, and Barq Cloud validated bucket policies; Amthal Cyber Response JV confirmed no lateral movement into production.\nPublic information: Service bulletins on 1445\u201102\u201111H and 2023\u201105\u201103G about scheduled desalination maintenance remain accurate and were previously posted to the NSE\u2011KSA Market Announcements Archive.\nOne non\u2011public item was present: a draft issuer notice proposing to postpone the Q2 results announcement by up to one week; this draft has not been submitted to the NSE\u2011KSA portal or the Kingdom Markets Authority (KMA).\nMateriality/market conduct: The draft does not alter guidance and is pending Board review; disclosure will follow KMA Listing Rules if a postponement is confirmed, and no selective briefings have occurred.\nInternal controls: References in system logs to \u201cinsider list\u201d and \u201cblackout window\u201d relate to archived training content and not to any live trading restriction at this time.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "KMA",
+      "reason": "Defined regulator abbreviation; not PII or MNPI"
+    },
+    {
+      "matched_text": "SDAA",
+      "reason": "Defined authority abbreviation; not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "privacy assessment event",
+      "matched_text": "DPIA addendum",
+      "reason": "PDPL-relevant processing assessment; not mapped to an allowed privacy-event rule"
+    },
+    {
+      "concept": "erasure/deletion control",
+      "matched_text": "erased",
+      "reason": "Data deletion action is PDPL-relevant but not covered by an allowed privacy-event marker"
+    }
+  ]
+}

@@ -46,11 +46,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -351,6 +351,18 @@
       "matched_text": "Transaction: acquisition of 80% of PT Lintas Dana Digital (Target, NIB 5556667778889; alamat operasional: Jl. Asia Afrika No. 99, Bandung 40112) via a combination of rights issue subscription and secondary share purchase.\nConsideration: total IDR 420,000,000,000 with IDR 300,000,000,000 subscribed into new shares and IDR 120,000,000,000 paid to selling shareholders, to be funded into Escrow Rekening Giro 9876543210 at Bank Samudra Persada, Cabang Sudirman (SWIFT BSPRIDJA).\nImplied pre\u2011money valuation IDR 375,000,000,000; indicative price per share IDR 1,250; the Issuer\u2019s kode saham AURX on BEI to remain unchanged.\nConditions precedent: (i) OJK effective statement for the rights issue and change of controller for P2P license under applicable POJK, (ii) shareholder approval (RUPS), (iii) KPPU notification if thresholds met, and (iv) compliance with POJK 31/2015 on keterbukaan informasi to public and OJK.\nHandling of informasi material non\u2011publik: parties shall maintain an insider list per UU Pasar Modal and internal Kebijakan Perdagangan Efek; circulation limited to Dewan Komisaris, Direksi, and Sekretaris Perusahaan until keterbukaan submitted to BEI.\nPost\u2011closing governance: Investor to nominate 1 komisaris and 1 direktur; reserved matters list attached; board memo reference BM\u20112026\u201107\u2011ARX (internal only, not for external distribution).\nKey retention: Bapak Arman Prasetyo (Calon Direktur Teknologi, Paspor RI No. C12345678; mobile +62 811\u20112222\u20113333; email arman.prasetyo@lintasdana.id) to enter 36\u2011month service agreement with non\u2011compete.\nRepresentations: Target and Perseroan represent valid licensing for fintech lending and tax compliance including active NPWP as set out above; no undisclosed indebtedness beyond disclosed facility with Bank Samudra Persada.\nNotices: to PT Aurora Fintek Tbk at Jl. Melati No. 12, Kebayoran Baru, Jakarta Selatan 12160; Attn: Ibu Ratna Dewi; email ratna.dewi@aurorafintek.co.id; tel +62 812\u20113456\u20117890.\nTimetable: signing of SPA and PMHMETD documentation by T+30 days from this term sheet; BEI disclosure within 2 business days after signing; long stop date T+120 days subject to OJK review period.\nConfidentiality: this document is confidential and must not be forwarded beyond role\u2011only recipients such as Sekretaris Perusahaan; for general inquiries please contact Customer Care 1500000 (public hotline, not transaction contact).",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Notices: to PT Aurora Fintek Tbk at Jl. Melati No. 12, Kebayoran Baru, Jakarta Selatan 12160; Attn: Ibu Ratna Dewi; email ratna.dewi@aurorafintek.co.id; tel +62 812\u20113456\u20117890",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Jl. Asia Afrika No. 99, Bandung 40112",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "id_postal_address"
     }
   ],
   "must_not_detect": [

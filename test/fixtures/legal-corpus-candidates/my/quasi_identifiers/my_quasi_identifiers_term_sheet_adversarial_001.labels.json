@@ -58,11 +58,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -309,6 +309,12 @@
       "matched_text": "Term Sheet \u2014 Proposed Acquisition; Ref: TRM- 2 0 2 6 / A C Q - 07 (Internal Draft; Malaysia)\nParties and Transaction: Seri Purnama Holdings Berhad (listed on Bursa Malaysia; Company No. 201101012345 (999999-W)) to acquire 70% equity interest in Aurora Nusantara Sdn Bhd from existing shareholders via a conditional share sale agreement.\nConsideration and Financing: Total purchase price RM210,000,000; funding mix of RM120,000,000 Shariah-compliant Commodity Murabahah facility from Meranti Capital Bank Berhad (profit rate 4.20% p.a., 5-year tenor, security over target shares) and RM90,000,000 from internal cash.\nConditions Precedent: Shareholders\u2019 approval under Chapter 10 of the Bursa Malaysia Securities Listing Requirements (Paragraph 10.06), SC/CMSA approvals where applicable, no breach of CMSA s.188 insider provisions, and completion of legal, financial, commercial and Shariah due diligence.\nConfidentiality and MNPI: This document contains non\u2011public, price\u2011sensitive information; no trading in Seri Purnama securities by insiders is permitted until announcement; disclosure will be made per LR 9.03 and SC guidelines.\nDeal Team Contact (Internal Use): Encik Farid Jamal, Chief Financial Officer, Seri Purnama Holdings Berhad, born 14\u201102\u20111984 (age 42), based at Level 23, Menara Teratai, Jalan Damansara, 47400 Petaling Jaya; device host SPH\u2011LTP\u2011118; employee ID SPH\u2011EMP\u2011042; cost centre CC\u20111030\u201188; expense wallet acct EW\u2011552019; work email f.jamal@seripurnama.example.my; last session tag sID=7a9c- 11 KL- 0426 over Wi\u2011Fi SSID \u201cSPH_Guest_12\u201d.\nRepresentations and Warranties: Standard reps on title, capacity, compliance, no undisclosed liabilities; no MAC (material adverse change) condition precedent applies; valuation references incorporate public-source industry indices without reliance on any personal data.\nPDPA Note: Any personal data processed in connection with this transaction will be handled in accordance with the Personal Data Protection Act 2010; consents to be procured as needed; board packs to use redacted or anonymised identifiers.\nTimeline and Escrow: Target signing Q3 2026; long stop date 31 December 2026; 10% deposit into escrow with Bayu Trustee Services (M) Berhad, Escrow Ref: BYT\u2011ES\u20112026\u201107711 (non\u2011interest bearing).\nNon\u2011attributable Examples (for templates only): \u201cDOB 03/03/1991\u201d and device tag \u201cA1\u2011B2\u2011C3\u201d shown in training slides are generic placeholders and are not linked to any person or this transaction.\nDue Diligence Scope: Financial (audits FY2023\u2013FY2025), tax, HR (no collection of employee NRICs prior to completion), IT (system logs only), environmental, and Shariah screening for facility compliance.\nAnnouncements: Upon execution of the SPA, immediate announcement to Bursa Malaysia to avoid a false market, followed by circular to shareholders and independent advice letter per LR requirements.\nTermination: If regulatory approvals are not obtained by the long stop date, either party may terminate; break fee RM5,000,000 payable by buyer only if failure arises solely from buyer\u2019s financing default.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Farid Jamal, Chief Financial Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

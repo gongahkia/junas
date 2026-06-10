@@ -46,11 +46,11 @@
     "status": "codex_reconciled_pending_owner_review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -463,6 +463,18 @@
       "matched_text": "Term Sheet \u2014 Proposed acquisition of ChainLeaf Custody Pvt. Ltd. (crypto custody and climate-data software) by Vidyut Renewables Limited (NSE: VRENX), dated 04 June 2026.\nStructure and consideration: Share purchase of 74% of ChainLeaf for INR 128 crore in cash, plus an earn-out up to INR 22 crore tied to ESG Scope 2 reduction metrics and SaaS ARR from climate-risk analytics sold to renewable IPPs.\nUse of proceeds: 10% to establish a data-lake compliant with the Digital Personal Data Protection Act, 2023 (India), 15% to remediate security tooling, balance for working capital; escrow of INR 8 crore for cyber incident costs for 12 months.\nConditions precedent (non-public): Confirmation that the 17 May 2026 API credential leak impacting 3,400 test wallets and 210 dormant custody accounts was contained, with CERT-In closure report and no lateral movement into production keys or PII vault.\nRegulatory and listing workflow: Board approval of both parties, CCI notification if thresholds met, NSE/BSE Regulation 30 disclosure at signing and at closing; SEBI (PIT) trading window closure to apply to all designated persons from term-sheet execution until 48 hours after closing disclosure.\nDPDPA and KYC: No onboarding of individuals under 18 for VDA services; Aadhaar may be used only via voluntary offline e\u2011KYC with masked identifiers, PAN collection for tax reporting with purpose-specific consent, and GSTIN for B2B clients; data localisation for sensitive personal data and grievance officer appointment.\nInformation barriers and insider list: Vidyut to maintain a ring\u2011fenced \u201cProject NEEM\u201d deal team, separate from treasury and carbon-credit desk; insider list to be maintained under SEBI (PIT) Reg. 9 by the Compliance Officer and to include Ms. Rhea Kotecha (External Counsel) and Mr. Dev Malhotra (CFO).\nDeal covenants: No selective disclosure of unpublished price-sensitive information; use of clean room for customer-level ESG datasets; no transfer of private keys outside HSM boundary; no tipping and no communication with research analysts except via scheduled structured meetings.\nBlackout and pre\u2011clearance: Trading by designated persons prohibited from 04 June 2026 until 48 hours post closing disclosure; thereafter, pre\u2011clearance thresholds under the Company\u2019s Code of Conduct will apply; breaches will be reported per SEBI (PIT) and NSE circulars.\nCommercial terms: 9\u2011month exclusivity, customary no\u2011shop, INR 6 crore reverse break fee if acquirer fails to secure financing; MAC excludes disclosed and resolved phishing events and routine regulatory changes to VDA taxation.\nEducational/marketing (benign): The parties may host a general \u201cCrypto custody and ESG controls 101\u201d webinar for clients and students that discusses public frameworks and cyber hygiene without revealing transaction details, insider lists, or price\u2011sensitive metrics.\nPublic reference carve\u2011outs: Parties may cite publicly available MCA filings and government notifications on ESG assurance standards; however, draft carbon-intensity baselines for the earn\u2011out are confidential until closing.\nKey contacts: Ms. Rhea Kotecha, Counsel to Vidyut (rhea.kotecha@jasperlaw.in), and Mr. Arjun Taneja, CEO ChainLeaf (arjun.taneja@chainleaf.co.in); deal room: dealroom@vidyut-renew.in; tel: +91\u201199000\u201112\u20113\u20114\u20115 (service line).\nIdentifiers (masked/obfuscated for diligence only): ChainLeaf PAN: A A A P L 1 2 3 4 C (masked), GSTIN: 29 A B Z P C 7 1 9 3 F 1 Z 2, sample Aadhaar (offline XML demo): xxxx\u2011xxxx\u20119 0 1 2; CIN: U7 2 3 0 0 K A 2 0 1 9 P T C 9 9 9 1 1 1.\nData-room links and controls: https://data.vidyut-renew.in/secure/term?deal=PRJ%2FNEEM%2F2026-06&ref=insider%20list; internal barrier channel \u201c#barrier\u2011neem\u201d created 04/06/2026 (do not invite sales or growth teams).\nPost\u2011closing integration: Climate-data product to be rebranded \u201cVidyut GreenGraph,\u201d crypto custody to remain ring\u2011fenced under \u201cChainLeaf Secure Vault,\u201d with quarterly ESG assurance under BRSR Core; remuneration for key managerial personnel subject to NRC review.\nops note (non\u2011price sensitive): please circulate the clean cap table and the draft insider list by eod; update the runbook for cyber tabletop exercise; this document is not investment advice nor an offer to public retail investors.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Rhea Kotecha, Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Arjun Taneja, CEO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

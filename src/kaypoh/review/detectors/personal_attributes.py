@@ -3,6 +3,13 @@ from __future__ import annotations
 import re
 from typing import Any, Callable
 
+_PERSON_NAME = (
+    r"(?:[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?"
+    r"(?:\s+[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?){1,3})"
+)
+_PERSONAL_ATTRIBUTE_SUBJECT_FP_RE = re.compile(
+    r"\b(?:Project|Company|Limited|Pte|Ltd|LLC|Inc|Corp|Holdings|Capital|Fund|Trust|Bank)\b"
+)
 PERSONAL_ATTRIBUTE_RELATION_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})"
     r"'?s\s+(?P<attribute>wife|husband|spouse|partner|son|daughter|child|father|mother)\s+"
@@ -62,6 +69,24 @@ PERSONAL_ATTRIBUTE_SENIORITY_RE = re.compile(
     r"specialist|consultant|associate|partner|director)[A-Za-z0-9&.,' -]{0,60})\b",
     re.IGNORECASE,
 )
+PERSONAL_ATTRIBUTE_ROLE_APPOSITIVE_RE = re.compile(
+    r"\b(?P<subject>" + _PERSON_NAME + r")\s*,\s*"
+    r"(?P<object>(?:(?:Chief\s+(?:Executive|Financial|Operating|Technology|Risk|Compliance)\s+Officer)|"
+    r"General\s+Counsel|CFO|CEO|COO|CTO|CRO|CCO|Partner|Director|Manager|Actuary|Engineer|"
+    r"Solicitor|Lawyer|Counsel|Doctor|Nurse|Analyst|Trader|Broker|Developer|Specialist)"
+    r"(?:\s+(?:at|of|with)\s+[A-Z][A-Za-z0-9&.,' -]{2,80})?)\b",
+    re.IGNORECASE,
+)
+PERSONAL_ATTRIBUTE_EMPLOYER_APPOSITIVE_RE = re.compile(
+    r"\b(?P<subject>" + _PERSON_NAME + r")\s+(?P<attribute>of|from|with)\s+"
+    r"(?P<object>[A-Z][A-Za-z0-9&.,' -]{2,80}?\b(?:Pte\s+Ltd|Ltd|Limited|LLC|Inc|Corp|Bank|"
+    r"University|Hospital|Authority|Ministry|LLP|LP))\b",
+)
+PERSONAL_ATTRIBUTE_LOCATION_APPOSITIVE_RE = re.compile(
+    r"\b(?P<subject>" + _PERSON_NAME + r")\s*,?\s+(?:resident\s+of|residing\s+in|based\s+in|domiciled\s+in)\s+"
+    r"(?P<object>[A-Z][A-Za-z0-9&.,' -]{2,80})\b",
+    re.IGNORECASE,
+)
 PERSONAL_ATTRIBUTE_SPECIAL_CATEGORY_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
     r"(?P<attribute>was\s+diagnosed\s+with|is\s+diagnosed\s+with|is\s+treated\s+for|"
@@ -72,9 +97,10 @@ PERSONAL_ATTRIBUTE_SPECIAL_CATEGORY_RE = re.compile(
 )
 SPECIAL_CATEGORY_ATTRIBUTE_RE = re.compile(
     r"\b(?:diagnosed\s+with|treated\s+for|takes\s+(?:insulin|metformin|sertraline)|"
-    r"has\s+(?:diabetes|cancer|depression|HIV)|member\s+of\s+.+?\b(?:union|party)|"
+    r"has\s+(?:diabetes|cancer|depression|HIV|Parkinson'?s|Alzheimer'?s|stroke)|"
+    r"member\s+of\s+.+?\b(?:union|party)|"
     r"identifies\s+as\s+(?:gay|lesbian|bisexual|transgender)|ethnic\s+(?:Malay|Chinese|Indian)|"
-    r"(?:fingerprint|iris|voiceprint|genetic|DNA|BRCA1|APOE))\b",
+    r"(?:fingerprint|iris|voiceprint|genetic|DNA|BRCA1|BRCA2|APOE|HLA[-\s]B|pathogenic\s+variant))\b",
     re.IGNORECASE,
 )
 
@@ -90,7 +116,12 @@ def _trim_inferred_attribute_span(text: str, start: int, end: int) -> tuple[int,
 
 def _special_category_attribute_type(value: str, full_match: str) -> str:
     probe = f"{value} {full_match}"
-    if re.search(r"\b(?:diagnosed|treated|insulin|metformin|sertraline|diabetes|cancer|depression|HIV)\b", probe, re.I):
+    if re.search(
+        r"\b(?:diagnosed|treated|insulin|metformin|sertraline|diabetes|cancer|depression|HIV|"
+        r"Parkinson'?s|Alzheimer'?s|stroke)\b",
+        probe,
+        re.I,
+    ):
         return "health"
     if re.search(r"\b(?:union|party)\b", probe, re.I):
         return "political_or_union"
@@ -100,7 +131,7 @@ def _special_category_attribute_type(value: str, full_match: str) -> str:
         return "racial_ethnic_origin"
     if re.search(r"\b(?:fingerprint|iris|voiceprint)\b", probe, re.I):
         return "biometric"
-    if re.search(r"\b(?:genetic|DNA|BRCA1|APOE)\b", probe, re.I):
+    if re.search(r"\b(?:genetic|DNA|BRCA1|BRCA2|APOE|HLA[-\s]B|pathogenic\s+variant)\b", probe, re.I):
         return "genetic"
     return ""
 
@@ -164,6 +195,21 @@ def detect_personal_attribute_inferences(
             "Seniority or specialty attribute inferred from a named-person statement",
         ),
         (
+            PERSONAL_ATTRIBUTE_ROLE_APPOSITIVE_RE,
+            "occupation",
+            "Occupation or job-title attribute inferred from a named-person appositive",
+        ),
+        (
+            PERSONAL_ATTRIBUTE_EMPLOYER_APPOSITIVE_RE,
+            "employer",
+            "Employer attribute inferred from a named-person appositive",
+        ),
+        (
+            PERSONAL_ATTRIBUTE_LOCATION_APPOSITIVE_RE,
+            "location",
+            "Location/residence attribute inferred from a named-person appositive",
+        ),
+        (
             PERSONAL_ATTRIBUTE_SPECIAL_CATEGORY_RE,
             "special_category",
             "Special-category attribute inferred from a named-person statement",
@@ -171,6 +217,8 @@ def detect_personal_attribute_inferences(
     )
     for pattern, attribute_type, reason in specs:
         for match in pattern.finditer(text):
+            if _PERSONAL_ATTRIBUTE_SUBJECT_FP_RE.search(match.group("subject")):
+                continue
             attribute = match.group("attribute") if "attribute" in match.groupdict() else ""
             inferred_value = match.group("object").strip(" \t,.;:")
             if (

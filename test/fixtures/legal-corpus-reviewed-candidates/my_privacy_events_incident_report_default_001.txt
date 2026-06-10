@@ -1,0 +1,16 @@
+Internal Incident Report — Suntera Mekar Berhad (Main Market, Bursa Malaysia) — 2 Jun 2026
+Summary: A misconfiguration on a vendor SFTP endpoint operated by Seroja Cloud Sdn Bhd briefly exposed HR onboarding form filenames (HRF-ONB/24) to an authenticated but non-privileged service role; no file contents were accessed.
+Data classification: PDPA personal data potentially implicated was limited to employee names contained in file titles; no NRIC numbers, bank account details, health data, or addresses were exposed, and no MNPI under the CMSA was accessed.
+Cross-border transfer: Replication to our Singapore recovery zone occurred previously under Data-Export Approval DEX-2026-014; during the incident window, no cross-border transfer of data subject email addresses took place.
+Minimisation: Effective immediately, onboarding forms will exclude date of birth and collect only initials plus employee ID hash; existing documents were re-indexed to remove direct identifiers from filenames.
+DSAR and consent: A DSAR from Encik Firdaus Bin Leman was received on 1 Jun 2026 via dsar@suntera-mekar.com.my and fulfilled within 48 hours; Puan Nor Aina Binti Rahman withdrew consent for recruitment profile retention, and erasure was completed on 1 Jun 2026 with confirmation captured in Compliance Memo CCM-2026-11.
+Erasure control: In accordance with DPA Schedule 2 (Security and Deletion), Seroja Cloud executed secure deletion of transient access logs at 04:30 MYT on 1 Jun 2026; audit checksum provided and verified by our DPO.
+Retention: HR onboarding materials retention reduced from 18 months to 6 months; legacy archives are scheduled for purge on 15 Jun 2026, with litigation hold exceptions documented.
+Bursa/CMSA assessment: Company Secretary reviewed LR 9.03 and CMSA s.188; the event is not material and does not involve price-sensitive information (e.g., no unaudited financials or deal terms), thus no immediate Bursa announcement is required.
+Deal room segregation: Financing and M&A workspaces, including the virtual data room for the proposed sukuk arranged with Kelana Trust Partners Berhad, run on a separate tenancy and were not connected to the affected SFTP endpoint.
+Policy-only control statement: Our insider information standard prohibits storing projections or term sheets on HR systems; this control was already in force and was not breached.
+Containment: The misconfiguration was fixed at 23:10 MYT on 31 May 2026; access keys rotated, and least-privilege policies re-applied per BNM RMiT guidance.
+Data-export governance: Cross-border replication remains paused pending re-validation, though the prior approval DEX-2026-014 remains valid and unchanged.
+Employee communications: Updated PDPA consent statements were issued with onboarding packs; withdrawal and DSAR channels (privacy@suntera-mekar.com.my) remain active and monitored.
+Monitoring: No anomalous access to project documents bearing codenames was detected; internal watchlist and trading blackout procedures were not triggered.
+Contact: Reporting officer Encik Ariff Haikal Bin Musa, Head of Compliance, compliance@suntera-mekar.com.my; DPO enquiries to dpo@suntera-mekar.com.my.

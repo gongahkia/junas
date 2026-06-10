@@ -46,11 +46,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -347,6 +347,12 @@
       "matched_text": "Term Sheet \u2014 Proposed Acquisition of 51% of Pumara Energy Public Company Limited (SET-listed) and related financing.\nParties: Acquirer Khlong Sai Holdings Pte. Ltd. (Singapore) and KSH (Thailand) Co., Ltd., Company Reg. No. 0105567890123, 88/9 Rama 4 Road, Khwaeng Khlong Toei, Khet Khlong Toei, Bangkok 10110.\nTarget: Pumara Energy Public Company Limited, Company Reg. No. 0105559999123, head office 199/3 Sukhumvit 66, Khwaeng Bang Na, Khet Bang Na, Bangkok 10260; contact legal@pumara-example.com.\nPrice and consideration: THB 6.75 per share in cash; total consideration approx. THB 3,042,000,000; post-closing mandatory tender offer in accordance with the Securities and Exchange Act and SEC/SET regulations.\nFinancing: equity from KSH and a THB 1,800,000,000 term loan from Kaset Capital Bank Public Co., Ltd.; escrow at Siam Provincial Bank, Account No. 123-456789-0, SWIFT SPBKTHB1.\nConditions precedent: filing of Tender Offer Statement (Form 247-4) with the SEC Thailand, disclosure via SET Portal, shareholder approvals under the Public Limited Companies Act, and Bank of Thailand foreign exchange filings (Form Tor.3) for cross-border remittances.\nEmployment and retention: CFO Khun Ratanapong Siriwong (Thai Passport No. NQ1234567) to enter into a 24\u2011month service agreement with a THB 8,000,000 retention bonus; notice details mobile +66 81 234 5678 and ratanapong@pumara-example.com.\nMNPI and confidentiality: parties acknowledge receipt of preliminary unaudited Q2 EBITDA indication of approx. THB 182m not yet publicly disclosed in the 56-1 One Report; trading in the Target\u2019s securities is prohibited until public disclosure on SET.\nCovenants: no dividends other than ordinary course; maintain licenses and BOI privileges; comply with the Foreign Business Act if control thresholds trigger restricted business classifications.\nTax and identifiers: KSH (Thailand) Co., Ltd. TIN 0105567890123; Pumara Energy PCL VAT Reg. 0105559999123; primary contact Ms. Anong Preedaporn, Company Secretary, +66 2 880 1122.\nNotices: send to 88/9 Rama 4 Road, Khwaeng Khlong Toei, Khet Khlong Toei, Bangkok 10110, and by email to dealroom@ksh-example.com; project codename \u201cLantern\u201d.\nClosing logistics: funds in THB; FX to be documented with underlying invoices; settlement via TSD book-entry; any change of control filings under Tor Chor 12/2554 to be completed within statutory timelines.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_not_detect": [

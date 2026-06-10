@@ -38,11 +38,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
@@ -285,6 +285,12 @@
       "category": "PII",
       "matched_text": "mirrored to EU regions",
       "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami\u2019s dependent minor, Layan Al-Qahtani (age 15), is included in the group medical plan; her school schedule and insurer member ID will be migrated to the Buyer\u2019s HRIS only after consent, minimization, and encryption at rest.\nSeller uses biometric time clocks and optional DNA-based asset-tag authentication in R&D labs; such biometric/genetic data will be disabled at closing unless specifically re-authorized by a lawful PDPL basis.\nReligious-practice metadata (e.g., prayer-room booking logs) will not be used for profiling and will be deleted after 30 days; the DEI language in our Oasis DEI Charter 2026 references religion and sexual orientation in a general, non-personal way",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -425,12 +431,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Sami\u2019s dependent minor, Layan Al-Qahtani (age 15), is included in the group medical plan; her school schedule and insurer member ID will be migrated to the Buyer\u2019s HRIS only after consent, minimization, and encryption at rest.\nSeller uses biometric time clocks and optional DNA-based asset-tag authentication in R&D labs; such biometric/genetic data will be disabled at closing unless specifically re-authorized by a lawful PDPL basis.\nReligious-practice metadata (e.g., prayer-room booking logs) will not be used for profiling and will be deleted after 30 days; the DEI language in our Oasis DEI Charter 2026 references religion and sexual orientation in a general, non-personal way",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "Governance: Board seat for Seller\u2019s founder, Dr. Leena Al-Mutairi, for 2 years; customary warranties; dispute resolution via SCCA arbitration in Riyadh; governing law: laws of the Kingdom of Saudi Arabia.\nClosing expected within Q4, subject to completion of vendor due diligence, CMA prospectus waiver where applicable, and Tadawul announcement within the next trading session after signing",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
@@ -440,6 +440,18 @@
       "matched_text": "Non-Binding Term Sheet \u2014 Proposed Acquisition of Saffron Cloud CJSC (CR 2057789012) by Al-Waha Robotics Holding JSC (CR 1012345670); prospective Tadawul issuer workflows apply; MNPI \u2014 not for public release.\nTransaction: Buyer to acquire 100% of Seller for SAR 420,000,000, payable 60% cash and 40% in new Buyer shares at an implied swap ratio of 1.25:1, subject to CMA approval.\nConditions precedent include: (i) CMA M&A no-objection and Tadawul disclosure under Listing Rules; (ii) General Authority for Competition clearance; (iii) Ministry of Commerce commercial register updates; and (iv) ZATCA tax certificates.\nThis term sheet contains non-public issuer information (MNPI) regarding forecasted robotics margins and cloud recurring revenue; Buyer will maintain an insider list and impose a trading blackout in line with CMA Market Conduct Regulations.\nPDPL compliance: parties will process employees\u2019 and contractors\u2019 personal data (including National ID/Iqama numbers for onboarding and CR-linked signatories) under a documented controller-to-controller agreement and conduct a SDAIA Data Transfer Assessment for any cross-border support to the UAE.\nNamed data handling \u2014 Mr. Sami Al-Qahtani, CFO of Al-Waha (Iqama No. 2098765432; email sami.alqahtani@alwaha-robotics.sa), has Type 1 diabetes requiring onsite emergency glucose supplies and is enrolled in facial-recognition access control that stores his faceprint template at the Riyadh plant.\nMr. Sami\u2019s dependent minor, Layan Al-Qahtani (age 15), is included in the group medical plan; her school schedule and insurer member ID will be migrated to the Buyer\u2019s HRIS only after consent, minimization, and encryption at rest.\nSeller uses biometric time clocks and optional DNA-based asset-tag authentication in R&D labs; such biometric/genetic data will be disabled at closing unless specifically re-authorized by a lawful PDPL basis.\nReligious-practice metadata (e.g., prayer-room booking logs) will not be used for profiling and will be deleted after 30 days; the DEI language in our Oasis DEI Charter 2026 references religion and sexual orientation in a general, non-personal way.\nData localization: customer logs remain in KSA, while non-critical telemetry may be mirrored to EU regions subject to SDAIA transfer permission and standard contractual clauses; retention for acquisition diligence artifacts is 7 years.\nProduct integration roadmap: align Seller\u2019s \u201cDuneSwitch X\u201d and \u201cSahaCare Edge\u201d with Buyer\u2019s \u201cPalmDrive OS\u201d; codename Project Najd Falcons will be used in communications to avoid leaking intent.\nOperational footprint: offices in Riyadh Digital City, Jeddah Industrial Valley, and Al-Khobar Tech Park; we will not move the goalposts on headcount guarantees for the first 12 months post-closing.\nGovernance: Board seat for Seller\u2019s founder, Dr. Leena Al-Mutairi, for 2 years; customary warranties; dispute resolution via SCCA arbitration in Riyadh; governing law: laws of the Kingdom of Saudi Arabia.\nClosing expected within Q4, subject to completion of vendor due diligence, CMA prospectus waiver where applicable, and Tadawul announcement within the next trading session after signing.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Seller uses biometric time clocks and optional DNA-based asset-tag authentication in R&D labs; such biometric/genetic data will be disabled at closing unless specifically re-authorized by a lawful PDPL basis.\nReligious-practice metadata (e.g., prayer-room booking logs) will not be used for profiling and will be deleted after 30 days; the DEI language in our Oasis DEI Charter 2026 references religion and sexual orientation in a general, non-personal way",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Sami Al-Qahtani, CFO of Al-Waha",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

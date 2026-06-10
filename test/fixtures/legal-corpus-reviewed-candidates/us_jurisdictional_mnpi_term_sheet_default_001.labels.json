@@ -1,0 +1,519 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_jurisdictional_mnpi_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/jurisdictional_mnpi/us_jurisdictional_mnpi_term_sheet_default_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_jurisdictional_mnpi_term_sheet_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 49,
+    "new_must_detect_count": 30,
+    "old_ideal_must_detect_count": 31,
+    "old_must_detect_count": 16,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_jurisdictional_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "liora.mendel@norverahb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "gosei@redfieldcb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dealdesk@norverahb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Mendel",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Garret Osei",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential, non-binding Term Sheet \u2014 Proposed acquisition of Helion Care Insights, Inc. (\u201cHelion\u201d) by Norvera Health Bancorp, Inc. (\u201cNorvera\u201d), a U.S. reporting issuer listed on a U.S. national securities exchange.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure and consideration: All-cash reverse triangular merger at $8.50 per Helion share; estimated equity value ~$212,000,000; subject to customary working-capital and debt-like adjustments.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Cash on hand and a committed bridge facility from Redfield Commercial Bank, N.A. (commitment letter executed and deliverable at signing); no financing condition to close.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality standard (issuer-relative): For purposes of Rule 10b\u20115 and internal disclosure controls, items reasonably expected to impact >5% of Norvera\u2019s consolidated revenue or quarterly EPS, or to alter previously issued guidance, are presumptively material; immaterial operational details may be shared internally on a need-to-know basis.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance and approvals: Subject to approval by both Boards of Directors and receipt of required healthcare, insurance, and banking regulatory notices/clearances; pre-merger antitrust notifications under applicable U.S. law will be filed promptly after signing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive agreement conditions: Confirmatory diligence; absence of a Company Material Adverse Effect; customary representations and warranties; covenants re interim operations; closing targeted within 90\u2013120 days post-signing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No-shop and fiduciary out: Helion will agree to a no-shop with customary fiduciary out and matching rights; termination fee equal to 2.5% of equity value payable upon acceptance of a Superior Proposal or willful breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-issuer operational note (benign): Helion\u2019s planned office relocation in August 2026 is a landlord matter and, standing alone, is not expected to be material to Norvera or to alter previously issued guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Effect",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$8.50",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$212,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "212,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "expected to impact",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@norverahb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "reverse triangular merger",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulation FD",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quarterly blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed employees",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quarterly blackout from June 15 through July 25",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Only essential personnel will be wall-crossed and tracked",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": ">5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "signing",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "post-signing",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closing targeted",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no reference to this term sheet prior to public dissemination",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no one-on-one calls with research analysts prior to announcement",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "shall not trade in Norvera or Helion securities",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "return-or-destroy",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "de-identified, aggregated data only",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "liora.mendel@norverahb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "gosei@redfieldcb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dealdesk@norverahb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Mendel",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Garret Osei",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential, non-binding Term Sheet \u2014 Proposed acquisition of Helion Care Insights, Inc. (\u201cHelion\u201d) by Norvera Health Bancorp, Inc. (\u201cNorvera\u201d), a U.S. reporting issuer listed on a U.S. national securities exchange.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure and consideration: All-cash reverse triangular merger at $8.50 per Helion share; estimated equity value ~$212,000,000; subject to customary working-capital and debt-like adjustments.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Cash on hand and a committed bridge facility from Redfield Commercial Bank, N.A. (commitment letter executed and deliverable at signing); no financing condition to close.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality standard (issuer-relative): For purposes of Rule 10b\u20115 and internal disclosure controls, items reasonably expected to impact >5% of Norvera\u2019s consolidated revenue or quarterly EPS, or to alter previously issued guidance, are presumptively material; immaterial operational details may be shared internally on a need-to-know basis.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance and approvals: Subject to approval by both Boards of Directors and receipt of required healthcare, insurance, and banking regulatory notices/clearances; pre-merger antitrust notifications under applicable U.S. law will be filed promptly after signing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive agreement conditions: Confirmatory diligence; absence of a Company Material Adverse Effect; customary representations and warranties; covenants re interim operations; closing targeted within 90\u2013120 days post-signing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No-shop and fiduciary out: Helion will agree to a no-shop with customary fiduciary out and matching rights; termination fee equal to 2.5% of equity value payable upon acceptance of a Superior Proposal or willful breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-issuer operational note (benign): Helion\u2019s planned office relocation in August 2026 is a landlord matter and, standing alone, is not expected to be material to Norvera or to alter previously issued guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Effect",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$8.50",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$212,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "212,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "expected to impact",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential, non-binding Term Sheet \u2014 Proposed acquisition of Helion Care Insights, Inc. (\u201cHelion\u201d) by Norvera Health Bancorp, Inc. (\u201cNorvera\u201d), a U.S. reporting issuer listed on a U.S. national securities exchange.\nStructure and consideration: All-cash reverse triangular merger at $8.50 per Helion share; estimated equity value ~$212,000,000; subject to customary working-capital and debt-like adjustments.\nFinancing: Cash on hand and a committed bridge facility from Redfield Commercial Bank, N.A. (commitment letter executed and deliverable at signing); no financing condition to close.\nPublic disclosure and timing: Public announcement by broadly disseminated press release and investor webcast prior to market open on the first trading day after signing; Form 8\u2011K (Item 1.01) to be filed within four business days of definitive agreement; no reference to this term sheet prior to public dissemination.\nMNPI/Reg FD: Until public dissemination as described above, all terms are material non-public information; selective disclosure to covered market participants (e.g., sell-side analysts, broker-dealers, or institutional investors) is prohibited under Regulation FD; if any non-intentional selective disclosure occurs, the disclosing party will promptly cure via a broadly disseminated press release.\nBlackout/trading restrictions: Norvera is in a quarterly blackout from June 15 through July 25 pending Q2 results; directors, officers, and wall-crossed employees shall not trade in Norvera or Helion securities until after public announcement and lifting of internal restrictions.\nPublic-status reference: As previously announced in Norvera\u2019s April 30, 2026 press release and accompanying Form 8\u2011K, the Board commenced a review of strategic alternatives; this proposed transaction is a potential outcome of that publicly disclosed process.\nHealthcare and banking data handling: Pre-signing diligence will use de-identified, aggregated data only; no Protected Health Information under HIPAA or Nonpublic Personal Information under GLBA will be shared pre-signing except in a monitored clean room with access logs and return-or-destroy protocols.\nMateriality standard (issuer-relative): For purposes of Rule 10b\u20115 and internal disclosure controls, items reasonably expected to impact >5% of Norvera\u2019s consolidated revenue or quarterly EPS, or to alter previously issued guidance, are presumptively material; immaterial operational details may be shared internally on a need-to-know basis.\nGovernance and approvals: Subject to approval by both Boards of Directors and receipt of required healthcare, insurance, and banking regulatory notices/clearances; pre-merger antitrust notifications under applicable U.S. law will be filed promptly after signing.\nDefinitive agreement conditions: Confirmatory diligence; absence of a Company Material Adverse Effect; customary representations and warranties; covenants re interim operations; closing targeted within 90\u2013120 days post-signing.\nNo-shop and fiduciary out: Helion will agree to a no-shop with customary fiduciary out and matching rights; termination fee equal to 2.5% of equity value payable upon acceptance of a Superior Proposal or willful breach.\nEmployee and analyst workflows: Only essential personnel will be wall-crossed and tracked; no one-on-one calls with research analysts prior to announcement; any inquiries will be routed to Norvera Investor Relations at ir@norverahb.com.\nStale public information (non-MNPI): Helion\u2019s Form 10\u2011K for the year ended December 31, 2024 (filed March 1, 2025) disclosed segment revenue detail and reported no material weaknesses in internal control; these disclosures are already public and not restricted by this term sheet.\nNon-issuer operational note (benign): Helion\u2019s planned office relocation in August 2026 is a landlord matter and, standing alone, is not expected to be material to Norvera or to alter previously issued guidance.\nGoverning law and enforceability: Delaware law governs; this term sheet is non-binding except for confidentiality, exclusivity (45 days), expense reimbursement, and governing law; each party makes customary 10b\u20115 compliance acknowledgments regarding truthfulness and completeness of shared information.\nContacts: Ms. Liora Mendel, General Counsel, Norvera (liora.mendel@norverahb.com), and Mr. Garret Osei, SVP, Redfield Commercial Bank, N.A. (gosei@redfieldcb.com); de",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sell-side analysts, broker",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Liora Mendel, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sell-side analysts, broker-dealers, or institutional investors) is prohibited under Regulation FD; if any non-intentional selective disclosure occurs, the disclosing party will promptly cure via a broadly disseminated press release.\nBlackout/trading restrictions: Norvera is in a quarterly blackout from June 15 through July 25 pending Q2 results; directors, officers, and wall-crossed employees shall not trade in Norvera or Helion securities until after public announcement and lifting of internal restrictions.\nPublic-status reference: As previously announced in Norvera\u2019s April 30, 2026 press release and accompanying Form 8\u2011K, the Board commenced a review of strategic alternatives; this proposed transaction is a potential outcome of that publicly disclosed process.\nHealthcare and banking data handling: Pre-signing diligence will use de-identified, aggregated data only; no Protected Health Information under HIPAA or Nonpublic Personal Information under GLBA will be shared pre-signing except in a monitored clean room with access logs and return-or-destroy protocols.\nMateriality standard (issuer-relative): For purposes of Rule 10b\u20115 and internal disclosure controls, items reasonably expected to impact >5% of Norvera\u2019s consolidated revenue or quarterly EPS, or to alter previously issued guidance, are presumptively material; immaterial operational details may be shared internally on a need-to-know basis.\nGovernance and approvals: Subject to approval by both Boards of Directors and receipt of required healthcare, insurance, and banking regulatory notices/clearances; pre-merger antitrust notifications under applicable U.S. law will be filed promptly after signing.\nDefinitive agreement conditions: Confirmatory diligence; absence of a Company Material Adverse Effect; customary representations and warranties; covenants re interim operations; closing targeted within 90\u2013120 days post-signing.\nNo-shop and fiduciary out: Helion will agree to a no-shop with customary fiduciary out and matching rights; termination fee equal to 2.5% of equity value payable upon acceptance of a Superior Proposal or willful breach.\nEmployee and analyst workflows: Only essential personnel will be wall-crossed and tracked; no one-on-one calls with research analysts prior to announcement; any inquiries will be routed to Norvera Investor Relations at ir@norverahb.com.\nStale public information (non-MNPI): Helion\u2019s Form 10\u2011K for the year ended December 31, 2024 (filed March 1, 2025) disclosed segment revenue detail and reported no material weaknesses in internal control; these disclosures are already public and not restricted by this term sheet.\nNon-issuer operational note (benign): Helion\u2019s planned office relocation in August 2026 is a landlord matter and, standing alone, is not expected to be material to Norvera or to alter previously issued guidance.\nGoverning law and enforceability: Delaware law governs; this term sheet is non-binding except for confidentiality, exclusivity (45 days), expense reimbursement, and governing law; each party makes customary 10b\u20115 compliance acknowledgments regarding truthfulness and completeness of shared information.\nContacts: Ms. Liora Mendel, General Counsel, Norvera (liora.mendel@norverahb.com), and Mr. Garret Osei, SVP, Redfield Commercial Bank, N.A. (gosei@redfieldcb.com); deal coordination via dealdesk@norverahb.com",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Helion",
+      "reason": "Defined term for a party/entity, not PII or MNPI"
+    },
+    {
+      "matched_text": "Norvera",
+      "reason": "Defined term for a party/entity, not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "public/non-public status marker",
+      "matched_text": "public dissemination",
+      "reason": "Signals timing boundary for MNPI under Reg FD but not an explicit allowed rule trigger"
+    },
+    {
+      "concept": "securities law reference",
+      "matched_text": "Rule 10b\u20115",
+      "reason": "Materiality and antifraud context relevant to MNPI, but not mapped to a specific allowed rule"
+    },
+    {
+      "concept": "trading window reopening",
+      "matched_text": "lifting of internal restrictions",
+      "reason": "Indicates internal compliance gating related to MNPI, not a defined blackout marker"
+    },
+    {
+      "concept": "regulated data category",
+      "matched_text": "Protected Health Information",
+      "reason": "References HIPAA PHI category without specific PII instance; relevant to privacy but not covered by allowed PII rules"
+    },
+    {
+      "concept": "regulated data category",
+      "matched_text": "Nonpublic Personal Information",
+      "reason": "References GLBA NPI category without specific PII instance; relevant to privacy but not covered by allowed PII rules"
+    }
+  ]
+}

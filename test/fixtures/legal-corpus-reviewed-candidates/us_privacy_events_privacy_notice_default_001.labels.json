@@ -1,0 +1,260 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_privacy_events_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/privacy_events/us_privacy_events_privacy_notice_default_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_privacy_events_privacy_notice_default_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 20,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 17,
+    "old_must_detect_count": 8,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_privacy_events_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@pinehaven-thera.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aria.lang@pinehaven-thera.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+1-555-0124",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aria Lang",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@pinehaven-thera.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Security/minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet-period policy",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "support tickets are minimised to last-4 account references only and exclude diagnosis narratives and full SSNs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "logs with partial IPs are truncated and aged out at 18 months",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "marketing consent may be withdrawn at privacy@pinehaven-thera.example.com",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "clinical consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analysts",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective emails",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft clinical endpoints",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced pricing",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not-yet-public revenue",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Retention: HIPAA-designated records retained 6 years; GLBA customer records 7 years; investor-relations communications retained 7 years; logs with partial IPs are truncated and aged out at 18 months.\nCross-border transfers: until 2026-05-01, limited EEA processing occurred via Larch Cloud Services (Dublin) under 2021 SCCs; that pipeline is now decommissioned and no active bulk exports to the EEA are in place",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@pinehaven-thera.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aria.lang@pinehaven-thera.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+1-555-0124",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aria Lang",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar@pinehaven-thera.example.com and via https://privacy.pinehaven-thera.example.com; identity verification uses a two-step email code and never requires full SSN or driver\u2019s license numbers.\nErasure: upon verified request, consumer profile fields and marketing tags are deleted within 30 days; exceptions apply for HIPAA/GLBA records and securities-retention obligations, after which deletion is queued and logged.\nRetention: HIPAA-designated records retained 6 years; GLBA customer records 7 years; investor-relations communications retained 7 years; logs with partial IPs are truncated and aged out at 18 months.\nCross-border transfers: until 2026-05-01, limited EEA processing occurred via Larch Cloud Services (Dublin) under 2021 SCCs; that pipeline is now decommissioned and no active bulk exports to the EEA are in place.\nConsent withdrawal: marketing consent may be withdrawn at privacy@pinehaven-thera.example.com and is honored within 10 days; clinical consent withdrawal stops nonessential outreach without affecting required safety or billing notices.\nReg FD/MNPI: IR data exports to sell-side analysts exclude draft clinical endpoints, unannounced pricing, and not-yet-public revenue; any material updates are released simultaneously via public channels, not selective emails.\nThis memo does not authorize any new processing purpose or transfer and documents completed controls as of 2026-06-01.\nSubprocessors: Aurora Metrics Analytics (US) for aggregated reporting with de-identified data; Larch Cloud Services (US/EU) for hosting; current list maintained at https://subproc.pinehaven-thera.example.com; DTIA completed 2026-02-14.\nSecurity/minimisation: production PHI and GLBA data are segmented; test and development environments use synthetic datasets only; clinical trial files carry coded study IDs and no direct identifiers.\nAnalyst and employee workflows: only employees trained on Reg FD may join analyst briefings; pre-clearance by Compliance is required for slides and speaking notes; a quiet-period policy applies around quarter-end.\nContact: Ms. Aria Lang, Chief Privacy Officer, aria.lang@pinehaven-thera.example.com, +1-555-0124",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reg FD/MNPI: IR data exports to sell-side analysts exclude draft clinical endpoints, unannounced pricing, and not-yet-public revenue; any material updates are released simultaneously via public channels, not selective emails.\nThis memo does not authorize any new processing purpose or transfer and documents completed controls as of 2026-06-01.\nSubprocessors: Aurora Metrics Analytics (US) for aggregated reporting with de-identified data; Larch Cloud Services (US/EU) for hosting; current list maintained at https://subproc.pinehaven-thera.example.com; DTIA completed 2026-02-14.\nSecurity/minimisation: production PHI and GLBA data are segmented; test and development environments use synthetic datasets only; clinical trial files carry coded study IDs and no direct identifiers.\nAnalyst and employee workflows: only employees trained on Reg FD may join analyst briefings; pre-clearance by Compliance is required for slides and speaking notes; a quiet-period policy applies around quarter-end.\nContact: Ms. Aria Lang, Chief Privacy Officer, aria.lang@pinehaven-thera.example.com, +1-555-0124; complaints may also be filed with the state AG where the consum",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers: until 2026-05-01, limited EEA processing occurred via Larch Cloud Services (Dublin) under 2021 SCCs; that pipeline is now decommissioned and no active bulk exports to the EEA are in place",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR intake",
+      "reason": "DSAR intake is a privacy-rights handling event but no explicit allowed rule exists for DSAR markers."
+    },
+    {
+      "concept": "Erasure/deletion marker",
+      "matched_text": "Erasure",
+      "reason": "Erasure is a privacy handling event but there is no explicit allowed erasure marker rule."
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "Retention",
+      "reason": "Retention is a privacy handling event but there is no explicit allowed retention marker rule."
+    },
+    {
+      "concept": "Cross-border transfer (negated/completed)",
+      "matched_text": "that pipeline is now decommissioned and no active bulk exports to the EEA are in place",
+      "reason": "Mentions cross-border transfers in a completed/negated state; rules advise not labeling negated/completed controls."
+    },
+    {
+      "concept": "Retention period",
+      "matched_text": "aged out at 18 months",
+      "reason": "Specifies a data retention period but no explicit retention-marker rule is available."
+    },
+    {
+      "concept": "Reg FD public dissemination / selective disclosure control",
+      "matched_text": "any material updates are released simultaneously via public channels, not selective emails",
+      "reason": "Addresses selective disclosure risk mitigation but does not match a specific allowed MNPI rule trigger in strict mode."
+    },
+    {
+      "concept": "Information barrier / pre-clearance control",
+      "matched_text": "only employees trained on Reg FD may join analyst briefings; pre-clearance by Compliance is required for slides and speaking notes",
+      "reason": "Describes controls to mitigate selective disclosure but no specific allowed rule matches this control language."
+    }
+  ]
+}

@@ -1,0 +1,296 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_special_category_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/special_category/us_special_category_privacy_notice_default_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_special_category_privacy_notice_default_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 27,
+    "new_must_detect_count": 9,
+    "old_ideal_must_detect_count": 23,
+    "old_must_detect_count": 13,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_special_category_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "CH-7425",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dorian Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Crowe",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Analyst and investor workflows prohibit selective disclosure of material non-public information; pre-release clinical or earnings content must be disseminated broadly under Regulation FD-compliant channels.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employees in Investor Relations and the Treasury Desk must place drafts of earnings decks, drug safety updates, and bank credit metrics in the Aurora Vault until public posting; do not brief sell-side analysts at Orbital Peak Securities LLC or the Northpoint Wolves fan forum.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@clearwellharbor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@clearwellharbor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "iris-scan door access",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "keystroke biometrics",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Type 1 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Friday prayer accommodation",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackouts",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disclosed a Type 1 diabetes treatment plan to our on-site clinic for accommodation purposes",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disclosed a Type 1 diabetes treatment plan to our on-site clinic for accommodation purposes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "requested a Friday prayer accommodation as part of the Faith & Fellowship employee resource group",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "badge and keystroke biometrics",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We transfer data to Pine Borough Cloud Services LLC (US) and to HarborLink Research Ltd. (UK/EEA)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employees in Investor Relations and the Treasury Desk must place drafts of earnings decks, drug safety updates, and bank credit metrics in the Aurora Vault until public posting",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not brief sell-side analysts at Orbital Peak Securities LLC or the Northpoint Wolves fan forum",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not brief sell-side analysts at Orbital Peak Securities LLC or the Northpoint Wolves fan forum",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any onward disclosure to underwriters or exchanges occurs only after public dissemination",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "CH-7425",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dorian Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Crowe",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Analyst and investor workflows prohibit selective disclosure of material non-public information; pre-release clinical or earnings content must be disseminated broadly under Regulation FD-compliant channels.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employees in Investor Relations and the Treasury Desk must place drafts of earnings decks, drug safety updates, and bank credit metrics in the Aurora Vault until public posting; do not brief sell-side analysts at Orbital Peak Securities LLC or the Northpoint Wolves fan forum.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mr. Dorian Hale (Employee No. CH-7425) enrolled in iris-scan door access and disclosed a Type 1 diabetes treatment plan to our on-site clinic for accommodation purposes.\nMr. Hale also requested a Friday prayer accommodation as part of the Faith & Fellowship employee resource group; such religious data is restricted to HR and the clinic.\nAnalyst and investor workflows prohibit selective disclosure of material non-public information; pre-release clinical or earnings content must be disseminated broadly under Regulation FD-compliant channels.\nEmployees in Investor Relations and the Treasury Desk must place drafts of earnings decks, drug safety updates, and bank credit metrics in the Aurora Vault until public posting; do not brief sell-side analysts at Orbital Peak Securities LLC or the Northpoint Wolves fan forum.\nIf a lapse occurs (e.g., a mistaken pre-release revenue email), we will issue simultaneous public notice and trading blackouts to mitigate Rule 10b-5 risk and will notify our Audit Committee.\nPatient lending and HSA workflows combine HIPAA PHI and GLBA NPI; access is role-based and logged via badge and keystroke biometrics.\nCalifornia residents and other US consumers may submit access, deletion, or correction requests by emailing privacy@clearwellharbor.example; verified responses exclude trade secrets and MNPI.\nWe transfer data to Pine Borough Cloud Services LLC (US) and to HarborLink Research Ltd. (UK/EEA) under appropriate contracts; any onward disclosure to underwriters or exchanges occurs only after public dissemination.\nRetention: biometric templates are deleted within 3 years after last use; health accommodation records are retained 7 years; MNPI incident logs are retained 5 years or longer if litigation holds apply.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Northpoint Wolves",
+      "reason": "Sports team/forum name; not PII or MNPI"
+    },
+    {
+      "matched_text": "genetics",
+      "reason": "Metaphor in market letter; not genetic data"
+    },
+    {
+      "matched_text": "union strategy",
+      "reason": "Metaphor; not trade union membership data"
+    },
+    {
+      "matched_text": "Faith & Fellowship",
+      "reason": "Employee group name; not an individual's religious belief"
+    },
+    {
+      "matched_text": "Fair Disclosure Policy",
+      "reason": "Policy name"
+    },
+    {
+      "matched_text": "HIPAA Notice of Privacy Practices",
+      "reason": "Policy/notice name"
+    },
+    {
+      "matched_text": "MNPI Handling Addendum",
+      "reason": "Policy/addendum title"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "retention_policy",
+      "matched_text": "Retention: biometric templates are deleted within 3 years after last use; health accommodation records are retained 7 years; MNPI incident logs are retained 5 years or longer if litigation holds apply",
+      "reason": "Retention and deletion timelines are privacy-event markers but there is no explicit retention rule in the allowed set."
+    },
+    {
+      "concept": "dsar_rights",
+      "matched_text": "California residents and other US consumers may submit access, deletion, or correction requests by emailing privacy@clearwellharbor.example; verified responses exclude trade secrets and MNPI",
+      "reason": "Access/deletion/correction (DSAR) workflow is legally relevant but not mapped to a specific allowed rule."
+    },
+    {
+      "concept": "consent_requirement",
+      "matched_text": "Special-category data may be processed only with explicit consent or statutory exception; see our Fair Disclosure Policy and HIPAA Notice of Privacy Practices for cross-references",
+      "reason": "Explicit consent requirement is legally relevant but only consent withdrawal is enumerated in allowed rules."
+    }
+  ]
+}

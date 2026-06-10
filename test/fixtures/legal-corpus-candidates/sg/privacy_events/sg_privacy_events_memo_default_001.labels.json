@@ -81,11 +81,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -231,6 +231,12 @@
       "matched_text": "From Ms. Liora Chan, General Counsel; DPO: Mr. Kelvin Miu, dpo@auroracomet.sg; Date: 28 May 2026.\nThe proposed acquisition of BlueQuill Dynamics Pte. Ltd. constitutes MNPI under the SFA and SGX Listing Rules; information barriers remain active and the insider list is current.\nNo research analysts have been wall-crossed beyond the four advisers named in the Insider Log, and the virtual data room excludes forward projections to avoid inadvertent MNPI dissemination.\nCross-border transfer: Data Export Approval DEA-26-045 was granted on 27 May 2026 for read-only payroll extracts to CloudNova EU-West for contractor onboarding; Schedule 2 (Processing Details) to the DPA with NimbusPay Pte. Ltd. sets the transfer limitations.\nCompleted control: standard contractual clauses-equivalent terms and MAS Outsourcing Notice addendum were executed and archived; there is no pending approval tied to DEA-26-045.\nEmployment onboarding forms were revised to implement data minimisation (no dependent NRIC or full birthdates collected; only month/year), and bank account proof is reviewed without retaining images.\nDSAR: Mr. Ilya Sih submitted an access and correction request on 20 May; we provided machine-readable extracts and executed erasure in the marketing CRM and legacy HR files by 27 May.\nData portability has not commenced under the PDPA; nevertheless, at his request we ported non-sensitive employment history to a third-party recruiter via secure link, without transmitting MNPI.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Liora Chan, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

@@ -31,11 +31,11 @@
     "status": "codex_reconciled_pending_owner_review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -258,6 +258,12 @@
       "category": "PII",
       "matched_text": "consent withdrawal (Ref CW-8891)",
       "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PII handling: no Aadhaar numbers will be collected in the VDR, PANs/GSTINs are redacted (e.g., P A N: Q T P P A  1 2 3 4 Z; GSTIN: 27-V A R U N A-0 0 0 1-Z5); bank a/c masked; KiranPay customer app logs minimised.\nCross-Border Transfer: personal data export to Palmyra group processors in Singapore requires Data-Export Approval DEA/SG/2026-011; transfer under contractual safeguards consistent with DPDPA; approval completed 03-Apr-2026.\nDSAR/Erasure: all outstanding DSARs as of 31-Mar-2026 have been closed; one consent withdrawal (Ref CW-8891) executed with erasure confirmed on 01-Apr-2026; nothing remains pending",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -328,12 +334,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "PII handling: no Aadhaar numbers will be collected in the VDR, PANs/GSTINs are redacted (e.g., P A N: Q T P P A  1 2 3 4 Z; GSTIN: 27-V A R U N A-0 0 0 1-Z5); bank a/c masked; KiranPay customer app logs minimised.\nCross-Border Transfer: personal data export to Palmyra group processors in Singapore requires Data-Export Approval DEA/SG/2026-011; transfer under contractual safeguards consistent with DPDPA; approval completed 03-Apr-2026.\nDSAR/Erasure: all outstanding DSARs as of 31-Mar-2026 have been closed; one consent withdrawal (Ref CW-8891) executed with erasure confirmed on 01-Apr-2026; nothing remains pending",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "Miscellaneous: governed by laws of India; disputes seated in Bengaluru; notices to companysecretary@varunamicro.example.in and to Mr. Ajay B. Rao, Palmyra Infocom Pvt. Ltd., 14B Stonefield Tech Park, Kashi Nagar, Nilgiri\u2014560199",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
@@ -343,6 +343,18 @@
       "matched_text": "Term Sheet \u2014 Proposed Acquisition of Varuna Microsystems Limited by Palmyra Infocom Private Limited (India)\nIssuer/Target: Varuna Microsystems Limited (listed on Rashtra Securities Exchange: symbol \u201cVRN\u201d) \u2014 contact: ir@varunamicro.example.in; attention Mr. Raghav Sen (CFO).\nTransaction: All-cash acquisition of up to 74.5% of fully diluted share capital; signing subject to Indian insider trading and PIT code compliance; no UPSI will be disclosed before clean team access.\nRegulatory/Listing: filings to the national securities regulator and RSE; trading window norms observed; no communication to analysts beyond public-source materials; no MAC clause requested by acquirer.\nPrivacy & DPDPA: Schedule DPA-1 (data processing addendum) and Compliance Memo CM-7 incorporated; onboarding form OF-12 includes consent language and child (under 18) opt-in by guardian.\nPII handling: no Aadhaar numbers will be collected in the VDR, PANs/GSTINs are redacted (e.g., P A N: Q T P P A  1 2 3 4 Z; GSTIN: 27-V A R U N A-0 0 0 1-Z5); bank a/c masked; KiranPay customer app logs minimised.\nCross-Border Transfer: personal data export to Palmyra group processors in Singapore requires Data-Export Approval DEA/SG/2026-011; transfer under contractual safeguards consistent with DPDPA; approval completed 03-Apr-2026.\nDSAR/Erasure: all outstanding DSARs as of 31-Mar-2026 have been closed; one consent withdrawal (Ref CW-8891) executed with erasure confirmed on 01-Apr-2026; nothing remains pending.\nRetention/Minimisation: retention schedule RS-IND-18 months applies to onboarding scans; A a d h a a r images not stored; payroll PAN hashes retained for 7 years; minimisation audit memo \u201cAudit-PRV-09\u201d filed.\nMNPI controls: clean team members named in Schedule CT-2; emails routed via dealroom@palmyra.example.com; no board-level projections or unpublished price-sensitive information in the initial data room.\nConditions Precedent: DPDPA consent notices dispatched; sectoral approvals under telecom sandbox (if any) confirmed as not applicable; completion not conditional on DSAR outcomes already resolved.\nEmployee/Child Data: no hiring of minors; internship forms flag age <18; guardian consent template annexed; completed-control note: the child data collection toggle is disabled by default and locked.\nData Room: hosted at https://dealroom.example.in/export?id=9f-2c&cust=vrn-ltd (read-only); access logs retained 90 days; documented cross-border sync not active unless export flag is true.\nRepresentations: Target represents that PAN collections use offline verification only; no biometric A a d h a a r authentication is enabled; privacy incident register shows zero open items; past breach reports closed.\nMiscellaneous: governed by laws of India; disputes seated in Bengaluru; notices to companysecretary@varunamicro.example.in and to Mr. Ajay B. Rao, Palmyra Infocom Pvt. Ltd., 14B Stonefield Tech Park, Kashi Nagar, Nilgiri\u2014560199.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-Border Transfer: personal data export to Palmyra group processors in Singapore requires Data-Export Approval DEA/SG/2026-011; transfer under contractual safeguards consistent with DPDPA; approval completed 03-Apr-2026.\nDSAR/Erasure: all outstanding DSARs as of 31-Mar-2026 have been closed; one consent withdrawal (Ref CW-8891) executed with erasure confirmed on 01-Apr-2026; nothing remains pending",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of Varuna Microsystems Limited",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

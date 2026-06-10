@@ -85,11 +85,11 @@
     "previous_must_not_detect_count": 10
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
@@ -157,6 +157,12 @@
       "category": "MNPI",
       "matched_text": "confidential",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "This note applies UK MAR standards for inside information and UK GDPR for personal data; it is intended for internal workflow alignment.\nOn 5 May, Marston Ridge Capital plc published its Q1 Trading Update via the Regulatory Submission Service (RSS); the content is public and may be referenced freely.\nThe 2024 Annual Report was filed through the United Kingdom Markets Supervisor (UKMS) portal on 2 April; risk factor text in that filing is already public and not inside information",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -164,12 +170,6 @@
       "category": "MNPI",
       "matched_text": "confidential",
       "rule": "nonpublic_marker"
-    },
-    {
-      "category": "PII",
-      "matched_text": "This note applies UK MAR standards for inside information and UK GDPR for personal data; it is intended for internal workflow alignment.\nOn 5 May, Marston Ridge Capital plc published its Q1 Trading Update via the Regulatory Submission Service (RSS); the content is public and may be referenced freely.\nThe 2024 Annual Report was filed through the United Kingdom Markets Supervisor (UKMS) portal on 2 April; risk factor text in that filing is already public and not inside information",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
     },
     {
       "category": "MNPI",
@@ -182,6 +182,12 @@
       "matched_text": "Marston Ridge Capital plc \u2014 Compliance update on disclosure, policies, and market abuse controls.\nThis note applies UK MAR standards for inside information and UK GDPR for personal data; it is intended for internal workflow alignment.\nOn 5 May, Marston Ridge Capital plc published its Q1 Trading Update via the Regulatory Submission Service (RSS); the content is public and may be referenced freely.\nThe 2024 Annual Report was filed through the United Kingdom Markets Supervisor (UKMS) portal on 2 April; risk factor text in that filing is already public and not inside information.\nPress release dated 10 May announcing a pilot with Heworth Cloud Limited is available on the corporate site; referring to it is not MNPI.\nTicker MRCP and placeholder ISIN GB00MRCP0000 appear in some drafts; these are non-live identifiers and do not themselves convey sensitive information.\nUnannounced RSS filing: the Board has resolved to discontinue preliminary discussions with Eastbridge Lending plc; publication is targeted for 08:30 BST on 15 July\u2014until released, treat this as inside information under UK MAR.\nNo selective briefings should occur; all external queries should be routed via compliance@marstonridge.example and the Company Secretariat.\nThe previous close period linked to interim results ended on 31 May; references to that historic blackout are stale and non-sensitive.\nOperational note: Heworth Cloud Limited has updated standard pricing tiers; this third-party change is public and, at present, not material to our issuer.\nGeneric policy references to \u201cinside information\u201d do not include personal data; avoid names, home addresses, and individual HR notes to remain compliant with UK GDPR.\nEmployee share dealing remains subject to standing pre-clearance; this policy is publicly posted and does not by itself indicate MNPI.\nMarket abuse training materials reused from last quarter rely on public enforcement examples; they are not confidential.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 5 May, Marston Ridge Capital plc published its Q1 Trading Update via the Regulatory Submission Service (RSS); the content is public and may be referenced freely.\nThe 2024 Annual Report was filed through the United Kingdom Markets Supervisor (UKMS) portal on 2 April; risk factor text in that filing is already public and not inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

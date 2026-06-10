@@ -1,0 +1,437 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [
+    "drop ideal_must_detect: text not verbatim rule='information_barrier_marker' text='segregated drive \\\\lotus\\\\restricted\\\\;'",
+    "drop uncertain: text not verbatim text='segregated drive \\\\lotus\\\\restricted\\\\;'"
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_universal_mnpi_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/universal_mnpi/hk_universal_mnpi_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_universal_mnpi_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_universal_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lotus",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 2026-07-15 09:30 HKT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-DISTRIBUTION/INTERNAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HK$1,480,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed until 2026-07-15 09:30 HKT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Cheung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Phoebe Tsang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@yuetharbour.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ops@redsandcap.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@yuetharbour.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@redsandcap.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 3777 9100",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88  1234  567",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "H K X - 9 3 A 2",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opt-out honoured",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "early deletion on deal abort",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "backup purge T+90d",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This note is informational and not for public circulation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "long-stop 2026-12-31",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closing window Q4 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "freeze insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "refresh insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "suspend all external emails referencing 'Lotus'",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "schedule press at 09:30",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ClientRef: YHH-EMP-0x4F2A",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "InvoiceRef: I N V - L O T - 2 1 7 1",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88  1234  567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal checkpoint: Draft definitive Share Purchase Agreement for Project Lotus contemplates HK$1,480,000,000 cash plus 22.5% earn-out; long-stop 2026-12-31; closing window Q4 2026",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,480,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ops@redsandcap.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88  1234  567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 3777 9100",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Cheung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Phoebe Tsang",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal checkpoint: Draft definitive Share Purchase Agreement for Project Lotus contemplates HK$1,480,000,000 cash plus 22.5% earn-out; long-stop 2026-12-31; closing window Q4 2026",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lotus",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HK$1,480,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,480,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Controller: Yuet Harbour Holdings Limited (HKEX-listed, fictional) \u2014 DPO: Mr. Adrian Cheung \u2014 dpo@yuetharbour.hk \u2014 Office: Ste 1  8 F, East Wing, Sea   Tower, 9   Coral Quay Rd., Kowloon\nProcessor(s): Red Sand Capital Fund SPC; Pearl Nimbus Services Pte Ltd (SG) \u2014 contact: ops@redsandcap.com.hk \u2014 purpose: M&A diligence, fund subscriptions, and employment transfers\nData scope (PDPO): employee records, candidate CVs, investor KYC packs, board packs; ClientRef: YHH-EMP-0x4F2A; Acc   No: 88  1234  567; url: https://files.yuetharbour.hk/lotus?dl=v%3D1",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC \u2014 Data Processing & Retention Workflow Note (HK PDPO + SFO MNPI) \u2014 Project Lotus \u2014 Embargo until 2026-07-15 09:30 HKT\nController: Yuet Harbour Holdings Limited (HKEX-listed, fictional) \u2014 DPO: Mr. Adrian Cheung \u2014 dpo@yuetharbour.hk \u2014 Office: Ste 1  8 F, East Wing, Sea   Tower, 9   Coral Quay Rd., Kowloon\nProcessor(s): Red Sand Capital Fund SPC; Pearl Nimbus Services Pte Ltd (SG) \u2014 contact: ops@redsandcap.com.hk \u2014 purpose: M&A diligence, fund subscriptions, and employment transfers\nData scope (PDPO): employee records, candidate CVs, investor KYC packs, board packs; ClientRef: YHH-EMP-0x4F2A; Acc   No: 88  1234  567; url: https://files.yuetharbour.hk/lotus?dl=v%3D1\nLegal basis/notice: DPP1\u20136 compliance, collection notices on hr portal; DSAR at https://yuetharbour.hk/dsar?req=ZXhhbXBsZS0xMjM%3D or privacy@yuetharbour.hk; response target 40 days\nRetention: board memos 7y; term sheets 3y; IR drafts until disclosure; payroll artifacts 6y; early deletion on deal abort; backup purge T+90d\nMNPI controls (SFO/Part XIVA): mark 'NON-DISTRIBUTION/INTERNAL' and restrict to insider list; segregated drive \\\\lotus\\restricted\\; audit logs and quarterly attestations\nDeal checkpoint: Draft definitive Share Purchase Agreement for Project Lotus contemplates HK$1,480,000,000 cash plus 22.5% earn-out; long-stop 2026-12-31; closing window Q4 2026\nResearch note (internal only) and investor-relations Q&A draft dated 2026-07-14 to be embargoed until 2026-07-15 09:30 HKT; public reference allowed to 2024 sustainability report (public) at https://yuetharbour.hk/archive/2024.pdf\nMAC/MAE: no material adverse change has occurred since 2026-03-31 (drafting note only); failure to secure spa-day vouchers for staff shall not constitute MAC/MAE, but loss of key SFC-licensed reps would\nCross-border transfers: to SG processor under PCPD Model Clauses (HK) Addendum; encryption at rest AES-256; transfer impact assessment stored at \\\\lotus\\compliance\\TIA_v2.pdf\nEmployment workflow: candidate vetting via secured portal; StaffTag: H K X - 9 3 A 2; only HR and Legal access; consent captured; no direct marketing; opt-out honoured\nFund/LP workflow: subscriber KYC via https://subs.redsandcap.com.hk/open?k=cjFfTG90dXM%3D; AML flags reviewed by Ms. Phoebe Tsang, Compliance \u2014 compliance@redsandcap.com.hk\nIncident handling: suspected leakage triggers DLP block, notify SFC/HKEX as required, freeze insider list, and suspend all external emails referencing 'Lotus' or code NP-Lotus-\u0394\ndeal checklist (excerpt): 7) refresh insider list; 8) sign SPA; 9) pre-clear with hkex, 10) schedule press at 09:30; 11) upload clean redacted circular; 12) confirm data room teardown",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no material adverse change has occurred",
+      "reason": "Negated MAC language; rule explicitly excludes labeling negated MAC/MAE."
+    },
+    {
+      "matched_text": "shall not constitute MAC/MAE",
+      "reason": "Negated MAC/MAE language; do not label as material adverse change."
+    },
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "False-positive bait; not legally sensitive PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "customer account/reference",
+      "matched_text": "ClientRef: YHH-EMP-0x4F2A",
+      "reason": "Likely a client/account identifier under PDPO but mapping to allowed PII rule is non-explicit."
+    },
+    {
+      "concept": "invoice reference",
+      "matched_text": "InvoiceRef: I N V - L O T - 2 1 7 1",
+      "reason": "Could be treated as a customer/account identifier; pattern not clearly covered by current rules."
+    },
+    {
+      "concept": "deal long-stop date",
+      "matched_text": "long-stop 2026-12-31",
+      "reason": "Material timeline marker; not explicitly enumerated under embargo_marker."
+    },
+    {
+      "concept": "closing window timeline",
+      "matched_text": "closing window Q4 2026",
+      "reason": "Deal timing reference; may be MNPI but not in enumerated embargo markers."
+    },
+    {
+      "concept": "nonpublic marker",
+      "matched_text": "internal only",
+      "reason": "Indicates nonpublic status but phrase may not be matched by strict nonpublic_marker rule."
+    },
+    {
+      "concept": "internal code name",
+      "matched_text": "NP-Lotus-\u0394",
+      "reason": "Sensitive internal code but does not match 'Project <Name>' transaction_codename pattern."
+    },
+    {
+      "concept": "press/embargo timing",
+      "matched_text": "schedule press at 09:30",
+      "reason": "Press timing implies embargo coordination; not an explicit 'Press Hold' marker."
+    },
+    {
+      "concept": "insider list control",
+      "matched_text": "freeze insider list",
+      "reason": "Action-oriented phrasing may be missed by detectors looking for plain 'insider list'."
+    },
+    {
+      "concept": "blackout/comms restriction",
+      "matched_text": "suspend all external emails referencing 'Lotus'",
+      "reason": "Comms suspension resembles blackout controls but lacks explicit 'blackout' keyword."
+    },
+    {
+      "concept": "DSAR/privacy-event marker",
+      "matched_text": "DSAR at https://yuetharbour.hk/dsar?req=ZXhhbXBsZS0xMjM%3D",
+      "reason": "DSAR is a privacy-event; allowed PII rules lack an explicit DSAR marker for strict mapping."
+    }
+  ]
+}

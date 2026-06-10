@@ -1,0 +1,199 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_universal_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/universal_mnpi/in_universal_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_universal_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_universal_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "grievance@asterion.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@asterion.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Trading window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not release before 14 Aug 2026 09:15 IST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term_sheet_template_v5.docx",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive_agreement_outline.pdf",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children\u2019s data was limited to age and consent flags without identifiers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children\u2019s data",
+      "rule": "minor_data_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Asterion Infologics Limited \u2014 operational incident report (India), ref OI/2026/042, listed on NSE/BSE, business vertical: enterprise software.\nOn 28 May 2026 13:22 IST, an internal wiki space used by investor relations and legal was misconfigured to public read for 47 minutes; SOC alert closed the window and access logs show five anonymous views with no bulk download.\nContent in scope: public/stale materials such as the 2023 press pack and board memo excerpts on the already-announced amalgamation with Trivana Retail Private Limited, including the line \u201cthe transaction is not expected to have a material adverse effect.\u201d\nTemplates observed: \u201cterm_sheet_template_v5.docx,\u201d a generic \u201cdefinitive_agreement_outline.pdf,\u201d a deal checklist shell, and a header stamp reading \u201cnon-public draft\u201d applied to boilerplates; none contained current counterparties, pricing, or timelines.\nA CSR signup sheet listed two volunteers marked \u201cunder 18\u201d with guardian consent status only; no contact details, Aadhaar, PAN, GSTIN, biometrics, or health data were stored.\nPlaceholder fields in examples showed invalid formats (e.g., Aadhaar: 0000-0000-000; PAN: ABCD12345; GSTIN: 27ABCDE1234F1), indicating no live identifiers under the Digital Personal Data Protection Act.\nSEBI (PIT) assessment: based on forensic review, the exposed content substantially matched public research notes dated Q3\u2013Q4 FY24 and did not reveal UPSI.\nOne draft investor-relations note contained an embargo instruction: \u201cdo not release before 14 Aug 2026 09:15 IST\u201d; the file has been quarantined and access is restricted to the company secretary group.\nTrading window remains as scheduled for Q1 FY27; no additional closure or disclosure is being made to NSE/BSE at this stage, and no Form B/C triggers were identified.\nRegulatory posture: not material under Reg 30 of SEBI LODR; we will voluntarily notify exchanges only if final RCA indicates any UPSI event or adverse impact.\nDPDPA compliance review confirms no consent artifacts beyond checkbox logs and anonymized tokens; children\u2019s data was limited to age and consent flags without identifiers.\nRemediation: wiki space set to private, S3 policy hardened, DLP tuned to flag generic \u201cnon-public\u201d markers on upload, quarterly access reviews reinstated, and templates moved to a restricted repository.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse effect",
+      "reason": "Negated MAE language in quote; do not label as material_adverse_change."
+    },
+    {
+      "matched_text": "Aadhaar: 0000-0000-000",
+      "reason": "Invalid placeholder example; not a live identifier."
+    },
+    {
+      "matched_text": "PAN: ABCD12345",
+      "reason": "Invalid placeholder example; not a live identifier."
+    },
+    {
+      "matched_text": "GSTIN: 27ABCDE1234F1",
+      "reason": "Invalid placeholder example; not a live identifier."
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "Wellness context; not the definitive agreement acronym SPA."
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "cyber_incident_pre_disclosure",
+      "matched_text": "operational incident report",
+      "reason": "Internal exposure event for a listed company may be a cyber incident but not explicitly labeled as such."
+    },
+    {
+      "concept": "consent artifact (child data)",
+      "matched_text": "guardian consent status only",
+      "reason": "References consent status for minors; not a withdrawal/DSAR but privacy-relevant."
+    },
+    {
+      "concept": "UPSI reference (negative)",
+      "matched_text": "UPSI",
+      "reason": "Mentions unpublished price sensitive information in a negated context; relevant but not a positive MNPI indicator."
+    },
+    {
+      "concept": "information barrier/insider access",
+      "matched_text": "company secretary group",
+      "reason": "Restricted access group could imply information barrier or insider access control."
+    },
+    {
+      "concept": "quasi-identifiers",
+      "matched_text": "anonymized tokens",
+      "reason": "Artifacts may relate to tokenized/anonymized data but not clearly PII."
+    },
+    {
+      "concept": "internal reference identifier",
+      "matched_text": "ref OI/2026/042",
+      "reason": "Internal incident reference may be an internal ID but no explicit rule covers it."
+    }
+  ]
+}

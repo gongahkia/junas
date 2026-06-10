@@ -81,11 +81,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
@@ -436,6 +436,18 @@
       "matched_text": "STRICTLY CONFIDENTIAL \u2014 [MNPI] \u2014 Internal Board Memo \u2014 Project Kelapa \u2014 Embargoed until 2026-07-15 09:00 WIB.\nFrom: Bapak Dr. Arifana Wicaksono Putradewa, GC; To: Dewan Komisaris PT Aruna Teknologi Tbk; contact: legal@arunatek.example.id / ir@arunatek.example.id.\nSubject: Proposed acquisition of 55% of PT Sagara Fintek Nusantara (e-money) and related OJKN/BES disclosure workflow.\nDefinitive agreements: SPA and SHA scheduled for signing on 2026-06-30; purchase price IDR 1.35 trillion, payable 80% at Closing and 20% earn-out tied to active users.\nNon-public (material non-public information): target KPI trends, integration model, and preliminary synergy estimates are not public and should not be shared outside the deal team.\nMAC/MAE: no event has occurred that would reasonably be expected to constitute a Material Adverse Change as defined in SPA cl. 9, and the parties include a customary MAE bring-down at Closing.\nEmployment: key personnel (Ibu Sari Ambarwati Pradipta, COO; Bapak Gede Prasetyo, CTO) to enter 12\u2011month retention and garden-leave covenants; no government IDs will be collected beyond UU PDP minimums.\nRegulatory: e-money license transition subject to approval by Otoritas Jasa Keuangan Nusantara and Bank Kepulauan; pre-clear press text with Bursa Efek Surya (BES) before publication.\nIR draft (not for release): internal drafts reference Project Kelapa; public release on BES will omit the codename and follow OJKN selective-disclosure guidance.\nPublic-source note: Nusa Finance Daily (2024-03-02) speculated on a \u201cpartnership\u201d with unnamed fintechs; that article is stale and does not include any of the above non-public terms.\nFinancial impact: expected pro-forma contribution IDR 210 billion EBITDA in FY2027, with 6.2% dilution to free float and anticipated synergy run-rate of 9\u201311% of revenue.\nAnalyst interactions: quiet period applies; no selective disclosure to sell-side until 2026-07-15 09:00 WIB.\nCovenants checklist: no-shop, standstill, employee option pool top-up (3%), data room hygiene per UU PDP, and interim operating restrictions consistent with market practice.\nProcess: internal use only; drafts to be routed via deal-desk@arunatek.example.id; do not upload to external drives; breach may trigger internal sanctions.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ibu Sari Ambarwati Pradipta, COO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bapak Gede Prasetyo, CTO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

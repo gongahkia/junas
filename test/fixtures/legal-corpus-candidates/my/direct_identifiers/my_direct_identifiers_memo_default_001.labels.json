@@ -97,11 +97,11 @@
     "reviewer": "codex-gpt-assisted-strict-tier-review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -363,6 +363,12 @@
       "matched_text": "Confidential \u2013 Internal Legal & Compliance Memo (PDPA/CMSA)\nTo: Board of Tanjung Agro Holdings Berhad (Company No.: 202101012345 (1498763-X); Tax Ref No.: C8765432109), Level 21, Menara Bintang, 12 Jalan Damar Jaya, 50588 Kuala Mutiara, Wilayah Persekutuan.\nFrom: Puan Norliza Karim, General Counsel, legal@tanjungagro.my, Tel: +60 3-7890 4567.\nRe: Project Sawit Hutan \u2013 proposed private placement and RM120m sukuk murabahah programme; Bursa LR Para 9.03/9.19 considerations and CMSA s.188 insider prohibitions.\nThe draft term sheet with Arwana Ridge Partners Sdn Bhd (Reg. No.: 201801023456 (1287654-T); Tax Ref No.: D2345678901) contemplates 60,000,000 new shares at RM1.22 and covenant package tied to FY2027 EBITDA targets (MNPI; not announced).\nFinancing proceeds to be held in Bintang Capital Bank Berhad account no. 112-345-678901 pending utilisation; account mandate signatories: Encik Faizal Rahman (CFO) and the Company Secretary.\nPlease note director onboarding for Mr. Jian Wei Lim (Passport No.: A34567891) and address for service at Unit 12-5, Residensi Kenanga Utara, 38 Jalan Laman Seri, 50577 Kuala Mutiara; PDPA consents to be recorded and external releases to mask passport digits.\nDuring the closed period under Paragraph 14.08, trading by directors is restricted; blackout notice issued 28 May 2026, and draft press note DR/IR/2026/05 has not been lodged with Bursa Malaysia Securities Berhad.\nEmployment letter for CEO-designate to include non-compete and key-man insurance assignment; no disclosure required under Para 9.19 unless compensation exceeds materiality threshold.\nDo not circulate the Board Pack (Slide 9 forecasts Q3 margin uplift from 11.2% to 14.0%) outside authorised recipients; treat as MNPI under CMSA.\nVendor master form placeholders seen in HR folder (Name: ______; IC No.: ______; Bank: ______) are templates only and contain no data; prior draft showing NRIC: 000000-00-0000 is invalid and must be purged.\nFor external queries route to IR only; Public Helpline 1-300-88-1234 is not an authorised channel for deal communications.\nPDPA note: collected data limited to purpose of placement and employment; retention per internal Policy PDPA/TAHB/2024-01; requests to dpo@tanjungagro.my.\nAnticipated announcement trigger: signing of binding SSA or firm placement commitments; if pricing deviates >10% from VWAP, immediate disclosure is required notwithstanding confidentiality undertakings.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Norliza Karim, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

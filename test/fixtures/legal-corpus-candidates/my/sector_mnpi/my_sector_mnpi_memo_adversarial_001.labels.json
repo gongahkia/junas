@@ -95,11 +95,11 @@
     "reviewer": "codex-gpt-assisted-strict-tier-review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 1,
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -440,6 +440,12 @@
       "matched_text": "Date: 29 May 2026 | Subject: Sustainability-linked sukuk, crypto settlement pilot, cyber incident; MNPI/PDPA handling\n\nThis note contains non-public, price-sensitive information under the Exchange Main Market Listing Requirements and must not be circulated beyond the information barrier; closed period from 01\u201315 Jun 20 26 applies.\n\nFinancing: draft term sheet with Meranti Ridge Bank Berhad for RM250m SLS sukuk; initial pricing grid 4.55% with 5\u201315 bps greenium tied to Scope 2 intensity targets; covenant headroom EBITDA/Net Debt \u2265 3.0x; break fee RM2.5m; signing targeted 14-Jun-2026.\n\nCommercial sensitivities: failure to meet Q4 2026 target reduces coupon step-down; preliminary external rating expected at A- (private) by Nusantara Ratings Sdn Bhd; not disclosed publicly.\n\nCrypto/DPT pilot: subsidiary Fikrine Renewables Sdn Bhd tested ringgit-stable settlement for tokenised REC transfers on \u201cKerisChain\u201d sandbox; 3 internal transfers executed on 28\u201329 May; liquidity partner Kelantan Ridge Securities Sdn Bhd; no Exchange announcement yet.\n\nCyber incident: on 12-May an unauthorised access to SCADA historian caused a 3-hour data exfiltration risk; no operational downtime; internal forensic ticket ID: CY-20 26/05/12-\u03b1; supplier \u201cAwanNet\u201d notified; external notification deferred pending assessment; consider immediate trading blackout extension.\n\nInsider list maintained under PDPA: current insiders include Encik Ariff Rahman (CFO, 011-6\u2022\u2022\u2022-3219, ariff.rahman@fikrine.energy.my) and Puan Saliza Mohd Yunus (Deal Principal, saliza.yunus@nimbuscap.my); do not add personal NRIC; store at https://portal.fikrine nergy.com/sec?doc=tm%2Fgw&id=9a7c-f_8.\n\nInformation barrier: Corporate Finance (\u201cProject Palm\u201d) room is walled off from Treasury and IR; any wall-crossing of lenders requires email consent and standard legends; avoid selective disclosure in lender teach-ins.\n\nInvestor communications: statements must avoid tipping; draft deck Line 7 currently implies 8% uplift from carbon credit arbitrage\u2014remove until price discovery completes; do not distribute to buy-side before Exchange filing.\n\nNote that this memo does not constitute a material adverse change and is not a profit estimate; references to crypto wallets here are generic and for educational awareness within staff training.\n\nOperations-only: the \u201cCryptoShield\u201d marketing brochure describes cryptography features in our IoT gateways for plant security and contains no digital token offering or price-sensitive content.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Ariff Rahman, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

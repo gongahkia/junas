@@ -51,11 +51,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -173,6 +173,12 @@
       "category": "MNPI",
       "matched_text": "binding agreement",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Summary: A phishing email targeting the finance shared mailbox was contained on 25 May 2026; no evidence of unauthorised access to personal data or MNPI was found after log review.\nThe materials in scope included draft M&A term sheets and board papers designated as MNPI under the SingaList Exchange Mainboard rules and Singapore securities law; these remained in a segregated data room with multi-factor access.\nThis report also records approval for cross-border transfer of limited HR payroll data to Brightpay Services Sdn Bhd (Malaysia) for May 2026 processing, subject to ASEAN MCCs and Transfer Limitation obligations under the PDPA",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -227,16 +233,16 @@
       "rule": "definitive_agreement"
     },
     {
-      "category": "PII",
-      "matched_text": "Summary: A phishing email targeting the finance shared mailbox was contained on 25 May 2026; no evidence of unauthorised access to personal data or MNPI was found after log review.\nThe materials in scope included draft M&A term sheets and board papers designated as MNPI under the SingaList Exchange Mainboard rules and Singapore securities law; these remained in a segregated data room with multi-factor access.\nThis report also records approval for cross-border transfer of limited HR payroll data to Brightpay Services Sdn Bhd (Malaysia) for May 2026 processing, subject to ASEAN MCCs and Transfer Limitation obligations under the PDPA",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "A phishing email targeting the finance shared mailbox was contained on 25 May 2026; no evidence of unauthorised access to personal data or MNPI was found after log review.\nThe materials in scope included draft M&A term sheets and board papers designated as MNPI under the SingaList Exchange Mainboard rules and Singapore securities law; these remained in a segregated data room with multi-factor access.\nThis report also records approval for cross-border transfer of limited HR payroll data to Brightpay Services Sdn Bhd (Malaysia) for May 2026 processing, subject to ASEAN MCCs and Transfer Limitation obligations under the PDPA.\nMs. Serene Goh (Data Protection Officer, Qilin Dynamics) confirms that only employee names, staff IDs, and salary bands were exported; national ID fields and home addresses were excluded per data minimisation policy.\nAn employee DSAR from Mr. Dev Anand (received 24 May 2026 via privacy@qilindynamics.sg) seeking copies of performance records was acknowledged within 3 business days and fulfilled on 27 May 2026.\nErasure was completed for ex-employee biometric door access templates collected during a pilot in 2024; destruction was certified by Facilities on 26 May 2026.\nA marketing consent withdrawal from Ms. Lila Ng (25 May 2026) has been actioned; her contact details were removed from the CRM and suppression list applied.\nRetention schedule check: recruitment CVs are retained for 6 months, CCTV footage for 30 days, and vendor due diligence files for 7 years; no overrides are currently active.\nFor the payroll export, data will be stored in Malaysia for no longer than 14 days and then purged; encryption in transit and at rest is applied with keys held in Singapore.\nThe capital markets team confirms no selective disclosure occurred, and continuous disclosure obligations will only be engaged if the M&A negotiations progress to a binding agreement.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The materials in scope included draft M&A term sheets and board papers designated as MNPI under the SingaList Exchange Mainboard rules and Singapore securities law; these remained in a segregated data room with multi-factor access.\nThis report also records approval for cross-border transfer of limited HR payroll data to Brightpay Services Sdn Bhd (Malaysia) for May 2026 processing, subject to ASEAN MCCs and Transfer Limitation obligations under the PDPA",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

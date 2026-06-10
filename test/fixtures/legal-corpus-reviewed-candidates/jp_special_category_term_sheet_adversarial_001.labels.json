@@ -1,0 +1,381 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "JP",
+    "doc_id": "jp_special_category_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/jp/special_category/jp_special_category_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "JP",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/jp_special_category_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_special_category_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Data Minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aiko Tanabe",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Haruto Kato",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Emi Senda",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Status and MNPI: Contains undisclosed enumerated material facts and tender-offer facts under the FIEA; recipients are treated as temporary insiders subject to JFSA guidance and TSE rules until public announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Bridge loan from Fujiwara Capital GK (fictional) of JPY 6.0bn; covenants include no dividends, maintenance of FIEA\u2011compliant disclosure controls, and a leverage cap; contact: ir\u2011acq@nadeshiko\u2011kk.example.jp.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing deliverables: Orizuru to deliver officer\u2019s certificate, shareholder registry excerpt, and confirmation of employee consent logs for biometric access; Nadeshiko to deliver funding confirmations and TOB commencement notice.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 1,240",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "67%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Type\u20111 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Type\u20111 diabetes treatment",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union membership in the Hoshigaya Tech Workers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template for cleanroom access logs (biometric data)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir\u2011acq@nadeshiko\u2011kk.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ND\u201100 7 5",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal data to remain in Japan",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "processed under need\u2011to\u2011know",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "will not be exported",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 1,240 per common share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 6.0b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TSE insider\u2011trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "de\u2011identified templates will be retained for 30 days and then purged",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Friendly tender offer for up to 67% of Orizuru at JPY 1,240 per common share",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "recipients are treated as temporary insiders",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Data Minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aiko Tanabe",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Haruto Kato",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Emi Senda",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Status and MNPI: Contains undisclosed enumerated material facts and tender-offer facts under the FIEA; recipients are treated as temporary insiders subject to JFSA guidance and TSE rules until public announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Bridge loan from Fujiwara Capital GK (fictional) of JPY 6.0bn; covenants include no dividends, maintenance of FIEA\u2011compliant disclosure controls, and a leverage cap; contact: ir\u2011acq@nadeshiko\u2011kk.example.jp.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing deliverables: Orizuru to deliver officer\u2019s certificate, shareholder registry excerpt, and confirmation of employee consent logs for biometric access; Nadeshiko to deliver funding confirmations and TOB commencement notice.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 1,240",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "67%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed TOB by Nadeshiko Robotics K.K. for Orizuru BioSensors K.K. (Japan)\nStatus and MNPI: Contains undisclosed enumerated material facts and tender-offer facts under the FIEA; recipients are treated as temporary insiders subject to JFSA guidance and TSE rules until public announcement.\nTransaction structure: Friendly tender offer for up to 67% of Orizuru at JPY 1,240 per common share; no obligation to consummate until Board of Directors approval and statutory disclosures; this is not an offer to sell securities.\nConditions precedent: JFSA filings (including Large-Scale Shareholding Report as applicable), JFTC clearance, TSE Growth Market notifications; no Material Adverse Change, provided general political conditions, sports\u2011team sponsorships, or product\u2011name changes shall not constitute a MAC.\nEmployee matters (APPI): Ms. Aiko Tanabe (Chief Bioengineer) will transition to buyer; her medical leave for Type\u20111 diabetes treatment (health data) and union membership in the Hoshigaya Tech Workers Union are acknowledged; My Number on file is masked as 1 2 3 4\u2011** **\u2011** 7 8 and will not be exported.\nAccess controls: Mr. Haruto Kato (Facilities Lead) provided a fingerprint template for cleanroom access logs (biometric data) under APPI consent; dataroom URL h t t p : / / data.nadeshiko.exa.jp/vDR?doc=acq%2Fterm&uid=kato.h&v=0x9f; de\u2011identified templates will be retained for 30 days and then purged.\nGovernance: Board of Nadeshiko Robotics K.K. (Chair: Ms. Emi Senda) to establish an independent committee per the Corporate Governance Code; meeting notice posted on the TSE a n n o u n c e portal; meeting venue (fictional): Hoshigaya City, Sakura\u2011dori 5\u201114\u20119.\nFinancing: Bridge loan from Fujiwara Capital GK (fictional) of JPY 6.0bn; covenants include no dividends, maintenance of FIEA\u2011compliant disclosure controls, and a leverage cap; contact: ir\u2011acq@nadeshiko\u2011kk.example.jp.\nEmployee equity: RSU replacement at a 1.25x exchange ratio; unvested awards cashed out subject to TSE insider\u2011trading blackout; clawback aligned with \u201cEqual Opportunities Charter 2026\u201d and \u201cData Minimization Policy (APPI).\u201d\nIntegration and DEI: Buyer affirms diversity, equity and inclusion training; references to religion, genetics, and sexual orientation here are policy\u2011level only and not linked to any individual person.\nPublic\u2011source references: Financial model uses public patent filings and market reports; product metaphors such as \u201cGenetic Compass,\u201d \u201cSoraCloud,\u201d and \u201cUnion Shield\u201d are brand names and not biological or labor\u2011union data.\nRepresentations: Seller reps include accuracy of R&D pipeline, absence of undisclosed related\u2011party transactions, and that the Shinkawa Tigers sponsorship may continue without additional consent.\nAnnouncements: Press release scheduled for 08:30 JST pre\u2011market; until then, parties shall refrain from political contributions referencing the transaction; a political metaphor in internal memos will not trigger a MAC.\nData handling (APPI/My Number): Personal data to remain in Japan; individual codes (including employee badges ND\u201100 7 5 and masked My Number records) processed under need\u2011to\u2011know; OCR\u2011derived line\u2011break artifacts may appear in the vDR and shall not change meaning.\nClosing deliverables: Orizuru to deliver officer\u2019s certificate, shareholder registry excerpt, and confirmation of employee consent logs for biometric access; Nadeshiko to deliver funding confirmations and TOB commencement notice.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun used as a party label, not a person\u2019s name or identifier"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun used as a party label, not a person\u2019s name or identifier"
+    },
+    {
+      "matched_text": "Board of Directors",
+      "reason": "Generic governance role term, not PII"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Generic governance role term, not PII"
+    },
+    {
+      "matched_text": "Genetic Compass",
+      "reason": "Brand/metaphor; not personal or material info"
+    },
+    {
+      "matched_text": "SoraCloud",
+      "reason": "Brand/metaphor; not personal or material info"
+    },
+    {
+      "matched_text": "Union Shield",
+      "reason": "Brand/metaphor; not personal or material info"
+    },
+    {
+      "matched_text": "Shinkawa Tigers",
+      "reason": "Sports team name; not personal data"
+    },
+    {
+      "matched_text": "Equal Opportunities Charter 2026",
+      "reason": "Policy/charter name; not PII"
+    },
+    {
+      "matched_text": "Data Minimization Policy (APPI)",
+      "reason": "Policy name; not PII"
+    },
+    {
+      "matched_text": "Hoshigaya City, Sakura\u2011dori 5\u201114\u20119",
+      "reason": "Place/address reference, not an individual\u2019s personal address"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "jp_my_number (masked)",
+      "matched_text": "1 2 3 4\u2011** **\u2011** 7 8",
+      "reason": "Masked My Number-like pattern; not a canonical 12-digit jp_my_number but indicates presence of an individual number"
+    },
+    {
+      "concept": "retention/erasure marker",
+      "matched_text": "de\u2011identified templates will be retained for 30 days and then purged",
+      "reason": "Indicates specific retention and deletion schedule; retention is legally relevant but not an explicit allowed rule label"
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "Press release scheduled for 08:30 JST pre\u2011market; until then",
+      "reason": "Implies an embargo until public announcement, but lacks canonical terms like Press Hold/Effective Date"
+    },
+    {
+      "concept": "internal user identifier",
+      "matched_text": "uid=kato.h",
+      "reason": "URL parameter appears to contain a username; not clearly covered by allowed PII rules"
+    },
+    {
+      "concept": "consent marker",
+      "matched_text": "under APPI consent",
+      "reason": "Indicates consent basis; allowed rules include consent_withdrawal_marker but not generic consent"
+    },
+    {
+      "concept": "financial ratio",
+      "matched_text": "1.25x exchange ratio",
+      "reason": "Economically material equity exchange ratio but not covered by financial_amount or financial_percentage rules"
+    }
+  ]
+}

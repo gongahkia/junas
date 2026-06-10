@@ -1,0 +1,165 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_direct_identifiers_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_incident_report_negative_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_direct_identifiers_incident_report_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 9,
+    "new_must_detect_count": 0,
+    "old_ideal_must_detect_count": 9,
+    "old_must_detect_count": 4,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_direct_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@northcrosshb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non\u2011public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure controls",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "00-0000000",
+      "rule": "us_ein"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000-12-3456",
+      "rule": "us_ssn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1111\u20112222\u20113333",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123456780",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "remove any sample fields labeled [SSN], [Passport No.], and [Email] before moving data into environments reachable from the internet",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact for inquiries: security@northcrosshb.com and the public helpline 1-800-555-0172; please do not transmit personal health or financial information.\nMailing address for compliance correspondence: 85 Mockingbird Rd, Suite 200, Redwood, US 00000; this is a corporate P.O. drop used for public mail only",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mailing address for compliance correspondence: 85 Mockingbird Rd, Suite 200, Redwood, US 00000; this is a corporate P.O. drop used for public mail only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1-800-555-0172",
+      "reason": "Public helpline number; adversarial non-PII target"
+    },
+    {
+      "matched_text": "[First Name]",
+      "reason": "Generic form label placeholder"
+    },
+    {
+      "matched_text": "[Last Name]",
+      "reason": "Generic form label placeholder"
+    },
+    {
+      "matched_text": "[Account Number]",
+      "reason": "Generic form label placeholder"
+    },
+    {
+      "matched_text": "[SSN]",
+      "reason": "Generic form label placeholder"
+    },
+    {
+      "matched_text": "[Passport No.]",
+      "reason": "Generic form label placeholder"
+    },
+    {
+      "matched_text": "[Email]",
+      "reason": "Generic form label placeholder"
+    },
+    {
+      "matched_text": "Fairview City Health Permit HP\u2011000000",
+      "reason": "Placeholder permit number; out of scope for allowed rules"
+    },
+    {
+      "matched_text": "State File No. DE\u20119999999",
+      "reason": "Placeholder state file number; out of scope for allowed rules"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "postal address (US)",
+      "matched_text": "85 Mockingbird Rd, Suite 200, Redwood, US 00000",
+      "reason": "Direct identifier in practice but no explicit US address rule provided in allowed rules"
+    }
+  ]
+}

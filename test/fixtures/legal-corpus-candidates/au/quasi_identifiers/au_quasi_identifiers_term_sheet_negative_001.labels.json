@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -220,6 +220,12 @@
       "matched_text": "Indicative Term Sheet \u2014 Proposed acquisition of Bright Quarry Energy Ltd by Harbour Finch Pty Ltd (Australia).\n\nStructure: off-market takeover bid under the Corporations Act 2001 (Cth), subject to compliance with ASIC requirements and ASX Listing Rules where applicable.\n\nConsideration: mix of cash and scrip in Harbour Finch Holdings Ltd (unlisted); no specific amounts or ratios are set in this indicative summary.\n\nConditions precedent: minimum 50.1% acceptance, no material adverse change, required court/ASIC processes for compulsory acquisition if relevant, and customary competition clearance.\n\nDue diligence: confirmatory review of public and non-confidential materials via a clean-room portal; data-room access protocols are designed to avoid transfer of MNPI except to a designated clean team.\n\nFunding: committed facilities from Inland Gulf Bank Ltd (fictional) subject to standard drawdown conditions, with no recourse to consumer credit files or health records.\n\nEmployment: no immediate changes to awards or enterprise agreements; select retention arrangements may be offered; HR templates may display placeholders such as \u201cDate of Birth: DD/MM/YYYY\u201d and \u201cRole: [insert title]\u201d only.\n\nPrivacy: compliance with the Privacy Act 1988 (Cth) is required; this term sheet does not request Medicare, TFN, driver licence, or other government identifier details.\n\nFor system integration testing only, a single dummy staff record was used: a warehouse technician based in North Waradoo, WA, birth month 03/1988, device tag NW-TAB-07, payroll BSB 000-000 with masked account \u20264321, employed within Bright Quarry Energy operations.\n\nASX announcements: only already released, non-price-sensitive summaries of the proposal may be referenced; a mock illustrative release dated 01/01/2020 is acceptable for drafting.\n\nNo MNPI: the parties acknowledge section 1043A insider trading prohibitions and confirm any \u201cforecast\u201d or \u201cpipeline\u201d references in drafts are illustrative and not intended to be relied upon by the market.\n\nTimetable: bidder\u2019s statement to be lodged with ASIC and dispatched within statutory timeframes; target\u2019s statement to follow in accordance with the Corporations Act (Cth); any acceleration is subject to formal relief.\n\nWarranties: customary business warranties and indemnities; no representations will be sought or given regarding employee health information, credit scores, or family status.\n\nCosts and break fee: each party bears its own costs; any break fee to be modest and within prevailing takeovers guidance; internal drafts may display invalid reference tags (e.g., REF-0000-XX) with no legal effect.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "warehouse technician based in North Waradoo, WA, birth month 03",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

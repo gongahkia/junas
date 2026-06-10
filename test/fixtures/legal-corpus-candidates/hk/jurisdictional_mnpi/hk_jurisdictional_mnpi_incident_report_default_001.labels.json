@@ -43,11 +43,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 5,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
@@ -262,6 +262,12 @@
       "matched_text": "Internal Incident Report \u2014 Strictly Confidential \u2014 Inside Information under Part XIVA SFO \u2014 Not for selective disclosure.\nIssuer: Harbor Pearl Holdings Limited (HKEX-listed), with subsidiaries including Blue Estuary Asset Management (HK) Limited.\nOn 28 May 2026 at 22:15 HKT, the Chief Information Officer, Dr. Kelvin Yip, reported unauthorised access to the order management server hosted at DeltaVoyage Data Centres Limited, causing a 6-hour outage in the Hong Kong retail division.\nPreliminary assessment indicates approximately HK$42\u201355 million in revenue will be deferred into Q3 and 1H EBITDA may be reduced by 5\u20137%; relative to the Group\u2019s c. HK$5.2 billion market capitalisation, this is likely price-sensitive.\nThe incident also affected the virtual data room for the proposed acquisition of Eastward Marine Logistics Limited, a notifiable transaction not yet announced under Chapter 14 of the Listing Rules and subject to confidentiality.\nNames and work emails of 34 Hong Kong employees and contact details of 12 fund clients may have been accessed; no HKID numbers, bank accounts, or passwords were stored, and passwords have since been reset.\nThe specific issuer impact and transaction status described above have not been released on HKEXnews, and no selective disclosure to analysts or investors is permitted.\nFor clarity, the 2025 Sustainability Report filed via HKEXnews on 17 April 2026 discussed legacy cybersecurity controls and does not constitute disclosure of this incident.\nMedia reports on 29 May 2026 about a regional service disruption at DeltaVoyage were broad and non-issuer-specific; such public information should not be taken as disclosing our internal financial impact.\nSubject to drafting and board clearance, we plan to submit an inside information announcement through the HKEX e-Submission System before market open on 3 June 2026 and will request a trading halt if not cleared by 07:30.\nDuring the blackout period ahead of interim results under the Model Code, directors and relevant employees must suspend dealings in the Company\u2019s securities until publication of the announcement.\nMs. Ada Law, Chief Compliance Officer, has informed the chair and Audit Committee and is liaising with the SFC as necessary regarding compliance with the inside information provisions.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ada Law, Chief Compliance Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

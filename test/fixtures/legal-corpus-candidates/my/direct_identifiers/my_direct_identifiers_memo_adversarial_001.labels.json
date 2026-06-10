@@ -84,11 +84,11 @@
     "reviewer": "codex-gpt-assisted-strict-tier-review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -259,6 +259,12 @@
       "matched_text": "This note concerns a non-public term sheet with Ringwood Capital Partners Sdn. Bhd. (Company No.: 202201234567 (1509876-T)) and is MNPI under CMSA until Bursa disclosure is made.\nPursuant to Paragraphs 9.03 and 9.19 of the Main LR and Section 188 CMSA (insider trading), no trading by insiders is permitted; note the closed period under Paragraph 14.08 from 15/06/2026 to 29/06/2026.\nKey contact: Encik Rahman bin Salleh (CFO), MyKad: 840102-14-5 0 1 9, e m a i l: r.salleh @ northharbour.my, mobile +60 12-440 1123.\nTreasury contact: Puan Aisha bt. Kamaruddin, aisha.kamaruddin@northharbour.my, Tel +60 3-7720 1100, correspondence address: Level 18, Menara Purnama, 12 Jalan Damai, 50450 Kuala Lumpur.\nSettlement instructions (for SA escrow): First Kelantan Bank Berhad, Account No.: 142-77 8-009 912-3, SWIFT/BIC: F K L B M Y K A, beneficiary: North Harbour Berhad.\nInternal link to drafts (OCR copy): http://intranet.nh-bhd.local/deals/pp2026/SPA?ref=NHB-PP&uid=EID-840102145019&co=201901012345\nFor foreign director onboarding, Passport No.: A1234567Z (format discrepancy noted), and IBAN: MY69 1234 5678 9012 3456 78 (not applicable in MY), are not to be used in filings.\nPublic hotline for HR queries: 1-300-88-0000; role-only approvers: Company Secretary, Authorised Signatory, Group Controller.\nEmployment matter: no material adverse change (MAC) is triggered by the proposed revision to the CEO\u2019s service agreement; this memo is not an announcement.\nPrice range and investor allocation in the draft Subscription Agreement remain non-disclosed MNPI; do not circulate outside the project list.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Treasury contact: Puan Aisha bt. Kamaruddin, aisha.kamaruddin@northharbour.my, Tel +60 3-7720 1100, correspondence address: Level 18, Menara Purnama, 12 Jalan Damai, 50450 Kuala Lumpur.\nSettlement instructions (for SA escrow): First Kelantan Bank Berhad, Account No.: 142-77 8-009 912-3, SWIFT/BIC: F K L B M Y K A, beneficiary: North Harbour Berhad.\nInternal link to drafts (OCR copy): http://intranet.nh-bhd.local/deals/pp2026/SPA?ref=NHB-PP&uid=EID-840102145019&co=201901012345",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

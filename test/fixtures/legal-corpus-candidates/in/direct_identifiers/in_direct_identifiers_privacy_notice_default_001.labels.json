@@ -31,11 +31,11 @@
     "status": "codex_reconciled_pending_owner_review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -277,6 +277,12 @@
       "matched_text": "Controller: Mayurava Holdings Limited, registered office at 14 Ashoka Enclave, Sector 12, Varnapura, Karnataka 560123; contact privacy@mayurava.in, +91-80412-88991.\nFor investor relations, insider list maintenance, and SEBI PIT compliance for securities listed on the IndeX Bharat Exchange, we process identifiers such as PAN, GSTIN, and passport numbers.\nExample identifiers that may be provided by you include PAN: QPJPT1234Z, GSTIN: 29QPJPT1234Z1A2, and Passport: M1234567 for KYC of designated persons and promoters.\nWe also maintain a structured digital database of unpublished price-sensitive information (UPSI), with access logs and trading window controls per SEBI (PIT) Regulations, 2015.\nContact for MNPI queries: Ms. Riya Nandekar, Chief Compliance Officer, riya.nandekar@mayurava.in; role-only contact: Compliance Officer, compliance@mayurava.in.\nChildren\u2019s data (under 18) is collected only with verifiable parental consent and never required for shareholder services.\nBanking and contact identifiers processed may include Account No. 402993771245 at Saral Bank, Varnapura Branch, mobile +91-93288-44720, and dp.id@mayurava.in.\nAadhaar numbers are accepted only where mandated by law; Aadhaar: 1234 5678 9012 is an invalid example and will not be used for verification.\nYou may submit a DSAR to dpo@mayurava.in with sufficient verification; generic form fields such as 'Name: ______' and 'PAN: ______' on public templates do not constitute a valid request.\nWe engage processors in Pune and in the Federated Port Isles for cloud archiving, with contractual safeguards and access controls per Section 16 of the DPDPA.\nUPSI may be shared on a strict need-to-know basis with merchant bankers and auditors under NDA; trading is prohibited until disclosure to the stock exchange.\nRetention: insider lists and structured digital database entries are retained for 8 years; KYC records for investors are retained for 5 years after account closure,",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Riya Nandekar, Chief Compliance Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

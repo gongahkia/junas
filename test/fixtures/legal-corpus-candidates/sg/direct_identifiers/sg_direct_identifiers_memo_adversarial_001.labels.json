@@ -85,11 +85,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -212,6 +212,12 @@
       "category": "PII",
       "matched_text": "Mr. Lionel Toh",
       "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "202612345Z) re proposed acquisition of CoralTech Pte. Ltd. and SGX-ST disclosure planning.\nDraft SPA identifies Ms. Adeline Quek (Group CFO) as key employee for retention; contact +65 8123 4456; adeline.quek@merlion-industries.example.\nHR Manager to prepare side letter; no MAC clause is triggered by the voluntary headcount freeze (not a material adverse change).\nBuyer due diligence noted travel credential: Passport No. K1234567X (fictional) for Ms. Quek used for KYC; do not circulate beyond clean team.\nLegacy records include an NRIC: S9904321D; formatting appears OCR-corrupted as S 9 9 0 4 3 2 1 D, and checksum is not relied upon.\nFinance provided vendor bank a/c 033-123456-0X (placeholder), but this memo does not attach any bank statements.\nRegistered office address on file: 77 Banyan Quay #14-03, Singapore 049899; for service c/o Company Secretary, role only.\nPDPA: personal data must be collected with consent and minimised; avoid capturing NRIC/FIN in forms (example label: NRIC/FIN: __________) unless permitted under PDPC advisory.\nFor capital markets, proposed offer price range S$1.38\u2013S$1.44 per share constitutes MNPI; impose blackout and maintain insider list under SFA s.218 and SGX Listing Rule 703.\nRequest trading halt upon signing; draft 703 announcement excludes financial projections and does not reference internal codenames (Project Banyan).\nPublic-facing helpdesk line for general queries: 1800-492-0000; this is not a deal contact and should not be treated as personal data.\nDeal room link: https://dataroom.merlion-industries.example/files/SPA?v=3&uid=S9904321D; access restricted to Clean Team Alpha only.\nEmployment transitional services to be documented; note that the CEO, Mr. Lionel Toh",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_detect": [
@@ -306,16 +312,28 @@
       "rule": "nonpublic_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "202612345Z) re proposed acquisition of CoralTech Pte. Ltd. and SGX-ST disclosure planning.\nDraft SPA identifies Ms. Adeline Quek (Group CFO) as key employee for retention; contact +65 8123 4456; adeline.quek@merlion-industries.example.\nHR Manager to prepare side letter; no MAC clause is triggered by the voluntary headcount freeze (not a material adverse change).\nBuyer due diligence noted travel credential: Passport No. K1234567X (fictional) for Ms. Quek used for KYC; do not circulate beyond clean team.\nLegacy records include an NRIC: S9904321D; formatting appears OCR-corrupted as S 9 9 0 4 3 2 1 D, and checksum is not relied upon.\nFinance provided vendor bank a/c 033-123456-0X (placeholder), but this memo does not attach any bank statements.\nRegistered office address on file: 77 Banyan Quay #14-03, Singapore 049899; for service c/o Company Secretary, role only.\nPDPA: personal data must be collected with consent and minimised; avoid capturing NRIC/FIN in forms (example label: NRIC/FIN: __________) unless permitted under PDPC advisory.\nFor capital markets, proposed offer price range S$1.38\u2013S$1.44 per share constitutes MNPI; impose blackout and maintain insider list under SFA s.218 and SGX Listing Rule 703.\nRequest trading halt upon signing; draft 703 announcement excludes financial projections and does not reference internal codenames (Project Banyan).\nPublic-facing helpdesk line for general queries: 1800-492-0000; this is not a deal contact and should not be treated as personal data.\nDeal room link: https://dataroom.merlion-industries.example/files/SPA?v=3&uid=S9904321D; access restricted to Clean Team Alpha only.\nEmployment transitional services to be documented; note that the CEO, Mr. Lionel Toh",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "quasi_identifier_combination"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Internal\u2014Confidential: Memo to Board of Merlion Industries Ltd. (UEN 202612345Z) re proposed acquisition of CoralTech Pte. Ltd. and SGX-ST disclosure planning.\nDraft SPA identifies Ms. Adeline Quek (Group CFO) as key employee for retention; contact +65 8123 4456; adeline.quek@merlion-industries.example.\nHR Manager to prepare side letter; no MAC clause is triggered by the voluntary headcount freeze (not a material adverse change).\nBuyer due diligence noted travel credential: Passport No. K1234567X (fictional) for Ms. Quek used for KYC; do not circulate beyond clean team.\nLegacy records include an NRIC: S9904321D; formatting appears OCR-corrupted as S 9 9 0 4 3 2 1 D, and checksum is not relied upon.\nFinance provided vendor bank a/c 033-123456-0X (placeholder), but this memo does not attach any bank statements.\nRegistered office address on file: 77 Banyan Quay #14-03, Singapore 049899; for service c/o Company Secretary, role only.\nPDPA: personal data must be collected with consent and minimised; avoid capturing NRIC/FIN in forms (example label: NRIC/FIN: __________) unless permitted under PDPC advisory.\nFor capital markets, proposed offer price range S$1.38\u2013S$1.44 per share constitutes MNPI; impose blackout and maintain insider list under SFA s.218 and SGX Listing Rule 703.\nRequest trading halt upon signing; draft 703 announcement excludes financial projections and does not reference internal codenames (Project Banyan).\nPublic-facing helpdesk line for general queries: 1800-492-0000; this is not a deal contact and should not be treated as personal data.\nDeal room link: https://dataroom.merlion-industries.example/files/SPA?v=3&uid=S9904321D; access restricted to Clean Team Alpha only.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Registered office address on file: 77 Banyan Quay #14-03, Singapore 049899; for service c/o Company Secretary, role only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For SGX submissions, counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "202612345Z) re proposed acquisition of CoralTech Pte. Ltd. and SGX-ST disclosure planning.\nDraft SPA identifies Ms. Adeline Quek (Group CFO) as key employee for retention; contact +65 8123 4456; adeline.quek@merlion-industries.example.\nHR Manager to prepare side letter; no MAC clause is triggered by the voluntary headcount freeze (not a material adverse change).\nBuyer due diligence noted travel credential: Passport No. K1234567X (fictional) for Ms. Quek used for KYC; do not circulate beyond clean team.\nLegacy records include an NRIC: S9904321D; formatting appears OCR-corrupted as S 9 9 0 4 3 2 1 D, and checksum is not relied upon.\nFinance provided vendor bank a/c 033-123456-0X (placeholder), but this memo does not attach any bank statements.\nRegistered office address on file: 77 Banyan Quay #14-03, Singapore 049899; for service c/o Company Secretary, role only.\nPDPA: personal data must be collected with consent and minimised; avoid capturing NRIC/FIN in forms (example label: NRIC/FIN: __________) unless permitted under PDPC advisory.\nFor capital markets, proposed offer price range S$1.38\u2013S$1.44 per share constitutes MNPI; impose blackout and maintain insider list under SFA s.218 and SGX Listing Rule 703.\nRequest trading halt upon signing; draft 703 announcement excludes financial projections and does not reference internal codenames (Project Banyan).\nPublic-facing helpdesk line for general queries: 1800-492-0000; this is not a deal contact and should not be treated as personal data.\nDeal room link: https://dataroom.merlion-industries.example/files/SPA?v=3&uid=S9904321D; access restricted to Clean Team Alpha only.\nEmployment transitional services to be documented; note that the CEO, Mr. Lionel Toh, is not disclosing his home address and no residential data will be collected.\nFor SGX submissions, counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_not_detect": [

@@ -51,11 +51,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -183,6 +183,18 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Generic forms may display labels such as Full Name, Emirates ID, Trade Licence No., PO Box, and Account Ref; blank templates and sample placeholders are not personal data.\nFor Emirates ID verification we retain only masked values (e.g., EID: 0000-XXXX-0000) and redact images after 30 days; trade licence copies for counterparties are kept for 6 years under corporate recordkeeping.\nInsider list administration uses role accounts only; ticket metadata may include public Abu Dhabi exchange announcement titles and stale internal project codes, not MNPI",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR intake is via privacy.office@sanddune.example or dpo@sanddune.example; we do not accept requests through instant messaging or personal social accounts.\nTransfers to DIFC/ADGM branches rely on adequate measures under their DP regulations; onward transfer to EU processors uses contractual safeguards consistent with UAE PDPL requirements.\nPositive identifier cluster (investigation log only): Case 24-INS-073 \u2014 DOB 1991-04-07; base location Al Maryah Island, Abu Dhabi; employer Jebel Pearl Advisory LLC; role compliance analyst; device ID CorpTab-38A1; internal payroll subaccount PR-04872; Emirates ID ending 1123",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -222,22 +234,16 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Generic forms may display labels such as Full Name, Emirates ID, Trade Licence No., PO Box, and Account Ref; blank templates and sample placeholders are not personal data.\nFor Emirates ID verification we retain only masked values (e.g., EID: 0000-XXXX-0000) and redact images after 30 days; trade licence copies for counterparties are kept for 6 years under corporate recordkeeping.\nInsider list administration uses role accounts only; ticket metadata may include public Abu Dhabi exchange announcement titles and stale internal project codes, not MNPI",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
-      "matched_text": "DSAR intake is via privacy.office@sanddune.example or dpo@sanddune.example; we do not accept requests through instant messaging or personal social accounts.\nTransfers to DIFC/ADGM branches rely on adequate measures under their DP regulations; onward transfer to EU processors uses contractual safeguards consistent with UAE PDPL requirements.\nPositive identifier cluster (investigation log only): Case 24-INS-073 \u2014 DOB 1991-04-07; base location Al Maryah Island, Abu Dhabi; employer Jebel Pearl Advisory LLC; role compliance analyst; device ID CorpTab-38A1; internal payroll subaccount PR-04872; Emirates ID ending 1123",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Insider list administration uses role accounts only; ticket metadata may include public Abu Dhabi exchange announcement titles and stale internal project codes, not MNPI.\nExample of public, already-announced information: Awrad Oasis Investments PJSC confirmed a transfer of listing segment in 2023 per the exchange website; no unpublished terms are stored.\nDSAR intake is via privacy.office@sanddune.example or dpo@sanddune.example; we do not accept requests through instant messaging or personal social accounts.\nTransfers to DIFC/ADGM branches rely on adequate measures under their DP regulations; onward transfer to EU processors uses contractual safeguards consistent with UAE PDPL requirements.\nPositive identifier cluster (investigation log only): Case 24-INS-073 \u2014 DOB 1991-04-07; base location Al Maryah Island, Abu Dhabi; employer Jebel Pearl Advisory LLC; role compliance analyst; device ID CorpTab-38A1; internal payroll subaccount PR-04872; Emirates ID ending 1123.\nDevice telemetry (e.g., login timestamps and IP ranges) is retained for 90 days for security and audit; generic geolocation (city-level) is stored without names.\nFields like Nationality, Gender, and Age Band (e.g., 25\u201334) are collected for diversity reporting in aggregate and cannot identify a person alone.\nDeletion workflow: HR CVs older than 180 days are purged; insider list entries are archived after the public close of the matter and formal legal hold release; backups cycle every 35 days.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers to DIFC/ADGM branches rely on adequate measures under their DP regulations; onward transfer to EU processors uses contractual safeguards consistent with UAE PDPL requirements.\nPositive identifier cluster (investigation log only): Case 24-INS-073 \u2014 DOB 1991-04-07; base location Al Maryah Island, Abu Dhabi; employer Jebel Pearl Advisory LLC; role compliance analyst; device ID CorpTab-38A1; internal payroll subaccount PR-04872; Emirates ID ending 1123",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

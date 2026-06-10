@@ -50,11 +50,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -291,6 +291,12 @@
       "matched_text": "Prepared by: Ms. Priya Devi Nair, DPO, with review by Mr. Adrian Quek, Partner, Bayfront Lex LLP (SG law firm); contact: dpo@lcmh.example; E m a i l: privacy   @ bayfrontlex.example\nScope: M&A due\u2011diligence data room for proposed acquisition of Seagrove Robotics Pte. Ltd.; issuer is a Mainboard\u2011listed company; MNPI handling under SFA and SGX Listing Rule 703.\nPDPA basis: consent obtained via onboarding forms (ref: ONB\u20112O26\u2011SEA\u2011**37**), purpose\u2011limited; minimisation applied: CVs truncated and NRIC fields masked (T\u2011XXX\u2011XXXXZ).\nCross\u2011border transfer approval: yes \u2014 limited HR and vendor contact files exported to counsel in Kowloon and servers in eu\u2011west\u20111; Transfer Impact Assessment per PDPA s.26 completed 30\u2011May\u20112026; contractual clauses ensuring comparable protection (PDPC guidance) are in DPA Schedule 2.\nData Subject Access Request DSAR REQ\u20114f3a\u2011009 received from Mr. Jun Wei Tan on 28\u2011May\u20112026 via https://portal.lcmh.example/dsar?id=REQ-4f3a-009; identity verified; response due in 21 days.\nErasure: upon consent withdrawal by Ms. L. Ortega (l.ortega@seagrove.example) on 27\u2011May\u20112026, marketing records tagged DEL\u2011PEN; system purge completed 31\u2011May\u20112026 23:59 SGT, with audit hash 9c:a1:\u2022\u2022:3e (this is not a device MAC).\nRetention: finance payroll extracts retained for 5 years from cessation per retention schedule FIN\u2011R\u201105; archived in sg\u2011east\u20112 vault; no new collection will occur for ex\u2011employees beyond statutory need.\nMinimisation: deal\u2011room folders \u201cHR\u2011Profiles\u201d and \u201cVendor\u2011KYC\u201d now contain redacted fields only; full birth dates removed; only initials and last 2 digits of phone numbers kept (e.g., +65\u2011***\u2011**42).\nMNPI control: clean\u2011team access enforced; only Bayfront Lex LLP and Orchid Quay Capital Advisors (internal) may view non\u2011public revenue ranges; however, this memo contains no MNPI and does not alter previously disclosed information on SGXNet.\nNegative assurance: there has been no Material Adverse Change (no MAC) under the draft SPA, and no insider dealing risk is created by the routine DSAR processing.\nPolicy\u2011only control: the system is configured to not collect device MAC addresses or precise geolocation; references to \u201cMAC\u201d herein are contract terms only.\nNote on public sources: candidate education history used for verification was drawn from public alumni directories and company web pages; no scraping of restricted sources.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Adrian Quek, Partner",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

@@ -1,0 +1,355 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "PH",
+    "doc_id": "ph_quasi_identifiers_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ph/quasi_identifiers/ph_quasi_identifiers_incident_report_default_001.txt",
+    "source_jurisdiction": "PH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ph_quasi_identifiers_incident_report_default_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_quasi_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Laya Domingo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 May 1991",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7f2b\u2011VisMin\u20111130",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID\u2011LD\u20110912",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "account ending 4421",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@lrhi.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incident\u20112026\u201105@lrhi.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 02 3999 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "172.24.33.0/24",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Atty. Reo Villamor",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Domingo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u22126%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LD\u2011ORCA\u2011A920",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Laya Domingo (HR Business Partner, LRHI), born 12 May 1991, assigned to Kota Isla office, used personal handset LD\u2011ORCA\u2011A920 on guest Wi\u2011Fi SSID 'LRHI\u2011Visitor', session ref 7f2b\u2011VisMin\u20111130",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "nickname only, not full number",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft H1 investor update",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft ASB filing",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "under embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "reports a cyber\u2011operational incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential MNPI",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "05@lrhi.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "29",
+      "rule": "age_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Per Archipelago Securities Board (ASB) guidance, potential MNPI was exposed: a draft H1 investor update with preliminary revenue guidance and Series J note pricing assumptions not yet public.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The same session displayed an unaudited Q2 net income variance of \u22126% versus prior guidance in a draft ASB filing, which remains under embargo.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20260531",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "05@lrhi.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 02 3999 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 May 1991",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "29",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Laya Domingo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Domingo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Per Archipelago Securities Board (ASB) guidance, potential MNPI was exposed: a draft H1 investor update with preliminary revenue guidance and Series J note pricing assumptions not yet public.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The same session displayed an unaudited Q2 net income variance of \u22126% versus prior guidance in a draft ASB filing, which remains under embargo.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "under embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20260531",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Per Archipelago Securities Board (ASB) guidance, potential MNPI was exposed: a draft H1 investor update with preliminary revenue guidance and Series J note pricing assumptions not yet public.\nThe incident arose from a compromised HR portal user session that also reached a shared banking\u2011reconciliation folder for payroll and tax withholding schedules.\nClustered PII \u2014 Ms. Laya Domingo (HR Business Partner, LRHI), born 12 May 1991, assigned to Kota Isla office, used personal handset LD\u2011ORCA\u2011A920 on guest Wi\u2011Fi SSID 'LRHI\u2011Visitor', session ref 7f2b\u2011VisMin\u20111130.\nHer cached payroll export included internal employee code EID\u2011LD\u20110912, non\u2011government tax mapping RCO\u2011Maple\u2011441, and a payroll disbursement account ending 4421 at CoralBank (nickname only, not full number).\nThe same session displayed an unaudited Q2 net income variance of \u22126% versus prior guidance in a draft ASB filing, which remains under embargo.\nAtty. Reo Villamor, Data Protection Officer, confirms no full card PANs, no national ID numbers, and no client portfolio statements were stored in the affected folders.\nFor context, a marketing officer aged 29 in the Visayan Gulf branch used a shared kiosk model CloudTune 8 last week; this reference is not linked to any identified person.\nAnother unrelated training dataset lists only birth years (e.g., 1988, 1994) and city\u2011tier tags, which are generic demographics and not identifying on their own.\nInitial vector appears to be credential reuse from IP block IslaNet\u2011172.24.33.0/24 and a side\u2011loaded app 'QuickPDF 4' on LD\u2011ORCA\u2011A920.\nBanking reconciliation sheets show only vendor code VEND\u2011AR\u2011771 and settlement batch BACH\u201120260531\u201102, with no customer names or full account details.\nOperational impact: two hours of HR portal downtime, delayed remittance file to the Revenue Compliance Office sandbox by one day, no missed payroll in Luzonia Province.\nContainment: access tokens revoked at 15:42 PH time; device quarantine issued; ASB pre\u2011clearance requested for a same\u2011day limited disclosure to BCX.\nNotifications: staff are being informed via email and SMS; Ms. Domingo received monitoring for the CoralBank account nicknamed 'Laya Payroll' and was advised a device reset.\nContact: dpo@lrhi.ph and incident\u20112026\u201105@lrhi.ph; hotline +63 02 3999 0000 (internal only).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "aged 29",
+      "reason": "Generic demographic reference not linked to an identified person"
+    },
+    {
+      "matched_text": "1988",
+      "reason": "Birth year alone is generic and not identifying on its own"
+    },
+    {
+      "matched_text": "1994",
+      "reason": "Birth year alone is generic and not identifying on its own"
+    },
+    {
+      "matched_text": "LRHI\u2011Visitor",
+      "reason": "Wi\u2011Fi SSID is an internal label and not a listed PII category"
+    },
+    {
+      "matched_text": "VEND\u2011AR\u2011771",
+      "reason": "Vendor code is not personal data"
+    },
+    {
+      "matched_text": "BACH\u201120260531\u201102",
+      "reason": "Batch identifier is operational metadata, not personal data"
+    },
+    {
+      "matched_text": "CloudTune 8",
+      "reason": "Device model name is not a unique device identifier"
+    },
+    {
+      "matched_text": "QuickPDF 4",
+      "reason": "Application name is not PII"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "account nickname PII",
+      "matched_text": "Laya Payroll",
+      "reason": "Bank account nickname containing a person\u2019s name may be identifying but not covered by a specific allowed rule"
+    },
+    {
+      "concept": "internal tax mapping code",
+      "matched_text": "RCO\u2011Maple\u2011441",
+      "reason": "Person-linked internal tax mapping could be an identifier but lacks a dedicated rule"
+    },
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "limited disclosure",
+      "reason": "Could imply selective disclosure risk context though disclosure is to the exchange"
+    },
+    {
+      "concept": "network identifier",
+      "matched_text": "LRHI\u2011Visitor",
+      "reason": "SSID might be considered a device/network identifier but not listed in allowed PII rules"
+    }
+  ]
+}

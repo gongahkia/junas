@@ -1,0 +1,501 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T03:12:44Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T03:12:44Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_special_category_memo_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/special_category/vn_special_category_memo_adversarial_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_special_category_memo_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_resolved_label_warnings": [
+    {
+      "disposition": "Resolved during VN Stage B QA cleanup. These were label-cleaner drops or category normalizations on already approved Stage A labels; the dropped spans were not active strict labels after prior deterministic reconciliation, and Stage A owner approval remains unchanged.",
+      "resolved_at_utc": "2026-06-03T13:05:43Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='22,500\u201324,000 VND'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='22,500\u201324,000 VND'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_special_category_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. B\u00f9i Linh Chi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@vanminh-industries.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "it-pii@vanminh-industries.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u00d4ng \u0110\u00e0o Quang Ph\u00fac",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Staff ID: V M I \u2014 H O P \u2014 0 1 9 8 a",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u00d4ng \u0110\u00e0o Quang Ph\u00fac (Head of Procurement; Staff ID: V M I \u2014 H O P \u2014 0 1 9 8 a)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "has Type\u20112 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "requiring daily metformin",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "his access badge stores a faceprint and right-index fingerprint",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ph\u00fac identifies as gay",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dao.phuc@vanminh-industries.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 2 8 3 9 9 9  1 2 3",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ph\u00fac",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emp Code V M I / F I N \u2014 0 0 7",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a c c \u2014 3 1 1 . 0 0 2 . 9 x",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "strict minimization controls",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "scrub PII",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12\u201314%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "planned issuance of 18,000,000 shares",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be shared beyond need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be shared beyond need-to-know",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a vendor earn-out linked to the \u201cLamRidge\u201d project",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential until board sign-off",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "strictly internal",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 1 1 . 0 0 2 . 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Genetic Data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI notice: non-public Q3 guidance indicates a 12\u201314% revenue shortfall and a planned issuance of 18,000,000 shares; disclosure is embargoed under HSE Listing Guideline 12 until clearance by UBCK H\u00f2a S\u01a1n (UBCK-HS).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "14%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,500",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "24,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@vanminh-industries.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "it-pii@vanminh-industries.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dao.phuc@vanminh-industries.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 1 1 . 0 0 2 . 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 2 8 3 9 9 9  1 2 3",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Genetic Data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI notice: non-public Q3 guidance indicates a 12\u201314% revenue shortfall and a planned issuance of 18,000,000 shares; disclosure is embargoed under HSE Listing Guideline 12 until clearance by UBCK H\u00f2a S\u01a1n (UBCK-HS).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "14%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,500",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "24,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI notice: non-public Q3 guidance indicates a 12\u201314% revenue shortfall and a planned issuance of 18,000,000 shares; disclosure is embargoed under HSE Listing Guideline 12 until clearance by UBCK H\u00f2a S\u01a1n (UBCK-HS).\nProposed price band is 22,500\u201324,000 VND per share and a vendor earn-out linked to the \u201cLamRidge\u201d project; this is material non-public information under the Securities Law and must not be shared beyond need-to-know.\nBanking setup: instruct Ng\u00e2n h\u00e0ng \u0110\u1ea1i Phong to open escrow a c c \u2014 3 1 1 . 0 0 2 . 9 x for proceeds; beneficiary: Van Minh Ind. Treasury; signer Emp Code V M I / F I N \u2014 0 0 7.\nDecree 13 processing inventory (PII): \u00d4ng \u0110\u00e0o Quang Ph\u00fac (Head of Procurement; Staff ID: V M I \u2014 H O P \u2014 0 1 9 8 a) has Type\u20112 diabetes requiring daily metformin; his access badge stores a faceprint and right-index fingerprint; Mr. Ph\u00fac identifies as gay.\nStorage/flow: These special-category fields (health, biometric, sexual-orientation) are recorded in NebulaHR and LotusPass at sftp://pii.vmi.vn/hr/\u0110QPh\u00fac/; admin contact it-pii@vanminh-industries.vn; URL log id=https://pii.vmi.vn/log?e i d = VMI%2D HOP %2F 0198a.\nSafeguards: We will rotate encryption keys K M S \u2014 v2.9 and restrict cross-border transfer; the word \u201csex-life\u201d below appears only in a policy heading and does not describe any individual.\nPolicy references: \u201cPolicy on Religion, Genetic Data & Sex-Life Terminology (ver. Draft-3)\u201d and \u201cEqual Opportunity & DEI Charter 2026\u201d; we promote inclusion and equity while applying strict minimization controls.\nNegative legend: the phrase \u201cno material adverse change\u201d in the term sheet is a negotiated MAC clause; current trends in \u0110\u00f4ng Phong Tigers fixtures or metaphors like \u201cwe must cross the river by feeling the stones\u201d are not disclosures.\nProduct notes (benign): internal tools NebulaCRM, LotusPay Core, and FiberSonic routers are mentioned for implementation only and do not entail MNPI by themselves.\nEmployee contact: Mr. Ph\u00fac\u2019s work email dao.phuc@vanminh-industries.vn and phone +84 2 8 3 9 9 9  1 2 3 are provided for consent and access requests; he has opted-in for union communications only.\nPublic-source references allowed: high-level market statistics cited from HSE\u2019s public portal and UBCK-HS annual report are permitted, but any issuer-specific numbers above are strictly internal.\nAction items (lowercase): finalize prospectus sections, scrub PII, validate bank a c c mapping, update data map by 30/06; this memo is confidential until board sign-off under HSE Rule 24.2.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Linh Chi, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u201cPolicy on Religion, Genetic Data & Sex-Life Terminology (ver. Draft-3)\u201d",
+      "reason": "Policy name not about a specific person"
+    },
+    {
+      "matched_text": "\u201cEqual Opportunity & DEI Charter 2026\u201d",
+      "reason": "Generic DEI policy reference, not PII/MNPI"
+    },
+    {
+      "matched_text": "\u201csex-life\u201d",
+      "reason": "Generic term in policy heading, not tied to an individual"
+    },
+    {
+      "matched_text": "\u0110\u00f4ng Phong Tigers",
+      "reason": "Sports team, not PII/MNPI"
+    },
+    {
+      "matched_text": "\u201cwe must cross the river by feeling the stones\u201d",
+      "reason": "Metaphor, not PII/MNPI"
+    },
+    {
+      "matched_text": "NebulaCRM",
+      "reason": "Product name only"
+    },
+    {
+      "matched_text": "LotusPay Core",
+      "reason": "Product name only"
+    },
+    {
+      "matched_text": "FiberSonic routers",
+      "reason": "Product name only"
+    },
+    {
+      "matched_text": "\u201cLamRidge\u201d",
+      "reason": "Project name not matching transaction codename rule"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC phrase should not be labeled per rule"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "trade_union_membership",
+      "matched_text": "he has opted-in for union communications only",
+      "reason": "Implies union-related communications but not explicit membership status"
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "URL log id=https://pii.vmi.vn/log?e i d = VMI%2D HOP %2F 0198a",
+      "reason": "Looks like an internal logging identifier embedded in a URL but not clearly a session ID"
+    },
+    {
+      "concept": "bank_account",
+      "matched_text": "a c c \u2014 3 1 1 . 0 0 2 . 9 x",
+      "reason": "Appears to be an obfuscated bank account reference with irregular spacing/characters"
+    },
+    {
+      "concept": "quasi_identifier_combination",
+      "matched_text": "sftp://pii.vmi.vn/hr/\u0110QPh\u00fac/",
+      "reason": "Storage path embeds a person\u2019s initials/name which may identify the individual"
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "h t t p s : / / intranet.vmi.vn/sec?token=vm-pp&doc=\u03b27",
+      "reason": "Contains a token parameter that could be an access token or session identifier"
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "VM-LC/2026-PP-HSE-\u03b27",
+      "reason": "Internal reference identifier that could function as a tracking or document ID"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+board incident note — pt arunika dana tbk (bes: adnx), cyber/ops event, for esg risk register update
+summary: outage at fintech arm pt lintaspay nusantara on 2026-02-27 14:10–16:35 wib due to misconfigured api gateway; already disclosed on besnet 2026-03-01 as service disruption.
+scope: payment retries delayed; no confirmed customer pii exfiltration; sample ids are masked (nik: 0000000000000000; acct: 1234-XX-0000; card: 4111-****-****-1111 is dummy).
+regulatory: report under peraturan pobjk ttg perlindungan data & pobjk keterbukaan informasi; prepare submission via spe bjk-n portal using issuer role mailbox compliance@arunikadana.example.
+public source references: see stale post on status.arunikadana.example dated 2026-02-28 and bes keterbukaan ref no. adnx/pr/2026-03-01.
+controls: rotated api keys; reset sandbox tokens (iban: XX00 TEST 0000 0000 00; bic: TSTNIDJAXXX placeholder); no production tokens exposed.
+risk assessment: not a material adverse change; no mae/mac trigger under draft clauses; financial impact immaterial based on q1 budget.
+ir draft embargo until 2026-07-15 09:00 wib for paragraph on systems remediation sequencing; do not include vendor names before that date.
+transaction context (positive span): draft spa dated 2026-07-10 for proposed acquisition of pt lintaspay nusantara, subject to board approval and bjk-n review; signing not yet announced.
+checklist: confirm dpo log, review sops, attach incident timeline, and file to besnet if threshold per pobjk 31/2015 actually crossed.
+customer comms: direct users to help.arunikadana.example and cs@lintaspay.example; do not request otp or full id details.
+benign bait: spa-day voucher for wellness partners will be recorded under csr; unrelated to any share purchase agreement.
+qa note: lowercased prose is intentional; placeholders like idr 0.00 and 'xx-xx-xx' are non-binding and public-safe.
+next steps: internal postmortem on 2026-03-05; audit log ids DP-0000-FAKE only; escalate to audit committee if repeated.

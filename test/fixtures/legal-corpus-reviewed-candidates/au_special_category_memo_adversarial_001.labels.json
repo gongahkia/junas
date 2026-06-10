@@ -1,0 +1,443 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:32:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "owner_approved_au_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_special_category_memo_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/special_category/au_special_category_memo_adversarial_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_special_category_memo_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_special_category_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@southbankrobotics.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "e.noor@southbankrobotics.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rohan.vale@southbankrobotics.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@southbankrobotics.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Noor",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rohan Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EN-0O7-9X2",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$18.5m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$1,200",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Fabrication Workers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "her Fabrication Workers Union dues were payroll-deducted",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "identifies as bisexual",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "observes Friday prayer",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "controlled Type 1 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a recent mental health day",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Member No. H3-XX-45  9",
+      "rule": "insurance_member_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "remove direct identifiers before transfer",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ABN 73 9X5 4X1 2X3",
+      "rule": "au_abn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "04XX 123 7X9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "07 3X5X 22  44",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DemoAcct 12-3X4/00 789",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project echidna",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "keep access restricted to \u201cBoard-Room Only\u201d",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not circulate Line Sheet \u201cNS-Rev-3\u201d outside the deal team",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sale of Nimbus Sensors Pty Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "would be likely to influence SBRX securities price",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "H3-XX-45",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Noor",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@southbankrobotics.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "e.noor@southbankrobotics.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rohan.vale@southbankrobotics.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EN-0O7-9X2",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "H3-XX-45",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Noor",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Noor",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Noor",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rohan Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$18.5m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$1,200",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Noor (Employee ID EN-0O7-9X2; contact e.noor@southbankrobotics.au",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Noor\u2019s performance file includes a voluntary statement that she identifies as bisexual and observes Friday prayer; such special-category data must be segregated and access-limited per APP 3 and our Sensitive Information Standard\nNo biometric template for Ms. Noor is stored in WorkGate; door logs retain only hashed badges (BG-1 9 X \u2014 see ht tps://intra.sbrx.au/sec/log?id=BG-1 9 X&view=pr iv), and this line is merely a biometric policy reference\nA payroll export labelled \u201cHealth-Benefits.csv\u201d includes Member No. H3-XX-45  9 and clinic claim code 2 7A; remove direct identifiers before transfer to our vendor Ferntree Analytics Pty Ltd (ABN 73 9X5 4X1 2X3)\nMr. Rohan Vale (CFO, rohan.vale@southbankrobotics.au",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privileged & Confidential \u2014 Legal & Compliance Memorandum (Australia) \u2014 31 May 2026\nTo: Board of Southbank Robotics Ltd (ASX: SBRX) | From: General Counsel | legal@southbankrobotics.au | Head Office: Level 9, Copper Square, New Koorong QLD\nRe: MNPI handling and PII under Privacy Act 1988 (Cth) for proposed divestment of Nimbus Sensors Pty Ltd\nDraft term sheet contemplates sale of Nimbus Sensors Pty Ltd for A$18.5m; this is not generally available and would be likely to influence SBRX securities price under Corporations Act s1043A and ASX Listing Rule 3.1\nNotwithstanding the above, marketing copy naming the product \u201cKoalaCloud Starter\u201d and references to a genetic algorithm engine are public and do not constitute MNPI\nNamed employee: Ms. Eliza Noor (Employee ID EN-0O7-9X2; contact e.noor@southbankrobotics.au) submitted an occupational health report noting controlled Type 1 diabetes and a recent mental health day; her Fabrication Workers Union dues were payroll-deducted in Apr\u2013May\nMs. Noor\u2019s performance file includes a voluntary statement that she identifies as bisexual and observes Friday prayer; such special-category data must be segregated and access-limited per APP 3 and our Sensitive Information Standard\nNo biometric template for Ms. Noor is stored in WorkGate; door logs retain only hashed badges (BG-1 9 X \u2014 see ht tps://intra.sbrx.au/sec/log?id=BG-1 9 X&view=pr iv), and this line is merely a biometric policy reference\nA payroll export labelled \u201cHealth-Benefits.csv\u201d includes Member No. H3-XX-45  9 and clinic claim code 2 7A; remove direct identifiers before transfer to our vendor Ferntree Analytics Pty Ltd (ABN 73 9X5 4X1 2X3)\nMr. Rohan Vale (CFO, rohan.vale@southbankrobotics.au, mobile 04XX 123 7X9) authorised a test payment of A$1,200 to DemoAcct 12-3X4/00 789\u2014transaction is internal, not a share buy-back, and no material adverse change is triggered\nFor diligence on the divestment, rely on public sources such as the 2025 Annual Report on our website and ASIC lodgement history; do not circulate Line Sheet \u201cNS-Rev-3\u201d outside the deal team\nCasual morale notes referencing the New Koorong Kestrels and the \u201cnot a canary in the coal mine\u201d metaphor are benign and unrelated to disclosure obligations\nProject echidna is tracked in lowercase in the pm tool; keep access restricted to \u201cBoard-Room Only\u201d and treat off-market bids as MNPI until ASX announcement drafting completes",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u201cKoalaCloud Starter\u201d",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "genetic algorithm engine",
+      "reason": "Technical phrase; not genetic personal data"
+    },
+    {
+      "matched_text": "New Koorong Kestrels",
+      "reason": "Sports team bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "\u201cnot a canary in the coal mine\u201d",
+      "reason": "Metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "\u201cwe welcome colleagues of any religion or orientation\u201d",
+      "reason": "Generic DEI policy text; not personal data"
+    },
+    {
+      "matched_text": "No biometric template",
+      "reason": "Negated; policy reference, no biometric identifier stored"
+    },
+    {
+      "matched_text": "no material adverse change is triggered",
+      "reason": "Negated MAC; do not label as material_adverse_change"
+    },
+    {
+      "matched_text": "do not constitute MNPI",
+      "reason": "Negated MNPI reference; public information"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "badge_id",
+      "matched_text": "BG-1 9 X",
+      "reason": "Hashed badge identifier in access logs may indirectly identify an employee but is not covered by a specific allowed rule"
+    },
+    {
+      "concept": "internal_url_identifier",
+      "matched_text": "ht tps://intra.sbrx.au/sec/log?id=BG-1 9 X&view=pr iv",
+      "reason": "URL with embedded log id could be an internal session or record identifier not explicitly listed in allowed rules"
+    },
+    {
+      "concept": "health_claim_code",
+      "matched_text": "clinic claim code 2 7A",
+      "reason": "Healthcare-related claim code may be sensitive but does not map cleanly to a listed identifier category"
+    }
+  ]
+}

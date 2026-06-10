@@ -1,0 +1,155 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_jurisdictional_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/jurisdictional_mnpi/vn_jurisdictional_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_jurisdictional_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "EID-7781",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID-9102",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@lotuspay.example.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ops@lotuspay.example.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ch\u01b0a c\u00f4ng khai",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "c\u1eeda s\u1ed5 c\u1ea5m giao d\u1ecbch n\u1ed9i gi\u00e1n",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "l\u1ed7 h\u1ed5ng m\u1edbi ph\u00e1t hi\u1ec7n trong m\u00f4-\u0111un quy\u1ebft to\u00e1n th\u1ebb",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "c\u00f3 th\u1ec3 y\u00eau c\u1ea7u c\u00f4ng b\u1ed1 b\u1ea5t th\u01b0\u1eddng",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u1ea9n m\u00e3 \u0111\u1ecbnh danh nh\u00e2n s\u1ef1",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lo\u1ea1i b\u1ecf c\u00e1c tr\u01b0\u1eddng d\u1eef li\u1ec7u gi\u1ea3 l\u1eadp",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ops@lotuspay.example.vn",
+      "rule": "email_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "VN-ID: X000000000",
+      "reason": "Simulated placeholder; not an actual personal identifier per document context."
+    },
+    {
+      "matched_text": "Account: 999-ABC-000",
+      "reason": "Simulated placeholder; not an actual bank/customer account number."
+    },
+    {
+      "matched_text": "d\u1eef li\u1ec7u sinh tr\u1eafc h\u1ecdc",
+      "reason": "Generic category mention in a negated statement; special-category bait."
+    },
+    {
+      "matched_text": "PII ng\u01b0\u1eddi ti\u00eau d\u00f9ng",
+      "reason": "Generic category mention in a negated statement; not a specific PII value."
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "log debug \u0111\u01b0\u1ee3c gi\u1eef t\u1ed1i \u0111a 24 gi\u1edd",
+      "reason": "Indicates a data retention period; legally relevant but no explicit allowed rule provided for retention."
+    },
+    {
+      "concept": "potential_nonpublic_draft",
+      "matched_text": "B\u1ea3n th\u1ea3o MD&A Q1/2026",
+      "reason": "Draft regulatory material may be non-public; potential MNPI relevance is context-dependent and not clearly covered by a specific rule here."
+    }
+  ]
+}

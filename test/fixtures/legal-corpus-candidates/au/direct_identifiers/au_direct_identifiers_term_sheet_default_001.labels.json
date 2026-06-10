@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -378,6 +378,12 @@
       "matched_text": "Confidential Term Sheet \u2014 Proposed acquisition of Murrawin Minerals Pty Ltd by Quokka Ridge Holdings Limited (non-binding save for confidentiality, exclusivity, and costs).\nTarget: Murrawin Minerals Pty Ltd (ACN 614 829 375; ABN 83 471 902 615); Registered office: Level 22, 77 Harbour Crescent, Murradoo NSW 2991.\nBuyer: Quokka Ridge Holdings Limited (ACN 643 210 598; ABN 51 908 442 170); adviser Karrinji Partners Pty Ltd (fictional).\nConsideration: A$38,000,000 for 75% of issued shares; 10% deposit to escrow trust a/c BSB 123-456, Account 10293847 (Quokka Ridge Trust).\nStructure: Cash on completion plus 24\u2011month earn\u2011out; proposed ASX listing within 18 months subject to ASX Listing Rules 1.1 and 11.1.\nConditions precedent: FIRB approval (if applicable); ASIC relief for financial assistance; shareholder approval under Corporations Act s260B; material permits confirmed.\nConfidentiality/MNPI: Information herein is not generally available and could be material to ASX\u2011quoted products; recipients must not trade (Corporations Act ss 1042A, 1043A) or disclose except to advisers.\nPrivacy: Handling of employee and contractor data must comply with the Privacy Act 1988 (Cth); credit checks and payroll onboarding require written consent; no health records collected pre\u2011completion.\nContact: Ms. Elara Quinn, CFO, elara.quinn@murrawinminerals.com.au, +61 2 8123 4567; office address as above for notices.\nIdentification: Company IDs \u2014 Murrawin ACN 614 829 375; ABN 83 471 902 615; Buyer ABN 51 908 442 170; sample ABN 12 345 678 901 (invalid checksum\u2014placeholder only).\nSite access: For flight manifests only, Ms. Quinn\u2019s AU passport ref N1234567 may be shown to carrier; no copies retained by Buyer or its advisers.\nHelpline/generic fields: Public enquiries (generic helpline, not personal data): 1800 123 123; Form fields: TFN _________ ; HIN _________ ; Role\u2011only signatory: Company Secretary.\nSettlement mechanics: Escrow agent Loddon & Co. Lawyers (fictional), trust a/c BSB 062-999, Account 44990012; completion at adviser\u2019s offices or via electronic execution.\nMiscellaneous: Exclusivity 45 days; this term sheet does not constitute a binding offer to acquire; completion subject to due diligence, any ASX waiver, and execution of long\u2011form documents.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Elara Quinn, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

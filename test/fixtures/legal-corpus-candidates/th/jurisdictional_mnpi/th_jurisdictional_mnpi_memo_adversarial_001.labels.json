@@ -81,11 +81,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
@@ -273,6 +273,12 @@
       "category": "MNPI",
       "matched_text": "blackout from 31 May 2026",
       "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Internal Memo \u2014 Legal & Compliance, Ananta Foods Public Company Limited (ANF) \u2014 To: Audit Committee and Board; From: Ms. Thanya K., Company Secretary; Date: 29 May 2026; Subject: MNPI/PDPA controls on financing and cross\u2011border supply arrangements.\nThe proposed issuance of THB 800m senior unsecured debentures due 2029 (indicative coupon 7.25%, bookbuild 10\u201312 Jun 2026 with Jirawan Securities Co., Ltd.) constitutes information that is \u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e1c\u0e22\u0e15\u0e48\u0e2d\u0e2a\u0e32\u0e18\u0e32\u0e23\u0e13\u0e30 and may be material to ANF; do not disclose selectively or outside the established channel.\nPer SET/SEC practice, we plan immediate disclosure via SETLink before trading hours on 07 Jun 2026, followed by SEC Thailand filing of the debt offering information; if leakage is suspected, we will request an H from SET prior to release",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -362,16 +368,16 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Internal Memo \u2014 Legal & Compliance, Ananta Foods Public Company Limited (ANF) \u2014 To: Audit Committee and Board; From: Ms. Thanya K., Company Secretary; Date: 29 May 2026; Subject: MNPI/PDPA controls on financing and cross\u2011border supply arrangements.\nThe proposed issuance of THB 800m senior unsecured debentures due 2029 (indicative coupon 7.25%, bookbuild 10\u201312 Jun 2026 with Jirawan Securities Co., Ltd.) constitutes information that is \u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e1c\u0e22\u0e15\u0e48\u0e2d\u0e2a\u0e32\u0e18\u0e32\u0e23\u0e13\u0e30 and may be material to ANF; do not disclose selectively or outside the established channel.\nPer SET/SEC practice, we plan immediate disclosure via SETLink before trading hours on 07 Jun 2026, followed by SEC Thailand filing of the debt offering information; if leakage is suspected, we will request an H from SET prior to release",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Internal Memo \u2014 Legal & Compliance, Ananta Foods Public Company Limited (ANF) \u2014 To: Audit Committee and Board; From: Ms. Thanya K., Company Secretary; Date: 29 May 2026; Subject: MNPI/PDPA controls on financing and cross\u2011border supply arrangements.\nThe proposed issuance of THB 800m senior unsecured debentures due 2029 (indicative coupon 7.25%, bookbuild 10\u201312 Jun 2026 with Jirawan Securities Co., Ltd.) constitutes information that is \u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e1c\u0e22\u0e15\u0e48\u0e2d\u0e2a\u0e32\u0e18\u0e32\u0e23\u0e13\u0e30 and may be material to ANF; do not disclose selectively or outside the established channel.\nPer SET/SEC practice, we plan immediate disclosure via SETLink before trading hours on 07 Jun 2026, followed by SEC Thailand filing of the debt offering information; if leakage is suspected, we will request an H from SET prior to release.\nAll pre-sounding of institutional investors must be wall-crossed with NDA; no selective disclosure of price, size, covenant package, or timing is permitted under SEC insider trading prohibitions and SET disclosure guidelines.\nExecutives and connected persons are under blackout from 31 May 2026 until two trading days after 2Q26 results and MD&A are posted on SETNews (expected 14 Aug 2026); participation in Opportunity Day will follow the public filing, not precede it.\nFor precision: the Samut Sakhon plant expansion budget (THB 450m) is already public per ANF-2026-025 on SETNews dated 13 May 2026 and the F o r m  5 6 - 1  O n e  R e p o r t for FY2025 filed 12 May 2026 (see h t t p s : / / w w w . s e t . o r . t h / e n / n e w s r o o m / A N F / 2 0 2 6 0 5 1 3 ? n = 0 2 5).\nNote also that the 2023 MOU with Lotus Nova Co., Ltd. was terminated and disclosed on 22 Dec 2024; any references to that MOU are stale public information and not MNPI.\nCross-border: the draft supply term sheet with BluePalm Nutrition Sdn. Bhd. (MY) using a USD\u2011pegged soybean protein index with FX cap at THB 38.50/USD and volume floor 2,000 MT/quarter remains non-public pending board approval and SETLink disclosure.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The proposed issuance of THB 800m senior unsecured debentures due 2029 (indicative coupon 7.25%, bookbuild 10\u201312 Jun 2026 with Jirawan Securities Co., Ltd.) constitutes information that is \u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e1c\u0e22\u0e15\u0e48\u0e2d\u0e2a\u0e32\u0e18\u0e32\u0e23\u0e13\u0e30 and may be material to ANF; do not disclose selectively or outside the established channel.\nPer SET/SEC practice, we plan immediate disclosure via SETLink before trading hours on 07 Jun 2026, followed by SEC Thailand filing of the debt offering information; if leakage is suspected, we will request an H from SET prior to release",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

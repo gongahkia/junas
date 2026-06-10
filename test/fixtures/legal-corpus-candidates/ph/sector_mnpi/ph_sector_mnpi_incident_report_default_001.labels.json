@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -265,6 +265,12 @@
       "matched_text": "n 02 June affected our treasury workstation and HR payroll portal hosted by Lakbay Cloud Services, leading to temporary isolation under our information barrier protocol.\nIndicators show unauthorized access via a supplier VPN credential and deployment of \u201cNightPal\u201d ransomware, with no confirmed exfiltration; NPC notification assessment under the Data Privacy Act is in progress.\nPotential PII exposure includes employee names and corporate email aliases only; no BIR TINs, bank account numbers, or government IDs were stored in the affected segment.\nWe have activated the Insider List and imposed confidentiality per SRC and PSE rules, restricting knowledge to the Cyber SIT members and designated insiders.\nA trading blackout window is imposed for all Covered Persons of Bayan Capital and its subsidiary Huminga Payments Corp. until incident details are publicly disclosed.\nConcurrently, a draft term sheet for a peso-denominated sustainability-linked note and a pilot custodial service for digital payment tokens under a BSP sandbox were stored on the same server but remain encrypted; contents are non-public and commercially sensitive.\nSelective disclosure risk: counterparties Kambas Syndicate Fund and Oragon Trust Bank are not aware of the incident; external communication is limited to need-to-know with wall-cross procedures.\nNo customer wallets or on-chain assets were impacted; our operations team confirms that \u201ccrypto\u201d references in the training module refer to generic educational content and not to live product data.\nEnvironmental/ESG Note: the 2025 GHG inventory recalculation factors are being updated; this operational workstream uses \u201cmateriality\u201d in a sustainability context unrelated to securities MNPI.\nControl actions: segmented the treasury VLAN, rotated all privileged credentials via Talaan PAM, applied IOC blocks at the Batak SOC, and engaged Bulalakaw Forensics for imaging.\nPreliminary financial impact is below the 5% revenue threshold; however, Legal advises this may be material in light of concurrent capital markets activity.\nAll staff are reminded that tips to friends, family, or chat groups about the incident, the sustainability-linked note, or the BSP sandbox are prohibited and will be investigated.\nFor process clarity: the marketing team may continue scheduled ESG awareness posts so long as no incident details, counterparties, or commercial terms are referenced.\nPoint of contact: Atty. Celina V. Marikit, Compliance Officer, celina.marikit@bayancapital.ph, +63 28 555 2040.\nReport prepared by Mr. Ramon S. Dalisay, Head of Risk, with support from Ms. Lira P. Alonzo (HR) and Engr. Paolo J. Davao (IT Infrastructure).",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Covered Persons of Bayan Capital and its subsidiary Huminga Payments Corp",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

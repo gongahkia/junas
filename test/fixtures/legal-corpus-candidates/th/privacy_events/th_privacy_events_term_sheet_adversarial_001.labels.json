@@ -46,11 +46,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -168,6 +168,12 @@
       "category": "MNPI",
       "matched_text": "Subscription for 120,000,000 newly issued ordinary shares",
       "rule": "volume_commitment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Protection (P D P A): Schedule 3 (Data Processing Agreement) applies to onboarding forms for Investor KYC, director/employee secondments, and vendor vetting; see Compliance Memo PDPA-TH/2026-04.\nCross-border transfer: Data processors in Singapore and Japan engaged under DPA Schedule 3; internal Data-Export Approval Memo DEA-TH-9921 granted on 2026-04-28 (https://portal.siam-monsoon.example.th/export?case=DEA-TH-9921&user=khun.pw%40monsoon)",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -207,16 +213,28 @@
       "rule": "large_number"
     },
     {
-      "category": "PII",
-      "matched_text": "Data Protection (P D P A): Schedule 3 (Data Processing Agreement) applies to onboarding forms for Investor KYC, director/employee secondments, and vendor vetting; see Compliance Memo PDPA-TH/2026-04.\nCross-border transfer: Data processors in Singapore and Japan engaged under DPA Schedule 3; internal Data-Export Approval Memo DEA-TH-9921 granted on 2026-04-28 (https://portal.siam-monsoon.example.th/export?case=DEA-TH-9921&user=khun.pw%40monsoon)",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Non-Binding Term Sheet \u2014 Strategic Investment in Siam Monsoon Energy Public Company Limited (SET: MON9) by Nakhon Capital Partners Fund I, L.P. (the Investor); contact: Khun Prakasit Wannarong, CFO, prakasit.w@siam-monsoon.energy.example\nTransaction: Subscription for 120,000,000 newly issued ordinary shares at THB 14.25/share; use of proceeds for solar expansion Project \u201cLotusWave\u201d; settlement T+3 to TH-ACC 9X**-**77-B (internal ref: SEA-TH-X1lI-0O0).\nConditions: Thai SEC and SET approvals, shareholder meeting quorum under the Public Limited Companies Act, and no Material Adverse Change; any Tender Offer obligations to be assessed post-closing under the Securities and Exchange Act.\nMNPI: Parties acknowledge receipt of undisclosed information that may materially affect securities price; no trading until public disclosure via SET notice and the Company\u2019s One Report; clean-team access only.\nData Protection (P D P A): Schedule 3 (Data Processing Agreement) applies to onboarding forms for Investor KYC, director/employee secondments, and vendor vetting; see Compliance Memo PDPA-TH/2026-04.\nCross-border transfer: Data processors in Singapore and Japan engaged under DPA Schedule 3; internal Data-Export Approval Memo DEA-TH-9921 granted on 2026-04-28 (https://portal.siam-monsoon.example.th/export?case=DEA-TH-9921&user=khun.pw%40monsoon).\nConsent withdrawal: Request CW-TH-441 by Ms. Jariya Phaibun was completed on 2026-05-01 for marketing materials; no further action is pending and the opt-out log is closed.\nDSAR/Erasure: DS-TH-1189 resolved 2026-04-12 with erasure of non-essential fields from HR onboarding forms and minimisation of payroll bank details to last 2 digits; retention for KYC = 24 months unless statutory audit requires longer.\nControl statement (negated): No active cross-border transfer of legacy HR files occurs under this Term Sheet; prior migration under DPA v2.3 was completed in 2025 and is not in scope.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: Data processors in Singapore and Japan engaged under DPA Schedule 3; internal Data-Export Approval Memo DEA-TH-9921 granted on 2026-04-28 (https://portal.siam-monsoon.example.th/export?case=DEA-TH-9921&user=khun.pw%40monsoon)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Prakasit Wannarong, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "forms for Investor KYC, director",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

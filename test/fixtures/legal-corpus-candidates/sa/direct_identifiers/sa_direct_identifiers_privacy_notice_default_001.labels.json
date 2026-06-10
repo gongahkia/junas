@@ -30,11 +30,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -172,6 +172,12 @@
       "category": "MNPI",
       "matched_text": "is segregated",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Generic form elements (not accepted for DSAR verification): Name: __________, Position: __________, Phone: 800-123-0000 (public helpline), \u201cCompliance Officer\u201d without personal verification\nSubprocessor list (summary): Najah Cloud KSA (CR 101-55-000321, Riyadh DC only), Oasis Archive LLC (CR 101-66-000654, Jeddah); no offshore analytics without SDAIA-approved derogation",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -231,16 +237,16 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Generic form elements (not accepted for DSAR verification): Name: __________, Position: __________, Phone: 800-123-0000 (public helpline), \u201cCompliance Officer\u201d without personal verification\nSubprocessor list (summary): Najah Cloud KSA (CR 101-55-000321, Riyadh DC only), Oasis Archive LLC (CR 101-66-000654, Jeddah); no offshore analytics without SDAIA-approved derogation",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Contact: Mr. Hatim Al-Najjar, Data Protection Officer, dpo@desert-crescent.sa, +966-11-555-0123 (fictional)\nScope: processing of investor onboarding, issuer relations, and CMA disclosure workflows under PDPL and related CMA market-conduct requirements\nDirect identifiers processed (lawful basis: contractual compliance/AML): Iqama/National ID 2099-1234-5678 (invalid check digit, sample), Passport KSA-PX7788991 (fictional), and CR copies for corporate signatories\nCompany identifiers: Client CR 205-44-123456 (fictional) and ZATCA VAT 311223344556677 (fictional) for billing and audit\nPayment channel (masked): IBAN SA03 8000 0000 0000 0000 1234 (fictional), billing email accounts@falconsandtraders.sa (fictional affiliate)\nProcessing instructions: MNPI from issuer working groups (e.g., draft prospectus numbers, non-public board minutes) is segregated; insider lists maintained and trading blackouts enforced per CMA rules\nInternational transfers: no cross-border transfer unless PDPL Art. 29 conditions met and SDAIA guidance followed; where used, KSA-approved clauses and transfer impact assessment logged in T-Audit/1445 registry\nRetention: KYC and issuer files retained 10 years after account closure or transaction completion, then securely destroyed unless CMA/anti-fraud holds apply; periodic minimization reviews quarterly\nData subject rights (PDPL): access, correction, deletion, and portability requests may be submitted at privacy.desert-crescent.sa or dsar@desert-crescent.sa; verification requires matching CR/Iqama and registered phone\nAddress for notices: Desert Crescent Tower, King Fahd Rd., Al Olaya, Riyadh 12212, KSA; mailroom reference DC-RYD-PO-009 (fictional)\nSecurity: role-based access, data-at-rest encryption, and issuer-room watermarking; processors must notify within 24h of a suspected breach affecting MNPI or PDPL-regulated data",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Subprocessor list (summary): Najah Cloud KSA (CR 101-55-000321, Riyadh DC only), Oasis Archive LLC (CR 101-66-000654, Jeddah); no offshore analytics without SDAIA-approved derogation",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

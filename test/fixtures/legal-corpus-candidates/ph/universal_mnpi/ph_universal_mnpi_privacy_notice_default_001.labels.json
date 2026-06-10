@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
@@ -207,6 +207,12 @@
       "category": "MNPI",
       "matched_text": "2,750,000,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR handling: acknowledge within 5 business days and substantively respond within 15 working days; verify requestor via corporate email match and supervisor affirmation by Mr. Ramon G. Feliciano.\nPublic\u2011source reference (stale): see SEC Philippines FAQs updated 2019 and NPC Advisory 2021\u201101; this workflow note is internal guidance and does not amend any public policy",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -296,16 +302,16 @@
       "rule": "large_number"
     },
     {
-      "category": "PII",
-      "matched_text": "DSAR handling: acknowledge within 5 business days and substantively respond within 15 working days; verify requestor via corporate email match and supervisor affirmation by Mr. Ramon G. Feliciano.\nPublic\u2011source reference (stale): see SEC Philippines FAQs updated 2019 and NPC Advisory 2021\u201101; this workflow note is internal guidance and does not amend any public policy",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "STRICTLY CONFIDENTIAL \u2014 MNPI \u2014 Embargoed until 30 Sep 2026 09:00 PHT; not for PSE/SEC disclosure prior to embargo.\nRetention Workflow Note (Philippines): Aurora Pacific Holdings, Inc. \u2014 Data Privacy Act (RA 10173) and SRC alignment for HR, tax, banking, and capital\u2011markets records.\nData Protection Officer: Atty. Isadora M. Quinto; contact: privacy@aurorapacific.ph; for DSAR escalations cc: compliance@aurorapacific.ph.\nScope includes board memos, internal research notes, investor\u2011relations drafts, deal checklist trackers, and the signed Term Sheet (02 Jun 2026) and Definitive Share Purchase Agreement for Project TAAL (deal codename) re acquisition of 62.5% of Isla Nova Power Corp. from LapuLapu Capital Bank.\nUniversal MNPI items under hold: consideration PHP 2,750,000,000 cash plus 10% earn\u2011out tied to FY2027 EBITDA, closing window Q4 2026, long\u2011stop 30 Sep 2026.\nMAC/MAE (negated) for the SPA: general market movements, weather advisories, or changes in PSE Listing Rules shall not constitute a Material Adverse Effect for purposes of walk\u2011away rights.\nNon\u2011public markers: board voting tally, draft 17\u2011C, bidder Q&A log, and pre\u2011close bank covenant waivers; access limited to Board, Treasury, and external counsel Bayani & Pinpin Law via SFTP.\nData types processed: employee payroll summaries, work emails, tax withholding certificates (no actual TIN or government ID images stored in the deal room), vendor bank references, and cap table extracts.\nRetention triggers: retain until public filing of Form 17\u2011C is posted on PSE EDGE, then keep for 6 years for audit/BIR purposes; HR exit files retained 5 years post\u2011separation.\nCross\u2011border transfer: if required, transmit redacted financial models to APH Singapore Rep Office under NPC\u2011compliant data sharing agreement and SCCs; encryption at rest and in transit.\nDSAR handling: acknowledge within 5 business days and substantively respond within 15 working days; verify requestor via corporate email match and supervisor affirmation by Mr. Ramon G. Feliciano.\nPublic\u2011source reference (stale): see SEC Philippines FAQs updated 2019 and NPC Advisory 2021\u201101; this workflow note is internal guidance and does not amend any public policy.\nlower priority: hold pending gc sign\u2011off; update folder taxonomy; do not circulate outside the deal team until monday cob.\nFriendly note: employees may opt into the wellness spa\u2011day raffle next month; this perk is unrelated to the transaction and contains no MNPI.\nDestruction and audit: 12 months after closing and completion of external audit, securely delete redundant drafts and chat exports; IT to issue a deletion certificate and retain logs for 3 years.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Public\u2011source reference (stale): see SEC Philippines FAQs updated 2019 and NPC Advisory 2021\u201101; this workflow note is internal guidance and does not amend any public policy",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

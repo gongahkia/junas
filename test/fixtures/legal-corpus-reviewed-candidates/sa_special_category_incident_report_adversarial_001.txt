@@ -1,0 +1,15 @@
+AlMithaq Industrials PJSC (CR 101-77-5566-9) — Operational/Cyber Incident Report, PDPL context; Ref: IR-2026/05-29/SSE-MC.
+On 2026-05-29 04:12 AST, a misconfigured OasisVault object store exposed internal SSE Issuer Portal export logs via bucket “almithaq-ops-prd”, affecting PII and MNPI.
+Named subject: Mr. Nabeel Al‑Hadid (CFO, employee E-4403), Nat’l I d: 2094—1133—0884 (Iq     ama), biometric fingerprint template hash FPT:b4c1…77a, and clinic note “insulin‑dependent diabetes, Rx update 2026‑04‑17” were present.
+Additional PII for Ms. Hadeel Al‑Qurashi (IR officer) included mobile +966‑57‑221‑0044 and work email hadeel.qurashi@almithaq-industrials.example; no special-category data for her.
+Non-public issuer data included “SSE code MITQ-882”, draft Q2 2026 revenue shortfall of ~8% vs guidance, unannounced Line‑3 downtime on 2026‑06‑03, and a rights‑issue term sheet (T+60 target).
+A scheduled transfer via the National Data Authority gateway (“sdata-bridge”) to a government sandbox inadvertently queued /exports/health.csv and /bio/fpt.bin alongside routine CR extracts.
+The leak was identified by NebulaGuard XDR; from a market-conduct standpoint, dissemination risk is medium and we have notified the Capital Markets Regulator (CMR) Market‑Conduct Unit and Sahara Securities Exchange Listings within 2h.
+For avoidance of doubt, we did not collect MAC addresses, Wi‑Fi PSKs, or device serials; public-source content (e.g., our 2025 Sustainability Report) remained unaffected and the drip resembled a leaky faucet rather than a flood.
+Benign reuse: the phrase “sexual orientation” exists only in our Equal Opportunity & Inclusion policy text; no such fields were in any incident dataset.
+Unrelated benign data such as the Al‑Nour Falcons preseason schedule and product brochure for Sandstorm ERP were in the same workspace but not part of the exposure.
+URL and obfuscation artifacts: https://issuer.sse.example/tickets/INC-2026%2F05%2F29?ref=E-4403&iq=2094%201133%200884; internal line breaks caused O C R‑like spacing in exports.
+Trading considerations: while this remains MNPI until disclosure, we assess no material adverse change trigger; however, CMR rules allow a discretionary halt if rumors surface.
+Remediation: bucket ACLs set to private, NDA gateway filters tightened, credentials rotated; todo: update issuer‑workflow runbook, add DLP to SSE export stage, and train staff.
+Data subject notices: Mr. Nabeel Al‑Hadid will receive PDPL Art. (12) notice and NDA transfer record; opt‑out for secondary processing is respected under Art. (11).
+Contact and follow‑up: IR Desk ir@almithaq-industrials.example, hotline +966‑51‑000‑1122; next update due D+1 to CMR and SSE, with final root‑cause report D+7.

@@ -38,11 +38,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
@@ -400,6 +400,24 @@
       "matched_text": "Confidential Term Sheet \u2013 Proposed Murabaha Financing and Majority Acquisition of Altahadi Manufacturing LLC by Rimal Industries Company (a Tadawul-listed joint stock company).\nParties: Rimal Industries Company (CR 101-8899123-0), issuer; Nourah Capital Finance Company (CR 701-5544332-1), financier; Altahadi Manufacturing LLC (CR 205-7788991-4), target.\nConsideration: SAR 180,000,000 for 60% stake; financing: SAR 120,000,000 Shari\u2019ah-compliant Murabaha, profit rate SAIBOR + 210 bps, tenor 5 years, security over target shares and selected receivables.\nMateriality/Disclosure: Estimated at ~8.2% of Issuer\u2019s consolidated assets (1447H audit); treated as material; announcement on the Saudi Exchange required promptly per CMA Rules on the Offer of Securities and Continuing Obligations.\nPublic vs non-public: Issuer\u2019s non-binding MoU regarding a prospective industrial acquisition was announced on the Saudi Exchange website on 1448/02/10H (2026-05-17G) and remains public; pricing grid, covenants, and board meeting timing herein are MNPI until disclosure.\nSelective disclosure: Wall-cross only under NDA; maintain Insider List per CMA Market Conduct Regulations; no selective disclosure beyond publication on the Saudi Exchange or broad press releases after announcement.\nBlackout/Closed Period: No dealings by directors/senior executives from period-end until publication of financial results and while in possession of inside information; proposed board approval to be scheduled after trading hours to meet disclosure timing before next market open.\nConditions precedent: Board approval; EGM if acquisition triggers shareholder approval threshold; lender IC approval; completion of legal/financial due diligence; no CMA objection; obtaining target\u2019s Commercial Register extract and KYC under PDPL-compliant notices.\nPDPL/SDAIA: Personal data (including employees\u2019 Iqama/National ID and contact numbers) to be minimized and pseudonymized; any transfer outside KSA to advisors requires SDAIA cross-border transfer assessment and an approved mechanism (or localization on KSA-hosted systems).\nCovenants: No dividend distribution by Issuer until leverage <2.5x; Target to enter non-compete; customary representations; no public guidance or earnings comment until Saudi Exchange announcement; no communication with media except through authorized disclosure channels.\nDisclosure timing: If Board approval occurs during trading hours, announce on the Saudi Exchange promptly the same day; if after hours, announce before market open on the next trading day; breach may result in CMA enforcement for selective disclosure.\nFunding uses: Purchase consideration, fees, and integration capex; no proceeds for shareholder distributions; lender consent required for material disposals pre-Completion.\nOutside date/termination: Long-stop 120 days from signing; automatic lapse if CMA or Saudi Exchange objects or if required shareholder approval is not obtained; no-break fee absent willful breach.\nConfidentiality: This term sheet is confidential and not for onward distribution; except for items already announced publicly on the Saudi Exchange, all contents are non-public and constitute MNPI until disclosed.\nBenign note: Al-Badee Supply LLC\u2019s recent press release about extended warehouse hours (2025-02-10G) is unrelated to the Issuer and is not MNPI.\nContacts/Signatories: Mr. Fahd Al\u2011Omari, CFO (Iqama No. IQ-21-9088-5543), fahd.omari@rimalindustries.sa; Eng. Saleh Al\u2011Mutairi, CEO, Rimal Industries; Dr. Layla Al\u2011Suwailem, MD, N",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Fahd Al\u2011Omari, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Saleh Al\u2011Mutairi, CEO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Majority Acquisition of Altahadi Manufacturing LLC",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

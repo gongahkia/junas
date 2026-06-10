@@ -1,0 +1,258 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_sector_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/sector_mnpi/hk_sector_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_sector_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_sector_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "compliance@portcrown.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping prohibitions",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational/Cyber (Low)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "99.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restrict circulation to Clean Team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending issuer disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "event-specific insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no-trade restriction",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "emissions metrics planned for its forthcoming HKEX circular",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mis-scoped API key at vendor NeonGate Systems (Asia) Ltd allowed read-only access to non-client log telemetry from a whitelisted IP; least-privilege restored within 27 minutes",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss outside established information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "maintenance of information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory: No reportable breach under SFC FMCC; internal record filed as Form IR-1; no disruption to HKEX trading or clearing connectivity.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory: No reportable breach under SFC FMCC; internal record filed as Form IR-1; no disruption to HKEX trading or clearing connectivity.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "99.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Portcrown Capital (HK) Ltd \u2014 Incident Summary (HK) and Training Addendum\nIncident date/time: 12 May 2026 09:14 HKT; Classification: Operational/Cyber (Low)\nEvent: Mis-scoped API key at vendor NeonGate Systems (Asia) Ltd allowed read-only access to non-client log telemetry from a whitelisted IP; least-privilege restored within 27 minutes.\nImpact: No personal data as defined under PDPO was processed or exposed; no client account, name, address, or identifier was present in the affected logs.\nRegulatory: No reportable breach under SFC FMCC; internal record filed as Form IR-1; no disruption to HKEX trading or clearing connectivity.\nRemediation: Rotated all API keys, enforced IP allowlists at vendor, and obtained updated third-party security attestation (SOC-lite) for Q2.\nTraining note: The 12 May tabletop also refreshed staff awareness on insider lists, blackout periods, tipping prohibitions, and maintenance of information barriers across research, investment, and corporate access teams.\nDigital assets note: Our sandbox uses a non-transferable demo token \u201cAmberBay Coin (test-net)\u201d for education only; there is no fund exposure, custody, or client trading in crypto products.\nESG disclosure: The \u201c2024 Climate Resilience Update\u201d was published on our public website on 15 April and already announced via HKEX investor relations; it contains only high-level, non-price-sensitive information.\nCommercial terms: Draft renewal with NeonGate Systems proposes a 60-day termination right and 99.9% SLA; operational negotiation only, not price sensitive or material to any listed security.\nPre-clearance (restricted): Preliminary pre-announcement diligence with Holystone Renewables Holdings Ltd. identified an unpatched endpoint at its data provider that may affect emissions metrics planned for its forthcoming HKEX circular; restrict circulation to Clean Team pending issuer disclosure.\nAccordingly, add Holystone Renewables Holdings Ltd. to the event-specific insider list and apply a no-trade restriction on placeholder codes \u201c0X0X\u201d and \u201cHK-9999\u201d until Compliance clears; do not discuss outside established information barriers.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "AmberBay Coin (test-net)",
+      "reason": "Token name for education; not a wallet address or MNPI event."
+    },
+    {
+      "matched_text": "0X0X",
+      "reason": "Placeholder security code; not PII or MNPI."
+    },
+    {
+      "matched_text": "HK-9999",
+      "reason": "Placeholder security code; not PII or MNPI."
+    },
+    {
+      "matched_text": "Form IR-1",
+      "reason": "Internal form code; not PII or MNPI."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "issuer_name_in_mnpi",
+      "matched_text": "Holystone Renewables Holdings Ltd",
+      "reason": "Identifies a specific issuer in a restricted, pre-disclosure context but issuer names are not an explicit MNPI rule."
+    },
+    {
+      "concept": "anticipated_disclosure",
+      "matched_text": "forthcoming HKEX circular",
+      "reason": "Signals pending issuer communication that may be non-public yet not covered by a specific allowed rule."
+    },
+    {
+      "concept": "ip_address_reference",
+      "matched_text": "whitelisted IP",
+      "reason": "References an IP control without an actual IP address; relevant to cyber context but not an explicit rule match."
+    },
+    {
+      "concept": "incident_timestamp",
+      "matched_text": "12 May 2026 09:14 HKT",
+      "reason": "Incident timing is compliance-relevant but not covered by the allowed MNPI/PII rules."
+    }
+  ]
+}

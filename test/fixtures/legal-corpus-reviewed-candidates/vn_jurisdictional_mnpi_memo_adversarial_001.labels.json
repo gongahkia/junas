@@ -1,0 +1,440 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T03:12:44Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T03:12:44Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_jurisdictional_mnpi_memo_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/jurisdictional_mnpi/vn_jurisdictional_mnpi_memo_adversarial_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_jurisdictional_mnpi_memo_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_resolved_label_warnings": [
+    {
+      "disposition": "Resolved during VN Stage B QA cleanup. These were label-cleaner drops or category normalizations on already approved Stage A labels; the dropped spans were not active strict labels after prior deterministic reconciliation, and Stage A owner approval remains unchanged.",
+      "resolved_at_utc": "2026-06-03T13:05:43Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='~1.180 t\u1ef7 VND'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='700 t\u1ef7 VND'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='~1.180 t\u1ef7 VND'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='700 t\u1ef7 VND'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_jurisdictional_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "thao.vy@mpen.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@mpen.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "09 88 66 44 30",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "B\u00e0 L\u00ea Th\u1ea3o Vy",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u00d4ng Ph\u1ea1m Quang V\u0169",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u00d4ng \u0110\u1eb7ng Qu\u1ed1c H\u1ea3o",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "B\u00e0 Vy",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1 2 0-77- 3 1 5 9",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KH\u00d4NG \u0111\u01b0\u1ee3c \u0111\u01b0a v\u00e0o h\u1ed3 s\u01a1 CBTT",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "C-0-12 7/ b",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "~1.180 t\u1ef7 VND",
+      "rule": "total_contract_value"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "D\u1ef1 th\u1ea3o h \u00f4 p \u0111 \u1ed3 n g mua tua-bin gi\u00f3",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "c\u00f3 th\u1ec3 l\u00e0m thay \u0111\u1ed5i CAPEX >20% t\u1ed5ng m\u1ee9c \u0111\u1ea7u t\u01b0 n\u0103m",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "~48%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u01af\u1edbc t\u00ednh LNST Q2/2026 t\u0103ng ~48% YoY",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cc\u1eeda s\u1ed5 \u0111en\u201d",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15/07\u201329/07",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "c\u1eeda s\u1ed5 \u0111en",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "b\u1ecb c\u1ea5m trong c\u1eeda s\u1ed5 \u0111en",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NDA",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "kh\u00f4ng c\u00f4ng khai r\u1ed9ng r\u00e3i",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nh\u00f3m nh\u1eadn th\u00f4ng tin g\u1ed3m 3 ng\u01b0\u1eddi",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "email chuy\u1ec3n ti\u1ebfp n\u1ed9i b\u1ed9 ra ngo\u00e0i nh\u00f3m",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ch\u01b0a CBTT",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CH\u01afA c\u00f4ng b\u1ed1 ra th\u1ecb tr\u01b0\u1eddng",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "hi\u1ec7n thu\u1ed9c di\u1ec7n ch\u01b0a c\u00f4ng b\u1ed1",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Th\u01b0 ch\u1ea5p thu\u1eadn h\u1ea1n m\u1ee9c 700 t\u1ef7 VND",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "k\u1ec3 t\u1eeb 10/06/2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": ">20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ti\u1ebft l\u1ed9 ch\u1ecdn l\u1ecdc",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 9 9-88-0 1 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "48%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "thao.vy@mpen.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@mpen.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "09 88 66 44 30",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 9 9-88-0 1 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "48%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC context ('kh\u0000f4ng ph\u0000ea\u0000i l\u0000e0 \u0000ld\u0000ed\u0000eeketter')"
+    },
+    {
+      "matched_text": "G\u0110 T\u00e0i ch\u00ednh",
+      "reason": "Role noun, not a unique personal identifier"
+    },
+    {
+      "matched_text": "Ph\u00f3 TG\u0110",
+      "reason": "Role noun, not a unique personal identifier"
+    },
+    {
+      "matched_text": "Ch\u1ee7 t\u1ecbch H\u0110QT",
+      "reason": "Role noun, not a unique personal identifier"
+    },
+    {
+      "matched_text": "Tr\u01b0\u1edfng d\u1ef1 \u00e1n",
+      "reason": "Role noun, not a unique personal identifier"
+    },
+    {
+      "matched_text": "Ban Ki\u1ec3m so\u00e1t",
+      "reason": "Role noun/entity, not PII"
+    },
+    {
+      "matched_text": "ng\u01b0\u1eddi n\u1ed9i b\u1ed9",
+      "reason": "Generic role reference"
+    },
+    {
+      "matched_text": "ng\u01b0\u1eddi c\u00f3 li\u00ean quan",
+      "reason": "Generic role reference"
+    },
+    {
+      "matched_text": "PNX",
+      "reason": "Entity abbreviation, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "THX",
+      "reason": "Entity abbreviation, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "MPEN",
+      "reason": "Ticker/company code, not PII"
+    },
+    {
+      "matched_text": "DOX Bank",
+      "reason": "Entity name, not PII"
+    },
+    {
+      "matched_text": "LAC\u2011Power",
+      "reason": "Company alias in quotes, not PII"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "contract_identifier",
+      "matched_text": "H\u0110-02 1 9 B//THX",
+      "reason": "Contract number may be sensitive MNPI but not covered by a specific allowed rule"
+    },
+    {
+      "concept": "internal_transaction_code",
+      "matched_text": "PNX/29-0 7/ 26//-XQZ-0019",
+      "reason": "Internal transaction/reference code could be sensitive but no explicit rule maps to it"
+    },
+    {
+      "concept": "corporate_bank_account",
+      "matched_text": "TK DN 3 9 9-88-0 1 2",
+      "reason": "Corporate bank account identifier is sensitive operational data but not personal data under VN PDPA"
+    },
+    {
+      "concept": "internal_document_link",
+      "matched_text": "https://drive.mpen.vn/f/Projs/SongThao3?v=7f%2F1a",
+      "reason": "Internal document URL may imply sensitive access but not mapped to any allowed rule"
+    },
+    {
+      "concept": "ticker_symbol",
+      "matched_text": "m\u00e3 CK d\u1ef1 ki\u1ebfn: MPEN",
+      "reason": "Proposed ticker is not PII and not inherently MNPI under the given rules"
+    },
+    {
+      "concept": "sensitive_filename",
+      "matched_text": "\u201cfw: EBITDA_draft_v3.xlsx\u201d",
+      "reason": "Filename may indicate sensitive working papers; only indirectly covered via tipping/SD risk"
+    },
+    {
+      "concept": "ocr_corrupted_period",
+      "matched_text": "2 0 2 6/ Q 2",
+      "reason": "Represents a financial period reference but appears OCR-corrupted; not directly covered by allowed rules"
+    }
+  ]
+}

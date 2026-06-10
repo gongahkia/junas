@@ -1,0 +1,445 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T06:38:11Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T06:38:11Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_direct_identifiers_memo_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_memo_adversarial_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_direct_identifiers_memo_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_direct_identifiers_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Cheung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Li Mei-yan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 6 8 8 2 3 1 7 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "adrian.cheung@harbourquest.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@sinovista.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "eng.ops@sinovista.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "K1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR No. 3120459",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "PII",
+      "matched_text": "028-991234-001",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information under Part XIVA of the SFO",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 12.50",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 50,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet announced under Listing Rule 13.09",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "update insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+8 5 2-6882-3170",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "l i . m e i @ h q . h k",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HKID W 1 2 3 4 5 6 ( 3 )",
+      "rule": "hk_hkid"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR-3120459",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "indicative cash offer",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "circulation restricted",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "65 49 873 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000 1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3120459",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Li Mei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Li",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: preliminary term sheet with Pearl Meridian Capital Partners Fund I LP (Reg. No. LPF-00988); escrow at Harbour Bank (HK) Ltd a/c 028-991234-001 (client money); not yet announced under Listing Rule 13.09.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "adrian.cheung@harbourquest.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@sinovista.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "eng.ops@sinovista.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 6 8 8 2 3 1 7 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "65 49 873 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000 1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+8 5 2-6882-3170",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "K1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3120459",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Cheung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Li Mei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Li",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: preliminary term sheet with Pearl Meridian Capital Partners Fund I LP (Reg. No. LPF-00988); escrow at Harbour Bank (HK) Ltd a/c 028-991234-001 (client money); not yet announced under Listing Rule 13.09.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 12.50",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 50,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Company details: Harbour Quest Holdings Limited (CR No. 3120459; BR No. 8765 4321-000-07-20; registered office: Unit 1903, Meridian Tower, 38 Quayside Lane, East Harbour, Hong Kong).\nPrimary contact: Mr. Adrian Cheung, CFO \u2014 tel +852 6 8 8 2 3 1 7 0; adrian.cheung@harbourquest.hk; VDR link https://vdr.harbourquest.hk/file?doc=SPA&ref=CR-3120459&auth=ch e u n g\nEmployee secondee for diligence: Ms. Li Mei-yan (HKSAR Passport K1234567; HKID W 1 2 3 4 5 6 ( 3 ) \u2014 noted checksum invalid in scan) to access vendor room and cap table files.\nProposed terms (inside information under Part XIVA of the SFO): indicative cash offer for SinoVista Technology Holdings Limited at HKD 12.50 per share; exclusivity through 31 Aug 2026; break fee HKD 50,000,000.\nFinancing: preliminary term sheet with Pearl Meridian Capital Partners Fund I LP (Reg. No. LPF-00988); escrow at Harbour Bank (HK) Ltd a/c 028-991234-001 (client money); not yet announced under Listing Rule 13.09.\nTax/IRD: draft s.16 deduction schedule; IRD File No. 65 49 873 1 (internal reference only); no offshore claim contemplated at this time.\nRegulatory: informal consultation with the Commission on Takeovers Code Rule 3.5 drafting; no waiver sought under Rule 14.44; circulation restricted.\nEmployment: retention proposals for key engineers at SinoVista; sample aliases include hr@sinovista.hk and eng.ops@sinovista.hk; forms currently show role-only \u201cHR Manager\u201d.\nNegative assurance: no MAC has been identified; media rumors reference public materials and exclude internal performance metrics.\nnext steps: circulate draft spa to directors, confirm clean team roster, run sfo safe-harbor analysis, update insider list, prepare hkex announcement timetable.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "38 Quayside Lane, East Harbour, Hong Kong",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Adrian Cheung, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1800-123-123",
+      "reason": "Public helpline/decoy contact; exclude per negative/adversarial target."
+    },
+    {
+      "matched_text": "+852 2 000 0 000",
+      "reason": "Decoy/bait phone number; not a deal line."
+    },
+    {
+      "matched_text": "GB00 TEST 0000 1234",
+      "reason": "Invalid IBAN-like string flagged as failing validation."
+    },
+    {
+      "matched_text": "Passport No: ______",
+      "reason": "Generic placeholder label; not actual PII collected."
+    },
+    {
+      "matched_text": "Tax ID: ______",
+      "reason": "Generic placeholder label; not actual PII collected."
+    },
+    {
+      "matched_text": "HR Manager",
+      "reason": "Role-only label, not an identifiable individual."
+    },
+    {
+      "matched_text": "no MAC has been identified",
+      "reason": "Negated MAC reference; excluded per rule not to label negated MAC/MAE."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "HK Business Registration number",
+      "matched_text": "BR No. 8765 4321-000-07-20",
+      "reason": "Company identifier likely sensitive but no explicit allowed rule for HK BR No."
+    },
+    {
+      "concept": "HK IRD file reference",
+      "matched_text": "IRD File No. 65 49 873 1",
+      "reason": "Government tax file reference; not covered by an allowed rule but potentially sensitive."
+    },
+    {
+      "concept": "HK LPF registration number",
+      "matched_text": "Reg. No. LPF-00988",
+      "reason": "Fund registration identifier; outside current allowed rule set."
+    },
+    {
+      "concept": "Selective disclosure risk",
+      "matched_text": "VDR link https://vdr.harbourquest.hk/file?doc=SPA&ref=CR-3120459&auth=ch e u n g",
+      "reason": "Presence of a restricted VDR link may be market-sensitive but not clearly covered by existing MNPI rules."
+    }
+  ]
+}

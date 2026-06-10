@@ -1,0 +1,295 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_special_category_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/special_category/sa_special_category_term_sheet_negative_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_special_category_term_sheet_negative_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 22,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 17,
+    "old_must_detect_count": 10,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_special_category_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory: Closing is conditional on any required notifications to the Capital Market Authority and compliance with Market Conduct Regulations; no prospectus is contemplated at this stage.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Technology & Products: Integration roadmap references SandCloud ERP, NajmPay wallet, and FalconGate API by way of illustration only; no customer-level data will be exchanged pre-closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions Precedent: Board approvals, updated constitutional documents, and completion of applicable Tadawul issuer workflows (including timely uploading of post-closing summaries) are required prior to funding.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "memorandum of understanding",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 101-XYZ-0001",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 403-ABC-2222",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 000-000-TEST",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama/Resident ID: IQ-77-0000-ABCD",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IBAN SA00 0000 0000 0000 0000 0000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "controlled hypertension",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-Border Transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pre-employment medical clearance",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No biometric, genetic, religious, or political data will be collected",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No biometric, genetic, religious, or political data will be collected",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No biometric, genetic, religious, or political data will be collected",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No biometric, genetic, religious, or political data will be collected",
+      "rule": "political_opinion"
+    },
+    {
+      "category": "PII",
+      "matched_text": "offshoring of personal data",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA transfer controls",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory: Closing is conditional on any required notifications to the Capital Market Authority and compliance with Market Conduct Regulations; no prospectus is contemplated at this stage.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Technology & Products: Integration roadmap references SandCloud ERP, NajmPay wallet, and FalconGate API by way of illustration only; no customer-level data will be exchanged pre-closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions Precedent: Board approvals, updated constitutional documents, and completion of applicable Tadawul issuer workflows (including timely uploading of post-closing summaries) are required prior to funding.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "memorandum of understanding",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: DesertLink Mobility CJSC (Riyadh; Commercial Registration CR 101-XYZ-0001, placeholder) and Oasis Payments LLC (Jeddah; CR 403-ABC-2222, placeholder) agree a non-binding term sheet for a minority strategic investment.\nPublic Disclosure: The parties have already announced a memorandum of understanding on 15 Rajab 1445H via the Tadawul issuer portal; this document contains no MNPI beyond the public announcement.\nTransaction Structure: Investment to be effected through a new issue of preferred units in Oasis Payments LLC with customary minority protections; valuation, price, and percentage are intentionally omitted here.\nRegulatory: Closing is conditional on any required notifications to the Capital Market Authority and compliance with Market Conduct Regulations; no prospectus is contemplated at this stage.\nPDPL Compliance: Each party will collect and process personal data in accordance with the KSA PDPL and Executive Regulations, applying purpose limitation, data minimization, and secure storage.\nCross-Border Transfer: Any offshoring of personal data (e.g., support tickets hosted on PalmStack Cloud) will follow SDAIA transfer controls and the Interim Regulatory Framework, with standard undertakings and records of processing.\nDEI & Culture: The \u201cOpen Desert\u201d policy promotes inclusive hiring, fair-play values, and employee wellness (hydration, mindfulness), without creating individual guarantees or quotas.\nTechnology & Products: Integration roadmap references SandCloud ERP, NajmPay wallet, and FalconGate API by way of illustration only; no customer-level data will be exchanged pre-closing.\nSponsorships: Existing community marketing (e.g., Dunes United FC clinics and Riyadh Oasis Marathon) is outside financial covenants and may be terminated without penalty.\nMarketing Language: Descriptive phrases (e.g., \u201cRiyadh skyline\u201d or \u201ccamel caravan pacing\u201d) in investor decks are non-binding and do not constitute warranties.\nSpecial-Category Data Exception (intentional): The individual signatory designated as \u201cSubject A\u201d (Iqama/Resident ID: IQ-77-0000-ABCD, invalid placeholder) provides explicit consent for processing limited health data regarding controlled hypertension solely for pre-employment medical clearance.\nData Boundaries: No biometric, genetic, religious, or political data will be collected for this transaction, and any CR/IBAN values in drafts are placeholders (e.g., CR 000-000-TEST; IBAN SA00 0000 0000 0000 0000 0000).\nRepresentations: Each party confirms no undisclosed related-party transactions requiring disclosure under the Listing Rules and disclaims reliance on forward-looking slogans or metaphors.\nConditions Precedent: Board approvals, updated constitutional documents, and completion of applicable Tadawul issuer workflows (including timely uploading of post-closing summaries) are required prior to funding.\nGoverning Law & Dispute Resolution: This term sheet is governed by the laws of the Kingdom of Saudi Arabia with non-exclusive jurisdiction of the Commercial Courts in Riyadh, and Arabic preva",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Open Desert",
+      "reason": "Policy/branding phrase; not PII or MNPI"
+    },
+    {
+      "matched_text": "SandCloud ERP",
+      "reason": "Product name; not PII or MNPI"
+    },
+    {
+      "matched_text": "NajmPay wallet",
+      "reason": "Product name; not PII or MNPI"
+    },
+    {
+      "matched_text": "FalconGate API",
+      "reason": "Product name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Dunes United FC",
+      "reason": "Sports/marketing reference; not PII or MNPI"
+    },
+    {
+      "matched_text": "Riyadh Oasis Marathon",
+      "reason": "Event/marketing reference; not PII or MNPI"
+    },
+    {
+      "matched_text": "Riyadh skyline",
+      "reason": "Descriptive metaphor; not PII or MNPI"
+    },
+    {
+      "matched_text": "camel caravan pacing",
+      "reason": "Descriptive metaphor; not PII or MNPI"
+    },
+    {
+      "matched_text": "PalmStack Cloud",
+      "reason": "Vendor/product name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role noun/section header; not PII or MNPI"
+    },
+    {
+      "matched_text": "Market Conduct Regulations",
+      "reason": "Regulation name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Capital Market Authority",
+      "reason": "Regulator name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Tadawul issuer portal",
+      "reason": "Platform reference; not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "consent basis",
+      "matched_text": "explicit consent",
+      "reason": "Legally relevant PDPL lawful basis but only withdrawal marker is in allowed rules."
+    },
+    {
+      "concept": "record of processing (RoPA)",
+      "matched_text": "records of processing",
+      "reason": "PDPL/ROPA compliance concept not covered by allowed rules."
+    },
+    {
+      "concept": "nonpublic/MNPI disclaimer",
+      "matched_text": "this document contains no MNPI beyond the public announcement",
+      "reason": "MNPI-related statement but negated and not clearly mapped to a listed MNPI rule."
+    },
+    {
+      "concept": "data protection principle",
+      "matched_text": "purpose limitation",
+      "reason": "Legally relevant PDPL principle not included in the allowed rule list."
+    }
+  ]
+}

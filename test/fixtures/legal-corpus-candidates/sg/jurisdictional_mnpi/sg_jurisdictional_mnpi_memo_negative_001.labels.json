@@ -81,11 +81,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
@@ -282,6 +282,18 @@
       "matched_text": "Internal Memorandum: MNPI/PDPA Handling for Proposed Acquisition by Helio Vista Holdings Ltd.\nTo: Board of Helio Vista Holdings Ltd. | From: Ms. Lin Wei, General Counsel | Date: 28 May 2026 | Contact: compliance@heliovista.sg\nHelio Vista (a Mainboard issuer on SGX-ST) has executed a confidential non-binding term sheet with Riverbay Partners Pte. Ltd. to acquire Luminex Marine Pte. Ltd.; no SGXNet announcement has been made\u2014treat all deal specifics as MNPI under SFA ss 218/219 and SGX Listing Manual Rule 703.\nSelective disclosure: Until a Rule 703 announcement is released via SGXNet, no analyst pre-briefings or vendor communications beyond the clean team; all third parties must be wall-crossed and acknowledge confidentiality.\nBlackout/closed period: Directors and Key Persons are restricted from dealing two weeks before the Q2 trading update and one month before FY results per our Securities Dealing Policy; the current blackout commences 10 June 2026.\nIssuer-relative materiality: Preliminary modelling (with Mr. Desmond Khoo, CFO) indicates the acquisition could add ~6\u20138% to group EBITDA; this likely triggers materiality for Helio Vista and may warrant a trading halt coordinated with SGX RegCo immediately prior to signing.\nPublic-status precision: The Annual Report 2024 and the 3 April 2026 SGXNet press release on divestment of Helio Vista Logistics (public) are not MNPI; reference to those filings in investor conversations is permitted.\nAdversarial note: A broad Harbor Ledger piece on \u201cregional shipyard consolidation\u201d is speculative and does not render our specific Luminex transaction generally available.\nCapital-markets intersection: If a concurrent placement is pursued, the indicative price range, investor wall-cross lists, and bookrunner term sheet remain MNPI until the price determination announcement; align trading halt timing with immediate release on SGXNet.\nEmployment/PDPA: Draft headcount rationalisation schedules (28 roles in fleet operations) at Luminex are not stand-alone material but, combined with the acquisition, may be material; handle personal data via the PDPA business asset transaction exception with access limited to the clean team.\nPDPA controls: Do not collect or circulate NRIC numbers or full residential addresses; minimise data, encrypt VDR exports, and route any queries to dpo@heliovista.sg.\nAlready announced items: The 15 May 2026 SGXNet update on vessel charter renewals and routine maintenance at Seaport East Yard are public and non-price sensitive; no additional disclosure is required.\nSubtle context: The draft board pack contains a non-final SPA earn-out contour and unaudited April revenue for Luminex; both are MNPI and must remain within the Insider List.\nNext steps: Prepare a Rule 703 announcement and, if leak risk escalates, request a trading halt; ensure all insiders acknowledge wall-crossing notices and comply with SFA and Listing Manual obligations during the closed period.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Lin Wei, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Desmond Khoo, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

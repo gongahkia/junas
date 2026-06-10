@@ -81,11 +81,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -148,6 +148,12 @@
       "category": "PII",
       "matched_text": "Minimisation: onboarding forms collect role\u2011based elements only; optional fields (e.g., personal interests) are suppressed by default and not stored",
       "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PDPA scope: PII means information relating to an identifiable person (directly or indirectly); we apply this to employee and vendor onboarding forms PDPA\u201101 and FIN\u2011KYC\u201105.\nDPA Schedule 2 (Sub\u2011processors) was refreshed; no change to processors in Thailand; cross\u2011border transfers remain restricted to approved destinations per Section 28 PDPA.\nPositive cross\u2011border transfer: Data\u2011Export Approval TH\u2011GX\u2011091 granted 10 May 2569 for hashed payroll identifiers to SkyLedger Analytics SGP Pte. Ltd. (Singapore) under SCC\u2011TH\u2011SG v2.1",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -177,16 +183,16 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "PDPA scope: PII means information relating to an identifiable person (directly or indirectly); we apply this to employee and vendor onboarding forms PDPA\u201101 and FIN\u2011KYC\u201105.\nDPA Schedule 2 (Sub\u2011processors) was refreshed; no change to processors in Thailand; cross\u2011border transfers remain restricted to approved destinations per Section 28 PDPA.\nPositive cross\u2011border transfer: Data\u2011Export Approval TH\u2011GX\u2011091 granted 10 May 2569 for hashed payroll identifiers to SkyLedger Analytics SGP Pte. Ltd. (Singapore) under SCC\u2011TH\u2011SG v2.1",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Internal Memo: PDPA and SEA Compliance Update \u2014 Pravaan Industries (Thailand) Public Company Limited (SET: PIVX, temp code TH-SET-0000)\nThis memo is for policy status only; it contains no undisclosed price\u2011sensitive information and relies on items already announced via SET News on 03 May 2569.\nPDPA scope: PII means information relating to an identifiable person (directly or indirectly); we apply this to employee and vendor onboarding forms PDPA\u201101 and FIN\u2011KYC\u201105.\nDPA Schedule 2 (Sub\u2011processors) was refreshed; no change to processors in Thailand; cross\u2011border transfers remain restricted to approved destinations per Section 28 PDPA.\nPositive cross\u2011border transfer: Data\u2011Export Approval TH\u2011GX\u2011091 granted 10 May 2569 for hashed payroll identifiers to SkyLedger Analytics SGP Pte. Ltd. (Singapore) under SCC\u2011TH\u2011SG v2.1.\nConsent management: the withdrawal portal is active and logged; no consent withdrawal tickets were opened this quarter; privacy@pravaan.example remains the contact mailbox.\nDSAR handling: no open access/correction/erasure requests as of month\u2011end; the DSAR SLA tracker shows 0 pending and 0 overdue.\nRetention: employee files are governed by RET\u201112 (12 months post\u2011termination) and finance records by RET\u201107 (7 years); no exceptions or holds are recorded.\nMinimisation: onboarding forms collect role\u2011based elements only; optional fields (e.g., personal interests) are suppressed by default and not stored.\nEmployment transfer clauses in the standard TH contract have been aligned to PDPA Sections 23\u201326; existing staff were notified by HR Bulletin 2569\u2011Q2.\nThe SEA insider list is maintained for directors and designated persons; no additions were made since the public One Report (Form 56\u20111) filed on 01 Apr 2569.\nSecurities identifiers referenced herein (e.g., \u201cISIN: ZZ0000000000\u201d, \u201cCUSIP 000\u2011000\u2011000\u201d) are placeholders and do not relate to any actual instrument.\nFinance covenants with Northera Bank (Thailand) Ltd. are disclosed in the loan agreement summary filed with the SEC; no undisclosed covenants or triggers exist.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DPA Schedule 2 (Sub\u2011processors) was refreshed; no change to processors in Thailand; cross\u2011border transfers remain restricted to approved destinations per Section 28 PDPA.\nPositive cross\u2011border transfer: Data\u2011Export Approval TH\u2011GX\u2011091 granted 10 May 2569 for hashed payroll identifiers to SkyLedger Analytics SGP Pte. Ltd. (Singapore) under SCC\u2011TH\u2011SG v2.1",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [],

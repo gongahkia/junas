@@ -1,0 +1,277 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_privacy_events_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/privacy_events/uk_privacy_events_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_privacy_events_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 16,
+    "current_must_detect_count": 7,
+    "current_must_not_detect_count": 2,
+    "previous_ideal_must_detect_count": 12,
+    "previous_must_detect_count": 6,
+    "previous_must_not_detect_count": 2
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_privacy_events_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@northalbioncapital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider\u2011list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer controls",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdraw consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not collect personal phone numbers for onboarding",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "exclude message content",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossing records",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdraw consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "North Albion Capital plc \u2014 DPA Schedule (HR, Onboarding, and Market\u2011Abuse Compliance) \u2014 United Kingdom\nController: North Albion Capital plc (UK issuer admitted to trading on the North Albion Exchange (NAEX)); Processor: Greyhaven Data Systems Ltd (HRIS/payroll).\nLawful bases: contract and legal obligation for employment records; legal obligation for UK MAR insider\u2011list maintenance; consent only for optional wellbeing surveys.\nCategories: role email, employee number, office location code (e.g., LDN\u201101), right\u2011to\u2011work evidence reference, training completion status; we do not collect personal phone numbers for onboarding.\nData minimisation: onboarding forms v2.3 require only mandatory role data; market surveillance logs capture header metadata by default and exclude message content unless an escalation is approved.\nRetention: recruitment records are held 12 months then anonymised; insider lists are retained for five years from the date the relevant information is made public; generic deal\u2011room access logs are held 24 months.\nData subject rights: requests are accepted via https://privacy.northalbioncapital.example/dsar or the mailbox privacy@northalbioncapital.example; verification uses role\u2011based checks rather than government IDs.\nDSAR/erasure handling: On 06 May 2026 we completed a DSAR and associated erasure for a former analyst; response logged as DSAR\u20112026\u2011077 and audit\u2011complete.\nConsent withdrawal: employees may withdraw consent to non\u2011essential wellbeing surveys at any time via the portal; no active withdrawals are pending as at the date of this note.\nCross\u2011border transfer controls: UK IDTA and Transfer Risk Assessment for Greyhaven\u2019s Calidora support centre were approved on 15 Jan 2026 (Approval Ref NAEX\u2011DXR\u20112026\u2011014); no export runs are scheduled this week.\nSecurity and access: data are encrypted at rest and in transit; insider\u2011list access is restricted to Compliance; deal documentation is stored in a segregated workspace with least\u2011privilege permissions.\nMNPI handling: MNPI is processed strictly for insider lists and wall\u2011crossing records under UK MAR; training materials use stale or publicly announced scenarios and do not include live transaction de",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun/defined term; not PII or MNPI"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun/defined term; not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "retention marker",
+      "matched_text": "Retention",
+      "reason": "Retention policy is a privacy handling event but no explicit rule for retention markers exists in the allowed set."
+    },
+    {
+      "concept": "DSAR intake",
+      "matched_text": "Data subject rights",
+      "reason": "Rights/DSAR processing is privacy-relevant but no DSAR marker rule is provided."
+    },
+    {
+      "concept": "DSAR portal URL",
+      "matched_text": "https://privacy.northalbioncapital.example/dsar",
+      "reason": "Indicates a DSAR submission endpoint; privacy-relevant but not covered by current rules."
+    },
+    {
+      "concept": "DSAR and erasure marker",
+      "matched_text": "DSAR/erasure handling",
+      "reason": "Completed DSAR/erasure handling is relevant but not mapped to a specific allowed marker rule."
+    },
+    {
+      "concept": "DSAR and erasure event",
+      "matched_text": "completed a DSAR and associated erasure",
+      "reason": "Describes request completion and deletion; privacy-relevant but not in allowed marker list."
+    },
+    {
+      "concept": "internal case ID",
+      "matched_text": "DSAR\u20112026\u2011077",
+      "reason": "Ticket/reference identifier may be personal-data-adjacent but not clearly mapped to an allowed PII rule."
+    },
+    {
+      "concept": "erasure operations",
+      "matched_text": "Deletion workflows",
+      "reason": "Deletion scheduling is privacy-relevant but there is no explicit erasure marker rule."
+    },
+    {
+      "concept": "erasure schedule",
+      "matched_text": "erasure jobs run monthly",
+      "reason": "Deletion cadence is a privacy handling event but not covered by allowed marker rules."
+    },
+    {
+      "concept": "internal approval reference",
+      "matched_text": "Approval Ref NAEX\u2011DXR\u20112026\u2011014",
+      "reason": "Internal approval ID may be an identifier but not mapped to any allowed PII rule."
+    },
+    {
+      "concept": "retention duration",
+      "matched_text": "recruitment records are held 12 months then anonymised",
+      "reason": "Retention policy is privacy-relevant but not covered by an allowed marker rule."
+    },
+    {
+      "concept": "retention duration",
+      "matched_text": "insider lists are retained for five years from the date the relevant information is made public",
+      "reason": "Retention policy is privacy-relevant but not covered by an allowed marker rule."
+    },
+    {
+      "concept": "retention duration",
+      "matched_text": "generic deal\u2011room access logs are held 24 months",
+      "reason": "Retention policy is privacy-relevant but not covered by an allowed marker rule."
+    }
+  ]
+}

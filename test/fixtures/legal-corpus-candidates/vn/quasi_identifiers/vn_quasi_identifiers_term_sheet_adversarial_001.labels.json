@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -340,6 +340,12 @@
       "matched_text": "Term Sheet \u2014 Proposed convertible bond issuance by Hoa Phong Technology Joint Stock Company (HPT JSC) to finance the acquisition of Aurora Bamboo Holdings Co., Ltd. in the Socialist Republic of Vietnam.\nInstrument: VND 320,000,000,000 unsecured convertible bonds, coupon 6.75% p.a., maturity 36 months, conversion at 20% discount to IPO price upon listing on HOSE (ticker to be HPTX), subject to SSC and VSD procedures.\nParties: Issuer\u2014HPT JSC (charter capital VND 150bn; ERC No. 0318\u20110x7c\u2011HPT, registered in District 7, HCMC); Investor\u2014Viet Quang Equity Partners Fund I; Advisor\u2014Mekong Star Capital Advisory JSC.\nConfidentiality and MNPI: disclosures include non-public revenue guidance and acquisition terms; the Parties agree to comply with Securities Law and SSC rules on handling MNPI and pre-disclosure on HOSE; unauthorized sharing of issuer/securities information is prohibited.\nPricing guidance relies on unaudited Q2 FY2026 revenue VND 96bn and H1 gross margin 38% (not yet publicly disseminated; potential price impact under Vietnamese Securities Law).\nUse of proceeds: deposit to Nam Viet Prosperity Bank, District 7 Branch, STK 0428\u201188xx\u2011xx17, SWIFT NVPBVVNX; applied to Aurora Bamboo Holdings purchase price and R&D for the BambooLink IoT Gateway and MocCloud Sensing Kit.\nContact and finance lead: Ms. Nguyen Thi Lan, CFO of HPT JSC, born 12/03/1988 (age 38), office at Sunrise Riverside, District 7, HCMC; email lan.nguyen@hptx.vn; device Miragebook X12, s e r i a l HPT\u2011LAN\u20117c a 9; vpn session id=LVN\u20110x9a7c; payroll ref LNP\u201136; personal bank details are not required and should not be provided.\nApprovals and timeline: SSC pre\u2011clearance, HOSE listing advisory, VSD registration; indicative submission window 15 working days; fallback listing route HNX/UPCoM if HOSE timeline slips.\nConditions precedent: Board and shareholder resolutions, confirmation of Enterprise Registration Certificate, audited FY2025 financials, compliance certificates; public release to be made via issuer website and HOSE portal post\u2011closing.\nMAC language: material adverse change as a termination right is expressly excluded; no MAC qualifier applies to closing deliverables, but fraud and wilful misconduct carve\u2011outs remain.\nData and policy notes: company privacy policy (public source) states we do not collect MAC addresses, IMEI, or precise geolocation in customer apps; market research demographics are generic (male/female, ages 18\u201355) and do not identify any person.\nSeparated weak identifiers (illustrative only, not linked to any individual): DOB 1990\u201105\u201105, District 1, android device category, acc: 88xx\u2011xx77 at Sample River Bank; these examples are placeholders and not personal data.\nFees, escrow and contacts: Investor to bear advisory fee 1.5%; escrow with Mekong Star Capital Advisory JSC; Mr. Le Hoang Minh (Chairman) reachable via minh.le@hptx.vn; hotline +84 28 3999 0022; data r",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Nguyen Thi Lan, CFO of HPT JSC, born 12",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

@@ -81,11 +81,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 5,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -193,6 +193,12 @@
       "category": "PII",
       "matched_text": "do not collect NRIC numbers for meeting access",
       "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A 35-year-old engineer in Citrus Park using an OrchidOS handset and commuting by bus, without more, is not identifiable and should not be treated as specific personal data.\nPublic-source references (e.g., Heliotrope\u2019s 2025 ESG overview publicly posted) can be used for diligence, but do not combine with internal Q3 run-rate models.\nIT logs show a guest Wi\u2011Fi login at the Bayleaf Square meeting room at 10:03 SGT under device \"HPC\u2011LT\u2011?0AK\" with masked MAC 00-1A-**-**-7D-5F; combined with role and time, re-identification risk is non-trivial",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -248,12 +254,6 @@
       "rule": "postal_address"
     },
     {
-      "category": "PII",
-      "matched_text": "A 35-year-old engineer in Citrus Park using an OrchidOS handset and commuting by bus, without more, is not identifiable and should not be treated as specific personal data.\nPublic-source references (e.g., Heliotrope\u2019s 2025 ESG overview publicly posted) can be used for diligence, but do not combine with internal Q3 run-rate models.\nIT logs show a guest Wi\u2011Fi login at the Bayleaf Square meeting room at 10:03 SGT under device \"HPC\u2011LT\u2011?0AK\" with masked MAC 00-1A-**-**-7D-5F; combined with role and time, re-identification risk is non-trivial",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "not generally available",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -270,6 +270,12 @@
       "matched_text": "Internal memo by Garnet & Loke LLC to Harbour Pine Capital Limited (SGX Mainboard issuer): proposed acquisition of Heliotrope Robotics Limited.\nUnder PDPA and SFA/SGX principles, this note is for internal circulation only and is not a trading instruction or public disclosure.\nMs. Aveline Khoo, Senior IR Manager at Harbour Pine Capital, DOB 14-03-1990, based at 12 Bayleaf Square, Lvl 25, Jade Promenade, accessed the draft offer via notebook \"HPC-LT-90AK\" and handset \"QuokkaPhone-12\" on 28-05-2026 08:16 SGT.\nCorporate email aveline.khoo@harbourpine.com.sg, internal account \"sap_hkhoo-0314\", session ref se ss-90ak-2026-05-28, and chat link https://threadworks.harbourpine.com/ch/offer?t=pre&uid=avk-0314 together may identify an individual.\nTreat those quasi-identifiers as personal data under PDPA; avoid forwarding outside the deal team and log access in the PDPA register.\nThe Draft Announcement includes an indicative cash consideration of S$2.02 per Heliotrope share and synergy assumptions of S$11.2m; this is MNPI under SFA/SGX as not generally available and reasonably expected to affect price.\nWe note no material adverse change is triggered by supplier delays; this is not a MAC and not a profit warning.\nA 35-year-old engineer in Citrus Park using an OrchidOS handset and commuting by bus, without more, is not identifiable and should not be treated as specific personal data.\nPublic-source references (e.g., Heliotrope\u2019s 2025 ESG overview publicly posted) can be used for diligence, but do not combine with internal Q3 run-rate models.\nIT logs show a guest Wi\u2011Fi login at the Bayleaf Square meeting room at 10:03 SGT under device \"HPC\u2011LT\u2011?0AK\" with masked MAC 00-1A-**-**-7D-5F; combined with role and time, re-identification risk is non-trivial.\nmeeting url h t t p s ://dealroom.harbourpine.com.sg/m&a/rf q?id=MB-2026-061&ses=7d5f_90ak, broken characters reflect OCR artefacts in the scan and do not alter content.\nContact Compliance at compliance@harbourpine.com.sg or ext 8421 for SGX Listing Manual Rule 703/704 queries; do not send the Draft via ChitChat and never share passwords.\nEmployment matters: coordinate with HR on retention pools and notify staff via PDPA-compliant notices before adding users to the data room; do not collect NRIC numbers for meeting access.\nCapital Markets workflow: pre-clear analyst briefing decks through DealVault\u2011IR, maintain an updated insider list, and stage the release for 7:30 a.m. SGT pending SGXnet clearance.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Public-source references (e.g., Heliotrope\u2019s 2025 ESG overview publicly posted) can be used for diligence, but do not combine with internal Q3 run-rate models.\nIT logs show a guest Wi\u2011Fi login at the Bayleaf Square meeting room at 10:03 SGT under device \"HPC\u2011LT\u2011?0AK\" with masked MAC 00-1A-**-**-7D-5F; combined with role and time, re-identification risk is non-trivial",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

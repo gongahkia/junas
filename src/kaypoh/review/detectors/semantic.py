@@ -95,9 +95,26 @@ SEMANTIC_PERSON_BIRTH_YEAR_APPOSITIVE_RE = re.compile(
     r"(?:\(|,|\u2014|-)\s*(?:born|birth\s+year|DOB\s+year)\s+"
     r"(?P<year>" + _BIRTH_YEAR_FRAGMENT + r")\s*(?:\)|,|;|$)"
 )
+SEMANTIC_PERSON_DOB_APPOSITIVE_RE = re.compile(
+    r"\b(?P<name>" + _SEMANTIC_PERSON_NAME + r")\s*"
+    r"(?:\(|,|\u2014|-)\s*(?:born|DOB|date\s+of\s+birth)\s*(?:on|is|:|=)?\s*"
+    r"(?P<dob>" + _DOB_DATE_FRAGMENT + r")\s*(?:\)|,|;|$)",
+    re.IGNORECASE,
+)
 SEMANTIC_PERSON_AGE_APPOSITIVE_RE = re.compile(
     r"\b(?P<name>" + _SEMANTIC_PERSON_NAME + r")\s*"
     r"(?:\(|,|\u2014|-)\s*(?:age|aged)\s+(?P<age>\d{2,3})\s*(?:\)|,|;|$)",
+    re.IGNORECASE,
+)
+SEMANTIC_PERSON_BARE_AGE_APPOSITIVE_RE = re.compile(
+    r"\b(?P<name>" + _SEMANTIC_PERSON_NAME + r")\s*(?:\(|,)\s*"
+    r"(?P<age>\d{2,3})\s*(?:\)|,|;)",
+)
+SEMANTIC_PERSON_DOB_UNKNOWN_AGE_RE = re.compile(
+    r"\b(?P<name>" + _SEMANTIC_PERSON_NAME + r")\s*(?:\(|,|\u2014|-)\s*"
+    r"(?:DOB|date\s+of\s+birth)\s+(?:unknown|not\s+provided|unavailable|withheld|not\s+recorded)"
+    r"\s*(?:[,;]?\s*but)?\s*(?:age\s*(?:is|:|=|recorded\s+as)?|aged)\s*(?P<age>\d{2,3})"
+    r"\s*(?:\)|,|;|$)",
     re.IGNORECASE,
 )
 _SEMANTIC_PERSON_FP_RE = re.compile(
@@ -499,6 +516,35 @@ def detect_semantic_pii_fallback_findings(
                 )
             )
             idx += 1
+        for match in SEMANTIC_PERSON_DOB_APPOSITIVE_RE.finditer(ctx.text):
+            if _SEMANTIC_PERSON_FP_RE.search(match.group("name")):
+                continue
+            value = match.group("dob")
+            if not _valid_dob_date(value):
+                continue
+            span = match.span("dob")
+            if span in seen:
+                continue
+            seen.add(span)
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="date_of_birth",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="high",
+                    matched_text=value,
+                    start=span[0],
+                    end=span[1],
+                    reason="Named-person appositive date-of-birth fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={
+                        "fallback": "semantic_named_person_appositive",
+                        "source": "KAYPOH_SEMANTIC_PII_FALLBACK",
+                    },
+                )
+            )
+            idx += 1
         for match in SEMANTIC_PERSON_AGE_APPOSITIVE_RE.finditer(ctx.text):
             if _SEMANTIC_PERSON_FP_RE.search(match.group("name")):
                 continue
@@ -531,6 +577,42 @@ def detect_semantic_pii_fallback_findings(
                 )
             )
             idx += 1
+        for pattern, reason in (
+            (SEMANTIC_PERSON_BARE_AGE_APPOSITIVE_RE, "Named-person bare appositive age fallback"),
+            (SEMANTIC_PERSON_DOB_UNKNOWN_AGE_RE, "Named-person DOB-context appositive age fallback"),
+        ):
+            for match in pattern.finditer(ctx.text):
+                if _SEMANTIC_PERSON_FP_RE.search(match.group("name")):
+                    continue
+                try:
+                    age = int(match.group("age"))
+                except ValueError:
+                    continue
+                if not 18 <= age <= 120:
+                    continue
+                span = match.span("age")
+                if span in seen:
+                    continue
+                seen.add(span)
+                out.append(
+                    new_finding(
+                        idx=idx,
+                        category="PII",
+                        rule="age_reference",
+                        jurisdiction=ctx.jurisdiction,
+                        severity="medium",
+                        matched_text=match.group("age"),
+                        start=span[0],
+                        end=span[1],
+                        reason=reason,
+                        legal_basis=ctx.legal_basis,
+                        metadata={
+                            "fallback": "semantic_named_person_appositive",
+                            "source": "KAYPOH_SEMANTIC_PII_FALLBACK",
+                        },
+                    )
+                )
+                idx += 1
     if local_ner_enabled:
         spans, _ = _local_ner_entities(ctx.text)
         for start, end, label in spans:

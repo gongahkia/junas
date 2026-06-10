@@ -1,0 +1,367 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_jurisdictional_mnpi_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/jurisdictional_mnpi/au_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_jurisdictional_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Rorke",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Owen Talford",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@karrinupbiodevices.example.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@pindarradata.example.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kestrel",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cnot generally available\u201d",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border disclosures",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Processor must not use these data to build profiles unrelated to the agreed services",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "securely destroy or de-identify data thereafter",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Effective from 02 Jun 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-briefings may only occur using scripts that mirror the lodged announcement",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced earnings ranges",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "terms of a pending placement",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market sensitive",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market sensitive information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "from 30 days before half-year and full-year results until the close of trading on the day after the announcement",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "during any period notified by the Company Secretary",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "overseas disclosure under APP 8",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "offer letters and start dates for a new CFO not yet announced",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price sensitive",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "WHS health assessments",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "WHS health records",
+      "rule": "health_condition"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Listing Rule 3.1 timing",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd\u2019s quoted products as market sensitive and \u201cnot generally available\u201d within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security and breach: Processor must maintain ISO-27001-aligned controls and notify Karrinup BioDevices Ltd within 48 hours of becoming aware of an eligible data breach, with content sufficient for OAIC notification if required.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Rorke",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Owen Talford",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd\u2019s quoted products as market sensitive and \u201cnot generally available\u201d within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security and breach: Processor must maintain ISO-27001-aligned controls and notify Karrinup BioDevices Ltd within 48 hours of becoming aware of an eligible data breach, with content sufficient for OAIC notification if required.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kestrel",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Points of contact: Ms. Tamsin Rorke, Privacy Officer, privacy@karrinupbiodevices.example.au; and Dr. Owen Talford, Compliance Lead at Pindarra Data Services Pty Ltd, compliance@pindarradata.example.com.au.\nEffective from 02 Jun 2026 and continuing for the term of the Master Services Agreement, subject to updates reflecting changes to the Corporations Act, the Listing Rules, or the Australian Privacy Principles",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd\u2019s quoted products as market sensitive and \u201cnot generally available\u201d within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.\nNo selective disclosure: any market sensitive information must not be disclosed to any third party unless and until it has been released on the market announcements platform in accordance with continuous disclosure obligations (Listing Rule 3.1 timing) or a cleansing notice has been lodged, and Processor personnel must not trade in our securities while in possession of such information (insider trading prohibitions ss1042A\u20131043A).\nBlackout windows apply to all Processor staff with access to finance, HR or board materials: from 30 days before half-year and full-year results until the close of trading on the day after the announcement, and during any period notified by the Company Secretary; pre-briefings may only occur using scripts that mirror the lodged announcement.\nSubtle note: payroll and recruitment files may embed MNPI (e.g., offer letters and start dates for a new CFO not yet announced), and aggregated device shipment reports may be price sensitive if they reveal performance trends not generally available.\nPublic-information carve-out: information contained in our Appendix 4E for FY25 lodged on 29 Aug 2026 and the investor presentation released on 17 May 2025 are generally available and may be disclosed; the media summary issued on 01 Mar 2024 is stale and should not be relied upon for current processing instructions.\nFor precision: Pindarra\u2019s internal office relocation notice dated 12 Sep 2025 is a non-issuer operational update and is not relevant to MNPI controls under this DPA.\nCross-border disclosures: Processor will host primary systems in Australia; any overseas disclosure under APP 8 (e.g., support access from New Zealand) requires prior written consent, documented safeguards, and Processor assumes s16C accountability for breaches by overseas recipients.\nSecurity and breach: Processor must maintain ISO-27001-aligned controls and notify Karrinup BioDevices Ltd within 48 hours of becoming aware of an eligible data breach, with content sufficient for OAIC notification if required.\nRetention: unless otherwise directed, retain HR and WHS health records for 7 years after employment ends, credit assessment records for 7 years after account closure, and transactional billing logs for 7 years; securely destroy or de-identify data thereafter, with certificates of destruction on request.\nData subject rights: Processor will assist Karrinup BioDevices Ltd to respond to access and correction requests under APP 12 and APP 13 within 30 days; all direct requests received by Processor must be forwarded without delay and not answered except to acknowledge receipt.\nPublic filing reference for status checks: see the Director\u2019s Appendix 3Y lodged on 14 Dec 2025 for already-announced changes in interests; draft board papers discussing prospective issuances remain not generally available until an announcement is released.\nPoints of contact: Ms. Tamsin Rorke, Privacy Officer, privacy@karrinupbiodevices.example.au; and Dr. Owen Talford, Compliance Lead at Pindarra Data Services Pty Ltd, complianc",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Processor",
+      "reason": "Role-noun defined term, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Privacy Officer",
+      "reason": "Role title, not PII/MNPI on its own"
+    },
+    {
+      "matched_text": "Compliance Lead",
+      "reason": "Role title, not PII/MNPI on its own"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role title, not PII/MNPI on its own"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "retention",
+      "matched_text": "Retention",
+      "reason": "Data retention marker is legally relevant but not mapped to an allowed rule label"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "retain HR and WHS health records for 7 years after employment ends",
+      "reason": "Retention duration is a privacy control; no explicit allowed retention rule provided"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "credit assessment records for 7 years after account closure",
+      "reason": "Retention duration is a privacy control; no explicit allowed retention rule provided"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "transactional billing logs for 7 years",
+      "reason": "Retention duration is a privacy control; no explicit allowed retention rule provided"
+    },
+    {
+      "concept": "DSAR marker",
+      "matched_text": "Data subject rights",
+      "reason": "Access/correction rights are privacy-event markers but only consent withdrawal is enumerated in allowed rules"
+    },
+    {
+      "concept": "DSAR scope",
+      "matched_text": "access and correction requests under APP 12 and APP 13",
+      "reason": "Data subject access/correction is relevant but not an allowed rule label"
+    },
+    {
+      "concept": "consent requirement",
+      "matched_text": "prior written consent",
+      "reason": "Consent is relevant to cross-border disclosures but only withdrawal is an allowed rule"
+    },
+    {
+      "concept": "breach notification",
+      "matched_text": "eligible data breach",
+      "reason": "Breach notification is privacy-relevant but there is no generic breach marker in allowed rules"
+    },
+    {
+      "concept": "breach notification timeframe",
+      "matched_text": "notify Karrinup BioDevices Ltd within 48 hours of becoming aware of an eligible data breach",
+      "reason": "Timing for breach notice is privacy-relevant but not in allowed rules"
+    },
+    {
+      "concept": "cross-border accountability",
+      "matched_text": "s16C accountability",
+      "reason": "Overseas disclosure accountability is relevant but not a defined allowed rule"
+    },
+    {
+      "concept": "insider trading prohibition",
+      "matched_text": "must not trade in our securities while in possession of such information",
+      "reason": "Insider trading control is MNPI-relevant but not mapped to a specific allowed rule beyond blackout/selective disclosure"
+    },
+    {
+      "concept": "MNPI topic",
+      "matched_text": "prospective issuances",
+      "reason": "Indicative of future capital actions; no specific allowed rule beyond contingent MNPI language"
+    },
+    {
+      "concept": "disclosure channel",
+      "matched_text": "market announcements platform",
+      "reason": "ASX disclosure conduit is contextually relevant to selective disclosure but not an allowed rule"
+    },
+    {
+      "concept": "regulatory notification",
+      "matched_text": "OAIC notification",
+      "reason": "Regulatory breach notification is privacy-relevant but not an allowed rule label"
+    }
+  ]
+}

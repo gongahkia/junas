@@ -1,0 +1,344 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking. Current strict tier was realigned after SA/US precision guards; ideal_must_detect preserves removed strict spans for gap review.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AE",
+    "doc_id": "ae_jurisdictional_mnpi_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ae/jurisdictional_mnpi/ae_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "AE",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ae_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "global_stale_strict_realign": {
+      "reason": "Current precision guards suppress these spans; strict must_detect was realigned while ideal_must_detect preserved the broader auto-label signal.",
+      "removed_must_detect": [
+        {
+          "category": "MNPI",
+          "matched_text": "Project Pearl",
+          "rule": "transaction_codename"
+        }
+      ],
+      "reviewed_at": "2026-06-05T15:14:44Z",
+      "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json"
+    },
+    "new_ideal_must_detect_count": 28,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 23,
+    "old_must_detect_count": 15,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:14:44Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@miragegrid.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@sandduneadvisors.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@miragegrid.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Huda Al Qasimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tareq N. Al Marei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Trade Licence TL-DIFC-0O1-2l3",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Pearl",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list maintained in the DFSA format",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers: permitted under PDPL with appropriate safeguards (intra-group binding rules; SCC-style clauses for non-adequate jurisdictions); subprocessors in KSA and EU are listed at htt ps://miragegrid.ae/subp rocessors.pdf",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "subprocessors in KSA and EU",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "b l a c k o u t w i n d o w",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Wall-crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "receive MNPI only under NDA",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID 784-1\u258834-5678\u25880-1",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "client code MG-CLl-0097",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimal profiling",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u22652%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u22655%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tareq",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality guidance: \u22652% of consolidated gross assets or \u22655% of quarterly EBITDA triggers ad hoc disclosure on the next trading day via ADX/DFM; DIFC-listed sukuk follow DFSA dissemination cut-offs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Wall-crossing",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Huda Al Qasimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tareq",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality guidance: \u22652% of consolidated gross assets or \u22655% of quarterly EBITDA triggers ad hoc disclosure on the next trading day via ADX/DFM; DIFC-listed sukuk follow DFSA dissemination cut-offs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing Addendum and MNPI Handling Schedule between Mirage Grid PJSC (Controller) and Sand Dune Advisors FZ-LLC (Processor), UAE.\nScope: personal data per UAE PDPL, including onboarding KYC (Emirates ID scans, trade licence copies, contact details, family origin where lawfully provided), and deal-room access logs.\nLawful basis: contract performance and legitimate interests; storage primarily in the UAE (on DIFC-hosted systems) with failover in ADGM; minimal profiling, no automated decisions with legal effect.\nRoles and contacts: Controller DPO Ms. Huda Al Qasimi, dpo@miragegrid.ae, Gate 7, DIFC, Dubai; Processor contact: Mr. Tareq N. Al Marei, compliance@sandduneadvisors.ae.\nDSAR: submit to privacy@miragegrid.ae or via https://miragegrid.ae/pri vacy/DSAR; acknowledgment within 7 days and response within 30 days per PDPL, subject to legal holds.\nTransfers: permitted under PDPL with appropriate safeguards (intra-group binding rules; SCC-style clauses for non-adequate jurisdictions); subprocessors in KSA and EU are listed at htt ps://miragegrid.ae/subp rocessors.pdf.\nRetention: Emirates ID copy deleted within 90 days post-verification; trade licence data retained 6 years; deal-room logs retained through closure plus 5 years; no \u201cnot a MAC\u201d carveout changes retention.\nMNPI definition: non-public, price-sensitive issuer information per SCA market conduct rules, DIFC MAR, and ADGM MKT; issuer-relative materiality assessed by the Disclosure Committee.\nDisclosure timing: no selective disclosure; public release via DFM/ADX announcements and SCA-approved eServices; b l a c k o u t w i n d o w from quarter-end until 24h after publication.\nWall-crossing: potential investors and advisors receive MNPI only under NDA; insider list maintained in the DFSA format; confirmations archived under ref: INS-\u0394-2026/0O2.\nPublic reference for precision: the \u201cProject Pearl\u201d revolving facility was already disclosed by Mirage Grid PJSC on DFM eDisclosure 05-03-2024 (press release link: https://dfm.ae/issuers/mirage-grid/pearl-release.pdf) and is not MNPI.\nNon-issuer updates like cafeteria hours, FalconPay Lite product FAQs, or legacy blog posts, and broad press-release summaries from trade media do not trigger this Schedule.\nMateriality guidance: \u22652% of consolidated gross assets or \u22655% of quarterly EBITDA triggers ad hoc disclosure on the next trading day via ADX/DFM; DIFC-listed sukuk follow DFSA dissemination cut-offs.\nExample personal identifiers processed for due diligence: Emirates ID 784-1\u258834-5678\u25880-1; Trade Licence TL-DIFC-0O1-2l3; client code MG-CLl-0097; these are obfuscated and for illustration.\nRecords of processing are available on request and may cite public filings (e.g., Mirage Grid Annual Report 2024 at https://adx.ae/issuers/mirage-grid/annual2024.pdf), which are already public and outside MNPI scope.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role noun, not a PII value by itself"
+    },
+    {
+      "matched_text": "Disclosure Committee",
+      "reason": "Governance role noun, not PII/MNPI value"
+    },
+    {
+      "matched_text": "INS-\u0394-2026/0O2",
+      "reason": "Internal reference code; not an allowed PII/MNPI category"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "sensitive personal data (heritage/ethnicity)",
+      "matched_text": "family origin",
+      "reason": "Potential special-category personal data under PDPL but not mapped to a specific allowed rule name"
+    },
+    {
+      "concept": "metadata/telemetry PII",
+      "matched_text": "deal-room access logs",
+      "reason": "Likely contains identifiers (IP, device IDs, session IDs) but no explicit allowed rule directly referenced"
+    },
+    {
+      "concept": "retention/erasure marker",
+      "matched_text": "Emirates ID copy deleted within 90 days post-verification",
+      "reason": "Data retention/erasure control is relevant under PDPL but no explicit 'retention_marker' rule in allowed list"
+    },
+    {
+      "concept": "data localisation/sovereignty",
+      "matched_text": "storage primarily in the UAE (on DIFC-hosted systems) with failover in ADGM",
+      "reason": "Processing location is privacy-relevant but not covered by an allowed marker rule"
+    },
+    {
+      "concept": "data subject rights request",
+      "matched_text": "DSAR",
+      "reason": "DSAR workflow is privacy-relevant but no dedicated DSAR rule in allowed list"
+    },
+    {
+      "concept": "automated decision-making limitation",
+      "matched_text": "no automated decisions with legal effect",
+      "reason": "PDPL-relevant but not covered by an allowed rule name"
+    }
+  ]
+}

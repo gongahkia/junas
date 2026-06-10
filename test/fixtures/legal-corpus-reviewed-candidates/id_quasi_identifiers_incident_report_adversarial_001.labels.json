@@ -1,0 +1,380 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "ID",
+    "doc_id": "id_quasi_identifiers_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/id/quasi_identifiers/id_quasi_identifiers_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "ID",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/id_quasi_identifiers_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "r.gunawan@sinararunika.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sample.user@example.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+62-21-555-0182",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1979-03-05",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Gunawan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Gunawan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tembaga",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bpk. Raka Gunawan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14-02-1986",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "usia 40",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "asset tag A-14-77",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ibu Sari Mahendra",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "media@sinararunika.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "belum diumumkan ke OJK/BEI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "laporan ini bersifat internal dan rahasia",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "belum ada keterbukaan informasi ke BEI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "penyebaran informasi ini dapat memengaruhi harga efek",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draf non-publik",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "berpotensi material",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Klaster pengenal lemah terkait personel: Bpk. Raka Gunawan (lahir 14-02-1986, usia 40), Senior DevOps PT Sinar Arunika Teknologi Tbk, perangkat \u201cAndalas-14\u201d (asset tag A-14-77), login terakhir 22:41 WIB dari Bandung (ID-WJ), surel r.gunawan@sinararunika.co.id",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "s e s s i o n: 7F-9 2-A1",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vpn acct rgunawan-ops",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "akun admin dompet akhiran -4421",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "uID 9x-44-77 (trunc)",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rekening uji berakhiran 5520",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1979-03-05",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-07",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "akuisisi PT Orbit Nusantara Inovasi",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "akses API tidak sah",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "r.gunawan@sinararunika.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sample.user@example.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+62-21-555-0182",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1979-03-05",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Gunawan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Gunawan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tembaga",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Potensi MNPI: folder /board berisi KPI internal Q2 dan draf term sheet akuisisi PT Orbit Nusantara Inovasi (belum diumumkan ke OJK/BEI); penyebaran informasi ini dapat memengaruhi harga efek.\nKlaster pengenal lemah terkait personel: Bpk. Raka Gunawan (lahir 14-02-1986, usia 40), Senior DevOps PT Sinar Arunika Teknologi Tbk, perangkat \u201cAndalas-14\u201d (asset tag A-14-77), login terakhir 22:41 WIB dari Bandung (ID-WJ), surel r.gunawan@sinararunika.co.id.\nDetail tambahan: s e s s i o n: 7F-9 2-A1; vpn acct rgunawan-ops; akun admin dompet akhiran -4421; endpoint hxxps://ops.sinararunika.co.id/panel?user=raka.g.1986&view=logs.\nWalau beberapa nama muncul di komentar kode, kami tidak menyimpan NPWP, nomor rekening bank nasabah, atau data biometrik; data publik seperti pedoman POJK tersedia umum dan bukan PII.\nPengenal lemah terpisah (contoh QA, tidak terhubung ke individu): DOB 1979-03-05; kota: Yogyakarta; model perangkat \u201cMerapi-3\u201d; rekening uji berakhiran 5520; email sample.user@example.test.\nDampak nasabah: 118 saldo sandbox menampilkan cap waktu transaksi yang keliru; tidak ada perpindahan dana; estimasi DAU/churn Q2 berada dalam draf non-publik dan berpotensi material.\nTingkat keparahan diklasifikasikan Tinggi sesuai kebijakan risiko TI (Ref: POJK-IT/2025-07 internal); Divisi Kepatuhan (Ibu Sari Mahendra) melakukan konsultasi ke OJK; belum ada keterbukaan informasi ke BEI.\nAkar penyebab: kunci API usang pada microservice \u201cGarudaPay-Ledger\u201d dideploy rekanan 2026-05-20; kunci diputar 2026-06-01 03:10 WIB; audit trail antarsistem kustodian dan kliring internal tidak terpengaruh.\nPenanganan: endpoint /v1/export dinonaktifkan; 12 token layanan direset; aturan WAF id XJ-208 diterapkan; tiket insiden hxxps://portal.sinararunika.co.id/case?id=INV%3D7731&user=rgunawan_1986.\nArtefak forensik: perangkat \u201cAndalas-14\u201d mencatat sha256 1c6f\u20260b2 (dipotong); uID 9x-44-77 (trunc); log OCR terpisah: \u201cacc ount: adm in-4421 ban d u n g\u201d.\nCatatan kepegawaian: Mr. Gunawan dalam PKWT hingga 2026-12-31 di PT Sinar Arunika Teknologi Tbk; HR menilai kesesuaian lingkup akses dengan peran.\nTata kelola: draf memo RemCo ke Dewan memuat grid kinerja kandidat COO kelahiran 1990-07 (bulan saja), tanpa nama; informasi generik ini tidak mengidentifikasi siapa pun.\nKomunikasi: draf holding statement disiapkan; kami menghindari proyeksi keuangan; kontak media: media@sinararunika.co.id, hotline +62-21-555-0182.\nCatatan: laporan ini bersifat internal dan rahasia; penyebutan \u201cGreenOps\u201d dan \u201cProject Tembaga\u201d adalah nama produk; bukan MAC, IMEI, atau identitas perangkat lain.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NIK/KTP",
+      "reason": "Negated mention; no actual identifier values present"
+    },
+    {
+      "matched_text": "MAC address",
+      "reason": "Negated mention; no actual identifier values present"
+    },
+    {
+      "matched_text": "NPWP",
+      "reason": "Negated mention; no actual identifier values present"
+    },
+    {
+      "matched_text": "nomor rekening bank nasabah",
+      "reason": "Negated mention; no actual identifier values present"
+    },
+    {
+      "matched_text": "data biometrik",
+      "reason": "Negated mention; no actual identifier values present"
+    },
+    {
+      "matched_text": "IMEI",
+      "reason": "Mentioned as not applicable; no identifier value provided"
+    },
+    {
+      "matched_text": "Yogyakarta",
+      "reason": "Generic location alone is not identifiable PII"
+    },
+    {
+      "matched_text": "Merapi-3",
+      "reason": "Generic device model; not identifying by itself"
+    },
+    {
+      "matched_text": "GreenOps",
+      "reason": "Product name; does not match transaction codename pattern"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "internal_session_id",
+      "matched_text": "s e s s i o n: 7F-9 2-A1",
+      "reason": "Looks like a session identifier but spaced formatting may evade strict patterns"
+    },
+    {
+      "concept": "employee_username/ID",
+      "matched_text": "vpn acct rgunawan-ops",
+      "reason": "Username likely links to an employee; not a standard employee_id format"
+    },
+    {
+      "concept": "device/user identifier",
+      "matched_text": "uID 9x-44-77 (trunc)",
+      "reason": "Truncated identifier; unclear if device serial or user ID"
+    },
+    {
+      "concept": "linkable user parameter",
+      "matched_text": "endpoint hxxps://ops.sinararunika.co.id/panel?user=raka.g.1986&view=logs",
+      "reason": "Query parameter reveals a handle that can identify a person; not directly mapped to a specific rule"
+    },
+    {
+      "concept": "account suffix",
+      "matched_text": "akun admin dompet akhiran -4421",
+      "reason": "Truncated wallet/admin account; may fall under customer_account_number but ambiguous"
+    },
+    {
+      "concept": "test account suffix",
+      "matched_text": "rekening uji berakhiran 5520",
+      "reason": "Example/test account not tied to a natural person; category ambiguous"
+    },
+    {
+      "concept": "internal performance metrics MNPI",
+      "matched_text": "KPI internal Q2",
+      "reason": "Non-public KPIs are potentially material but no explicit allowed rule token"
+    },
+    {
+      "concept": "operational metrics MNPI",
+      "matched_text": "estimasi DAU/churn Q2",
+      "reason": "Internal forecasts likely MNPI but not directly covered by listed rules"
+    },
+    {
+      "concept": "device name as identifier",
+      "matched_text": "Andalas-14",
+      "reason": "Asset name may function as an identifier but not clearly a serial number per rule"
+    },
+    {
+      "concept": "example date of birth",
+      "matched_text": "DOB 1979-03-05",
+      "reason": "Appears in QA example and not linked to an identifiable person; borderline for PII labeling"
+    },
+    {
+      "concept": "partial birth date",
+      "matched_text": "1990-07",
+      "reason": "Month-year only; partial DOB may not be captured by strict detectors"
+    }
+  ]
+}

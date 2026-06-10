@@ -1,0 +1,373 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_direct_identifiers_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_direct_identifiers_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_resolved_label_warnings": [
+    {
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 420 crore'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 420 crore'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_direct_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "saanvi.rao@aurorabharat.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "arvind.menon@nimbusql.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-90000-88888",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27AAQPL3456P1Z9",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Saanvi Rao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arvind Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Nimbus Quantum Logistics Private Limited by Aurora Bharat Mobility Limited (India).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "75%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "431999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "209999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending board sign-off",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "chinese wall",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "29QZTPA1234F1Z0",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "QZTPA1234F",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Q Z T P A 1 2 3 4 F",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1234 5678 9012",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Z1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "004201876543",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "individuals under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Unpublished price sensitive information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window closure",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list maintenance",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipper\u2013tippee sharing",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not email scanned cards without redaction",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "saanvi.rao@aurorabharat.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "arvind.menon@nimbusql.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-90000-88888",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27AAQPL3456P1Z9",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Saanvi Rao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arvind Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Nimbus Quantum Logistics Private Limited by Aurora Bharat Mobility Limited (India).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "75%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "431999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "209999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending board sign-off",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "chinese wall",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Nimbus Quantum Logistics Private Limited by Aurora Bharat Mobility Limited (India).\nAcquirer details: Aurora Bharat Mobility Limited, C I N: L 2 9 3 0 8 K A 2 0 2 1 P L C 0 7 9 1 2 3; listed on NSE and BSE (symbol: NVBM, for illustration only).\nPrimary contact: Ms. Saanvi Rao, Company Secretary, saanvi.rao@aurorabharat.example.in, tel: +91-90000-88888; website: https://investors.aurora.example.in.\nTarget details: Nimbus Quantum Logistics Private Limited (CIN: U60232MH2018PTC441221; GSTIN: 27AAQPL3456P1Z9), registered office at Plot 14, Orbit Enclave, MIDC Phase 4, Aurangabad 431999, Maharashtra.\nConsideration: INR 420 crore (75% cash, 25% share swap), subject to completion accounts under Ind AS 103; any equity issuance will comply with SEBI (LODR) Regulations, 2015.\nUPSI handling: Unpublished price sensitive information will be shared only post-NDA as per SEBI (PIT) Regulations, with trading window closure and insider list maintenance; this sentence is not MNPI.\nData room: https://dataroom.aurora.example.in/deal?pid=PAN%3DQZTPA1234F&gst=29QZTPA1234F1Z0 (URL contains masked identifiers for diligence).\nKYC/PII for signatories: P A N: Q Z T P A 1 2 3 4 F; Aadhaar: 1234 5678 9012 (sample with invalid checksum); Passport (India): Z1234567; do not email scanned cards without redaction.\nEscrow and settlement: Fictional India Commerce Bank, IFSC FICB0001234, A/c No. 004201876543, UPI: aurora.escrow@ficb; beneficiary name must match board resolution.\nAcquirer tax profile: GSTIN (Karnataka) 29QZTPA1234F1Z0 (illustrative, checksum not valid); corporate address: TechVista Park, Tower C, Sector 98, New Noida 209999, Uttar Pradesh.\nData protection: Each Party shall issue a DPDP Act-compliant notice and obtain consent where required; no processing of personal data of individuals under 18 without verifiable guardian consent; appoint a Grievance Officer.\nPlaceholders not to be treated as identifiers: Compliance Officer: __________; PAN (to be filled): ________; phone (helpline): 1800-000-1122; role-only names like \u201cAuthorised Signatory\u201d are not persons.\nCovenants: No forward dealing or tipper\u2013tippee sharing; no auto-forwarding of emails; chinese wall to be maintained; negative MAC: normal product roadmap changes shall not constitute a Material Adverse Change.\nConditions precedent and approvals: CCI notification if thresholds met, RBI approval for any non-resident remittance, SEBI observation letter if required, NSE/BSE intimation, target board and shareholder approvals.\nSignatories: Mr. Arvind Menon, Director, arvind.menon@nimbusql.example.in; For Acquirer \u2014 Authorised Signatory; pending board sign-off, do kickoff after greenlight; drawdown schedule attached in Annexure A.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Arvind Menon, Director",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of Nimbus Quantum Logistics Private Limited",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Authorised Signatory",
+      "reason": "Role-only defined term; not a person identifier."
+    },
+    {
+      "matched_text": "Compliance Officer: __________",
+      "reason": "Placeholder/role; not an actual identifier."
+    },
+    {
+      "matched_text": "PAN (to be filled): ________",
+      "reason": "Placeholder; no actual PAN present."
+    },
+    {
+      "matched_text": "1800-000-1122",
+      "reason": "Public helpline number; excluded by negative target."
+    },
+    {
+      "matched_text": "Acquirer",
+      "reason": "Role noun used as a defined term; not a person identifier."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role noun used as a defined term; not a person identifier."
+    },
+    {
+      "matched_text": "aurora.escrow@ficb",
+      "reason": "UPI VPA handle; not an email address to be labeled."
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "IFSC bank routing code",
+      "matched_text": "FICB0001234",
+      "reason": "Bank routing identifiers are sensitive but not covered by allowed rules."
+    },
+    {
+      "concept": "privacy notice obligation",
+      "matched_text": "DPDP Act-compliant notice",
+      "reason": "Compliance control is privacy-relevant but not mapped to an allowed marker rule."
+    },
+    {
+      "concept": "consent requirement",
+      "matched_text": "obtain consent",
+      "reason": "General consent references are privacy-relevant but only withdrawal is in allowed rules."
+    },
+    {
+      "concept": "guardian consent for child data",
+      "matched_text": "verifiable guardian consent",
+      "reason": "Child-data consent is privacy-relevant but not explicitly listed as a separate allowed rule."
+    },
+    {
+      "concept": "UPI VPA payment identifier",
+      "matched_text": "UPI: aurora.escrow@ficb",
+      "reason": "UPI handles are account identifiers but not explicitly covered by allowed rules."
+    }
+  ]
+}

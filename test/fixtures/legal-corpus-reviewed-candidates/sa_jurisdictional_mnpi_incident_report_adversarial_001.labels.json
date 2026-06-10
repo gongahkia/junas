@@ -1,0 +1,364 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_jurisdictional_mnpi_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/jurisdictional_mnpi/sa_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 34,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 28,
+    "old_must_detect_count": 22,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "salma.qassim@najdsholding.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1 0 1-88-22 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rami Al\u2011Harbi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Leena Al\u2011Sudairy",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adnan Al\u2011Mutlaq",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "C R : 1 0 1-88-22 1",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama: 20 1\u20114*\u2011**83",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "National ID: 1 0 9 7\u2011**\u2011**56 34",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@najdsholding.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@najdsholding.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966\u201111\u2011555\u20110909",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eng. Salma Al\u2011Qassim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PDPL transfer permit request has been lodged",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public and price\u2011sensitive",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list maintained on request",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list updated (IL\u201125\u20110 0 7)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not brief sell\u2011side",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material development notice",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Examples (fictional, redacted): Eng. Salma Al\u2011Qassim \u2014 Iqama: 20 1\u20114*\u2011**83, email: salma.qassim@najdsholding.sa; Mr. Rami Al\u2011Harbi \u2014 National ID: 1 0 9 7\u2011**\u2011**56 34, phone ext. 4 1 2",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vendor outside KSA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anomalous access to the HR payroll vault",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This information is non\u2011public and price\u2011sensitive under the KCMA Market Conduct Code",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "distribution is limited to the Disclosure Committee, Audit Chair, and IR",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed period (blackout window) from 1447/11/05 H until the H1 results announcement",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insiders are restricted from trading until T+1 after any market disclosure",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward externally",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "issuer\u2011relative materiality threshold",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No cross\u2011border personal data transfer has occurred; a PDPL transfer permit request has been lodged with the State Data & AI Authority portal (SDAA) \u2014 case https://permits.sdaa.example.sa/tx?ref=CR-11-004-77&case=8f2a-9b-33 \u2014 pending approval for forensic review by a vendor outside KSA.\nFor clarity, this incident is unrelated to our already announced logistics footprint plan (public filing RE\u2011NJDH\u20112025\u201105\u2011001 on 2025\u201105\u201102 G: https://ir.najdsholding.sa/ann?id=RE-NJDH-2025-05-001) and to the sustainability press release dated 2025\u201102\u201110 (widely distributed).\nThe third\u2011party cloud provider\u2019s public status page notes a routine RY\u20113 maintenance window in Jeddah on 2025\u201105\u201112; that public information is operational and does not pertain to issuer MNPI",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "salma.qassim@najdsholding.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1 0 1-88-22 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rami Al\u2011Harbi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Leena Al\u2011Sudairy",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adnan Al\u2011Mutlaq",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "At 23:40 KSA time on 2025-05-14, our SOC flagged anomalous access to the HR payroll vault; preliminary triage shows limited exfiltration of hashed employee fields and several partially masked Iqama/National ID entries.\nExamples (fictional, redacted): Eng. Salma Al\u2011Qassim \u2014 Iqama: 20 1\u20114*\u2011**83, email: salma.qassim@najdsholding.sa; Mr. Rami Al\u2011Harbi \u2014 National ID: 1 0 9 7\u2011**\u2011**56 34, phone ext. 4 1 2.\nCurrent operational impact is constrained to the Riyadh payroll batch; revenue impact from delayed service renewals is estimated at 6.2% of Q2 segment sales, which may meet our issuer\u2011relative materiality threshold per Continuing Obligations policy",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact: compliance@najdsholding.sa and ir@najdsholding.sa; hotline +966\u201111\u2011555\u20110909; sign\u2011off by Dr. Leena Al\u2011Sudairy (Chair, Disclosure Committee) and Mr. Adnan Al\u2011Mutlaq (CIO)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Examples (fictional, redacted): Eng. Salma Al\u2011Qassim \u2014 Iqama: 20 1\u20114*\u2011**83, email: salma.qassim@najdsholding.sa; Mr. Rami Al\u2011Harbi \u2014 National ID: 1 0 9 7\u2011**\u2011**56 34, phone ext. 4 1 2.\nCurrent operational impact is constrained to the Riyadh payroll batch; revenue impact from delayed service renewals is estimated at 6.2% of Q2 segment sales, which may meet our issuer\u2011relative materiality threshold per Continuing Obligations policy.\nThis information is non\u2011public and price\u2011sensitive under the KCMA Market Conduct Code; selective disclosure is prohibited and distribution is limited to the Disclosure Committee, Audit Chair, and IR, with an insider list maintained on request.\nWe are within a closed period (blackout window) from 1447/11/05 H until the H1 results announcement; insiders are restricted from trading until T+1 after any market disclosure.\nSubject to the Disclosure Committee\u2019s decision at 08:00 AST, we will submit an immediate material development notice on the Rimal Exchange portal before continuous trading commences, or defer to periodic reporting if impact is confirmed immaterial.\nNo cross\u2011border personal data transfer has occurred; a PDPL transfer permit request has been lodged with the State Data & AI Authority portal (SDAA) \u2014 case https://permits.sdaa.example.sa/tx?ref=CR-11-004-77&case=8f2a-9b-33 \u2014 pending approval for forensic review by a vendor outside KSA.\nFor clarity, this incident is unrelated to our already announced logistics footprint plan (public filing RE\u2011NJDH\u20112025\u201105\u2011001 on 2025\u201105\u201102 G: https://ir.najdsholding.sa/ann?id=RE-NJDH-2025-05-001) and to the sustainability press release dated 2025\u201102\u201110 (widely distributed).\nThe third\u2011party cloud provider\u2019s public status page notes a routine RY\u20113 maintenance window in Jeddah on 2025\u201105\u201112; that public information is operational and does not pertain to issuer MNPI.\nWe do not expect a material adverse change to consolidated cash flows, and our cyber response remains within policy; this line is generic policy text and should not affect securities\u2011law analysis.\nInternal note (lowercase): project-management task \"sahara-mail sprint 14\" continues; product names and internal tickets are not for market disclosure.\nInsider controls: insider list updated (IL\u201125\u20110 0 7); breach ticket IR\u201125\u201100A\u201174 opened; please do not forward externally and do not brief sell\u2011side until a public notice",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For clarity, this incident is unrelated to our already announced logistics footprint plan (public filing RE\u2011NJDH\u20112025\u201105\u2011001 on 2025\u201105\u201102 G: https://ir.najdsholding.sa/ann?id=RE-NJDH-2025-05-001) and to the sustainability press release dated 2025\u201102\u201110 (widely distributed).\nThe third\u2011party cloud provider\u2019s public status page notes a routine RY\u20113 maintenance window in Jeddah on 2025\u201105\u201112; that public information is operational and does not pertain to issuer MNPI",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated 'no MAC' reference; do not label per rule."
+    },
+    {
+      "matched_text": "RE\u2011NJDH\u20112025\u201105\u2011001",
+      "reason": "Public filing reference; not MNPI."
+    },
+    {
+      "matched_text": "sahara-mail sprint 14",
+      "reason": "Operational task; not a transaction codename pattern."
+    },
+    {
+      "matched_text": "NJDH",
+      "reason": "Ticker symbol; not a supported counter rule for this taxonomy."
+    },
+    {
+      "matched_text": "RY\u20113",
+      "reason": "Public operational reference; not issuer MNPI."
+    },
+    {
+      "matched_text": "Disclosure Committee",
+      "reason": "Role noun; not PII/MNPI per rules."
+    },
+    {
+      "matched_text": "Audit Chair",
+      "reason": "Role noun; not PII/MNPI per rules."
+    },
+    {
+      "matched_text": "IR",
+      "reason": "Role noun; not PII/MNPI per rules."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "phone extension",
+      "matched_text": "phone ext. 4 1 2",
+      "reason": "Contact detail relevant to identification, but not clearly covered by phone_number rule."
+    },
+    {
+      "concept": "commercial registration reference",
+      "matched_text": "CR-11-004-77",
+      "reason": "Appears in a URL query and may denote a CR number, but context is a permit case ref rather than issuer CR."
+    },
+    {
+      "concept": "internal identifier",
+      "matched_text": "IL\u201125\u20110 0 7",
+      "reason": "Insider list code; may be sensitive operational data but not mapped to a specific allowed rule."
+    },
+    {
+      "concept": "internal incident reference",
+      "matched_text": "IR\u201125\u201100A\u201174",
+      "reason": "Internal breach ticket ID; potential internal identifier category but not explicitly in allowed rules."
+    },
+    {
+      "concept": "security identifier",
+      "matched_text": "Rimal Exchange Main Market symbol: NJDH",
+      "reason": "Relevant to markets but exchange tickers are not covered by listed MNPI rules in this taxonomy."
+    }
+  ]
+}

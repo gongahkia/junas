@@ -117,11 +117,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -359,6 +359,12 @@
       "category": "PII",
       "matched_text": "replace names with role codes",
       "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Subject: Pre-announcement MNPI on (i) THB private placement of sustainability-linked notes and (ii) cross-border acquisition of a licensed digital asset broker; deal code P r o j e c t   B a n y a n (BNY-\u0394/2569).\nMNPI scope\u2014Unpublished terms with Sandpiper Holdings SPC and Anchora Capital (S) Pte Ltd; SEC Thailand approval pending; dual-track disclosure via SET Portal and e-Meeting board resolution not yet filed.\nCommercial terms (strictly internal): size THB 1,200,000,000; coupon 3M-THOR + 175 bps; 10 bps SPT step-up on Scope 2 miss; long-stop 31/08/2569; no MAC triggered by climate scenario analysis",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -438,16 +444,16 @@
       "rule": "esg_climate_pre_disclosure"
     },
     {
-      "category": "PII",
-      "matched_text": "Subject: Pre-announcement MNPI on (i) THB private placement of sustainability-linked notes and (ii) cross-border acquisition of a licensed digital asset broker; deal code P r o j e c t   B a n y a n (BNY-\u0394/2569).\nMNPI scope\u2014Unpublished terms with Sandpiper Holdings SPC and Anchora Capital (S) Pte Ltd; SEC Thailand approval pending; dual-track disclosure via SET Portal and e-Meeting board resolution not yet filed.\nCommercial terms (strictly internal): size THB 1,200,000,000; coupon 3M-THOR + 175 bps; 10 bps SPT step-up on Scope 2 miss; long-stop 31/08/2569; no MAC triggered by climate scenario analysis",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Confidential\u2014Legal & Compliance Note (Thai PDPA/SEA context) | Onnex Green Public Company Limited (SET: OGX) | 29 May 2569 BE\nSubject: Pre-announcement MNPI on (i) THB private placement of sustainability-linked notes and (ii) cross-border acquisition of a licensed digital asset broker; deal code P r o j e c t   B a n y a n (BNY-\u0394/2569).\nMNPI scope\u2014Unpublished terms with Sandpiper Holdings SPC and Anchora Capital (S) Pte Ltd; SEC Thailand approval pending; dual-track disclosure via SET Portal and e-Meeting board resolution not yet filed.\nCommercial terms (strictly internal): size THB 1,200,000,000; coupon 3M-THOR + 175 bps; 10 bps SPT step-up on Scope 2 miss; long-stop 31/08/2569; no MAC triggered by climate scenario analysis.\nCyber event (contained) at vendor KlongCoder Co., Ltd. on 27/05: limited ransomware encryption; one service account accessed a test shard-map for pilot DPT wallet segregation under SathornPay PoC; no PDPA-sensitive customer records identified.\nDigital asset/crypto angle\u2014we have signed a non-binding term sheet to purchase 60% of Monsoon Digital Broker Co., Ltd. (SEC digital asset broker licence No. DAX-xx00x, placeholder only); any leak may materially affect OGX price given DPT adjacency.\nInsider list maintained (v3.1 hash a9f0-xx-22): Khun Pailin Mahasri (Company Secretary), Mr. Veera Thavorn (CFO), Ms. Jariya N., and external counsel at Thara & Chan LLP; do not forward outside the clean team.\nInformation barriers\u2014Research, IR, and operations are walled off; only Clean Room \u2018CR-OGX-BNY\u2019 users may view draft term sheets; internal chat rooms auto-archived; accidental tipping to sell-side analysts will be treated as selective disclosure.\nBlackout\u2014Employees on the insider list are under a trading blackout from 29/05\u201315/06/2569 until 24h after SET disclosure; SEA s.241/242 insider-trading prohibitions reiterated.\nSelective disclosure risk\u20141:1 with Anchora in Singapore on 03/06 uses a cleansed deck; do not reference cyber artefacts, DPT wallet architecture, or pricing grids; the anchor investor will execute NDA v2.3 before diligence.\nPDPA hygiene\u2014minimise personal data in deal rooms, replace names with role codes (e.g., \u2018Treasury-Lead S-**91-L\u2019), and avoid cross-border transfer until DPA addendum with Monsoon Digital is countersigned.\nOperations-only note: the cybersecurity awareness webinar titled \u201cWallets, Whales, and Walls\u201d is for staff education and does not disclose any ongoing incident or insider information.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MNPI scope\u2014Unpublished terms with Sandpiper Holdings SPC and Anchora Capital (S) Pte Ltd; SEC Thailand approval pending; dual-track disclosure via SET Portal and e-Meeting board resolution not yet filed.\nCommercial terms (strictly internal): size THB 1,200,000,000; coupon 3M-THOR + 175 bps; 10 bps SPT step-up on Scope 2 miss; long-stop 31/08/2569; no MAC triggered by climate scenario analysis",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [],

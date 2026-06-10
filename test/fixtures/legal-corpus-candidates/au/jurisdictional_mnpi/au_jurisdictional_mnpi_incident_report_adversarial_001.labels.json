@@ -53,11 +53,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
@@ -340,6 +340,12 @@
       "matched_text": "A U R I F I R M  L O G I S T I C S  H O L D I N G S  L T D \u2014 Confidential Incident Report (Cyber) \u2014 Not for external release.\n02-Jun-2026 21:10 AEST; internal Ref AFSEC-2026-0415; issuer on ALEX (Australis Listed Exchange) code AFLX; ABN 58 123 456 0x1 (fictional).\nOn 14-May a credential-stuffing attack via Kwalta Systems Pty Ltd (vendor) led to unauthorised access to our billing SFTP; 3.1GB of files were exfiltrated before isolation at 02:11.\nExfiltrated content includes PII (names, emails, mobile numbers) for 241 employees and 33 contractors; two files contained partial private insurer details (Harbour Health Mutual member nos. HHM-83-24x) and masked card tokens (**** **** **** 8472).\nPreliminary finance impact: delayed invoicing and churn risk indicate a Q4 revenue shortfall of 3\u20135%; this is not generally available information and is likely to be price\u2011sensitive for AFLX.\nContinuous disclosure assessment under Corporations Act s674 and ALEX Listing Rule 3.1/3.1A: while investigations are incomplete, management proposes an announcement before market open Thu 04-Jun-2026; avoid selective briefing during the trading policy blackout (01-Jul to FY results on 26-Aug-2026).\nPublic-status note: our ALEX announcement dated 28-Apr-2026 (\u201cMinor Service Interruption at Westport DC\u201d, ALEX\u20112026\u201100981) is already public; the credential leakage and forecast impact in this report have not been disclosed.\nAt this time the incident is not expected to constitute a material adverse change to long-term operations; however, a trading halt may be requested if platform downtime exceeds 72h or if customer data validation expands beyond 500 records.\nKnowledge of the above constitutes MNPI for issuer AFLX under s1042D; do not forward outside need\u2011to\u2011know, and do not respond to investor approaches except via Investor Relations; no \u201copen briefing\u201d until lodgement.\nPII specifics (examples): Mr. Darius Kemp, Chief Risk Officer \u2014 mobile 04xx 517 3x9; email d a r i u s . k e m p @aurifirm-log.com.au; Ms. Tahlia Rowe (casual driver) \u2014 EID: EID\u20119O0",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Darius Kemp, Chief Risk Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

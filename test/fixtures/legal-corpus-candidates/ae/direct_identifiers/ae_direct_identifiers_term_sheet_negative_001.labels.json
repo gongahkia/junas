@@ -49,11 +49,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -131,6 +131,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Notices and contacts: role mailbox legal@alnair-holdings.example.ae; general enquiries helpline +971 800 0000 (public line); no personal numbers or private emails to be used for this process.\nAddress for service (form fields): P.O. Box [________], Emirate [________], Building [________], Unit [________]; for corporate correspondence only.\nBank and settlement (placeholders): Account Name [To be provided]; IBAN AE00 0000 0000 0000 0000 000 (illustrative only); settlement mechanics to be documented in the SPA",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -180,12 +186,6 @@
       "rule": "definitive_agreement"
     },
     {
-      "category": "PII",
-      "matched_text": "Notices and contacts: role mailbox legal@alnair-holdings.example.ae; general enquiries helpline +971 800 0000 (public line); no personal numbers or private emails to be used for this process.\nAddress for service (form fields): P.O. Box [________], Emirate [________], Building [________], Unit [________]; for corporate correspondence only.\nBank and settlement (placeholders): Account Name [To be provided]; IBAN AE00 0000 0000 0000 0000 000 (illustrative only); settlement mechanics to be documented in the SPA",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "price-sensitive information",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -196,6 +196,12 @@
       "matched_text": "Term Sheet \u2014 Proposed acquisition of a majority stake in Sadaf Technologies FZ-LLC by Alnair Holdings PJSC (non-binding, for discussion only).\nParties: Buyer \u2014 Alnair Holdings PJSC; Seller \u2014 Marabit Capital SPV Ltd; Target \u2014 Sadaf Technologies FZ-LLC (all entities are UAE-based and fictional).\nCorporate identifiers (placeholders): Buyer Dubai Trade Licence TL-00000000; Buyer ADGM Commercial Registration ADGM-CR-9999999; Target Free Zone Licence FZL-123456-X (formats illustrative, not validated).\nRegulatory context: subject to applicable UAE federal securities laws and free zone market-abuse regimes (DIFC/ADGM); at term sheet stage no onshore filing is required and no non-public price-sensitive information is being shared.\nStructure and consideration: to be agreed following confirmatory due diligence; no commitment to issue or purchase securities; not price sensitive and not intended to influence trading in any market.\nKYC/AML: for signatory verification only, Buyer to verify Emirates ID 784-2001-1234567-4 of the Authorised Signatory; Family-origin (for KYC form only): [Not Collected].\nConditions precedent: standard corporate approvals, free zone NOC if applicable, competition and foreign ownership checks (if any), and tax clearance; TRN (form label) TRN 1234567890123456 (format not validated).\nNo MNPI: the parties confirm the Target\u2019s exploration of strategic options has already been publicly announced on the Target\u2019s website on 15 March 2025; no confidential projections, client lists, or unpublished results will be provided before a clean team protocol is agreed.\nNotices and contacts: role mailbox legal@alnair-holdings.example.ae; general enquiries helpline +971 800 0000 (public line); no personal numbers or private emails to be used for this process.\nAddress for service (form fields): P.O. Box [________], Emirate [________], Building [________], Unit [________]; for corporate correspondence only.\nBank and settlement (placeholders): Account Name [To be provided]; IBAN AE00 0000 0000 0000 0000 000 (illustrative only); settlement mechanics to be documented in the SPA.\nIdentification (form fields): Passport No 000000000; UAE Visa File No 123/2020/0000000; do not send copies by email; only on-site verification at the data room.\nGoverning law and forum: UAE law; disputes to be heard by a competent free zone court; bilingual Arabic/English versions to be prepared for execution.\nExchange/listing context: if any post-closing listing or admission to trading is contemplated, it will follow applicable disclosure standards and market conduct rules; this document is not an offer to the public.\nExclusivity and break fees: none at the term sheet stage; either party may terminate discussions without liability except for confidentiality and clean team obligations.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Address for service (form fields): P.O. Box [________], Emirate [________], Building [________], Unit [________]; for corporate correspondence only.\nBank and settlement (placeholders): Account Name [To be provided]; IBAN AE00 0000 0000 0000 0000 000 (illustrative only); settlement mechanics to be documented in the SPA",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

@@ -1,0 +1,486 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 9
+  },
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_jurisdictional_mnpi_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/jurisdictional_mnpi/sa_jurisdictional_mnpi_term_sheet_default_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_jurisdictional_mnpi_term_sheet_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 43,
+    "new_must_detect_count": 23,
+    "old_ideal_must_detect_count": 29,
+    "old_must_detect_count": 19,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_jurisdictional_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "fahd.omari@rimalindustries.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@rimalindustries.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Fahd Al\u2011Omari",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al\u2011Suwailem",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2013 Proposed Murabaha Financing and Majority Acquisition of Altahadi Manufacturing LLC by Rimal Industries Company (a Tadawul-listed joint stock company).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration: SAR 180,000,000 for 60% stake; financing: SAR 120,000,000 Shari\u2019ah-compliant Murabaha, profit rate SAIBOR + 210 bps, tenor 5 years, security over target shares and selected receivables.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public vs non-public: Issuer\u2019s non-binding MoU regarding a prospective industrial acquisition was announced on the Saudi Exchange website on 1448/02/10H (2026-05-17G) and remains public; pricing grid, covenants, and board meeting timing herein are MNPI until disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: Board approval; EGM if acquisition triggers shareholder approval threshold; lender IC approval; completion of legal/financial due diligence; no CMA objection; obtaining target\u2019s Commercial Register extract and KYC under PDPL-compliant notices.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: No dividend distribution by Issuer until leverage <2.5x; Target to enter non-compete; customary representations; no public guidance or earnings comment until Saudi Exchange announcement; no communication with media except through authorized disclosure channels.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure timing: If Board approval occurs during trading hours, announce on the Saudi Exchange promptly the same day; if after hours, announce before market open on the next trading day; breach may result in CMA enforcement for selective disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Outside date/termination: Long-stop 120 days from signing; automatic lapse if CMA or Saudi Exchange objects or if required shareholder approval is not obtained; no-break fee absent willful breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 101-8899123-0",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 701-5544332-1",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 205-7788991-4",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IQ-21-9088-5543",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eng. Saleh Al\u2011Mutairi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout/Closed Period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "to be minimized and pseudonymized",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "National ID",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Murabaha Financing and Majority Acquisition of Altahadi Manufacturing LLC",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "~8.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No dealings by directors/senior executives",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Wall-cross",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer outside KSA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "210 bps",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "fahd.omari@rimalindustries.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@rimalindustries.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Fahd Al\u2011Omari",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al\u2011Suwailem",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2013 Proposed Murabaha Financing and Majority Acquisition of Altahadi Manufacturing LLC by Rimal Industries Company (a Tadawul-listed joint stock company).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration: SAR 180,000,000 for 60% stake; financing: SAR 120,000,000 Shari\u2019ah-compliant Murabaha, profit rate SAIBOR + 210 bps, tenor 5 years, security over target shares and selected receivables.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public vs non-public: Issuer\u2019s non-binding MoU regarding a prospective industrial acquisition was announced on the Saudi Exchange website on 1448/02/10H (2026-05-17G) and remains public; pricing grid, covenants, and board meeting timing herein are MNPI until disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: Board approval; EGM if acquisition triggers shareholder approval threshold; lender IC approval; completion of legal/financial due diligence; no CMA objection; obtaining target\u2019s Commercial Register extract and KYC under PDPL-compliant notices.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: No dividend distribution by Issuer until leverage <2.5x; Target to enter non-compete; customary representations; no public guidance or earnings comment until Saudi Exchange announcement; no communication with media except through authorized disclosure channels.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure timing: If Board approval occurs during trading hours, announce on the Saudi Exchange promptly the same day; if after hours, announce before market open on the next trading day; breach may result in CMA enforcement for selective disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Outside date/termination: Long-stop 120 days from signing; automatic lapse if CMA or Saudi Exchange objects or if required shareholder approval is not obtained; no-break fee absent willful breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts/Signatories: Mr. Fahd Al\u2011Omari, CFO (Iqama No. IQ-21-9088-5543), fahd.omari@rimalindustries.sa; Eng. Saleh Al\u2011Mutairi, CEO, Rimal Industries; Dr. Layla Al\u2011Suwailem, MD, Nourah Capital; legal@rimalindustries.sa",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2013 Proposed Murabaha Financing and Majority Acquisition of Altahadi Manufacturing LLC by Rimal Industries Company (a Tadawul-listed joint stock company).\nParties: Rimal Industries Company (CR 101-8899123-0), issuer; Nourah Capital Finance Company (CR 701-5544332-1), financier; Altahadi Manufacturing LLC (CR 205-7788991-4), target.\nConsideration: SAR 180,000,000 for 60% stake; financing: SAR 120,000,000 Shari\u2019ah-compliant Murabaha, profit rate SAIBOR + 210 bps, tenor 5 years, security over target shares and selected receivables.\nMateriality/Disclosure: Estimated at ~8.2% of Issuer\u2019s consolidated assets (1447H audit); treated as material; announcement on the Saudi Exchange required promptly per CMA Rules on the Offer of Securities and Continuing Obligations.\nPublic vs non-public: Issuer\u2019s non-binding MoU regarding a prospective industrial acquisition was announced on the Saudi Exchange website on 1448/02/10H (2026-05-17G) and remains public; pricing grid, covenants, and board meeting timing herein are MNPI until disclosure.\nSelective disclosure: Wall-cross only under NDA; maintain Insider List per CMA Market Conduct Regulations; no selective disclosure beyond publication on the Saudi Exchange or broad press releases after announcement.\nBlackout/Closed Period: No dealings by directors/senior executives from period-end until publication of financial results and while in possession of inside information; proposed board approval to be scheduled after trading hours to meet disclosure timing before next market open.\nConditions precedent: Board approval; EGM if acquisition triggers shareholder approval threshold; lender IC approval; completion of legal/financial due diligence; no CMA objection; obtaining target\u2019s Commercial Register extract and KYC under PDPL-compliant notices.\nPDPL/SDAIA: Personal data (including employees\u2019 Iqama/National ID and contact numbers) to be minimized and pseudonymized; any transfer outside KSA to advisors requires SDAIA cross-border transfer assessment and an approved mechanism (or localization on KSA-hosted systems).\nCovenants: No dividend distribution by Issuer until leverage <2.5x; Target to enter non-compete; customary representations; no public guidance or earnings comment until Saudi Exchange announcement; no communication with media except through authorized disclosure channels.\nDisclosure timing: If Board approval occurs during trading hours, announce on the Saudi Exchange promptly the same day; if after hours, announce before market open on the next trading day; breach may result in CMA enforcement for selective disclosure.\nFunding uses: Purchase consideration, fees, and integration capex; no proceeds for shareholder distributions; lender consent required for material disposals pre-Completion.\nOutside date/termination: Long-stop 120 days from signing; automatic lapse if CMA or Saudi Exchange objects or if required shareholder approval is not obtained; no-break fee absent willful breach.\nConfidentiality: This term sheet is confidential and not for onward distribution; except for items already announced publicly on the Saudi Exchange, all contents are non-public and constitute MNPI until disclosed.\nBenign note: Al-Badee Supply LLC\u2019s recent press release about extended warehouse hours (2025-02-10G) is unrelated to the Issuer and is not MNPI.\nContacts/Signatories: Mr. Fahd Al\u2011Omari, CFO (Iqama No. IQ-21-9088-5543), fahd.omari@rimalindustries.sa; Eng. Saleh Al\u2011Mutairi, CEO, Rimal Industries; Dr. Layla Al\u2011Suwailem, MD, N",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Fahd Al\u2011Omari, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Saleh Al\u2011Mutairi, CEO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Majority Acquisition of Altahadi Manufacturing LLC",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun/section label used as a defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "issuer",
+      "reason": "Role-noun defined term, not an individual identifier"
+    },
+    {
+      "matched_text": "financier",
+      "reason": "Role-noun defined term, not an individual identifier"
+    },
+    {
+      "matched_text": "target",
+      "reason": "Role-noun defined term, not an individual identifier"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term, not an individual identifier"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "financial_percentage",
+      "matched_text": "210 bps",
+      "reason": "Pricing in basis points is economically a percentage but lacks % symbol; some detectors may miss it."
+    },
+    {
+      "concept": "disclosure_timing",
+      "matched_text": "after trading hours",
+      "reason": "Relates to timing of market disclosure but not covered by explicit embargo markers."
+    },
+    {
+      "concept": "disclosure_timing",
+      "matched_text": "before market open",
+      "reason": "Local exchange disclosure timing guidance; not an explicit embargo marker."
+    },
+    {
+      "concept": "phone_number",
+      "matched_text": "contact numbers",
+      "reason": "Indicates personal contact numbers category without providing specific PII values."
+    },
+    {
+      "concept": "data_localization",
+      "matched_text": "localization on KSA-hosted systems",
+      "reason": "Privacy/PDPL data residency control relevant to cross-border transfer but not an explicit allowed marker."
+    }
+  ]
+}

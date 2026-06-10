@@ -1,0 +1,416 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 8
+  },
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_universal_mnpi_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/universal_mnpi/sa_universal_mnpi_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_universal_mnpi_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 35,
+    "new_must_detect_count": 19,
+    "old_ideal_must_detect_count": 23,
+    "old_must_detect_count": 15,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_universal_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "samer.alfaris@rimal-tamayuz.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 0099 001",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Samer Al\u2011Faris",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Acquisition of 60% of issued shares of Al-Qirwan Foods CJSC for SAR 240,000,000 (SAR 180,000,000 cash; SAR 60,000,000 contingent earn-out over 24 months).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Approvals: internal board consents; no-objection from the Saudi securities regulator for market-conduct compliance; local exchange disclosure clearance prior to Closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public-source reference: the 2022 listing rules available on the exchange website are general guidance only and do not disclose this transaction.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing mechanics: escrow at Desert Crescent Bank (fictional) IBAN-like ref: SA0x 8000 33xx x3x3 0099 001 (illustrative only), settlement T+3 from disclosure clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Date Palm",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "signing date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "240,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 25 May 2026, 09:00 AST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Acquisition of 60% of issued shares of Al-Qirwan Foods CJSC",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contingent earn-out",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "H.E. Mr. Samer Al\u2011Faris",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "only masked personal data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "shall be truncated",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "only aggregated HR counts will be shared",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR: 2050-xx77-013",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR: 1010-x3x9-882",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-5x-xxx-xx41",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SA0x 8000 33xx x3x3 0099 001",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "will leave the Kingdom",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "signing date 12 Dhul\u2011Qa\u2019dah 1447H",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not previously disclosed",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "samer.alfaris@rimal-tamayuz.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 0099 001",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Samer Al\u2011Faris",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Acquisition of 60% of issued shares of Al-Qirwan Foods CJSC for SAR 240,000,000 (SAR 180,000,000 cash; SAR 60,000,000 contingent earn-out over 24 months).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Approvals: internal board consents; no-objection from the Saudi securities regulator for market-conduct compliance; local exchange disclosure clearance prior to Closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public-source reference: the 2022 listing rules available on the exchange website are general guidance only and do not disclose this transaction.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing mechanics: escrow at Desert Crescent Bank (fictional) IBAN-like ref: SA0x 8000 33xx x3x3 0099 001 (illustrative only), settlement T+3 from disclosure clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Date Palm",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "signing date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "240,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 NON-PUBLIC \u2014 Deal Codename: Project Date Palm (embargo until 25 May 2026, 09:00 AST)\nParties: Rimal Al-Tamayuz Holding LLC (CR: 2050-xx77-013, Riyadh) as Buyer, and Al-Qirwan Foods CJSC (Issuer; CR: 1010-x3x9-882) as Seller/Target.\nTransaction: Acquisition of 60% of issued shares of Al-Qirwan Foods CJSC for SAR 240,000,000 (SAR 180,000,000 cash; SAR 60,000,000 contingent earn-out over 24 months).\nApprovals: internal board consents; no-objection from the Saudi securities regulator for market-conduct compliance; local exchange disclosure clearance prior to Closing.\nDefinitive agreements: Share Purchase Agreement (SPA), Shareholders\u2019 Agreement, Transitional Services Agreement; target signing date 12 Dhul\u2011Qa\u2019dah 1447H.\nPDPL/data: Buyer to receive only masked personal data (Iqama/ID digits redacted like **-**34-19**); any cross-border transfer of HR files to the cloud processor requires prior approval by the n a t i o n a l   d a t a   a u t h o r i t y.\nData room access URL: https://secure.alqirwan.example/room?p=proj=DP&cr=2050xx77013 (note OCR shows two \u201cO\u201d characters in 2OO5O, not zeros).\nNo Material Adverse Change: customary MAC applies; for clarity, general economic/market conditions, changes in law, or pandemic-related supply disruptions shall not be deemed a MAC.\nPublic-source reference: the 2022 listing rules available on the exchange website are general guidance only and do not disclose this transaction.\nBoard memo contact: H.E. Mr. Samer Al\u2011Faris, Chair; samer.alfaris@rimal-tamayuz.example; +966-5x-xxx-xx41.\nNon-public IR workflow: draft announcement to be prepared for the local exchange in Arabic and English, with placeholder wording \u201coperational excellence program\u201d not previously disclosed.\nClosing mechanics: escrow at Desert Crescent Bank (fictional) IBAN-like ref: SA0x 8000 33xx x3x3 0099 001 (illustrative only), settlement T+3 from disclosure clearance.\nCompliance note: employee/vendor national IDs (Iqama) shall be truncated on invoices; only aggregated HR counts will be shared; no full-face images will leave the Kingdom without permit.\nlowercase pm note: next: send draft to legal, re-check numbers, then archive in sharepoint; team spa day remains penciled but is unrelated and will be canceled if this leaks.\nExclusivity/standstill: 60 days from signing; break fee SAR 6,000,000 if Seller signs a competing term sheet; non-binding except for confidentiality, costs, and governing law (KSA).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "Defined-term abbreviation in parentheses"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not a person identifier"
+    },
+    {
+      "matched_text": "Seller/Target",
+      "reason": "Role-noun defined term, not a person identifier"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role-noun defined term, not a person identifier"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term, not a person identifier"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "sa_commercial_registration (masked)",
+      "matched_text": "CR: 2050-xx77-013",
+      "reason": "Masked CR includes non-numeric placeholders; may evade strict pattern matching"
+    },
+    {
+      "concept": "sa_commercial_registration (masked)",
+      "matched_text": "CR: 1010-x3x9-882",
+      "reason": "Contains letters and masking; uncertain if to flag under strict rules"
+    },
+    {
+      "concept": "phone_number (masked)",
+      "matched_text": "+966-5x-xxx-xx41",
+      "reason": "Partially redacted digits may not meet phone regex thresholds"
+    },
+    {
+      "concept": "bank_account (masked IBAN-like)",
+      "matched_text": "SA0x 8000 33xx x3x3 0099 001",
+      "reason": "Illustrative and redacted; IBAN checksum/pattern not satisfied"
+    },
+    {
+      "concept": "embargo/signing date (Hijri)",
+      "matched_text": "signing date 12 Dhul\u2011Qa\u2019dah 1447H",
+      "reason": "Lowercase variant and Hijri calendar may not be covered by enumerated Signing Date markers"
+    },
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "not previously disclosed",
+      "reason": "Indicates non-public information risk in IR workflow but not a standardized marker"
+    },
+    {
+      "concept": "tipping_language",
+      "matched_text": "if this leaks",
+      "reason": "Leak sensitivity implies tipping risk though not a formal compliance phrase"
+    },
+    {
+      "concept": "SDAIA approval reference",
+      "matched_text": "n a t i o n a l   d a t a   a u t h o r i t y",
+      "reason": "Spaced-out rendering may hinder detection as regulator approval for cross-border transfers"
+    },
+    {
+      "concept": "data minimisation / ID example",
+      "matched_text": "Iqama/ID digits redacted like **-**34-19**",
+      "reason": "Example of redaction references national ID but not an actual identifier value"
+    }
+  ]
+}

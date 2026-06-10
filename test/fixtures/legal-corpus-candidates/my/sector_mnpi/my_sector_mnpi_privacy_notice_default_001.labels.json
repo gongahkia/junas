@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -237,6 +237,12 @@
       "category": "MNPI",
       "matched_text": "tokenised carbon credits pilot",
       "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Commercial terms for the private cloud security contract (including breach indemnity caps and ESG monitoring service fees) are non-public until formal Bursa announcements; sharing outside authorised deal teams is prohibited.\nWe use third-country processors, including a hosted archive in Singapore and an analytics provider in Brunei, subject to PDPA transfer safeguards and written data processing agreements.\nData subjects may submit access, correction, or withdrawal-of-consent requests by emailing privacy@serilestari.com.my or writing to Puan Noraini Salleh, Data Protection Officer, Seri Lestari Energy Berhad, Menara Sutera 12, Persiaran Bayu, Kuala Lumina 50999, Malaysia",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -307,7 +313,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Commercial terms for the private cloud security contract (including breach indemnity caps and ESG monitoring service fees) are non-public until formal Bursa announcements; sharing outside authorised deal teams is prohibited.\nWe use third-country processors, including a hosted archive in Singapore and an analytics provider in Brunei, subject to PDPA transfer safeguards and written data processing agreements.\nData subjects may submit access, correction, or withdrawal-of-consent requests by emailing privacy@serilestari.com.my or writing to Puan Noraini Salleh, Data Protection Officer, Seri Lestari Energy Berhad, Menara Sutera 12, Persiaran Bayu, Kuala Lumina 50999, Malaysia",
+      "matched_text": "We use third-country processors, including a hosted archive in Singapore and an analytics provider in Brunei, subject to PDPA transfer safeguards and written data processing agreements.\nData subjects may submit access, correction, or withdrawal-of-consent requests by emailing privacy@serilestari.com.my or writing to Puan Noraini Salleh, Data Protection Officer, Seri Lestari Energy Berhad, Menara Sutera 12, Persiaran Bayu, Kuala Lumina 50999, Malaysia",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
     }

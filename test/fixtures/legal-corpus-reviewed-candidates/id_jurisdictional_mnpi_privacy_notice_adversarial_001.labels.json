@@ -1,0 +1,313 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "ID",
+    "doc_id": "id_jurisdictional_mnpi_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/id/jurisdictional_mnpi/id_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "ID",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/id_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 410\u2013470/saham'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 410\u2013470/saham'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Putri Sembiring",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kamboja",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@lintasdana.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@lintasdana.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfer lintas batas",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisasi data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Periode blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selektif disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "bersifat non\u2011publik",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011publik",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IDN\u2011**45\u201177**\u2011AB",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VA: 88  \u00b7 13 \u00b7 004",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "USR\u20117X3_0A1",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bpk. Raditya Sasmita",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ibu Maya Pranindita",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Informasi Material Non\u2011Publik",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Akses MNPI terbatas",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "rencana akuisisi PT MudaPay Digital",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Putri Sembiring",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kamboja",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Akses MNPI terbatas; enkripsi at rest; approval berjenjang oleh Ibu Maya Pranindita (DPO) dan Dr. Putri Sembiring (Sekretaris Perusahaan) sebelum berbagi dengan penasihat.\nTidak ada Material Adverse Change yang dinyatakan, dan rilis pers internal 01/02/2025 sudah disebarluaskan secara luas; salinan berita \u2018Berita Pasar Nusantara\u2019 05/01/2024 adalah usang dan hanya untuk arsip",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Nomor: RWN/LDNT/2025-03-12 \u2014 Retention & MNPI Disclosure Workflow Note \u2014 PT Lintas Dana Nusantara Tbk (BEN: LDNT) | kontak: privacy@lintasdana.co.id\nRuang lingkup: pemrosesan PII (UU PDP) untuk NusaWallet & HR, serta pengelolaan Informasi/Fakta Material Non\u2011Publik sesuai Peraturan Regulator Pasar Modal (PRPM) No. 31/2025 dan ketentuan keterbukaan bursa.\nData diproses: nama karyawan/pelanggan, Nasabah Internal ID, device ID, work email, payroll alias bank, catatan transaksi e\u2011money; contoh fiktif CustRef: IDN\u2011**45\u201177**\u2011AB; VA: 88  \u00b7 13 \u00b7 004.\nRetensi: log transaksi & KYC disimpan min. 5 tahun; email HR 3 tahun; memo Direksi terkait aksi korporasi 10 tahun, kecuali diwajibkan lebih lama oleh otoritas pasar modal.\nPeriode blackout berlaku 14 hari sebelum publikasi Laporan Keuangan Tengah Tahunan; perdagangan oleh Insiders dilarang hingga informasi material diumumkan melalui Keterbukaan Bursa.\nInformasi Material Non\u2011Publik wajib diumumkan paling lambat 2 (dua) Hari Bursa setelah keputusan Direksi; selektif disclosure kepada 1\u20132 investor dilarang dan seluruh materi call diposting serentak.\nProject Kamboja (rencana akuisisi PT MudaPay Digital) bersifat non\u2011publik; memo Dewan oleh Bpk. Raditya Sasmita memuat rentang harga Rp 410\u2013470/saham, sehingga masuk MNPI dan tunduk pada restricted list.\nCatatan: Keterbukaan Informasi BEN No. LDNT\u2011001/III/2025 tertanggal 12 Maret 2025 tentang penjajakan awal telah dipublikasikan; angka valuasi rinci belum diungkap dan tetap non\u2011publik.\nHak subjek data: ajukan permintaan akses/perbaikan melalui https://portal.lintasdana.co.id/dsar/req?id=USR\u20117X3_0A1 atau dpo@lintasdana.co.id; referensi berkas Re q:# DSA\u2011R3Q/29 .2.\nTransfer lintas batas ke pemroses: PT Awan Arunika Teknologi (DC \u201cArunika\u2011Delta\u201d) dan Nusantara Data LLP (node \u201cNUSA\u2011SG1\u201d) berdasarkan Perjanjian Pemrosesan Data & perlindungan setara; lokasi cadangan: DC Fajar\u201101.\nAkses MNPI terbatas; enkripsi at rest; approval berjenjang oleh Ibu Maya Pranindita (DPO) dan Dr. Putri Sembiring (Sekretaris Perusahaan) sebelum berbagi dengan penasihat.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Material Adverse Change",
+      "reason": "Negated context: \"Tidak ada Material Adverse Change\" so do not flag as MNPI"
+    },
+    {
+      "matched_text": "PT Lintas Dana Nusantara Tbk",
+      "reason": "Organization name is not PII"
+    },
+    {
+      "matched_text": "PT MudaPay Digital",
+      "reason": "Organization name is not PII"
+    },
+    {
+      "matched_text": "PT Awan Arunika Teknologi",
+      "reason": "Organization name is not PII"
+    },
+    {
+      "matched_text": "Nusantara Data LLP",
+      "reason": "Organization name is not PII"
+    },
+    {
+      "matched_text": "BEN: LDNT",
+      "reason": "Issuer ticker/public identifier, not PII"
+    },
+    {
+      "matched_text": "LDNT\u2011001/III/2025",
+      "reason": "Public filing/reference number, not PII"
+    },
+    {
+      "matched_text": "Insiders",
+      "reason": "Generic role noun; not PII/MNPI on its own"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retensi: log transaksi & KYC disimpan min. 5 tahun; email HR 3 tahun; memo Direksi terkait aksi korporasi 10 tahun, kecuali diwajibkan lebih lama oleh otoritas pasar modal",
+      "reason": "Data retention policy is a privacy marker but no explicit retention rule in allowed list"
+    },
+    {
+      "concept": "dsar_rights",
+      "matched_text": "Hak subjek data: ajukan permintaan akses/perbaikan",
+      "reason": "DSAR/rights-to-access wording is relevant but not mapped to a specific allowed rule"
+    },
+    {
+      "concept": "internal_reference_id",
+      "matched_text": "DSA\u2011R3Q/29 .2",
+      "reason": "Looks like a file/request reference; relevant identifier but not clearly covered by existing PII rules"
+    },
+    {
+      "concept": "blackout_window_timing",
+      "matched_text": "14 hari sebelum publikasi Laporan Keuangan Tengah Tahunan",
+      "reason": "Blackout timing detail is MNPI-relevant but only generic blackout marker is in allowed rules"
+    },
+    {
+      "concept": "identity_verification_requirement",
+      "matched_text": "memverifikasi identitas minimal dua faktor (email kerja + panggilan balik)",
+      "reason": "Security/verification requirement is privacy-relevant but not covered by a specific rule"
+    }
+  ]
+}

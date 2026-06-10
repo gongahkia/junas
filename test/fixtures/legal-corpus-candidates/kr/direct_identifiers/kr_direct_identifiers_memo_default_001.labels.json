@@ -64,11 +64,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -241,6 +241,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "21-9 Daeun-ro, Seoryang-gu, Haebin-si, Jeonnam 54999, Republic of Korea\nPII Handling: Mr. Jae\u2011Min Choi, IR Director (\ucd5c\uc7ac\ubbfc \uc774\uc0ac), resident-number 860512-2345675 (redact under PIPA), KR Passport No. MZ2043117 (not for disclosure)\nOther staff: Ms. Hana Park (\ubc15\ud558\ub098 \ubd80\uc7a5) \u2014 role-only reference permitted; no personal identifiers to be included\nGeneric form labels in legacy templates (\u201cName: ______,\u201d \u201cResident No.: ______,\u201d \u201cAddress: ______\u201d) must not be treated as data\nMNPI Assessment (FSCMA): draft term sheet for private placement of 1,200,000 common shares at \u20a98,500 per share; tentative KRX submission week of 2026-07-22; not publicly disclosed\nCounterparty: Baekje Growth Partners SPC (\ubc31\uc81c\uadf8\ub85c\uc2a4\ud30c\ud2b8\ub108\uc2a4), Business Reg. No. 411-66-10209; investor contact ir@baekjegp.co.kr is provisional, do not circulate externally\nRegulatory touchpoints: preliminary consult call with FSC Capital Markets Bureau and FSS Corporate Disclosure Dept scheduled via public helpline 1277; number is non-personal and should not be logged as PII\nPayment mechanics: escrow at Daedun Bank Seoryang Branch, virtual account 700-8899-001122 (internal use only)\nInternal disclosure controls: board preview packet includes revenue guidance for Q3 and draft press note; until fair disclosure is posted on KOR-DISCL portal, treat as MNPI\nEmployment records: confirm offer letters and payroll forms referencing stamp codes and extensions (e.g., 02-0000-0000) are generic unless linked to a named individual\nIf any resident numbers or passport pages are requested by KRX Listing Division for verification, ensure collection via secure channel; never include RRN or passport digits in investor materials\nFor public Q&A, direct inquiries to InfoDesk 1277 or ir@seonguntech.kr; note that 1277 is a general hotline and should not be retained as a contact identifier\nCompliance sign\u2011off: Mr. Jin\u2011Ho Lee",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_detect": [
@@ -316,16 +322,22 @@
       "rule": "postal_address"
     },
     {
-      "category": "PII",
-      "matched_text": "21-9 Daeun-ro, Seoryang-gu, Haebin-si, Jeonnam 54999, Republic of Korea\nPII Handling: Mr. Jae\u2011Min Choi, IR Director (\ucd5c\uc7ac\ubbfc \uc774\uc0ac), resident-number 860512-2345675 (redact under PIPA), KR Passport No. MZ2043117 (not for disclosure)\nOther staff: Ms. Hana Park (\ubc15\ud558\ub098 \ubd80\uc7a5) \u2014 role-only reference permitted; no personal identifiers to be included\nGeneric form labels in legacy templates (\u201cName: ______,\u201d \u201cResident No.: ______,\u201d \u201cAddress: ______\u201d) must not be treated as data\nMNPI Assessment (FSCMA): draft term sheet for private placement of 1,200,000 common shares at \u20a98,500 per share; tentative KRX submission week of 2026-07-22; not publicly disclosed\nCounterparty: Baekje Growth Partners SPC (\ubc31\uc81c\uadf8\ub85c\uc2a4\ud30c\ud2b8\ub108\uc2a4), Business Reg. No. 411-66-10209; investor contact ir@baekjegp.co.kr is provisional, do not circulate externally\nRegulatory touchpoints: preliminary consult call with FSC Capital Markets Bureau and FSS Corporate Disclosure Dept scheduled via public helpline 1277; number is non-personal and should not be logged as PII\nPayment mechanics: escrow at Daedun Bank Seoryang Branch, virtual account 700-8899-001122 (internal use only)\nInternal disclosure controls: board preview packet includes revenue guidance for Q3 and draft press note; until fair disclosure is posted on KOR-DISCL portal, treat as MNPI\nEmployment records: confirm offer letters and payroll forms referencing stamp codes and extensions (e.g., 02-0000-0000) are generic unless linked to a named individual\nIf any resident numbers or passport pages are requested by KRX Listing Division for verification, ensure collection via secure channel; never include RRN or passport digits in investor materials\nFor public Q&A, direct inquiries to InfoDesk 1277 or ir@seonguntech.kr; note that 1277 is a general hotline and should not be retained as a contact identifier\nCompliance sign\u2011off: Mr. Jin\u2011Ho Lee",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "quasi_identifier_combination"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Internal Compliance Memo \u2014 June 2026 \u2014 Seongun Tech Co., Ltd. (\uc8fc\uc2dd\ud68c\uc0ac \uc131\uc6b4\ud14c\ud06c), Business Registration Number 214-85-90321\nContact: compliance@seonguntech.kr; Tel: 010-8234-1100; Daedun Bank acct 112-33-998712\nRegistered address: 21-9 Daeun-ro, Seoryang-gu, Haebin-si, Jeonnam 54999, Republic of Korea\nPII Handling: Mr. Jae\u2011Min Choi, IR Director (\ucd5c\uc7ac\ubbfc \uc774\uc0ac), resident-number 860512-2345675 (redact under PIPA), KR Passport No. MZ2043117 (not for disclosure)\nOther staff: Ms. Hana Park (\ubc15\ud558\ub098 \ubd80\uc7a5) \u2014 role-only reference permitted; no personal identifiers to be included\nGeneric form labels in legacy templates (\u201cName: ______,\u201d \u201cResident No.: ______,\u201d \u201cAddress: ______\u201d) must not be treated as data\nMNPI Assessment (FSCMA): draft term sheet for private placement of 1,200,000 common shares at \u20a98,500 per share; tentative KRX submission week of 2026-07-22; not publicly disclosed\nCounterparty: Baekje Growth Partners SPC (\ubc31\uc81c\uadf8\ub85c\uc2a4\ud30c\ud2b8\ub108\uc2a4), Business Reg. No. 411-66-10209; investor contact ir@baekjegp.co.kr is provisional, do not circulate externally\nRegulatory touchpoints: preliminary consult call with FSC Capital Markets Bureau and FSS Corporate Disclosure Dept scheduled via public helpline 1277; number is non-personal and should not be logged as PII\nPayment mechanics: escrow at Daedun Bank Seoryang Branch, virtual account 700-8899-001122 (internal use only)\nInternal disclosure controls: board preview packet includes revenue guidance for Q3 and draft press note; until fair disclosure is posted on KOR-DISCL portal, treat as MNPI",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Jin\u2011Ho Lee, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "21-9 Daeun-ro, Seoryang-gu, Haebin-si, Jeonnam 54999, Republic of Korea\nPII Handling: Mr. Jae\u2011Min Choi, IR Director (\ucd5c\uc7ac\ubbfc \uc774\uc0ac), resident-number 860512-2345675 (redact under PIPA), KR Passport No. MZ2043117 (not for disclosure)\nOther staff: Ms. Hana Park (\ubc15\ud558\ub098 \ubd80\uc7a5) \u2014 role-only reference permitted; no personal identifiers to be included\nGeneric form labels in legacy templates (\u201cName: ______,\u201d \u201cResident No.: ______,\u201d \u201cAddress: ______\u201d) must not be treated as data\nMNPI Assessment (FSCMA): draft term sheet for private placement of 1,200,000 common shares at \u20a98,500 per share; tentative KRX submission week of 2026-07-22; not publicly disclosed\nCounterparty: Baekje Growth Partners SPC (\ubc31\uc81c\uadf8\ub85c\uc2a4\ud30c\ud2b8\ub108\uc2a4), Business Reg. No. 411-66-10209; investor contact ir@baekjegp.co.kr is provisional, do not circulate externally\nRegulatory touchpoints: preliminary consult call with FSC Capital Markets Bureau and FSS Corporate Disclosure Dept scheduled via public helpline 1277; number is non-personal and should not be logged as PII\nPayment mechanics: escrow at Daedun Bank Seoryang Branch, virtual account 700-8899-001122 (internal use only)\nInternal disclosure controls: board preview packet includes revenue guidance for Q3 and draft press note; until fair disclosure is posted on KOR-DISCL portal, treat as MNPI\nEmployment records: confirm offer letters and payroll forms referencing stamp codes and extensions (e.g., 02-0000-0000) are generic unless linked to a named individual\nIf any resident numbers or passport pages are requested by KRX Listing Division for verification, ensure collection via secure channel; never include RRN or passport digits in investor materials\nFor public Q&A, direct inquiries to InfoDesk 1277 or ir@seonguntech.kr; note that 1277 is a general hotline and should not be retained as a contact identifier\nCompliance sign\u2011off: Mr. Jin\u2011Ho Lee, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_not_detect": [

@@ -481,6 +481,54 @@ CYBER_INCIDENT_RE = re.compile(
     r")\b",
     re.IGNORECASE,
 )
+PHARMA_TRIAL_MNPI_RE = re.compile(
+    r"\b("
+    r"Phase\s+(?:I{1,3}|IV|[1-4])\s+(?:clinical\s+)?trial\s+(?:top[- ]line\s+)?(?:data|results|readout)|"
+    r"top[- ]line\s+(?:clinical\s+)?(?:data|results|readout)|"
+    r"primary\s+endpoint\s+(?:met|missed|not\s+met|failed)|"
+    r"interim\s+analysis\s+(?:met|missed|failed|stopped|halted)|"
+    r"DSMB\s+(?:recommendation|halt|stop|safety\s+signal)|"
+    r"FDA\s+(?:clinical\s+hold|complete\s+response\s+letter|CRL|breakthrough\s+therapy\s+designation)|"
+    r"EMA\s+(?:CHMP\s+opinion|marketing\s+authorisation\s+refusal)|"
+    r"regulatory\s+(?:approval|rejection)\s+for\s+(?:the\s+)?(?:drug|therapy|indication)"
+    r")\b",
+    re.IGNORECASE,
+)
+FINANCIAL_SERVICES_REGULATORY_MNPI_RE = re.compile(
+    r"\b("
+    r"(?:CET1|Tier\s+1|capital)\s+(?:shortfall|breach|ratio\s+breach)|"
+    r"(?:liquidity\s+coverage\s+ratio|LCR|NSFR)\s+(?:breach|shortfall)|"
+    r"stress[- ]test\s+(?:failure|result|shortfall)|"
+    r"(?:PRA|FCA|MAS|OCC|Federal\s+Reserve|FDIC|SEC|FINRA)\s+(?:consent\s+order|enforcement\s+action|"
+    r"supervisory\s+letter|matter\s+requiring\s+attention|MRA|MRIA)|"
+    r"AML\s+(?:remediation\s+order|control\s+deficiency|enforcement\s+action)|"
+    r"sanctions\s+screening\s+(?:breach|deficiency)|"
+    r"customer\s+redress\s+provision"
+    r")\b",
+    re.IGNORECASE,
+)
+ENERGY_RESERVES_MNPI_RE = re.compile(
+    r"\b("
+    r"(?:proved|probable|2P|3P)\s+reserves?\s+(?:downgrade|upgrade|restatement|write[- ]down)|"
+    r"reserve\s+(?:replacement\s+ratio|downgrade|upgrade|restatement)|"
+    r"(?:discovery|appraisal|exploration)\s+well\s+(?:result|success|failure|dry\s+hole)|"
+    r"drilling\s+(?:result|success|failure)|"
+    r"production\s+guidance\s+(?:cut|reduction|increase|revision)|"
+    r"impairment\s+(?:charge|test)\s+(?:for|on)\s+(?:oil|gas|mining|energy)\s+assets?"
+    r")\b",
+    re.IGNORECASE,
+)
+LEGAL_PROCEEDING_MNPI_RE = re.compile(
+    r"\b("
+    r"(?:settlement\s+in\s+principle|settlement\s+term\s+sheet|class[- ]action\s+settlement)|"
+    r"(?:adverse|draft)\s+(?:judg(?:e)?ment|ruling|award)|"
+    r"(?:arbitration\s+award|tribunal\s+award)\s+(?:expected|draft|adverse|favourable)|"
+    r"(?:DOJ|SEC|FCA|SFO|MAS|ACCC|ASIC)\s+(?:settlement|enforcement\s+settlement|deferred\s+prosecution\s+agreement)|"
+    r"litigation\s+(?:reserve|provision)\s+(?:increase|release|write[- ]back)|"
+    r"(?:injunction|freezing\s+order|asset\s+freeze)\s+(?:granted|denied|expected|draft)"
+    r")\b",
+    re.IGNORECASE,
+)
 # item 109: cross-border personal-data transfer markers. Statutes: PDPA s26 + PDP Regulations
 # 2021 (SG; ASEAN MCCs + RIPD MCCs released Jan 2025); GDPR Chapter V Arts 44-49 (EU); UK GDPR
 # + DPA 2018 Part 5 (UK); PIPL Art 38 + CAC + SAMR Measures for Certification of Cross-Border
@@ -709,7 +757,11 @@ _HEALTH_CONDITION_TERMS = (
     r"type\s+[12]\s+diabetes|diabetes|hypertension|HIV|AIDS|cancer|carcinoma|"
     r"leukaemia|leukemia|asthma|epilepsy|schizophrenia|bipolar\s+disorder|"
     r"major\s+depressive\s+disorder|depression|anxiety\s+disorder|PTSD|"
-    r"pregnancy|pregnant|tuberculosis|hepatitis\s+[ABC]|chronic\s+kidney\s+disease"
+    r"pregnancy|pregnant|tuberculosis|hepatitis\s+[ABC]|chronic\s+kidney\s+disease|"
+    r"Parkinson'?s(?:\s+disease)?|Alzheimer'?s(?:\s+disease)?|stroke|"
+    r"myocardial\s+infarction|heart\s+attack|autism\s+spectrum\s+disorder|ADHD|"
+    r"COPD|multiple\s+sclerosis|sickle\s+cell(?:\s+disease)?|thalassa?emia|"
+    r"dengue(?:\s+fever)?|endometriosis|lupus"
 )
 HEALTH_CONDITION_RE = re.compile(
     r"\b(?:"
@@ -734,7 +786,9 @@ HEALTH_CONDITION_RE = re.compile(
 _MEDICATION_TERMS = (
     r"metformin|insulin|semaglutide|warfarin|heparin|sertraline|fluoxetine|"
     r"olanzapine|lithium|lamotrigine|levetiracetam|salbutamol|albuterol|"
-    r"antiretroviral\s+therapy|PrEP|Truvada|chemotherapy|radiotherapy|dialysis"
+    r"antiretroviral\s+therapy|PrEP|Truvada|chemotherapy|radiotherapy|dialysis|"
+    r"lisinopril|amlodipine|atorvastatin|omeprazole|prednisolone|methotrexate|"
+    r"adalimumab|antipsychotic|antidepressant|antiepileptic"
 )
 MEDICAL_TREATMENT_RE = re.compile(
     r"\b(?:"
@@ -778,13 +832,15 @@ BIOMETRIC_IDENTIFIER_RE = re.compile(
 GENETIC_DATA_RE = re.compile(
     r"\b(?:"
     r"(?:genetic|genomic|DNA)\s+(?:test(?:ing)?(?:\s+result)?|result|profile|sequence|data|report|marker)"
-    r"(?:\s*[:=]\s*(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)\s+"
+    r"(?:\s*[:=]\s*(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?(?:B\*?1502|[A-Z0-9]+)|"
+    r"LDLR|CFTR|PALB2|TP53|MLH1|MSH2)\s+"
     r"(?:positive|negative|carrier|variant|mutation|status))?"
     r"|"
-    r"(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)\s+"
+    r"(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?(?:B\*?1502|[A-Z0-9]+)|LDLR|CFTR|PALB2|TP53|MLH1|MSH2)\s+"
     r"(?:positive|negative|carrier|variant|mutation|status)"
     r"|"
-    r"(?:carrier\s+status|pathogenic\s+variant|germline\s+mutation|whole\s+genome\s+sequence)"
+    r"(?:carrier\s+status|pathogenic\s+variant|likely\s+pathogenic\s+variant|"
+    r"germline\s+mutation|pharmacogenomic\s+result|whole\s+genome\s+sequence)"
     r")\b",
     re.IGNORECASE,
 )
@@ -835,6 +891,14 @@ RACIAL_ETHNIC_ORIGIN_RE = re.compile(
     r"(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}\s+"
     r"(?:is\s+ethnically|has\s+ethnic\s+origin\s+listed\s+as|is\s+of)\s+"
     r"(?:" + _RACIAL_ETHNIC_TERMS + r")(?:\s+(?:descent|origin|background|ethnicity))?"
+    r"|"
+    r"(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}'?s\s+"
+    r"(?:race|ethnicity|ethnic\s+origin|racial\s+origin|ethnic\s+background)\s+"
+    r"(?:is|was|listed\s+as|recorded\s+as|:|=)\s*(?:" + _RACIAL_ETHNIC_TERMS + r")"
+    r"|"
+    r"(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}\s+"
+    r"(?:is|was|identifies\s+as)\s+(?:an?\s+)?(?:ethnic\s+)?"
+    r"(?:" + _RACIAL_ETHNIC_TERMS + r")\s+(?:person|employee|patient|client)"
     r"|"
     r"(?:民族|种族|族裔|族群)\s*[:：]\s*(?:" + _RACIAL_ETHNIC_TERMS + r")"
     r"|"
@@ -2048,7 +2112,9 @@ _CO_OCCURRENCE_AMPLIFIER_RULES = frozenset({
     "insider_list_marker", "information_barrier_marker",
     "dpt_pre_listing_marker", "dpt_protocol_event_marker",
     "esg_climate_pre_disclosure", "esg_target_revision",
-    "cyber_incident_pre_disclosure",
+    "cyber_incident_pre_disclosure", "pharma_trial_mnpi",
+    "financial_services_regulatory_mnpi", "energy_reserves_mnpi",
+    "legal_proceeding_mnpi",
 })
 _CO_OCCURRENCE_TRIGGER_RULES = frozenset({
     "transaction_codename", "definitive_agreement", "material_adverse_change",
@@ -3855,6 +3921,14 @@ class PreSendReviewEngine:
              "ESG target revision / assurance opinion; amplifies when adjacent to MNPI substrate"),
             (CYBER_INCIDENT_RE, "cyber_incident_pre_disclosure",
              "Cyber-incident pre-disclosure marker; amplifies when adjacent to MNPI substrate"),
+            (PHARMA_TRIAL_MNPI_RE, "pharma_trial_mnpi",
+             "Pharma clinical-trial / regulatory marker; amplifies when adjacent to MNPI substrate"),
+            (FINANCIAL_SERVICES_REGULATORY_MNPI_RE, "financial_services_regulatory_mnpi",
+             "Financial-services regulatory-capital / enforcement marker; amplifies when adjacent to MNPI substrate"),
+            (ENERGY_RESERVES_MNPI_RE, "energy_reserves_mnpi",
+             "Energy reserve / production-guidance marker; amplifies when adjacent to MNPI substrate"),
+            (LEGAL_PROCEEDING_MNPI_RE, "legal_proceeding_mnpi",
+             "Legal proceeding / settlement marker; amplifies when adjacent to MNPI substrate"),
         ]
         if is_us_scope:
             post_pass_rules.append(
@@ -3866,7 +3940,9 @@ class PreSendReviewEngine:
             "contingent_mnpi_language", "insider_list_marker", "information_barrier_marker",
             "dpt_pre_listing_marker", "dpt_protocol_event_marker",
             "esg_climate_pre_disclosure", "esg_target_revision",
-            "cyber_incident_pre_disclosure",
+            "cyber_incident_pre_disclosure", "pharma_trial_mnpi",
+            "financial_services_regulatory_mnpi", "energy_reserves_mnpi",
+            "legal_proceeding_mnpi",
         }
         for pattern, rule, reason in post_pass_rules:
             for match in pattern.finditer(text):

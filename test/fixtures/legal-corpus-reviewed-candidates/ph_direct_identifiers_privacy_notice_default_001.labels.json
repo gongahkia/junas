@@ -1,0 +1,320 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "PH",
+    "doc_id": "ph_direct_identifiers_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_privacy_notice_default_001.txt",
+    "source_jurisdiction": "PH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ph_direct_identifiers_privacy_notice_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_direct_identifiers_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Elias D. Soriano",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TIN 123-456-789-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "elias.soriano@maligaya.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 917 555 0134",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "BayanBank Account No. 00-456-123456-7",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PH Passport No. P1234567Q",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retained only for travel facilitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pilar A. Velasco",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@maligaya.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 2 8723 0043",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "access, correction, or deletion requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data is deleted or anonymized per policy",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PhilID 0000-0000-0000-0000",
+      "rule": "ph_philsys"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-456-789-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Elias",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pilar",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Questions under this notice are resolved by the DPO and are subject to guidance from competent regulators without waiving any statutory rights.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2345678",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "elias.soriano@maligaya.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 917 555 0134",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 2 8723 0043",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-456-789-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Elias",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pilar",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Questions under this notice are resolved by the DPO and are subject to guidance from competent regulators without waiving any statutory rights.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2345678",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Example record: Mr. Elias D. Soriano, TIN 123-456-789-000, elias.soriano@maligaya.com.ph, +63 917 555 0134, Unit 12B Lakbay Tower, 88 Ilaya Ext., Brgy. Luntian, San Palay City, Rizalia 1901.\nPayroll details may include BayanBank Account No. 00-456-123456-7 and PH Passport No. P1234567Q (invalid sample, not for verification) retained only for travel facilitation.\nFor access, correction, or deletion requests, contact Data Protection Officer Ms. Pilar A. Velasco via dpo@maligaya.com.ph, +63 2 8723 0043, or mail to 5F Allegra Center, Camino Verde Rd., Brgy. Malig, San Palay City, Rizalia 1901",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Maligaya Agro\u2011Tech, Inc. (Philippine issuer) Data Processing and MNPI Handling Notice; SEC Reg. No. CS2024-987654.\nThis notice applies to processing under the Data Privacy Act of 2012 and to handling of material non-public information under the Securities Regulation Code in HR, tax, banking, and disclosure workflows.\nWe process PII (e.g., names, addresses, Tax Identification Numbers, emails, phone numbers) and MNPI (unreleased financials, budgets, board actions) for payroll, compliance, and SEC/PSE filings.\nExample record: Mr. Elias D. Soriano, TIN 123-456-789-000, elias.soriano@maligaya.com.ph, +63 917 555 0134, Unit 12B Lakbay Tower, 88 Ilaya Ext., Brgy. Luntian, San Palay City, Rizalia 1901.\nPayroll details may include BayanBank Account No. 00-456-123456-7 and PH Passport No. P1234567Q (invalid sample, not for verification) retained only for travel facilitation.\nFor access, correction, or deletion requests, contact Data Protection Officer Ms. Pilar A. Velasco via dpo@maligaya.com.ph, +63 2 8723 0043, or mail to 5F Allegra Center, Camino Verde Rd., Brgy. Malig, San Palay City, Rizalia 1901.\nGeneric intake forms may display labels such as Applicant Name: __________ and Position: __________, which by themselves do not identify an individual.\nMNPI is restricted to need-to-know; insiders must observe blackout periods and may not trade until a Form 17-C has been filed and the disclosure is publicly available.\nWe share limited data with Balangay Payroll Services OPC and Laguna Transfer Agent Corp. under DPA-compliant agreements; cross-border processing via CloudHub APAC Pte. Ltd. (SG) follows NPC Circular No. 16-01.\nRetention: HR/tax records are kept for up to 10 years under applicable law; insider and trading-window records for 5 years; thereafter data is deleted or anonymized per policy.\nAccess controls are role-based (e.g., HR Officer, Compliance Officer, Treasurer) and logged; role titles alone are not treated as personal identifiers.\nFor avoidance of doubt, the Citizens\u2019 Complaint Hotline 8888 is a public service number and must not be used for privacy requests or insider disclosures to the company.\nPlaceholder IDs such as SSS No. 01-2345678-9X and PhilID 0000-0000-0000-0000 are invalid and will not be recorded as legitimate credentials.\nQuestions under this notice are resolved by the DPO and are subject to guidance from competent regulators without waiving any statutory rights.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Applicant Name",
+      "reason": "Generic form label without a value; not PII."
+    },
+    {
+      "matched_text": "Position",
+      "reason": "Generic form label without a value; not PII."
+    },
+    {
+      "matched_text": "8888",
+      "reason": "Public helpline short code; not a private phone number for PII detection."
+    },
+    {
+      "matched_text": "HR Officer",
+      "reason": "Role title only; not a personal identifier."
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "PH postal address",
+      "matched_text": "Unit 12B Lakbay Tower, 88 Ilaya Ext., Brgy. Luntian, San Palay City, Rizalia 1901",
+      "reason": "Direct address is legally identifying but no generic postal address rule is listed for PH."
+    },
+    {
+      "concept": "PH postal address",
+      "matched_text": "5F Allegra Center, Camino Verde Rd., Brgy. Malig, San Palay City, Rizalia 1901",
+      "reason": "Direct address is legally identifying but not covered by an allowed address rule."
+    },
+    {
+      "concept": "PH SSS number",
+      "matched_text": "SSS No. 01-2345678-9X",
+      "reason": "PH Social Security number is sensitive but there is no allowed rule for PH SSS; also marked invalid."
+    },
+    {
+      "concept": "PH SEC company registration number",
+      "matched_text": "SEC Reg. No. CS2024-987654",
+      "reason": "Corporate identifier is relevant but no allowed rule covers PH SEC registration numbers."
+    },
+    {
+      "concept": "PH SEC current report form",
+      "matched_text": "Form 17-C",
+      "reason": "Trading restriction gating is MNPI-relevant but not clearly covered by a listed MNPI rule."
+    }
+  ]
+}

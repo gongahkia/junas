@@ -1,0 +1,418 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_special_category_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/special_category/hk_special_category_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_special_category_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_special_category_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Lam",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "health: Type 1 diabetes treated with an insulin pump",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "health: Type 1 diabetes treated with an insulin pump",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric: facial\u2011scan template registered for restricted lab access at Silver Bay campus",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religious belief: practicing Taoist",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "adrian.lam@jiayun\u2011robotics.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Celia Fong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union: elected officer of the Harbour Tech Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "celia.fong@jiayun\u2011robotics.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kento Wai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "kento.wai@orchidnebula.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. R.Q. Yeung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rq.yeung@silverquay\u2011cap.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 5X33 0O22",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Access code A C C \u2011 7 1 8 9 \u2011 X X 3",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "k=0O1i\u2011LAa",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sensitive data above is processed strictly for due diligence",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Jade\u2011Kite",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed voluntary general offer",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HK$ 1 2 . 3 0 per Sh a re in cash",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "23.4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VDR only",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if applicable",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market MAC qualified",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no MAC triggered by general market indices",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1 2 . 3 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Funding: Committed term facility from Lantau Rock Bank Ltd and equity from Harbour Peak Fund SPC; no financing out; no MAC triggered by general market indices.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employment & Union Undertakings: Ms. Celia Fong (Employee Representative) \u2014 union: elected officer of the Harbour Tech Union; Offeror agrees no adverse change to her elected status or consultation rights for 12 months post\u2011closing; contact: celia.fong@jiayun\u2011robotics.example.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing Timeline: Board approvals targeted by 2Q2026; long\u2011stop date 30 Sep 2026; lower\u2011case project\u2011management note: update gantt + circulate redlines by fri eod; closing venue: North Lantau, Silver Bay (non\u2011public).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Jade",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HK$ 1",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "likely to impact",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "kento.wai@orchidnebula.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1 2 . 3 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Lam",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Celia Fong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kento Wai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Funding: Committed term facility from Lantau Rock Bank Ltd and equity from Harbour Peak Fund SPC; no financing out; no MAC triggered by general market indices.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employment & Union Undertakings: Ms. Celia Fong (Employee Representative) \u2014 union: elected officer of the Harbour Tech Union; Offeror agrees no adverse change to her elected status or consultation rights for 12 months post\u2011closing; contact: celia.fong@jiayun\u2011robotics.example.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing Timeline: Board approvals targeted by 2Q2026; long\u2011stop date 30 Sep 2026; lower\u2011case project\u2011management note: update gantt + circulate redlines by fri eod; closing venue: North Lantau, Silver Bay (non\u2011public).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Jade",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HK$ 1",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "23.4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "likely to impact",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts: Primary \u2014 Mr. Kento Wai (Director, Orchid Nebula), kento.wai@orchidnebula.example, +852 5X33 0O22; Secondary \u2014 Ms. R.Q. Yeung (Silver Quay Capital), rq.yeung@silverquay\u2011cap.example; courier label: Unit 1501, 12 Harbor Crescent, East Kowloon (fictional)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed voluntary general offer by Orchid Nebula Holdings Limited for JiaYun Robotics Limited (HKX\u2011listed, stock code 7Z09) \u2014 Project Jade\u2011Kite.\nOfferor: Orchid Nebula Holdings Limited; concert parties include Harbour Peak Fund SPC \u2014 Segregated Portfolio C (advised by Silver Quay Capital (HK) Limited, Type 9 under the Harbour Kong Securities & Futures Ordinance (SFO)).\nConsideration: HK$ 1 2 . 3 0 per Sh a re in cash; 23.4% premium to last c l o s e; escrow: Stellar Trustee (Asia) Limited; settlement T+5 via HKX\u2011Clear.\nFunding: Committed term facility from Lantau Rock Bank Ltd and equity from Harbour Peak Fund SPC; no financing out; no MAC triggered by general market indices.\nConditions Precedent: Minimum acceptance > 50% of disinterested Shares; compliance with the Harbour Kong Takeovers Code; no injunction; approval of circular per HKX Listing Rules 14 & 14A (if applicable).\nRegulatory & MNPI: Inside information handled per SFO Part XIV\u2011A; non\u2011public, specific information likely to impact price is MNPI; public\u2011source references (HKX announcements, press releases) shall not constitute MNPI for this Term Sheet.\nConfidentiality: No external release until joint announcement under Takeovers Code Rule 3.5\u2011like standard; drafts circulated via VDR only; URL: https://dealroom.orchidnebula.example/v/JRL?rid=ONH%2F7Z09&k=0O1i\u2011LAa (do not forward).\nKey Management/Disclosure Schedule: Mr. Adrian Lam (CFO, JiaYun Robotics) \u2014 health: Type 1 diabetes treated with an insulin pump; biometric: facial\u2011scan template registered for restricted lab access at Silver Bay campus; religious belief: practicing Taoist; contact: adrian.lam@jiayun\u2011robotics.example.\nEmployment & Union Undertakings: Ms. Celia Fong (Employee Representative) \u2014 union: elected officer of the Harbour Tech Union; Offeror agrees no adverse change to her elected status or consultation rights for 12 months post\u2011closing; contact: celia.fong@jiayun\u2011robotics.example.\nProduct & Benign Phrases: References to product names Nimbus 12 Pro, DragonGate X, and the metaphor \u201cpolitical football\u201d are marketing/colloquial only; the word \u201csex\u2011life\u201d appears in a wellness slogan and is not used to describe any individual\u2019s sex life.\nSports/Places (Non\u2011binding, do not announce): Community sponsorships (e.g., Kowloon Harbour Tigers, Silver Bay regatta) may continue in ordinary course and shall not trigger any MAC.\nDataroom Access Codes & Obfuscation: Access code A C C \u2011 7 1 8 9 \u2011 X X 3; internal tag PRJ\u2011J Y R L\u20112 0 2 6; doc ref TS\u201100I\u2011L; note potential OCR confusions between \u2018I\u2019, \u2018l\u2019, and \u20181\u2019 in legacy scans.\nClosing Timeline: Board approvals targeted by 2Q2026; long\u2011stop date 30 Sep 2026; lower\u2011case project\u2011management note: update gantt + circulate redlines by fri eod; closing venue: North Lantau, Silver Bay (non\u2011public).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Offeror",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Nimbus 12 Pro",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "DragonGate X",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "political football",
+      "reason": "Colloquial metaphor, not PII/MNPI"
+    },
+    {
+      "matched_text": "sex\u2011life",
+      "reason": "Generic phrase not tied to an individual\u2019s data"
+    },
+    {
+      "matched_text": "Kowloon Harbour Tigers",
+      "reason": "Sports team name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Silver Bay regatta",
+      "reason": "Sports/community event, not PII/MNPI"
+    },
+    {
+      "matched_text": "Genetic Sunrise",
+      "reason": "Product module name, not genetic personal data"
+    },
+    {
+      "matched_text": "BioMetric Edge",
+      "reason": "Product module name, not biometric personal data"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "phone_number",
+      "matched_text": "+852 5X33 0O22",
+      "reason": "Contains alphabetic characters; appears to be an obfuscated HK phone number"
+    },
+    {
+      "concept": "internal_session_id in URL",
+      "matched_text": "https://dealroom.orchidnebula.example/v/JRL?rid=ONH%2F7Z09&k=0O1i\u2011LAa",
+      "reason": "Query parameter may embed an access token/session key"
+    },
+    {
+      "concept": "insider_controls",
+      "matched_text": "Inside information handled per SFO Part XIV\u2011A",
+      "reason": "References handling of inside information but not a specific insider list or barrier control rule"
+    },
+    {
+      "concept": "volume_commitment/threshold",
+      "matched_text": "Minimum acceptance > 50% of disinterested Shares",
+      "reason": "Acceptance threshold functions like a quantitative condition; may be treated as material conditional term rather than pure percentage"
+    }
+  ]
+}

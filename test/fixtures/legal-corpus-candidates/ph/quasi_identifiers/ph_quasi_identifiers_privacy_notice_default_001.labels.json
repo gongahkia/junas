@@ -56,11 +56,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -173,6 +173,12 @@
       "category": "MNPI",
       "matched_text": "restricted",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal information means data from which an individual\u2019s identity is apparent or can be directly and reasonably ascertained when combined with other data, consistent with the Philippine Data Privacy Act.\nWe also process material non\u2011public information relevant to a reasonable investor under the Securities Regulation Code during pre\u2011disclosure drafting, financial close, and board approvals.\nContact the Data Protection Office at dpo@arcella.ph or +63 28 555 0040; processing oversight sits with the Corporate Secretary and Compliance Unit",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -203,12 +209,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "Personal information means data from which an individual\u2019s identity is apparent or can be directly and reasonably ascertained when combined with other data, consistent with the Philippine Data Privacy Act.\nWe also process material non\u2011public information relevant to a reasonable investor under the Securities Regulation Code during pre\u2011disclosure drafting, financial close, and board approvals.\nContact the Data Protection Office at dpo@arcella.ph or +63 28 555 0040; processing oversight sits with the Corporate Secretary and Compliance Unit",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "Example processing context: Ms. Lira D. Navarro (Senior Treasury Analyst, Arcella Holdings Corp.) used AO\u2011Tab A9 device serial AO\u201199384 at Level 18, Verdancia Tower, Southport IT Park, Lantigua City to approve payroll batch ARC\u2011PR\u20110625 during VPN session ARC\u2011VPN\u20112025\u201106\u201115\u20111130.\nHer HR profile includes date of birth 1984\u201107\u201112, internal payroll username lnavarro84, and bank e\u2011wallet tag ending 5521 for salary credit; in combination these are treated as personal information.\nThese records may intersect with treasury cash forecasts and draft investor decks prior to public disclosure, so MNPI access is restricted on a need\u2011to\u2011know basis, with segregation of duties and audit logs by role",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
@@ -218,6 +218,12 @@
       "matched_text": "Example processing context: Ms. Lira D. Navarro (Senior Treasury Analyst, Arcella Holdings Corp.) used AO\u2011Tab A9 device serial AO\u201199384 at Level 18, Verdancia Tower, Southport IT Park, Lantigua City to approve payroll batch ARC\u2011PR\u20110625 during VPN session ARC\u2011VPN\u20112025\u201106\u201115\u20111130.\nHer HR profile includes date of birth 1984\u201107\u201112, internal payroll username lnavarro84, and bank e\u2011wallet tag ending 5521 for salary credit; in combination these are treated as personal information.\nThese records may intersect with treasury cash forecasts and draft investor decks prior to public disclosure, so MNPI access is restricted on a need\u2011to\u2011know basis, with segregation of duties and audit logs by role.\nWe collect payroll and tax data (withholding amounts, payroll calendars, employer contributions) solely for statutory compliance and disbursement through our banking partner Pioneer Arch Bank (fictional) under a data sharing agreement.\nRetention: HR files (timekeeping logs, payslip PDFs) are kept 5 years, capital\u2011markets drafts until disclosure plus 2 years, and system audit trails 18 months; afterward we delete or archive to encrypted cold storage at Arcella Vault East, North Emerald Complex, Eastport, Metrona Region (fictional).\nAlone, descriptors like \u201cmale\u201d, \u201cage 30\u201339\u201d, \u201cAndroid handset\u201d, or \u201cfrom Central Isles\u201d are not treated as identifying and are classified as non\u2011identifying demographics when unlinked.\nWe also maintain system metrics such as browser type, 4\u2011hour access windows (e.g., 08:00\u201312:00), and city\u2011level location examples like San Telmo City or Nueva Osias without names; these are not PII unless combined to re\u2011identify.\nProcessing purposes include HR administration, payroll and tax compliance, vendor onboarding, treasury cash management, and preparation of disclosure documents for filing with the national securities regulator and the listing exchange.\nData transfers: CloudLexis APAC, Inc. (fictional SaaS host in Quinzon Norte Tech Park) provides hosting; cross\u2011border replication to SG and JP nodes proceeds under contractual clauses and a transfer impact assessment.\nData subject rights: employees, contractors, and investors may request access, correction, or deletion by emailing privacy@arcella.ph; we verify via two\u2011step challenge and respond within 15 business days.\nSecurity controls include device posture checks, encryption at rest, unique session IDs, and pseudonymization; for example, ARC\u2011IR\u2011ROOM\u201107 meeting minutes are stored under project code \u201cBlue Orchard\u201d until the disclosure is public.\nNo single element of browsing history, cookie ID, or rough location is used to make automated decisions about a person; automated scoring is limited to fraud\u2011signal thresholds for treasury payment release.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We also process material non\u2011public information relevant to a reasonable investor under the Securities Regulation Code during pre\u2011disclosure drafting, financial close, and board approvals.\nContact the Data Protection Office at dpo@arcella.ph or +63 28 555 0040; processing oversight sits with the Corporate Secretary and Compliance Unit",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

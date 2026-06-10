@@ -1,0 +1,197 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "PH",
+    "doc_id": "ph_jurisdictional_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ph/jurisdictional_mnpi/ph_jurisdictional_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "PH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ph_jurisdictional_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "disclosures@aisc.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1-800-000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "media@aisc.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investorrelations@aisc.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until it is posted on PSE EDGE",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "targeted for submission on 07 June 2025",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid embellishing with internal timings or vendor names",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "refrain from sharing screenshots of monitoring dashboards on social media",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "route external inquiries to media@aisc.ph and investorrelations@aisc.ph",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Based on log review, no personal data as defined under the Data Privacy Act (RA 10173) was accessed or exfiltrated; the event does not meet NPC breach notification thresholds.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Forecast: no change to previously disclosed 2025 guidance; audit committee review will be summarized in the next SEC Form 17-Q consistent with standard timelines.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "disclosures@aisc.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Based on log review, no personal data as defined under the Data Privacy Act (RA 10173) was accessed or exfiltrated; the event does not meet NPC breach notification thresholds.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Forecast: no change to previously disclosed 2025 guidance; audit committee review will be summarized in the next SEC Form 17-Q consistent with standard timelines.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Amihan Integrated Systems Corporation (AISC) \u2014 Operational Incident Report: transient network access disruption on 24 May 2025, 08:14\u201309:01 PHT.\nAISC experienced degraded connectivity at the Metro Manila data hub due to upstream rate-limiting by third-party content delivery provider ArcFern Networks OPC; services were restored and validated by 10:10 PHT.\nCustomer portals and mobile app responses slowed; no funds movement or securities transactions were blocked and Bituin Commercial Bank partner channels remained stable.\nBased on log review, no personal data as defined under the Data Privacy Act (RA 10173) was accessed or exfiltrated; the event does not meet NPC breach notification thresholds.\nPublic status: AISC posted a service advisory on 24 May and filed SEC Form 17-C (Current Report) via PSE EDGE on 25 May 2025 (EDGE Ref: EDG-AISC-000000); a press release was uploaded to www.aisc.ph/news.\nImpact to operations: payroll processing, tax e-filing, and HR self-service were unaffected; regional warehouses operated on normal shifts.\nRemediation: ArcFern adjusted rate-limit policies and AISC enabled burstable caching; follow-up capacity tests are scheduled for the week of 03 June 2025.\nHistorical context: a similar 2023 latency incident (publicly disclosed at the time) involved a different circuit and has no continuing operational effect.\nInvestor relations note: any references to \u201csystem hardening program\u201d in analyst briefings should rely only on public materials and the 25 May EDGE posting; avoid embellishing with internal timings or vendor names.\nAdministrative markers (for internal routing only): Case ID OPS-AISC-2025-000G; PSE EDGE Ref EDG-AISC-000000; Ticket SR-NOC-0009X; Account Ref 1234-XXXX-8890; contact disclosures@aisc.ph or 1-800-000-0000 (PH toll-free).\nForecast: no change to previously disclosed 2025 guidance; audit committee review will be summarized in the next SEC Form 17-Q consistent with standard timelines.\nPositive control point (MNPI): a draft SEC Form 17-C regarding planned network control enhancements is targeted for submission on 07 June 2025; until it is posted on PSE EDGE, directors and key officers are under trading blackout per SRC and PSE Revised Disclosure Rules.\nCompliance reminder: refrain from sharing screenshots of monitoring dashboards on social media; route external inquiries to media@aisc.ph and investorrelations@aisc.ph.\nThis report consolidates already announced information for continuity; it does not supersede public disclosures and excludes confidential customer or employee datasets.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "customer_account_number",
+      "matched_text": "Account Ref 1234-XXXX-8890",
+      "reason": "Appears to be an account reference but not clearly linked to a natural person; could be a non-person corporate or internal account."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "Case ID OPS-AISC-2025-000G",
+      "reason": "Internal case identifier; may function as an internal system ID but not clearly personal."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "Ticket SR-NOC-0009X",
+      "reason": "Internal ticket identifier; may relate to a customer or employee but not clearly personal."
+    }
+  ]
+}

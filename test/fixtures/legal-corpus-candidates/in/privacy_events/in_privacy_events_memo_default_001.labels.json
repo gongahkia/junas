@@ -59,11 +59,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -216,6 +216,12 @@
       "category": "PII",
       "matched_text": "under 18 years",
       "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR and erasure event: Mr. Pranay Kulkarni requested access and deletion on 02 May 2026; access was fulfilled on 06 May 2026; non-essential marketing attributes were erased on 07 May 2026, with billing records retained per Retention Schedule RS-07 (8 years post relationship end).\nCross-border transfer: Data Export Approval DEA/IN-SG/2026/04 was granted by the DPO, Ms. Charu Menon, for limited transfer of shipment telemetry and contact fields to CloudQuarry Pte. Ltd., Singapore, under DPA Schedule 2 (India Addendum), with encryption-at-rest and logical segregation; there are currently no transfers to the United States, and the prior pilot with DataTrellis Inc. (USA) was decommissioned on 31 Mar 2026.\nPIT/UPSI handling: Q1 FY27 draft earnings guidance and margin forecasts in the 25 May 2026 Board Pack are categorised as UPSI; the trading window is closed and a restricted list is maintained, with access logged in the Insider Portal; no public dissemination has occurred",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -280,16 +286,16 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "DSAR and erasure event: Mr. Pranay Kulkarni requested access and deletion on 02 May 2026; access was fulfilled on 06 May 2026; non-essential marketing attributes were erased on 07 May 2026, with billing records retained per Retention Schedule RS-07 (8 years post relationship end).\nCross-border transfer: Data Export Approval DEA/IN-SG/2026/04 was granted by the DPO, Ms. Charu Menon, for limited transfer of shipment telemetry and contact fields to CloudQuarry Pte. Ltd., Singapore, under DPA Schedule 2 (India Addendum), with encryption-at-rest and logical segregation; there are currently no transfers to the United States, and the prior pilot with DataTrellis Inc. (USA) was decommissioned on 31 Mar 2026.\nPIT/UPSI handling: Q1 FY27 draft earnings guidance and margin forecasts in the 25 May 2026 Board Pack are categorised as UPSI; the trading window is closed and a restricted list is maintained, with access logged in the Insider Portal; no public dissemination has occurred",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Consent withdrawal event: Ms. Leena Bose (customer) withdrew consent for cross-sell communications on 18 Apr 2026; marketing flags updated within 48 hours and profiling disabled; invoices and tax records were retained per statutory requirements.\nDSAR and erasure event: Mr. Pranay Kulkarni requested access and deletion on 02 May 2026; access was fulfilled on 06 May 2026; non-essential marketing attributes were erased on 07 May 2026, with billing records retained per Retention Schedule RS-07 (8 years post relationship end).\nCross-border transfer: Data Export Approval DEA/IN-SG/2026/04 was granted by the DPO, Ms. Charu Menon, for limited transfer of shipment telemetry and contact fields to CloudQuarry Pte. Ltd., Singapore, under DPA Schedule 2 (India Addendum), with encryption-at-rest and logical segregation; there are currently no transfers to the United States, and the prior pilot with DataTrellis Inc. (USA) was decommissioned on 31 Mar 2026.\nPIT/UPSI handling: Q1 FY27 draft earnings guidance and margin forecasts in the 25 May 2026 Board Pack are categorised as UPSI; the trading window is closed and a restricted list is maintained, with access logged in the Insider Portal; no public dissemination has occurred.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: Data Export Approval DEA/IN-SG/2026/04 was granted by the DPO, Ms. Charu Menon, for limited transfer of shipment telemetry and contact fields to CloudQuarry Pte. Ltd., Singapore, under DPA Schedule 2 (India Addendum), with encryption-at-rest and logical segregation; there are currently no transfers to the United States, and the prior pilot with DataTrellis Inc. (USA) was decommissioned on 31 Mar 2026.\nPIT/UPSI handling: Q1 FY27 draft earnings guidance and margin forecasts in the 25 May 2026 Board Pack are categorised as UPSI; the trading window is closed and a restricted list is maintained, with access logged in the Insider Portal; no public dissemination has occurred",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [],

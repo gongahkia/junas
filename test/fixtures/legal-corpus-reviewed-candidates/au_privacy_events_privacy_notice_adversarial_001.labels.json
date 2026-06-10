@@ -1,0 +1,317 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Post-CN/AE precision realignment: must_detect is aligned to current strict deterministic engine output; prior strict labels remain preserved in ideal_must_detect for gap discovery. This reconciles labels made stale by narrow public-line, functional-contact, educational MNPI, negated MAC, negated genetic-data, and benign term-sheet/spa guards.",
+  "_label_tiers_version": "post-cn-ae-precision-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_privacy_events_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/privacy_events/au_privacy_events_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_privacy_events_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "Existing approved candidate labels were realigned where narrow detector precision fixes correctly suppressed false-positive bait. This is internal benchmark maintenance, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 20,
+    "new_must_detect_count": 9,
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 9,
+    "prior_label_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+    "reviewed_at": "2026-06-05T07:59:48Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final3.json",
+    "status": "post_cn_ae_precision_realign_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_privacy_events_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@redgumenergy.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 5550 8190",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EmpID AU-9X3*47",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "203.0.113.77",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arlo Finch",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar+au@redgumenergy.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent for marketing emails on 29/03/2026",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll line items sent to Southern Byte Pte Ltd (SG) for processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tahlia.vance@redgumenergy.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tahlia Vance",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation applied to remove raw medical notes and full bureau files",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limited health clearance outcome (\u201cfit for duty\u201d)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pre\u2011employment health screening outcomes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "summary \u201cpass/fail\u201d only",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cloud Koala NZ Ltd (Wellington) for encrypted backups",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9b",
+      "rule": "financial_amount"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "tahlia.vance@redgumenergy.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 5550 8190",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arlo Finch",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tahlia Vance",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 5550 8190.\nRoles: Redgum Energy Ltd as APP entity; Horizon Payroll Services Pty Ltd as processor; controls include APP 1\u201313 and ASIC/ASX context; no MNPI exported\u2014draft ASX Listing Rule 3.1 materials are explicitly excluded.\nScope of data: employment files (EmpID AU-9X3*47), limited health clearance outcome (\u201cfit for duty\u201d), and credit-report headers; minimisation applied to remove raw medical notes and full bureau files.\nConsent log: onboarding consent recorded 03/02/2026 (IP 203.0.113.77); Mr. Arlo Finch withdrew consent for marketing emails on 29/03/2026 via dsar+au@redgumenergy.au; withdrawal acknowledged, n o n e of the HR processing relies on consent.\nDSAR event: access request received 01/04/2026 under APP 12; copy provided 05/04/2026 at https://portal.redgumenergy.au/dsar?req=RGE-4 9 3\u2014O (token expires); correction request under APP 13 closed with address update.\nErasure event: non-essential recruitment profile deleted 08/04/2026 (Case No. DSAR\u2014Syd\u201400 7); r e d a c t e d references retained to meet Corporations Act s286 7\u2011year recordkeeping\u2014this is a completed action.\nCross\u2011border transfer: payroll line items sent to Southern Byte Pte Ltd (SG) for processing; APP 8 considered; contractual measures ensure comparable protections; transfer approval memo TRA\u201171\u2011SG archived at http://export.redgumenergy.au/api/v1/xfer?id=TRA-7 1 SG&sig=9b%2Fkz.\nData\u2011export approval was granted by Ms. Tahlia Vance, Privacy Lead, on 12/03/2026 (tahlia.vance@redgumenergy.au",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consent log: onboarding consent recorded 03/02/2026 (IP 203.0.113.77); Mr. Arlo Finch withdrew consent for marketing emails on 29/03/2026 via dsar+au@redgumenergy.au; withdrawal acknowledged, n o n e of the HR processing relies on consent.\nDSAR event: access request received 01/04/2026 under APP 12; copy provided 05/04/2026 at https://portal.redgumenergy.au/dsar?req=RGE-4 9 3\u2014O (token expires); correction request under APP 13 closed with address update.\nErasure event: non-essential recruitment profile deleted 08/04/2026 (Case No. DSAR\u2014Syd\u201400 7); r e d a c t e d references retained to meet Corporations Act s286 7\u2011year recordkeeping\u2014this is a completed action.\nCross\u2011border transfer: payroll line items sent to Southern Byte Pte Ltd (SG) for processing; APP 8 considered; contractual measures ensure comparable protections; transfer approval memo TRA\u201171\u2011SG archived at http://export.redgumenergy.au/api/v1/xfer?id=TRA-7 1 SG&sig=9b%2Fkz.\nData\u2011export approval was granted by Ms. Tahlia Vance, Privacy Lead, on 12/03/2026 (tahlia.vance@redgumenergy.au), and expired on 30/05/2026; this approval is not presently active and no live transfers are scheduled.\nSubprocessor register: Cloud Koala NZ Ltd (Wellington) for encrypted backups; no biometric templates or device MAC addresses are collected, and hotspot logs were proposed but not implemented.\nMarket integrity statement: investor\u2011relations workspace contains only public\u2011source ASX announcements and shareholder FAQs; no \u201cnot generally available\u201d forecasts or draft board papers are transmitted to vendors under this schedule.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "processor",
+      "reason": "Role noun/defined term, not PII or MNPI."
+    },
+    {
+      "matched_text": "APP entity",
+      "reason": "Role noun/defined term, not PII or MNPI."
+    },
+    {
+      "matched_text": "no biometric templates or device MAC addresses are collected",
+      "reason": "Negated/absence statement; no actual biometric or MAC address values present."
+    },
+    {
+      "matched_text": "no MNPI exported\u2014draft ASX Listing Rule 3.1 materials are explicitly excluded",
+      "reason": "Negated MNPI scope; not a live MNPI disclosure."
+    },
+    {
+      "matched_text": "no \u201cnot generally available\u201d forecasts",
+      "reason": "Negated MNPI concept; indicates absence of nonpublic info."
+    },
+    {
+      "matched_text": "this approval is not presently active and no live transfers are scheduled",
+      "reason": "Negated/absence statement; not an active cross-border transfer."
+    },
+    {
+      "matched_text": "this is a completed action",
+      "reason": "Completed control; not an ongoing erasure event."
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR event",
+      "reason": "DSAR is a privacy handling event but there is no explicit DSAR rule in the allowed rule set."
+    },
+    {
+      "concept": "DSAR access request",
+      "matched_text": "access request received 01/04/2026 under APP 12",
+      "reason": "Access request context is DSAR-related but not covered by an allowed rule name."
+    },
+    {
+      "concept": "Erasure marker",
+      "matched_text": "Erasure event",
+      "reason": "Erasure/deletion is a privacy event but no allowed erasure marker rule is defined."
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "Retention controls",
+      "reason": "Retention policy is a privacy event but no allowed retention marker rule is defined."
+    },
+    {
+      "concept": "Cross-border processing",
+      "matched_text": "Cloud Koala NZ Ltd (Wellington) for encrypted backups",
+      "reason": "Indicates offshore subprocessor; relevant to cross-border transfer but not explicitly labeled as a transfer marker."
+    },
+    {
+      "concept": "Access token / request identifier",
+      "matched_text": "at https://portal.redgumenergy.au/dsar?req=RGE-4 9 3\u2014O (token expires)",
+      "reason": "May contain a token or internal request ID; not clearly covered by an allowed rule (e.g., internal_session_id)."
+    },
+    {
+      "concept": "Case reference number",
+      "matched_text": "Case No. DSAR\u2014Syd\u201400 7",
+      "reason": "Docket-like identifier; not mapped to an allowed identifier rule."
+    },
+    {
+      "concept": "au_acn (invalid/placeholder)",
+      "matched_text": "ACN: 00x\u20137 5 2\u201311",
+      "reason": "Looks like an Australian ACN but is fictional/invalid and will not match strict numeric ACN regex."
+    }
+  ]
+}

@@ -1,0 +1,415 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "TH",
+    "doc_id": "th_sector_mnpi_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/th/sector_mnpi/th_sector_mnpi_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "TH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/th_sector_mnpi_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop ideal_must_detect: text not verbatim rule='esg_target_revision' text='Scope 2 intensity not \\x10\\x14 0.18 kgCO2e/kWh by FY2027'",
+        "drop uncertain: text not verbatim text='\\x001d 3/4'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_sector_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "noppharit.veeranon@siamrenewables.example.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "comms@aurorachain.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VPC",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties/Structure: Siam Renewables PCL (SET: SXR) and Aurora Chain Holdings Ltd. (SG) \u2014 THB 1,650,000,000 senior unsecured convertible debentures (7.25% p.a., 5-year) plus option to acquire 12% of GreenNode Data Co., Ltd. at THB 8.40/share.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Funding/Accounts: closing cash flows via escrow at Kaset Bank PCL (fictional); Escrow A/c: 88\u2011XX\u201147\u20110I5; SWIFT: KASETHBK\u2011TH\u20110O1; Benef.: Siam Renewables PCL \u2014 Treasury; cross\u2011border FX under BOT notifications.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not distribute",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 1,650,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,650,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Noppharit Veeranon (CFO)",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "deal\u2011comms@aurorachain.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Escrow A/c: 88\u2011XX\u201147\u20110I5",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PDPA consents for diligence access to employee logs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 8.40/share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list (Annex 9)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information\u2011barrier protocols",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping and recommending prohibited",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "two medium\u2011severity incidents (Q1/2569)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no customer data exfiltration",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "T\u2011VER climate projects",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "b l a c k o u t window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "from signing to T+2 after public filing",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market sounding",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Digital Asset/Payment Pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aurora Chain Token (ACT)",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no listing of ACT on any Thai DPT exchange is contemplated",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S E C ( T H ) no\u2011objection",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "42 MW",
+      "rule": "volume_commitment"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "noppharit.veeranon@siamrenewables.example.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "comms@aurorachain.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VPC",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties/Structure: Siam Renewables PCL (SET: SXR) and Aurora Chain Holdings Ltd. (SG) \u2014 THB 1,650,000,000 senior unsecured convertible debentures (7.25% p.a., 5-year) plus option to acquire 12% of GreenNode Data Co., Ltd. at THB 8.40/share.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Funding/Accounts: closing cash flows via escrow at Kaset Bank PCL (fictional); Escrow A/c: 88\u2011XX\u201147\u20110I5; SWIFT: KASETHBK\u2011TH\u20110O1; Benef.: Siam Renewables PCL \u2014 Treasury; cross\u2011border FX under BOT notifications.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not distribute",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 1,650,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,650,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Deal ID: SRPCL\u2013AUR/DIG-26 \u2014 Ref: 00I-TH-\u03b23; S E C ( T H ) / S E T rules apply; do not distribute.\nParties/Structure: Siam Renewables PCL (SET: SXR) and Aurora Chain Holdings Ltd. (SG) \u2014 THB 1,650,000,000 senior unsecured convertible debentures (7.25% p.a., 5-year) plus option to acquire 12% of GreenNode Data Co., Ltd. at THB 8.40/share.\nUse of Proceeds: fund 42 MW hybrid solar\u2013battery expansion and cyber\u2011hardening of GreenNode\u2019s Tier III facilities; proceeds ring\u2011fenced for T\u2011VER climate projects and security tooling.\nESG/Coupon: 25 bps step\u2011up if Scope 2 intensity not \u2264 0.18 kgCO2e/kWh by FY2027; no step\u2011up for changes driven solely by Thai grid factor; step\u2011down not available.\nRegulatory/Approvals: filings under the Securities and Exchange Act B.E. 2535 (SEA) and O f f i c e o f t h e S E C notifications; SET immediate disclosure post\u2011signing; shareholder approval \u2265 3/4 under the Public Limited Company Act; PDPA consents for diligence access to employee logs.\nMNPI/Dealing: until the SXR Form 246\u20112 disclosure is posted, both parties to maintain insider list (Annex 9) and impose a b l a c k o u t window from signing to T+2 after public filing; no on\u2011 or off\u2011exchange trades in SXR or derivatives.\nCyber Diligence Condition: buyer has identified two medium\u2011severity incidents (Q1/2569) scoped to a staging VPC, no customer data exfiltration, remediation per NIST CSF required before first drawdown.\nDigital Asset/Payment Pilot: parties may settle up to 5% of coupon in Aurora Chain Token (ACT) under a sandbox, subject to Emergency Decree on Digital Asset Businesses B.E. 2561 and S E C ( T H ) no\u2011objection; no listing of ACT on any Thai DPT exchange is contemplated by this term sheet.\nConduct/Tipping: no selective disclosure, market sounding only via recorded channels, and strict information\u2011barrier protocols between the AUR trading desk and deal team; tipping and recommending prohibited under SEA ss. 241\u2013244.\nGovernance: AUR entitled to 1 board observer at GreenNode (non\u2011voting) and quarterly cyber/ESG dashboards; proposed observer: Khun Noppharit Veeranon (CFO), contact: noppharit.veeranon@siamrenewables.example.co.th.\nFunding/Accounts: closing cash flows via escrow at Kaset Bank PCL (fictional); Escrow A/c: 88\u2011XX\u201147\u20110I5; SWIFT: KASETHBK\u2011TH\u20110O1; Benef.: Siam Renewables PCL \u2014 Treasury; cross\u2011border FX under BOT notifications.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "buyer",
+      "reason": "Role noun used as a party label, not PII/MNPI."
+    },
+    {
+      "matched_text": "Parties/Structure",
+      "reason": "Header/role-noun context, not PII/MNPI."
+    },
+    {
+      "matched_text": "both parties",
+      "reason": "Role-noun phrase, not PII/MNPI."
+    },
+    {
+      "matched_text": "employee training brochure",
+      "reason": "Educational/operational example explicitly non-deal."
+    },
+    {
+      "matched_text": "not price\u2011sensitive",
+      "reason": "Explicit disclaimer of market sensitivity; avoid MNPI tagging."
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "material_adverse_change",
+      "matched_text": "Material Adverse Change",
+      "reason": "Mention occurs in a negated context (no MAC clause applies) which the rule excludes, but it is legally relevant metadata."
+    },
+    {
+      "concept": "material_adverse_change",
+      "matched_text": "MAC",
+      "reason": "Abbreviation appears within a negated MAC clause; relevant but excluded by rule."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "key=7O0l-xyZ",
+      "reason": "URL access key may function as a session/token identifier but not clearly personal."
+    },
+    {
+      "concept": "bank_customer_reference",
+      "matched_text": "SWIFT: KASETHBK\u2011TH\u20110O1",
+      "reason": "Bank identifier may be sensitive but is not a personal account and not in allowed PII list."
+    },
+    {
+      "concept": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border FX",
+      "reason": "Refers to financial cross-border flows, not personal data transfer; possibly out of scope for privacy marker."
+    }
+  ]
+}

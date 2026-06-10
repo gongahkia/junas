@@ -1,0 +1,14 @@
+Incident Report: BRFC Low-Severity Cyber/Operational Event, 03 June 2026 10:20 PHT
+Reporting entity: Baybayin Renewables & Finance Corporation (BRFC), a PSE-listed Philippines issuer; location: Taguig service center (non-customer-facing).
+Summary: On 02 June, our ESG metrics staging server in a segregated test VPC briefly exposed a dashboard with anonymized training records due to a misapplied bucket policy; system contained only dummy HR and vendor files for a tabletop exercise.
+Personal data assessment (Data Privacy Act): no live PII found; sample files used invalid placeholders (e.g., “TIN 000-000-000-0000”, “Acct 1234-XXXX-5678”) and no data subject was identifiable.
+Crypto/fintech systems: the BRFC LearnLab crypto-wallet sandbox and API mock (“ChainSim-UAT”) were referenced by the dashboard but held no keys, balances, or customer funds; this was a marketing demo asset.
+Information barrier posture: content was in a training subdomain with an “education-only” banner; insider-list and blackout terminology appeared in sample slides explaining SRC and SEC rules for new hires.
+Operations impact: no outage to production, no payments, settlements, or ESG/climate reporting feeds to PSE EDGE were affected; our public sustainability microsite remained available.
+Regulatory status: NPC notification not triggered under DPA thresholds; evaluation of SEC Philippines Form 17-C materiality completed with “not material” at this time, given the test-only data and public nature of the demo.
+Non-public operational consequence (limited): submission of a draft sustainability-linked note investor deck to a prospective underwriter has been deferred until validation of the metrics pipeline is complete; this planning update has not yet been posted on PSE EDGE.
+Banking and tax artifacts: no live account numbers, no BIR filings, and no payroll data were present; the labels “BSP AML refresher” and “tax calendar 2025” were generic course materials.
+Commercial terms signal check: references to “grid connection pricing,” “ESG coupon step-up,” and “issuer blackout window” were part of scenario-based training content and do not reflect live mandates or agreed terms.
+Insider-handling controls: no insider list was created for this event; existing permanent insiders continue to observe the standard information-barrier and tipping prohibitions per company policy.
+Remediation: bucket policy fixed, credentials rotated, and access logs archived; SOC confirmed no external access beyond our QA IP range; a tabletop replay is scheduled with IT, HR, and Compliance.
+Contact and disclosure channel: queries may be sent to DPO Office (dpo@brfc.example.ph) or SEC filings desk (sec-filings@brfc.example.ph); public updates, if any, will be posted via PSE EDGE and our website.

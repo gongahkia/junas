@@ -55,11 +55,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
@@ -147,6 +147,12 @@
       "category": "MNPI",
       "matched_text": "exploratory",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Role mailboxes are used for intake (hr@gy-dyn.example, ir@gy-dyn.example); no personal email addresses are collected in IR or hiring workflows.\nProduct references in IR materials include Blue Crane Platform and HaneulPay Wallet; these are used as metaphors alongside civic sponsorships (East River Tigers, Busan Waves) and place names (Seoul Tech Park) without linking to any individual.\nIR FAQs reiterate only public content from the press note dated 2025-03-10 regarding the Aurora Cells roadmap; no unpublished performance metrics, forward-looking revenue targets, or customer identities are discussed",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -187,15 +193,15 @@
     },
     {
       "category": "PII",
-      "matched_text": "Role mailboxes are used for intake (hr@gy-dyn.example, ir@gy-dyn.example); no personal email addresses are collected in IR or hiring workflows.\nProduct references in IR materials include Blue Crane Platform and HaneulPay Wallet; these are used as metaphors alongside civic sponsorships (East River Tigers, Busan Waves) and place names (Seoul Tech Park) without linking to any individual.\nIR FAQs reiterate only public content from the press note dated 2025-03-10 regarding the Aurora Cells roadmap; no unpublished performance metrics, forward-looking revenue targets, or customer identities are discussed",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "990101-12X456, Bank Info: 081-00123-ABCDE).\nRole mailboxes are used for intake (hr@gy-dyn.example, ir@gy-dyn.example); no personal email addresses are collected in IR or hiring workflows.\nProduct references in IR materials include Blue Crane Platform and HaneulPay Wallet; these are used as metaphors alongside civic sponsorships (East River Tigers, Busan Waves) and place names (Seoul Tech Park) without linking to any individual.\nIR FAQs reiterate only public content from the press note dated 2025-03-10 regarding the Aurora Cells roadmap; no unpublished performance metrics, forward-looking revenue targets, or customer identities are discussed",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Product references in IR materials include Blue Crane Platform and HaneulPay Wallet; these are used as metaphors alongside civic sponsorships (East River Tigers, Busan Waves) and place names (Seoul Tech Park) without linking to any individual.\nIR FAQs reiterate only public content from the press note dated 2025-03-10 regarding the Aurora Cells roadmap; no unpublished performance metrics, forward-looking revenue targets, or customer identities are discussed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

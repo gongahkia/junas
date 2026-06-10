@@ -44,11 +44,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
@@ -374,6 +374,18 @@
       "matched_text": "Proposed Strategic Acquisition Term Sheet (non-binding): Hinode Systems Holdings K.K. (\u201cHinode\u201d) to acquire a 67.0% stake in Sakura Logic K.K. (\u201cSakura\u201d), a Kanto Technology Exchange (KTE) Growth segment issuer, via a tender offer bid (TOB) under the Financial Instruments and Exchange Act (FIEA).\nTransaction Summary: Hinode will commence a TOB at JPY 1,240 per share (cash), targeting 67.0% of Sakura\u2019s issued shares (excluding treasury); completion to be followed by a share consolidation and squeeze-out to 100% ownership, subject to Companies Act procedures.\nBoard Approvals & Governance: Closing conditioned on Hinode and Sakura board approvals and Sakura extraordinary general meeting (EGM); post-closing board to be 5 directors (3 Hinode nominees, 2 Sakura nominees), with a majority independent director policy aligned to KTE Growth practices.\nRegulatory/Exchange Matters: Filings of \u201ctender-offer facts\u201d and \u201cenumerated material facts\u201d under FIEA to the Kanto Financial Instruments Authority (fictional) and notices under KTE Growth listing rules; no disclosure until coordinated press release; any J-SOX internal control updates to be completed within 90 days post-closing.\nMNPI/Insider Controls: Until public announcement, this term sheet and related \u91cd\u5927\u4e8b\u5b9f constitute MNPI; Hinode and Sakura will maintain insider lists, implement trading blackouts for directors, officers, and employees, and procure acknowledgments of FIEA compliance.\nEmployees & Equity: All Sakura employee stock options will be cashed out at intrinsic value at closing; retention grants for key engineers to be approved by the board; no adverse changes to collective agreements without consultation of representative employee bodies.\nPersonal Data & APPI: Diligence and integration will process personal information under APPI; My Number (kojin bango) will be accessed only for payroll/tax workflows and stored separately with access logs, with no cross-use for securities-related onboarding or equity rollovers.\nKey Individual Disclosures (for diligence only): Mr. Haruto Nishimura (Head of R&D) \u2014 registered union membership with Hoshizora Tech Workers Union for payroll dues; biometric facial template used for cleanroo",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Daichi Komori, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Haruto Nishimura (Head of R&D) \u2014 registered union membership with Hoshizora Tech Workers Union for payroll dues; biometric facial template used for cleanroom access; a voluntary pre-marital genetic carrier screen (non-pathogenic) on file; and enrollment of a same-sex partner in company benefits; retention and access limited to HR Security and DPO approval.\nAdditional Employee Note: Ms. Aiko Tanabe (HR Manager) \u2014 records indicate paid leave associated with autoimmune therapy; voluntary declaration of affiliation with Shinsei Fellowship for payroll charity matching; such sensitive data shall not be used for employment or governance decisions.\nData Room & Security: The virtual data room will exclude raw biometric datasets except for system architecture diagrams; any access-control logs that include biometric hashes will be redacted; APPI-compliant vendor agreements (with subprocessors located in fictional Takashima Prefecture) to be provided.\nConditions Precedent: No material adverse change; accuracy of reps/warranties; completion of statutory TOB procedures; absence of injunctions; consent from key customers for assignment of Nebula-Edge Router and KumoShield maintenance contracts.\nBusiness Synergy Statement (benign): The union of the two product lines is expected to create a strong \u201cgenetic\u201d fit in the edge-security market, a metaphor only and not a reference to any individual\u2019s genetic data; pilot programs will run in Hoshikawa Ward, Miyabi City; community sponsorship of the Aoban Blue Lanterns will continue.\nPolicy Statement (benign): Sakura\u2019s Inclusive Workplace Charter (fictional) emphasizes diversity, equity, and inclusion across roles and backgrounds; this aspirational DEI prose does not amend transactional obligations.\nNotices/Contacts: For Hinode \u2014 Ms. Miki Hayase-san, Corporate Secretary, miki.hayase@hinode-hd.example.co.jp; For Sakura \u2014 Mr. Daichi Komori, CFO, daichi.komori@sakura-logic.example.jp",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_not_detect": [

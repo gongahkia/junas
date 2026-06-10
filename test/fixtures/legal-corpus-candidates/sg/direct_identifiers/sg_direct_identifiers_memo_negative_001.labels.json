@@ -85,11 +85,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -301,6 +301,12 @@
       "matched_text": "Internal legal memorandum \u2014 Velorise Holdings Ltd. (SGX-ST Mainboard; Ticker: VEL0; UEN 201912345K)\nSubject: Proposed acquisition of OrchidPay Pte. Ltd. (UEN 202045678Z) and related employment/PDPA considerations; Board review under SFA/SGX disclosure controls.\nIndicative offer price S$1.42 per share and expected completion in Q4 FY2026 constitute MNPI under the SFA; embargo until 17:30 SGT, 28 Jun 2026 pursuant to SGX Listing Manual Rule 703.\nDeal team lead: Mr. Adrian Khoo, c/o Velorise Legal, adrian.khoo@velorise.com.sg, +65 6100 2211; role-only contact: Company Secretary, cosec@velorise.com.sg.\nFor KYC at the arranger bank, Mr. Adrian Khoo (Passport No. K9876543Q) and Ms. Liora Tan (FIN G1234567N) will provide certified copies; do not forward outside the Deal Room.\nHR onboarding at OrchidPay requires NRIC/FIN collection\u2014template field \u201cNRIC/FIN: S1234567A\u201d is a placeholder with an invalid checksum and must not be retained.\nGeneral enquiries 1800 000 0000 is a public helpline and not personal data; similarly, \u201cAccount No.: 00000000\u201d on forms is a generic label.\nTransfer of undertakings will trigger consent/notification to employees and contractors; role-only titles (e.g., HR Manager, CFO) may be used in notices without naming individuals.\nPre-sound investors under wall-crossing will sign PDPA-compliant NDAs; any pricing ranges or break fees discussed constitute MNPI even if circulated verbally.\nAcquisition escrow to be opened at East Harbor Bank (SG), account 123-456-789-0 in the name of Velorise Holdings Ltd.; treasury contact ap@velorise.com.sg.\nDo not collect copies of physical NRICs except as permitted by PDPC Advisory; mask addresses to block level only (e.g., 15 Veloria Lane, #12-01, Singapore 999999) in drafts.\nThe vendor\u2019s public help desk help@orchidpay.com and +65 6100 0000 are not MNPI; avoid mixing with deal correspondence.\nMaintain access logs in iBunker DMS; delete \u201cName: ______\u201d form scans lacking purpose and confirm retention schedule (12 months for unsuccessful candidates).\nPrepare holding statement referencing \u201cProject Kestrel\u201d without figures; high-level market commentary may be included if not linked to the offer.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR Manager, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

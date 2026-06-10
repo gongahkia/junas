@@ -81,11 +81,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
@@ -158,6 +158,18 @@
       "category": "PII",
       "matched_text": "cross-border personal data transfers",
       "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employment/DEI: The Remote-First Charter and Rainbow Inclusion Policy use generic DEI language and do not require collection of special-category personal data; Wellness Wednesdays communications are general wellbeing tips only.\nProduct/Marketing Names: \u201cMango Cloud,\u201d \u201cLotusBridge,\u201d and \u201cKhlong Runner\u201d are marketing labels shown in a public roadshow deck dated 30 Apr 2569; they are not binding contracts and do not contain MNPI.\nMetaphors & Teams: References to the \u201cBangkok Meteors playbook\u201d and \u201cMae Ping sprint\u201d are training metaphors and not linked to any individual\u2019s data or securities information",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Identifiers in Drafts: Any placeholders such as \u201cISIN: ZZ-NA-000000,\u201d \u201cTax ID: 0-0000-0000-00-0,\u201d or \u201cEmployee Code: E-XXXX\u201d are invalid and must not be replaced with real values in emails or slide decks.\nSEA/MNPI Control: The Treasury timeline and coupon range referenced in board packs derive from the already-posted SET news; deal banks have been instructed that further term changes will be posted before any bookbuild to avoid selective disclosure.\nPolicy Cross-References: Code of Conduct (2568 edition), Vendor Compliance Clause (Thailand), and the Data Handling Matrix v3.0 remain in force; none require collection of religion, union membership, or political opinions",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -187,22 +199,16 @@
       "rule": "transaction_codename"
     },
     {
-      "category": "PII",
-      "matched_text": "Employment/DEI: The Remote-First Charter and Rainbow Inclusion Policy use generic DEI language and do not require collection of special-category personal data; Wellness Wednesdays communications are general wellbeing tips only.\nProduct/Marketing Names: \u201cMango Cloud,\u201d \u201cLotusBridge,\u201d and \u201cKhlong Runner\u201d are marketing labels shown in a public roadshow deck dated 30 Apr 2569; they are not binding contracts and do not contain MNPI.\nMetaphors & Teams: References to the \u201cBangkok Meteors playbook\u201d and \u201cMae Ping sprint\u201d are training metaphors and not linked to any individual\u2019s data or securities information",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
-      "matched_text": "Identifiers in Drafts: Any placeholders such as \u201cISIN: ZZ-NA-000000,\u201d \u201cTax ID: 0-0000-0000-00-0,\u201d or \u201cEmployee Code: E-XXXX\u201d are invalid and must not be replaced with real values in emails or slide decks.\nSEA/MNPI Control: The Treasury timeline and coupon range referenced in board packs derive from the already-posted SET news; deal banks have been instructed that further term changes will be posted before any bookbuild to avoid selective disclosure.\nPolicy Cross-References: Code of Conduct (2568 edition), Vendor Compliance Clause (Thailand), and the Data Handling Matrix v3.0 remain in force; none require collection of religion, union membership, or political opinions",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Teakwave Public Company Limited \u2014 Internal Legal & Compliance Note (TH), DocRef: TW-ICM-2569-05, Subject: PDPA/SEA checks on SET disclosures and cross-border agreements\nBackground: The Company is SET-listed and, on 15 May 2569, filed with the SEC Thailand and SET News Portal a summary of the plain-vanilla debenture programme and covenant package; these details are already public and not MNPI under the SEA.\nAs required under the SEA and SEC disclosure practice guidelines, no pricing-sensitive or undisclosed milestones are included herein; references below are either public, illustrative, or operational.\nCross-Border: The standard intercompany loan with Lotus Delta Pte. Ltd. (SG affiliate) remains governed by the group SBT Facility Agreement; any cross-border personal data transfers follow PDPA s.28 and our Data Transfer Addendum (TH-SG v2.1).\nEmployment/DEI: The Remote-First Charter and Rainbow Inclusion Policy use generic DEI language and do not require collection of special-category personal data; Wellness Wednesdays communications are general wellbeing tips only.\nProduct/Marketing Names: \u201cMango Cloud,\u201d \u201cLotusBridge,\u201d and \u201cKhlong Runner\u201d are marketing labels shown in a public roadshow deck dated 30 Apr 2569; they are not binding contracts and do not contain MNPI.\nMetaphors & Teams: References to the \u201cBangkok Meteors playbook\u201d and \u201cMae Ping sprint\u201d are training metaphors and not linked to any individual\u2019s data or securities information.\nPositive PDPA item (special-category): Employee E-4471 (Finance Manager) has submitted a hospital certificate confirming ongoing chemotherapy treatment; HR will process paid medical leave per the Labour Protection Act and PDPA consent form HR\u2011MED\u201101.\nAccess Control: Only HR personnel via hr@teakwave.example will access E-4471\u2019s medical document; storage is on the TH private tenant, with 90-day retention post-leave and no disclosures to third-party processors.\nBiometric Note (precision): The postponed turnstile initiative \u201cProject Palm\u201d is on hold; no fingerprints, facial templates, or other biometric identifiers are being collected in 2569 notwithstanding vendor presentation terminology.\nIdentifiers in Drafts: Any placeholders such as \u201cISIN: ZZ-NA-000000,\u201d \u201cTax ID: 0-0000-0000-00-0,\u201d or \u201cEmployee Code: E-XXXX\u201d are invalid and must not be replaced with real values in emails or slide decks.\nSEA/MNPI Control: The Treasury timeline and coupon range referenced in board packs derive from the already-posted SET news; deal banks have been ins",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SEA/MNPI Control: The Treasury timeline and coupon range referenced in board packs derive from the already-posted SET news; deal banks have been instructed that further term changes will be posted before any bookbuild to avoid selective disclosure.\nPolicy Cross-References: Code of Conduct (2568 edition), Vendor Compliance Clause (Thailand), and the Data Handling Matrix v3.0 remain in force; none require collection of religion, union membership, or political opinions",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

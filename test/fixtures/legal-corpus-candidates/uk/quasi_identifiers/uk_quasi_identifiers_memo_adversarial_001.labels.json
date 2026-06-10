@@ -85,11 +85,11 @@
     "previous_must_not_detect_count": 15
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -252,6 +252,12 @@
       "category": "MNPI",
       "matched_text": "subject to board approval",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Torquay, CFO (Greengate Capital plc), carries insider status effective 28/05/2026; contact eliza.torquay@greengatecap.co.uk; tel +44 7400 000912.\nFor monitoring, Mr. Owen Rathbone (Senior Compliance Manager, Brackenfell Bank plc), DOB 12/09/1982, Lendham Dock Office\u2014Tower 4 (North Quay), device BRB-LT-0397 (Surface Pro 8), internal user id u-714-39-ab, and payroll ref 880113 are associated with this review",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -331,12 +337,6 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Ms. Eliza Torquay, CFO (Greengate Capital plc), carries insider status effective 28/05/2026; contact eliza.torquay@greengatecap.co.uk; tel +44 7400 000912.\nFor monitoring, Mr. Owen Rathbone (Senior Compliance Manager, Brackenfell Bank plc), DOB 12/09/1982, Lendham Dock Office\u2014Tower 4 (North Quay), device BRB-LT-0397 (Surface Pro 8), internal user id u-714-39-ab, and payroll ref 880113 are associated with this review",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "inside information",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -353,6 +353,18 @@
       "matched_text": "Under UK MAR and FCA Handbook (LR/DEPP), the pre-close trading update for Greengate Capital plc remains non-public; draft RNS details below are strictly internal.\nMs. Eliza Torquay, CFO (Greengate Capital plc), carries insider status effective 28/05/2026; contact eliza.torquay@greengatecap.co.uk; tel +44 7400 000912.\nFor monitoring, Mr. Owen Rathbone (Senior Compliance Manager, Brackenfell Bank plc), DOB 12/09/1982, Lendham Dock Office\u2014Tower 4 (North Quay), device BRB-LT-0397 (Surface Pro 8), internal user id u-714-39-ab, and payroll ref 880113 are associated with this review.\nSession trace: vpn ref v p n - 9 1 2 0 6 and intranet URL https://portal.brackenfell.co.uk/filing?doc=preclose&issuer=GGCP&tid=R N S - 1 9 4 1 linked to his account.\nIndicative unannounced placing terms (subject to board approval): 8.5m new shares at a range of 180\u2013185p; expected gross proceeds circa \u00a315.6m; this is precise and non-public and should be treated as inside information.\nPre-close metrics: H1 net interest income forecast +7\u20139% YoY; treasury VaR down to \u00a32.1m; these figures are not yet in the public domain and may significantly affect price if disclosed prematurely.\nGeneric demographics from the HR dashboard (e.g., age bands 25\u201334 and 35\u201344, job family \u201canalyst\u201d, region \u201cSouth East\u201d) do not identify any specific person and should not be treated as PII.\nDevice inventories list \u201cWindows 11, iPhone 14, USB-C docks\u201d and the code OPS-129-Q; these are operational assets without direct linkage to a named individual.\nNo MAC clause is contemplated in the Subscription Agreement, and the board does not anticipate any material adverse change triggers during the offer window.\nThe governance team will refresh the insider list (Annex I format) and notify the FCA Primary Market team upon RNS approval; until then, dealing is prohibited for persons on the list.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For monitoring, Mr. Owen Rathbone (Senior Compliance Manager, Brackenfell Bank plc), DOB 12/09/1982, Lendham Dock Office\u2014Tower 4 (North Quay), device BRB-LT-0397 (Surface Pro 8), internal user id u-714-39-ab, and payroll ref 880113 are associated with this review",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eliza Torquay, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

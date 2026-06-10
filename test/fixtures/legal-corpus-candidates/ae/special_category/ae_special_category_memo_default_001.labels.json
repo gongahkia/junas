@@ -103,11 +103,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
@@ -399,6 +399,18 @@
       "matched_text": "To: Board Risk & Compliance Committee; From: Ms. Fatima Qusay, General Counsel; Date: 28 May 2026; Contact: compliance@desertcrescent.ae\nSubject: Wall-crossing protocol for proposed ADX private placement and DIFC investor meetings\nWe intend to wall-cross select ADGM funds for an accelerated bookbuild; the deck and draft term sheet contain non-public revenue guidance and margin assumptions that constitute MNPI.\nNamed subject (PII anchor): Mr. Tariq Al\u2011Najjar, CFO (Emirates ID ref: AE\u2011EID\u201100977XZ; Trade Licence contact: DED\u2011TR\u201188231\u2011DC), of Al Ain family origin, will lead management presentations.\nSpecial-category data notice: for travel clearances and building access we maintain Mr. Al\u2011Najjar\u2019s health status (Type 2 diabetes under insulin therapy) and biometric access templates (fingerprint and iris scans) for our DIFC office; processing requires documented consent and PDPL Art. 10 basis.\nNo genetic data will be collected for the deal; the health of the pipeline remains robust.\nReligious accommodation: meetings will avoid Friday prayer times on Al Maryah Island; we do not record religion fields in the deal CRM and scheduling metadata will be purged post-roadshow.\nMNPI scope includes unannounced Q3 margin compression and draft financing terms with Sirocco Capital LLC; disclosure controls are per SCA Market Conduct Guidance and ADX Listing Rules, with insider-list maintenance in the ADGM template (Annex 3).\nInvestor wall-crossing will require NDAs, confirmation of clean team boundaries, and insertion of all attendees on the insider list before sharing the \u201cSirocco\u201d slides; do not forward outside approved recipients.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Fatima Qusay, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Tariq Al\u2011Najjar, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

@@ -1,0 +1,486 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 12
+  },
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_universal_mnpi_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/universal_mnpi/sa_universal_mnpi_term_sheet_default_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_universal_mnpi_term_sheet_default_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 48,
+    "new_must_detect_count": 25,
+    "old_ideal_must_detect_count": 37,
+    "old_must_detect_count": 27,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_universal_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sami.almutlaq@badiyahtech.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rahazmi@almanar-legal.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "adil@nourpay.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hadeel Al-Sayyar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Mutlaq",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rawan Al\u2011Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adil Al\u2011Rayyan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 70% of NourPay via definitive Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement (SHA) for SAR 640,000,000; implied enterprise value SAR 900,000,000.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE: \u201cMaterial Adverse Change\u201d includes loss of payment services provider license or sanctions breach; for clarity, general FX moves or sector index changes shall not, by themselves, constitute a MAC.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Oryx Term Sheet",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "640,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Oryx",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 2026-11-03 09:00 AST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list ORYX-IL-09",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any leak prior to Embargo triggers immediate KCMA notification protocol",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 2051456789",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 1019988776",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama No. 518-77-0314",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama No. 734-22-5913",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account Ref: ORYX-ESC-4471",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SADAA cross-border transfer permit",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a SADAA permit",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Buyer to acquire 70% of NourPay",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Signing target 2026-07-15",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Long Stop Date 2026-10-30",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reverse break fee SAR 12,000,000 if KCMA declines approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Sellers\u2019 break fee SAR 18,000,000 for superior proposal accepted",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "disclose only to need-to-know insiders",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "maintain trading blackout until the Embargo time",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal data processing to remain in-Kingdom unless a SADAA permit is obtained",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PDPL-compliant data-sharing addendum including SADAA cross-border transfer permit if required",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "migrate KSA data residency",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sami.almutlaq@badiyahtech.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rahazmi@almanar-legal.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "adil@nourpay.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hadeel Al-Sayyar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Mutlaq",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rawan Al\u2011Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adil Al\u2011Rayyan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 70% of NourPay via definitive Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement (SHA) for SAR 640,000,000; implied enterprise value SAR 900,000,000.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE: \u201cMaterial Adverse Change\u201d includes loss of payment services provider license or sanctions breach; for clarity, general FX moves or sector index changes shall not, by themselves, constitute a MAC.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Oryx Term Sheet",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "640,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts: Mr. Sami Al\u2011Mutlaq, Head of Corp Dev (Iqama No. 734-22-5913), sami.almutlaq@badiyahtech.sa; counsel: Dr. Rawan Al\u2011Hazmi, rahazmi@almanar-legal.sa; Seller contact: Mr. Adil Al\u2011Rayyan, adil@nourpay.sa",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 MNPI/Insider: Project Oryx Term Sheet; Embargo until 2026-11-03 09:00 AST (Hijri 1448-04-22).\nParties: Badiyah Technology JSC (CR 2051456789; Rimal Exchange issuer) as Buyer; NourPay LLC (CR 1019988776) and its shareholders as Sellers.\nTransaction: Buyer to acquire 70% of NourPay via definitive Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement (SHA) for SAR 640,000,000; implied enterprise value SAR 900,000,000.\nConsideration mechanics: Up to SAR 80,000,000 earn-out tied to FY2027 EBITDA; 10% retention escrow at Al-Rimal Settlement Bank (Account Ref: ORYX-ESC-4471).\nConditions precedent: KCMA approval, Rimal Exchange circular clearance, foreign ownership cap confirmation, and PDPL-compliant data-sharing addendum including SADAA cross-border transfer permit if required.\nMAC/MAE: \u201cMaterial Adverse Change\u201d includes loss of payment services provider license or sanctions breach; for clarity, general FX moves or sector index changes shall not, by themselves, constitute a MAC.\nBoard approvals: Buyer board memo dated 2026-06-12 signed by Ms. Hadeel Al-Sayyar (Board Secretary, Iqama No. 518-77-0314) and Seller board resolution to be delivered at signing.\nTimetable: Signing target 2026-07-15; Long Stop Date 2026-10-30; completion announcement via issuer workflow template drafted for Rimal Exchange (IR draft on file).\nConfidentiality: This document contains MNPI and is not for public release; disclose only to need-to-know insiders under insider list ORYX-IL-09 and maintain trading blackout until the Embargo time.\nCovenants: Sellers to operate in the ordinary course; no dividends, bonuses, related-party transactions, or new debt > SAR 5,000,000 without Buyer consent; carve-out for staff Ramadan gratuities.\nIntegration & PDPL: Establish Shariah Board review; migrate KSA data residency; personal data processing to remain in-Kingdom unless a SADAA permit is obtained, with controller obligations allocated per DPA annex.\nPublic reference baseline: sector multiples referenced from Desert Business Daily (public) 2025-03-18 report; any divergence reflects internal, non-public forecasts and synergy cases.\nFees & termination: Reverse break fee SAR 12,000,000 if KCMA declines approval; Sellers\u2019 break fee SAR 18,000,000 for superior proposal accepted; termination right for Buyer upon MAC.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "defined-term abbreviation"
+    },
+    {
+      "matched_text": "SHA",
+      "reason": "defined-term abbreviation"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "role noun defined term"
+    },
+    {
+      "matched_text": "Sellers",
+      "reason": "role noun defined term"
+    },
+    {
+      "matched_text": "not a MAC",
+      "reason": "negated MAC language"
+    },
+    {
+      "matched_text": "spa-day raffle",
+      "reason": "irrelevant bait, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "bank name",
+      "matched_text": "Al-Rimal Settlement Bank",
+      "reason": "financial institution identifier may be sensitive contextually but not covered by bank_account or bank_customer_reference rules"
+    },
+    {
+      "concept": "embargo date (Hijri calendar)",
+      "matched_text": "Hijri 1448-04-22",
+      "reason": "alternative calendar date tied to embargo; useful but not explicitly covered by embargo_marker patterns"
+    }
+  ]
+}

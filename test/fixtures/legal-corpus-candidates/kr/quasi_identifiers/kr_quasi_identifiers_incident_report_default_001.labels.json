@@ -52,11 +52,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -303,6 +303,12 @@
       "matched_text": "Summary: unauthorized third-party login to Collaboration Portal v3.2 via partner credentials caused limited exposure of internal employee profile fields and a draft production forecast.\nAffected matter contains undisclosed operational data: projected Q3 output at Seoryeong Tech Park Line 2 to be reduced by 7\u20139% pending recalibration; this has not been publicly disclosed under FSCMA and remains subject to board review.\nPrimary user context: Mr. Kim Min-su (Head of IT Operations, DOB 1985-07-14, Seoryeong Riverfront Office 17F) was active under AD account 'minsu.kim85' from 21:36\u201321:44 KST using company laptop 'HPH-NB14-5521' and VPN session 'sess-AX91B-20260603-2142'.\nThe profile screen displayed only masked resident-number field '850714-*******' and office extension; logs indicate no full resident-number, payroll bank account, or biometric data were exfiltrated.\nAccess path: partner SSO 'Darae Logistics Co.' vendor role with least-privilege policy was mistakenly mapped to 'Project-OPS' group during a deployment change; device fingerprint 'dfp:b7c2-HPH-PLT' and source IP 203.0.113.45 (ASN 'JHNet-IX') observed.\nContainment: accounts 'vendor-darae01' and 'minsu.kim85' were locked at 21:45; tokens cleared; password rotation enforced on all 'Project-OPS' groups; endpoint isolated via HPH-EDR policy.\nPreliminary impact: approximately 32 employee profiles viewed (names and titles only), 2 draft slides on maintenance scheduling, and 1 spreadsheet with monthly capacity assumptions; no customer data involved.\nSeparate telemetry entry (not linked to the above user): a contractor aged 29 in Gujin-do office using shift code 'B', device model 'HPH-MB5', and locale 'ko-KR' opened HR FAQ at 20:10; these demographics are generic and do not identify a person alone.\nFor avoidance of doubt, CSR and ESG metrics in the report library were not altered; carbon intensity figures remain as previously disclosed in the 2025 Sustainability Update.\nPursuant to PIPA and internal security policy, we will notify affected employees and retain forensic logs for 3 years; data minimization controls around DOB and location tagging will be tightened.\nPursuant to FSCMA disclosure standards and Jeonghan Exchange rules, potential MNPI in the draft forecast will be escrowed and disclosed if and when the board resolves a material change.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Lee Hye-jin, Director",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

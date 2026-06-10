@@ -49,11 +49,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
@@ -400,6 +400,12 @@
       "matched_text": "PRC Term Sheet (Proposed Acquisition) \u2014 Project Silver Crane: Bei\u2019ancheng Volt Holdings Ltd. to acquire 62% of Huaxin Meteor Data Systems Co., Ltd., governed by PRC law and subject to PRC PIPL/CSL/DSL.\nParties: Buyer Bei\u2019ancheng Volt Holdings Ltd. (fictitious USCC: 9ABC-FAKE-7777-9Z9Z) and Issuer/Target Huaxin Meteor Data Systems Co., Ltd. (fictitious USCC: 9XYZ-FAKE-0000-123A), reg. office: Tower 18, Yong\u2019an New District, Hexiu City, Jiangbei Province (fictional).\nExchange/Regulatory context: Target intends STAR Market listing on SSE in 2027; this term sheet constitutes inside information under the PRC Securities Law until CSRC pre-disclosure and SSE announcement.\nConsideration: RMB 1.08bn in cash and vendor notes; 10% escrow with Hexiu Trust & Clearing (fictional); no public financing; no securities IDs are created by this document.\nConditions precedent: SAMR merger filing, CSRC industry expert consultation, and CAC security assessment for cross-border transfer of HR and telemetry datasets, with onshore storage per CSL/DSL.\nPIPL compliance: Sensitive PI will be minimized and de-identified for diligence; no bulk export of employee records without separate consents and standard contracts, including resident-ID fields.\nNamed data carve-out \u2014 Mr. Zhou Wen, CFO of Huaxin (email: zhou.wen@huaxin-meteor.cn; contact: +86-00-0000-0000; Resident ID placeholder: CN-ID//ZX-0000-****-88QX) has HR files containing biometric access templates (fingerprint minutiae and 3D face-vector hash \u201c9f:c0:3b:aa\u201d), documented chronic health treatment for Type 1 diabetes, declared religious affiliation with the Mingdao Fellowship, voluntary membership in the Hexiu Tech Staff Union, and self-reported bisexual orientation; any records referencing his minor child, Zhou Yining (age 12), are classified as sensitive personal information and will be excluded from the data room and any offshore transfer unless CAC approval is obtained.\nNo genetic sequencing data of executives will be viewable in the VDR; notwithstanding, generic references to genetics or religion in policy documents do not identify any person.\nEmployment workflows: time-and-attendance gates using face-scan devices (LotusEdge S-4) and sick-leave portals integrate with onshore servers; Buyer will implement a PIPL impact assessment to segregate biometric and health subsets before ingestion.\nData localization: all logs with device identifiers, resident-ID surrogates, or payroll bank aliases will remain in Hexiu City under a \u201ccritical data\u201d designation per DSL guidance until CAC cross-border standard contracts are filed.\nNo MAC condition is included (negated): the parties agree that the closing is not conditioned on a material adverse change clause; sky-blue language and metaphors like \u201ca bridge over a silent river\u201d are non-binding puffery.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Zhou Wen, CFO of Huaxin",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

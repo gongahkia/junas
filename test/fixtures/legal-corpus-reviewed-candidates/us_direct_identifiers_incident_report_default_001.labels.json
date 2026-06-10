@@ -1,0 +1,339 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_direct_identifiers_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_incident_report_default_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_direct_identifiers_incident_report_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 24,
+    "new_must_detect_count": 12,
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_direct_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sbenton@norbridgehealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "irdesk@norbridgehealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "priya@rookstreetanalytics.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+1-202-555-0179",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jordan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Nandakumar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Saira Benton",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Shore",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A draft earnings workbook containing preliminary Q2 HSA deposit flows, clinic appointment volumes, and payer denial rates (material and non-public) was emailed to Ms. Priya Nandakumar of Rook Street Analytics LLC 42 minutes prior to our scheduled public webcast.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2190442",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "123456789",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jordan V. Hargrove",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disclosure@norbridgehealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "N20399458",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000987654321",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective Disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "US Passport (fictional): N20399458",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ARH-0021-7719",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective Disclosure and Data Exposure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "42 minutes prior to our scheduled public webcast",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "file transfer incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "frozen analyst access",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The attachment also included a de-scoped patient enrollment tab that nonetheless listed two direct identifiers: staff contact emails and a contractor\u2019s passport number.\nThe passport field read \u201cUS Passport (fictional): N20399458\u201d for Dr. Saira Benton (research consultant), and the tab displayed \u201cMobile: +1-202-555-0179\u201d and \u201cEmail: sbenton@norbridgehealthbank.com\u201d.\nNorbridge HealthBank, Inc. local identifiers include Commonwealth of Westmont Business Entity ID WM-BE-2190442 and City of Norfield Vendor Registration NF-VR-2024-1182 (both fictional)",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "One line also showed a customer cash account reference \u201cAccount No. 000987654321 (HSA custodial; masked except last 6)\u201d and internal client code ARH-0021-7719.\nA numeric bait value \u201cSSN: 000-00-0000\u201d and banking placeholder \u201cRouting No. 123456789\u201d appear in the template but are non-operative and included for form demonstration; the routing checksum is invalid.\nNo full home addresses or birth dates were present; the only location detail was \u201c123 Foundry Ave., Suite 900, Norfield, NY\u201d for our headquarters",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sbenton@norbridgehealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "irdesk@norbridgehealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "priya@rookstreetanalytics.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+1-202-555-0179",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jordan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Nandakumar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Saira Benton",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Shore",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A draft earnings workbook containing preliminary Q2 HSA deposit flows, clinic appointment volumes, and payer denial rates (material and non-public) was emailed to Ms. Priya Nandakumar of Rook Street Analytics LLC 42 minutes prior to our scheduled public webcast.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2190442",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "123456789",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 2026-06-02 at 09:18 ET, Mr. Jordan V. Hargrove, CISO, confirmed a file transfer incident in the Investor Relations SFTP.\nA draft earnings workbook containing preliminary Q2 HSA deposit flows, clinic appointment volumes, and payer denial rates (material and non-public) was emailed to Ms. Priya Nandakumar of Rook Street Analytics LLC 42 minutes prior to our scheduled public webcast.\nThis contact constitutes a potential Reg FD selective disclosure for a US issuer listed on the Northbridge Exchange, and we have notified the U.S. Capital Markets Authority Disclosure Office (fictional) by phone and portal submission",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 2026-06-02 at 09:18 ET, Mr. Jordan V. Hargrove, CISO, confirmed a file transfer incident in the Investor Relations SFTP.\nA draft earnings workbook containing preliminary Q2 HSA deposit flows, clinic appointment volumes, and payer denial rates (material and non-public) was emailed to Ms. Priya Nandakumar of Rook Street Analytics LLC 42 minutes prior to our scheduled public webcast.\nThis contact constitutes a potential Reg FD selective disclosure for a US issuer listed on the Northbridge Exchange, and we have notified the U.S. Capital Markets Authority Disclosure Office (fictional) by phone and portal submission.\nThe attachment also included a de-scoped patient enrollment tab that nonetheless listed two direct identifiers: staff contact emails and a contractor\u2019s passport number.\nThe passport field read \u201cUS Passport (fictional): N20399458\u201d for Dr. Saira Benton (research consultant), and the tab displayed \u201cMobile: +1-202-555-0179\u201d and \u201cEmail: sbenton@norbridgehealthbank.com\u201d.\nNorbridge HealthBank, Inc. local identifiers include Commonwealth of Westmont Business Entity ID WM-BE-2190442 and City of Norfield Vendor Registration NF-VR-2024-1182 (both fictional).\nOne line also showed a customer cash account reference \u201cAccount No. 000987654321 (HSA custodial; masked except last 6)\u201d and internal client code ARH-0021-7719.\nA numeric bait value \u201cSSN: 000-00-0000\u201d and banking placeholder \u201cRouting No. 123456789\u201d appear in the template but are non-operative and included for form demonstration; the routing checksum is invalid.\nNo full home addresses or birth dates were present; the only location detail was \u201c123 Foundry Ave., Suite 900, Norfield, NY\u201d for our headquarters.\nWe have frozen analyst access, revoked the external SFTP key, and commenced employee interviews; Systems Administrator (role-only) initiated log preservation at 09:27 ET.\nPer our Cyber and Disclosure Policy, we posted a public statement to parity-disclose the affected metrics within two hours and will furnish a current report under Regulation FD to the USMOB EDGARlite system (fictional).\nNo evidence indicates credential misuse beyond the misaddressed email from irdesk@norbridgehealthbank.com to priya@rookstreetanalytics.com; the secure helpline remains 1-800-555-0142.\nPreliminary assessment under HIPAA and GLBA indicates limited exposure of PII, with no account credentials or medical diagnoses disclosed.\nFor investor inquiries, contact Ms. Eliza Shore",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-06-02 at 09:18 ET, Mr. Jordan V. Hargrove, CISO, confirmed a file transfer incident in the Investor Relations SFTP.\nA draft earnings workbook containing preliminary Q2 HSA deposit flows, clinic appointment volumes, and payer denial rates (material and non-public) was emailed to Ms. Priya Nandakumar of Rook Street Analytics LLC 42 minutes prior to our scheduled public webcast.\nThis contact constitutes a potential Reg FD selective disclosure for a US issuer listed on the Northbridge Exchange, and we have notified the U.S. Capital Markets Authority Disclosure Office (fictional) by phone and portal submission.\nThe attachment also included a de-scoped patient enrollment tab that nonetheless listed two direct identifiers: staff contact emails and a contractor\u2019s passport number.\nThe passport field read \u201cUS Passport (fictional): N20399458\u201d for Dr. Saira Benton (research consultant), and the tab displayed \u201cMobile: +1-202-555-0179\u201d and \u201cEmail: sbenton@norbridgehealthbank.com\u201d.\nNorbridge HealthBank, Inc. local identifiers include Commonwealth of Westmont Business Entity ID WM-BE-2190442 and City of Norfield Vendor Registration NF-VR-2024-1182 (both fictional).\nOne line also showed a customer cash account reference \u201cAccount No. 000987654321 (HSA custodial; masked except last 6)\u201d and internal client code ARH-0021-7719.\nA numeric bait value \u201cSSN: 000-00-0000\u201d and banking placeholder \u201cRouting No. 123456789\u201d appear in the template but are non-operative and included for form demonstration; the routing checksum is invalid.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The passport field read \u201cUS Passport (fictional): N20399458\u201d for Dr. Saira Benton (research consultant), and the tab displayed \u201cMobile: +1-202-555-0179\u201d and \u201cEmail: sbenton@norbridgehealthbank.com\u201d.\nNorbridge HealthBank, Inc. local identifiers include Commonwealth of Westmont Business Entity ID WM-BE-2190442 and City of Norfield Vendor Registration NF-VR-2024-1182 (both fictional)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A numeric bait value \u201cSSN: 000-00-0000\u201d and banking placeholder \u201cRouting No. 123456789\u201d appear in the template but are non-operative and included for form demonstration; the routing checksum is invalid.\nNo full home addresses or birth dates were present; the only location detail was \u201c123 Foundry Ave., Suite 900, Norfield, NY\u201d for our headquarters",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Priya Nandakumar of Rook Street Analytics LLC",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SSN: 000-00-0000",
+      "reason": "Placeholder/bait value; invalid and non-operative per text"
+    },
+    {
+      "matched_text": "Routing No. 123456789",
+      "reason": "Placeholder routing number with invalid checksum; non-operative"
+    },
+    {
+      "matched_text": "1-800-555-0142",
+      "reason": "Public helpline number, not personal PII"
+    },
+    {
+      "matched_text": "1-800-555-0000",
+      "reason": "Public helpline number, not personal PII"
+    },
+    {
+      "matched_text": "Systems Administrator",
+      "reason": "Role-only reference, not a named individual"
+    },
+    {
+      "matched_text": "[Customer Name]",
+      "reason": "Generic form placeholder, not real PII"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "postal address",
+      "matched_text": "123 Foundry Ave., Suite 900, Norfield, NY",
+      "reason": "Direct address PII, but no general US address rule provided in allowed list"
+    },
+    {
+      "concept": "local company identifier",
+      "matched_text": "Commonwealth of Westmont Business Entity ID WM-BE-2190442",
+      "reason": "Direct organization identifier; no matching allowed rule like EIN for this format"
+    },
+    {
+      "concept": "vendor registration identifier",
+      "matched_text": "City of Norfield Vendor Registration NF-VR-2024-1182",
+      "reason": "Direct organization identifier; no specific allowed rule covers this format"
+    },
+    {
+      "concept": "ticker symbol",
+      "matched_text": "NBX: NBHB",
+      "reason": "Market identifier relevant to securities context but not covered by provided MNPI rules"
+    }
+  ]
+}

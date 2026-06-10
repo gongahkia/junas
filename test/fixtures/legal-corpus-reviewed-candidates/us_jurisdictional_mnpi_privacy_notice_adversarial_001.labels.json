@@ -1,0 +1,269 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_jurisdictional_mnpi_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/jurisdictional_mnpi/us_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 21,
+    "new_must_detect_count": 6,
+    "old_ideal_must_detect_count": 16,
+    "old_must_detect_count": 8,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dana Rowe",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processor may process for fraud screening, claims adjudication, AML/KYC, and analyst webcasts; retain GLBA-relevant records 7 years and HIPAA designated record sets 6 years; sample obfuscated IDs: acct **77-4499**, c u s t . I D : 9 2 7 x x 1.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI definition: information a reasonable investor would consider important that has not been broadly disseminated, including yet-to-be-announced earnings, bank capital actions, or care network contracts; selective disclosure to sell-side analysts is prohibited under Reg FD.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee trading blackout window runs from 15 days before quarter\u2011end until two full trading days after the earnings press release or 10\u2011Q filing; employee option exercises in this window require pre\u2011clearance and are generally suspended.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@veridian-healthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ext\u2011analyst@larkspur\u2011analytics.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disclosure@veridian-healthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure to sell-side analysts is prohibited under Reg FD",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unintentional selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee trading blackout window runs from 15 days before quarter\u2011end until two full trading days after the earnings press release or 10\u2011Q filing; employee option exercises in this window require pre\u2011clearance and are generally suspended",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public forecasts",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+1\u2011555\u20110142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been broadly disseminated",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restrict \u201cext\u2011analyst@larkspur\u2011analytics.example\u201d from receiving \u201cInternal\u2011Only\u201d labels",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device cookie",
+      "rule": "cookie_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct **77-4499**",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "c u s t . I D : 9 2 7 x x 1",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "U.S.\u2011only processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "de\u2011identified training sets indefinite with aggregated fields only",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dana Rowe",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processor may process for fraud screening, claims adjudication, AML/KYC, and analyst webcasts; retain GLBA-relevant records 7 years and HIPAA designated record sets 6 years; sample obfuscated IDs: acct **77-4499**, c u s t . I D : 9 2 7 x x 1.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI definition: information a reasonable investor would consider important that has not been broadly disseminated, including yet-to-be-announced earnings, bank capital actions, or care network contracts; selective disclosure to sell-side analysts is prohibited under Reg FD.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee trading blackout window runs from 15 days before quarter\u2011end until two full trading days after the earnings press release or 10\u2011Q filing; employee option exercises in this window require pre\u2011clearance and are generally suspended.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Veridian HealthBank, Inc. Data Processing Addendum and MNPI Handling Appendix (US issuer context)\nParties: Veridian HealthBank, Inc. (controller) and Larkspur Analytics LLC (processor) regarding healthcare and banking workflows for employees, patients, and cardholders.\nPII means information reasonably linkable to a consumer, household, or patient under CCPA/HIPAA/GLBA (e.g., patient ID, device cookie, claims history, account alias); we do not require Social Security numbers in support tickets.\nProcessor may process for fraud screening, claims adjudication, AML/KYC, and analyst webcasts; retain GLBA-relevant records 7 years and HIPAA designated record sets 6 years; sample obfuscated IDs: acct **77-4499**, c u s t . I D : 9 2 7 x x 1.\nDSAR intake: submit at privacy@veridian-healthbank.example or https://privacy.veridian-healthbank.example/ccpa?req=Z-41b9; verification uses tokenized e-mail, not government identifiers.\nMNPI definition: information a reasonable investor would consider important that has not been broadly disseminated, including yet-to-be-announced earnings, bank capital actions, or care network contracts; selective disclosure to sell-side analysts is prohibited under Reg FD.\nPublic-status workflow: materials are \u201cPublic\u201d only after Form 8\u2011K/press release is posted to https://disclosures.veridian-healthbank.example/SEC/8-K?id=2025-02-01-VHB\u201101 and one full trading day has elapsed on a U.S. national securities exchange.\nAs previously furnished on Form 8\u2011K dated 2025\u201102\u201101 and in our Q4 FY2024 10\u2011Q, the \u201cNovaCare integration timetable\u201d and Q4 net interest margin ranges are public and stale; referencing those figures is not MNPI.\nIf unintentional selective disclosure occurs, the controller will furnish a Form 8\u2011K under Item 7.01 or 2.02 within 24 hours or before the next market open, whichever is earlier, and update the IR site.\nEmployee trading blackout window runs from 15 days before quarter\u2011end until two full trading days after the earnings press release or 10\u2011Q filing; employee option exercises in this window require pre\u2011clearance and are generally suspended.\nAccess controls: processor must segregate PII and MNPI, restrict \u201cext\u2011analyst@larkspur\u2011analytics.example\u201d from receiving \u201cInternal\u2011Only\u201d labels, and log outbound e\u2011mails with headers archived for 2 years.\nNegative clarification: this appendix does not constitute a material adverse change, does not modify any credit agreement, and our product \u201cPulseBridge lite\u201d release notes are generic marketing content.\nPublic reference: the \u201cQ1 Operating Metrics\u201d press release distributed via BroadCastWire on 2025\u201104\u201105 and mirrored at https://ir.veridian-healthbank.example/releases?id=q1\u2011ops\u20112025 is considered widely disseminated.\nData transfer and retention: U.S.\u2011only processing; transit TLS 1.3, at\u2011rest AES\u2011256; vendor audit logs 90 days, analyst webcast recordings 12 months, de\u2011identified training sets indefinite with aggregated fields only.\nFor corrections, contact Ms. Dana Rowe, Chief Privacy & Disclosure Officer, at disclosure@veridian-healthbank.example or +1\u2011555\u20110142; ticket r e f: https://support.veridian-healthbank.example/t/REQ?c=MNPI&i=3a7\u20119f\u2011002.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NovaCare integration timetable",
+      "reason": "Public and stale per prior Form 8\u2011K; not MNPI"
+    },
+    {
+      "matched_text": "Q1 Operating Metrics",
+      "reason": "Widely disseminated press release per document; not MNPI"
+    },
+    {
+      "matched_text": "PulseBridge lite",
+      "reason": "Generic marketing content per document; not MNPI"
+    },
+    {
+      "matched_text": "project driftwood",
+      "reason": "Operational planning note; does not meet transaction codename rule"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "retention marker",
+      "matched_text": "retain GLBA-relevant records 7 years and HIPAA designated record sets 6 years",
+      "reason": "Retention/record-keeping periods are privacy-relevant but no explicit retention rule enumerated in allowed set"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "vendor audit logs 90 days",
+      "reason": "Indicates data retention duration; not mapped to a defined rule"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "analyst webcast recordings 12 months",
+      "reason": "Indicates retention period; not mapped to a defined rule"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "log outbound e\u2011mails with headers archived for 2 years",
+      "reason": "Archiving duration is a privacy-relevant retention control; no explicit rule provided"
+    },
+    {
+      "concept": "DSAR/rights request marker",
+      "matched_text": "DSAR intake",
+      "reason": "Data subject rights workflow is privacy-relevant but no DSAR-specific rule is listed"
+    },
+    {
+      "concept": "internal request identifier",
+      "matched_text": "req=Z-41b9",
+      "reason": "Looks like a request ID parameter in a URL; not clearly covered by available rules"
+    },
+    {
+      "concept": "internal request identifier",
+      "matched_text": "i=3a7\u20119f\u2011002",
+      "reason": "Ticket/query parameter appears to be an internal ID; not clearly covered by available rules"
+    },
+    {
+      "concept": "US SSN category mention",
+      "matched_text": "Social Security numbers",
+      "reason": "Mentions SSNs without providing a number; relevant category but rule expects numeric identifiers"
+    },
+    {
+      "concept": "health claims data category",
+      "matched_text": "claims history",
+      "reason": "Indicates sensitive health-related data category but not mapped to a specific allowed rule"
+    }
+  ]
+}

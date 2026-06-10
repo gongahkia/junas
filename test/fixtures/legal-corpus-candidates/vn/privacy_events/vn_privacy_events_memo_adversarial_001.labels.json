@@ -91,11 +91,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -261,6 +261,12 @@
       "matched_text": "DSAR: Received from Mr. Nguyen Van Soan (retail shareholder) re KYC files held by Amber Reef Securities Co.; ticket DP-REQ-9z1 acknowledged on 28\u201105\u20112026 via privacy@skypine.vn\nConsent: Ms. Pham Thi Li\u00ean, Employee ID NV-0l7A, withdrew consent on 12\u201105\u20112026 for export of HR payroll data to NebulaTiger Pte. Ltd.; cross\u2011border transfer paused and access revoked (completed on 13\u201105\u20112026)\nData erasure: We erased redundant candidate CVs received before 01\u201105\u20112024 per Policy DP\u201105 (retention 24 months), with hash logs stored in Vault R10; er asu re tickets closed\nMinimisation: Onboarding Form NS\u201101 updated to collect only last 4 digits of payroll account (****6994) and not full bank number; sample bank: Lotus River Bank, branch H o   C h i   M i n h\nDPA: Schedule 2 (Sub\u2011processors) with NebulaTiger executed 15\u201105\u20112026; Data Export Approval 07/2026\u2011SPM archived at https://intra.skypine.vn/dp a/schedule?v=3#sec2\nSecurities MNPI: Pre\u2011disclosure deck on proposed private placement is in MNPI/\u201cTayNinh\u2011Kiln\u201d folder; access limited to Legal, CFO, and Board; this memo does not contain MNPI and relies on public HOSE notices and SSC guidance\nBanking transaction sample in Appendix A is redacted (ACCT: 12\u201134**\u2011VN\u2011998; bank code L R B\u2011HCM); provided for control testing only, not for processing\nDevice data: this memo does not include device MAC addresses or geolocation; statement is policy\u2011only and does not indicate a live collection event\nMNPI control note: no material adverse change (MAC) has occurred since Q1 disclosure; this sentence is for lender covenant monitoring and should",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "access limited to Legal, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

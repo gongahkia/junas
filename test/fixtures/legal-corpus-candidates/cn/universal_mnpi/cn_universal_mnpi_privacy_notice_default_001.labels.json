@@ -49,11 +49,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
@@ -286,6 +286,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PIPL basis and scope: we process personal information related to identified or identifiable persons, including sensitive PI (e.g., minors under 14), for employment, payroll, and pre-deal communications.\nData examples (fictional): Mr. Zhao Renfu, Resident ID 420106199512302839, mobile 13900001234, employee no. E-77231; managed by Ms. Lin Qiyu, HR Director, lin.qiyu@ycrobotics.example.cn, +86-21-6000-1234.\nCross-border transfer: limited analytics to Bluebay Metrics Pte. Ltd. (Singapore, fictional) via mainland servers with encryption; we will execute the CAC Standard Contract and, if thresholds are met (\u2265100,000 data subjects), initiate a security assessment filing",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -405,12 +411,6 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "PIPL basis and scope: we process personal information related to identified or identifiable persons, including sensitive PI (e.g., minors under 14), for employment, payroll, and pre-deal communications.\nData examples (fictional): Mr. Zhao Renfu, Resident ID 420106199512302839, mobile 13900001234, employee no. E-77231; managed by Ms. Lin Qiyu, HR Director, lin.qiyu@ycrobotics.example.cn, +86-21-6000-1234.\nCross-border transfer: limited analytics to Bluebay Metrics Pte. Ltd. (Singapore, fictional) via mainland servers with encryption; we will execute the CAC Standard Contract and, if thresholds are met (\u2265100,000 data subjects), initiate a security assessment filing",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Inside information",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -421,6 +421,12 @@
       "matched_text": "\u975e\u516c\u5f00/INTERNAL \u2014 Project Jade Bamboo data processing & transfer workflow note \u2014 Embargo until 2026-07-15 09:00 CST.\nParties: Yonghe Cloud Robotics Co., Ltd. (fictional USCC: 9135Z1A2B3C4D5E6F) as data controller and issuer; Huilan HR Services (Shanghai) Co., Ltd. (fictional USCC: 9131X9K8M7N6P5Q4R) as entrusted processor.\nPurpose: processing HR and investor-relations data in connection with the proposed acquisition of Hexa Sensors Qingdao Co., Ltd.; definitive Share Purchase Agreement signed 2026-06-28 for 80% equity at RMB 480,000,000.\nInside information notice: this document contains undisclosed information under the PRC Securities Law and the issuer\u2019s insider list; distribution is restricted to need-to-know until the embargo lapses.\nPIPL basis and scope: we process personal information related to identified or identifiable persons, including sensitive PI (e.g., minors under 14), for employment, payroll, and pre-deal communications.\nData examples (fictional): Mr. Zhao Renfu, Resident ID 420106199512302839, mobile 13900001234, employee no. E-77231; managed by Ms. Lin Qiyu, HR Director, lin.qiyu@ycrobotics.example.cn, +86-21-6000-1234.\nCross-border transfer: limited analytics to Bluebay Metrics Pte. Ltd. (Singapore, fictional) via mainland servers with encryption; we will execute the CAC Standard Contract and, if thresholds are met (\u2265100,000 data subjects), initiate a security assessment filing.\nData Security Law/DSL: no important data is identified in this workflow; network operators\u2019 security obligations under the CSL are implemented via access controls, logs, and localization where applicable.\nRetention and deletion: HR files retained 10 years post-termination; IR contact lists retained 24 months; upon expiry we delete or anonymize within 30 days and document the disposal.\nMNPI safeguards: deal codename use only (\u201cProject Jade Bamboo\u201d); no external disclosure; IR draft Q&A to be prepared but not released until CSRC disclosure window opens.\nMAC clause (negated and carve-outs): no Material Adverse Effect shall be deemed to occur due solely to changes in general economic conditions, but los",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data examples (fictional): Mr. Zhao Renfu, Resident ID 420106199512302839, mobile 13900001234, employee no. E-77231; managed by Ms. Lin Qiyu, HR Director, lin.qiyu@ycrobotics.example.cn, +86-21-6000-1234.\nCross-border transfer: limited analytics to Bluebay Metrics Pte. Ltd. (Singapore, fictional) via mainland servers with encryption; we will execute the CAC Standard Contract and, if thresholds are met (\u2265100,000 data subjects), initiate a security assessment filing",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

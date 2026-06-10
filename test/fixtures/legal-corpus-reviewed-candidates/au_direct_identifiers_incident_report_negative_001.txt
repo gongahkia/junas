@@ -1,0 +1,13 @@
+Greyhollow Renewables Ltd (ACN 123 456 789 - invalid) - Cyber Incident Report dated 14 June 2026.
+Summary: A contractor mailbox at Bluequartz Payroll Pty Ltd was compromised on 12 June; limited files were accessed for under 15 minutes.
+ASX context: We announced the event on 13 June under Listing Rule 3.1 and confirm it does not include information that is not generally available and would be expected to materially affect the price or value of our securities.
+Regulatory context: Assessment is underway under the Privacy Act 1988 (Cth) and the Notifiable Data Breaches scheme; ASIC has been briefed via our market liaison.
+Data types: Test documents and templates were present, including form labels "Name: ______", "Address: ______", "TFN: 123 456 789 (sample/invalid)", "Medicare: 1234 56789-1 (sample/invalid)", and "Council assessment no.: 000123 (placeholder)".
+One onboarding scan for a casual employee included an Australian passport number QX1234567 (checksum invalid); no other clear PII was identified.
+Financial data: CSV exports referenced "BSB 123-999 / Account 00123456 (non-live example)" and card tokens displayed as "PAN: 4444 33xx xxxx 0000 (masked/invalid)".
+Health and safety: Files titled "Pre-employment health questionnaire - template" contained only tick boxes and no medical history.
+Company identifiers on draft invoices showed ABN 12 345 678 901 (invalid) and a placeholder trading name; the correct records are stored only in the ERP, which was not impacted.
+No customer billing systems, SCADA, or energy market bids were accessed; there is no information reasonably expected to materially affect financial products.
+Contact points for public enquiries are the Greyhollow Service Desk 1300 777 210 (fictional helpline) and privacy@greyhollow.example (role mailbox).
+Action taken: password resets, OAuth token revocation, mail rule purge, and a notice to affected staff via the Intranet.
+Next steps: notify OAIC if the threshold is met, refresh contractor security clauses, and complete a root-cause review with Bluequartz Payroll.

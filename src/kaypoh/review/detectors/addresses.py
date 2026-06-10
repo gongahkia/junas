@@ -137,12 +137,24 @@ BROAD_ADDRESS_ADMIN_RE = re.compile(
 )
 PERSON_LINKED_ADDRESS_RE = re.compile(
     r"\b(?:Mr|Ms|Mrs|Mdm|Dr|Prof|employee|patient|client|customer|resident|applicant|data\s+subject|"
-    r"home|residential|private|personal)\b",
+    r"home|residential|private|personal|domicile|correspondence|c/o|care\s+of|attn|attention)\b",
     re.IGNORECASE,
 )
 ORG_ONLY_ADDRESS_RE = re.compile(
     r"\b(?:registered\s+office|corporate\s+office|head\s+office|principal\s+place\s+of\s+business|"
     r"company\s+address|organisation|organization)\b",
+    re.IGNORECASE,
+)
+PERSON_LINKED_FREEFORM_ADDRESS_RE = re.compile(
+    r"\b(?:(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+)?"
+    r"[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?"
+    r"(?:\s+[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?){1,3}"
+    r"\s*,\s*(?P<value>\d{1,6}[A-Z]?\s+[A-Z][A-Za-z0-9' -]{2,80}"
+    r"(?:Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Drive|Dr|Boulevard|Blvd|Court|Ct|"
+    r"Way|Place|Pl|Square|Sq|Close|High\s+Street|Jalan|Lorong|Persiaran|Lebuh)"
+    r"[^\n;]{0,140}(?:[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}|\d{3}-\d{4}|"
+    r"\d{4,6}(?:-\d{4})?|Singapore|Hong\s+Kong|Malaysia|Australia|Japan|Korea|London|"
+    r"New\s+York|California|Tokyo|Seoul|Sydney|Melbourne))\b",
     re.IGNORECASE,
 )
 
@@ -305,6 +317,34 @@ def detect_address_findings(
                 reason="Label-anchored postal-address signal",
                 legal_basis=ctx.legal_basis,
                 metadata={"fallback": "label_anchored_postal_address"},
+            )
+        )
+        idx += 1
+    for match in PERSON_LINKED_FREEFORM_ADDRESS_RE.finditer(ctx.text):
+        start, end = _trim_address_value(ctx.text, *match.span("value"))
+        if end <= start or _overlaps((start, end), occupied):
+            continue
+        value = ctx.text[start:end]
+        if _looks_org_only_address(value) or not _has_generic_address_substance(value):
+            continue
+        key = ("postal_address", start, end)
+        if key in seen:
+            continue
+        seen.add(key)
+        occupied.append((start, end))
+        out.append(
+            new_finding(
+                idx=idx,
+                category="PII",
+                rule="postal_address",
+                jurisdiction=ctx.jurisdiction,
+                severity="medium",
+                matched_text=value,
+                start=start,
+                end=end,
+                reason="Person-linked free-form postal-address signal",
+                legal_basis=ctx.legal_basis,
+                metadata={"fallback": "person_linked_freeform_postal_address"},
             )
         )
         idx += 1

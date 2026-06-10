@@ -53,11 +53,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -275,6 +275,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Processing and MNPI Handling Notice between Bamboo River Energy JSC (controller) and Petal Cloud Services LLC (processor), applicable to issuer, employee, banking, and transaction records in Vietnam.\nPersonal data is processed under Decree 13 (information associated with or helping identify a specific person), and material non-public information under the Securities Law (issuer/securities information not yet public with significant price impact).\nMs. L\u00ea Thu Minh (DOB 1992-03-17), Investor Relations Officer at Bamboo River Energy JSC, based at Emerald Tower, Q.3, Ho Chi Minh City, uses OrchidBook Pro 14 S/N BR-IR-0091; staff code IR-037; payroll bank at Sun Lotus Bank account ****7431; IR-Portal session ID 7f9c2d; email minh.lt@bambooriver.vn",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -334,16 +340,16 @@
       "rule": "definitive_agreement"
     },
     {
-      "category": "PII",
-      "matched_text": "Data Processing and MNPI Handling Notice between Bamboo River Energy JSC (controller) and Petal Cloud Services LLC (processor), applicable to issuer, employee, banking, and transaction records in Vietnam.\nPersonal data is processed under Decree 13 (information associated with or helping identify a specific person), and material non-public information under the Securities Law (issuer/securities information not yet public with significant price impact).\nMs. L\u00ea Thu Minh (DOB 1992-03-17), Investor Relations Officer at Bamboo River Energy JSC, based at Emerald Tower, Q.3, Ho Chi Minh City, uses OrchidBook Pro 14 S/N BR-IR-0091; staff code IR-037; payroll bank at Sun Lotus Bank account ****7431; IR-Portal session ID 7f9c2d; email minh.lt@bambooriver.vn",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Data Processing and MNPI Handling Notice between Bamboo River Energy JSC (controller) and Petal Cloud Services LLC (processor), applicable to issuer, employee, banking, and transaction records in Vietnam.\nPersonal data is processed under Decree 13 (information associated with or helping identify a specific person), and material non-public information under the Securities Law (issuer/securities information not yet public with significant price impact).\nMs. L\u00ea Thu Minh (DOB 1992-03-17), Investor Relations Officer at Bamboo River Energy JSC, based at Emerald Tower, Q.3, Ho Chi Minh City, uses OrchidBook Pro 14 S/N BR-IR-0091; staff code IR-037; payroll bank at Sun Lotus Bank account ****7431; IR-Portal session ID 7f9c2d; email minh.lt@bambooriver.vn.\nMNPI examples include the HGX listing application draft, Q2 preliminary revenue figures, private placement term sheet, and merger discussion \u201cSeagrass\u201d; access is restricted to IR/Finance and logged with classification \u201cMNPI-Red.\u201d\nRetention for MNPI working files is 180 days post-disclosure, with quarterly access reviews, immutable audit logs, and device-level encryption; non-MNPI HR records follow a 36\u2011month retention workflow.\nEmployee banking and transaction data processed include salary transfers, per diem reimbursements, and vendor settlements; example transaction reference BR-PAY-2026-0412 (issuer ledger only).\nData subject rights include access, correction, deletion, and portability; contact privacy@bambooriver.vn or +84 930 123 456; tr\u1ee5 s\u1edf: T\u1ea7ng 12, Th\u00e1p Emerald, 88 Ph\u1ed1 Gi\u00f3, Q.1, TP.HCM.\nWe also collect non-identified metrics such as age band 25\u201334, device type \u201cAndroid,\u201d and city \u201c\u0110\u00e0 L\u1ea1t,\u201d which do not individually identify any person.\nA vendor risk form may record DOB 1988-11-04, role \u201ccompliance analyst,\u201d location \u201cH\u1ea3i Ph\u00f2ng,\u201d device OrchidPhone X (IMEI suffix 5538), and user tag \u201ccn-17,\u201d without names or direct identifiers.\nCross-border transfers to CirrusStack SG (Singapore) follow Decree 13 cross-border requirements, with VN Standard Transfer Clauses, pseudonymization of staff codes, encryption at rest, and retention logs reviewed monthly.\nOperational telemetry may include VPN IP ranges 203.190.* and session code \u201cvpn-hgx-73\u201d; such logs are not linked to named profiles except for security incident resolution.\nIf MNPI leakage is suspected, we freeze IR drives (folder \u201cIR-HGX-prelist-2026\u201d), notify the National Securities Registry of Vietnam within 72 hour",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal data is processed under Decree 13 (information associated with or helping identify a specific person), and material non-public information under the Securities Law (issuer/securities information not yet public with significant price impact).\nMs. L\u00ea Thu Minh (DOB 1992-03-17), Investor Relations Officer at Bamboo River Energy JSC, based at Emerald Tower, Q.3, Ho Chi Minh City, uses OrchidBook Pro 14 S/N BR-IR-0091; staff code IR-037; payroll bank at Sun Lotus Bank account ****7431; IR-Portal session ID 7f9c2d; email minh.lt@bambooriver.vn",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

@@ -1,0 +1,15 @@
+Internal Incident Report — Cybersecurity (PH issuer) | Ref C Y B ‑ 2 0 2 6 ‑ 0 7 | Date: 03 Jun 2026 11:05 PHT
+Issuer: BayanSteel Industries, Inc., listed on the Exchange; sector: Industrials; reporting currency: PHP
+Prepared by: Mr. Iñigo V. Balagtas, CIO; contact i.balagtas@bayansteel.test | compliance@bayansteel.test | +63 920‑555‑0x21
+Summary: On 02 Jun 2026 22:14 PHT, an unauthorized login via a compromised vendor VPN token accessed hr‑stg‑02 (HR payroll staging); no e‑payments were executed and prod finance remained isolated.
+Potential PII exposure (Data Privacy Act context): up to 412 employees; fields include names, company emails, and masked payroll data; example (redacted): “Ms. Lira Mae F. Osorio” <l.osorio@bayansteel.test>, EmpNo E‑0 9 1 3‑7 3, Lakbay Savings Bank acct 45 • • • 91, TIN 1xx‑3x4‑xx9; ide ntity apparent if combined with other data.
+Systems: HRIS v5.2 and PayrollBridge 3.1 affected; endpoint agent v4.9 rolled back; acceptable use policy v3.1 reminder issued; this is not expected to result in a material adverse change (no MAC).
+Issuer‑relative materiality: estimated PHP 12–18m in forensics/containment (~0.8% FY25 opex) and a 2–3 day payroll run delay; no change to production output guidance at this time.
+MNPI handling: until posting on the Exchange’s EDGE portal, this is non‑pub lic information under PH SRC; strictly no selective disclosure to analysts, lenders, or suppliers (including Lakbay Savings Bank) before public fil ing.
+Public‑status note: An initial summary was posted via the EDGE portal (Ref X‑2026‑00A1) at 03 Jun 2026 10:17 H, within the same trading day per Exchange rules; this internal note includes non‑public detail not in that posting.
+Insider window: directors/officers/covered persons are in blackout from 01–15 Jul 2026 ahead of Q2 results per Insider Trading Policy and SRC Rule 23; suspend equity plan trades and remind project leads of window restrictions.
+Containment: disabled token VND‑L4‑9x2, rotated svc creds, blocked source IPs, and patched SSO; jira ticket ops‑cy‑1142; status tracker https://status.bayansteel.test/incidents?case=IR-2026-07A&redact=on.
+Notifications: DPA assessment ongoing; employee notices in draft; target report to the data protection authority within 72 hours if breach is confirmed; do not brief vendors until after the public EDGE update.
+Benign/public context: our 2024 CSR report (public) and a 15 Mar 2026 press release on the CloudForge 2.0 migration describe legacy HRIS architecture and do not reference any incident; standup notes remain lower‑case and operational in nature.
+Unrelated ops: city transit fare changes and MetroGrid’s 06/01 maintenance advisory (public) have no bearing on issuer operations; no supply chain alerts triggered.
+Contacts for follow‑up: Compliance (Ms. A. Quimada) via compliance@bayansteel.test; IT SecOps via soc@bayansteel.test; please avoid forwarding this memo outside authorized channels.

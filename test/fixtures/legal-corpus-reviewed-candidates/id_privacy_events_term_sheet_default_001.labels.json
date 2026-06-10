@@ -1,0 +1,376 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "ID",
+    "doc_id": "id_privacy_events_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/id/privacy_events/id_privacy_events_term_sheet_default_001.txt",
+    "source_jurisdiction": "ID",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/id_privacy_events_term_sheet_default_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 420,000,000,000'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 5,000,000,000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 420,000,000,000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 5,000,000,000'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_privacy_events_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@cakrawala-investama.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of PT Azura Fintek Nusantara (the \u201cTarget\u201d) by PT Cakrawala Investama Tbk (the \u201cAcquirer\u201d), dated 2 June 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Precision statement: This term sheet does not contain unpublished quarterly financial results, and no earnings guidance is included.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfer: Post-Closing, limited transfer of customer support tickets and hashed contact emails to processors in Singapura and Batavia Cloud (Malaysia) is permitted under internal Data Export Approval DEA-XN/2026/014 dated 15 May 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: Retention Schedule RS-09 applies to the Target; backups are auto-deleted after 90 days; this is a standing policy and does not indicate any current breach or risk.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Negative control: There are no live cross-border transfers of production datasets prior to Closing; legacy staging copies created for vendor testing were purged on 31 March 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: The parties will not publicly announce Closing until BES filing acceptance; insiders must observe blackout rules, and any MNPI will be cleansed by publication of the BES announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may constitute MNPI",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout rules",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ibu Sari Maheswari",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@azura-fintek.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "exclude personal data except where strictly necessary and pseudonymised",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Acquirer to purchase 70% of issued shares of the Target",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "abstain from trading on BES",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation controls have already been implemented group-wide as of 1 Jan 2025",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: Post-Closing, limited transfer of customer support tickets and hashed contact emails to processors in Singapura and Batavia Cloud (Malaysia) is permitted under internal Data Export Approval DEA-XN/2026/014 dated 15 May 2026",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@cakrawala-investama.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of PT Azura Fintek Nusantara (the \u201cTarget\u201d) by PT Cakrawala Investama Tbk (the \u201cAcquirer\u201d), dated 2 June 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Precision statement: This term sheet does not contain unpublished quarterly financial results, and no earnings guidance is included.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfer: Post-Closing, limited transfer of customer support tickets and hashed contact emails to processors in Singapura and Batavia Cloud (Malaysia) is permitted under internal Data Export Approval DEA-XN/2026/014 dated 15 May 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: Retention Schedule RS-09 applies to the Target; backups are auto-deleted after 90 days; this is a standing policy and does not indicate any current breach or risk.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Negative control: There are no live cross-border transfers of production datasets prior to Closing; legacy staging copies created for vendor testing were purged on 31 March 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: The parties will not publicly announce Closing until BES filing acceptance; insiders must observe blackout rules, and any MNPI will be cleansed by publication of the BES announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: Post-Closing, limited transfer of customer support tickets and hashed contact emails to processors in Singapura and Batavia Cloud (Malaysia) is permitted under internal Data Export Approval DEA-XN/2026/014 dated 15 May 2026",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of PT Azura Fintek Nusantara (the \u201cTarget\u201d) by PT Cakrawala Investama Tbk (the \u201cAcquirer\u201d), dated 2 June 2026.\nStructure: Acquirer to purchase 70% of issued shares of the Target for Rp 420,000,000,000, subject to approval of Otoritas Pasar Keuangan Nusantara (\u201cOPKN\u201d) and Bursa Efek Samudra (\u201cBES\u201d).\nDisclosure: Draft public information summary to be filed with BES within 2 business days post-signing per Peraturan OPKN Pasar Modal No. 15/2025; recipients acknowledge certain details may constitute MNPI and agree to abstain from trading on BES.\nPrecision statement: This term sheet does not contain unpublished quarterly financial results, and no earnings guidance is included.\nEmployees and HR: Key staff to be retained for 12 months; existing onboarding forms and employee privacy notices will be novated; DPA Schedule 1 (Processing of HR and fintech customer data) is attached by reference.\nPrivacy compliance: Processing under UU PDP; data minimisation controls have already been implemented group-wide as of 1 Jan 2025 and are not contingent on this transaction.\nCross-border transfer: Post-Closing, limited transfer of customer support tickets and hashed contact emails to processors in Singapura and Batavia Cloud (Malaysia) is permitted under internal Data Export Approval DEA-XN/2026/014 dated 15 May 2026.\nDSAR and consent withdrawal: One DSAR and one consent withdrawal from a pilot wallet user were received in April 2026 and have been fully resolved; erasure confirmations were logged on 18 April 2026 and verified by the DPO.\nRetention: Retention Schedule RS-09 applies to the Target; backups are auto-deleted after 90 days; this is a standing policy and does not indicate any current breach or risk.\nNegative control: There are no live cross-border transfers of production datasets prior to Closing; legacy staging copies created for vendor testing were purged on 31 March 2026.\nConditions precedent: OPKN non-objection letter, BES announcement clearance, and board approval memos; draft disclosures will exclude personal data except where strictly necessary and pseudonymised.\nCovenants: The parties will not publicly announce Closing until BES filing acceptance; insiders must observe blackout rules, and any MNPI will be cleansed by publication of the BES announcement.\nEmployment and benefits: No change-in-control payment exceeds Rp 5,000,000,000; union consultation, if any, to be documented; Acquirer will honour accrued leave balances.\nContacts: For legal notices, attention to Ibu Sari Maheswari, Corporate Secretary, email: legal@cakrawala-investama.test; for data protection issues, DPO at dpo@azura-fintek.test.\nGoverning law: This non-binding term sheet is governed by the laws of the Republic of Indonesia; disputes to be settled at Pengadilan Niaga Cakra Jakarta.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Target",
+      "reason": "defined term"
+    },
+    {
+      "matched_text": "Acquirer",
+      "reason": "defined term"
+    },
+    {
+      "matched_text": "OPKN",
+      "reason": "defined-term abbreviation"
+    },
+    {
+      "matched_text": "BES",
+      "reason": "defined-term abbreviation"
+    },
+    {
+      "matched_text": "There are no live cross-border transfers of production datasets prior to Closing",
+      "reason": "negated control; not a live cross-border transfer marker"
+    },
+    {
+      "matched_text": "does not contain unpublished quarterly financial results",
+      "reason": "negated nonpublic content; not MNPI"
+    },
+    {
+      "matched_text": "legacy staging copies created for vendor testing were purged on 31 March 2026",
+      "reason": "completed-control; not a live privacy risk"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR",
+      "reason": "DSAR events are relevant privacy handling markers but DSAR is not an allowed rule in the provided taxonomy."
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure confirmations",
+      "reason": "Erasure events are relevant but there is no explicit allowed rule for erasure in the provided taxonomy."
+    },
+    {
+      "concept": "retention schedule marker",
+      "matched_text": "Retention Schedule RS-09",
+      "reason": "Retention is legally relevant but not included as an allowed rule name in the provided taxonomy."
+    },
+    {
+      "concept": "retention auto-delete window",
+      "matched_text": "auto-deleted after 90 days",
+      "reason": "Retention/auto-deletion is relevant but not mapped to an allowed rule type."
+    },
+    {
+      "concept": "data export approval ID",
+      "matched_text": "DEA-XN/2026/014",
+      "reason": "Data export approvals are compliance-relevant but not covered by an allowed rule."
+    },
+    {
+      "concept": "court venue",
+      "matched_text": "Pengadilan Niaga Cakra Jakarta",
+      "reason": "Court venue is jurisdictionally relevant but only SG court citation is defined in the allowed rules."
+    },
+    {
+      "concept": "DPA schedule reference",
+      "matched_text": "DPA Schedule 1 (Processing of HR and fintech customer data) is attached by reference",
+      "reason": "Privacy compliance schedule is relevant context but not mapped to an allowed rule."
+    }
+  ]
+}

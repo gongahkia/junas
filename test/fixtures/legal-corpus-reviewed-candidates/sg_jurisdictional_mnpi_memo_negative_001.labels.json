@@ -1,0 +1,330 @@
+{
+  "_agent_review": {
+    "notes": "Removed second-pass false-positive labels, added must-not suppressions, and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-agent-cleanup-pass",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "second_pass_blockers_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending.",
+      "reviewer": "codex-agent-review",
+      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+      "status": "technical_reviewed_pending_human_approval"
+    },
+    {
+      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves.",
+      "reviewer": "codex-gpt-agent-second-pass",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "second_pass_needs_edit_pending_human_approval"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T02:30:40Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T02:30:40Z",
+    "accepted_by": "gongahkia",
+    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "owner_approved_sg_stage_a_for_internal_benchmarking"
+  },
+  "_owner_acceptance_history": [
+    {
+      "accepted_at_utc": "2026-05-29T01:41:07Z",
+      "accepted_by": "gongahkia",
+      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "owner_accepted_agent_review_for_experimental_use"
+    }
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_jurisdictional_mnpi_memo_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/jurisdictional_mnpi/sg_jurisdictional_mnpi_memo_negative_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_jurisdictional_mnpi_memo_negative_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_jurisdictional_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Wei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Desmond Khoo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Do not collect or circulate NRIC numbers or full residential addresses",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimise data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Acquisition by Helio Vista Holdings Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has executed a confidential non-binding term sheet with Riverbay Partners Pte. Ltd. to acquire Luminex Marine Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure: Until a Rule 703 announcement is released via SGXNet, no analyst pre-briefings or vendor communications beyond the clean team; all third parties must be wall-crossed and acknowledge confidentiality",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-cross lists",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing notices",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout/closed period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the current blackout commences 10 June 2026",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "~6\u20138%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may be material",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may warrant a trading halt",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Wei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Desmond Khoo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Memorandum: MNPI/PDPA Handling for Proposed Acquisition by Helio Vista Holdings Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Helio Vista (a Mainboard issuer on SGX-ST) has executed a confidential non-binding term sheet with Riverbay Partners Pte. Ltd. to acquire Luminex Marine Pte. Ltd.; no SGXNet announcement has been made\u2014treat all deal specifics as MNPI under SFA ss 218/219 and SGX Listing Manual Rule 703.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer-relative materiality: Preliminary modelling (with Mr. Desmond Khoo, CFO) indicates the acquisition could add ~6\u20138% to group EBITDA; this likely triggers materiality for Helio Vista and may warrant a trading halt coordinated with SGX RegCo immediately prior to signing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employment/PDPA: Draft headcount rationalisation schedules (28 roles in fleet operations) at Luminex are not stand-alone material but, combined with the acquisition, may be material; handle personal data via the PDPA business asset transaction exception with access limited to the clean team.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "To: Board of Helio Vista Holdings Ltd. | From: Ms. Lin Wei, General Counsel | Date: 28 May 2026 | Contact: compliance@heliovista.sg\nHelio Vista (a Mainboard issuer on SGX-ST) has executed a confidential non-binding term sheet with Riverbay Partners Pte. Ltd. to acquire Luminex Marine Pte. Ltd.; no SGXNet announcement has been made\u2014treat all deal specifics as MNPI under SFA ss 218/219 and SGX Listing Manual Rule 703",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Memorandum: MNPI/PDPA Handling for Proposed Acquisition by Helio Vista Holdings Ltd.\nTo: Board of Helio Vista Holdings Ltd. | From: Ms. Lin Wei, General Counsel | Date: 28 May 2026 | Contact: compliance@heliovista.sg\nHelio Vista (a Mainboard issuer on SGX-ST) has executed a confidential non-binding term sheet with Riverbay Partners Pte. Ltd. to acquire Luminex Marine Pte. Ltd.; no SGXNet announcement has been made\u2014treat all deal specifics as MNPI under SFA ss 218/219 and SGX Listing Manual Rule 703.\nSelective disclosure: Until a Rule 703 announcement is released via SGXNet, no analyst pre-briefings or vendor communications beyond the clean team; all third parties must be wall-crossed and acknowledge confidentiality.\nBlackout/closed period: Directors and Key Persons are restricted from dealing two weeks before the Q2 trading update and one month before FY results per our Securities Dealing Policy; the current blackout commences 10 June 2026.\nIssuer-relative materiality: Preliminary modelling (with Mr. Desmond Khoo, CFO) indicates the acquisition could add ~6\u20138% to group EBITDA; this likely triggers materiality for Helio Vista and may warrant a trading halt coordinated with SGX RegCo immediately prior to signing.\nPublic-status precision: The Annual Report 2024 and the 3 April 2026 SGXNet press release on divestment of Helio Vista Logistics (public) are not MNPI; reference to those filings in investor conversations is permitted.\nAdversarial note: A broad Harbor Ledger piece on \u201cregional shipyard consolidation\u201d is speculative and does not render our specific Luminex transaction generally available.\nCapital-markets intersection: If a concurrent placement is pursued, the indicative price range, investor wall-cross lists, and bookrunner term sheet remain MNPI until the price determination announcement; align trading halt timing with immediate release on SGXNet.\nEmployment/PDPA: Draft headcount rationalisation schedules (28 roles in fleet operations) at Luminex are not stand-alone material but, combined with the acquisition, may be material; handle personal data via the PDPA business asset transaction exception with access limited to the clean team.\nPDPA controls: Do not collect or circulate NRIC numbers or full residential addresses; minimise data, encrypt VDR exports, and route any queries to dpo@heliovista.sg.\nAlready announced items: The 15 May 2026 SGXNet update on vessel charter renewals and routine maintenance at Seaport East Yard are public and non-price sensitive; no additional disclosure is required.\nSubtle context: The draft board pack contains a non-final SPA earn-out contour and unaudited April revenue for Luminex; both are MNPI and must remain within the Insider List.\nNext steps: Prepare a Rule 703 announcement and, if leak risk escalates, request a trading halt; ensure all insiders acknowledge wall-crossing notices and comply with SFA and Listing Manual obligations during the closed period.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Lin Wei, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Desmond Khoo, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "compliance@heliovista.sg",
+      "reason": "Functional or role mailbox; not an individual email address for strict SG PII labels."
+    },
+    {
+      "matched_text": "dpo@heliovista.sg",
+      "reason": "Functional or role mailbox; not an individual email address for strict SG PII labels."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "PDPA business-asset transaction legal basis",
+      "matched_text": "PDPA business asset transaction exception",
+      "reason": "Legally relevant PDPA basis for sharing personal data in M&A, but not clearly covered by an allowed privacy-event marker rule."
+    }
+  ]
+}

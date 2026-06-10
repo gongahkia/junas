@@ -68,11 +68,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -205,6 +205,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data scope excludes sensitive PI of minors under 14 and includes employee contact, role, work location, device identifiers, and account aliases; investor-insider lists are controlled with access by need-to-know.\nClustered example for transparency\u2014Mr. Han Qiming, Senior Test Engineer at Lianhe Flux Dynamics, Jiading District, Shanghai, DOB 1989-03-12, email qiming.han@lianheflux.cn, VPN session SESS-2024-06-07-0345, payroll alias HanQ-8892, bank acct ****6621.\nFor the same matter, device data may include laptop LF-13 Pro SN LF13-AX9-7711 and mobile IMEI h3x:35:8a:2f:19:__ truncated, and a partially masked Resident ID 31************123X linked to hukou in H u a i r o u, Bei jing",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -250,12 +256,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "Data scope excludes sensitive PI of minors under 14 and includes employee contact, role, work location, device identifiers, and account aliases; investor-insider lists are controlled with access by need-to-know.\nClustered example for transparency\u2014Mr. Han Qiming, Senior Test Engineer at Lianhe Flux Dynamics, Jiading District, Shanghai, DOB 1989-03-12, email qiming.han@lianheflux.cn, VPN session SESS-2024-06-07-0345, payroll alias HanQ-8892, bank acct ****6621.\nFor the same matter, device data may include laptop LF-13 Pro SN LF13-AX9-7711 and mobile IMEI h3x:35:8a:2f:19:__ truncated, and a partially masked Resident ID 31************123X linked to hukou in H u a i r o u, Bei jing",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "Data subject rights: to access/correct/delete, contact Ms. Zhao Lin (DPO) at privacy@lianheflux.cn or Room 1702, Tower C, Nova Plaza, Xuhui, Shanghai; response within statutory timelines and appeal route via CAC mediation is available",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
@@ -271,6 +271,12 @@
       "matched_text": "ul basis: under PIPL and CSL/DSL we process HR onboarding, device management, and issuer pre-disclosure controls for CSRC/SSE filings where inside information is handled prior to public disclosure.\nData scope excludes sensitive PI of minors under 14 and includes employee contact, role, work location, device identifiers, and account aliases; investor-insider lists are controlled with access by need-to-know.\nClustered example for transparency\u2014Mr. Han Qiming, Senior Test Engineer at Lianhe Flux Dynamics, Jiading District, Shanghai, DOB 1989-03-12, email qiming.han@lianheflux.cn, VPN session SESS-2024-06-07-0345, payroll alias HanQ-8892, bank acct ****6621.\nFor the same matter, device data may include laptop LF-13 Pro SN LF13-AX9-7711 and mobile IMEI h3x:35:8a:2f:19:__ truncated, and a partially masked Resident ID 31************123X linked to hukou in H u a i r o u, Bei jing.\nSystem logs may embed URL parameters such as https://access.lianheflux.cn/iam?uid=han.qm&loc=CN-SH-JD&dob=1989-03-12&dev=LF13-AX9-7711, which are rotated and tokenized in production.\nCross-border transfer: where payroll or equity plan data is mirrored to AuroraCloud HK, we implement standard contracts, conduct CAC security assessment if volumes/risk thresholds are met, and record flows in the outbound transfer register.\nData subject rights: to access/correct/delete, contact Ms. Zhao Lin (DPO) at privacy@lianheflux.cn or Room 1702, Tower C, Nova Plaza, Xuhui, Shanghai; response within statutory timelines and appeal route via CAC mediation is available.\nRetention: HR files up to 10 years post-termination per labor compliance, device logs 180 days per CSL, insider lists and pre-announcement working papers 3 years for issuer LFGRN2026, then anonymization or deletion is applied.\nNegative scope example: demographic tags like \u201cmale, 30s, tier-1 city, smartphone user\u201d and template strings such as 00-00-00-00-00-00 are not treated as unique identifiers and are not a MAC address used in production.\nSeparated weak identifiers occasionally appear in templates\u2014DOB 1992-05-02; role analyst; device NXT-5; city Suzhou\u2014without names or accounts and are handled as non-identifying unless combined with other fields.\nProcessor obligations: no secondary use, subprocessor Kite Bridge Background Screening Co., Ltd. (USCC 92 84 ** 0 1 ** P Q R) for lawful checks via on-prem gateway; OCR artifacts like \u201cR e s i d e n t   I D\u201d must not be exported cross-border.\nSecurity and governance: encryption in transit/at rest, least privilege, dual-control for MNPI rooms; audit logs retained for potential CSRC inquiries and SSE self-discipline inspections.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Clustered example for transparency\u2014Mr. Han Qiming, Senior Test Engineer at Lianhe Flux Dynamics, Jiading District, Shanghai, DOB 1989-03-12, email qiming.han@lianheflux.cn, VPN session SESS-2024-06-07-0345, payroll alias HanQ-8892, bank acct ****6621.\nFor the same matter, device data may include laptop LF-13 Pro SN LF13-AX9-7711 and mobile IMEI h3x:35:8a:2f:19:__ truncated, and a partially masked Resident ID 31************123X linked to hukou in H u a i r o u, Bei jing",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

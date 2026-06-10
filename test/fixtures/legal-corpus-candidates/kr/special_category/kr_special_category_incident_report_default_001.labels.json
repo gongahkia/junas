@@ -44,11 +44,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
@@ -306,6 +306,12 @@
       "matched_text": "access is confirmed for IR/2026_Q2_guidance_draft.pptx and Deal/PrivatePlacement/TermSheet_Cheongmae_Growth_SPC.docx containing important, non-public information under the Financial Services and Capital Markets Act.\nMNPI involved: unaudited Q2 revenue forecast +17% YoY and an indicative private placement of KRW 35bn with Cheongmae Growth Partners SPC at a preliminary price floor of KRW 18,000, not yet publicly disclosed on the HanRiver Exchange Growth Board.\nAn HR share was also accessed that included resident registration numbers; for example, Mr. Park Jun-ho (R&D engineer, RRN 830512-1876543), with a recorded peanut allergy requiring EpiPen and active membership in Haneul Tech Union Local 77.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_not_detect": [

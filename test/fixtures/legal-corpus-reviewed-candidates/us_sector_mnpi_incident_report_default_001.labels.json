@@ -1,0 +1,447 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_sector_mnpi_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/sector_mnpi/us_sector_mnpi_incident_report_default_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_sector_mnpi_incident_report_default_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 45,
+    "new_must_detect_count": 24,
+    "old_ideal_must_detect_count": 30,
+    "old_must_detect_count": 21,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_sector_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "talia.ren@pioneerspringshb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "877-555-0142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Talia Ren",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Eldon Voss",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jonas Pike",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Naya Torval",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Healthcare/HIPAA scope: 2,114 benefit profiles contained protected health information (diagnostic codes truncated), currently sequestered; HIPAA breach notification draft under review by Ms. Talia Ren, Privacy Officer, talia.ren@pioneerspringshb.com",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI considerations: Prior to public disclosure, Mr. Jonas Pike (sell-side analyst at Lanyon Ridge Capital) was wall-crossed under NDA on 2026-06-04 at 10:30 ET regarding potential earnings impact and outage duration; Insider List v1.2 attached (employees and advisors only)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Equity impact preview (internal only): management estimates $1.8\u2013$2.2M in one-time remediation expenses, not yet reflected in external guidance; Finance to update Q2 MD&A if threshold met",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.8",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$2.2M",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,480",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to Board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tCO2e",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analyst",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@pioneerspringshb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@pioneerspringshb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prior to public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List v1.2",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a company-wide blackout window remains in effect through 2026-06-12",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The Digital Assets Pilot Team (stablecoin HSA disbursement wallet) and Corporate Sustainability Office are ring-fenced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss pilot wallet custody vendors or provisional 2026 carbon-offset purchase terms outside need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$7.85/ton",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Do not discuss the incident, ESG offsets, or crypto wallet vendors with friends, family, or industry contacts",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber intrusion",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "~12,480",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,114",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "threat actor accessed cloud storage bucket",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "provisional 2026 carbon-offset purchase terms",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "GreenFoundry Credits for 50,000 tCO2e offsets",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000 tCO2e offsets",
+      "rule": "volume_commitment"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9 bps",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "~80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No other analysts or investors have been briefed",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "was wall-crossed under NDA",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "stablecoin HSA disbursement wallet",
+      "rule": "dpt_protocol_event_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "talia.ren@pioneerspringshb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "877-555-0142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Talia Ren",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Eldon Voss",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jonas Pike",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Naya Torval",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Healthcare/HIPAA scope: 2,114 benefit profiles contained protected health information (diagnostic codes truncated), currently sequestered; HIPAA breach notification draft under review by Ms. Talia Ren, Privacy Officer, talia.ren@pioneerspringshb.com",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI considerations: Prior to public disclosure, Mr. Jonas Pike (sell-side analyst at Lanyon Ridge Capital) was wall-crossed under NDA on 2026-06-04 at 10:30 ET regarding potential earnings impact and outage duration; Insider List v1.2 attached (employees and advisors only)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Equity impact preview (internal only): management estimates $1.8\u2013$2.2M in one-time remediation expenses, not yet reflected in external guidance; Finance to update Q2 MD&A if threshold met",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.8",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$2.2M",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,480",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to Board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tCO2e",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analyst",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Next steps: Outside counsel (Sunridge & Fell LLP) to finalize Reg FD script, CISO to deliver root-cause report by 2026-06-08, and Audit Chair Dr. Naya Torval to convene a special session; report inconsistencies to hotline 877-555-0142",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Talia Ren, Privacy Officer, talia.ren@pioneerspringshb.com\nBanking/GLBA scope: HSA custodial data included masked routing numbers and last-4 account digits; GLBA Safeguards compliance team led by Mr. Eldon Voss will notify the OCC liaison after counsel review\nMNPI considerations: Prior to public disclosure, Mr. Jonas Pike (sell-side analyst at Lanyon Ridge Capital) was wall-crossed under NDA on 2026-06-04 at 10:30 ET regarding potential earnings impact and outage duration; Insider List v1.2 attached (employees and advisors only)\nReg FD/Selective disclosure: No other analysts or investors have been briefed; we will furnish an Item 8.01 Form 8-K within two business days and host a public webcast; until then, a company-wide blackout window remains in effect through 2026-06-12 for PSHB common stock and options\nInformation barriers: The Digital Assets Pilot Team (stablecoin HSA disbursement wallet) and Corporate Sustainability Office are ring-fenced; do not discuss pilot wallet custody vendors or provisional 2026 carbon-offset purchase terms outside need-to-know\nCommercial terms at issue (non-public): draft agreement with Cascade Custody Network to provide SOC 2 Type II crypto wallet custody at 9 bps AUC and with GreenFoundry Credits for 50,000 tCO2e offsets at $7.85/ton; both subject to Board approval\nOperations status: HSA portal functionality restored at ~80% capacity; downtime < 6 hours; no patient care systems were affected and claims adjudication continues under normal SLAs\nEquity impact preview (internal only): management estimates $1.8\u2013$2.2M in one-time remediation expenses, not yet reflected in external guidance; Finance to update Q2 MD&A if threshold met\nTipping risk reminder: Do not discuss the incident, ESG offsets, or crypto wallet vendors with friends, family, or industry contacts; route media and investor inquiries to IR at ir@pioneerspringshb.com\nTraining note (benign): The Marketing team\u2019s June newsletter will include a general education article on ransomware and information barriers using hypothetical bank-and-hospital examples; this content contains no incident data and is not MNPI\nCustomer communications: Draft notices will address affected members by name and email only; we will not include diagnosis details or account balances; inquiries to compliance@pioneerspringshb.com\nNext steps: Outside counsel (Sunridge & Fell LLP) to finalize Reg FD script, CISO to deliver root-cause report by 2026-06-08, and Audit Chair Dr. Naya Torval to convene a special session; report inconsistencies to hotline 877-555-0142",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ogs and sustainability audit working files; preliminary forensics show limited exfiltration of tokenized account IDs, names, and emails of ~12,480 members, with no full SSNs or payment card PANs\nHealthcare/HIPAA scope: 2,114 benefit profiles contained protected health information (diagnostic codes truncated), currently sequestered; HIPAA breach notification draft under review by Ms. Talia Ren, Privacy Officer, talia.ren@pioneerspringshb.com\nBanking/GLBA scope: HSA custodial data included masked routing numbers and last-4 account digits; GLBA Safeguards compliance team led by Mr. Eldon Voss will notify the OCC liaison after counsel review\nMNPI considerations: Prior to public disclosure, Mr. Jonas Pike (sell-side analyst at Lanyon Ridge Capital) was wall-crossed under NDA on 2026-06-04 at 10:30 ET regarding potential earnings impact and outage duration; Insider List v1.2 attached (employees and advisors only)\nReg FD/Selective disclosure: No other analysts or investors have been briefed; we will furnish an Item 8.01 Form 8-K within two business days and host a public webcast; until then, a company-wide blackout window remains in effect through 2026-06-12 for PSHB common stock and options\nInformation barriers: The Digital Assets Pilot Team (stablecoin HSA disbursement wallet) and Corporate Sustainability Office are ring-fenced; do not discuss pilot wallet custody vendors or provisional 2026 carbon-offset purchase terms outside need-to-know\nCommercial terms at issue (non-public): draft agreement with Cascade Custody Network to provide SOC 2 Type II crypto wallet custody at 9 bps AUC and with GreenFoundry Credits for 50,000 tCO2e offsets at $7.85/ton; both subject to Board approval\nOperations status: HSA portal functionality restored at ~80% capacity; downtime < 6 hours; no patient care systems were affected and claims adjudication continues under normal SLAs\nEquity impact preview (internal only): management estimates $1.8\u2013$2.2M in one-time remediation expenses, not yet reflected in external guidance; Finance to update Q2 MD&A if threshold met\nTipping risk reminder: Do not discuss the incident, ESG offsets, or crypto wallet vendors with friends, family, or industry contacts; route media and investor inquiries to IR at ir@pioneerspringshb.com\nTraining note (benign): The Marketing team\u2019s June newsletter will include a general education article on ransomware and information barriers using hypothetical bank-and-hospital examples; this content contains no incident data and is not MNPI",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Privacy Officer",
+      "reason": "Role noun/title, not PII or MNPI"
+    },
+    {
+      "matched_text": "CISO",
+      "reason": "Role noun/title, not PII or MNPI"
+    },
+    {
+      "matched_text": "Audit Chair",
+      "reason": "Role noun/title, not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "privacy_breach_notification",
+      "matched_text": "HIPAA breach notification draft",
+      "reason": "Indicates a regulated breach-notification process but this event marker is not among the allowed privacy-event rules"
+    }
+  ]
+}

@@ -43,11 +43,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
@@ -276,6 +276,12 @@
       "matched_text": "STRICTLY PRIVATE & CONFIDENTIAL \u2014 CONTAINS MNPI \u2014 Embargo until 14 Jun 2026 08:00 SGT; SGX Rule 703 materiality review in progress.\nIncident Report (Cyber) \u2014 Project Orchid \u2014 Solis Meridian Ltd. (SGX\u2011ST issuer) \u2014 Board memo excerpt for the Audit & Risk Committee.\nThis document contains information not generally available; remind staff of SFA s.218 prohibitions on trading and internal \u201cneed\u2011to\u2011know\u201d controls.\nOn 31 May 2026, following spear\u2011phish activity, unauthorised IMAP access to a vendor mailbox at Veldt Analytics Pte. Ltd. (target) was detected under ticket I N C - 2 9 7 3 / O R C H I D; device id SRV-0x3F1A.\nScope: 214 staff records (names, business emails, role titles) and 19 supplier files were accessed; no NRICs, home addresses, or full bank a/c numbers exfiltrated (masked refs SG**45-09xx).\nPDPA assessment: data qualifies as personal data; notification to PDPC is under consideration within 3 business days; affected individuals will be contacted via dpo@solis-meridian.sg.\nTransaction context: a definitive Share Purchase Agreement (SPA) for a 55% stake in Veldt Analytics Pte. Ltd. was signed on 31 May 2026 for approx. SGD 48.5m, subject to MAS approval and customary conditions.\nMateriality: preliminary view is that this incident is not expected to result in a MAC/MAE under SPA cl. 9.3, nor to affect completion timetables; we will update if this assessment changes.\nFinancing: consideration mix remains 87.5% cash, 12.5% vendor shares; treasury confirms liquidity headroom post\u2011close.\nDisclosure: draft IR note and SGX announcement are prepared but must not be released before the embargo; draft link https://ir.solis-meridian.sg/drafts?doc=Q2-ORCHID-SSA-v4.\nContact: Mr. Adrian Quek, CFO, adrian.quek@solis-meridian.sg; Ms. Halimah Noor, DPO, halimah.noor@solis-meridian.sg; security log at https://sec.sol-meridian.sg/log",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Adrian Quek, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

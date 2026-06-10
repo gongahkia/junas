@@ -1,0 +1,401 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_quasi_identifiers_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/quasi_identifiers/my_quasi_identifiers_term_sheet_default_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_quasi_identifiers_term_sheet_default_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 14,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM180,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM60,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM30,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM28,000,000'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_quasi_identifiers_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "amirul.basri@serianika.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "nur.aisyah@orbitallogistics.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 3-7723 3124",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-05-03-0942",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 June 1985",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "30 March 1992",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed Acquisition of Orbital Logistics Sdn Bhd (Company No. OL-219377-D) by Seri Anika Foods Berhad (Registration No. SAFB-200301012345) listed on the Main Board of Kuala Daya Exchange (KDX).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 80% of the issued shares of Orbital Logistics Sdn Bhd for RM180,000,000, comprising RM120,000,000 cash and RM60,000,000 in new SAFB shares (issuance subject to KDX approval and Malaysian capital markets law).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: RM120,000,000 via Islamic term financing (Commodity Murabahah) from Awan Capital Islamic Bank Berhad; RM30,000,000 private placement to Pinelake Nusantara Fund SPC; RM30,000,000 from internal cash.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Representations: Seller to warrant minimum FY2025 EBITDA of RM28,000,000 and net debt not exceeding RM35,000,000 at completion; breach triggers RM12,000,000 price adjustment.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "14m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Amirul Faez Basri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Nur Aisyah Karim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 12 June 1985",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 30 March 1992",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dealroom@serianika.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SN-LNV-AX93-7712",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SP-2026-05-03-0942-ef7a",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not to be discussed with third parties prior to KDX announcement",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Chief Financial Officer, Bandar Sempurna office (Level 18, Menara Cempaka, Jalan Seri Kencana 8)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "COO, Seri Anggerik hub, Selangor",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Acquisition of Orbital Logistics Sdn Bhd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "upon signing of definitive agreements",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "to SAFB directors only",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "distribute only via dealroom@serianika.com.my",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "project codename \u201cKenyalang\u201d",
+      "rule": "transaction_codename"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "amirul.basri@serianika.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "nur.aisyah@orbitallogistics.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 3-7723 3124",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-05-03-0942",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 June 1985",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "30 March 1992",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed Acquisition of Orbital Logistics Sdn Bhd (Company No. OL-219377-D) by Seri Anika Foods Berhad (Registration No. SAFB-200301012345) listed on the Main Board of Kuala Daya Exchange (KDX).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 80% of the issued shares of Orbital Logistics Sdn Bhd for RM180,000,000, comprising RM120,000,000 cash and RM60,000,000 in new SAFB shares (issuance subject to KDX approval and Malaysian capital markets law).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: RM120,000,000 via Islamic term financing (Commodity Murabahah) from Awan Capital Islamic Bank Berhad; RM30,000,000 private placement to Pinelake Nusantara Fund SPC; RM30,000,000 from internal cash.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Representations: Seller to warrant minimum FY2025 EBITDA of RM28,000,000 and net debt not exceeding RM35,000,000 at completion; breach triggers RM12,000,000 price adjustment.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "14m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed Acquisition of Orbital Logistics Sdn Bhd (Company No. OL-219377-D) by Seri Anika Foods Berhad (Registration No. SAFB-200301012345) listed on the Main Board of Kuala Daya Exchange (KDX).\nParties & Contacts: Buyer \u2014 Seri Anika Foods Berhad; key contact Encik Amirul Faez Basri (DOB 12 June 1985), Chief Financial Officer, Bandar Sempurna office (Level 18, Menara Cempaka, Jalan Seri Kencana 8), email amirul.basri@serianika.com.my, tel +60 3-7723 3124, device Lenovo ThinkPad L14 SN-LNV-AX93-7712, SharePoint session SP-2026-05-03-0942-ef7a.\nSeller \u2014 North Klang Holdings Sdn Bhd; Target \u2014 Orbital Logistics Sdn Bhd; operational contact Puan Nur Aisyah Karim, COO, Seri Anggerik hub, Selangor, contact nur.aisyah@orbitallogistics.my.\nTransaction: Buyer to acquire 80% of the issued shares of Orbital Logistics Sdn Bhd for RM180,000,000, comprising RM120,000,000 cash and RM60,000,000 in new SAFB shares (issuance subject to KDX approval and Malaysian capital markets law).\nFinancing: RM120,000,000 via Islamic term financing (Commodity Murabahah) from Awan Capital Islamic Bank Berhad; RM30,000,000 private placement to Pinelake Nusantara Fund SPC; RM30,000,000 from internal cash.\nUse of Proceeds: Vendor loan repayment and expansion of cold-chain fleet; no proceeds to management; no related party transaction under KDX rules.\nConditions Precedent: Malaysian securities regulator and KDX approvals, satisfactory financial/tax due diligence, no material adverse change, clean land title to Bukit Anggerik warehouse, execution of retention agreements for key managers including Puan Nur Aisyah Karim.\nGovernance: Buyer to nominate two directors to the Target board; reserved matters list attached; transitional services for 12 months; project codename \u201cKenyalang\u201d; virtual data room ID SAF-DR-042 and calendar code KENYALANG-TS-26.\nAnnouncements & Confidentiality: The terms herein are non-public and price-sensitive; a public announcement to KDX will be made upon signing of definitive agreements in accordance with Main Market listing requirements; until then distribute only via dealroom@serianika.com.my.\nRepresentations: Seller to warrant minimum FY2025 EBITDA of RM28,000,000 and net debt not exceeding RM35,000,000 at completion; breach triggers RM12,000,000 price adjustment.\nEmployment & Benefits: Key personnel to receive retention bonuses; no change to collective agreements; general descriptors such as \u201cmale, mid-30s in Klang Valley\u201d are generic and non-identifying.\nTimetable: Heads of Terms by 30 June 2026; definitive SPA by 30 August 2026; completion within 90 days of approvals; long stop date 31 December 2026; exclusivity until 15 September 2026.\nMiscellaneous MNPI Handling: Board pack circulated on 3 May 2026 at 09:42 MYT to SAFB directors only; working capital sensitivities and synergy estimates (RM10\u201314m p.a.) are not to be discussed with third parties prior to KDX announcement.\nSeparate weak identifiers (non-linkable): \u201cDOB 30 March 1992\u201d appears in a sample vendor spreadsheet unrelated to the parties, and \u201cAndroid handset model A12\u201d noted at a site tour, with no name, email, account, or employer attached.\nGoverning Law & Costs: This term sheet is governed by the laws of Malaysia; each party bears its own costs; non-binding save for confidentiality, exclusivity, and governing law.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Nur Aisyah Karim, COO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not a person or PII"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term, not a person or PII"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term, not a person or PII"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC phrase should not be labeled as material_adverse_change per rule"
+    },
+    {
+      "matched_text": "\u201cmale, mid-30s in Klang Valley\u201d",
+      "reason": "Generic demographics and location are non-identifying alone"
+    },
+    {
+      "matched_text": "\u201cAndroid handset model A12\u201d",
+      "reason": "Device model reference is not a listed PII or device identifier"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "internal system ID",
+      "matched_text": "SAF-DR-042",
+      "reason": "Virtual data room ID may be sensitive but not clearly covered by listed ID rules"
+    },
+    {
+      "concept": "transaction/calendar code",
+      "matched_text": "KENYALANG-TS-26",
+      "reason": "Internal code referencing the deal may be confidential but not explicitly covered by transaction_codename pattern"
+    }
+  ]
+}

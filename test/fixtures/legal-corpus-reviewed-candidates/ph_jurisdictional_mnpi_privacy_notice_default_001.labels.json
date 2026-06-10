@@ -1,0 +1,258 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "PH",
+    "doc_id": "ph_jurisdictional_mnpi_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ph/jurisdictional_mnpi/ph_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "source_jurisdiction": "PH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ph_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_jurisdictional_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Atty. Lira M. Santos",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@meridianisles.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 2 591 8899",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@meridianisles.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers: limited PII may be sent to CloudVista APAC Pte. (Singapore) under standard contractual clauses and local privacy regulator guidelines",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public financials",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows from two weeks before Form 17\u2011Q/17\u2011A filing until two trading days after posting",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material events",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Unit 804 Aurora Centrum, 85 Ilang\u2011Ilang St., Brgy. San Liway, Luzdel City 1409",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border safeguards",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "EDGE\u2011Pending",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout records",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring\u2011fenced by access controls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer\u2011relative materiality is assessed by the CFO and Compliance (e.g., a staffing change in a small branch may be immaterial, but a head\u2011office consolidation or debt covenant breach may be material given our scale and leverage).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+63 2 591 8899",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer\u2011relative materiality is assessed by the CFO and Compliance (e.g., a staffing change in a small branch may be immaterial, but a head\u2011office consolidation or debt covenant breach may be material given our scale and leverage).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Meridian Isles Holdings, Inc. \u2014 Data Retention and MNPI Handling Workflow (PH), v1.3; Unit 804 Aurora Centrum, 85 Ilang\u2011Ilang St., Brgy. San Liway, Luzdel City 1409.\nThis workflow covers HR, tax, payroll banking, and capital\u2011markets records; processing by BayanLink Payments OPC (payroll) and CloudVista APAC Pte. (hosting) is under our DPA and cross\u2011border safeguards.\nPersonal data means information by which a person is identified or can be directly ascertained with other data under the Data Privacy Act; sensitive personal data (e.g., health data) receives enhanced controls.\nData Privacy Officer: Atty. Lira M. Santos; DSAR/queries via dpo@meridianisles.ph or +63 2 591 8899; we acknowledge within 5 days and substantively respond within 30 days, subject to lawful exceptions.\nHR collects employee names, residential addresses, employee numbers, tax identifiers, and payroll bank details solely for employment, payroll, and statutory compliance; finance keeps officer and director registers for regulatory reporting.\nRetention: HR files 10 years from separation; payroll and tax support 10 years from filing; insider lists, director/officer registers, and trading blackout records 7 years from last update; capital\u2011markets working papers 7 years unless a regulator requires longer.\nMNPI includes non\u2011public financials, board approvals, capital\u2011raising plans, and unannounced restructurings as defined under the SRC (e.g., Sec. 27 on insider trading); no selective disclosure to analysts, lenders, or vendors is permitted.\nPublic disclosure of material events is made promptly via the Exchange\u2019s EDGE portal in accordance with SRC Rule 17 (e.g., current reports on Form 17\u2011C); insiders observe blackout windows from two weeks before Form 17\u2011Q/17\u2011A filing until two trading days after posting.\nAs disclosed on EDGE in Form 17\u2011C dated 15 Aug 2025 regarding the lease of the Nueva Romera Annex, that item is already public and is not treated as MNPI here; this note does not alter the public status of any such filing.\nIssuer\u2011relative materiality is assessed by the CFO and Compliance (e.g., a staffing change in a small branch may be immaterial, but a head\u2011office consolidation or debt covenant breach may be material given our scale and leverage).\nTransfers: limited PII may be sent to CloudVista APAC Pte. (Singapore) under standard contractual clauses and local privacy regulator guidelines; MNPI may not be transferred to processors unless strictly necessary and ring\u2011fenced by access controls.\nSecurity controls: role\u2011based access, encryption at rest/in transit, and redaction for external auditors; any dataset containing MNPI is tagged \u201cEDGE\u2011Pending\u201d and added to the Insider List maintained by Compliance.\nBenign note: our 12 Jan 2024 website press release on a community outreach program and an industry memo from Isla Bank Cooperative about ATM fee schedules are general communications and do not trigger MNPI handling, retention, or blackout rules.\nEscalation: suspected data breaches or inadvertent MNPI disclosures must be reported within 24 hours to dpo@meridianisles.ph and compliance@meridianisles.ph; where required, we notify the privacy",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "insider lists, director",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR/queries",
+      "reason": "Indicates data subject access request handling; not explicitly covered by an allowed rule name."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention: HR files 10 years from separation; payroll and tax support 10 years from filing; insider lists, director/officer registers, and trading blackout records 7 years from last update; capital\u2011markets working papers 7 years unless a regulator requires longer",
+      "reason": "Data retention durations are privacy-relevant but no explicit retention rule is in the allowed list."
+    },
+    {
+      "concept": "DSAR SLA",
+      "matched_text": "we acknowledge within 5 days and substantively respond within 30 days",
+      "reason": "Response timelines for data subject requests are privacy governance, but not an allowed rule."
+    },
+    {
+      "concept": "disclosure_timing",
+      "matched_text": "promptly via the Exchange\u2019s EDGE portal",
+      "reason": "Jurisdiction-specific disclosure timing policy is MNPI-relevant but not mapped to a current allowed rule."
+    },
+    {
+      "concept": "public_filing_reference",
+      "matched_text": "As disclosed on EDGE in Form 17\u2011C dated 15 Aug 2025 regarding the lease of the Nueva Romera Annex",
+      "reason": "Reference to public filing is relevant to public/non-public status but not a listed detection rule."
+    },
+    {
+      "concept": "regulator_notification",
+      "matched_text": "we notify the privacy regulator and make a Form 17\u2011C disclosure via EDGE",
+      "reason": "Regulator notification and disclosure steps are compliance-relevant but not an allowed rule."
+    }
+  ]
+}

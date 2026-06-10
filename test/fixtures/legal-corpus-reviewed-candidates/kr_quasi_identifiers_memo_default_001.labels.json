@@ -1,0 +1,476 @@
+{
+  "_agent_review": {
+    "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
+    "reviewed_at_utc": "2026-05-31T12:38:03Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
+    "status": "post_ae_sa_global_precision_realign_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    },
+    {
+      "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
+      "reviewed_at_utc": "2026-05-31T12:38:03Z",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
+      "status": "post_ae_sa_global_precision_realign_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved KR Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T02:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for \u201cMs. Hana Park\u201d was rejected because the text is an actual named-person reference. Post-AE/SA global precision realignment reconciled strict labels to current deterministic output after shared precision/name-parser fixes.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Current strict tier was realigned after UK/EU precision guards; removed strict spans are preserved in ideal_must_detect for gap review.",
+  "_label_tiers_version": "post-uk-eu-precision-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T02:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "KR",
+    "doc_id": "kr_quasi_identifiers_memo_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-31T02:34:00Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/kr/quasi_identifiers/kr_quasi_identifiers_memo_default_001.txt",
+    "source_jurisdiction": "KR",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/kr_quasi_identifiers_memo_default_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "Strict tier was realigned after the UK/EU precision guard pass suppressed closed, public/generic, or non-attributive examples. Original strict labels are preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:44:27Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-reconciled-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU precision guards"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 38,
+    "current_must_detect_count": 19,
+    "current_must_not_detect_count": 7,
+    "previous_ideal_must_detect_count": 38,
+    "previous_must_detect_count": 20,
+    "previous_must_not_detect_count": 7
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_quasi_identifiers_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jin-woo Ryu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1984-02-17",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 42",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID-084217",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "jinwoo.ryu@haneultechworks.fake.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HNT-L-3371",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DEV-HNT-5512",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SESS-IR-0522-HNT",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "172.19.8.44",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@haneultechworks.fake.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "070-3456-7890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ye-rin Ko",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1976-06-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 128.4 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective briefing",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Clustered identifiers: Mr. Jin-woo Ryu (IR Team Lead), DOB 1984-02-17 (age 42), employee ID EID-084217, email jinwoo.ryu@haneultechworks.fake.kr, office location Jaehyun-gu, Haneul-si",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ryu\u2019s company-issued laptop serial HNT-L-3371, device ID DEV-HNT-5512, IR-Portal session SESS-IR-0522-HNT, handshake token TS-KSIG-7721, and internal IP 172.19.8.44 are logged for audit; treat as linkable quasi-identifiers",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RRN-84-0217-02XX",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "none of these items are yet publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "private placement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "block trade",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ACCT-HNT-002944",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "include only masked resident-number suffix and role; avoid combining DOB, office location, and device identifiers in a single thread",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "84-0217-02",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-4421",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HNT-002944",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ryu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ye",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ryu",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "084217",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "jinwoo.ryu@haneultechworks.fake.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "84-0217-02",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "070-3456-7890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ACCT-HNT-002944",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID-084217",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HNT-002944",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1984-02-17",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HNT-L-3371",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ryu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ye",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ryu",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 128.4 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Separated weak identifiers for scheduling only (no name): DOB 1976-06-03, plant unit P-7, device DVC-339, login time 23:11 KST, site \u201cHaenam Works\u201d; these details must not be combined with a resident-number in circulated emails",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jin-woo Ryu (IR Team Lead), DOB 1984-02-17 (age 42), employee ID EID-084217, email jinwoo.ryu@haneultechworks.fake.kr, office location Jaehyun-gu, Haneul-si.\nMr. Ryu\u2019s company-issued laptop serial HNT-L-3371, device ID DEV-HNT-5512, IR-Portal session SESS-IR-0522-HNT, handshake token TS-KSIG-7721, and internal IP 172.19.8.44 are logged for audit; treat as linkable quasi-identifiers.\nResident-number token for payroll (masked): RRN-84-0217-02XX; do not store unmasked resident registration numbers in IR or HR files to comply with PIPA.\nMNPI: Board is evaluating a block trade of a 9.5% stake in Sunryu Photonics Ltd. on the Saehae Exchange, with a potential anchor investor from Okjeon Capital Partners; none of these items are yet publicly disclosed.\nPreliminary Q2 revenue (unaudited): KRW 128.4 billion with operating margin recovery; figures are embargoed and may only be shared upon public \uacf5\uc2dc.\nSeparated weak identifiers for scheduling only (no name): DOB 1976-06-03, plant unit P-7, device DVC-339, login time 23:11 KST, site \u201cHaenam Works\u201d; these details must not be combined with a resident-number in circulated emails.\nEmployment onboarding: Ms. Ye-rin Ko has accepted the Senior Materials Analyst role; office phone 070-3456-7890; general demographic noted as female in her 30s without additional linkable data.\nMarketing cohort summary: five employees in their 20s from midland regions; generic demographics only and not identifying on their own.\nIR contact channel: ir@haneultechworks.fake.kr; secure inquiries via IR-Desk ticket IR-19472 on the compliance portal.\nAnalyst engagement: Any selective briefing to sell-side or buy-side triggers disclosure obligations under FSCMA; coordinate with the Listing Review Department of the Jeongwon Stock Exchange prior to any materials release.\nEvent planning (tentative): Investor Day on 15 July 2026 at Cloud Harbor Conference Center, Haneul-si; ensure fair disclosure notice precedes any distribution of slide content.\nFunding logistics: Designated proceeds account ACCT-HNT-002944",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "e Financial Investment Services and Capital Markets Act (FSCMA), the contemplated private placement and revised IR deck constitute material nonpublic information and are subject to blackout until formal disclosure.\nClustered identifiers: Mr. Jin-woo Ryu (IR Team Lead), DOB 1984-02-17 (age 42), employee ID EID-084217, email jinwoo.ryu@haneultechworks.fake.kr, office location Jaehyun-gu, Haneul-si.\nMr. Ryu\u2019s company-issued laptop serial HNT-L-3371, device ID DEV-HNT-5512, IR-Portal session SESS-IR-0522-HNT, handshake token TS-KSIG-7721, and internal IP 172.19.8.44 are logged for audit; treat as linkable quasi-identifiers.\nResident-number token for payroll (masked): RRN-84-0217-02XX; do not store unmasked resident registration numbers in IR or HR files to comply with PIPA.\nMNPI: Board is evaluating a block trade of a 9.5% stake in Sunryu Photonics Ltd. on the Saehae Exchange, with a potential anchor investor from Okjeon Capital Partners; none of these items are yet publicly disclosed.\nPreliminary Q2 revenue (unaudited): KRW 128.4 billion with operating margin recovery; figures are embargoed and may only be shared upon public \uacf5\uc2dc.\nSeparated weak identifiers for scheduling only (no name): DOB 1976-06-03, plant unit P-7, device DVC-339, login time 23:11 KST, site \u201cHaenam Works\u201d; these details must not be combined with a resident-number in circulated emails.\nEmployment onboarding: Ms. Ye-rin Ko has accepted the Senior Materials Analyst role; office phone 070-3456-7890; general demographic noted as female in her 30s without additional linkable data.\nMarketing cohort summary: five employees in their 20s from midland regions; generic demographics only and not identifying on their own.\nIR contact channel: ir@haneultechworks.fake.kr; secure inquiries via IR-Desk ticket IR-19472 on the compliance portal.\nAnalyst engagement: Any selective briefing to sell-side or buy-side triggers disclosure obligations under FSCMA; coordinate with the Listing Review Department of the Jeongwon Stock Exchange prior to any materials release.\nEvent planning (tentative): Investor Day on 15 July 2026 at Cloud Harbor Conference Center, Haneul-si; ensure fair disclosure notice precedes any distribution of slide content.\nFunding logistics: Designated proceeds account ACCT-HNT-002944 at Yulim Bank will be used to settle the convertible bond; banking instructions are confidential until the board resolution is formally disclosed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "female in her 30s",
+      "reason": "Generic demographic not identifying on its own under PIPA."
+    },
+    {
+      "matched_text": "five employees in their 20s",
+      "reason": "Aggregated demographics; not PII."
+    },
+    {
+      "matched_text": "plant unit P-7",
+      "reason": "Operational code; not PII on its own."
+    },
+    {
+      "matched_text": "device DVC-339",
+      "reason": "Standalone device label without linkage to an individual."
+    },
+    {
+      "matched_text": "Haenam Works",
+      "reason": "Site name alone is not PII."
+    },
+    {
+      "matched_text": "KR Issuer",
+      "reason": "Role/descriptor, not a person or identifier."
+    },
+    {
+      "matched_text": "IR Team Lead",
+      "reason": "Job title alone is not PII."
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "kr_rrn (masked)",
+      "matched_text": "RRN-84-0217-02XX",
+      "reason": "Masked resident-number token references a Korean RRN; arguably PII though not a full-format number."
+    },
+    {
+      "concept": "internal_session_id/token",
+      "matched_text": "TS-KSIG-7721",
+      "reason": "Authentication/handshake token may function as a session identifier but not explicitly covered by a rule name."
+    },
+    {
+      "concept": "bank_account alias",
+      "matched_text": "ACCT-HNT-002944",
+      "reason": "Internal proceeds account code likely a bank account reference but not a standard account number format."
+    },
+    {
+      "concept": "regulatory_reference",
+      "matched_text": "QN-2026-4421",
+      "reason": "Regulatory inquiry reference number; relevant compliance identifier but no explicit KR rule provided."
+    },
+    {
+      "concept": "ticket_number",
+      "matched_text": "IR-19472",
+      "reason": "Internal ticket/record identifier; potentially linkable but not mapped to an allowed rule."
+    }
+  ]
+}

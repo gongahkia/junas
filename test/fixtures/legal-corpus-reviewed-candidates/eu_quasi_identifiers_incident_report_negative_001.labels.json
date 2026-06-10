@@ -1,0 +1,218 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "EU",
+    "doc_id": "eu_quasi_identifiers_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/eu/quasi_identifiers/eu_quasi_identifiers_incident_report_negative_001.txt",
+    "source_jurisdiction": "EU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/eu_quasi_identifiers_incident_report_negative_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 16,
+    "current_must_detect_count": 2,
+    "current_must_not_detect_count": 0,
+    "previous_ideal_must_detect_count": 14,
+    "previous_must_detect_count": 7,
+    "previous_must_not_detect_count": 0
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_quasi_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DOB 1990-04-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@orbianterra.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+00 800 000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "requires minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SNR-AX9-8841",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "account twh-042",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a temporary warehouse operator at Lake Norvale Depot (shift A3) engaged via Hivernis Logistics GmbH, DOB 1990-04-12, residence district Ostmark Sector 7, handheld scanner SNR-AX9-8841 mapped to account twh-042 at Kaster Systems BV",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending decision on disclosure",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CSRD draft disclosures will include downtime KPI and remediation plans",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not a trading signal",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "investor relations shall continue to use only published information",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "adds technical detail for regulators",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-04-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7B",
+      "rule": "financial_amount"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "1990-04-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "One access-log cluster requires minimisation: a temporary warehouse operator at Lake Norvale Depot (shift A3) engaged via Hivernis Logistics GmbH, DOB 1990-04-12, residence district Ostmark Sector 7, handheld scanner SNR-AX9-8841 mapped to account twh-042 at Kaster Systems BV.\nOther workforce references in this report are generic (e.g., \u201ctwo night-shift staff under 30\u201d and \u201cblue\u2011badge contractors\u201d); these do not by themselves identify individuals.\nCross-border transfer: a 48\u2011hour copy of device logs was processed by Norlandia\u2011based vendor Galian Processors AS under SCCs and transfer impact assessment VN\u2011TIA\u20112026\u2011014; telemetry includes IPs and pseudonymous device IDs.\nSecurity content: malware execution blocked; no lateral movement confirmed; samples shared with the CSIRT network; invalid identifiers in sandbox notes (ISIN ZZ0000000000; VAT XX0000000) are placeholders only.\nESG context: CSRD draft disclosures will include downtime KPI and remediation plans; SFDR teams confirm no change to PAI indicators due to absence of customer data loss.\nLawful basis and notice: retention set to 30 days for logs; Art. 33 notification submitted to the Varland DPA; no Art. 34 communication deemed necessary at this stage.\nMarket abuse controls: a non\u2011public internal \u201cScenario R2\u201d capacity impact estimate remains under verification and is handled within MAR workflows pending decision on disclosure.\nThe internal severity rating in this draft is not a trading signal and relies on assumptions already stated in the public OAM notice; investor relations shall continue to use only published information.\nData subject support uses role mailboxes and helplines only (privacy@orbianterra.eu; +00 800 000 0000); no named contact points are provided here.\nIncident tickets reference device aliases and room numbers only (e.g., Dock C\u201112, Cart 7B); there are no government ID fields or payment card data in scope.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "retention set to 30 days for logs",
+      "reason": "Live retention setting is privacy-relevant but there is no explicit retention rule in the allowed set."
+    },
+    {
+      "concept": "breach_notification_marker",
+      "matched_text": "Art. 33 notification submitted to the Varland DPA",
+      "reason": "GDPR breach notification status is legally relevant but not mapped to an allowed rule."
+    },
+    {
+      "concept": "breach_communication_marker",
+      "matched_text": "no Art. 34 communication deemed necessary at this stage",
+      "reason": "Decision on data breach communication is privacy-relevant but not covered by an allowed rule."
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "complete DSR triage",
+      "reason": "References data subject requests handling but no DSAR-specific rule exists."
+    },
+    {
+      "concept": "identifier_reference",
+      "matched_text": "telemetry includes IPs and pseudonymous device IDs",
+      "reason": "Mentions categories of identifiers without concrete values; relevant but not captured by value-based rules."
+    },
+    {
+      "concept": "internal_codename",
+      "matched_text": "Scenario R2",
+      "reason": "Likely an internal scenario label; does not fit the 'Project <Name>' codename rule."
+    },
+    {
+      "concept": "tia_reference",
+      "matched_text": "transfer impact assessment VN\u2011TIA\u20112026\u2011014",
+      "reason": "Transfer impact assessment ID is cross-border relevant but not covered by a specific allowed rule."
+    }
+  ]
+}

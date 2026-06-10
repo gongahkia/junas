@@ -1,0 +1,362 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_direct_identifiers_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/direct_identifiers/my_direct_identifiers_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_direct_identifiers_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 5,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+      "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+      "normalise mismatched category 'MNPI' to 'PII' for rule='consent_withdrawal_marker'",
+      "normalise mismatched category 'MNPI' to 'PII' for rule='consent_withdrawal_marker'",
+      "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_direct_identifiers_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data (as defined in the PDPA 2010) for employment, financing, supplier onboarding, and Bursa disclosure activities.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: payroll and EPF/SOCSO records 7 years; financing security files 7 years after discharge; Bursa disclosure files per Bursa LR and CMSA record-keeping timelines.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@lauttimur.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@lauttimur.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@lauttimur.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "help@support.example.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers occur",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists are maintained under CMSA s.188",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "[NRIC (MyKad)]",
+      "rule": "my_mykad"
+    },
+    {
+      "category": "PII",
+      "matched_text": "[Passport No.]",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "[Bank Account]",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account 0000-00-000000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Tel 03-XXXX XXXX",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Operational exports must mask account numbers and phone numbers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid including personal mobile numbers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not attach original passports",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "redactions apply to board papers and pre-announcement deal terms",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR submission",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Responses to DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists are not disclosed in DSAR responses",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers occur for HR systems hosted by Awan Cerah Cloud Sdn Bhd and Pelangi Compute Pte. Ltd",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data (as defined in the PDPA 2010) for employment, financing, supplier onboarding, and Bursa disclosure activities.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: payroll and EPF/SOCSO records 7 years; financing security files 7 years after discharge; Bursa disclosure files per Bursa LR and CMSA record-keeping timelines.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Laut Timur Holdings Berhad (SSM Reg. No.: 202001111111) \u2014 PDPA Retention and Disclosure Workflow Note.\nRegistered office: Level 18, Menara Tiruan, 27 Jalan Fiksyen, 50450 Kuala Lumpur; PDPA queries: dpo@lauttimur.com.my (role mailbox).\nWe process personal data (as defined in the PDPA 2010) for employment, financing, supplier onboarding, and Bursa disclosure activities.\nDSAR submission: use Form PDP-01 with fields [Name], [NRIC (MyKad)], [Contact], [Relationship], [Request scope]; send to privacy@lauttimur.com.my or call 1-800-88-1122 (public helpline).\nTemplates may display labels such as [Passport No.] and [Bank Account]; labels are placeholders and are not confirmations of identity.\nDocuments may include placeholder identifiers such as Passport No. MYS-PXXXX9999 and Tax File No. C-99999999-X (invalid samples only).\nResponses to DSARs exclude material non-public information under the CMSA and Bursa Listing Requirements; redactions apply to board papers and pre-announcement deal terms.\nPublicly announced items (e.g., Bursa announcement dated 2 Jan 2025 on completed refinancing) are treated as public and may be referenced.\nRetention: payroll and EPF/SOCSO records 7 years; financing security files 7 years after discharge; Bursa disclosure files per Bursa LR and CMSA record-keeping timelines.\nOperational exports must mask account numbers and phone numbers (e.g., Account 0000-00-000000, Tel 03-XXXX XXXX) unless disclosure is required by law.\nCross-border transfers occur for HR systems hosted by Awan Cerah Cloud Sdn Bhd and Pelangi Compute Pte. Ltd.; transfers rely on contractual safeguards and are recorded in Transfer Log TL-MY-0001.\nEmployees are reminded that insider lists are maintained under CMSA s.188; insider lists are not disclosed in DSAR responses.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "[Name]",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[NRIC (MyKad)]",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[Contact]",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[Relationship]",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[Request scope]",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[Passport No.]",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[Bank Account]",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "Passport No. MYS-PXXXX9999",
+      "reason": "Invalid/placeholder sample identifier, not real PII"
+    },
+    {
+      "matched_text": "Tax File No. C-99999999-X",
+      "reason": "Invalid/placeholder sample identifier, not real PII"
+    },
+    {
+      "matched_text": "Account 0000-00-000000",
+      "reason": "Masked placeholder account number, not actual PII"
+    },
+    {
+      "matched_text": "Tel 03-XXXX XXXX",
+      "reason": "Masked placeholder phone number, not actual PII"
+    },
+    {
+      "matched_text": "+60 1X-0000 0000",
+      "reason": "Masked placeholder phone number, not actual PII"
+    },
+    {
+      "matched_text": "1-800-88-1122",
+      "reason": "Public helpline number, not personal PII"
+    },
+    {
+      "matched_text": "Chief Financial Officer",
+      "reason": "Role-only title, not a named person"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "MY SSM company registration number",
+      "matched_text": "SSM Reg. No.: 202001111111",
+      "reason": "Direct company identifier is legally relevant but not covered by allowed rules list"
+    },
+    {
+      "concept": "MY postal code/address element",
+      "matched_text": "50450 Kuala Lumpur",
+      "reason": "Postal code is PII-adjacent but no MY postal address rule is provided"
+    },
+    {
+      "concept": "internal log/reference ID",
+      "matched_text": "Transfer Log TL-MY-0001",
+      "reason": "Unique tracking identifier may be sensitive but not mapped to an allowed rule"
+    },
+    {
+      "concept": "announcement timing reference",
+      "matched_text": "Bursa announcement dated 2 Jan 2025",
+      "reason": "Relevant to public vs non-public status but not an allowed embargo marker phrase"
+    },
+    {
+      "concept": "retention policy marker",
+      "matched_text": "Retention: payroll and EPF/SOCSO records 7 years",
+      "reason": "Privacy retention is relevant but there is no explicit retention rule in the allowed list"
+    }
+  ]
+}

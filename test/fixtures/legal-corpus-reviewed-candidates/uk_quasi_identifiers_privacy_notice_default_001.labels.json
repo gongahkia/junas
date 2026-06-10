@@ -1,0 +1,374 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_quasi_identifiers_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/quasi_identifiers/uk_quasi_identifiers_privacy_notice_default_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_quasi_identifiers_privacy_notice_default_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 31,
+    "current_must_detect_count": 16,
+    "current_must_not_detect_count": 6,
+    "previous_ideal_must_detect_count": 24,
+    "previous_must_detect_count": 14,
+    "previous_must_not_detect_count": 6
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_quasi_identifiers_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Pike",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14/02/1987",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Pike",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rowan.pike@kestrelgate-plc.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KG-031422",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "OMS-2024-05-18-1142",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Bramble",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "an unpublished potential equity placing",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may constitute MNPI under UK MAR",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK International Data Transfer Agreement",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "any restricted transfers are made using the UK International Data Transfer Agreement or Addendum",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@kestrelgate-plc.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@kestrelgate-plc.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza North",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KG-LON-14-AX3",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CB-1179",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RC-4421",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The following examples are not linked to an identified person and should not be treated as personal data in isolation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not publish personal email addresses or device identifiers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Pike (born 14/02/1987), Associate Director (M&A) at Kestrelgate Investments plc",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know basis",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "If you submit a data subject access request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2024-05-18-1142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data subject access request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "In responding to requests we may redact or defer disclosure where necessary to protect MNPI, the rights of other individuals, or the detection and investigation of market abuse under UK MAR.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "031422",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rowan.pike@kestrelgate-plc.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2024-05-18-1142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KG-031422",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data subject access request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14/02/1987",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Pike",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Pike",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza North",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "In responding to requests we may redact or defer disclosure where necessary to protect MNPI, the rights of other individuals, or the detection and investigation of market abuse under UK MAR.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Bramble",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "031422",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Pike (born 14/02/1987), Associate Director (M&A) at Kestrelgate Investments plc, signed into the Bridgemont workspace (zone code LON-Z3, postcode XX1 1XX) on device KG-LON-14-AX3 using staff ID KG-031422 and OMS session OMS-2024-05-18-1142.\nFor Project Bramble (an unpublished potential equity placing), Mr. Pike\u2019s access rights and chat handle rowan.pike@kestrelgate-plc.co.uk were recorded alongside account short code RC-4421 and call bridge reference CB-1179; these records may constitute MNPI under UK MAR.\nThe following examples are not linked to an identified person and should not be treated as personal data in isolation: a date 17/08/1985, a device tag OPS-TAB-02, or a generic job title \u201canalyst\u201d located in postcode YY9 9YY.\nWe engage processors such as Cloudhollow Analytics UK Ltd and Quarrygate Data Rooms Ltd under written terms; any restricted transfers are made using the UK International Data Transfer Agreement or Addendum and subject to risk assessment.\nInsider lists and deal access logs are retained for five years after the end of the event per UK MAR; employee surveillance alerts and order-management logs are retained for seven years to meet financial-services recordkeeping.\nWe may collect subtle telemetry such as sign-in times (e.g., 07:43 and 18:10), hostname and OS version, and geofence markers (e.g., Wharf JN15), which are combined with training records to monitor market-abuse controls.\nWe do not make decisions producing legal or similarly significant effects solely by automated means; surveillance models flag behaviours for human review in our Compliance Operations Centre.\nIf you submit a data subject access request, contact privacy@kestrelgate-plc.co.uk or write via https://privacy.kestrelgate-plc.co.uk/dsar; we will verify identity using an employee number and a one-time code.\nIn responding to requests we may redact or defer disclosure where necessary to protect MNPI, the rights of other individuals, or the detection and investigation of market abuse under UK MAR.\nWe may share limited details with brokers, advisers, or venue operators on a need-to-know basis for transaction settlement and admission to trading, but we do not publish personal email addresses or device identifiers.\nA generic account reference like 88-40-XX used in a training screenshot, or a session tag PRE-OPEN-07:55, is not used to identify any person and is stored only for illustrative purposes.\nQueries may also be directed to the Data Protection Lead, Ms. Eliza North",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process employment and trading-related data to administer HR, operate surveillance, maintain insider lists, and manage deal rooms in connection with a UK regulated market; lawful bases are legal obligation and legitimate interests.\nExample\u2014Mr. Rowan Pike (born 14/02/1987), Associate Director (M&A) at Kestrelgate Investments plc, signed into the Bridgemont workspace (zone code LON-Z3, postcode XX1 1XX) on device KG-LON-14-AX3 using staff ID KG-031422 and OMS session OMS-2024-05-18-1142.\nFor Project Bramble (an unpublished potential equity placing), Mr. Pike\u2019s access rights and chat handle rowan.pike@kestrelgate-plc.co.uk were recorded alongside account short code RC-4421 and call bridge reference CB-1179; these records may constitute MNPI under UK MAR.\nThe following examples are not linked to an identified person and should not be treated as personal data in isolation: a date 17/08/1985, a device tag OPS-TAB-02, or a generic job title \u201canalyst\u201d located in postcode YY9 9YY.\nWe engage processors such as Cloudhollow Analytics UK Ltd and Quarrygate Data Rooms Ltd under written terms; any restricted transfers are made using the UK International Data Transfer Agreement or Addendum and subject to risk assessment.\nInsider lists and deal access logs are retained for five years after the end of the event per UK MAR; employee surveillance alerts and order-management logs are retained for seven years to meet financial-services recordkeeping.\nWe may collect subtle telemetry such as sign-in times (e.g., 07:43 and 18:10), hostname and OS version, and geofence markers (e.g., Wharf JN15), which are combined with training records to monitor market-abuse controls.\nWe do not make decisions producing legal or similarly significant effects solely by automated means; surveillance models flag behaviours for human review in our Compliance Operations Centre.\nIf you submit a data subject access request, contact privacy@kestrelgate-plc.co.uk or write via https://privacy.kestrelgate-plc.co.uk/dsar; we will verify identity using an employee number and a one-time code.\nIn responding to requests we may redact or defer disclosure where necessary to protect MNPI, the rights of other individuals, or the detection and investigation of market abuse under UK MAR.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "88-40-XX",
+      "reason": "Generic example account reference stated as not linked to any person"
+    },
+    {
+      "matched_text": "OPS-TAB-02",
+      "reason": "Generic device tag example not linked to any person"
+    },
+    {
+      "matched_text": "analyst",
+      "reason": "Generic job title not identifying a person alone"
+    },
+    {
+      "matched_text": "YY9 9YY",
+      "reason": "Example postcode not linked to an identified person"
+    },
+    {
+      "matched_text": "PRE-OPEN-07:55",
+      "reason": "Example session tag stated as not used to identify a person"
+    },
+    {
+      "matched_text": "17/08/1985",
+      "reason": "Example date stated as not linked to any person"
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "zone code quasi-identifier",
+      "matched_text": "LON-Z3",
+      "reason": "Potential location/device zone code tied to a sign-in context but no explicit rule for UK zone codes"
+    },
+    {
+      "concept": "geofence marker",
+      "matched_text": "Wharf JN15",
+      "reason": "Micro-location tag can be linkable telemetry but not covered by existing rules"
+    },
+    {
+      "concept": "UK postcode",
+      "matched_text": "XX1 1XX",
+      "reason": "Postcode can be a quasi-identifier but there is no UK postal code rule in the allowed set"
+    }
+  ]
+}

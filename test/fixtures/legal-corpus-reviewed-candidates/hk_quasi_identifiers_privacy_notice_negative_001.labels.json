@@ -1,0 +1,269 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_quasi_identifiers_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/quasi_identifiers/hk_quasi_identifiers_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_quasi_identifiers_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_quasi_identifiers_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "mna.ops@harbourpeak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@harbourpeak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.services@harbourpeak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@harbourpeak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10.0.0.0/8",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Overseas processing may occur",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1987-05",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "(DOB 1987-05; residence district: Yuen Long; internal staff code RPO-118; workstation asset tag HK-WKS-19-A7; payroll account ending 4412; employing entity Harbour Peak Capital (HK) Ltd)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "internal staff code RPO-118",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "workstation asset tag HK-WKS-19-A7",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll account ending 4412",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Form Ref: SUB-A1-000-XYZ",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cookie IDs",
+      "rule": "cookie_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "advertising identifiers",
+      "rule": "advertising_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "over 18",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Quasi-identifiers are processed minimally",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal contact details are avoided for this workflow",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "please avoid including full dates of birth or complete bank account numbers in free-text fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "References to \u201cinsider\u201d, \u201cMNPI\u201d, or \u201cprice sensitive\u201d in this notice reflect generic risk categories under the SFO and do not indicate we hold any non-public deal terms; the Red Lantern REIT merger was publicly announced on 2025-03-01.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "announcement date",
+      "rule": "embargo_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "mna.ops@harbourpeak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.services@harbourpeak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@harbourpeak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "References to \u201cinsider\u201d, \u201cMNPI\u201d, or \u201cprice sensitive\u201d in this notice reflect generic risk categories under the SFO and do not indicate we hold any non-public deal terms; the Red Lantern REIT merger was publicly announced on 2025-03-01.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "announcement date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbour Peak Capital (HK) Ltd privacy and data retention workflow for Hong Kong listed-company activities under the PDPO and securities law obligations.\nScope includes M&A due diligence, fund investor onboarding, and employment records processed to support listing rule compliance on the Pearl Bay Exchange.\nWe collect role-based contact points only: deal-team mailboxes (e.g., mna.ops@harbourpeak.example), compliance@harbourpeak.example, and investor.services@harbourpeak.example; personal contact details are avoided for this workflow.\nQuasi-identifiers are processed minimally: city of residence, partial month-year of birth, internal staff codes, device tags, and account suffixes; these alone do not identify an individual without other information.\nIn a closed-file HR access audit for one temporary analyst (DOB 1987-05; residence district: Yuen Long; internal staff code RPO-118; workstation asset tag HK-WKS-19-A7; payroll account ending 4412; employing entity Harbour Peak Capital (HK) Ltd), these attributes were used together solely for entitlement validation.\nFor investors in our fund vehicles, we retain only onboarding identifiers such as form reference numbers (e.g., Form Ref: SUB-A1-000-XYZ) and country of tax residence; fund subscription outcomes are announced via Pearl Bay Exchange disclosures where required.\nReferences to \u201cinsider\u201d, \u201cMNPI\u201d, or \u201cprice sensitive\u201d in this notice reflect generic risk categories under the SFO and do not indicate we hold any non-public deal terms; the Red Lantern REIT merger was publicly announced on 2025-03-01.\nData transfers may occur within our group to Harbour Peak Capital (Asia) GP Ltd and to our appointed registrar, Wharfstone Registrars (HK) Ltd, under contractual terms aligned with the PDPO Data Protection Principles.\nOverseas processing may occur at our secure centre in Pearl River Tech Park (Guangzhou) with encryption-at-rest; no unique government ID numbers are stored in the M&A data room.\nAccess requests: submit a DSAR by completing the \u201cPDPO Access Form\u201d and emailing privacy.office@harbourpeak.example; please avoid including full dates of birth or complete bank account numbers in free-text fields.\nWe retain Board and committee packs containing market commentary for 7 years; such materials contain aggregated analytics and public issuer names drawn from exchange circulars.\nEmployee device telemetry retains device model, OS version, and generic IP ranges (e.g., 10.0.0.0/8) but not precise location; invalid identifiers typed in sample fields (e.g., ID: 1234-XX-000) are discarded.\nWe do not maintain CCTV biometric templates; demographic labels such as \u201cgraduate\u201d or \u201cover 18\u201d are collected only for eligibility screening and are not linked to trading accounts.\nAny disclosure to regulators or the Exchange occurs only as required by applicable law; our policy avoids sharing hashed emails, cookie IDs, or advertising identifiers with brokers.\nThe retention clock for virtual data rooms starts from the public announcement date on the Pearl Bay Exchange; documents flagged \u201cpublic\u201d are reviewed quarterly and stale items are removed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider",
+      "reason": "Generic category mention; not a specific MNPI event."
+    },
+    {
+      "matched_text": "MNPI",
+      "reason": "Generic category mention; not a specific MNPI event."
+    },
+    {
+      "matched_text": "price sensitive",
+      "reason": "Generic category mention; not a specific MNPI event."
+    },
+    {
+      "matched_text": "ID: 1234-XX-000",
+      "reason": "Example of invalid/sample identifier; not real PII."
+    },
+    {
+      "matched_text": "complete bank account numbers",
+      "reason": "Generic mention; not an actual identifiable account number."
+    },
+    {
+      "matched_text": "biometric templates",
+      "reason": "Negated presence; generic mention rather than actual biometric data."
+    },
+    {
+      "matched_text": "graduate",
+      "reason": "Generic demographic label; not identifying on its own."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "subject access request marker",
+      "matched_text": "DSAR",
+      "reason": "Privacy rights handling is legally relevant but not explicitly covered by allowed marker rules beyond consent withdrawal."
+    },
+    {
+      "concept": "tax residency attribute",
+      "matched_text": "country of tax residence",
+      "reason": "Personal data under PDPO but not mapped to a specific allowed PII rule."
+    },
+    {
+      "concept": "residence location",
+      "matched_text": "Yuen Long",
+      "reason": "Location can be a quasi-identifier; not directly covered by a standalone allowed rule."
+    },
+    {
+      "concept": "timeline/embargo scheduling",
+      "matched_text": "public announcement date",
+      "reason": "Relevant to disclosure/retention timing; not explicitly included in allowed embargo markers."
+    }
+  ]
+}

@@ -55,11 +55,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -288,6 +288,12 @@
       "matched_text": "Non\u2011Binding Term Sheet (Australia) between Orion Pacific Robotics Limited (ASX: OPRL, ACN 63X\u201112X\u20119X0) and Kestrel Harbour Capital Fund I LP re: strategic investment and call option over 60% of Lattice BioSensors Pty Ltd.\nConsideration: A$18,500,000 for A\u2011class preference shares in Orion and option fee of A$500,000; subject to Corporations Act and ASX Listing Rules 7.1/7.1A approvals.\nConditions: ASIC lodgement; FIRB not applicable; no MAC clause has not been triggered as at the date hereof; completion target 30 Sept 2026, long\u2011stop 30 Nov 2026.\nMNPI and disclosure: parties acknowledge s1042A Corporations Act obligations; for this term sheet no information not generally available is provided beyond public ASX announcements and ABS Yearbook 2024 extracts.\nDue diligence and data room: access via https://dealroom.orionpacific.example/tx?id=ORP\u2011AX\u201123%2F007; materials are aggregated or de\u2011identified per APP 3 m i n i m i s a t i o n; no payroll DOBs will be shown.\nDPA Schedule (Annex C): overseas disclosures permitted only per APP 8 with Orion retaining s 16C responsibility; recipients include Nimbus Compute Pte Ltd (SG) and Kahu Cloud Ltd (NZ) under Data\u2011Export Approval Memo DPC\u2011EX\u2011117 dated 03/04/2026.\nPrivacy events (completed): DSAR from ex\u2011employee Mr. Cedric Hale (EID: E**7A9**) fulfilled on 02/02/2026; erasure of onboarding scans completed 05/02/2026; there is no outstanding deletion request.\nConsent management: employment consent signed 12/11/2025 and withdrawn 31/01/2026; withdrawal processed within 5 business days; records retained only per Orion Retention Schedule (7 years for payroll per AU law).\nKYC/AML onboarding for Kestrel: AUSTRAC\u2011compliant forms lodged; ID images not retained, only verification tokens (ref: KYC\u2011TOK\u20110x3F); biometric data is not collected in this process.\nHealth and credit files in diligence: all patient or borrower data is de\u2011identified or synthetic; public\u2011source references (industry whitepapers) may be included; nothing herein should be treated as live processing.\nSecurity and IT: vendor code OPRL\u2011VN\u20110X2X; network logs contain no MAC a d d r e s s e s; any IPs displayed are masked (e.g., 10.*.*.*); change control completed CR\u20114411 closed.\nContact and notices: Ms. Tamsin Quade, General Counsel, t.quade@orionpacific.example, +61 2 7010 0455; postal: Suite 19, Level 8, 88 Nereid St, Southbank VIC 3006.\nAccess controls: data room watermarked; download disabled; cross\u2011border transfers will not occur pre\u2011completion without counterparty written consent; this clause records policy and does not indicate a current transfer.\nMiscellaneous: governing law NSW; disputes to ACICA arbitration; costs own; this term sheet is not binding except for confidentiality, exclusivity (45 days), and privacy/DPA obligations, and may be announced per ASX guidance only after joint approval.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Tamsin Quade, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

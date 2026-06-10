@@ -20,6 +20,7 @@ class CorpusSpec:
     path: Path
     lock_name: str
     description: str
+    optional: bool = False
 
 
 CORPORA = (
@@ -46,6 +47,13 @@ CORPORA = (
         path=ROOT / "test" / "fixtures" / "legal-corpus-hk-au-jp-kr",
         lock_name="legal-corpus-hk-au-jp-kr.lock.json",
         description="Seed local-ID fixtures for HK, AU, JP, and KR.",
+    ),
+    CorpusSpec(
+        name="reviewed candidate corpus",
+        path=ROOT / "test" / "fixtures" / "legal-corpus-reviewed-candidates",
+        lock_name="legal-corpus-reviewed-candidates.lock.json",
+        description="Human-approved candidate fixtures promoted into recall-lock form.",
+        optional=True,
     ),
 )
 
@@ -93,6 +101,8 @@ def render_accuracy_doc() -> str:
     corpus_payloads: list[tuple[CorpusSpec, dict[str, Any], int]] = []
     for spec in CORPORA:
         lock_path = spec.path / spec.lock_name
+        if spec.optional and (not spec.path.is_dir() or not lock_path.is_file()):
+            continue
         payload = _load_json(lock_path)
         count = _fixture_count(spec.path)
         corpus_payloads.append((spec, payload, count))

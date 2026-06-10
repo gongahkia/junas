@@ -1,0 +1,244 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_jurisdictional_mnpi_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/jurisdictional_mnpi/hk_jurisdictional_mnpi_term_sheet_negative_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_jurisdictional_mnpi_term_sheet_negative_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_jurisdictional_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been disclosed publicly",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "last blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "discloseable or major transaction",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15 August 20X4",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "late Q3 20X4",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-binding indication of interest",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to negotiation of definitive agreements and completion of confirmatory due diligence",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "expects to utilise",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this intended timing has not been disclosed publicly",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreements",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to third-party consents",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed Acquisition by Citrine Banyan Holdings Limited (Main Board issuer; stock code 00XX0) of a controlling interest in OrchidByte Systems Holdings Limited from Lumen Peak Ventures SPC \u2014 Cell A",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing Mechanics: completion accounts or locked-box approach to be agreed; warranties and indemnities on customary terms for Hong Kong transactions; no earn-out terms are committed in this term sheet",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed announcement timing: The issuer intends to publish a Part XIVA/Rule 13.09 announcement regarding this proposed acquisition on or about 15 August 20X4; as at the date hereof, this intended timing has not been disclosed publicly",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed Acquisition by Citrine Banyan Holdings Limited (Main Board issuer; stock code 00XX0) of a controlling interest in OrchidByte Systems Holdings Limited from Lumen Peak Ventures SPC \u2014 Cell A",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing Mechanics: completion accounts or locked-box approach to be agreed; warranties and indemnities on customary terms for Hong Kong transactions; no earn-out terms are committed in this term sheet",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed announcement timing: The issuer intends to publish a Part XIVA/Rule 13.09 announcement regarding this proposed acquisition on or about 15 August 20X4; as at the date hereof, this intended timing has not been disclosed publicly",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed Acquisition by Citrine Banyan Holdings Limited (Main Board issuer; stock code 00XX0) of a controlling interest in OrchidByte Systems Holdings Limited from Lumen Peak Ventures SPC \u2014 Cell A\nTransaction: Non-binding proposal for a share purchase conferring control over OrchidByte Systems Holdings Limited; subject to negotiation of definitive agreements and completion of confirmatory due diligence\nPurpose: Strategic expansion into logistics software and cloud operations, consistent with the issuer\u2019s public strategy update published on hkexnews.hk on 28 Feb 20X3\nStructure and Consideration: Mix of cash and new shares in Citrine Banyan Holdings Limited to be determined by independent valuation; no fixed price or exchange ratio is specified in this term sheet\nFunding: Purchaser expects to utilise an undrawn facility previously described in its 20X2 annual report and a potential cornerstone commitment from Verdant Tern Capital Fund I, L.P. (non-binding indication of interest)\nRegulatory Classification: Preliminary size tests based on last audited public financials indicate a discloseable or major transaction under Chapter 14 of the Listing Rules; no connected transaction is anticipated at this stage\nConditions Precedent: satisfactory due diligence, board approvals, any HKEX disclosure obligations, and confirmation that no whitewash waiver is required under the SFC Takeovers Code\nDisclosure and Announcements: Inside information will be managed in accordance with Part XIVA of the SFO and Rule 13.09; any announcement will be published on the HKEX website and may reference prior public press releases dated 20X2\u201320X3\nBlackout/Dealing Restrictions: The issuer\u2019s model code blackout periods are set out in its published corporate governance report; no option grants were made during the last blackout as disclosed in the 20X3 interim report\nEmployees and Integration: No immediate changes to employee terms are contemplated; any adjustments will follow posted HR policies and applicable Hong Kong employment laws; no individual personnel arrangements are included herein\nTimetable: A non-binding MOU was announced on 12 May 20X3; indicative signing is targeted for late Q3 20X4 with completion within 90 days thereafter, subject to third-party consents\nDue Diligence Scope: business, legal, tax, and IT diligence on the Target; the Vendor will provide a data room index substantially similar to that used in its publicly described 20X3 divestment process\nClosing Mechanics: completion accounts or locked-box approach to be agreed; warranties and indemnities on customary terms for Hong Kong transactions; no earn-out terms are committed in this term sheet\nProposed announcement timing: The issuer intends to publish a Part XIVA/Rule 13.09 announcement regarding this proposed acquisition on or about 15 August 20X4; as at the date hereof, this intended timing has not been disclosed publicly",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Purchaser",
+      "reason": "Role-noun defined term used as a party reference, not PII/MNPI."
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Role-noun defined term used as a party reference, not PII/MNPI."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term used as a party reference, not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "hkex_stock_code",
+      "matched_text": "stock code 00XX0",
+      "reason": "Security identifier relevant to issuers; no explicit allowed rule for HKEX stock codes."
+    },
+    {
+      "concept": "potential cornerstone investor identity",
+      "matched_text": "Verdant Tern Capital Fund I, L.P",
+      "reason": "Counterparty/funder identity may be MNPI in context but not covered by an allowed rule."
+    },
+    {
+      "concept": "Takeovers Code waiver indicator",
+      "matched_text": "whitewash waiver",
+      "reason": "Regulatory waiver status can be sensitive but no specific allowed rule maps to this phrase."
+    }
+  ]
+}

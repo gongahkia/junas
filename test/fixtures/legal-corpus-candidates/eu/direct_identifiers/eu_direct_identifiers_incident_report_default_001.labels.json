@@ -51,11 +51,11 @@
     "previous_must_not_detect_count": 11
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -198,6 +198,12 @@
       "category": "MNPI",
       "matched_text": "For investors: a holding announcement will be prepared for Euronext Osthaven; we will assess whether the potential need to restate supplier climate metrics under CSRD could materially impact guidance.",
       "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Categories of personal data: staff identifiers, business contact details, and limited Art 9 data (sickness leave codes for three employees and union fee payroll flags), accessed via misused API credentials.\nCross-border transfers: log snapshots were replicated to Aurifex Data Pvt Ltd (processor) in Lakhpur, India under 2021 SCCs; transfers suspended pending a Schrems II risk assessment and DPA consultation",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -263,12 +269,6 @@
       "rule": "eu_company_id"
     },
     {
-      "category": "PII",
-      "matched_text": "Categories of personal data: staff identifiers, business contact details, and limited Art 9 data (sickness leave codes for three employees and union fee payroll flags), accessed via misused API credentials.\nCross-border transfers: log snapshots were replicated to Aurifex Data Pvt Ltd (processor) in Lakhpur, India under 2021 SCCs; transfers suspended pending a Schrems II risk assessment and DPA consultation",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "inside information",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -279,6 +279,12 @@
       "matched_text": "On 2026-06-04, our SOC detected unauthorized access to the ESG supplier portal impacting non-public procurement schedules and selected employee HR records; this constitutes inside information under Art 7 MAR and we have requested delay of disclosure under Art 17(4) from the Northern Markets Commission (NMC).\nCompany identifiers: Org.nr (SE) 556789-1234; EU VAT: SE556789123401; Registered seat: Ringgatan 12, 118 57 Stockfjord, Sweden (group HQ).\nContact and accounts: DPO desk +358 9 245 7710, dpo@nordholmrenewables.eu; Treasury IBAN NL12 NALM 0123 4567 89 (Nordholm Treasury BV, Kadeplein 5, 3010 Osthaven, Netherlands).\nOne impacted record included: Mr. Jari M\u00e4kel\u00e4 (Procurement), Passport FI-P1234567, mobile +358 40 123 4567, email jari.makela@northaltum.eu; address: V\u00e4in\u00f6l\u00e4nkatu 7 A, 2015 Helskivi, Finland.\nCategories of personal data: staff identifiers, business contact details, and limited Art 9 data (sickness leave codes for three employees and union fee payroll flags), accessed via misused API credentials.\nCross-border transfers: log snapshots were replicated to Aurifex Data Pvt Ltd (processor) in Lakhpur, India under 2021 SCCs; transfers suspended pending a Schrems II risk assessment and DPA consultation.\nMarket sensitivity: portal included draft timelines for a renewable PPAs aggregation and a contemplated green bond tap on Euronext Osthaven; size and timing remain non-public and may significantly affect price once quantified.\nScope: approx. 2.3 GB exfiltrated between 00:42\u201301:07 CET; no evidence of alteration of CSRD environmental KPIs, but supplier emissions attestations may require re-validation, potentially influencing SFDR PAI indicators.\nSecurity measures: API key rotated, OAuth scopes reduced, and SIEM rules tuned; independent forensics retained (Harbor & Finch Advisory AB, engagement ref HFA-26-0404).\nPublic helplines listed on our website (+800 0000 0000 and 112) are general service numbers and are not personal data; do not use these for incident submissions.\nBait identifiers found in legacy test templates include VAT \u201cDE123456780\u201d and IBAN \u201cDE00 5001 0517 5407 3249 31\u201d; these are placeholders with invalid checksums and were not used in production.\nExposed form labels (no values) included: \u201cFull Name\u201d, \u201cTax ID\u201d, \u201cPassport No.\u201d, \u201cContact Phone\u201d, handled by role-only accounts such as \u201cProcurement Officer\u201d and \u201cHR Manager\u201d.\nData subjects span Sweden, Finland, Belgium, and Poland; notifications to local DPAs (Stockfjord DPA, Helskivi DPA, Valduin DPA, and Nowa Rzeka DPA) will commence within 72 hours under GDPR Art 33.\nInterim controls include a ban on exporting HR attributes to non-EEA endpoints and a temporary hold on supplier onboarding until DPIA addendum approval.\nFor investors: a holding announcement will be prepared for Euronext Osthaven; we will assess whether the potential need to restate supplier climate metrics under CSRD could materially impact guidance.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers: log snapshots were replicated to Aurifex Data Pvt Ltd (processor) in Lakhpur, India under 2021 SCCs; transfers suspended pending a Schrems II risk assessment and DPA consultation",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

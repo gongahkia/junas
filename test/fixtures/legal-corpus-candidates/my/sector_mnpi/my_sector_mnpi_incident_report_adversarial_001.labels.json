@@ -55,11 +55,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -310,6 +310,12 @@
       "matched_text": "SolarPacific Berhad \u2014 Incident Report (Confidential; CMSA s.188 handling) \u2014 04/06/2026 MYT\nPrepared by: Mr. Amirul Hashman, Chief Risk Officer; contact: amirul.hashman@solarpacific.my | +60-3-88xx-21 34\nSummary: On 03/06, a targeted ransomware attempt (variant: \u201cTamarind\u20117\u201d) affected our SCADA gateways at Pahang and Mukim Semarak sites, causing 6.5 hours of curtailed generation; not yet announced to the Exchange.\nPreliminary financial sensitivity: estimated Q2 revenue impact RM2.1\u20133.0m; Management to consider immediate announcement under LR 9.03(1) if duration exceeds 12 h.\nPersonal data: limited employee e\u2011mails and salted NRIC hashes in a training snapshot were accessed; no plain NRIC or bank a/c numbers exposed per PDPA assessment ref: PDPA\u2011CR\u201121\u2011\u00f81.\nCrypto/DPT adjacency: an internal pilot for tokenised Renewable Energy Certificates (code: RECx) uses a test wallet (0xFA..0B); keys stored offline; no customer DAX exposure.\nESG/climate ops: temporary outage may delay Scope 2 reporting; no change to Sustainability\u2011Linked Sukuk KPI thresholds; no material adverse change is expected under the draft financing term sheet.\nInformation barriers: deal team \u201cProject Lahar\u201d (proposed sukuk issuance, margin 2.45% over SBR, target size RM180m) is ring\u2011fenced; do not tip vendors; enquiries via Syndicate only.\nInsider controls: add the following to insider list effective immediately\u2014Mr. Amirul Hashman, Ms. N. Qistina Razali, Encik Farouk Naim\u2014until public disclosure; blackout window for all Restricted Persons from 03/06 to T+2 after announcement.\nFor avoidance of doubt, marketing may continue scheduled educational webinar on crypto custody basics using dummy data; do not reference the above incident or any Exchange\u2011sensitive metrics.\nForensic trace: exfil path via api.sol    arpacific.my/v1/expo?ctx=\u0394; server id: \u201cS\u2011PB\u2011app\u201117\u201d; log ref 7G\u2011\u29c9\u2011k9; user \u201csvc_plc\u2014r e a d\u201d.\nPublic\u2011source citations (for policy training only): see MY securities regulator digital assets guidelines and Exchange practice notes; these references are generic and not transaction\u2011specific.\nOperations note (lowercase): action owners update jira cards, backout plan v2.3, and rotate ssh keys by 18:00; this sentence is pure workflow, not a disclosure.\nEmployee assistance: HR contact hr@solarpacific.my; PDPA notices will be issued only if the breach assessment crosses the notification threshold per s.9 and related advisory.\nExternal comms: no selective disclosure\u2014if escalation triggers, draft immediate announcement will be filed with the Exchange; media responses routed to corpcomms@solarpacific.my; do not share term sheet screenshots on WhatsApp.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Amirul Hashman, Chief Risk Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

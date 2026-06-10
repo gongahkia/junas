@@ -82,11 +82,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -212,6 +212,12 @@
       "matched_text": "Issuer: Mapayapa Valley Holdings, Inc. (MVHI), a domestic corporation preparing Commission Form 17-C updates and Exchange notices; context includes HR separations, tax certifications, and bank instructions.\nOnly public, already-announced information will be included in filings; no material non-public information under the SRC should be circulated outside the blackout list.\nHR: Attachments such as Form 2316, exit clearances, and employee data sheets must use generic fields and redact direct identifiers except where legally required.\nExample placeholders (invalid by design): TIN 000-000-000-000; SSS 00-0000000-0; PhilHealth 00-000000000-0; Pag-IBIG MID 0000-0000-0000; \u201cEmployee Name: [Role only]\u201d.\nBanking: For template letters to Salinlahi Savings Bank re payroll and dividends, use Account Name Mapayapa Valley Holdings, Inc.; Account No. 0000-1234-56; SWIFT MVHIPHMM0XX; all values are samples and not to be transmitted.\nCompany details for drafts may include SEC Reg. No. CS2026-654321 and Exchange symbol MVHI, with a pseudo-ISIN PH00MVHI0000 for layout; these are non-live and carry no trading signal.\nRegistered office (fictional for drafts): Unit 12F Bayanihan Tower, 123 Sampaguita Road, Brgy. Sanligaya, Quezon City 1111, Philippines; do not substitute this with any real residence address.\nDirect queries to role mailboxes only: compliance@mvhi.ph and payroll@mvhi.ph; for tax clarifications, contact the BIR helpdesk at (02) 8123-0000 (public helpline).\nInsider list administration: under SRC provisions, MVHI maintains trading blackout from 01\u201315 July 2026 around routine board meetings; this window is ad",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123 Sampaguita Road, Brgy. Sanligaya, Quezon City 1111",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

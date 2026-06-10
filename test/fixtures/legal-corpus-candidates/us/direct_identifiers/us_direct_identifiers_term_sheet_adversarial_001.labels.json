@@ -50,11 +50,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -422,6 +422,12 @@
       "matched_text": "Confidential Term Sheet \u2014 Strategic financing and conditional acquisition option between Northpine Therapeutics, Inc. (a Delaware corporation) and Cobalt Valley Bank, N.A., with respect to CareHarbor Health LLC (target).\nIssuer: Northpine Therapeutics, Inc., EIN 12-3456789, CA SOS Entity No. C4567890, U.S. issuer subject to Regulation FD and Rule 10b-5.\nExchange/Regulatory: Existing common stock listed on the Nasdaq; Form 8-K to be filed upon signing; no selective disclosure outside permitted channels.\nSecurities/Financing: $75,000,000 of Series C-1 Preferred Stock and revolving credit facility up to $25,000,000 provided by Cobalt Valley Bank, N.A.\nUse of Proceeds: fund acquisition of CareHarbor Health LLC (Delaware) and working capital; employee retention pool $6,000,000.\nManagement Contacts: Mr. Jonah Reid, CFO, +1 (415) 555-0198, jreid@northpine.health, 88 West Holm Ave., Suite 300, Arden, NY 10910.\nBank Instructions: Northpine Operating Account Acct# ACCT-99887766 at Cobalt Valley Bank; ABA 123456780 (invalid checksum) \u2014 do not release until countersignature.\nKYC/AML: signatories to provide government-issued ID; e.g., Ms. Lila Chen (CareHarbor COO), U.S. Passport No. 765432109; copies retained per GLBA/HIPAA safeguards (no PHI).\nDisclosure: preliminary Q2 revenue run-rate estimated at $84\u2013$88 million and draft clinical response rates for NP-301 are not yet public; draft Form 8-K/press under review.\nAnalyst Diligence: a private diligence call with Hearthstone Analytics LLC will occur; attendees will enter NDAs to address Reg FD constraints.\nPublic/Generic Channels: investor relations helpline 1-800-555-1212 and inbox info@northpine.health are public and must not be used to transmit wiring data.\nObfuscated identifiers: E I N : 1 2 - 3 4 5 6 7 8 9 and C A  S O S  E n t i t y  N o .  C 4 5 6 7 8 9 0 appear on attached exhibits due to OCR artifacts.\nLink access: https://northpine.health/investor?deal=NPTX-2026-PIPE&contact=jreid%40northpine.health; https://data.cobaltvalley.fake/wires?acct=ACCT-99887766.\nConditions: no material adverse change clause will apply to the issuer between signing and closing; HSR not required; Tax ID: [insert TIN] is a generic form label and not operative.\nCompliance: internal policy states \u201cthis communication does not contain material non\u2011public information,\u201d but team members must nevertheless avoid selective disclosure to covered market participants.\nNotes: see public FDA device data standards and 21 CFR Part 11 for reference; todo: update cap table and option pool spreadsheet post-close; Chief Compliance Officer to circulate blackout policy.\nMiscellaneous: this term sheet is non-binding except for confidentiality, expenses, governing law (New York), and exclusivity through 09/30/2026.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Jonah Reid, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

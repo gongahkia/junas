@@ -1,0 +1,368 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "PH",
+    "doc_id": "ph_special_category_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ph/special_category/ph_special_category_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "PH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ph_special_category_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon U. Talavera",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EE-0O3-1l",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "BBCH\u2011PAY\u2011\u201429x",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "facial geometry",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declared membership in Isla Workers Guild",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cardiology treatment records",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cardiology treatment records",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aira P. de la Vega",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aira.delavega@bayanbridge.example.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declared religion (Iglesiang Malayang Liwanag)",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "self-identified bisexual orientation",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@bayanbridge.example.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@bayanbridge.example.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EE\u20110O3\u20111l",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR\u2011\n2O25\u201100l",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor dependent Milo",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB masked: 20xx\u201105\u20111\u2014",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "you may refuse optional disclosures",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declining biometrics triggers badge issuance instead",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "choosing no union dues instruction simply disables that payroll setting",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "secure wipe per BayanBridge Data Lifecycle Policy 2.1",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft Form 17\u2011A sections",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unaudited Q4 results",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-close term sheets",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean data rooms",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "retained only until public filing or loss of materiality",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17\u2011A\u2011draft",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aira",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transfers: to banks for payroll, to auditors, and to underwriters in a confidential offering; MNPI is stored in clean data rooms under NDA, and this notice is not a MAC clause or earnings guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "et; we reply within 15 working days per PH regulator guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "aira.delavega@bayanbridge.example.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@bayanbridge.example.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aira",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transfers: to banks for payroll, to auditors, and to underwriters in a confidential offering; MNPI is stored in clean data rooms under NDA, and this notice is not a MAC clause or earnings guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "et; we reply within 15 working days per PH regulator guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data under the Data Privacy Act (identity apparent or directly ascertainable with other data) and handle MNPI under the Securities Regulation Code.\nWe treat as MNPI any nonpublic, material info important to a reasonable investor (e.g., draft Form 17\u2011A sections, unaudited Q4 results, and pre-close term sheets for Isla Renewables Holdings, Corp.), retained only until public filing or loss of materiality.\nMr. Ramon U. Talavera (Employee Ref: EE-0O3-1l; payroll acct ref: BBCH\u2011PAY\u2011\u201429x) provided fingerprint templates and facial geometry for access control, declared membership in Isla Workers Guild, and submitted cardiology treatment records to LakbayCare HMO.\nMs. Aira P. de la Vega (HR Case No.: HR\u2011\n2O25\u201100l; email: aira.delavega@bayanbridge.example.ph) declared religion (Iglesiang Malayang Liwanag) and self-identified bisexual orientation for optional benefits; minor dependent Milo (DOB masked: 20xx\u201105\u20111\u2014) is enrolled in daycare.\nPrayer\u2011room access logs are used for occupancy safety analytics only and are not used to profile religious beliefs.\nWe use MangosteenOS and BambooCRM; the union of datasets noted in architecture diagrams refers to systems design, and we value diversity, equity, and inclusion in the workplace.\nData sources include employee self\u2011service, HMO claims, payroll banking partners, and public-source references (e.g., regulator circulars); we do not infer sexual orientation or political views from social media.\nTransfers: to banks for payroll, to auditors, and to underwriters in a confidential offering; MNPI is stored in clean data rooms under NDA, and this notice is not a MAC clause or earnings guidance.\nRetention: HR core 5 years from separation; tax support 7 years; biometrics 24 months; MNPI until disclosure or materiality lapse, then secure wipe per BayanBridge Data Lifecycle Policy 2.1.\nExercise rights (access, correction, erasure, objection): email privacy.office@bayanbridge.example.ph or visit https://privacy.bayanbridge.example.ph/dsar?ref=EE\u20110O3\u20111l&stage=p re\u2011v\net; we reply within 15 working days per PH regulator guidance.\nSecurity: encryption at rest, RBAC, audit logging; report suspected incidents to dpo@bayanbridge.example.ph within 72 hours for prompt triage.\nOptions: you may refuse optional disclosures; declining biometrics triggers badge issuance instead, and choosing no union dues instruction simply disables that payroll setting.\nLocations and transfers: primary processing in Lakan City and Barangay Maligaya (Quezon area), with cross\u2011border transfer to vendor NipaCloud Pte. (sg\u2011sandbox) disabled by default.\nSystem references: Client Code BBCH\u2011TR N S\u20112O25\u201100l (OCR may mix O/0 and l/1) and SEC portal link https://secportal.example.ph/login?doc=17\u2011A\u2011draft&ticket=ramon.u.talavera%2Fbbch.\nBenign note: the Lakan City Carabaos fan event at the benefits fair is for morale only and unrelated to data processing or MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MangosteenOS",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "BambooCRM",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "diversity, equity, and inclusion",
+      "reason": "Generic DEI prose; not PII/MNPI"
+    },
+    {
+      "matched_text": "Lakan City Carabaos",
+      "reason": "Sports team; negative/adversarial target"
+    },
+    {
+      "matched_text": "Lakan City",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Barangay Maligaya",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "MAC clause",
+      "reason": "Negated MAC mention; rule excludes negated MAC/MAE"
+    },
+    {
+      "matched_text": "BayanBridge Data Lifecycle Policy 2.1",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "cross\u2011border transfer",
+      "reason": "Disabled/negated cross-border transfer; do not label per rule 17"
+    },
+    {
+      "matched_text": "Isla Renewables Holdings, Corp",
+      "reason": "Company name; not personal data"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "internal_session_id",
+      "matched_text": "ramon.u.talavera%2Fbbch",
+      "reason": "Appears in a ticket parameter; could be a user-derived token or session identifier but not clearly covered by an allowed rule."
+    },
+    {
+      "concept": "customer_account_number",
+      "matched_text": "Client Code BBCH\u2011TR N S\u20112O25\u201100l",
+      "reason": "Looks like a system client code; may be an account reference but not clearly personal and no explicit rule for such system codes."
+    }
+  ]
+}

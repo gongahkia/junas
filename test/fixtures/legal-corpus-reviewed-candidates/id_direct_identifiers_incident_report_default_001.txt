@@ -1,0 +1,16 @@
+Internal Incident Report – Confidential (MNPI), 02/06/2026 18:30 WIB
+Issuer: PT Lintas Dana Teknologi Tbk (Perseroan), NIB 0234567890123; NPWP 12.345.678.9-012.345; alamat terdaftar: Menara Seroja Lt. 18, Jl. Anyelir Raya No. 128A, Kuningan Baru, Jakarta Selatan 12999
+Disusun oleh: Ibu Sari Handayani, Sekretaris Perusahaan; kontak: sari.handayani@lintasdana.co.id, +62 812-3456-7890
+Jenis insiden: siber/operasional (ransomware) yang mempengaruhi unit fintech PT Dompet Kilat Nusantara (anak perusahaan); outage ledger wallet 09:20–14:10 WIB
+Deteksi awal melalui peringatan SOC; server terdampak: DK-LEDGER-03; tidak ada indikasi eksfiltrasi di luar data uji yang di-hash
+Cakupan awal PII: 1.742 pengguna ritel berpotensi terekspos metadata profil (nama, ponsel, email, dan 4 digit akhir rekening); segmen ini tidak menyimpan NIK penuh atau biometrik
+Kredensial karyawan terkompromi: Bapak Andri Prakoso (Ops Lead), KTP/NIK 3173123401234567, email dinas andri.prakoso@dompetkilat.id, Paspor C1234567 (duplikat di drive HR)
+Rails pembayaran tidak terdampak; contoh IBAN di template QA “IBAN: XX00 0000 0000 0000 0000 0000” adalah placeholder dan tidak terkait rekening produksi
+Nomor layanan 112 disebut dalam umpan phishing; itu adalah nomor darurat publik dan bukan hotline kami
+Rekening remitansi vendor yang mungkin terlihat: Rek. Bank Samudra Sejahtera 0987654321 a.n. PT Lintas Dana Teknologi; akan dilakukan rotasi nomor rekening
+Penilaian materialitas: Perseroan sedang negosiasi lanjutan untuk mengakuisisi 60% PT Arta Nuansa Data (analitik fintech), belum diumumkan ke Otoritas Jasa Keuangan Nusantara (OJK-N) dan Bursa Efek Jakarta Raya (BEJR); insiden ini dapat memengaruhi valuasi dan timeline
+Kepatuhan: sesuai POJK-N 31/2025 dan SEOJK-N 31/2025 tentang Keterbukaan Informasi, draf pengumuman akan disiapkan dalam 2 hari kerja jika dampak material terkonfirmasi; permohonan suspensi perdagangan belum diperlukan
+Entri menyesatkan/generik ditemukan di log: “Nama: Admin”, “NIK: 0000000000000000”, “NPWP: 00.000.000.0-000.000” — ditandai sebagai data uji dan dikecualikan dari perhitungan
+Kanal regulator (publik): Capital Market Hotline +62 21 0000 0000; kanal penasihat eksternal: legal@sinara-partners.law; kanal internal insiden: csirt@lintasdana.co.id
+Tindakan segera: isolasi DK-LEDGER-03, rotasi token istimewa, nonaktifkan SSO dompetkilat.id, beri tahu karyawan terdampak, koordinasi dengan Badan Siber dan Sandi Nusantara (BSSNus) jika diminta
+Catatan: Notulen ini tidak memuat data gaji atau kesehatan; seluruh pertanyaan media diarahkan ke media@lintasdana.co.id, bukan ke helpdesk umum

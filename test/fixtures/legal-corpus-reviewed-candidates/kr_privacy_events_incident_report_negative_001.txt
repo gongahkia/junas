@@ -1,0 +1,15 @@
+HaneulNova Materials Co., Ltd. (KR issuer) – Operational Incident Review and Privacy Compliance Memo dated 2026-06-03.
+On 2026-05-28, Internal Audit flagged that an HR onboarding form template containing labels “resident-number (RRN)” and “Account No.” was stored in a test ShareDrive accessible to 12 staff in the HR sandbox.
+Only blank templates and invalid placeholders (e.g., “000000-0000000”, “XX-1234-0000”) were present; no PIPA-covered living-individual information or FSCMA-defined MNPI was contained or accessed.
+Cyber triage confirmed no external connections, no vendor sync, and no file downloads beyond the HR sandbox; network segmentation and IAM controls functioned as designed.
+Under the Data Processing Addendum, Schedule 1 (Categories of Data), collection of resident-number for onboarding is prohibited; HR policy reaffirmed that the field remains disabled in production.
+Retention/minimisation: Template metadata falls under Record Plan RP-HR-02 (3-year template lifecycle); no personal data retention was triggered, and the RRN label will be suppressed in the next controlled version.
+A prior DSAR for erasure of training account “user-0421” was completed on 2026-04-19, with the deletion certificate logged in PIMS; this DSAR is unrelated to the present event.
+Cross-border transfer: Data-export approval DE-KR-2026-007 was issued on 2026-03-05 for hashed employee IDs to Hwasu Compute KKQ (JP) for SSO testing; that transfer is on its planned pause window and is not implicated.
+Consent withdrawal: Onboarding Form HR-ONB-11 contains the consent-withdrawal channel and model wording; no withdrawal requests apply to test templates, and no pending actions exist.
+Investor Relations confirms the only additional materials in the sandbox were stale ESG scorecards already disclosed via KRX KIND; no undisclosed deal term sheets or forecasts were stored.
+In line with FSC/FSS liaison protocol, the event was logged for traceability; notification was not required under PIPA given the absence of personal information and the containment of the incident.
+Employment systems were not connected to the sandbox, and no employee resident-number, payroll, or bank details were processed; the “Account No.” label is a generic form artefact.
+The sandbox folder was removed per IM housekeeping and checksum-verified; this was a scheduled control, not a corrective action for a breach involving personal data.
+Future controls: MC-PI-08 (template field review) and MC-PI-12 (minimisation audit) will be validated quarterly; this is a policy confirmation rather than remediation of a live risk.
+For queries, please contact the Compliance and Privacy Office via the main operator line or the central mailbox; no personal contact data is provided in this memo.

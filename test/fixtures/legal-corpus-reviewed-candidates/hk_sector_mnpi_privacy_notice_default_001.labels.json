@@ -1,0 +1,335 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_sector_mnpi_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/sector_mnpi/hk_sector_mnpi_privacy_notice_default_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_sector_mnpi_privacy_notice_default_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_sector_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dora Lau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kelvin Yip",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@rainpeakhorizons.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "with minimisation and pseudonymisation where feasible",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border storage may occur in encrypted cloud services in Hong Kong and Singapore",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list entries",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dealing blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a recent ransomware incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "suspected cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contemplated acquisition",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed staff",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "acquisition of SolarMoor Capital SPC",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "green-linked loan margin grid",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subjects may submit access or correction requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "name, role, contact, access date, and reason",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For a contemplated acquisition of SolarMoor Capital SPC and a confidential virtual asset custody pilot at our subsidiary Nimbus Vault Limited, access is limited to wall-crossed staff recorded on an insider list maintained by Mr. Kelvin Yip, Company Secretary.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Such MNPI includes draft commercial terms for a green-linked loan margin grid and non-public cybersecurity remediation costs from a recent ransomware incident affecting our Harborcrest data hub, and disclosure prior to announcement is prohibited.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border storage may occur in encrypted cloud services in Hong Kong and Singapore subject to transfer impact assessment aligned with local guidance and contractual safeguards; retention is 7 years after transaction or employment end unless legal hold applies.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware incident",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dora Lau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kelvin Yip",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For a contemplated acquisition of SolarMoor Capital SPC and a confidential virtual asset custody pilot at our subsidiary Nimbus Vault Limited, access is limited to wall-crossed staff recorded on an insider list maintained by Mr. Kelvin Yip, Company Secretary.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Such MNPI includes draft commercial terms for a green-linked loan margin grid and non-public cybersecurity remediation costs from a recent ransomware incident affecting our Harborcrest data hub, and disclosure prior to announcement is prohibited.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border storage may occur in encrypted cloud services in Hong Kong and Singapore subject to transfer impact assessment aligned with local guidance and contractual safeguards; retention is 7 years after transaction or employment end unless legal hold applies.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Rainpeak Horizons Holdings Limited (a Hong Kong listed issuer) \u2014 Privacy and MNPI Handling & Retention Notice.\nWe process personal data defined under the PDPO as data relating to an identifiable living individual for recruitment, insider lists, M&A due diligence, and fund formation, administered by Ms. Dora Lau, Data Protection Officer, at privacy@rainpeakhorizons.hk.\nMaterial non-public information is treated per Part XIVA of the Securities and Futures Ordinance as specific information not generally known that would be likely to affect price or investor decisions.\nFor a contemplated acquisition of SolarMoor Capital SPC and a confidential virtual asset custody pilot at our subsidiary Nimbus Vault Limited, access is limited to wall-crossed staff recorded on an insider list maintained by Mr. Kelvin Yip, Company Secretary.\nSuch MNPI includes draft commercial terms for a green-linked loan margin grid and non-public cybersecurity remediation costs from a recent ransomware incident affecting our Harborcrest data hub, and disclosure prior to announcement is prohibited.\nStaff are subject to dealing blackout windows before periodic results and during negotiations, and must not engage in tipping or selective disclosure to potential cornerstone investors or lenders.\nCategories of personal data processed include CVs, contact details, device logs from security monitoring, and board materials redacted for PDPO compliance, with minimisation and pseudonymisation where feasible.\nTransfers to external counsel Kong & Bay Solicitors and to our Hong Kong securities regulator-licensed Type 9 affiliate Meridian Twelve Asset Partners occur under written processing terms and information barriers approved by the Risk Committee.\nCross-border storage may occur in encrypted cloud services in Hong Kong and Singapore subject to transfer impact assessment aligned with local guidance and contractual safeguards; retention is 7 years after transaction or employment end unless legal hold applies.\nData subjects may submit access or correction requests to privacy@rainpeakhorizons.hk, and we will acknowledge within applicable PDPO timeframes with fees limited to reasonable processing costs.\nIn a suspected cyber incident that may expose employee emails or applicant CVs, we will triage within 72 hours, notify affected individuals where risk is high, and assess disclosure and trading halt obligations under the SFO and the Listing Rules of a recognised stock exchange in Hong Kong.\nWhere required for M&A or fund marketing, counterparties may be wall-crossed under non-disclosure agreements, and insider list entries will capture name, role, contact, access date, and reason.\nTraining and operations materials may reference crypto wallets, ESG ratings, or insider lists purely for education or service promotion without containing or implying any current MNPI or deal-stage details.\nUnless otherwise required by law, public comments by staff on sustainability targets or digital asset strategy must be cleared by the Disclosure Committee to avoid selective disclosure and preserve information barriers.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "crypto wallets",
+      "reason": "Educational/marketing reference without any actual wallet address or MNPI value."
+    },
+    {
+      "matched_text": "ESG ratings",
+      "reason": "General educational reference; not itself MNPI or PII."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "retention is 7 years after transaction or employment end unless legal hold applies",
+      "reason": "Data retention period is privacy-relevant under PDPO but there is no explicit retention rule in the allowed list."
+    },
+    {
+      "concept": "trading_halt_marker",
+      "matched_text": "trading halt obligations",
+      "reason": "Market-sensitive control reference that may indicate potential MNPI handling, but no direct rule provided."
+    },
+    {
+      "concept": "TIA_marker",
+      "matched_text": "transfer impact assessment",
+      "reason": "Privacy transfer impact assessments are PDPO-relevant but not covered by an explicit allowed marker rule."
+    }
+  ]
+}

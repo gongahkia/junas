@@ -1,0 +1,300 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "TH",
+    "doc_id": "th_direct_identifiers_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "TH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/th_direct_identifiers_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_direct_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "somchai.nim@daraagrotech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66 83 456 7890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "JZ1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data for employment (HR files, payroll), financing and SEC Thailand/SET disclosure obligations, vendor due diligence, and investor relations; MNPI may arise but is ring-fenced.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Suda Namsai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@daraagrotech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66 2 990 7788",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1-2345-67890-12-3",
+      "rule": "th_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we avoid collecting unnecessary data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "destroy or anonymize",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9 9 8 - 7 - 1 2 3 4 5 - 0",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e22\u0e43\u0e19",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring-fenced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider information controls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "could materially affect our securities price",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee TH Passport No.: JZ1234567; Mobile: +66 83 456 7890; Email: somchai.nim@daraagrotech.example; Office address: 12/F, Rama IX Tower, Huai Khwang, Bangkok (fictional)",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "somchai.nim@daraagrotech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66 83 456 7890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "JZ1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data for employment (HR files, payroll), financing and SEC Thailand/SET disclosure obligations, vendor due diligence, and investor relations; MNPI may arise but is ring-fenced.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12/F, Rama IX Tower, Huai Khwang, Bangkok (fictional)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Dara AgroTech Public Company Limited (a company listed on the SET) \u2014 Privacy Notice and Data Processing Addendum under the PDPA (Thailand).\nRegistered office: 88 Soi Phra Pinit, Klong Toei, Bangkok; Juristic Tax ID: 0-1234-56789-01-5 (Thai), Company Reg. No.: 0105559999888 (fictional).\nData Protection Officer: Khun Suda Namsai, privacy@daraagrotech.example, tel: +66 2 990 7788; Public Helpline: 0000-111-222 (generic, not tied to any individual).\nWe process personal data for employment (HR files, payroll), financing and SEC Thailand/SET disclosure obligations, vendor due diligence, and investor relations; MNPI may arise but is ring-fenced.\nDirect identifiers processed may include Thai national ID (for employees), TH passport numbers, phone/email, payroll bank accounts, and office access logs; we avoid collecting unnecessary data.\nExample record: Employee TH Passport No.: JZ1234567; Mobile: +66 83 456 7890; Email: somchai.nim@daraagrotech.example; Office address: 12/F, Rama IX Tower, Huai Khwang, Bangkok (fictional).\nCorporate A c c o u n t: 9 9 8 - 7 - 1 2 3 4 5 - 0 at Kinnaree Bank PCL (fictional); Supplier VAT No.: 3-2100-00999-77-4 (checksum invalid by design).\nThe following bait-like items are not used to identify you: Name: ______; Role: CFO; \"helpdesk 1234\"; not a MAC address: aa:bb:cc:dd:ee:ff \u2014 ignore for PDPA purposes.\nCross-border transfers: to Dara AgroTech (Lao) Co., Ltd. and Makara Data Pte. Ltd. (SG) for cloud hosting on NokCloud SG-1 under PDPC-approved SCCs; url: https://privacy.daraagrotech.example/transfers?ref=TH-XB-20 2 6.\nFor SEA/SEC compliance, we may disclose to the SEC Thailand and SET in filings (e.g., One Report) but will redact personal data not required by law; MNPI (\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e20\u0e32\u0e22\u0e43\u0e19) is handled per insider information controls.\nMNPI withheld from DSAR results includes undisclosed debenture pricing terms and non-public quarterly forecasts that could materially affect our securities price.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0000-111-222",
+      "reason": "Public helpline number; generic and not linked to an individual"
+    },
+    {
+      "matched_text": "Name: ______",
+      "reason": "Blank form placeholder; not an actual identifier"
+    },
+    {
+      "matched_text": "Role: CFO",
+      "reason": "Role-only reference; not a personal identifier"
+    },
+    {
+      "matched_text": "\"helpdesk 1234\"",
+      "reason": "Generic helpdesk bait; not personal data"
+    },
+    {
+      "matched_text": "aa:bb:cc:dd:ee:ff",
+      "reason": "Bait string explicitly stated as not a MAC address"
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "dsar_marker",
+      "matched_text": "Submit DSARs",
+      "reason": "DSAR/right-to-access event marker is privacy-relevant but no explicit allowed rule name is provided"
+    },
+    {
+      "concept": "device_identifier",
+      "matched_text": "7f4 2a1 9c8",
+      "reason": "Obfuscated device ID example; may be a device identifier but not clearly covered by a listed rule"
+    },
+    {
+      "concept": "internal_reference",
+      "matched_text": "TH-REQ-00 1 9",
+      "reason": "Request ID parameter may be personal data but not mapped to an allowed identifier rule"
+    },
+    {
+      "concept": "thai_corporate_tax_id",
+      "matched_text": "0-1234-56789-01-5",
+      "reason": "Corporate tax/VAT-style identifier is legally relevant but not an allowed PII rule and not personal data"
+    }
+  ]
+}

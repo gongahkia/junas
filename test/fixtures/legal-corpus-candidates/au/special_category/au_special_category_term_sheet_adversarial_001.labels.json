@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 5,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
@@ -419,6 +419,12 @@
       "matched_text": "Confidential, Non\u2011Binding Term Sheet \u2014 Proposed acquisition of Wattle River Robotics Pty Ltd by Mirrabooka Bio Devices Ltd (ASX in t e n d e d).\nBuyer: Mirrabooka Bio Devices Ltd (fictional ABN 00 321 987 654); Contact: Dr. Narelle Kato, CFO, n.kato@mirrabooka\u2011bio.com.au, +61 2 5550 1010.\nTarget: Wattle River Robotics Pty Ltd (fictional ACN 000 111 222); Contact: Mr. Bryn O\u2019Keefe, CEO, bryn.ok@wattlerobo.au; data room: https://d.dataroom.example/mrrb?t=9g%2F1#sec.\nConsideration: A$46,500,000 cash and scrip; structure intended as share sale; subject to ASX Listing Rules, FIRB no\u2011objection (if applicable), and Corporations Act 2001 (Cth) s611 item 7 approval.\nConditions precedent: confirmatory due diligence; execution of long\u2011form; no breach of law; expressly not a MAC condition (no material adverse change clause applies).\nMNPI: parties acknowledge information herein is not generally available and would, if generally available, reasonably be expected to materially affect the price of financial products; insider trading prohibitions under s1043A apply.\nHR schedule: Mr. Bryn O\u2019Keefe\u2019s biometric access template (fingerprint hash: F1\u2011A9\u2022\u2022\u20113C) and medical leave record noting Type 1 diabetes are to be migrated with encryption; no genetic testing will be required.\nEmployee consent: Ms. Jade Quon (Head of QA) identifies as lesbian and practises Buddhism; she is a member of the Australian Manufacturing Union; her minor child\u2019s school details will be redacted from personnel files.\nThe parties affirm respect for religion, union, and politics as general workplace concepts without forming part of valuation.\nIntegration: product roadmaps for PlatypusDB and Koala CRM to be rationalised; public\u2011source references (e.g., ASIC media releases) may be cited; diversity & inclusion policy remains in force; existing sponsorship of the Yarra Dingoes FC is non\u2011core.\nUndertakings: maintain ordinary course; continue ASX\u2011ready reporting; cease negotiations with third parties; marketing metaphors in the deck (a \u2018wallaby leap\u2019) are permitted.\nRepresentations limited to title, capacity, IP ownership, and that employment, health, and credit files are complete; buyer will not access union voting records or political donations.\nBreak fee: A$750,000 payable only upon breach of exclusivity; not triggered by board fiduciary duty; payment details: acct XX\u2022\u2022\u2011\u2022\u202221, BSB 0\u20225\u20113\u20221 (obfuscated).\nNotices: to Dr. Narelle Kato at Suite 8, 77 Quokka Street, North Ryde NSW 2113; to Mr. O\u2019Keefe at Unit 4, 15 Kauri Close, West End QLD 4101; or legal@wattlerobo.au.\nIndicative timetable: sign SPA by 31\u2011Aug\u20112026; completion within 30 business days; project\u2011management notes: backlog grooming wed 2pm; upload asic forms to e\u2011lodgement.\nGoverning law: New South Wales; disputes to be resolved by arbitration in Sydney; non\u2011binding except for confidentiality, exclusivity, governing law, notices, and MNPI compliance.\nOther: nothing in this term sheet constitutes financial product advice; no prospectus; any scrip consideration to be issued under a cleansing notice per ASX Listing Rule 7.1",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Narelle Kato, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

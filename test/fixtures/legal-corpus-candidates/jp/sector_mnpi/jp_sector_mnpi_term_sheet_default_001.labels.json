@@ -44,11 +44,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -429,6 +429,24 @@
       "matched_text": "Confidential Term Sheet \u2014 Proposed Share Acquisition of Aoi Data Trust K.K. by Kitanori Holdings Co., Ltd. (Japan)\nTransaction overview: Buyer to acquire 100% of Target via negotiated TOB; listing venue: Nippon Securities Exchange (Prime Segment, fictional) \u2014 signing targeted Q3 FY2026.\nConsideration: JPY 42.5 billion cash, plus earn-out up to JPY 5.0 billion linked to verified Scope 3 emissions reduction from Target\u2019s ESG data services over 24 months.\nFinancing: Mix of senior term loan and privately placed unsecured convertible bonds; no public solicitation; any bond terms not for general distribution under the Financial Instruments and Exchange Act.\nKey conditions precedent: (i) No-objection letter from the National Financial Services Bureau (fictional) regarding Target\u2019s digital payment token (crypto) custody pilot; (ii) remediation of an April 2026 cyber intrusion at Target\u2019s cloud archive (currently undisclosed).\nMNPI handling: Until public announcement under NSE Timely Disclosure Rules (fictional), this term sheet and the cyber and token pilot facts are undisclosed enumerated material facts under the FIEA; selective disclosure and tipping are strictly prohibited.\nInformation barriers: Buyer will establish a ring-fenced \u201cProject Suisen\u201d deal room; personnel on the Token Markets Desk and climate-credit trading unit to be walled off; insider list to be maintained and updated daily.\nBlackout: All employees on the insider list are in a trading blackout for Buyer and Target securities from access date through two full trading days after NSE disclosure (fictional).\nData protection: Diligence access limited to de-identified datasets; no Individual Number (My Number) or special-care personal data to be transferred except as permitted by the APPI and with consent or statutory basis.\nCyber/security covenants: Target to deliver third-party SOC2-type report and implement MFA rollout before closing; Buyer reserves JPY 1.2 billion indemnity cap for pre-closing cyber liabilities and any regulatory penalties related to token custody controls.\nESG/climate undertakings: Target to align climate reporting with TCFD-consistent metrics and supply chain data verification; breach of verified ESG KPI may reduce earn-out.\nConduct of business: No new crypto product launches, wallet migrations, or changes to key cloud providers without Buyer consent between signing and closing.\nEmployees/retention: Buyer to offer retention grants to key engineers including Mr. Kenjiro Arai and Ms. Mai Fujisawa; any transfer of employee files to comply with APPI and internal privacy rules.\nApprovals: Board approvals of both parties required; if external financing is not obtained within exclusivity, Buyer may terminate on payment of a JPY 850 million reverse break fee.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Rika Nogawa, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Share Acquisition of Aoi Data Trust K.K. by Kitanori Holdings Co., Ltd",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Share Acquisition of Aoi Data Trust K.K. by Kitanori Holdings Co., Ltd. (Japan)\nTransaction overview: Buyer to acquire 100% of Target via negotiated TOB; listing venue: Nippon Securities Exchange (Prime Segment, fictional) \u2014 signing targeted Q3 FY2026.\nConsideration: JPY 42.5 billion cash, plus earn-out up to JPY 5.0 billion linked to verified Scope 3 emissions reduction from Target\u2019s ESG data services over 24 months.\nFinancing: Mix of senior term loan and privately placed unsecured convertible bonds; no public solicitation; any bond terms not for general distribution under the Financial Instruments and Exchange Act.\nKey conditions precedent: (i) No-objection letter from the National Financial Services Bureau (fictional) regarding Target\u2019s digital payment token (crypto) custody pilot; (ii) remediation of an April 2026 cyber intrusion at Target\u2019s cloud archive (currently undisclosed).\nMNPI handling: Until public announcement under NSE Timely Disclosure Rules (fictional), this term sheet and the cyber and token pilot facts are undisclosed enumerated material facts under the FIEA; selective disclosure and tipping are strictly prohibited.\nInformation barriers: Buyer will establish a ring-fenced \u201cProject Suisen\u201d deal room; personnel on the Token Markets Desk and climate-credit trading unit to be walled off; insider list to be maintained and updated daily.\nBlackout: All employees on the insider list are in a trading blackout for Buyer and Target securities from access date through two full trading days after NSE disclosure (fictional).\nData protection: Diligence access limited to de-identified datasets; no Individual Number (My Number) or special-care personal data to be transferred except as permitted by the APPI and with consent or statutory basis.\nCyber/security covenants: Target to deliver third-party SOC2-type report and implement MFA rollout before closing; Buyer reserves JPY 1.2 billion indemnity cap for pre-closing cyber liabilities and any regulatory penalties related to token custody controls.\nESG/climate undertakings: Target to align climate reporting with TCFD-consistent metrics and supply chain data verification; breach of verified ESG KPI may reduce earn-out.\nConduct of business: No new crypto product launches, wallet migrations, or changes to key cloud providers without Buyer consent between signing and closing.\nEmployees/retention: Buyer to offer retention grants to key engineers including Mr. Kenjiro Arai and Ms. Mai Fujisawa; any transfer of employee files to comply with APPI and internal privacy rules.\nApprovals: Board approvals of both parties required; if external financing is not obtained within exclusivity, Buyer may terminate on payment of a JPY 850 million reverse break fee.\nConfidentiality and communications: All media responses coordinated by Buyer\u2019s IR; public release to be via NSE disclosure (fictional) and corporate website; all inquiries to Ms. Rika Nogawa, General Counsel, rika.nogawa@kitanori.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_not_detect": [

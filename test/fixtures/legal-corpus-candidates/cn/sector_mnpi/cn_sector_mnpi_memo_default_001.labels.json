@@ -99,11 +99,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -520,6 +520,12 @@
       "matched_text": "From: Ms. Liao Wen, Chief Compliance Officer, Yunlan Harbor Renewables Co., Ltd. (USCC: 9X1A8QZ7L3P6D2R5Y) \u2014 contact: compliance@yunlanharbor.cn\nSubject: MNPI controls, PIPL/CAC considerations, and pre-IPO safeguards for prospective STAR Market listing\n\n1) MNPI: A non-public cyber incident occurred on 23 May; ransomware affected OT systems at the Nanting wind farm SCADA for 11 hours; root-cause and loss estimates are preliminary and not yet disclosed to the market or CSRC.\n2) Crypto/DPT adjacency: Our subsidiary Shenzhen LumenChain Technology Co., Ltd. is drafting an internal whitepaper for a utility token pilot to settle carbon-credit transfers on a permissioned chain; no regulatory filings have been made with PBoC/CSRC and this remains inside information.\n3) ESG/climate: Draft restatement of Scope 2/3 data and a contemplated RMB 600m sustainability-linked bond include a KPI-linked step-up of 25 bps and early redemption features; these commercial terms are in negotiation and are non-public.\n4) Insider list: Update and circulate the insider list per CSRC Administrative Measures on Information Disclosure; include Ms. Liao Wen, Mr. Zhao He (CIO), Ms. Tang Rui (Treasury), and external counsel; store resident ID numbers as masked fields and avoid collecting minors\u2019 (<14) information per PIPL.\n5) Information barriers: Research and investment teams must remain on separate floors and systems; use a clean team for data rooms; diligence calls are to be chaperoned; no forwarding of cyber reports or token drafts outside the restricted \u201cSeabird\u201d workspace.\n6) Blackout window: Effective immediately, impose a trading blackout for all designated insiders and directors until public announcement and, for equity-linked instruments, until CSRC acceptance is posted on the exchange website; suspend ESPP transactions for affected employees.\n7) Tipping/selective disclosure: Vendors (SOC, cloud) and counterparties must be briefed not to discuss the incident or token pilot; any inquiries from analysts are to be directed to IR; no off-the-record briefings or sharing of draft KPI targets.\n8) Cross-border transfer: The incident log contains employee device identifiers and emails; proposed sharing with a Singapore-based SOC requires CAC security assessment or the Standard Contract, plus PIPL consent notices; do not export facial images, resident ID scans, or salary data.\n9) HR workflow: For onboarding and disciplinary reviews, limit collection to necessary employment data; store USCC copies for counterparties but only retain employee resident ID numbers in hashed form; no cross-border HR transfer without CAC filing.\n10) Education/marketing (benign): The sustainability team will host an ESG webinar explaining climate risk metrics and a demo carbon ledger; materials use synthetic data and do not reference any issuer names, token economics, or commercial terms.\n11) Operations-only (benign): IT will run a phishing simulation and a tabletop incident drill; these are training exercises and do not indicate any current or future incident severity.\n12) Financing context: A draft term sheet with Haiyu Capital for a pre-IPO Series D contemplates a price floor of RMB 18.50 per share and an earn-out tied to CSRC registration milestones; NDA is executed, and documents must remain within the Seabird restricted drive.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Liao Wen, Chief Compliance Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

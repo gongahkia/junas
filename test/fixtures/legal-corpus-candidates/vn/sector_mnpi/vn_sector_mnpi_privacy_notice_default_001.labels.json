@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -295,6 +295,12 @@
       "matched_text": "Data Processing Addendum (VN) between Solstice Holdings JSC (C\u00f4ng ty C\u1ed5 ph\u1ea7n Solstice Holdings) as Controller and CloudPine Data Services Co., Ltd. as Processor for employee, investor, banking, and transaction datasets in Vietnam.\nUnder Decree 13, Personal Data means information associated with or helping identify a specific person; Processor shall handle HR records, trader activity logs, wallet identifiers, and onboarding files only on documented instructions.\nContact for data subjects and regulators: Data Protection Officer Ms. L\u00ea Th\u1ee7y \u00c1nh, dpo@solstice.vn, 1900 555 835, 123 Hoa Ph\u01b0\u1ee3ng Lane, Ward 99, Qu\u1eadn \u0110\u00f4ng, Th\u00e0nh ph\u1ed1 V\u1ea1n Ph\u00fac.\nMNPI is treated per Vietnamese Securities Law as non-public issuer/securities information with potential price impact, including draft ESG-linked bond terms, pre-earnings figures, and internal cyber incident assessments affecting listed instruments of Solstice.\nInformation barriers: Processor must segregate deal teams and operations; insider lists shall record staff with access to the sustainability-linked bond coupon range (3.2\u20133.8%) and the crypto wallet integration timeline for the Ho\u00e0n Th\u1ecbnh Securities Exchange (HTSX) listing project.\nBlackout windows and tipping: Employees and contractors are prohibited from trading Solstice shares during blackout windows and from selective disclosure to analysts or VC funds until public announcement on HTSX.\nCyber incident workflow: If a breach in the treasury payment API or custodian bank connector is suspected, Processor must notify Controller within 24 hours and refrain from external communications until the Vietnamese securities regulator authorizes disclosure.\nCommercial terms: Non-public fee schedules for carbon-offset procurement and green loan covenants with An Ph\u00fa River Bank are classified MNPI; access is restricted to a clean team under the information barrier.\nCrypto/DPT operations: Solstice pilots tokenized carbon credits and internal custody of client DPT wallets; no marketing materials may reference deal-stage wallet migration or exchange connectivity before public filing.\nTransfers: Cross-border processing to CloudPine Singapore and storage at CloudPine H\u00e0 N\u1ed9i Datacenter requires a transfer impact assessment, retention of a copy in Vietnam, and a log of recipient jurisdictions per Decree 13.\nDSAR handling: Data subjects may submit access, correction, deletion, or consent withdrawal requests via privacy@solstice.vn; we acknowledge within 72 hours and complete within 30 days, with one reasonable extension for complex requests.\nRetention: Employee PII tied to trading restrictions and insider lists is retained for 5 years after event closure; raw system logs from cyber incident triage are retained for 18 months, then anonymized.\nEducational use: Staff training includes examples using \u201cinsider list,\u201d \u201cblackout window,\u201d and \u201cESG\u201d terminology for learning purposes only and does not involve live MNPI.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "shall handle HR records, trader",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

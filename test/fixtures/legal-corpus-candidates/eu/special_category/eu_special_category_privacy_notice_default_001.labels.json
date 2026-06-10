@@ -51,11 +51,11 @@
     "previous_must_not_detect_count": 9
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
@@ -258,6 +258,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal data may include identification, contact and employment details, trading restrictions, and special\u2011category data strictly limited to necessity, such as biometric clock\u2011in templates and occupational health notes for access controls and legal claims. \nIn March 2026, Dr. Livia Petrescu (employee ID AM-4142, Novigrad R&D) provided a facial\u2011recognition template and certified sick\u2011leave; and Mr. Oskar Vale declared union membership during a conflicts\u2011of\u2011interest review. \nOn 2026\u201104\u201122, Sir Cillian Drummond asked for erasure of a fingerprint template and a note linking his vegetarian meals to religious observance via our DSAR portal at privacy@aurorameridian.eu; processing was restricted pending legal hold",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -327,16 +333,16 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Personal data may include identification, contact and employment details, trading restrictions, and special\u2011category data strictly limited to necessity, such as biometric clock\u2011in templates and occupational health notes for access controls and legal claims. \nIn March 2026, Dr. Livia Petrescu (employee ID AM-4142, Novigrad R&D) provided a facial\u2011recognition template and certified sick\u2011leave; and Mr. Oskar Vale declared union membership during a conflicts\u2011of\u2011interest review. \nOn 2026\u201104\u201122, Sir Cillian Drummond asked for erasure of a fingerprint template and a note linking his vegetarian meals to religious observance via our DSAR portal at privacy@aurorameridian.eu; processing was restricted pending legal hold",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "We act as controller; contact our Data Protection Officer, Ms. Sofia Lenz, at dpo@aurorameridian.eu or +999 1200 4500 for any request under GDPR. \nPurposes include: maintaining MAR Art 18 insider lists, wall\u2011crossing for financing of Aurora Meridian Series B Green Notes, whistleblowing triage, and CSRD/SFDR disclosures; legal bases are Art 6(1)(c) compliance with legal obligations and, for special categories, Art 9(2)(b) and (g). \nPersonal data may include identification, contact and employment details, trading restrictions, and special\u2011category data strictly limited to necessity, such as biometric clock\u2011in templates and occupational health notes for access controls and legal claims. \nIn March 2026, Dr. Livia Petrescu (employee ID AM-4142, Novigrad R&D) provided a facial\u2011recognition template and certified sick\u2011leave; and Mr. Oskar Vale declared union membership during a conflicts\u2011of\u2011interest review. \nOn 2026\u201104\u201122, Sir Cillian Drummond asked for erasure of a fingerprint template and a note linking his vegetarian meals to religious observance via our DSAR portal at privacy@aurorameridian.eu; processing was restricted pending legal hold. \nWe also receive limited voluntary DEI survey data where Ms. Hana Kov\u00e1cs self\u2011identified as bisexual, which is never used for hiring or performance decisions and is aggregated for CSRD metrics. \nMNPI is captured in restricted repositories during transactions (e.g., non\u2011public terms of a contemplated private placement) and is disclosed only to wall\u2011crossed insiders and the National Competent Authority of Monturia on request. \nProcessors include Nebula Metrics LLC (Urbaria, third country) for scenario modelling and Cloudolith BV (Eirgrad, EU) for secure hosting; cross\u2011border transfers rely on SCCs with supplementary encryption and a transfer impact assessment. \nData are retained for five years after the last update of an insider list, two years for access control biometrics, and as required by the Labour Code of Novaria for whistleblowing files, after which we pseudonymi",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "In March 2026, Dr. Livia Petrescu (employee ID AM-4142, Novigrad R&D) provided a facial\u2011recognition template and certified sick\u2011leave; and Mr. Oskar Vale declared union membership during a conflicts\u2011of\u2011interest review. \nOn 2026\u201104\u201122, Sir Cillian Drummond asked for erasure of a fingerprint template and a note linking his vegetarian meals to religious observance via our DSAR portal at privacy@aurorameridian.eu; processing was restricted pending legal hold",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

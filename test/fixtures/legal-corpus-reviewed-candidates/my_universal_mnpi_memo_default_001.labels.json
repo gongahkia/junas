@@ -1,0 +1,419 @@
+{
+  "_agent_review": {
+    "notes": "MY Stage A strict labels realigned after the IN precision audit tightened deterministic false-positive guards; broader labels remain in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approval remains internal/project benchmark approval based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "MY Stage A strict tier realigned to deterministic strict-mode engine after IN precision audit; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_universal_mnpi_memo_default_001",
+    "label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/universal_mnpi/my_universal_mnpi_memo_default_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_universal_mnpi_memo_default_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_resolved_label_warnings": {
+    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
+    "count": 4,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM180,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM180m'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM180,000,000'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM180m'"
+    ]
+  },
+  "_resolved_label_warnings_history": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 32,
+    "new_must_detect_count": 18,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 26,
+    "old_must_detect_count": 18,
+    "removed_must_not_detect": [
+      {
+        "matched_text": "SPA",
+        "reason": "Defined-term abbreviation not to be labeled"
+      }
+    ],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_universal_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "nur.aisha@tualanglaw.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@solaria-berhad.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nur Aisha Karim",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board of Solaria Berhad (Main Market issuer); From: Legal & Compliance; Re: Project Nangka proposed 22% acquisition of Aurora Plastics Bhd and RM180,000,000 term financing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal research note indicates 6\u20138% EPS accretion in FY2027 and RM28\u201332m annual synergies; this forecast is management-only and not in the public domain.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Nangka",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "32m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed until 30 July 2026, 18:00 MYT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Facility Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6\u20138%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not trade in Solaria Berhad securities until the embargo is lifted and the announcement is released",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider status: all recipients are considered insiders under the CMSA; do not trade in Solaria Berhad securities until the embargo is lifted and the announcement is released",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this forecast is management-only and not in the public domain",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed 22% acquisition of Aurora Plastics Bhd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exchange clearance for draft announcement",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chapter 10 shareholder approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@solaria-berhad.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@solaria-berhad.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Lina Hassan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dato\u2019 Amir Rahman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "this memo uses business contact details only",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "nur.aisha@tualanglaw.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@solaria-berhad.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nur Aisha Karim",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board of Solaria Berhad (Main Market issuer); From: Legal & Compliance; Re: Project Nangka proposed 22% acquisition of Aurora Plastics Bhd and RM180,000,000 term financing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal research note indicates 6\u20138% EPS accretion in FY2027 and RM28\u201332m annual synergies; this forecast is management-only and not in the public domain.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Nangka",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "32m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY PRIVATE & CONFIDENTIAL \u2014 NON-PUBLIC (CMSA) \u2014 Embargoed until 30 July 2026, 18:00 MYT.\nTo: Board of Solaria Berhad (Main Market issuer); From: Legal & Compliance; Re: Project Nangka proposed 22% acquisition of Aurora Plastics Bhd and RM180,000,000 term financing.\nDefinitive agreements: Share Purchase Agreement with Meranti Capital Sdn. Bhd. and RM180m 5-year Facility Agreement with Bank Bintang Timur Berhad targeted signing 2 Aug 2026; long-stop date 31 Oct 2026.\nConditions precedent include Chapter 10 shareholder approval, Exchange clearance for draft announcement, and no Material Adverse Effect on Aurora Plastics as defined in the SPA.\nNegated MAC: normalised raw-material price volatility and any decline in the Main Market index shall not constitute a MAC/MAE for purposes of termination.\nPricing: facility at BR + 3.25% per annum with 12-month interest-only period; security package limited to target shares and assignment of proceeds.\nInternal research note indicates 6\u20138% EPS accretion in FY2027 and RM28\u201332m annual synergies; this forecast is management-only and not in the public domain.\nDraft investor-relations Q&A and immediate announcement are prepared for pre-open release on 31 July 2026, subject to embargo; IR contact Puan Lina Hassan, ir@solaria-berhad.my.\nPublic-source reference: the industry capacity figures cited are from the 2025 Nusantara Polymers Council report and our Q4 FY2024 production data is already in the published Annual Report 2024.\nPDPA notice: this memo uses business contact details only; any personal data of employees will be processed per internal PDPA policy\u2014queries to dpo@solaria-berhad.my.\nBoard action requested: authorise Dato\u2019 Amir Rahman (CEO) to execute the definitive agreements and to submit the draft announcement to the Exchange.\nInsider status: all recipients are considered insiders under the CMSA; do not trade in Solaria Berhad securities until the embargo is lifted and the announcement is released.\nDeal checklist excerpt (internal): regulatory filing pack, auditor comfort letter, vendor undertakings, FX hedging term sheet, and integration plan approved by HR and IT.\nlowercase project management: chase clean redlines to bank counsel, lock signatory schedule, prep slides, book the war room, and the team spa day is pencilled for 12 aug at 5pm.\nPlease note the Q1 FY2025 sales figures mentioned in yesterday\u2019s press article are stale and not indicative of current run-rate.\nFor legal queries contact Ms. Nur Aisha Karim, external counsel at Tualang Law (nur.aisha@tualanglaw.com); for compliance matters reach legal@solaria-berhad.my.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Share Purchase Agreement with Meranti Capital Sdn. Bhd. and RM180m 5-year Facility Agreement with Bank",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "vendor",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "False-positive bait that is not a definitive agreement"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "material_adverse_change",
+      "matched_text": "no Material Adverse Effect",
+      "reason": "Negated MAC/MAE language is relevant but excluded by rule"
+    },
+    {
+      "concept": "material_adverse_change",
+      "matched_text": "MAC/MAE",
+      "reason": "Appears only in a negated clause; rule prohibits labeling negated MAC"
+    },
+    {
+      "concept": "deal timeline marker",
+      "matched_text": "long-stop date 31 Oct 2026",
+      "reason": "Material timing but not one of the enumerated embargo markers"
+    },
+    {
+      "concept": "signing date marker",
+      "matched_text": "targeted signing 2 Aug 2026",
+      "reason": "Key date lacks the exact 'Signing Date' phrasing enumerated for embargo markers"
+    },
+    {
+      "concept": "public release timing",
+      "matched_text": "pre-open release on 31 July 2026",
+      "reason": "Relevant timing but not in the enumerated embargo marker phrases"
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_jurisdictional_mnpi_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/jurisdictional_mnpi/vn_jurisdictional_mnpi_incident_report_default_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_jurisdictional_mnpi_incident_report_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_jurisdictional_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "\u00d4ng Thanh L\u00ea",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "B\u00e0 B\u1ea3o Tr\u00e2m",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "thanh.le@thanhphongutilities.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "office@thanhphongutilities.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incident@thanhphongutilities.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 90 812 3459",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 93 777 3125",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CCCD 0889 123 456",
+      "rule": "vn_cccd"
+    },
+    {
+      "category": "PII",
+      "matched_text": "117-998-004512",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8\u201310%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 18",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "th\u00f4ng tin n\u00e0y hi\u1ec7n ch\u01b0a c\u00f4ng b\u1ed1 ra c\u00f4ng ch\u00fang theo Lu\u1eadt Ch\u1ee9ng kho\u00e1n",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Tr\u00e1nh ti\u1ebft l\u1ed9 ch\u1ecdn l\u1ecdc",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Kh\u00f4ng c\u00f4ng b\u1ed1 ra c\u00f4ng ch\u00fang",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "t\u1ea5n c\u00f4ng ransomware",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u00d4ng Thanh L\u00ea (CFO)",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "B\u00e0 B\u1ea3o Tr\u00e2m (Tr\u01b0\u1edfng ph\u00f2ng Nh\u00e2n s\u1ef1)",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "s\u1ed1 t\u00e0i kho\u1ea3n l\u01b0\u01a1ng 117-998-004512",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VX-PR-66281",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VX-PR-66293",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ch\u01b0a \u0111\u1ee7 \u0111i\u1ec1u ki\u1ec7n c\u00f4ng b\u1ed1 theo quy ch\u1ebf c\u1ee7a SGDST",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "c\u1eeda s\u1ed5 h\u1ea1n ch\u1ebf giao d\u1ecbch (blackout) n\u1ed9i b\u1ed9 t\u1eeb 01/07 \u0111\u1ebfn sau ng\u00e0y c\u00f4ng b\u1ed1 BCTC Q2",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ch\u1ec9 chia s\u1ebb c\u00f3 \u0111i\u1ec1u ki\u1ec7n v\u1edbi Ng\u00e2n h\u00e0ng S\u00f4ng Xanh theo NDA",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "kh\u00f4ng ph\u00e1t t\u00e1n qua c\u00e1c k\u00eanh b\u00ean ngo\u00e0i",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "m\u1ecdi trao \u0111\u1ed5i IR ph\u1ea3i \u0111\u0103ng k\u00fd l\u1ecbch v\u1edbi SGDST",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u0111\u00f3ng d\u1ea5u \u201cKh\u00f4ng c\u00f4ng b\u1ed1 ra c\u00f4ng ch\u00fang\u201d",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u01af\u1edbc t\u00ednh b\u1ed3i th\u01b0\u1eddng b\u1ea3o hi\u1ec3m n\u1ed9i b\u1ed9",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "d\u1ef1 ki\u1ebfn c\u00f4ng b\u1ed1",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u01b0\u1edbc gi\u1ea3m EBITDA Q2",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0889 123 456",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "117-998-004512",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "office@thanhphongutilities.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "thanh.le@thanhphongutilities.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incident@thanhphongutilities.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 90 812 3459",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0889 123 456",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "117-998-004512",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 93 777 3125",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 18",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "breach_data_categories",
+      "matched_text": "\u0110\u1ed1i t\u01b0\u1ee3ng d\u1eef li\u1ec7u b\u1ecb \u1ea3nh h\u01b0\u1edfng: danh s\u00e1ch nh\u00e2n vi\u00ean (h\u1ecd t\u00ean, email n\u1ed9i b\u1ed9, s\u1ed1 \u0111i\u1ec7n tho\u1ea1i di \u0111\u1ed9ng, s\u1ed1 t\u00e0i kho\u1ea3n l\u01b0\u01a1ng), m\u1ed9t ph\u1ea7n h\u1ed3 s\u01a1 CCCD, v\u00e0 t\u1ec7p l\u1ecbch s\u1eed ch\u1ea5m c\u00f4ng",
+      "reason": "Describes categories of personal data impacted rather than specific identifiers; not clearly covered by allowed PII rules."
+    },
+    {
+      "concept": "security_control",
+      "matched_text": "kh\u00f4ng duy\u1ec7t g\u1eedi d\u1eef li\u1ec7u nh\u1ea1y c\u1ea3m qua k\u00eanh ch\u01b0a m\u00e3 h\u00f3a",
+      "reason": "Security/handling instruction relevant to privacy compliance but not an allowed privacy-event marker in the taxonomy."
+    },
+    {
+      "concept": "disclosure_timing",
+      "matched_text": "trong v\u00f2ng 24 gi\u1edd",
+      "reason": "Indicates issuer disclosure timing control which is legally relevant for MNPI management but not explicitly covered by the allowed MNPI rules."
+    }
+  ]
+}

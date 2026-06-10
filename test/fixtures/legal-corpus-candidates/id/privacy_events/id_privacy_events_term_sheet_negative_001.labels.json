@@ -46,11 +46,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -178,6 +178,12 @@
       "category": "MNPI",
       "matched_text": "closing subject to approval",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Protection: Parties will execute a Data Processing Addendum (Schedule DPA-1) aligned with UU No. 27/2022 (PDP), applying purpose limitation, minimisation, and retention controls to employee onboarding forms and merchant KYC documents\nData Export Approval (Completed): Cross-border transfer of pseudonymised customer support tickets to a contracted processor in Singapore approved by Buyer\u2019s Privacy Office per Schedule DPA-2 and logged in the transfer register; transfer completed on 12 Jan 2026 with contractual safeguards and encryption at rest\nHR & Onboarding: No change to employment terms on closing; onboarding forms will omit optional fields and will not collect national ID copies beyond legally required KYC; no pre-closing cross-border transfers of HR data will be conducted",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -247,16 +253,16 @@
       "rule": "financial_percentage"
     },
     {
-      "category": "PII",
-      "matched_text": "Data Protection: Parties will execute a Data Processing Addendum (Schedule DPA-1) aligned with UU No. 27/2022 (PDP), applying purpose limitation, minimisation, and retention controls to employee onboarding forms and merchant KYC documents\nData Export Approval (Completed): Cross-border transfer of pseudonymised customer support tickets to a contracted processor in Singapore approved by Buyer\u2019s Privacy Office per Schedule DPA-2 and logged in the transfer register; transfer completed on 12 Jan 2026 with contractual safeguards and encryption at rest\nHR & Onboarding: No change to employment terms on closing; onboarding forms will omit optional fields and will not collect national ID copies beyond legally required KYC; no pre-closing cross-border transfers of HR data will be conducted",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Term Sheet: Proposed Strategic Acquisition of PT Nusantara PayTek by PT Arunika Teknologi Tbk (public company listed on Bursa Efek Indonesia)\nStructure: Buyer to acquire 80% of issued shares from existing shareholders; closing subject to approval under POJK 17/2020 and shareholder approval at RUPS Luar Biasa\nRegulatory/Disclosure: Issuer disclosures will be made in accordance with POJK 31/2015 and IDX Rule I-E; this term sheet contains no material non-public information and summarises items previously announced via IDX e-Announcement on 20 Nov 2025\nConditions Precedent: No objection from OJK on material transaction classification; confirmation of continued registration/licensing for payment services; customary KSEI/KPEI confirmations; completion of internal integration plan\nData Protection: Parties will execute a Data Processing Addendum (Schedule DPA-1) aligned with UU No. 27/2022 (PDP), applying purpose limitation, minimisation, and retention controls to employee onboarding forms and merchant KYC documents\nData Export Approval (Completed): Cross-border transfer of pseudonymised customer support tickets to a contracted processor in Singapore approved by Buyer\u2019s Privacy Office per Schedule DPA-2 and logged in the transfer register; transfer completed on 12 Jan 2026 with contractual safeguards and encryption at rest\nHR & Onboarding: No change to employment terms on closing; onboarding forms will omit optional fields and will not collect national ID copies beyond legally required KYC; no pre-closing cross-border transfers of HR data will be conducted\nDSAR/Erasures (Completed): Target confirms one erasure request from a former contractor was fulfilled and logged on 05 Dec 2025 with evidence of deletion and response within statutory timelines; as of signing, there is no DSAR backlog\nConsent Handling: Consent-withdrawal workflow documented in Policy PW-2; no unresolved consent withdrawals as of the date hereof; direct marketing remains opt-in only and outside the scope of the transaction\nRetention: Retention Schedule RS-1 (Schedule RS-1) provides finance records retained for statutory minimums; internal review on 15 Nov 2025 found no retention expiry exceeded; backup tapes subject to fixed-time lifecycle deletion\nFintech Operations: PT Nusantara PayTek provides payment gateway services consistent with Bank Indonesia registration; no expansion of personal data categories is contemplated prior to closing; AFPI code of conduct adherence maintained\nSecurities Matters: No new issuance, rights offering, or warrant adjustments are contemplated in this transaction; settlement and share recording to be coordinated via KSEI; no changes to dividend policy are proposed\nBoard Materials: Excerpts of the board memo and integration compliance memo dated 21 Nov 2025 are attached in sanitised form to remove issuer-sensitive items and avoid MNPI; any public excerpts mirror IDX disclosures",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Export Approval (Completed): Cross-border transfer of pseudonymised customer support tickets to a contracted processor in Singapore approved by Buyer\u2019s Privacy Office per Schedule DPA-2 and logged in the transfer register; transfer completed on 12 Jan 2026 with contractual safeguards and encryption at rest\nHR & Onboarding: No change to employment terms on closing; onboarding forms will omit optional fields and will not collect national ID copies beyond legally required KYC; no pre-closing cross-border transfers of HR data will be conducted\nDSAR/Erasures (Completed): Target confirms one erasure request from a former contractor was fulfilled and logged on 05 Dec 2025 with evidence of deletion and response within statutory timelines; as of signing, there is no DSAR backlog",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

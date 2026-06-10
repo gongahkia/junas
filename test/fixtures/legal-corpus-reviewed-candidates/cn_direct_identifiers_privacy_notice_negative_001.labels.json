@@ -1,0 +1,251 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_direct_identifiers_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_direct_identifiers_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 18,
+    "new_must_detect_count": 1,
+    "old_ideal_must_detect_count": 17,
+    "old_must_detect_count": 1,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_direct_identifiers_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "91X00000000000000Q",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "11010119991231999X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@huashi-meridian.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u8de8\u5883\u4f20\u8f93",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u6570\u636e\u6700\u5c0f\u5316",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14\u5468\u5c81\u4ee5\u4e0b\u672a\u6210\u5e74\u4eba",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u9759\u9ed8\u671f\u6e05\u5355",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u5f00\u5185\u5e55\u4fe1\u606f",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u5f00\u4e8b\u9879",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u672a\u6210\u5e74\u4eba\u4fe1\u606f",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14\u5468\u5c81\u4ee5\u4e0b",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u5458\u5de5\u7f16\u53f7",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u5de5\u53f7",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u516c\u53f8\u57fa\u672c\u6237\u8d26\u53f7",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u5bb6\u5ead\u7535\u8bdd",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u529e\u516c\u603b\u673a",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u53d1\u884c\u4eba\u80a1\u6743\u8d26\u6237\u53f7",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "12345",
+      "reason": "Public hotline, not PII"
+    },
+    {
+      "matched_text": "12315",
+      "reason": "Public hotline, not PII"
+    },
+    {
+      "matched_text": "0755-XXXX XXXX",
+      "reason": "Redacted placeholder, not a real phone number"
+    },
+    {
+      "matched_text": "\u5e7f\u4e1c\u7701\u6df1\u5733\u5e02\u5357\u5c71\u533aXX\u8857\u9053XX\u53f7",
+      "reason": "Placeholder address, not a specific identifiable address"
+    },
+    {
+      "matched_text": "TX-____",
+      "reason": "Placeholder token, not an actual identifier"
+    },
+    {
+      "matched_text": "ACC-____",
+      "reason": "Placeholder token, not an actual identifier"
+    },
+    {
+      "matched_text": "\u59d3\u540d\uff08\u8868\u5355\u9879\uff09",
+      "reason": "Form field label only, no personal value present"
+    },
+    {
+      "matched_text": "\u8054\u7cfb\u65b9\u5f0f\uff08\u8868\u5355\u9879\uff09",
+      "reason": "Form field label only, no personal value present"
+    },
+    {
+      "matched_text": "\u529e\u516c\u5730\u5740\uff08\u8868\u5355\u9879\uff09",
+      "reason": "Form field label only, no personal value present"
+    },
+    {
+      "matched_text": "\u5458\u5de5\u7f16\u53f7\uff08\u8868\u5355\u9879\uff09",
+      "reason": "Form field label only, no personal value present"
+    },
+    {
+      "matched_text": "LIC-2026-FAKE-0001",
+      "reason": "Example business licence number outside allowed rule set"
+    },
+    {
+      "matched_text": "\u534e\u8bc6\u5b50\u5348\u7ebf\u673a\u5668\u4eba\uff08\u6df1\u5733\uff09\u6709\u9650\u516c\u53f8",
+      "reason": "Organization name, not personal data"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "cn_business_license_number",
+      "matched_text": "\u8425\u4e1a\u6267\u7167\u7f16\u53f7",
+      "reason": "Chinese business licence numbers identify legal entities; useful corporate identifier but not in allowed rule list"
+    },
+    {
+      "concept": "de_identification_marker",
+      "matched_text": "\u53bb\u6807\u8bc6\u5316",
+      "reason": "Indicates de-identification processing, a privacy control not explicitly in allowed markers"
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "\u6570\u636e\u4e3b\u4f53\u8bf7\u6c42\uff08DSAR\uff09",
+      "reason": "DSAR workflow reference is privacy-relevant but no explicit allowed rule"
+    },
+    {
+      "concept": "authentication_credential",
+      "matched_text": "\u4e00\u6b21\u6027\u53e3\u4ee4",
+      "reason": "OTP/credential reference is sensitive but not covered by allowed rules"
+    },
+    {
+      "concept": "breach_notification_marker",
+      "matched_text": "\u4e2a\u4eba\u4fe1\u606f\u6cc4\u9732",
+      "reason": "Data breach notification/incident reference is privacy-relevant but not in allowed rule set"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "\u4fdd\u7559\u671f\u9650",
+      "reason": "Data retention control is privacy-relevant but not among allowed markers"
+    }
+  ]
+}

@@ -43,11 +43,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -205,6 +205,12 @@
       "category": "MNPI",
       "matched_text": "9,200,000",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employment rollover: Mr. Adrian Lau (CEO) to execute a 24\u2011month service contract; HKSAR Passport No.: KE1234567; HKID A123456(0) \u2014 placeholder only, invalid checksum; contact mailto:ir@harborcrest-cap.hk?subj=TermSheet%23ProjectTyphoon.\nFor KYC, residential correspondence: Flat C, 8/F, Harbor Gardens, 22 Starcrest Lane, Tsing Wai South, Hong Kong; secondary mobile +852 9300 0000 (note: 1823 is a public helpline and not a party contact).\nStrategic rationale references publicly available product brochures (e.g., \u201cAurora Servo\u20119\u201d) and does not alter the absence of any earnings guidance; scrum update: next sprint tasks due friday, no blockers",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -299,12 +305,6 @@
       "rule": "large_number"
     },
     {
-      "category": "PII",
-      "matched_text": "Employment rollover: Mr. Adrian Lau (CEO) to execute a 24\u2011month service contract; HKSAR Passport No.: KE1234567; HKID A123456(0) \u2014 placeholder only, invalid checksum; contact mailto:ir@harborcrest-cap.hk?subj=TermSheet%23ProjectTyphoon.\nFor KYC, residential correspondence: Flat C, 8/F, Harbor Gardens, 22 Starcrest Lane, Tsing Wai South, Hong Kong; secondary mobile +852 9300 0000 (note: 1823 is a public helpline and not a party contact).\nStrategic rationale references publicly available product brochures (e.g., \u201cAurora Servo\u20119\u201d) and does not alter the absence of any earnings guidance; scrum update: next sprint tasks due friday, no blockers",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "inside information",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -321,6 +321,18 @@
       "matched_text": "Confidential Term Sheet \u2014 Proposed acquisition of 51% of HarborCrest Robotics Holdings Limited (incorporated in Hong Kong; HKEX-listed), by Crescent Ventures Fund IV, L.P.\nHarborCrest Robotics Holdings Limited: C R   N o . :  3 1 2 3 4 5 6; BR No.: 7-6543212-000; registered office: Unit 1901, 19/F, Skygate Tower, 88 Kai Wing Bay Road, Harborview District, Hong Kong.\nBuyer (Type 9 manager) Crescent Ventures Fund IV, L.P. (managed by Crescent Ventures (HK) Limited; SFC CE No.: XZQ123), principal contact Ms. Selina Chan, tel +852 6523 8890, email selina.chan @ harborcrest-cap.hk.\nConsideration HKD 920,000,000; 10% refundable deposit to escrow A/C 012-345-678901-001 at Farport Bank (SWIFT: HCRTHKHH), value date T+3.\nThis document may contain inside information under Part XIVA of the SFO and is not generally known; disclosure to HKEX will be coordinated before signing pursuant to the Listing Rules and Takeovers Code.\nConditions precedent include: (i) independent board committee and IFA report, (ii) whitewash waiver if required, (iii) no material adverse change (expressly negated here for testing: no MAC will be invoked in the draft), (iv) SFC/HKEX clearance for the announcement.\nEmployment rollover: Mr. Adrian Lau (CEO) to execute a 24\u2011month service contract; HKSAR Passport No.: KE1234567; HKID A123456(0) \u2014 placeholder only, invalid checksum; contact mailto:ir@harborcrest-cap.hk?subj=TermSheet%23ProjectTyphoon.\nFor KYC, residential correspondence: Flat C, 8/F, Harbor Gardens, 22 Starcrest Lane, Tsing Wai South, Hong Kong; secondary mobile +852 9300 0000 (note: 1823 is a public helpline and not a party contact).\nStrategic rationale references publicly available product brochures (e.g., \u201cAurora Servo\u20119\u201d) and does not alter the absence of any earnings guidance; scrum update: next sprint tasks due friday, no blockers.\nFee and break arrangements: exclusivity 60 days; break fee HKD 9,200,000; financing pre-arranged with Crescent Credit SPC \u2014 term loan LOI on file; payment remitter name must match Crescent Ventures Fund IV, L.P.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88 Kai Wing Bay Road, Harborview District, Hong Kong",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "22 Starcrest Lane, Tsing Wai South, Hong Kong",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

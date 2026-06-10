@@ -1,0 +1,348 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_jurisdictional_mnpi_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/jurisdictional_mnpi/in_jurisdictional_mnpi_incident_report_default_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_jurisdictional_mnpi_incident_report_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_resolved_label_warnings": [
+    {
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 78\u201395 lakh'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 78\u201395 lakh'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_jurisdictional_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cs@auroragrid.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-22-0000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rhea Talwar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arnav",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Sanya Pillai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AuroraGrid Systems Limited (the \u201cCompany\u201d), listed on the Indica Stock Exchange, reports a cybersecurity incident discovered on 04 June 2026 at 09:20 IST in the Bengaluru Data Hub operated by our vendor Skyloom Networks Pvt. Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For clarity, our November 2025 investor presentation already disclosed generic cybersecurity enhancement plans and is stale for the purposes of UPSI; do not treat that deck as current disclosure of this event.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,430",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "expected to impact",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@auroragrid.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arnav K. Mehta",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "217 child users",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "the 217 affected minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked identifiers (Aadhaar last 4, PAN last 3, and GSTIN first 2)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar last 4",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN last 3",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN first 2",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No full identity numbers are being processed for notification; any reference to Aadhaar/PAN/GSTIN will be tokenised and truncated",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cybersecurity incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the trading window for designated persons is closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure to analysts or investors is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure to analysts or investors is prohibited",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know basis",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "designated persons",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Trading Code",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may reasonably be expected to impact",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if the materiality threshold is met",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cs@auroragrid.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-22-0000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rhea Talwar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arnav",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Sanya Pillai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AuroraGrid Systems Limited (the \u201cCompany\u201d), listed on the Indica Stock Exchange, reports a cybersecurity incident discovered on 04 June 2026 at 09:20 IST in the Bengaluru Data Hub operated by our vendor Skyloom Networks Pvt. Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For clarity, our November 2025 investor presentation already disclosed generic cybersecurity enhancement plans and is stale for the purposes of UPSI; do not treat that deck as current disclosure of this event.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,430",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "expected to impact",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Incident Owner: Mr. Arnav K. Mehta, Interim CISO, with support from the Data Protection Officer, Dr. Sanya Pillai (privacy@auroragrid.example.in); hotline +91-22-0000-0000 for data principal queries",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AuroraGrid Systems Limited (the \u201cCompany\u201d), listed on the Indica Stock Exchange, reports a cybersecurity incident discovered on 04 June 2026 at 09:20 IST in the Bengaluru Data Hub operated by our vendor Skyloom Networks Pvt. Ltd.\nNature of incident: unauthorized API key use led to selective access of a customer lookup table containing contact details and limited KYC metadata for approximately 18,430 individuals, including 217 child users of our LearnPower app.\nData elements at risk under the DPDPA: names, mobile numbers, email IDs, and masked identifiers (Aadhaar last 4, PAN last 3, and GSTIN first 2), with no full Aadhaar/PAN/GSTIN, passwords, or payment instrument data stored in that table.\nTwo employee records of designated persons under the Insider Trading Code included HR emails and consent logs; no salary or bank account data were accessed.\nAs per Indian PIT Regulations, the incident assessment indicates potential UPSI because it may reasonably be expected to impact cybersecurity expenditures and service SLAs in the near term for the issuer; the trading window for designated persons is closed with immediate effect until public disclosure.\nThis notice is shared internally on a strict need-to-know basis; selective disclosure to analysts or investors is prohibited, and external communications must route through the Company Secretary, Ms. Rhea Talwar (cs@auroragrid.example.in).\nPublic status: An initial intimation of service latency was already published via press release on 02 June 2026 and uploaded to the stock exchange portal; that statement did not include any personal data details and remains in the public domain.\nMateriality: current best estimate of remediation cost is INR 78\u201395 lakh (under 1.5% of FY26 consolidated EBITDA), which may be immaterial relative to the issuer; however, if forensic outcomes expand, the assessment will be re-evaluated under Regulation 30 of the LODR.\nThe Audit Committee will convene on 06 June 2026 at 17:00 IST to evaluate materiality and determine whether an exchange intimation is warranted.\nTo comply with DPDPA obligations, we are activating the incident response plan: data principal notice templates prepared, consent registry checks enabled, and parental/guardian contact validation for the 217 affected minors.\nNo full identity numbers are being processed for notification; any reference to Aadhaar/PAN/GSTIN will be tokenised and truncated, and age flags will be verified against declared DOB with parental consent metadata.\nPursuant to our Code of Practices, any Board briefing and Q&A material will be embargoed until uniform public disclosure is filed with the exchanges; any interaction with research analysts will be via a recorded channel after dissemination.\nThe root cause traces to a misconfigured allowlist on a staging API; systems serving our renewable microgrid platform were not impacted, and no operational outages occurred on customer premises.\nFor clarity, our November 2025 investor presentation already disclosed generic cybersecurity enhancement plans and is stale for the purposes of UPSI; do not treat that deck as current disclosure of this event.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company",
+      "reason": "Defined-role term in memo; not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "consent governance",
+      "matched_text": "consent registry checks enabled",
+      "reason": "Indicates consent controls but not a specific consent/withdrawal/DSAR event as per available marker"
+    },
+    {
+      "concept": "consent governance",
+      "matched_text": "consent logs",
+      "reason": "Mentions consent records without a clear withdrawal or rights request event"
+    },
+    {
+      "concept": "consent governance for minors",
+      "matched_text": "parental consent metadata",
+      "reason": "Implies parental consent tracking rather than a specific consent event"
+    },
+    {
+      "concept": "date_of_birth",
+      "matched_text": "DOB",
+      "reason": "References DOB verification without an actual date value"
+    },
+    {
+      "concept": "email_address",
+      "matched_text": "HR emails",
+      "reason": "Indicates presence of employee email data without specific addresses"
+    },
+    {
+      "concept": "phone_number",
+      "matched_text": "mobile numbers",
+      "reason": "References phone data type without concrete numbers"
+    },
+    {
+      "concept": "email_address",
+      "matched_text": "email IDs",
+      "reason": "References email data type without concrete addresses"
+    }
+  ]
+}

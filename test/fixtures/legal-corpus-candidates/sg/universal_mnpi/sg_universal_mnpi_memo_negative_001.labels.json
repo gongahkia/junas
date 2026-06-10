@@ -81,11 +81,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
     "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
@@ -213,6 +213,18 @@
       "category": "MNPI",
       "matched_text": "confidential",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Strictly Private & Confidential \u2014 Not for exchange portal; Internal use only.\nBoard/Compliance memo: OceanLattice Holdings Ltd. (Mainboard-listed, Singapore) \u2014 Project Kestrel \u2014 indicative SPA terms with Ambernova Tech Pte. Ltd.\nPrepared by Ms. Alina Quek, Partner, Linden Law Chambers LLP; contact: compliance@lindenlaw.sg, +65 6123 7788",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Strictly Private & Confidential \u2014 Not for exchange portal; Internal use only.\nBoard/Compliance memo: OceanLattice Holdings Ltd. (Mainboard-listed, Singapore) \u2014 Project Kestrel \u2014 indicative SPA terms with Ambernova Tech Pte. Ltd.\nPrepared by Ms. Alina Quek, Partner, Linden Law Chambers LLP; contact: compliance@lindenlaw.sg, +65 6123 7788",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_detect": [
@@ -307,22 +319,28 @@
       "rule": "large_number"
     },
     {
+      "category": "MNPI",
+      "matched_text": "Strictly Private & Confidential \u2014 Not for exchange portal; Internal use only.\nBoard/Compliance memo: OceanLattice Holdings Ltd. (Mainboard-listed, Singapore) \u2014 Project Kestrel \u2014 indicative SPA terms with Ambernova Tech Pte. Ltd.\nPrepared by Ms. Alina Quek, Partner, Linden Law Chambers LLP; contact: compliance@lindenlaw.sg, +65 6123 7788.\nTargeted signing of definitive Share Purchase Agreement on 15 Jul 2026, with embargo on any market announcement until 16 Jul 2026, 07:30 SGT (Listing Manual Rule 703).\nPurchase consideration S$128,000,000 for 68% of issued shares, with earn\u2011out up to S$12,000,000; financed via private placement of up to 9.5% new shares subject to regulatory and exchange clearance.\nMAC/MAE: parties agree no Material Adverse Change has occurred since 31 Mar 2026, and MAC excludes pandemics, interest rate shifts, or market-wide events.\nEmployment/HR: retention letters for six Key Employees, garden leave mechanics, and PDPA-compliant notices for transfer of employee personal data to our data intermediary under Clause 24.\nData room hygiene: only hashed NRIC fields to be visible; do not email CVs; maintain insider list and pre-close trading blackout as per SFA Part XII and Listing Manual Practice Note 7.1.\nInvestor relations draft: if consummated, expected EPS accretion c. 6.2% in FY2027; back-up Q&A references only public-source materials (e.g., 2024 product catalogue and 2023 sustainability report).\nNote that the last traded price on 12 Jul 2026 was S$1.42 per share (public information from the exchange website), and we do not guide on price or timing.\nCompliance checklist: DPIA under PDPA completed, vendor due diligence clean, no whistleblower allegations, and embargo distribution list limited to ExCo and advisers; avoid leak risks.\nfor monday\u2019s stand-up: update the cap-table annexures, refresh board bios, and confirm data retention schedule by fri eod.\nResearch note (internal): comparable transactions indicate median EV/EBITDA 11.3x; we are not aware of any MNPI beyond this memo and the term sheet.\nIR coordination: draft exchange announcement subject to legal sign-off; if a leak occurs, prepare holding statement referencing a general strategic review initiated in Q1 2026 (previously disclosed).\nWellness: team offsite tentatively includes a spa day at the Marina South retreat after signing; do not include in budget pack circulated to the Board.\nThis memorandum is confidential and not price-sensitive in isolation; however, combined with timing/percentage data it could reasonably be expected to influence market behaviour, so treat as MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
       "category": "PII",
-      "matched_text": "Strictly Private & Confidential \u2014 Not for exchange portal; Internal use only.\nBoard/Compliance memo: OceanLattice Holdings Ltd. (Mainboard-listed, Singapore) \u2014 Project Kestrel \u2014 indicative SPA terms with Ambernova Tech Pte. Ltd.\nPrepared by Ms. Alina Quek, Partner, Linden Law Chambers LLP; contact: compliance@lindenlaw.sg, +65 6123 7788",
+      "matched_text": "Board/Compliance memo: OceanLattice Holdings Ltd. (Mainboard-listed, Singapore) \u2014 Project Kestrel \u2014 indicative SPA terms with Ambernova Tech Pte. Ltd.\nPrepared by Ms. Alina Quek, Partner, Linden Law Chambers LLP; contact: compliance@lindenlaw.sg, +65 6123 7788",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
     },
     {
       "category": "PII",
-      "matched_text": "Strictly Private & Confidential \u2014 Not for exchange portal; Internal use only.\nBoard/Compliance memo: OceanLattice Holdings Ltd. (Mainboard-listed, Singapore) \u2014 Project Kestrel \u2014 indicative SPA terms with Ambernova Tech Pte. Ltd.\nPrepared by Ms. Alina Quek, Partner, Linden Law Chambers LLP; contact: compliance@lindenlaw.sg, +65 6123 7788",
+      "matched_text": "Alina Quek, Partner",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "quasi_identifier_combination"
+      "rule": "personal_attribute_inference"
     },
     {
-      "category": "MNPI",
-      "matched_text": "Strictly Private & Confidential \u2014 Not for exchange portal; Internal use only.\nBoard/Compliance memo: OceanLattice Holdings Ltd. (Mainboard-listed, Singapore) \u2014 Project Kestrel \u2014 indicative SPA terms with Ambernova Tech Pte. Ltd.\nPrepared by Ms. Alina Quek, Partner, Linden Law Chambers LLP; contact: compliance@lindenlaw.sg, +65 6123 7788.\nTargeted signing of definitive Share Purchase Agreement on 15 Jul 2026, with embargo on any market announcement until 16 Jul 2026, 07:30 SGT (Listing Manual Rule 703).\nPurchase consideration S$128,000,000 for 68% of issued shares, with earn\u2011out up to S$12,000,000; financed via private placement of up to 9.5% new shares subject to regulatory and exchange clearance.\nMAC/MAE: parties agree no Material Adverse Change has occurred since 31 Mar 2026, and MAC excludes pandemics, interest rate shifts, or market-wide events.\nEmployment/HR: retention letters for six Key Employees, garden leave mechanics, and PDPA-compliant notices for transfer of employee personal data to our data intermediary under Clause 24.\nData room hygiene: only hashed NRIC fields to be visible; do not email CVs; maintain insider list and pre-close trading blackout as per SFA Part XII and Listing Manual Practice Note 7.1.\nInvestor relations draft: if consummated, expected EPS accretion c. 6.2% in FY2027; back-up Q&A references only public-source materials (e.g., 2024 product catalogue and 2023 sustainability report).\nNote that the last traded price on 12 Jul 2026 was S$1.42 per share (public information from the exchange website), and we do not guide on price or timing.\nCompliance checklist: DPIA under PDPA completed, vendor due diligence clean, no whistleblower allegations, and embargo distribution list limited to ExCo and advisers; avoid leak risks.\nfor monday\u2019s stand-up: update the cap-table annexures, refresh board bios, and confirm data retention schedule by fri eod.\nResearch note (internal): comparable transactions indicate median EV/EBITDA 11.3x; we are not aware of any MNPI beyond this memo and the term sheet.\nIR coordination: draft exchange announcement subject to legal sign-off; if a leak occurs, prepare holding statement referencing a general strategic review initiated in Q1 2026 (previously disclosed).\nWellness: team offsite tentatively includes a spa day at the Marina South retreat after signing; do not include in budget pack circulated to the Board.\nThis memorandum is confidential and not price-sensitive in isolation; however, combined with timing/percentage data it could reasonably be expected to influence market behaviour, so treat as MNPI.",
+      "category": "PII",
+      "matched_text": "Board/Compliance memo: OceanLattice Holdings Ltd. (Mainboard-listed, Singapore) \u2014 Project Kestrel \u2014 indicative SPA terms with Ambernova Tech Pte. Ltd.\nPrepared by Ms. Alina Quek, Partner, Linden Law Chambers LLP; contact: compliance@lindenlaw.sg, +65 6123 7788",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "conjunctive_mnpi"
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_not_detect": [

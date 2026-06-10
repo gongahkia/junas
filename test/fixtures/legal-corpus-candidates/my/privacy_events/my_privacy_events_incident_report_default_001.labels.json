@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -187,6 +187,12 @@
       "category": "MNPI",
       "matched_text": "insider information standard",
       "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data classification: PDPA personal data potentially implicated was limited to employee names contained in file titles; no NRIC numbers, bank account details, health data, or addresses were exposed, and no MNPI under the CMSA was accessed.\nCross-border transfer: Replication to our Singapore recovery zone occurred previously under Data-Export Approval DEX-2026-014; during the incident window, no cross-border transfer of data subject email addresses took place",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -221,16 +227,16 @@
       "rule": "material_event"
     },
     {
-      "category": "PII",
-      "matched_text": "Data classification: PDPA personal data potentially implicated was limited to employee names contained in file titles; no NRIC numbers, bank account details, health data, or addresses were exposed, and no MNPI under the CMSA was accessed.\nCross-border transfer: Replication to our Singapore recovery zone occurred previously under Data-Export Approval DEX-2026-014; during the incident window, no cross-border transfer of data subject email addresses took place",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Summary: A misconfiguration on a vendor SFTP endpoint operated by Seroja Cloud Sdn Bhd briefly exposed HR onboarding form filenames (HRF-ONB/24) to an authenticated but non-privileged service role; no file contents were accessed.\nData classification: PDPA personal data potentially implicated was limited to employee names contained in file titles; no NRIC numbers, bank account details, health data, or addresses were exposed, and no MNPI under the CMSA was accessed.\nCross-border transfer: Replication to our Singapore recovery zone occurred previously under Data-Export Approval DEX-2026-014; during the incident window, no cross-border transfer of data subject email addresses took place.\nMinimisation: Effective immediately, onboarding forms will exclude date of birth and collect only initials plus employee ID hash; existing documents were re-indexed to remove direct identifiers from filenames.\nDSAR and consent: A DSAR from Encik Firdaus Bin Leman was received on 1 Jun 2026 via dsar@suntera-mekar.com.my and fulfilled within 48 hours; Puan Nor Aina Binti Rahman withdrew consent for recruitment profile retention, and erasure was completed on 1 Jun 2026 with confirmation captured in Compliance Memo CCM-2026-11.\nErasure control: In accordance with DPA Schedule 2 (Security and Deletion), Seroja Cloud executed secure deletion of transient access logs at 04:30 MYT on 1 Jun 2026; audit checksum provided and verified by our DPO.\nRetention: HR onboarding materials retention reduced from 18 months to 6 months; legacy archives are scheduled for purge on 15 Jun 2026, with litigation hold exceptions documented.\nBursa/CMSA assessment: Company Secretary reviewed LR 9.03 and CMSA s.188; the event is not material and does not involve price-sensitive information (e.g., no unaudited financials or deal terms), thus no immediate Bursa announcement is required.\nDeal room segregation: Financing and M&A workspaces, including the virtual data room for the proposed sukuk arranged with Kelana Trust Partners Berhad, run on a separate tenancy and were not connected to the affected SFTP endpoint.\nPolicy-only control statement: Our insider information standard prohibits storing projections or term sheets on HR systems; this control was already in force and was not breached.\nContainment: The misconfiguration was fixed at 23:10 MYT on 31 May 2026; access keys rotated, and least-privilege policies re-applied per BNM RMiT guidance.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: Replication to our Singapore recovery zone occurred previously under Data-Export Approval DEX-2026-014; during the incident window, no cross-border transfer of data subject email addresses took place",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [],

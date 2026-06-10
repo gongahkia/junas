@@ -1,0 +1,425 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "EU",
+    "doc_id": "eu_quasi_identifiers_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/eu/quasi_identifiers/eu_quasi_identifiers_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "EU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/eu_quasi_identifiers_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 42,
+    "current_must_detect_count": 13,
+    "current_must_not_detect_count": 4,
+    "previous_ideal_must_detect_count": 34,
+    "previous_must_detect_count": 19,
+    "previous_must_not_detect_count": 4
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_quasi_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jaro Vennik",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "jaro.v@luminara.example.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@luminara.example.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@nordhaven-mtf.example.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "complaints@cuda.example.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1992-08-19",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1978-04-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 34",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "198.51.100.7",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we DO NOT collect device MAC addresses",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not record precise GPS",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we pseudonymise session IDs where feasible",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list maintenance",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists (Project \u201cNORTHWIND\u201d)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project \u201cNORTHWIND\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "based in R o t h a v e n (E U -10 45), age 34, DOB 1992-08-19",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LB-r02-VA",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "s=pk73-rot-ESG",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "gl-ledger:R4-110-rot",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "uid=JV-19920819",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "S ID: S:F-  9 7",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "non-EEA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EU SCCs (Module 2)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TIAs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we never store biometric templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "delete any health-related notes within 30 days after the event",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ticket=74c2-rot",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we may store city-level location",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft earnings",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced sustainability-linked financing",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1992-08-19",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1978-04-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market Abuse controls: MNPI relating to Luminara securities (e.g., draft earnings, unannounced sustainability-linked financing) is restricted; insider lists (Project \u201cNORTHWIND\u201d) are maintained with timestamps and role descriptions, and access is logged.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security and minimisation: we DO NOT collect device MAC addresses, we do not record precise GPS, and we pseudonymise session IDs where feasible; we may store city-level location for fraud controls and lawful interest balancing tests are documented.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "jaro.v@luminara.example.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "complaints@cuda.example.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1992-08-19",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1978-04-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jaro Vennik",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market Abuse controls: MNPI relating to Luminara securities (e.g., draft earnings, unannounced sustainability-linked financing) is restricted; insider lists (Project \u201cNORTHWIND\u201d) are maintained with timestamps and role descriptions, and access is logged.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security and minimisation: we DO NOT collect device MAC addresses, we do not record precise GPS, and we pseudonymise session IDs where feasible; we may store city-level location for fraud controls and lawful interest balancing tests are documented.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For example, Mr. Jaro Vennik (Senior ESG Analyst, Luminara BioSystems N.V.), based in R o t h a v e n (E U -10 45), age 34, DOB 1992-08-19, may appear in insider records with device tag \u201cLB-r02-VA\u201d, work email jaro.v@luminara.example.eu, and session ref s=pk73-rot-ESG when accessing the MNPI portal.\nIn addition, his internal account alias may be logged as gl-ledger:R4-110-rot, and the MAR access URL could embed values, e.g., https://portal.luminara.example.eu/insider?proj=NORTHWIND&uid=JV-19920819&loc=rot; network events may show 198.51.100.7 and browser \u201cAuricom A4/12.2\u201d.\nData subject requests can be submitted via privacy@luminara.example.eu or https://portal.luminara.example.eu/dsar?ticket=74c2-rot&uid=an0n; we validate identity using non-intrusive checks and respond within one month under GDPR.\nCross-border processing: selected analytics are performed by Oryx Metrics Ltd (processor) in Ardonia (non-EEA); transfers rely on EU SCCs (Module 2) with TIAs and supplementary encryption; a copy of the SCCs is available on request.\nSpecial categories: we do not process Article 9 data unless explicit consent is recorded (e.g., accessibility accommodations for shareholder events); we never store biometric templates and delete any health-related notes within 30 days after the event.\nMarket Abuse controls: MNPI relating to Luminara securities (e.g., draft earnings, unannounced sustainability-linked financing) is restricted; insider lists (Project \u201cNORTHWIND\u201d) are maintained with timestamps and role descriptions, and access is logged.\nTrading restrictions: staff must seek pre-clearance via compliance@nordhaven-mtf.example.eu for dealings during closed periods; personal trades in issuer instruments are blocked while on an insider list.\nRetention: MAR insider lists and audit trails are kept 5 years from the end of the relevant event; CSRD/SFDR working papers are retained 7 years; device/session logs used for security are rotated within 180 days, unless a legal hold applies.\nSecurity and minimisation: we DO NOT collect device MAC addresses, we do not record precise GPS, and we pseudonymise session IDs where feasible; we may store city-level location for fraud controls and lawful interest balancing tests are documented.\nThe following data are used only in aggregate and are not linked to identified persons: age band 40\u201349, city \u201cEastport\u201d, device model \u201cSeaGlass T12\u201d, alias \u201cuser-8841\u201d, and week-of-year login counts; e.g., DOB 1978-04-03 is processed only after immediate hash and salt.\nObfuscated operational references may appear in exports: ac nt: EU-TRA N S -0458; S ID: S:F-  9 7; fin-acc note \u201cGL-   M3-774\u201d; these strings are system artifacts and not intended to identify a natural person.\nWe use public-source sustainability benchmarks from the fictional OpenEco Index and issuer-published reports; we do not scrape personal social media for CSRD metrics.\nYou have rights of access, rectification, erasure, restriction, and objection; to lodge a complaint you may contact the Coastal Union Data Protection Authority (CUDA) at complaints@cuda.example.eu.\nThis notice is periodically reviewed; material updates will be communicated to relevant stakeholders and recorded in the processing activity register; non-material editorial changes (typos, formatting) may occur without notice.\ntodo: move q2 insider list to archive by q3; confirm scc annex updates; note: \u201cmac not collected\u201d flag must remain true in config; product names \u201cAuricom A4\u201d and \u201cSea",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "mac not collected",
+      "reason": "False-positive bait; phrase is a config flag, not a MAC address identifier"
+    },
+    {
+      "matched_text": "user-8841",
+      "reason": "Aggregate-only alias example; not linked to an identified person"
+    },
+    {
+      "matched_text": "SeaGlass T12",
+      "reason": "Device model name; not a device identifier"
+    },
+    {
+      "matched_text": "Eastport",
+      "reason": "Generic city reference; not identifying on its own"
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "consent",
+      "matched_text": "preferences collected with consent",
+      "reason": "Consent is legally relevant but there is no explicit consent marker rule beyond withdrawal"
+    },
+    {
+      "concept": "DSAR link",
+      "matched_text": "https://portal.luminara.example.eu/dsar?ticket=74c2-rot&uid=an0n",
+      "reason": "DSAR workflow is relevant but not covered by an allowed marker rule"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "kept 5 years from the end of the relevant event",
+      "reason": "Retention periods are privacy-event markers but no explicit retention rule is provided"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "retained 7 years",
+      "reason": "Retention period mention without a dedicated allowed rule"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "rotated within 180 days",
+      "reason": "Operational log retention is relevant but not in the allowed rules"
+    },
+    {
+      "concept": "special category (health/disability)",
+      "matched_text": "accessibility accommodations for shareholder events",
+      "reason": "Implies processing of health-related data but not explicitly mapped to an allowed special-category rule phrase"
+    },
+    {
+      "concept": "legitimate interest documentation",
+      "matched_text": "lawful interest balancing tests are documented",
+      "reason": "Legitimate interest assessments are relevant but not covered by allowed rules"
+    },
+    {
+      "concept": "identity verification method",
+      "matched_text": "we validate identity using non-intrusive checks",
+      "reason": "Identity verification approach is relevant to privacy but not mapped to an allowed rule"
+    }
+  ]
+}

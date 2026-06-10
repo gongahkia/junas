@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -350,6 +350,12 @@
       "matched_text": "Confidential Term Sheet (Project Angsana) \u2014 Proposed acquisition of 70% equity in Kencana Data Grid Sdn Bhd and associated MYR 180,000,000 senior term financing.\nAcquirer: Serunai Utilities Berhad (Company No.: 202101234567; Malaysian Tax Ref.: C1234567890), registered office: Level 25, Menara Serunai, No. 8 Jalan Mawar Lestari, 50988 Bandar Seri Langit, Wilayah Tengah, Malaysia.\nTarget: Kencana Data Grid Sdn Bhd (Company No.: 201801112233), principal office: Unit 12-3, Wisma Lazuardi, Persiaran Satria 9, 63110 Kota Bayu, Selangor Muda, Malaysia.\nConsideration: MYR 265,000,000 in cash subject to completion accounts; Funding: MYR 180,000,000 term loan from Kelana Capital Bank Berhad and MYR 85,000,000 internal funds.\nEscrow: Deposited with TFA Corporate Services Sdn Bhd (Company No.: 201901998877) at Kelana Capital Bank Berhad, Escrow A/C No.: 1020-3399-4455; Payment currency: MYR; SWIFT: KCBMMYKL.\nKey contacts: Encik Farid Danial (Passport No.: A45283917), Director, Serunai Utilities Berhad; Email: farid.danial@serunai-utilities.my; Tel: +60 12-634 7789.\nRegulatory approvals: Suria Capital Markets Authority (SCMA) and the Main Market of Bursa Sukma Securities Exchange; compliance with LR 9.03 immediate announcement and Chapter 10 transactions.\nMNPI: This term sheet and all information on Project Angsana are non-public; trading in Serunai Utilities Berhad shares and derivatives is prohibited until announcement on Bursa Sukma; maintain insider list with Company Secretary.\nEmployment/retention: Post-completion, Puan Nur Aina Kassim to execute a three-year service agreement as COO; PDPA notices to all transferring employees to be acknowledged on or before Closing.\nConditions precedent: satisfactory legal/financial due diligence, third-party consents, discharge of existing security, no material adverse change, and confirmation of SST compliance by Target.\nCovenants: Exclusivity/no-shop for 60 days; customary interim operating covenants; Break fee: MYR 6,000,000 payable by breaching party.\nClosing: Target date 30 September 2026; Long Stop Date 30 November 2026; completion to occur at Kelana Capital Bank Berhad, Jalan Sentosa Jaya branch, Bandar Seri Langit.\nNotices: To Serunai Utilities Berhad c/o Legal Department, Level 25, Menara Serunai, Bandar Seri Langit; Email for notices: legal@serunai-utilities.my; Fax: +60 3-2712 4000.\nPublic channel (not a deal contact): 1-800-88-0000; Template field for HR onboarding: NRIC/Passport No.: __________ (placeholder only).\nIdentifier bait (non-usable): IBAN MY00 1234 5678 9012 34 (Malaysia does not use IBAN); Generic account ref: 999999-999999 (invalid).",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Public channel (not a deal contact): 1-800-88-0000; Template field for HR onboarding: NRIC/Passport No.: __________ (placeholder only).\nIdentifier bait (non-usable): IBAN MY00 1234 5678 9012 34 (Malaysia does not use IBAN); Generic account ref: 999999-999999 (invalid)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

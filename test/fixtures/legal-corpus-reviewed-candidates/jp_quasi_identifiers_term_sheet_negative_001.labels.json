@@ -1,0 +1,304 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "JP",
+    "doc_id": "jp_quasi_identifiers_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/jp/quasi_identifiers/jp_quasi_identifiers_term_sheet_negative_001.txt",
+    "source_jurisdiction": "JP",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/jp_quasi_identifiers_term_sheet_negative_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_quasi_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "tob@hinode-robotics.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr-questions@momiji-sensors.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-04-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions: Closing requires special committee recommendations at each company, shareholder approvals where applicable, clearance from the Shinsei Competition Authority, and completion of post-TOB squeeze-out procedures permitted under applicable law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Intentional positive identifier cluster (for HR transfer planning only): one target employee (operations supervisor) based in Sapporo, DOB 1990-04-12, internal employee code E-1742, device IMEI 357111-00-123456-7, and payroll account suffix 4432, will be seconded post-closing; these data points must not be disclosed outside the HR workstream.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee matters: No mass transfer of personnel files will occur prior to closing; benefits harmonization will use aggregated data, and any cross-functional secondment will be documented without collecting personal phone numbers or home addresses.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IMEI 357111-00-123456-7",
+      "rule": "imei"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1990-04-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "one target employee (operations supervisor) based in Sapporo, DOB 1990-04-12, internal employee code E-1742, device IMEI 357111-00-123456-7, and payroll account suffix 4432",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "internal employee code E-1742",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll account suffix 4432",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MDM ID: DEV-0000-0000 (sample only)",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "My Number (NNNN-NNNN-NNNN)",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "need-to-know basis",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "will not collect \u201cMy Number\u201d except where legally required for payroll/tax",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pseudonymized",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no requirement for shareholders to submit My Number for this transaction",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be disclosed outside the HR workstream",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "tob@hinode-robotics.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr-questions@momiji-sensors.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-04-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions: Closing requires special committee recommendations at each company, shareholder approvals where applicable, clearance from the Shinsei Competition Authority, and completion of post-TOB squeeze-out procedures permitted under applicable law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Intentional positive identifier cluster (for HR transfer planning only): one target employee (operations supervisor) based in Sapporo, DOB 1990-04-12, internal employee code E-1742, device IMEI 357111-00-123456-7, and payroll account suffix 4432, will be seconded post-closing; these data points must not be disclosed outside the HR workstream.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee matters: No mass transfer of personnel files will occur prior to closing; benefits harmonization will use aggregated data, and any cross-functional secondment will be documented without collecting personal phone numbers or home addresses.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ics (issuer, listed on the Kanto Growth Exchange) proposes a friendly TOB for Momiji Sensors K.K., to be followed by a share exchange; this term sheet is non-binding and summarizes principal terms.\nRegulatory context: Disclosure will comply with the Financial Instruments and Exchange Act (FIEA) and the Kanto Growth Exchange rules; any tender-offer facts not yet publicly announced are treated as MNPI until release.\nPrice and ratio: The indicative, non-binding price range and illustrative exchange ratio were preliminarily disclosed on 2026-01-15; final terms are subject to both boards\u2019 approvals and customary confirmatory due diligence.\nConditions: Closing requires special committee recommendations at each company, shareholder approvals where applicable, clearance from the Shinsei Competition Authority, and completion of post-TOB squeeze-out procedures permitted under applicable law.\nFunding: Consideration will be funded through a committed bridge facility from Hoshi Capital SPC and an equity commitment letter from Azuma Ventures Fund I LPS; no security interests over personal data will be taken.\nSecurities workflow: The bidder will file a tender offer registration statement and publish an English summary; settlement of shares will be administered by Eastbay Securities Transfer Agency K.K., with no requirement for shareholders to submit My Number for this transaction.\nAPPI compliance: Each party will process personal data subject to the APPI on a need-to-know basis, and will not collect \u201cMy Number\u201d except where legally required for payroll/tax; any employee lists provided shall be pseudonymized and accompanied by retention/deletion instructions.\nVDR and devices: Access to the virtual data room requires MDM enrollment and watermarking; example device record format is \u201cMDM ID: DEV-0000-0000 (sample only)\u201d, and contractor laptops must have disk encryption enabled.\nInsider control: Directors, officers, and designated employees are subject to blackout periods and an insider list will be maintained by the issuer\u2019s Compliance Office; no trading in issuer or target securities is permitted while in possession of MNPI.\nIntentional positive identifier cluster (for HR transfer planning only): one target employee (operations supervisor) based in Sapporo, DOB 1990-04-12, internal employee code E-1742, device IMEI 357111-00-123456-7, and payroll account suffix 4432, will be seconded post-closing; these data points must not be disclosed outside the HR workstream.\nNon-identifying example: generic descriptors such as \u201cpart-time engineer in Osaka, born in 1987\u201d or \u201cage band 30s in Nagano\u201d by themselves are illustrative and are not to be used to single out an individual.\nForm placeholders (do not complete here): Name [________]; Department [________]; My Number (NNNN-NNNN-NNNN) [________]; Securities code [XXXX]; ISIN [________]; Account No. [XXXX-XXXX]; these labels are for standard forms only and not required for the tender offer acceptance.\nGovernance: Each board will constitute a special committee of outside directors to evaluate the transaction independently, with minutes circulated to the full board; no individual director personal data will be included in public filings.\nEmployee matters: No mass transfer of personnel files will occur prior to closing; benefits harmonization will use aggregated data, and any cross-functional secondment will be documented without collecting personal phone numbers or home addresses.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "part-time engineer in Osaka, born in 1987",
+      "reason": "Generic illustrative demographics explicitly noted as non-identifying"
+    },
+    {
+      "matched_text": "age band 30s in Nagano",
+      "reason": "Generic illustrative demographics explicitly noted as non-identifying"
+    },
+    {
+      "matched_text": "Name [________]",
+      "reason": "Placeholder field, no actual PII present"
+    },
+    {
+      "matched_text": "Department [________]",
+      "reason": "Placeholder field, no actual PII present"
+    },
+    {
+      "matched_text": "Securities code [XXXX]",
+      "reason": "Placeholder/instrument code example, not PII"
+    },
+    {
+      "matched_text": "ISIN [________]",
+      "reason": "Placeholder instrument code, not PII"
+    },
+    {
+      "matched_text": "Account No. [XXXX-XXXX]",
+      "reason": "Placeholder, not an actual bank account number"
+    },
+    {
+      "matched_text": "My Number (NNNN-NNNN-NNNN) [________]",
+      "reason": "Placeholder format without an actual personal number"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "retention/erasure marker",
+      "matched_text": "retention/deletion instructions",
+      "reason": "Legally relevant retention/erasure control under APPI but no explicit retention rule name in allowed list"
+    },
+    {
+      "concept": "employee identifier",
+      "matched_text": "internal employee code E-1742",
+      "reason": "Employee ID format is bespoke; strict regex engines may not capture it reliably"
+    },
+    {
+      "concept": "device identifier",
+      "matched_text": "MDM ID: DEV-0000-0000 (sample only)",
+      "reason": "Device ID is an example placeholder; classification as device_serial_number may be debated for strict detection"
+    },
+    {
+      "concept": "partial bank account",
+      "matched_text": "payroll account suffix 4432",
+      "reason": "Only a suffix is provided; may not meet strict detection criteria for bank account numbers"
+    },
+    {
+      "concept": "definitive agreement label (lowercase)",
+      "matched_text": "term sheet",
+      "reason": "Lowercase \u2018term sheet\u2019 may not be captured by detectors that only target capitalized agreement titles"
+    }
+  ]
+}

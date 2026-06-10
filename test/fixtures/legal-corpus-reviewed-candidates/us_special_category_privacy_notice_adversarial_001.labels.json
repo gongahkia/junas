@@ -1,0 +1,335 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_special_category_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/special_category/us_special_category_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_special_category_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 37,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 31,
+    "old_must_detect_count": 15,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Elgin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Elgin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Sila Mora",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dana Keats",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "voiceprint",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@harborstonehb.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@harborstonehb.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@harborstonehb.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1\u2011555\u2011014\u20117724",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dana Keats, CCO",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric time\u2011clock face geometry scans",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic carrier screen result \u201cCF\u2011carrier positive (screen\u2011only)\u201d",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "treatment code T\u201147 physical therapy sessions",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "self\u2011disclosed religious affiliation \u201cSeventh City Fellowship\u201d",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union membership \u201cAllied Care Technicians Local 12.\u201d",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "voiceprint hash (v0, non\u2011reversible) vpr:a93f::0d//b1\u2011elgin\u2011red",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure to covered market actors (sell\u2011side analysts, buy\u2011side PMs) is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No material non\u2011public financial figures are contained in this packet",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A c c o u n t  I D : HHB\u2011A9G\u20113 9 9",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HHB\u2011A9G\u2011399",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR\u2011ELGIN\u20110x7B",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CHP/ELGIN/0x3D",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric logs (time\u2011clock) retained 3 years from last use",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic screening documentation retained 10 years per clinical policy",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HRIS religion/union fields retained 1 year post employment termination",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "financial system artifacts retained per GLBA schedule (5\u20137 years)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "government identifier images, if any, must be redacted (e.g., S SN shown as xx\u2011xx\u20115Q20) before storage",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "requests access, deletion, and restriction",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public pipeline details",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "we will not produce drafts, \u201cwhisper numbers,\u201d or segment margin bridges",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not email sell\u2011side analysts directly",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor Relations safe channel: ir@harborstonehb.example",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "R\u2011ELGIN\u20112026",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tok=pct%2Fus\u2011ccpa",
+      "rule": "internal_session_id"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Elgin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Elgin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Sila Mora",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dana Keats",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "voiceprint",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data subject: Mr. Rowan Elgin (employee and patient) requests access, deletion, and restriction of: (a) biometric time\u2011clock face geometry scans; (b) genetic carrier screen result \u201cCF\u2011carrier positive (screen\u2011only)\u201d; (c) treatment code T\u201147 physical therapy sessions; (d) self\u2011disclosed religious affiliation \u201cSeventh City Fellowship\u201d; (e) union membership \u201cAllied Care Technicians Local 12.\u201d\nLocator and obfuscated IDs: A c c o u n t  I D : HHB\u2011A9G\u20113 9 9; HRIS: HR\u2011ELGIN\u20110x7B; patient chart r e f : CHP/ELGIN/0x3D; portal: https://portal.harborstonehb.example/dsar?case=R\u2011ELGIN\u20112026&tok=pct%2Fus\u2011ccpa\nScope: Under CCPA we treat consumer/household data reasonably linkable to Mr. Elgin; under HIPAA the above clinical items are PHI; under GLBA any linked application/loan telemetry is NPI and handled under 16 CFR 314.4.\nMNPI/Reg FD gate: selective disclosure to covered market actors (sell\u2011side analysts, buy\u2011side PMs) is prohibited; DSAR fulfillment will exclude",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dana Keats, CCO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Northport Mariners",
+      "reason": "Sports team name; not personal data or MNPI."
+    },
+    {
+      "matched_text": "Open Doors DEI statement",
+      "reason": "Policy name/generic DEI prose; not describing a person."
+    },
+    {
+      "matched_text": "Pioneer Stock Market \u201cPSM\u201d",
+      "reason": "Market/product name/acronym; not PII/MNPI."
+    },
+    {
+      "matched_text": "FDA recall bulletins",
+      "reason": "Public-source reference; explicitly noted as not MNPI."
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "internal code",
+      "matched_text": "7\u2011F\u20113\u2011A",
+      "reason": "Voicemail code may be linkable to a person but not clearly covered by a specific allowed PII rule."
+    },
+    {
+      "concept": "case identifier",
+      "matched_text": "R\u2011ELGIN\u20112026",
+      "reason": "Case/token identifier may be linkable; mapped under internal_session_id in ideal tier but not reliably caught by strict rules."
+    },
+    {
+      "concept": "token parameter",
+      "matched_text": "tok=pct%2Fus\u2011ccpa",
+      "reason": "URL token may function as an access or tracking token; not clearly within current strict PII rule set."
+    }
+  ]
+}

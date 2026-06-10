@@ -1,0 +1,455 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled IN Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "IN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_warnings": [
+    "drop must_detect: text not verbatim rule='cyber_incident_pre_disclosure' text='UPSI\\x01Cyber'",
+    "drop must_detect: text not verbatim rule='esg_climate_pre_disclosure' text='UPSI\\x01ESG/Climate'",
+    "drop must_detect: text not verbatim rule='transaction_codename' text='Project Mango\\x01Breeze'",
+    "drop ideal_must_detect: text not verbatim rule='cyber_incident_pre_disclosure' text='UPSI\\x01Cyber'",
+    "drop ideal_must_detect: text not verbatim rule='esg_climate_pre_disclosure' text='UPSI\\x01ESG/Climate'",
+    "drop ideal_must_detect: text not verbatim rule='transaction_codename' text='Project Mango\\x01Breeze'",
+    "drop ideal_must_detect: text not verbatim rule='nonpublic_marker' text='UPSI\\x01Crypto/VDA'",
+    "drop ideal_must_detect: text not verbatim rule='information_barrier_marker' text='clean\\x01team protocols'",
+    "drop ideal_must_detect: text not verbatim rule='selective_disclosure_risk' text='do not brief VarunaBit, Auriga, or climate\\x01assurance consultants on price\\x01sensitive metrics beyond NDA scope'",
+    "drop ideal_must_detect: text not verbatim rule='blackout_period_reference' text='from 01\\x0106\\x012026 until 48 hours after outcome disclosures'",
+    "drop ideal_must_detect: text not verbatim rule='volume_commitment' text='minimum commitment \\x0b12.5m/quarter'",
+    "drop uncertain: text not verbatim text='no cross\\x01border transfer of child data without additional notice and purpose limitation.'",
+    "drop uncertain: text not verbatim text='guardian consent logged via Form\\x01C'",
+    "drop uncertain: text not verbatim text='two\\x01year exclusivity'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "owner_approved_in_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_sector_mnpi_memo_adversarial_001",
+    "label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/sector_mnpi/in_sector_mnpi_memo_adversarial_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_sector_mnpi_memo_adversarial_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_sector_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "r.kapur@asterbilt.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rhea Kapur",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dev Malhotra",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operations note (non\u2011market): the climate data pipeline backlog and endpoint patch window are routine IT tasks and not linked to any securities offering.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Mango",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "14%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.relations@asterbilt.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "8 7 2 3  5 4 9 1  0 0 3 5",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@asterbilt.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27ASTRB1234Z9Q0",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child <18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not email unmasked data or store outside approved systems",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redact PII in board packs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no SEBI, NSE, or BSE intimation issued yet",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been publicly disseminated",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Trading window: closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure/tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Q T Z P S 8 4 3 1 F",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "8 7 2 3  5 4 9 1  0 0 3 5",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "explicit consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "replace names with role tags",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "beneficiary (child <18)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized access in our CloudEdge node at Auriga Data Services Pvt. Ltd",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "https://intranet.asterbilt.in/insider?lid=BRX-IL-2026&uid=r.kapur%40asterbilt.in",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "walled off",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "all analyst/media queries must route via investor.relations@asterbilt.in",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "r.kapur@asterbilt.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rhea Kapur",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dev Malhotra",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operations note (non\u2011market): the climate data pipeline backlog and endpoint patch window are routine IT tasks and not linked to any securities offering.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Mango",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "14%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board Audit Committee; From: Chief Compliance Officer, Ms. Rhea Kapur; contacts: r.kapur@asterbilt.in and compliance@asterbilt.in. \nUPSI\u2014Cyber: On 27 May, the CISO reported unauthorized access in our CloudEdge node at Auriga Data Services Pvt. Ltd.; ~2.1% revenue systems isolated; no SEBI, NSE, or BSE intimation issued yet. \nUPSI\u2014Crypto/VDA: Draft MoU with VarunaBit Digital Assets Pvt. Ltd. for sandbox VDA settlement is in con- fidential negotiation; proposed take\u2011rate 0.35% with minimum commitment \u20b912.5m/quarter and two\u2011year exclusivity. \nUPSI\u2014ESG/Climate: Preliminary FY26 climate audit shows a 14% variance vs disclosed Scope\u20112 factors; Board is considering a private green loan at SOFR+210 with a renewable\u2011intensity KPI; this has not been publicly disseminated. \nInsider list: maintain and circulate only to designated persons; add \u201cProject Mango\u2011Breeze\u201d (cyber remediation + VDA pilot) at https://intranet.asterbilt.in/insider?lid=BRX-IL-2026&uid=r.kapur%40asterbilt.in; do not forward. \nDPDPA: Processing of employee/vendor PII relies on explicit consent; sample records (masked) \u2014 P A N: Q T Z P S 8 4 3 1 F; A a d h a a r: 8 7 2 3  5 4 9 1  0 0 3 5; G S T I N: 27ASTRB1234Z9Q0; do not email unmasked data or store outside approved systems. \nChild data: one beneficiary (child <18) linked to Mr. Dev Malhotra for ESI reimbursement; guardian consent logged via Form\u2011C; no cross\u2011border transfer of child data without additional notice and purpose limitation. \nInformation barriers: Corporate Finance and Digital Assets teams remain on opposite sides of the wall; Research and Sales are walled off; external advisors to be briefed on clean\u2011team protocols and restricted\u2011list obligations. \nTrading window: closed for all designated persons from 01\u201106\u20112026 until 48 hours after outcome disclosures; no dealing, pledging, or derivatives; all pre\u2011clearance requests are to be recorded as denied during this window. \nSelective disclosure/tipping: do not brief VarunaBit, Auriga, or climate\u2011assurance consultants on price\u2011sensitive metrics beyond NDA scope; all analyst/media queries must route via investor.relations@asterbilt.in. \nNegative assurance: no material adverse change is presently asserted, and any figures cited from Daily Ledger or open\u2011source ESG repositories are public and non\u2011controlling. \nEducation/marketing only: the \u201cCrypto Wallet Basics\u201d campus brochure and the \u201cCyber Hygiene Week\u201d posters reuse terms like VDA, hacking, and green mining solely for training; they do not communicate UPSI, commercial terms, or rollout dates. \nOperations note (non\u2011market): the climate data pipeline backlog and endpoint patch window are routine IT tasks and not linked to any securities offering. \nRedaction protocol: redact PII in board packs (e.g., A a d h a a r digits and P A N) before uploading to https://dataroom.asterbilt.in/board?pkg=FY26_Q1&mask=pii\u2011on; replace names with role tags. \nRoutine PM: next steps \u2014 add to restricted list, draft SEBI intimation templates, rehearse ransomware DR playbook for \u201cAsterbilt Shield\u201d endpoints; owner: legal/compliance; due: 31 aug; q",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board Audit Committee",
+      "reason": "Role/body term, not PII or MNPI by itself."
+    },
+    {
+      "matched_text": "CISO",
+      "reason": "Job title/role noun, not personal data by itself."
+    },
+    {
+      "matched_text": "Corporate Finance",
+      "reason": "Team/role noun, not PII."
+    },
+    {
+      "matched_text": "Digital Assets",
+      "reason": "Team/role noun, not PII."
+    },
+    {
+      "matched_text": "Research",
+      "reason": "Team/role noun, not PII."
+    },
+    {
+      "matched_text": "Sales",
+      "reason": "Team/role noun, not PII."
+    },
+    {
+      "matched_text": "designated persons",
+      "reason": "Role class, not PII."
+    },
+    {
+      "matched_text": "external advisors",
+      "reason": "Role class, not PII."
+    },
+    {
+      "matched_text": "owner: legal/compliance",
+      "reason": "Function/role notation, not PII."
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "consent_marker",
+      "matched_text": "explicit consent",
+      "reason": "Legal basis reference for processing; may or may not be in scope for consent event detection."
+    },
+    {
+      "concept": "email_address",
+      "matched_text": "r.kapur%40asterbilt.in",
+      "reason": "Email present in URL\u0001encoded form; may not be caught by strict email regex."
+    },
+    {
+      "concept": "insider_list_marker",
+      "matched_text": "BRX-IL-2026",
+      "reason": "Internal insider list identifier; marker may be useful but not directly covered by a specific rule."
+    },
+    {
+      "concept": "financial_term",
+      "matched_text": "SOFR+210",
+      "reason": "Loan pricing expressed as spread; not an enumerated financial amount/percentage rule."
+    },
+    {
+      "concept": "transaction_codename_like",
+      "matched_text": "Asterbilt Shield",
+      "reason": "Internal initiative name not matching the 'Project <Name>' codename pattern."
+    }
+  ]
+}

@@ -1,0 +1,459 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled PH Stage A strict labels to deterministic strict-mode findings after manual precision review; retained broader model-derived labels in ideal_must_detect. Narrow precision fixes covered completed DSAR/no-pending controls, PH benefit-ID/BankAcct/doccode phone bait, invalid/placeholder PH TIN, role mailboxes, training-control MNPI bait, and negated/explanatory MAC/MAE prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ph-stage-a-20260529",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "PH",
+    "doc_id": "ph_special_category_memo_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ph/special_category/ph_special_category_memo_default_001.txt",
+    "source_jurisdiction": "PH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ph_special_category_memo_default_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_special_category_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "+22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet circulated externally",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not include in external investor decks",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until the current report is posted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "eq@aurorafinserve.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@aurorafinserve.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@aurorafinserve.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elara M. Quinto",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account No. 00-228-AX74",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chemotherapy treatment",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric fingerprint logs",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religious affiliation \u201cLumina Path Fellowship\u201d",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "membership in the AuroraWorks Employee Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "political preference \u201cCivic Renewal Party\u201d",
+      "rule": "political_opinion"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "age_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redact the child\u2019s name",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "to acquire Newgrowth Microfinance Corp",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "planned follow-on offering",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "listing event on the Luzon Stock Exchange",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor child Lio S. Quinto",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Student ID QN-12-771",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RTB Tax ID RTB-909-447",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purge this as not necessary for employment processing",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limit access to the Tax Team",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elara",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Quinto",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Quinto",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal-Compliance Memorandum: Aurora Finserve Holdings, Inc. (PH issuer) \u2014 Data Privacy Act and SRC considerations in connection with the planned follow-on offering and concurrent HR/tax/banking workflows.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material, non-public items: executed term sheet (28 May 2026) with Baystar Capital Markets (bookrunner) to acquire Newgrowth Microfinance Corp.; unaudited Q2 NOI +22% vs. prior guidance; draft Form 17-C slated for 03 June submission and not yet circulated externally.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Product pipeline MNPI: \u201cBlue Mango Microloan\u201d launch and fee repricing post-closing; do not include in external investor decks until the current report is posted.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "eq@aurorafinserve.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@aurorafinserve.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elara",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Quinto",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Quinto",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal-Compliance Memorandum: Aurora Finserve Holdings, Inc. (PH issuer) \u2014 Data Privacy Act and SRC considerations in connection with the planned follow-on offering and concurrent HR/tax/banking workflows.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material, non-public items: executed term sheet (28 May 2026) with Baystar Capital Markets (bookrunner) to acquire Newgrowth Microfinance Corp.; unaudited Q2 NOI +22% vs. prior guidance; draft Form 17-C slated for 03 June submission and not yet circulated externally.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Product pipeline MNPI: \u201cBlue Mango Microloan\u201d launch and fee repricing post-closing; do not include in external investor decks until the current report is posted.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal-Compliance Memorandum: Aurora Finserve Holdings, Inc. (PH issuer) \u2014 Data Privacy Act and SRC considerations in connection with the planned follow-on offering and concurrent HR/tax/banking workflows.\nThis note addresses MNPI under the Securities Regulation Code and personal data obligations under R.A. 10173 in relation to a listing event on the Luzon Stock Exchange and filings with the PH Securities Registry (fictional).\nMaterial, non-public items: executed term sheet (28 May 2026) with Baystar Capital Markets (bookrunner) to acquire Newgrowth Microfinance Corp.; unaudited Q2 NOI +22% vs. prior guidance; draft Form 17-C slated for 03 June submission and not yet circulated externally.\nProduct pipeline MNPI: \u201cBlue Mango Microloan\u201d launch and fee repricing post-closing; do not include in external investor decks until the current report is posted.\nBanking: subscription escrow to be opened at Isla Verde Bank, Account No. 00-228-AX74 (Aurora Finserve Capital Raise Trust); account details are confidential until the listing notice is released by the exchange.\nHR/PII: Ms. Elara M. Quinto, Senior Payroll Officer (eq@aurorafinserve.ph), submitted HMO claims indicating chemotherapy treatment dated 14 April; biometric fingerprint logs from turnstiles were referenced in her attendance correction filed 15 April.\nHR/PII: Her file lists religious affiliation \u201cLumina Path Fellowship\u201d and membership in the AuroraWorks Employee Union; treat these special-category fields per Section 13 of R.A. 10173 (consent, proportionality, and purpose limitation).\nHR/PII: Dependents section identifies minor child Lio S. Quinto (age 12, Student ID QN-12-771) for HMO coverage; redact the child\u2019s name in any board materials distributed outside HR and Legal.\nCompliance note: a volunteer form inadvertently captured Ms. Quinto\u2019s political preference \u201cCivic Renewal Party\u201d; purge this as not necessary for employment processing and restrict any residual logs.\nTax: payroll pack includes RTB Tax ID RTB-909-447 and RTB Form 2316 equivalents; limit access to the Tax Team and do not transmit via unsecured channels.\nProspectus language: avoid discussing religion or sexual orientation; a neutral DEI statement may read, \u201cWe value inclusion, equity, and diversity across all teams,\u201d which is appropriate and non-sensitive.\nFor external comms, do not reference the Laguna Typhoons tie-in or the Aranga City branch mural; these are non-material marketing items and not germane to risk factors.\nCommunications tone: avoid blue-sky promises and rainbow-unicorn metaphors in analyst briefings; adhere to the Fair Marketing Policy and Responsible Use Policy.\nContact the Data Protection Office at dpo@aurorafinserve.ph for redaction templates; questions on SRC blackout periods may be sent to legal@aurorafinserve.ph.\nOperational reminder: recruiting must not inquire into religion, and attendance devices must not export raw biometric templates to any third-party vendor without a data sharing agreement.\nWe will file the 17-C and a supplemental 17-A amendment after clearance from the PH Securities Registry; until public disclosure, insider trading remains restricted under the blackout.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Blue Mango Microloan",
+      "reason": "Product name; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Laguna Typhoons",
+      "reason": "Sports team; non-PII bait"
+    },
+    {
+      "matched_text": "Aranga City",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Fair Marketing Policy",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Responsible Use Policy",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "We value inclusion, equity, and diversity across all teams",
+      "reason": "Generic DEI prose; non-sensitive"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "account details are confidential until the listing notice is released by the exchange",
+      "reason": "Confidentiality instruction may not relate to material investor information; MNPI status unclear"
+    },
+    {
+      "concept": "ph_tin",
+      "matched_text": "RTB Tax ID RTB-909-447",
+      "reason": "Nonstandard format for PH TIN; uncertain if this is a true tax identifier"
+    },
+    {
+      "concept": "student_identifier",
+      "matched_text": "Student ID QN-12-771",
+      "reason": "Personal identifier not explicitly covered by available rule set; mapped to account number in ideal tier"
+    },
+    {
+      "concept": "material_event",
+      "matched_text": "planned follow-on offering",
+      "reason": "Materiality depends on context and stage; event characterization may be ambiguous for strict detectors"
+    },
+    {
+      "concept": "data_sharing_control",
+      "matched_text": "attendance devices must not export raw biometric templates to any third-party vendor without a data sharing agreement",
+      "reason": "Privacy control directive is negated; rule 17 advises not to label negated controls though it\u2019s legally relevant"
+    }
+  ]
+}

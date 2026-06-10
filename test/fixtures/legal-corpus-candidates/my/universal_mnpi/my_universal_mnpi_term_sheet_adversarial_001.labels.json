@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
@@ -395,6 +395,18 @@
       "matched_text": "STRICTLY PRIVATE & CONFIDENTIAL \u2014 NOT FOR RELEASE \u2014 EMBARGOED UNTIL 14 Aug 2026 08:00 MYT \u2014 Project Nangka.\nTerm Sheet: Proposed acquisition of 62.5% equity in Tanjung Seroja Marine Sdn Bhd by Jati Perdana Holdings Berhad (Main Market issuer, Bursa Malaysia Securities).\nParties: Buyer \u2014 Jati Perdana Holdings Berhad; Seller \u2014 Kencana Lapis Resources Sdn Bhd (Rep: Encik Faris Nazim, faris.nazim@kencana-lapis.example.my).\nCompany contact: Puan Nor Aishah Aziz, CFO, ir@jati-perdana.example.com.my; meeting venue: Menara Hijau, Level 28, 19 Jalan Sunting 3, 50450 Kuala Lumpur.\nConsideration: MYR 180,000,000 cash + MYR 20,000,000 Vendor Loan Note; 10% deposit to escrow with Amanah Kencana Trustees (M) Sdn Bhd (Escrow Ref: AKT-XX88-4-90).\nConditions precedent: approvals under Paragraph 10.06 of the MMLR and Sections 188/317 CMSA compliance; shareholders\u2019 approval; BNM FEA confirmation; customary MAC/MAE for Target business.\nFor the avoidance of doubt, no MAC/MAE closing condition applies to the Tranche B disbursement of the Bridge Facility.\nFinancing: Bridge Facility of MYR 120,000,000 at 5.45% p.a. from Melur Capital Bank Berhad secured by share charge; negative pledge and DSCR \u2265 1.5x.\nDefinitive Agreements: Share Sale Agreement, Shareholders\u2019 Agreement, and Financing Agreements to be executed by 30 Sep 2026; Long-Stop Date: 31 Oct 2026; termination fee 2.0%.\nAnalyst preview (internal only): pro forma FY2027 EPS accretion ~12% and net gearing falls to 0.9x post-issue; preliminary synergy est. MYR 14\u201318m p.a.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "19 Jalan Sunting 3, 50450 Kuala Lumpur",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "my_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Nor Aishah Aziz, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

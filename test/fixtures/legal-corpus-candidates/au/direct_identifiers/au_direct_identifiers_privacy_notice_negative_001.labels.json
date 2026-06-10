@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -157,6 +157,12 @@
       "matched_text": "Wattle Creek Holdings Pty Ltd (Australia) \u2014 Privacy & Retention Workflow and MNPI Controls (Privacy Act 1988 (Cth), Corporations Act, ASX/ASIC)\nThis note applies to employment, HSE, payroll, credit assessment, vendor onboarding, and investor relations conducted in Australia.\nPersonal information means information or opinion about an identified or reasonably identifiable individual collected and handled in accordance with the Australian Privacy Principles.\nCollection points include paper and online forms with labels such as Full Name, Residential Address, AU Passport No, TFN (optional), BSB/Account, Contact Number, and Email.\nFormatting-only examples (invalid/placeholder): TFN 123 456 782; ACN 000 000 000; BSB 000-000; Account 12345678X; AU Passport <QZ1234567>; Street <0 Example Rd, Nulltown NSW 2999>.\nPrivacy contact for requests and complaints: privacy.office@wattlecreek.example.au; general enquiries helpline 1300 000 111 (public-facing line; do not use for emergencies).\nRegistered office for correspondence: Suite 4, 1 Paperbark Place, Nulltown NSW 2999; do not send identity documents by post unless requested.\nUse and retention: TFNs are used solely for tax withholding and are deleted after first PAYG processing; payroll summaries and credit decision records are retained for 7 years, then securely destroyed.\nHealth and safety incident data is stored separately with restricted access and reviewed for deletion at 2-year intervals unless required for legal claims.\nMNPI handling: information not generally available that would reasonably be expected to materially affect Wattle Creek financial products is classified as MNPI under the Corporations Act and internal policy aligned to ASIC guidance.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1 Paperbark Place, Nulltown NSW 2999",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "au_postal_address"
     }
   ],
   "must_not_detect": [

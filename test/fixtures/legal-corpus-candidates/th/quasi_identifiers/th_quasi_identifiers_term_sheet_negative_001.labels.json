@@ -46,11 +46,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 1,
     "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -188,6 +188,12 @@
       "category": "PII",
       "matched_text": "Singapore paying agent",
       "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Insider procedures: An insider list template may be circulated in draft form; do not populate with actual names or personal emails until board approval and only after PDPA notices are delivered.\nResponsible officer (for KYC only): Finance Manager, born 1990-04, based in Bang Kapi district, device tag DR-7A, staff code LR-00319, internal wallet ref 88-XX-5123; no personal phone or private email will be collected in this term sheet",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -237,16 +243,22 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Insider procedures: An insider list template may be circulated in draft form; do not populate with actual names or personal emails until board approval and only after PDPA notices are delivered.\nResponsible officer (for KYC only): Finance Manager, born 1990-04, based in Bang Kapi district, device tag DR-7A, staff code LR-00319, internal wallet ref 88-XX-5123; no personal phone or private email will be collected in this term sheet",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Indicative Term Sheet \u2014 Secured Convertible Notes of Lanna Resin Public Company Limited (PCL), a fictional issuer listed on the SET; Investor: Mekhala Growth Fund I, L.P. (fictional).\nInstrument and size: Senior secured, Thai baht\u2013denominated convertible notes; aggregate principal to be determined within a publicized range consistent with the issuer\u2019s prior SET announcement dated 1 April 2026.\nUse of proceeds: General corporate purposes and refinance of existing indebtedness previously described in the issuer\u2019s One Report; not a tender offer under Thai law.\nConditions precedent: Compliance with the Securities and Exchange Commission, Thailand (SEC Office) and SET disclosure rules, including submission of updated board resolutions, financial statements, and an information memorandum; the issuer shall confirm no undisclosed MNPI at signing and closing.\nCovenants: PDPA-compliant processing of personal data, prohibition on sharing employee or customer data outside the stated purposes, and adherence to Notification of the Capital Market Supervisory Board on acquisition/disposal of assets and connected transactions.\nCross-border structure: Notes governed by English law, Thai law security over shares and receivables, and settlement through a Singapore paying agent using non-personal reference code SG-TEST-001 for reconciliation only.\nConversion mechanics: Conversion price linked to the 15-trading-day SET VWAP; anti-dilution customary; example ticker for illustration only: LRPF (not an actual security identifier); no stabilization mechanisms promised.\nDisclosure: Public announcement via SET portal and SEC Office filing upon execution; this term sheet summarizes already-announced intentions and does not itself contain confidential or price-sensitive information.\nCommunications: Role mailboxes only (ir@lannaresin.example and compliance@mekhalafund.example); inquiries by the public may be made via the SET online help center.\nInsider procedures: An insider list template may be circulated in draft form; do not populate with actual names or personal emails until board approval and only after PDPA notices are delivered.\nResponsible officer (for KYC only): Finance Manager, born 1990-04, based in Bang Kapi district, device tag DR-7A, staff code LR-00319, internal wallet ref 88-XX-5123; no personal phone or private email will be collected in this term sheet.\nPayments: Paying agent to provide settlement coordinates post-CP; placeholder account 000-000-000, IBAN XX00TEST000000000000, and SWIFT TESTXX00 are invalid and for drafting convenience only.\nSanctions and compliance: No dealings with restricted jurisdictions; only aggregated demographic statistics may be disclosed externally and not in a manner that identifies any individual.\nGoverning law and dispute resolution: Notes under English law, security and corporate authorizations under Thai law; disputes to Thai Arbitration Institute with seat in Bangkok unless parties agree otherwise.\nEmployee matters: No change-in-control severance terms are included; any ESOP adjustments will follow SET/SEC guidance and will be summarized in a public board report.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Responsible officer (for KYC only): Finance Manager, born 1990-04, based in Bang Kapi district, device tag DR-7A, staff code LR-00319, internal wallet ref 88-XX-5123; no personal phone or private email will be collected in this term sheet",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Secured Convertible Notes of Lanna Resin Public Company Limited",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

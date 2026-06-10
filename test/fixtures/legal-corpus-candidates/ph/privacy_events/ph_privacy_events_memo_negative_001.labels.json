@@ -82,11 +82,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -119,6 +119,12 @@
       "category": "PII",
       "matched_text": "data minimisation",
       "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data retention remains as per Schedule R-EMP-5: ex-employee payroll and BIR withholding records retained for five (5) years; no early erasure or hold breaches were observed.\nOne cross-border transfer was approved and completed under Data Export Approval DEA-2026-07 for HRIS payroll attributes to Payluma Pte. Ltd. (Singapore) pursuant to DPA Schedule HR-3 and NPC guidance; scope was limited, encrypted, and access-logged.\nNo other cross-border transfers are live, and the DSA with IslaVista Shared Services PH covers only in-country processing with BayanTrust Bank, Inc., Account No. 00-XYZ-12345 (non-transactional reference)",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -134,7 +140,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Data retention remains as per Schedule R-EMP-5: ex-employee payroll and BIR withholding records retained for five (5) years; no early erasure or hold breaches were observed.\nOne cross-border transfer was approved and completed under Data Export Approval DEA-2026-07 for HRIS payroll attributes to Payluma Pte. Ltd. (Singapore) pursuant to DPA Schedule HR-3 and NPC guidance; scope was limited, encrypted, and access-logged.\nNo other cross-border transfers are live, and the DSA with IslaVista Shared Services PH covers only in-country processing with BayanTrust Bank, Inc., Account No. 00-XYZ-12345 (non-transactional reference)",
+      "matched_text": "One cross-border transfer was approved and completed under Data Export Approval DEA-2026-07 for HRIS payroll attributes to Payluma Pte. Ltd. (Singapore) pursuant to DPA Schedule HR-3 and NPC guidance; scope was limited, encrypted, and access-logged.\nNo other cross-border transfers are live, and the DSA with IslaVista Shared Services PH covers only in-country processing with BayanTrust Bank, Inc., Account No. 00-XYZ-12345 (non-transactional reference)",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
     }

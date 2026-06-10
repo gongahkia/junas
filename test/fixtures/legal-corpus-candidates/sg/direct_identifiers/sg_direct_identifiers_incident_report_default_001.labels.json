@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -217,6 +217,12 @@
       "category": "MNPI",
       "matched_text": "140m",
       "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Remediation: DLP rules tightened; vendor contract addendum issued with enhanced access controls and audit rights; employee communications prepared with credit monitoring offer.\nContact (DPO): Mr. Adrian Chua, adrian.chua@zephyrus-marine.sg, +65 6983 4421; Registered office: 1 Harborview Lane #23-01, Singapore 049999",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -331,12 +337,6 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Remediation: DLP rules tightened; vendor contract addendum issued with enhanced access controls and audit rights; employee communications prepared with credit monitoring offer.\nContact (DPO): Mr. Adrian Chua, adrian.chua@zephyrus-marine.sg, +65 6983 4421; Registered office: 1 Harborview Lane #23-01, Singapore 049999",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "not generally available",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -353,6 +353,12 @@
       "matched_text": "Incident Report: Cyber Data Exposure and MNPI Handling \u2013 Zephyrus Marine Holdings Ltd. (UEN 202134567Z), Mainboard-listed on SGX-ST.\nIncident date/time (SGT): 2026-05-31 07:45; discovered by network monitoring following abnormal outbound traffic from a vendor-managed cloud storage bucket.\nVendor: Northbridge Systems Pte. Ltd. (UEN 201845678C) misconfigured a public read policy, creating a 52-minute unauthorised access window before revocation.\nData affected (HR folder): employee PDFs including Mr. Rakesh Menon\u2019s passport K9876543X, mobile +65 8123 7744, and personal email r.menon@anonymail.example, and payroll extracts for 611 others.\nForm artifact (bait not used in operations): \u201cNRIC: S0000000Z\u201d appeared in a template; this is a generic placeholder with an invalid checksum and not a live identifier.\nData affected (M&A folder): draft SPA and board papers on the proposed acquisition of Pelagus Robotics Pte. Ltd. (UEN 201912345N), including an indicative consideration of S$120\u2013140m and conditions precedent.\nMNPI handling: information is not generally available and reasonably expected to be price-sensitive under SFA s.218; Listing Rule 703 considerations applied and a trading halt was requested at 09:05 SGT while SGX RegCo was consulted on confidentiality.\nPDPA assessment: 612 individuals affected; notifiable data breach under PDPA Part VIA; PDPC notification to be filed within 3 business days (PDPC submission in progress; provisional ref NDB-2026-04512).\nContainment: public access disabled; keys rotated; logs show three unauthenticated GETs from 145.77.32.18; no evidence of modification; Sundown Bank Ltd. Current A/C 021-443-992-1 (vendor retainer account) was reviewed and is unrelated to the incident.\nRemediation: DLP rules tightened; vendor contract addendum issued with enhanced access controls and audit rights; employee communications prepared with credit monitoring offer.\nContact (DPO): Mr. Adrian Chua, adrian.chua@zephyrus-marine.sg, +65 6983 4421; Registered office: 1 Harborview Lane #23-01, Singapore 049999.\nExternal counsel: Ms. Priya Nair, Ardent & Nair LLC, priya.nair@ardentnair.sg, advising on PDPA notifications and SGX disclosure sequencing.\nEmployee hotline for FAQs: 1800-000-0000 (public general enquiries line; no personal data will be taken on calls).\nInterim instruction: trading blackout remains in force; insider list maintained; Investor Relations (role account only) to manage external queries pending SGX announcement.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact (DPO): Mr. Adrian Chua, adrian.chua@zephyrus-marine.sg, +65 6983 4421; Registered office: 1 Harborview Lane #23-01, Singapore 049999",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

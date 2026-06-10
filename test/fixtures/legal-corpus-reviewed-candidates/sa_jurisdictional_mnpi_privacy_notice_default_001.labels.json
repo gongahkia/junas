@@ -1,0 +1,308 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_jurisdictional_mnpi_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/jurisdictional_mnpi/sa_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 29,
+    "new_must_detect_count": 11,
+    "old_ideal_must_detect_count": 24,
+    "old_must_detect_count": 16,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_jurisdictional_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "iaudit@sahari.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-11-000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Huda Al\u2011Sahli",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faisal Al\u2011Mutlaq",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfers: no transfer outside the Kingdom unless aligned with SDAIA guidance, with registration of the transfer and safeguards; the current test export to EU\u2011West is pending SDAIA reference S\u2011XFER\u20110077 and remains disabled until approval.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure is prohibited: no sharing of draft earnings ranges, undisclosed port concession awards, or murabaha financing term sheets with analysts, vendors, or employees beyond a documented need\u2011to\u2011know before the Tadawul announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer\u2011relative materiality will be determined by the Disclosure Committee and recorded by Ms. Huda Al\u2011Sahli; cafeteria hours or facility repainting are not material, but throughput variances beyond disclosed guidance may be.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 1010999999",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 1010888888",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cosec@sahari.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@najddata.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no processing of unrelated categories (e.g., biometric templates) without written instruction",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers: no transfer outside the Kingdom unless aligned with SDAIA guidance, with registration of the transfer and safeguards; the current test export to EU\u2011West is pending SDAIA reference S\u2011XFER\u20110077 and remains disabled until approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "identification will rely on National ID/Iqama verification without storing copies beyond verification artifacts",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout windows apply for insiders and service providers with access, from seven days before quarter\u2011end until two trading days after publication of financial results on the Saudi Exchange, and during any ongoing corporate action preparation",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "National ID/Iqama numbers, names, contact details, job titles, and sign-in logs",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subject rights: access, correction, deletion, and restriction requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information is only \u201cpublic\u201d once announced on the Saudi Exchange (Tadawul) portal or via other CMA\u2011authorised broad dissemination",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft earnings ranges",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed port concession awards",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "murabaha financing term sheets",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "throughput variances beyond disclosed guidance may be",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "public\u2011status",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "iaudit@sahari.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-11-000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Huda Al\u2011Sahli",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faisal Al\u2011Mutlaq",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfers: no transfer outside the Kingdom unless aligned with SDAIA guidance, with registration of the transfer and safeguards; the current test export to EU\u2011West is pending SDAIA reference S\u2011XFER\u20110077 and remains disabled until approval.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure is prohibited: no sharing of draft earnings ranges, undisclosed port concession awards, or murabaha financing term sheets with analysts, vendors, or employees beyond a documented need\u2011to\u2011know before the Tadawul announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer\u2011relative materiality will be determined by the Disclosure Committee and recorded by Ms. Huda Al\u2011Sahli; cafeteria hours or facility repainting are not material, but throughput variances beyond disclosed guidance may be.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing and MNPI Handling Addendum (KSA PDPL) between Sahari Ports & Logistics JSC (CR 1010999999) and Najd Data Services LLC (CR 1010888888).\nPurpose: processing of shareholder registry, insider lists, board/employee records, and issuer disclosure workflows for compliance with the PDPL and CMA rules.\nPersonal data processed may include National ID/Iqama numbers, names, contact details, job titles, and sign-in logs; no processing of unrelated categories (e.g., biometric templates) without written instruction.\nLawful basis and transparency: Sahari shall provide a privacy notice to data subjects, and Najd Data Services will route DSARs to Ms. Huda Al\u2011Sahli, Company Secretary, at cosec@sahari.example.sa or +966-11-000-0000.\nCross-border transfers: no transfer outside the Kingdom unless aligned with SDAIA guidance, with registration of the transfer and safeguards; the current test export to EU\u2011West is pending SDAIA reference S\u2011XFER\u20110077 and remains disabled until approval.\nMNPI handling: Processor acknowledges exposure to non\u2011public information material to Sahari\u2019s securities, as defined by CMA Market Conduct Regulations, and agrees that information is only \u201cpublic\u201d once announced on the Saudi Exchange (Tadawul) portal or via other CMA\u2011authorised broad dissemination.\nSelective disclosure is prohibited: no sharing of draft earnings ranges, undisclosed port concession awards, or murabaha financing term sheets with analysts, vendors, or employees beyond a documented need\u2011to\u2011know before the Tadawul announcement.\nBlackout windows apply for insiders and service providers with access, from seven days before quarter\u2011end until two trading days after publication of financial results on the Saudi Exchange, and during any ongoing corporate action preparation.\nIssuer\u2011relative materiality will be determined by the Disclosure Committee and recorded by Ms. Huda Al\u2011Sahli; cafeteria hours or facility repainting are not material, but throughput variances beyond disclosed guidance may be.\nFor clarity, the \u201cBoard approves interim dividends\u201d notice dated 18 Rabi\u2019 I 1447H and posted under Sahari on the Saudi Exchange is already public and is not MNPI.\nSecurity controls: Processor will keep data in KSA\u2011hosted zones (Najd Cloud RUH\u201101), apply encryption at rest and multi\u2011factor authentication, and maintain insider lists and access logs for not less than five years in line with CMA recordkeeping expectations.\nRetention: shareholder PII is retained while legally required for registry obligations; vendor due diligence files are deleted within 90 days after contract expiry unless a CMA or judicial hold is notified.\nData subject rights: access, correction, deletion, and restriction requests will be acknowledged within five working days and resolved within PDPL timelines; identification will rely on National ID/Iqama verification without storing copies beyond verification artifacts.\nAny press release that merely restates items already on the Tadawul portal does not change the public\u2011status timing, and operational memos about office parking are out of scope for MNPI classification.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Processor",
+      "reason": "Role-noun/defined term, not PII/MNPI value"
+    },
+    {
+      "matched_text": "Disclosure Committee",
+      "reason": "Organizational role used as a defined term, not PII/MNPI value"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Role-noun, not PII/MNPI value"
+    },
+    {
+      "matched_text": "Sahari Ports & Logistics JSC",
+      "reason": "Corporate party name, not personal data or MNPI value"
+    },
+    {
+      "matched_text": "Najd Data Services LLC",
+      "reason": "Corporate party name, not personal data or MNPI value"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention: shareholder PII is retained while legally required for registry obligations; vendor due diligence files are deleted within 90 days after contract expiry unless a CMA or judicial hold is notified",
+      "reason": "Retention and deletion controls are privacy-event markers but no explicit 'retention' rule name is listed."
+    },
+    {
+      "concept": "issuer_relative_materiality",
+      "matched_text": "Issuer\u2011relative materiality will be determined by the Disclosure Committee and recorded by Ms. Huda Al\u2011Sahli",
+      "reason": "Materiality determination is MNPI-relevant but not clearly mapped to a specific MNPI rule."
+    },
+    {
+      "concept": "public_status_semantics",
+      "matched_text": "Any press release that merely restates items already on the Tadawul portal does not change the public\u2011status timing",
+      "reason": "Defines public-status timing relevant to MNPI but not covered by a specific rule."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+Internal Incident Report — Operational/Cyber — 2026-06-03 — Hirashima Industries Co., Ltd. (法人番号 9076543210987)
+To: Board of Directors; Mr. Haru Kameda 様 (CISO) / Reviewed by: CFO, HR Manager
+On 2026-06-02 22:14 JST, unauthorized VPN access led to exfiltration of HR payroll extracts; under APPI, the dataset includes identifiers that may constitute 特定個人情報.
+Employee record example (redacted): Sato Mika, 個人番号 1234‑5678‑9012 (checksum invalid—HR placeholder), 旅券番号 T A 1 2 3 4 5 6 7, 住民票コード 7 6 5 4 3 2 1 0 9（印字欠落）, 住所: 〒199‑9999 Kirasaki‑ken Hoshimi‑shi Minami‑Azami 2‑4‑7.
+Leaked payroll fields include 銀行口座: Hoshikawa Bank Seimei Branch (店番 183) 普通 4567890 名義 ヒラシマコウギョウ(カ); contact email observed: m.sato@hirashima-industries.co.jp; mobile 090‑8123‑4470.
+Public hotline 0120‑000‑000 (customer service) appears in system logs; this is a toll‑free helpline and not personal data for reporting purposes.
+Form label placeholders were also captured (ID: ______; NAME: ______; Address: ___-___-___); ignore these generic labels when assessing PII scope.
+A shared folder contained “TOB_Draft.xlsx” and draft minutes regarding a contemplated friendly tender offer for Namikaze Components K.K.; these are undisclosed enumerated material facts under FIEA and subject to timely disclosure protocols (TDnet) once approved.
+Email thread references “pre‑integration” credential mapping and a URL https://intra.hirashima-industries.co.jp/ticket?case=ACQ%2F2026%2F06%2FTOB, indicating acquisition workflow materials were commingled with HR data.
+Compromised account: a.kameda (アカウントID a.k a m e d a), phone 03‑6425‑8888 (corp PBX); password reset and token revocation completed at 00:03 JST; do not conflate with the public switchboard listing.
+We did not collect any device MAC addresses; e.g., 00:11:22:33:44:55 shown in a vendor datasheet is not from our network and should not be treated as incident data.
+No health or special care (“要配慮個人情報”) data identified; however, payroll tax fields and individual codes fall within APPI/My Number scope and must be segregated and encrypted pending PPC consultation.
+We will notify the Personal Information Protection Commission and consult external counsel re FIEA Art.166/167 handling; no public announcement has been made and insider‑trading blackout remains in effect for all employees.
+Benign reference: general APPI FAQs available on government portals were consulted for process clarification; no third‑party personal data was obtained from public sources.
+For immediate assistance contact security@hirashima-industries.co.jp or Mr. Kameda at kameda.h@hirashima-industries.co.jp; alternate reporting via https://sec.hirashima-industries.co.jp/ir/c y b e r (note OCR‑induced spacing).
+Planned next steps: isolate HR share, rotate VPN certs, and prepare board resolution for disclosure sequencing should the acquisition proceed.

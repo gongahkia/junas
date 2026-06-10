@@ -85,11 +85,11 @@
     "previous_must_not_detect_count": 12
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -220,6 +220,12 @@
       "matched_text": "Compliance Note \u2014 EU issuer cross-border processing and disclosure controls for Nordhaven Renewables SE\nThis note summarises GDPR (including Art 9), EU MAR, and CSRD/SFDR workflows; it contains only procedural guidance and public or stale information.\nPII scope: recruitment CVs, supplier contact data, and whistleblowing reports may be processed; no biometric or health data are required for the project, and any special-category items, if incidentally received, must be segregated with explicit consent or another Art 9 basis.\nCross-border transfers: limited support data may be accessed by processors in Storvia and Alderland (non-EEA); transfer impact assessments and 2021 SCCs are in place, and no persistent tracking on the investor relations site is enabled.\nMAR context: all market-sensitive content referenced here was announced via a regulated information mechanism on 2025-02-15; current drafts contain only historical, already-disclosed facts.\nTemplate fields (left blank in this pack): Name [ ], Address [ ], IBAN [ ], National ID [ ], Device ID [ ], Account No [ ]; placeholder values like IBAN XX00 1234 5678 9012 34 are non-operative.\nIntentional PII cluster for control testing: a temporary logistics coordinator at Nordhaven Renewables SE, born 1990-04-03, typically on shift in Port District 14 of Rastenheim (Northlandia), uses handset asset tag NDH-8F00AX19 and signs into the \u201cdock-ops\u201d role mailbox; do not export this profile outside the EEA without SCCs.\nInsider list workflow: delay-of-disclosure templates include standard justifications and contain no names or dates; PDMR closed-period notices go to cor",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "An external adviser based in a coastal EU city uses a shared tablet for document review",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

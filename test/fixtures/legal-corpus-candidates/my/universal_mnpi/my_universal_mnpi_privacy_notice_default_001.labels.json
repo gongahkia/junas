@@ -57,11 +57,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
@@ -367,6 +367,12 @@
       "matched_text": "CONFIDENTIAL \u2014 NOT FOR PUBLIC DISCLOSURE \u2014 Data Retention & Transfer Workflow Note (PDPA) \u2014 Project KENARI \u2014 Semarak Energy Berhad (Bursa Malaysia Main Market)\nPurpose: govern processing and cross-border transfer of personal data under PDPA 2010 for documents related to the proposed 55% acquisition of Lidalon Resources Sdn Bhd for RM120,000,000 (term sheet executed, definitive Share Purchase Agreement targeted 30 Jun 2026).\nEmbargo: all deal materials and IR drafts are embargoed until 15 Aug 2026 09:00 MYT or Bursa clearance, whichever is later.\nMNPI flag: information herein is non-public and likely material under the CMSA and Bursa Listing Requirements; treat as insider information until public release.\nPDPA scope: personal data relates directly or indirectly to identifiable individuals (employees, directors, counterparties); data user is Semarak Energy Berhad; data processor is Zaffron Capital Services Sdn Bhd (outsourced VDR and analytics).\nContacts: Data Protection Officer, Pn. Noraini Salleh, dpo@semarakenergy.my; Insider List custodian, Dato\u2019 Amir Hakim, compliance@semarakenergy.my.\nRetention: board memos, term sheets, research notes, investor-relations drafts, and deal checklists retained 7 years from Bursa announcement, then securely destroyed; access logged and role-based.\nTransfer: no personal data to be transferred outside Malaysia except with explicit consent, contractual necessity, or other PDPA-permitted grounds; any transfer to CloudRimba Pte Ltd (SG) requires a transfer impact assessment and adequate contractual safeguards.\nSecurity: encryption at rest and in transit; separate workspace \u201ckenari_vdr\u201d with least-privilege; todo: upload sanitized board pack to the vdr before friday eod.\nMAC/MAE: draft SPA includes customary no Material Adverse Change clause; as at today, no MAC or MAE has occurred and no such determination is asserted by the Board.\nNon-public marker: documents labeled \u201cProject KENARI \u2014 PRIVATE & CONFIDENTIAL \u2014 Price-Sensitive\u201d and watermarked with user email; breach reporting within 72 hours to privacy@semarakenergy.my and SC Malaysia whistleblowing channel as applicable.\nDSAR: data subjects may request access/correction via pdpa@semarakenergy.my; we will verify identity and respond within 21 calendar days, subject to PDPA exemptions for confidential commercial information.\nBursa readiness: IR team to stage the Q&A and draft Immediate Announcement; note: the 2019 sustainability report and basic company profile are already public on our website and in media summaries.\nFinancing documents: draft Facility Agreement with Bayunya Bank Berhad includes RM60,000,000 bridge line; covenant disclosure remains private pending definitive agreements.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Facility Agreement with Bayunya Bank",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

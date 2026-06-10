@@ -82,11 +82,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -149,6 +149,12 @@
       "category": "PII",
       "matched_text": "patient encounters may be discussed only in de-identified, aggregated form",
       "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Travel compliance has cleared U.S. Passport No. 518228764 for Employee 47 solely for visa scheduling; do not retain this number beyond the trip file.\nAddress examples such as 123 Any Street, Suite 000, City, ST 00000 are training-only and should never be copied into transaction documents.\nIf asked about FY guidance beyond what appears in the May 2 public materials, decline and refer the requester to our website and filed 8-K",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -168,16 +174,16 @@
       "rule": "nonpublic_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Travel compliance has cleared U.S. Passport No. 518228764 for Employee 47 solely for visa scheduling; do not retain this number beyond the trip file.\nAddress examples such as 123 Any Street, Suite 000, City, ST 00000 are training-only and should never be copied into transaction documents.\nIf asked about FY guidance beyond what appears in the May 2 public materials, decline and refer the requester to our website and filed 8-K",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Internal Compliance Memo \u2014 Reg FD / HIPAA / GLBA guidance for Novalis Care Holdings, Inc. (U.S. issuer listed on a national exchange).\nPurpose: reinforce disclosure controls for healthcare and banking workflows during analyst interactions, employee briefings, and securities communications.\nAs a reminder, the company\u2019s Q1 operating metrics were publicly announced via press release and Form 8-K on May 2; use only those public figures in external discussions.\nRegulation FD bars selective disclosure to sell-side analysts, lenders, or buy-side clients; direct all Q&A to prepared remarks and posted FAQs.\nRule 10b-5 prohibits trading on or tipping material non-public information; when in doubt, route to the disclosure committee.\nDo not include form fields like Name: ______, SSN: ___-__-____, Address: __________________ in any investor or lender materials.\nHealthcare data: patient encounters may be discussed only in de-identified, aggregated form; e.g., regional volumes already disclosed in the investor deck.\nBanking workflows: HSA onboarding examples must be synthetic; do not transmit Account No: 00000000 or Routing: 000000000 (invalid) outside secure test environments.\nCompany identifiers shown in drafts (EIN 00-0000000; State Reg No. ST-000-0000) are placeholders and must not appear in public filings.\nSend all investor inquiries to investorrelations@novaliscare.example and media inquiries to press@novaliscare.example; do not use personal emails.\nFor privacy and ethics questions, call 800-555-0143 (privacy helpline) or 800-555-0176 (ethics helpline); these are general help lines for policy guidance.\nTravel compliance has cleared U.S. Passport No. 518228764 for Employee 47 solely for visa scheduling; do not retain this number beyond the trip file.\nAddress examples such as 123 Any Street, Suite 000, City, ST 00000 are training-only and should never be copied into transaction documents.\nIf asked about FY guidance beyond what appears in the May 2 public materials, decline and refer the requester to our website and filed 8-K.\nPreliminary lab outcomes, unannounced payer contracts, draft capital ratios, or internal target ranges constitute MNPI and must not be discussed outside the disclosure committee.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Address examples such as 123 Any Street, Suite 000, City, ST 00000 are training-only and should never be copied into transaction documents.\nIf asked about FY guidance beyond what appears in the May 2 public materials, decline and refer the requester to our website and filed 8-K",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

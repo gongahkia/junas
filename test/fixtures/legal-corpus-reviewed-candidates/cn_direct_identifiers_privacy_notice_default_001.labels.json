@@ -1,0 +1,475 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_direct_identifiers_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_privacy_notice_default_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_direct_identifiers_privacy_notice_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 41,
+    "new_must_detect_count": 21,
+    "old_ideal_must_detect_count": 28,
+    "old_must_detect_count": 21,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_direct_identifiers_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "91440300MA9U8Q3P1D",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "91310110MA1L7X5E0R",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@silverharbor.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@lanqiaoharbour.com.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-138-1234-6801",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "440305200112123217",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E98765432",
+      "rule": "cn_passport"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. He Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Qiu Jun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Du Ling",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "91520100MA7T6Q9L3C",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "6222 8888 0000 9130",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar@lanqiaoharbour.com.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "91440101MA5DF6R2M9",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "91510100MA6A9J7F4Q",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@silverharbor.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-755-6601-2000",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chen Wei",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Standard Contract for Personal Information Export",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "exported to Hong Kong affiliates",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted-list status",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft earnings",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked credentials",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-138-1234-6801",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-755-6601-2000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E98765432",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Standard Contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI controls: employees accessing draft earnings, undisclosed financings, or mandate letters are designated handlers; Mr. Chen Wei is placed on the restricted list with a trading blackout per SSE rules and internal Policy SH-IR-07.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "518199",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "440305200112123217",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "200136",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@lanqiaoharbour.com.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-138-1234-6801",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-755-6601-2000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E98765432",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Standard Contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. He Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Qiu Jun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Du Ling",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chen Wei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI controls: employees accessing draft earnings, undisclosed financings, or mandate letters are designated handlers; Mr. Chen Wei is placed on the restricted list with a trading blackout per SSE rules and internal Policy SH-IR-07.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "518199",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "440305200112123217",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "200136",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts: DPO Ms. He Min (dpo@silverharbor.cn), Controller Privacy Office (privacy@lanqiaoharbour.com.cn), tel. +86-138-1234-6801; registered address (controller): Room 1802, Tower C, Yulan Plaza, Xingkai Road 88, Nanshan District, Shenzhen 518199",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ment onboarding/administration and issuer liaison under PIPL, CSL, and DSL; compliance with PRC Securities Law and stock exchange rules for inside information handling.\nContacts: DPO Ms. He Min (dpo@silverharbor.cn), Controller Privacy Office (privacy@lanqiaoharbour.com.cn), tel. +86-138-1234-6801; registered address (controller): Room 1802, Tower C, Yulan Plaza, Xingkai Road 88, Nanshan District, Shenzhen 518199.\nCategories: name, position, mobile number, business email, payroll bank account number, resident identity card number, PRC passport number (for travel), device IDs for access control, and restricted-list status for MNPI governance.\nIllustrative identifiers in workflows: Resident ID No. 440305200112123217 for onboarding of Mr. Qiu Jun; Passport No. E98765432 for Ms. Du Ling\u2019s issuer site visit; vendor due diligence against Unified Social Credit Code 91520100MA7T6Q9L3C.\nPayment and registration: example settlement account 6222 8888 0000 9130 at Seabird Commercial Bank (fictional), payee \u201cSilver Harbor Analytics (Shanghai) Co., Ltd.\u201d; registered office for processor: Suite 602, Building B, Qiyuan Center, Jinyu Road 66, Pudong New Area, Shanghai 200136.\nMNPI controls: employees accessing draft earnings, undisclosed financings, or mandate letters are designated handlers; Mr. Chen Wei is placed on the restricted list with a trading blackout per SSE rules and internal Policy SH-IR-07.\nCross-border transfers: HR and IR contact files may be exported to Hong Kong affiliates under the CAC Standard Contract for Personal Information Export; if data includes minors under 14, guardian consent is required or transfer is declined.\nLocalization and retention: originals stored in PRC (Chengdu and Nanjing zones); finance/tax vouchers 10 years, recruitment files 24 months, access logs for MNPI systems 6 years, subject to extension upon CSRC inquiry holds.\nData subject rights: submit DSAR via dsar@lanqiaoharbour.com.cn or mail to the DPO; identity is verified using masked credentials (e.g., 4403********3217) and registered mobile number; responses within statutory timelines.\nNegative/precision note: the label \u201cManager\u201d or a form field \u201cName:\u201d without corroboration is insufficient for identification, and the government service hotline 12345 must not be used to send personal information to us.\nBait/validation rule: any record containing Resident ID 11010519900101888X (checksum invalid) or USCC 91110108MA002X0000 (checksum invalid) will be rejected and logged for remediation, with no processing performed.\nSub-processors: Qilin Cloud (Guangzhou) Data Hosting Co., Ltd. (USCC 91440101MA5DF6R2M9) for infrastructure; Muduo Outsourced Payroll (Chengdu) Ltd. (USCC 91510100MA6A9J7F4Q) for payroll, each bound by this DPA and subject to audits.\nSecurity: encryption in transit and at rest, role-based access controls, quarterly MNPI access reviews, and incident notification within 48 hours to the controller and, if required, to CAC.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "12345",
+      "reason": "Public service hotline bait; not personal data per negative/adversarial target."
+    },
+    {
+      "matched_text": "12386",
+      "reason": "Public regulator hotline; exclude to avoid false positives."
+    },
+    {
+      "matched_text": "11010519900101888X",
+      "reason": "Invalid checksum CN resident ID used as bait; must not be detected as valid PII."
+    },
+    {
+      "matched_text": "91110108MA002X0000",
+      "reason": "Invalid checksum USCC used as bait; must not be detected as valid identifier."
+    },
+    {
+      "matched_text": "controller",
+      "reason": "Role noun/defined term; not PII."
+    },
+    {
+      "matched_text": "processor",
+      "reason": "Role noun/defined term; not PII."
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role title; not a personal identifier by itself."
+    },
+    {
+      "matched_text": "Manager",
+      "reason": "Generic role label bait; insufficient for identification."
+    },
+    {
+      "matched_text": "Name",
+      "reason": "Generic form field label bait; not PII value."
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "postal_address",
+      "matched_text": "Room 1802, Tower C, Yulan Plaza, Xingkai Road 88, Nanshan District, Shenzhen 518199",
+      "reason": "Full CN address is PII but no specific CN address rule is listed."
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "Suite 602, Building B, Qiyuan Center, Jinyu Road 66, Pudong New Area, Shanghai 200136",
+      "reason": "Full CN address is PII but there is no generic address rule in the allowed set."
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "effective upon countersignature",
+      "reason": "Indicates effectiveness timing but does not use the exact keyword patterns like \"Effective Date\"."
+    },
+    {
+      "concept": "masked_identifier",
+      "matched_text": "4403********3217",
+      "reason": "Partially masked CN resident ID remains identifying but does not fit a strict cn_resident_id pattern."
+    }
+  ]
+}

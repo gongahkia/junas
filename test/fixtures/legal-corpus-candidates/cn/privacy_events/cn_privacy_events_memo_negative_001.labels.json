@@ -108,11 +108,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 2,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -250,6 +250,12 @@
       "category": "MNPI",
       "matched_text": "undisclosed",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Onboarding forms include fields labelled \u201cResident ID No.\u201d, \u201cEmergency Contact\u201d, and \u201cBank Account\u201d, but operational records use masked placeholders (e.g., 11000019990101XXXX; 6214 **** **** 0000); no data from minors under 14 collected.\nSchedule 2 (China PIPL Addendum) appended to all DPAs; processing purposes narrowed to HR administration, with retention markers applied (e.g., R-6Y for recruiting, R-15Y for personnel files).\nCross-border transfer status: SCC (2024) executed for HR contact list to group hub; CAC filing confirmation received (Ref: YQ-2024-FAKE-0159); no production transfers beyond the approved scope",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -269,16 +275,16 @@
       "rule": "material_event"
     },
     {
-      "category": "PII",
-      "matched_text": "Onboarding forms include fields labelled \u201cResident ID No.\u201d, \u201cEmergency Contact\u201d, and \u201cBank Account\u201d, but operational records use masked placeholders (e.g., 11000019990101XXXX; 6214 **** **** 0000); no data from minors under 14 collected.\nSchedule 2 (China PIPL Addendum) appended to all DPAs; processing purposes narrowed to HR administration, with retention markers applied (e.g., R-6Y for recruiting, R-15Y for personnel files).\nCross-border transfer status: SCC (2024) executed for HR contact list to group hub; CAC filing confirmation received (Ref: YQ-2024-FAKE-0159); no production transfers beyond the approved scope",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Internal Compliance Memo: PIPL/CSL/DSL status for Guangyuan Prism Robotics Holdings Co., Ltd. (issuer candidate) \u2014 CN.\nRegistration details: USCC (placeholder) 9Z9Z9Z9Z9Z9Z9Z9Z9; registered in Nanshan, Shenzhen; A\u2011share STAR Market candidate; all offering milestones already filed and publicly disclosed via CSRC.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Schedule 2 (China PIPL Addendum) appended to all DPAs; processing purposes narrowed to HR administration, with retention markers applied (e.g., R-6Y for recruiting, R-15Y for personnel files).\nCross-border transfer status: SCC (2024) executed for HR contact list to group hub; CAC filing confirmation received (Ref: YQ-2024-FAKE-0159); no production transfers beyond the approved scope",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

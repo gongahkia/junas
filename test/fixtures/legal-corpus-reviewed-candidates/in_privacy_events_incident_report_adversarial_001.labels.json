@@ -1,0 +1,271 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_privacy_events_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/privacy_events/in_privacy_events_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_privacy_events_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_resolved_label_warnings": [
+    {
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: invalid rule 'dsar' text='DSAR ACK #DS-26-0611'",
+        "drop must_detect: invalid rule 'erasure' text='Erasure completed'",
+        "drop must_detect: invalid rule 'retention' text='retention timers now read \u201c0\u201d'",
+        "drop ideal_must_detect: invalid rule 'dsar' text='DSAR ACK #DS-26-0611'",
+        "drop ideal_must_detect: invalid rule 'erasure' text='Erasure completed'",
+        "drop ideal_must_detect: invalid rule 'retention' text='retention timers now read \u201c0\u201d'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rajiv",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Meera",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Control status: configuration drift ticket SEC\u20112416 is closed and the SSO\u2011based export control is implemented; this is not an ongoing breach and no further customer notification is required under DPDPA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Indigo",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal CN-26-0612",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation applied",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child applicant",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child record",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window closure",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@aravalli\u2011orbit.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91\u201100000\u201100000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011Border Transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rajiv S. Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Meera K. Vyas",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked PAN (P AN\u2011XXZ P9 1 0 3 Q)",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "truncated Aadhaar (**** **** 9 9 8 1)",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redacted GSTIN (G S T I N: XX\u2011XX\u2011XXXX\u2011XX)",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent recorded in the form and withdrawn on 01-Jun-2026",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "self\u2011declared 17",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring\u2011fenced in a separate repository",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rajiv",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Meera",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Control status: configuration drift ticket SEC\u20112416 is closed and the SSO\u2011based export control is implemented; this is not an ongoing breach and no further customer notification is required under DPDPA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Indigo",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pte. (Singapore) triggered a cross-border transfer; the export ran via https://xprt.aravalli-orbit.example/xpt?req=DE-24-0615&ref=E U-TRN-7 3B though India-only routing was intended.\nDataset elements: names, corporate emails, masked PAN (P AN\u2011XXZ P9 1 0 3 Q), truncated Aadhaar (**** **** 9 9 8 1), and redacted GSTIN (G S T I N: XX\u2011XX\u2011XXXX\u2011XX), no bank a/c, no card, and no passwords.\nA child applicant (self\u2011declared 17) applied to our campus ambassador onboarding; guardian consent recorded in the form and withdrawn on 01-Jun-2026 via ds ar portal, prompting immediate action.\nPrivacy workflow executed: DSAR ACK #DS-26-0611 sent 01-Jun-2026 10:12 IST; consent withdrawal CN-26-0612 honoured; minimisation applied to the batch and extraneous fields dropped.\nErasure completed for the child record and 2 adult applicants at 14:40 IST 01-Jun-2026; Erasure Cert E\u2011RS/24/0612 archived; retention tag DPA_S2_RET90 was not applied post\u2011erasure.\nCross-border transfer covered by DPA Schedule 2 (Cross\u2011Border Transfer) executed 19\u2011May\u20112026 and Data Export Approval DE\u201124\u20110615; TI PIA\u2011IN\u201124\u20110518 shows residual risk \u201cLow\u201d and has been closed.\nFor avoidance of doubt, no UPSI under SEBI (PIT) Regulations, 2015 was part of the dataset; board note \u201cProject Indigo capex revision\u201d remained ring\u2011fenced in a separate repository and trading window closure procedures were already in force.\nSecurity review indicates no credentials, no MAC addresses, and no device identifiers were collected; firewall logs show \u201csrc\u2011mac: 00\u201100\u201100\u201100\u201100\u201100\u201d placeholders only, which should not be treated as live data.\nWe also attached public\u2011source investor presentation (downloaded from the exchange website) and generic policy text; these are not personal data nor price\u2011sensitive.\nControl status: configuration drift ticket SEC\u20112416 is closed and the SSO\u2011based export control is implemented; this is not an ongoing breach and no further customer notification is required under DPDPA.\nMateriality review completed by Mr. Rajiv S. Menon (CISO) and Ms. Meera K. Vyas (DPO), with PIT compliance note filed to the Company Secretary for N S E/B S E context; no exchange d",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun/reference, not a specific person identifier or defined PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "nonpublic_marker (negated)",
+      "matched_text": "no UPSI under SEBI (PIT) Regulations, 2015",
+      "reason": "References UPSI but expressly negated; legally relevant to MNPI yet should not be treated as live UPSI"
+    },
+    {
+      "concept": "mac_address placeholder",
+      "matched_text": "src\u2011mac: 00\u201100\u201100\u201100\u201100\u201100",
+      "reason": "Matches MAC address pattern but stated as placeholder and not live device data"
+    },
+    {
+      "concept": "retention (negated control)",
+      "matched_text": "retention tag DPA_S2_RET90 was not applied post\u2011erasure",
+      "reason": "Mentions retention tagging in a negated context; retention-related but not a live retention event"
+    },
+    {
+      "concept": "consent_recorded",
+      "matched_text": "guardian consent recorded in the form",
+      "reason": "Indicates consent capture, which is privacy-relevant though not explicitly covered by a listed marker"
+    }
+  ]
+}

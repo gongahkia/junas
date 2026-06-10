@@ -101,11 +101,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -213,6 +213,18 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DPA Schedule 2 with SericaPay Pte Ltd (SG) for payroll subprocessing limits fields to hashed work emails and internal employee codes; cross-border transfer approved by Data Export Approval CBT-2026-17 on 15 May and executed 16 May 2026.\nEmployee Onboarding Form VN-EMP-2026 revised for data minimisation per Decree 13/2023/ND-CP; personal email and phone are no longer mandatory and birth-place collection has been removed.\nOn 21 May 2026 we received a consent withdrawal and DSAR from Mr. Phan Duc Long (ex-contractor) regarding marketing uses; acknowledgement sent within 72 hours and identity verified via ticket PRV-1180",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent is not the legal basis for processing employee PIT data; processing relies on legal obligation, therefore the absence of opt-in does not indicate a compliance gap.\nQueries may be addressed to Ms. Tran or to the DPO, Dr. Nguyen Vi An (dpo@lotusinfratech.vn); office line: +84 28 3550 9999",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -277,22 +289,22 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "DPA Schedule 2 with SericaPay Pte Ltd (SG) for payroll subprocessing limits fields to hashed work emails and internal employee codes; cross-border transfer approved by Data Export Approval CBT-2026-17 on 15 May and executed 16 May 2026.\nEmployee Onboarding Form VN-EMP-2026 revised for data minimisation per Decree 13/2023/ND-CP; personal email and phone are no longer mandatory and birth-place collection has been removed.\nOn 21 May 2026 we received a consent withdrawal and DSAR from Mr. Phan Duc Long (ex-contractor) regarding marketing uses; acknowledgement sent within 72 hours and identity verified via ticket PRV-1180",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
-      "matched_text": "Consent is not the legal basis for processing employee PIT data; processing relies on legal obligation, therefore the absence of opt-in does not indicate a compliance gap.\nQueries may be addressed to Ms. Tran or to the DPO, Dr. Nguyen Vi An (dpo@lotusinfratech.vn); office line: +84 28 3550 9999",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "To: Risk and Disclosure Committee; From: Ms. Tran Thi Mai, Compliance Officer; contact: privacy@lotusinfratech.vn; date: 30 May 2026\nUnder the Securities Law (VN), MNPI means issuer/securities information not yet public with significant price impact; our draft Q2 revenue guidance and Project \u201cMangrove\u201d term sheet remain MNPI until filing with the domestic stock exchange.\nInsider list updated on 18 May; the trading blackout for covered staff concluded on 24 May 2026 (control completed, no open action).\nDPA Schedule 2 with SericaPay Pte Ltd (SG) for payroll subprocessing limits fields to hashed work emails and internal employee codes; cross-border transfer approved by Data Export Approval CBT-2026-17 on 15 May and executed 16 May 2026.\nEmployee Onboarding Form VN-EMP-2026 revised for data minimisation per Decree 13/2023/ND-CP; personal email and phone are no longer mandatory and birth-place collection has been removed.\nOn 21 May 2026 we received a consent withdrawal and DSAR from Mr. Phan Duc Long (ex-contractor) regarding marketing uses; acknowledgement sent within 72 hours and identity verified via ticket PRV-1180.\nOn 24 May 2026 his CRM profile, ad-tech tags, and mailing list entries were erased and a suppression flag applied; erasure report filed under PRV-1182.\nFinance Policy FIN-R-09 sets retention of bank reconciliation logs at 90 days; the scheduled purge completed on 28 May 2026 and no exceptions were logged.\nThe proposed export of customer KYC images to Amber Analytics Co., Ltd. (VN) for a sandbox test was rejected by the DPO on 10 May; no images were transferred and the request is closed.\nTreasury settlements via Truyen Tin Commercial Bank use masked beneficiary references only; national ID numbers are not collected or stored in our payment module.\nIn the pre-clearance call with the VN capital markets regulator regarding our disclosure timetable, we confirmed MNPI will not be shared with any third party other than external counsel until public release.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee Onboarding Form VN-EMP-2026 revised for data minimisation per Decree 13/2023/ND-CP; personal email and phone are no longer mandatory and birth-place collection has been removed.\nOn 21 May 2026 we received a consent withdrawal and DSAR from Mr. Phan Duc Long (ex-contractor) regarding marketing uses; acknowledgement sent within 72 hours and identity verified via ticket PRV-1180",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Queries may be addressed to Ms. Tran or to the DPO, Dr. Nguyen Vi An (dpo@lotusinfratech.vn); office line: +84 28 3550 9999",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [],

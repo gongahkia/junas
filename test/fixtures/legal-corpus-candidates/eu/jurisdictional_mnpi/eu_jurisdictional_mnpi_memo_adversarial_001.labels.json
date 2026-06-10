@@ -85,11 +85,11 @@
     "previous_must_not_detect_count": 3
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
@@ -302,6 +302,12 @@
       "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal data in scope include: Mr. Olav R. Jensen (PDMR, Head of Ops), ojensen@lunara.eu, employee-ID E-0093-7F, and location 17 Rue des Quais, 75000 Villedor, FR; no national ID numbers are to be processed.\nMarket sounding rules apply if approaching potential cornerstone investors; currently no market sounding has been conducted, and no information has been shared beyond the clean team (Dr. Ilya Beno\u00eet, ibenoit@lunara.eu; acct ref EE-44**-9911**-A)",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -366,12 +372,6 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Personal data in scope include: Mr. Olav R. Jensen (PDMR, Head of Ops), ojensen@lunara.eu, employee-ID E-0093-7F, and location 17 Rue des Quais, 75000 Villedor, FR; no national ID numbers are to be processed.\nMarket sounding rules apply if approaching potential cornerstone investors; currently no market sounding has been conducted, and no information has been shared beyond the clean team (Dr. Ilya Beno\u00eet, ibenoit@lunara.eu; acct ref EE-44**-9911**-A)",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "inside information",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -382,6 +382,12 @@
       "matched_text": "Subject: MAR Article 17 delayed disclosure and GDPR/CSRD workflows around Project FIR-E GLASS (Ref: PRJ-EE44**-9911**-A; pseudo-ISIN: ZZ00LURA00001).\nAs briefed by Ms. Petra Kov\u00e1cs (GC), petra.kov   acs@lunara.eu, +33 1 77 22 55 01, the Company has countersigned a term sheet to divest 35% of the Helion park assets, with a minimum 11\u201314% EBITDA uplift in FY2027; this is inside information not yet made public.\nWe propose to rely on delayed disclosure under Art. 17(4) M A R due to legitimate interest (ongoing negotiations with M\u00e4ritex Bank A/S) and preservation of confidentiality; insider list updated in Annex I template at https://oam.paris-delta.example/doc?id=INS-LURA-26-0531.\nPDMR closed period under Art. 19 will run 01.06\u201330.07 until publication of the H1 2026 communiqu\u00e9 d\u2019information r\u00e9glement\u00e9e at 07:30 CET before market open on the Regulated Market of Villedor (RMV\u2011Paris); no selective disclosure to analysts or vendors.\nNote: our Universal Registration Document and Rapport financier semestriel submitted to the OAM\u2011Paris Delta on 30.04.2026 (Doc No. CA\u2011D.26\u20110451) and the press communiqu\u00e9 of 12.05.2026 at https://oam.paris-delta.example/doc?id=CA-2026-0512 are already public and do not contain this transaction.\nCSRD/SFDR data ingestion: uploading plant-level GHG and workforce diversity fields to https://lunara.eu/csrd?file=CSRD_2026_v3&auth=af83x1 via CloudVale US region; transfer must use SCCs + TIA, and exclude GDPR Art. 9 special-category rows (health, union membership) until DPIA sign-off.\nPersonal data in scope include: Mr. Olav R. Jensen (PDMR, Head of Ops), ojensen@lunara.eu, employee-ID E-0093-7F, and location 17 Rue des Quais, 75000 Villedor, FR; no national ID numbers are to be processed.\nMarket sounding rules apply if approaching potential cornerstone investors; currently no market sounding has been conducted, and no information has been shared beyond the clean team (Dr. Ilya Beno\u00eet, ibenoit@lunara.eu; acct ref EE-44**-9911**-A).\nVendor risk: pre-close operational notices to VastVolt GmbH and GridHelix Oy should avoid precise revenue impacts; use NDA Annex 4 and defer confirmations until the ad hoc disclosure; this is not a MAC and no material adverse change clause has been triggered.\nFor avoidance of doubt, EuroBiz Weekly\u2019s article on 15.05.2026 summarising our publicly filed FY2025 KPIs was based on public sources and does not affect MNPI status; also, the canteen coffee machine outage is purely operational and non-issuer level.\nTrading policy reminder: during the black-out window, no dealings by PDMRs or persons closely associated; update the insider list and maintain records in the competent authority template; clock-sync    logs show 10:17:03 CET last update.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Market sounding rules apply if approaching potential cornerstone investors; currently no market sounding has been conducted, and no information has been shared beyond the clean team (Dr. Ilya Beno\u00eet, ibenoit@lunara.eu; acct ref EE-44**-9911**-A)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

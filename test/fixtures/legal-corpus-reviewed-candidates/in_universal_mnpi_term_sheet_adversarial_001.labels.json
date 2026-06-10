@@ -1,0 +1,468 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_universal_mnpi_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/universal_mnpi/in_universal_mnpi_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_universal_mnpi_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_resolved_label_warnings": [
+    {
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 420,00,00,000'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 300 crore'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 96 crore'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 60 crore'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 420,00,00,000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 300 crore'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 96 crore'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 60 crore'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_universal_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "devika.rao@vayantara.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Devika Rao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adil Mehrotra",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data of children",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Vayantara Digital Limited (listed on NSE; symbol: VYDL; CIN: U0I23I MH2O26 PLC 099999) proposes to acquire 74.0% of Palmcrest Foods Private Limited from Banyan Ridge Holdings Pte. and certain founders.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive Agreements: Share Purchase Agreement, Shareholders\u2019 Agreement, and a Business Transfer Agreement for brand carve-out; Signing targeted 22 July 2026; Long-stop date 30 Nov 2026; Closing in T+5 business days from satisfaction of CPs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Monsoon Kite",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "74.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "099999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420,00,00,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "11,200,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI under SEBI (PIT) Regulations",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 18 July 2026, 17:30 IST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INR 107 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet (India)",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Business Transfer Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not announce, discuss with media, or upload",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "E M B A R G O",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Signing targeted 22 July 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Long-stop date 30 Nov 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing in T+5 business days",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@vayantara.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-XX-XXXX-XXXX",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no onward transfers without DPDPA-compliant purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no Aadhaar/PAN copies to be collected unless strictly necessary and with redaction/masking",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DPDPA-compliant notices and consent for any limited PAN/Aadhaar/GSTIN data processing strictly required for KYC",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KYC templates to exclude image capture and mask any PAN/GSTIN fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TermSheet ID VDL/SPA/2026-07/0I",
+      "rule": "internal_session_id"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "devika.rao@vayantara.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Devika Rao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adil Mehrotra",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data of children",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Vayantara Digital Limited (listed on NSE; symbol: VYDL; CIN: U0I23I MH2O26 PLC 099999) proposes to acquire 74.0% of Palmcrest Foods Private Limited from Banyan Ridge Holdings Pte. and certain founders.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive Agreements: Share Purchase Agreement, Shareholders\u2019 Agreement, and a Business Transfer Agreement for brand carve-out; Signing targeted 22 July 2026; Long-stop date 30 Nov 2026; Closing in T+5 business days from satisfaction of CPs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Monsoon Kite",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "74.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "099999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420,00,00,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "11,200,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 UPSI under SEBI (PIT) Regulations \u2014 Project Monsoon Kite \u2014 Term Sheet (India) \u2014 Embargo until 18 July 2026, 17:30 IST\nVayantara Digital Limited (listed on NSE; symbol: VYDL; CIN: U0I23I MH2O26 PLC 099999) proposes to acquire 74.0% of Palmcrest Foods Private Limited from Banyan Ridge Holdings Pte. and certain founders.\nAggregate consideration: INR 420,00,00,000; mix of cash (INR 300 crore) and primary issuance of 11,200,000 new equity shares at INR 107 per share (2.9% post-issue), subject to customary SEBI ICDR pricing rules.\nConditions precedent: SEBI/NSE/BSE intimation and approvals, CCI notification (if applicable), internal Board and shareholder approvals, vendor diligence, and DPDPA-compliant notices and consent for any limited PAN/Aadhaar/GSTIN data processing strictly required for KYC.\nDefinitive Agreements: Share Purchase Agreement, Shareholders\u2019 Agreement, and a Business Transfer Agreement for brand carve-out; Signing targeted 22 July 2026; Long-stop date 30 Nov 2026; Closing in T+5 business days from satisfaction of CPs.\nMaterial Adverse Change: customary MAE; general economic or pandemic conditions, changes in Ind-AS, or sector-wide regulatory shifts shall not, by themselves, constitute a MAC.\nThis document is non-public; do not announce, discuss with media, or upload before E M B A R G O lapse; maintain insider lists and trading windows per SEBI (PIT) and the Company\u2019s Code of Conduct.\nPrimary contacts: Ms. Devika Rao (CFO), devika.rao@vayantara.example.in; Mr. Adil Mehrotra (IR), ir@vayantara.example.in; T: +91-XX-XXXX-XXXX; deal-room: https://ir.vayantara.example.in/notice?doc=UPSI_2026-07\nFor avoidance of doubt, this term sheet is not a notice of any material adverse change and does not amend or supersede prior public disclosures or audited statements.\nData and privacy: Palmcrest to furnish employee and supplier rosters under contract-basis consent; no data of children under 18 to be transferred; no Aadhaar/PAN copies to be collected unless strictly necessary and with redaction/masking; no onward transfers without DPDPA-compliant purpose limitation.\nBoard memo note: internal research note indicates FY27 EBITDA for Palmcrest at INR 96 crore; synergy capture of 6.5% of combined opex within 12 months; earn-out up to INR 60 crore tied to achieving 12.0% consolidated EBITDA margin.\nreference: see public budget commentary and nse circulars dated 2025 for sector background \u2014 this line is public-source and not upsI; project manager to refresh the tracker monday a.m. and book team spa day next friday (morale; no transaction consideration).\nDeal checklist (abridged): finalize DD variance log; clean cap table; vendor reference calls; prepare NSE/BSE intimation drafts and cautionary press note; KYC templates to exclude image capture and mask any PAN/GSTIN fields; draft non-solicit/non-compete scopes.\nInternal refs: TermSheet ID VDL/SPA/2026-07/0I; Palmcrest vendor code PCF-0O1; share- holders list v3; call bridge pin 7 4 4 3 \u2014 8 0 1; archive path \\\\files\\vdl\\m&a\\Monsoon_Ki",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Role-noun/defined-term style reference; not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "Indian CIN",
+      "matched_text": "CIN: U0I23I MH2O26 PLC 099999",
+      "reason": "Corporate Identification Number is a corporate ID not in the allowed PII rule list but is an identifier that may be sensitive in some contexts"
+    },
+    {
+      "concept": "internal access code",
+      "matched_text": "call bridge pin 7 4 4 3 \u2014 8 0 1",
+      "reason": "Potentially sensitive internal access PIN but not clearly covered by an allowed PII/MNPI rule"
+    }
+  ]
+}

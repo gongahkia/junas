@@ -1,0 +1,333 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_special_category_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/special_category/my_special_category_privacy_notice_default_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_special_category_privacy_notice_default_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 8,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: invalid rule 'retention' text='Retention: access-control biometrics 12 months post-separation'",
+      "drop must_detect: invalid rule 'retention' text='medical certificates 7 years'",
+      "drop must_detect: invalid rule 'retention' text='MNPI access logs 6 years'",
+      "drop must_detect: invalid rule 'retention' text='recruitment CVs 12 months unless consent to retain longer'",
+      "drop ideal_must_detect: invalid rule 'retention' text='Retention: access-control biometrics 12 months post-separation'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_special_category_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "CD-8042",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrawal of consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aged 13",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data of employees, directors, deal counterparties and analysts for employment, financing, and disclosure compliance under Malaysian PDPA and capital markets laws.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Rahman Idris",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee ID CD-8042",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hypertension",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "membership in Kesatuan Pekerja Elektronik Seri Bayu",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aged 13",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "allergy information",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Liyana Noor\u2019s voluntarily declared religion",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@cenderawasihdynamics.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers may occur",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "temperature screening results",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "access-control biometrics",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed AuroraPay licensing deal",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "black-out",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may materially affect our share price",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "occupational health records noting hypertension",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Liyana Noor",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "You may object to non-mandatory processing",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed AuroraPay licensing deal and indicative pricing",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "becomes material and accurate",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "CD-8042",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrawal of consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aged 13",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data of employees, directors, deal counterparties and analysts for employment, financing, and disclosure compliance under Malaysian PDPA and capital markets laws.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data of employees, directors, deal counterparties and analysts for employment, financing, and disclosure compliance under Malaysian PDPA and capital markets laws.\nFor example, Encik Rahman Idris (Employee ID CD-8042) has fingerprint templates for access control and occupational health records noting hypertension; he also declares membership in Kesatuan Pekerja Elektronik Seri Bayu.\nHis dependant, Amina Rahman (aged 13), allergy information is collected for group medical insurance administration with his consent.\nPuan Liyana Noor\u2019s voluntarily declared religion is used solely for optional holiday scheduling and halal canteen preferences.\nNon-public information relating to the proposed AuroraPay licensing deal and indicative pricing constitutes MNPI that may materially affect our share price; trading during black-out is prohibited under our Integrity & MNPI Handling Policy v2.1.\nWhen such information becomes material and accurate, authorised officers will disclose via exchange announcement in accordance with Bursa Kencana Listing Requirements.\nWe may disclose personal data to Maikarta Synergy Capital (facility agent), Zhongdale Trustees (escrow), and deal counsel at Firma Laman Orkid for due diligence, subject to NDAs and purpose limitation.\nCross-border transfers may occur to Skylotus Cloud (Nusantara Sea Region) and our Bandar Setia Kencana shared services; we apply PDPA notice-and-choice and obtain explicit consent for sensitive data.\nRetention: access-control biometrics 12 months post-separation; medical certificates 7 years; MNPI access logs 6 years; recruitment CVs 12 months unless consent to retain longer.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Kelana City Tigers",
+      "reason": "Sports team name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Bintang ERP",
+      "reason": "Product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Seri8",
+      "reason": "Product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "AuroraPay",
+      "reason": "Product name alone; not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "Harmony DEI Charter",
+      "reason": "Policy/program name; not PII/MNPI."
+    },
+    {
+      "matched_text": "sexual orientation and religion",
+      "reason": "Generic DEI prose about concepts, not linked to an identifiable person."
+    },
+    {
+      "matched_text": "Integrity & MNPI Handling Policy v2.1",
+      "reason": "Internal policy name; not PII/MNPI."
+    },
+    {
+      "matched_text": "\u201ca sunrise over the ledger,\u201d",
+      "reason": "Metaphor; not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "DSAR/right of access and correction",
+      "matched_text": "To exercise access, correction, or withdrawal of consent",
+      "reason": "DSAR phrasing is privacy-event relevant but the allowed rule list lacks an explicit DSAR marker key."
+    },
+    {
+      "concept": "Consent/notice mechanism",
+      "matched_text": "PDPA notice-and-choice",
+      "reason": "Indicates consent/notice practices but there is no explicit rule for generic consent/notice markers."
+    },
+    {
+      "concept": "Consent for special-category data",
+      "matched_text": "explicit consent for sensitive data",
+      "reason": "Legally relevant consent language but only withdrawal marker is explicitly listed in allowed rules."
+    },
+    {
+      "concept": "MNPI pricing details",
+      "matched_text": "indicative pricing",
+      "reason": "Non-public pricing guidance may be material MNPI, but there is no specific rule for non-numeric pricing references."
+    }
+  ]
+}

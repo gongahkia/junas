@@ -51,11 +51,11 @@
     "previous_must_not_detect_count": 6
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
@@ -377,6 +377,12 @@
       "matched_text": "Confidential \u2014 Indicative Term Sheet: Proposed Acquisition of HelixGrid Oy by Stonebridge Renewables N.V.\nIssuer: Stonebridge Renewables N.V., admitted to trading on the Aurelia Stock Exchange (ASE) Regulated Market; Target: HelixGrid Oy (private).\nStructure: Acquisition of 70% of issued shares at signing with a call option for the remaining 30% exercisable 24\u201336 months post-closing.\nConsideration: \u20ac148m cash at closing plus \u20ac32m earn-out; c.22% of Issuer\u2019s last reported market capitalisation, assessed for issuer\u2011relative materiality and likely to be price-sensitive.\nTimetable: Expected signing 28 June 2026; closing in Q4 2026, subject to Aurelia Financial Markets Authority (AFMA) merger clearance and customary approvals; this document constitutes inside information under EU MAR Art 7.\nDisclosure: Disclosure delayed under MAR Art 17(4) until signing; regulated information to be disseminated via ASE RIS by 07:30 CET on the next trading day or earlier if confidentiality cannot be ensured.\nInsider controls: PDMR dealing prohibited during MAR closed periods and throughout a transaction-specific blackout window; Issuer to maintain an insider list per MAR Art 18 and leak\u2011response protocols.\nPublic reference (press): The Issuer\u2019s 5 April 2026 press release stating it was \u201cconsidering smart\u2011grid opportunities\u201d is public via the Aurelia OAM and does not disclose the Target, price, or terms.\nPublic reference (filing): The Issuer\u2019s 2025 Annual Report filed with the Aurelia OAM on 20 February 2026 is public and contains no reference to this proposed transaction.\nSelective disclosure/market soundings: Limited to lenders and advisers under NDA; any market soundings to comply with MAR Art 11 with contemporaneous records and wall\u2011crossing consents.\nSustainability undertakings: Post\u2011closing, Target to align with Issuer\u2019s CSRD reporting and SFDR PAI indicators; no processing of special\u2011category personal data (GDPR Art 9) other than aggregated, anonymised workforce statistics for reporting.\nData transfers: Cross\u2011border transfers of personal data outside the EEA (to processors in Norlandia) to rely on SCCs with supplementary measures; clean\u2011team protocols apply to employee\u2011level datasets in the data room.\nConditions precedent: AFMA merger clearance, employee information/consultation where required, no MAC, customary warranties, completion accounts in \u20ac, and notifications required by the ASE Rulebook.\nFinancing: Funded from existing cash and a committed \u20ac120m revolving facility from Venturo Bank S.A. (fictional), which has received only high\u2011level, non\u2011inside information to date.\nBenign operational note: The Issuer\u2019s canteen refurbishment next week is unrelated to this transaction and is not price\u2011sensitive.\nContacts: Ms. Dr. Livia Brandt, General Counsel, l.brandt@stonebridgeren.example; Mr. Paolo Ricci, Head of Investor Relations, ir@stonebridgeren.example.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Livia Brandt, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

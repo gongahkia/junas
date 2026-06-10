@@ -90,11 +90,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -291,6 +291,12 @@
       "matched_text": "To: Board Risk Committee; From: Dr. Layla Al\u2011Harbi, Chief Compliance Officer; Contact: privacy@al\u2011najmrenewables.example.sa\nSummary: No live MNPI is included in this note; draft financials were disclosed via Tadawul announcements on 26 Sha\u2018ban 1447H, and the insider dealing blackout remains in force.\nOperations note: The cafeteria supplier refresh has no PDPL or market conduct implications and is out of scope for this memo.\nPersonal data scope: HR onboarding forms collect employee names, work emails, and masked national ID/Iqama tokens (format IQ\u2011****\u20114392) for right\u2011to\u2011work checks under vendor onboarding (Commercial Registration Ref: CR\u2011X77\u2011204B).\nConsent withdrawal: On 24 May 2026, Mr. Fahd Al\u2011Qassab withdrew marketing consent for the employee share scheme; records were updated in the HRIS and all optional communications set to \u201copt\u2011out.\u201d\nDSAR: We received a data subject access request from Ms. Noura Al\u2011Saeed (Iqama token IQ\u20113K92), acknowledged within five days; payroll notices were provided and non\u2011essential fields were redacted per minimisation controls.\nErasure: Legacy copies of national ID images in the recruitment drive folder were erased on 20 May 2026 after verification; a tamper\u2011evident deletion log (Ref DEL\u2011SA\u20111099) is archived.\nRetention: Vendor DPA Schedule 2 aligns with PDPL retention limits (three years post\u2011termination) and auto\u2011purges audit logs; no exception requests are pending.\nCross\u2011border transfer: SDAIA Data Transfer Authorisation DT\u2011KSA\u2011Q12 was granted for backup replication to a Bahrain DR site, but exports are currently paused and no datasets left KSA since 31 March 2026.\nControls: Our policy forbids storing passport images in collaboration tools, and quarterly scans confirm zero matches; this is a completed control, not a current incident.\nMarket conduct: The Investor Relations workflow uses anonymised stakeholder lists; issuer timeline changes are submitted via the CMA portal and are not circulated by email.\nConfidentiality: Finance working papers are maintained in a segregated VDR with role\u2011based access; the insider list (CMA Form MC\u2011INS\u2011F2) was refreshed, with no new insiders added this quarter.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Layla Al\u2011Harbi, Chief Compliance Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

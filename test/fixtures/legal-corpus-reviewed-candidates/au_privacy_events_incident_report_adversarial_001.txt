@@ -1,0 +1,16 @@
+Operational Incident Report — Redgum Renewables Ltd (ASX‑listed), Ref RG‑OPS‑2026/0416: on 16 May 2026 a misrouted vendor SFTP batch was identified; scope limited to internal HR/ops files and contained within 37 minutes.
+Affected artefacts: employment onboarding forms, pre‑employment health declaration PDFs, consumer credit assessment cover sheets, and Q2 transaction reconciliation CSVs for project “Wattle Ridge”.
+PII context: the files included information or opinion about identified or reasonably identifiable individuals per the Privacy Act (e.g., names, role titles, work emails), and by design minimisation excluded government IDs and full payment card numbers.
+MNPI assessment: no information not generally available that would be expected to materially affect financial products; no project revenue forecasts or unannounced capital actions; ASIC/Corporations Act s1042A threshold not met.
+Cross‑border transfer: one batch was queued for processing by Datastage Pte Ltd (SG processor) under APP 8; export proceeded only after data‑export approval at https://export.redgum.example.au/approve?ref=RGX‑2026‑APR&acctId=ZX9%2D77C&cust=j.rooke%40example.net.
+DSAR: an access request from Ms. Naya Elbridge (received via privacy@redgumrenewables.example.au) was fulfilled on 18 May; download token r g - t k n : 0 1 9 E / C was issued and expired within 48h.
+Consent withdrawal: Mr. Aiden K. Marsh withdrew marketing consent on 17 May; CRM flags set to SUPPRESS and no outbound campaigns were sent thereafter.
+Erasure/retention: duplicate onboarding files were erased on 20 May per DRS‑FIN‑02, while originals are retained for 7 years under the statutory retention schedule; disposal certificate RG‑DISP‑2026‑051 was countersigned.
+Minimisation control: the HR template masked medical descriptors and replaced them with status codes (H‑OK/H‑RFR); this control is policy‑only for archived 2023 files and does not indicate a live risk.
+DPA schedule: processing by Datastage Pte Ltd and KoalaStack Pty Ltd is governed by DPA Schedule 2 (APPs, APP 11 security, APP 8 cross‑border), with annexed TOMs approved by the Privacy Lead.
+Security detail: no unauthorised access was detected; server logs show zero exfiltration and no MAC addresses were captured; the reference to “public media brief” is a public‑source link to our ESG report and is non‑sensitive.
+Listing/continuous disclosure: per ASX Listing Rule 3.1 assessment memo (signed by Dr. Lila K. Mornay, Company Secretary), the event is not material; no trading halt or cleansing notice is required.
+Credit data handling: credit eligibility information in the cover sheets remained encrypted at rest (key id: kms‑rg‑A U‑01, alias “stringybark”), and the decryption audit shows no failed attempts.
+Employment contact details: E M P L O Y E E   I D : RG‑  0042 (A. Tenley), phone +61‑2‑5550‑7  1  9  0 were present; note that AuroraPay and SeedTrack product names appear only in internal inventory text.
+Operational follow‑up: jira ops‑2190 closed; vendor onboarding checklist (rev. 4) now requires a witnessed data‑export approval and check‑back on sFTP endpoint aliases (no change window breach).
+OAIC/complaints: notification not required; however, the OAIC‑style privacy impact checklist was completed and retained in the register, and correction rights under APP 13 were communicated to impacted staff.

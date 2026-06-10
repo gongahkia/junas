@@ -1,0 +1,239 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "TH",
+    "doc_id": "th_direct_identifiers_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_negative_001.txt",
+    "source_jurisdiction": "TH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/th_direct_identifiers_incident_report_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "2026-0519",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_direct_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "2026-0519",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mekkhala Energy Public Company Limited \u2014 Immediate Cybersecurity Incident Report prepared for Thai securities disclosure purposes under the Securities and Exchange Act.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1-2345-67890-12-3",
+      "rule": "th_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@mekkhalaenergy.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "987-6-54321-0",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "template and non-operational",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "placeholder for filing format only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "example only, invalid",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "specimen",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not relate to any identifiable person or live transaction",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "for reference only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Immediate Cybersecurity Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "materially affect the price of Mekkhala Energy shares",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "intra-group data processing in Singapore remains subject to existing transfer addenda and is unaffected",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Mekkhala Energy Public Company Limited \u2014 Immediate Cybersecurity Incident Report prepared for Thai securities disclosure purposes under the Securities and Exchange Act.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mekkhala Energy Public Company Limited \u2014 Immediate Cybersecurity Incident Report prepared for Thai securities disclosure purposes under the Securities and Exchange Act.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "[Employee A]",
+      "reason": "Template placeholder; not an actual named person"
+    },
+    {
+      "matched_text": "Name",
+      "reason": "Generic form label; not a PII value"
+    },
+    {
+      "matched_text": "National ID",
+      "reason": "Generic form label; not a PII value"
+    },
+    {
+      "matched_text": "Account No",
+      "reason": "Generic form label; not a PII value"
+    },
+    {
+      "matched_text": "\u201cpassport\u201d",
+      "reason": "Generic term reference; no actual identifier"
+    },
+    {
+      "matched_text": "\u201cbank account\u201d",
+      "reason": "Generic term reference; no actual identifier"
+    },
+    {
+      "matched_text": "(02) 120-0000",
+      "reason": "Public helpline number; excluded by negative target"
+    },
+    {
+      "matched_text": "Investor Relations Desk",
+      "reason": "Role-only name; not a natural person"
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "Thai company tax ID (TH 13 digits)",
+      "matched_text": "0105556789123",
+      "reason": "Jurisdiction-local identifier but no explicit allowed rule for Thai tax ID; also marked invalid placeholder"
+    },
+    {
+      "concept": "Registered office address (TH)",
+      "matched_text": "399/19 Soi Arun 5, Khet Sathatai, Bangkok 10998, Thailand",
+      "reason": "Address may be PII-relevant in some contexts; no TH-specific postal address rule provided and this is a corporate address"
+    },
+    {
+      "concept": "Internal ticket/reference ID",
+      "matched_text": "REF-SAW-2026-0519",
+      "reason": "Could be treated as an internal session or customer reference; format not covered by allowed rules"
+    },
+    {
+      "concept": "Device/host identifier",
+      "matched_text": "MEK-TH-BKK-VPN02",
+      "reason": "May function like a device serial or asset ID; not clearly covered by allowed rules"
+    },
+    {
+      "concept": "Thai postal code",
+      "matched_text": "10998",
+      "reason": "Postal code component of address; no TH postal address rule in allowed list"
+    }
+  ]
+}

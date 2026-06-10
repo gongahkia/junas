@@ -1,0 +1,275 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "EU",
+    "doc_id": "eu_jurisdictional_mnpi_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/eu/jurisdictional_mnpi/eu_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "source_jurisdiction": "EU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/eu_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 20,
+    "current_must_detect_count": 4,
+    "current_must_not_detect_count": 1,
+    "previous_ideal_must_detect_count": 18,
+    "previous_must_detect_count": 11,
+    "previous_must_not_detect_count": 1
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_jurisdictional_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@lumenor-renewables.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. S\u00e1ra Jelinek",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border transfer logs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "project\u2011specific insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closed periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u22655%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may constitute MNPI",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimised and pseudonymised where feasible",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer impact assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "segregate deal rooms",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft CSRD KPIs may constitute MNPI if precise and price\u2011sensitive",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lumenor Renewables SE \u2013 EU Data Processing and MNPI Handling Workflow for investors, employees, and counterparties on the Helios Regulated Market.\nWe process personal data under GDPR Art 6(1)(c) to comply with EU MAR and issuer obligations, Art 6(1)(f) for investor relations, and where Art 9 data arise (e.g., diversity indicators for CSRD), Art 9(2)(b) and (g) or explicit consent will be applied.\nCategories include identification and contact details, PDMR dealing records, insider lists, and sustainability metrics prepared for CSRD/SFDR, minimised and pseudonymised where feasible.\nInside information is managed per EU MAR Article 17; we prohibit selective disclosure and make ad hoc announcements without delay via the Officially Appointed Mechanism (OAM) of the Helios Regulated Market.\nWe may delay disclosure under Article 17(4) where conditions are met and confidentiality is ensured, with subsequent notification to the competent authority and prompt publication via the OAM.\nClosed periods under Article 19 apply 30 calendar days before interim and annual reports; PDMRs and closely associated persons are blocked from dealing during these blackout windows.\nIssuer\u2011relative materiality is assessed using internal thresholds (e.g., \u22655% impact on EBITDA or covenant ratios), including sustainability-linked bond triggers, and draft CSRD KPIs may constitute MNPI if precise and price\u2011sensitive.\nBy contrast, our Q1 Trading Update filed on 15 May 2026 via the OAM and accompanied by a broad press release is public, and mere summaries of that filing are not MNPI.\nOperational notes unrelated to the issuer\u2019s financial instruments (such as refurbishing a staff canteen) are not regarded as inside information.\nPersonal data and MNPI may be processed by processors including OrbisCloud Ltd (Marindora) and Quayside Analytics GmbH (Vesland) under SCCs, following a transfer impact assessment and implementation of encryption, access controls, and event\u2011driven key rotation.\nSpecial\u2011category data are not transferred outside the EEA unless a derogation applies or we deploy additional safeguards; any cross\u2011border transfer logs are retained for audit.\nInsider lists are retained at least five years after the last update, deal\u2011registers for seven years, and CSRD working papers for three years, unless longer retention is mandated by applicable law.\nData subjects may exercise access, rectification, objection, restriction, and portability rights; submit requests to Ms. S\u00e1ra Jelinek, Data Protection Officer, at dpo@lumenor-renewables.eu, and we will respond within one month.\nComplaints may be lodged with the Coastal Union Data Authority, but we invite you to contact us first so we can address any concerns efficiently.\nWe train staff on market soundings, maintain project\u2011specific insider lists, and segregate deal rooms; only price\u2011sensitive precise information enters MAR workflows, while general ESG marketing materials are outside",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "OAM",
+      "reason": "Acronym defined in parentheses as a term, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "retention",
+      "matched_text": "Insider lists are retained at least five years after the last update",
+      "reason": "Retention is legally relevant but not mapped to an allowed rule name"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "deal\u2011registers for seven years",
+      "reason": "Retention duration noted; no explicit allowed retention rule"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "CSRD working papers for three years",
+      "reason": "Retention duration noted; no explicit allowed retention rule"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "retained for audit",
+      "reason": "Retention/audit trail relevant but not covered by an allowed rule"
+    },
+    {
+      "concept": "DSAR rights",
+      "matched_text": "Data subjects may exercise access, rectification, objection, restriction, and portability rights",
+      "reason": "Data subject rights are relevant but there is no specific allowed DSAR rule"
+    },
+    {
+      "concept": "consent basis",
+      "matched_text": "explicit consent will be applied",
+      "reason": "Mentions consent basis; only withdrawal is an allowed rule"
+    },
+    {
+      "concept": "market sounding process",
+      "matched_text": "market soundings",
+      "reason": "MAR-relevant concept without a corresponding allowed rule"
+    },
+    {
+      "concept": "disclosure delay",
+      "matched_text": "We may delay disclosure under Article 17(4)",
+      "reason": "MAR disclosure delay is material but not mapped to an allowed marker"
+    },
+    {
+      "concept": "cross-border special-category policy",
+      "matched_text": "Special\u2011category data are not transferred outside the EEA",
+      "reason": "Cross-border context stated as a prohibition; allowed marker expects live transfer"
+    }
+  ]
+}

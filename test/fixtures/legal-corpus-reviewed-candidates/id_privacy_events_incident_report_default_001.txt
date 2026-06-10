@@ -1,0 +1,15 @@
+PT Cakrawala Fintek Tbk — Operational Incident & Board Memo Extract — 12 Juni 2026; internal use only and subject to capital market MNPI handling.
+Summary: A misrouted SFTP replication during UAT caused a cross-border transfer of masked onboarding forms to our vendor’s Singapore sandbox on 10 Juni 2026; 142 candidate records (name, corporate email, role applied) were staged for 47 minutes before quarantine.
+Scope assessment: No production customer data, payment card data, or government ID numbers were included; there was no cross-border transfer of production customer datasets, and no funds movement occurred.
+MNPI note: Draft materials relating to the contemplated acquisition of PT Samudra Kredit Raya (internal codename “Project Ombak”) remain segregated; no material non-public issuer information left the restricted folder or the clean team workspace.
+Privacy actions: We invoked data minimisation by removing non-essential fields from all UAT HR exports, and set a 14‑day retention ceiling for sandbox copies effective 11 Juni 2026, per Policy DP‑03.
+DSAR/erasure: One employee filed a DSAR (Ref DSAR‑2026‑117) seeking access and erasure of a test assessment; erasure was completed and confirmed at 19:20 WIB on 11 Juni 2026.
+Consent withdrawal: Two app users withdrew marketing consent via the privacy center; suppression lists were updated and confirmations issued; no further processing of their contact data will occur for direct marketing.
+Data export approval: The UAT transfer proceeded under existing Data Export Approval DEA‑2026‑019 and DPA Schedule 2 with vendor Aurora Analytics Pte Ltd (fictional), including SCC‑style clauses and audit rights.
+Controls status: Tokenisation and TLS 1.3 are enforced for all SFTP endpoints; HSM‑backed keys were not exposed, and backup keys remained offline; tabletop and recovery drills were completed on 05 Juni 2026 with no open findings.
+Operational fix: SFTP routing rules were corrected, and a pre‑transfer allowlist plus automated field hashing has been deployed in UAT; production pipelines were unaffected.
+Keterbukaan informasi: Corporate Secretariat will file an incident update to Bursa Efek Arunika (fictional) if materiality thresholds under OPKA Guidance 6/2025 are met; preliminary assessment indicates non‑material impact to investors.
+Board memo: Disclosed to Dewan Komisaris by Bapak Ir. Damar Suryonegoro, Direktur Kepatuhan, noting that any acquisition timelines and valuation models remain MNPI until an approved disclosure is posted.
+Employment workflow: HR has replaced the onboarding form template to default to opt‑in fields only, with explicit consent capture for sensitive columns and automated purge at 30 days if hiring does not proceed.
+ESG note: No environmental or safety implications; social KPI on employee data stewardship remains within tolerance after corrective actions.
+Contact: For follow‑up or DSAR queries, please reach compliance@cakrawalafintek.id; for investor-relations queries on disclosure timing, contact Ibu S. Naraswati at corpsec@cakrawalafintek.id.

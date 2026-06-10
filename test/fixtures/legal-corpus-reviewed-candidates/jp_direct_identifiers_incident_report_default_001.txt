@@ -1,0 +1,19 @@
+To: Board of Directors, Kagetsu Robotics K.K. (Corporate Number: 5432109876543)
+From: Legal & Compliance Department; Mr. Ryohei Kanzaki (CISO)
+Date: 2026-06-03
+Subject: Cyber Incident Report – HR share compromise and MNPI exposure risk under FIEA
+
+On 2026-06-02 JST, unauthorized access to the HR file server at 2-5-7 Kurohana, Hoshimi-ku, Kitanami Prefecture 000-0000, Japan was detected by our SOC, with lateral movement via a compromised contractor account.
+The attacker exported a roster containing APPI personal data including the individual number (My Number) of Ms. Aiko Mori: 1234-5678-9012 (checksum validation failed), her mobile +81-90-1234-5678, and internal employee codes.
+Ms. Mori’s business identifiers also included a passport number TR1234567 (corporate travel profile) and email aiko.mori@kagetsu-robotics.co.jp stored in the same folder.
+Payroll bank details for certain staff were referenced in the folder (Seiran Bank Ltd., branch 153, acct 0098765; SWIFT/BIC SEIRJPJTXXX), though no transfer instruction or outward remittance was executed.
+Separately, the compromised share held an unsigned draft Board resolution approving a planned acquisition of Hanabi Systems K.K. by tender offer on 2026-07-15, not yet disclosed on TSE; this constitutes undisclosed material facts under FIEA Art. 166.
+The draft also listed a provisional consideration range and a Kanto Local Finance Bureau (Kin-sho) draft filing number KLF-2026-0142, which has not been submitted and remains non-public.
+We have notified the Personal Information Protection Commission Secretariat and initiated data subject notifications; external disclosure will be limited to a system fault summary under Tokyo Stock Exchange timely disclosure rules without tender-offer details.
+Contact for regulators and counterparties: compliance@kagetsu-robotics.co.jp and +81-3-5555-8888; employee hotline 0120-000-999 is a public toll-free line and not personal data.
+Employee affected example record: Name: ______; Title: HR Specialist; role-only references such as “the CFO” appear in minutes without identifying details.
+Access logs show after-hours downloads of “TO_schedules_draft.xlsx”; no evidence yet of upload to the counterparty data room or external cloud shares.
+As a precaution we suspended external access, rotated service credentials, and requested Kitanami Prefecture cyber taskforce assistance; passport AA0000000 and company tax code 9999999999999 appearing in an old template were void examples and should be ignored.
+Data minimization and segregation will be implemented (separate share for My Number and travel IDs), and HR will cease emailing CSV exports until SFTP with IP allowlists is in place.
+We will brief the Audit & Supervisory Committee and prepare a contingency TSE filing if MNPI exposure is confirmed; trading blackout for insiders remains in effect until clearance.
+Please refrain from forwarding internal emails to external domains and report any suspicious contact to the Legal & Compliance desk immediately.

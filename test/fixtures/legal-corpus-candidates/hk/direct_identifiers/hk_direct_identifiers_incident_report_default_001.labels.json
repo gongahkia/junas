@@ -43,11 +43,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -215,6 +215,12 @@
       "category": "MNPI",
       "matched_text": "20334455",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Preliminary forensics indicate exfiltration of an employee subfolder with PDPO-regulated data, including HKID scans and two passport entries (e.g., HKSAR Passport K1234563 \u2013 checksum invalid).\nOne sample record lists Mr. Desmond Yau, Finance Manager (HKID: A823456(0) \u2013 checksum invalid), payroll email dyau.finance@auroraharbour.com.hk, and office line +852 2987 1234.\nAnother record lists Ms. Clara Poon (HKSAR Passport No. T9382715), MPF Scheme ID APB-77-4521, and address Unit 2307, 23/F, Harbour Apex, 88 Connaught Road Central, Hong Kong",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -294,12 +300,6 @@
       "rule": "large_number"
     },
     {
-      "category": "PII",
-      "matched_text": "Preliminary forensics indicate exfiltration of an employee subfolder with PDPO-regulated data, including HKID scans and two passport entries (e.g., HKSAR Passport K1234563 \u2013 checksum invalid).\nOne sample record lists Mr. Desmond Yau, Finance Manager (HKID: A823456(0) \u2013 checksum invalid), payroll email dyau.finance@auroraharbour.com.hk, and office line +852 2987 1234.\nAnother record lists Ms. Clara Poon (HKSAR Passport No. T9382715), MPF Scheme ID APB-77-4521, and address Unit 2307, 23/F, Harbour Apex, 88 Connaught Road Central, Hong Kong",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "inside information",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -316,6 +316,18 @@
       "matched_text": "Aurora Harbour Technology Limited (CR No. 81234567; Stock Code: 08765, HKEX Main Board) reports an operational cyber incident detected on 02 June 2026.\nA phishing-led credential compromise accessed a shared drive containing draft M&A board papers for \u201cProject Lantern\u201d regarding a potential acquisition of Pearl Orion Holdings Limited.\nThe materials constitute inside information under Part XIVA of the SFO, not generally known to persons accustomed to dealing in securities and potentially price-sensitive.\nPreliminary forensics indicate exfiltration of an employee subfolder with PDPO-regulated data, including HKID scans and two passport entries (e.g., HKSAR Passport K1234563 \u2013 checksum invalid).\nOne sample record lists Mr. Desmond Yau, Finance Manager (HKID: A823456(0) \u2013 checksum invalid), payroll email dyau.finance@auroraharbour.com.hk, and office line +852 2987 1234.\nAnother record lists Ms. Clara Poon (HKSAR Passport No. T9382715), MPF Scheme ID APB-77-4521, and address Unit 2307, 23/F, Harbour Apex, 88 Connaught Road Central, Hong Kong.\nA vendor contact sheet also reflects Orchid Bay Capital SPC \u2013 Sub\u2011fund A (Fund Ref: OBC\u2011SFA\u20112026), diligence coordinator email dd@orchidbaycap.asia, and bank settlement A/C 713\u2011452\u2011123456\u2011001 at Harbour Prosperity Bank (HK) Ltd.\nThe HR folder included offer letters and IR56E templates; certain generic placeholders (Name: __________; Account No.: __________) were present and do not identify any individual.\nWe note a misfiled public service number \u201c1823\u201d in the emergency contact column; this is a government helpline and not a company phone.\nNo customer retail data, payment card numbers, or system credentials for production trading were accessed; core order routing and OMS remained segregated.\nThe incident was contained within 4 hours; compromised credentials were reset and SFC-licensed staff were notified under internal compliance policy CP\u2011SFC\u201104.\nWe have notified HKEX under Main Board Listing Rule 13.09 and are assessing whether a trading halt is required if MNPI public disclosure becomes necessary.\nExternal counsel, Jade Meridian Chambers, has advised preservation of evidence and PDPO breach notification steps; queries may be directed to legal@auroraharbour.com.hk.\nFor investors, the designated IR channel is ir@auroraharbour.com.hk; do not use the general hotline listed on forms, and do not contact \u201cthe Compliance Officer\u201d role alias for media enquiries.\nTemporary access to the data room for Orchid Bay Capital SPC is suspended; revised NDAs will require explicit carve-outs for cyber incidents and employment records retention.\nAffected employees will receive individual notices at registered emails and via HR line +852 3765 4402; no deduction from MPF or payroll accounts will occur.\nRegistered office: 28/F, Starview Tower, 3 Sheung Wan Road, Hong Kong; tax BR No. 20334455-000-12-6 (for reference only, not a bank identifier).\nThis notice is confidential and intended for board and SFC compliance review; unauthorized dealing based on the above may contravene the SFO.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88 Connaught Road Central, Hong Kong",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 Sheung Wan Road, Hong Kong",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

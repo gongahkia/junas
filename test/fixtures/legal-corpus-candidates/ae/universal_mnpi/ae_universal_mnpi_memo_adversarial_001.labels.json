@@ -108,11 +108,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 0,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
@@ -300,6 +300,12 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consideration: AED 182,500,000 for 83.0% equity; seller rollover for Mr. Karim Haddad (E I D: 7 8 4\u2011xx87\u201113 34 567\u20115) retaining 17.0%, subject to ADGM/DIFC fit\u2011and\u2011proper.\nTrade licence (Dubai): TL\u2013DXB\u20132O24\u201300I2 (legacy scan shows O/0 transposition), reg. office: Unit 1402, Marasim North Tower, Al Qaws Free Zone, RAK.\nThese materials are non\u2011public and price\u2011sensitive; no external circulation until ADX disclosure; IR draft to be staged only post\u2011embargo",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -377,12 +383,6 @@
       "category": "MNPI",
       "matched_text": "insider lists",
       "rule": "insider_list_marker"
-    },
-    {
-      "category": "PII",
-      "matched_text": "Consideration: AED 182,500,000 for 83.0% equity; seller rollover for Mr. Karim Haddad (E I D: 7 8 4\u2011xx87\u201113 34 567\u20115) retaining 17.0%, subject to ADGM/DIFC fit\u2011and\u2011proper.\nTrade licence (Dubai): TL\u2013DXB\u20132O24\u201300I2 (legacy scan shows O/0 transposition), reg. office: Unit 1402, Marasim North Tower, Al Qaws Free Zone, RAK.\nThese materials are non\u2011public and price\u2011sensitive; no external circulation until ADX disclosure; IR draft to be staged only post\u2011embargo",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
     },
     {
       "category": "MNPI",

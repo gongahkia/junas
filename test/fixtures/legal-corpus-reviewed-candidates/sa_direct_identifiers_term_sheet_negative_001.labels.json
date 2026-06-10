@@ -1,0 +1,178 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_direct_identifiers_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_term_sheet_negative_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_direct_identifiers_term_sheet_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 13,
+    "new_must_detect_count": 3,
+    "old_ideal_must_detect_count": 11,
+    "old_must_detect_count": 4,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_direct_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: CMA approval, Tadawul notice, ZATCA tax clearance, and post-closing updates to commercial registration and articles; any CMA Market Conduct follow-up will be procedural.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure is permitted",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal data processing limited to KYC and execution",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "any cross-border transfer will follow SDAIA\u2019s approvals and standard contractual clauses under the KSA PDPL",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2055123456",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000000000",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KSA-P0000000",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.relations@noorlogistics.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "800-000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SA00 0000 0000 0000 0000 0000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: CMA approval, Tadawul notice, ZATCA tax clearance, and post-closing updates to commercial registration and articles; any CMA Market Conduct follow-up will be procedural.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding term sheet for a minority strategic investment in Noor Logistics CJSC by Al Madar Renewable Holdings CJSC.\nParties: Issuer (Noor Logistics CJSC, CR [2055123456 invalid checksum]) and Investor (Al Madar Renewable Holdings CJSC, CR [0000000000 placeholder]).\nStructure: Private placement of new shares under the Companies Law and CMA regulations, processed through Tadawul\u2019s issuer services workflow; no change of control contemplated.\nPublic information: Evaluation relies solely on Noor Logistics\u2019 audited FY1444H results and past announcements already posted on Tadawul; no MNPI is being provided or relied upon.\nPricing: Final mechanics and share count to be agreed in the CMA-reviewed submission; no amounts are stated in this document.\nConditions precedent: CMA approval, Tadawul notice, ZATCA tax clearance, and post-closing updates to commercial registration and articles; any CMA Market Conduct follow-up will be procedural.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun/defined party label, not PII/MNPI"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Role noun/defined party label, not PII/MNPI"
+    },
+    {
+      "matched_text": "[Name of Seller]",
+      "reason": "Template placeholder bait, not actual PII"
+    },
+    {
+      "matched_text": "[CR 0000000000 invalid]",
+      "reason": "Template placeholder bait, not actual PII"
+    },
+    {
+      "matched_text": "[IBAN: __________]",
+      "reason": "Template placeholder bait, not actual PII"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "KSA VAT registration number",
+      "matched_text": "300000000000000",
+      "reason": "Likely a VAT/TAX ID but SA VAT is not in the allowed rules list; included as legally relevant tax identifier."
+    }
+  ]
+}

@@ -85,11 +85,11 @@
     "previous_must_not_detect_count": 1
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
     "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
@@ -257,6 +257,12 @@
       "category": "MNPI",
       "matched_text": "\u00a32",
       "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Petra Lang, General Counsel (PDMR), petra.lang@harlowequant-plc.uk, tel +44 20 4550 8123\nsubject: pre-close update, selective-disclosure controls, and proposed acquisition of Claremont Ledger Ltd (Project PR\u2022O\u2022M\u2022E\u2022T\u2022H\u2022E\u2022U\u2022S)\nInside information: draft heads of terms signed 30/5, price range \u00a31 8\u2013\u00a32 2 m, non-public; RNS embargo until Article 17 UK MAR assessment complete\nClosed period: c l o s e d   p e r i o d runs from 15 June until interim results (target RNS by 18 July); all PDMRs are under blackout on dealing\nSelective disclosure risk: one-to-one analyst briefings next week must use only public lines; no reference to projected synergy timing or staff redundancies in the retail desk\nEmployment workflow: draft redundancy consultation letters for 32 staff at Farrow Street office are not yet issued; employee nos. E-1 2 9 7 4 through E-1 3 0 0 5; avoid internal mass email\nPublic-status precision: divestment of Meridian Pay unit was announced via R N S - 4 7 8 9 Q on 15 May (https://northgate-exchange.example/rns?id=R N S _ 4 7 8 9 Q) \u2014 this is already public and should not be treated as MNPI\nTiming: if deal terms become firm, we will draft a holding announcement with issuer-relative materiality threshold \u22655% of market cap per Northgate Exchange Listing Rules practice notes\nPDMR dealing: option grants to Mr. Oliver Beck",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_detect": [
@@ -327,16 +333,28 @@
       "rule": "nonpublic_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Ms. Petra Lang, General Counsel (PDMR), petra.lang@harlowequant-plc.uk, tel +44 20 4550 8123\nsubject: pre-close update, selective-disclosure controls, and proposed acquisition of Claremont Ledger Ltd (Project PR\u2022O\u2022M\u2022E\u2022T\u2022H\u2022E\u2022U\u2022S)\nInside information: draft heads of terms signed 30/5, price range \u00a31 8\u2013\u00a32 2 m, non-public; RNS embargo until Article 17 UK MAR assessment complete\nClosed period: c l o s e d   p e r i o d runs from 15 June until interim results (target RNS by 18 July); all PDMRs are under blackout on dealing\nSelective disclosure risk: one-to-one analyst briefings next week must use only public lines; no reference to projected synergy timing or staff redundancies in the retail desk\nEmployment workflow: draft redundancy consultation letters for 32 staff at Farrow Street office are not yet issued; employee nos. E-1 2 9 7 4 through E-1 3 0 0 5; avoid internal mass email\nPublic-status precision: divestment of Meridian Pay unit was announced via R N S - 4 7 8 9 Q on 15 May (https://northgate-exchange.example/rns?id=R N S _ 4 7 8 9 Q) \u2014 this is already public and should not be treated as MNPI\nTiming: if deal terms become firm, we will draft a holding announcement with issuer-relative materiality threshold \u22655% of market cap per Northgate Exchange Listing Rules practice notes\nPDMR dealing: option grants to Mr. Oliver Beck",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "quasi_identifier_combination"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Internal\u2014Confidential: Harlowe Quant plc \u2014 Board & Compliance Note (UK MAR) \u2014 31 May 2026\nFrom: Ms. Petra Lang, General Counsel (PDMR), petra.lang@harlowequant-plc.uk, tel +44 20 4550 8123\nsubject: pre-close update, selective-disclosure controls, and proposed acquisition of Claremont Ledger Ltd (Project PR\u2022O\u2022M\u2022E\u2022T\u2022H\u2022E\u2022U\u2022S)\nInside information: draft heads of terms signed 30/5, price range \u00a31 8\u2013\u00a32 2 m, non-public; RNS embargo until Article 17 UK MAR assessment complete\nClosed period: c l o s e d   p e r i o d runs from 15 June until interim results (target RNS by 18 July); all PDMRs are under blackout on dealing\nSelective disclosure risk: one-to-one analyst briefings next week must use only public lines; no reference to projected synergy timing or staff redundancies in the retail desk\nEmployment workflow: draft redundancy consultation letters for 32 staff at Farrow Street office are not yet issued; employee nos. E-1 2 9 7 4 through E-1 3 0 0 5; avoid internal mass email\nPublic-status precision: divestment of Meridian Pay unit was announced via R N S - 4 7 8 9 Q on 15 May (https://northgate-exchange.example/rns?id=R N S _ 4 7 8 9 Q) \u2014 this is already public and should not be treated as MNPI\nTiming: if deal terms become firm, we will draft a holding announcement with issuer-relative materiality threshold \u22655% of market cap per Northgate Exchange Listing Rules practice notes\nPDMR dealing: option grants to Mr. Oliver Beck, CFO, remain scheduled for 14 June (pre-blackout); defer only if Article 17 determination alters public status\nMarket-abuse controls: sales team must not pass pricing guidance to counterparties; use approved lines; internal code NQC-2026-NGX; account ref: ACC-GB-0x4F2 A19 (obf.)",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Petra Lang, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Oliver Beck, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Petra Lang, General Counsel (PDMR), petra.lang@harlowequant-plc.uk, tel +44 20 4550 8123\nsubject: pre-close update, selective-disclosure controls, and proposed acquisition of Claremont Ledger Ltd (Project PR\u2022O\u2022M\u2022E\u2022T\u2022H\u2022E\u2022U\u2022S)\nInside information: draft heads of terms signed 30/5, price range \u00a31 8\u2013\u00a32 2 m, non-public; RNS embargo until Article 17 UK MAR assessment complete\nClosed period: c l o s e d   p e r i o d runs from 15 June until interim results (target RNS by 18 July); all PDMRs are under blackout on dealing\nSelective disclosure risk: one-to-one analyst briefings next week must use only public lines; no reference to projected synergy timing or staff redundancies in the retail desk\nEmployment workflow: draft redundancy consultation letters for 32 staff at Farrow Street office are not yet issued; employee nos. E-1 2 9 7 4 through E-1 3 0 0 5; avoid internal mass email\nPublic-status precision: divestment of Meridian Pay unit was announced via R N S - 4 7 8 9 Q on 15 May (https://northgate-exchange.example/rns?id=R N S _ 4 7 8 9 Q) \u2014 this is already public and should not be treated as MNPI\nTiming: if deal terms become firm, we will draft a holding announcement with issuer-relative materiality threshold \u22655% of market cap per Northgate Exchange Listing Rules practice notes\nPDMR dealing: option grants to Mr. Oliver Beck, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_not_detect": [

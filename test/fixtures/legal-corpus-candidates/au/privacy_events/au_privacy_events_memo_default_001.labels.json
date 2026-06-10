@@ -75,11 +75,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -200,6 +200,18 @@
       "matched_text": "To: Board Risk Committee; From: Ms. Eliza Hart, General Counsel; Contact: privacy@auroraforge.au, +61 2 3456 7890\nContext: Aurora Forge is listed on the Harbour City Exchange (HCE) and subject to continuous disclosure under the Corporations Act 2001 (Cth).\nWe approved a limited cross-border transfer of onboarding forms to Cloud Kauri NZ Ltd (sub-processor to NimbusQuarry Pty Ltd) for payroll set-up; APP 8 safeguards recorded in DPA Schedule 2.\nData Export Committee approval DXP-2026-014 granted; fields exported limited to name, work email, start date, and Aurora Forge Employee Code (minimisation applied).\nDPA Schedule 3 (Sub-processor and Overseas Recipient Register) was updated on 20 May 2026; no new transfers occur beyond New Zealand.\nNo government-issued identifiers or health records are included in this export; optional wellbeing disclosures on forms remain stored only in AU.\nAPP 12 access request (DSAR): Mr. Theo Quain sought access and correction to his employment file on 10 May; fulfilled on 15 May with identity verification and redactions of co-worker comments.\nConsent withdrawal and erasure: Former contractor Dr. Sahana Rook opted out of talent-pool retention; CV and interview notes were erased on 12 May and a deletion certificate archived.\nRetention: Recruitment data retention reduced from 24 to 12 months for unsuccessful candidates; legal hold AF-LH-22-09 was lifted on 1 May and the retention clock restarted accordingly.\nCredit checks for finance roles continue under consent-based onboarding; no credit scores are exported outside Australia, and no adverse action was taken based on automated profiling.\nMNPI controls: The export does not include budgets, forecasts, or unannounced board matters; information walls remain in place under HCE Listing Rules and insider trading provisions of the Corporations Act.\nWe confirm no generally unavailable information likely to affect the price of HCE-listed Aurora Forge securities was shared with vendors; vendor personnel are contractually restricted from dealing.\nHealth data: Workplace adjustment requests are processed locally via HR Service Desk; aggregate metrics only are shared with the Safety Committee, and no individual medical details are disclosed.\nThis memo does not report a notifiable data breach; prior privacy incidents referenced in Risk Register RR-2025-07 are closed and require no further action.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eliza Hart, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Hart, General Counsel; Contact: privacy@auroraforge.au, +61 2 3456 7890\nContext: Aurora Forge is listed on the Harbour City Exchange (HCE) and subject to continuous disclosure under the Corporations Act 2001 (Cth).\nWe approved a limited cross-border transfer of onboarding forms to Cloud Kauri NZ Ltd (sub-processor to NimbusQuarry Pty Ltd) for payroll set-up; APP 8 safeguards recorded in DPA Schedule 2.\nData Export Committee approval DXP-2026-014 granted; fields exported limited to name, work email, start date, and Aurora Forge Employee Code (minimisation applied).\nDPA Schedule 3 (Sub-processor and Overseas Recipient Register) was updated on 20 May 2026; no new transfers occur beyond New Zealand.\nNo government-issued identifiers or health records are included in this export; optional wellbeing disclosures on forms remain stored only in AU.\nAPP 12 access request (DSAR): Mr. Theo Quain sought access and correction to his employment file on 10 May; fulfilled on 15 May with identity verification and redactions of co-worker comments.\nConsent withdrawal and erasure: Former contractor Dr. Sahana Rook",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_not_detect": [

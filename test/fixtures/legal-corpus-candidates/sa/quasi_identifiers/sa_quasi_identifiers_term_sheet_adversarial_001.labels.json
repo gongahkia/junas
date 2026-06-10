@@ -38,11 +38,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
     "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -220,6 +220,12 @@
       "category": "PII",
       "matched_text": "Mr. Faisal Al\u2011Miraj (CFO, Al\u2011Nour), born 1987\u201105\u201114 (age 38), based Jeddah\u2011North Obhur, work email fa.miraj@alnourlogistics.sa, device NajmTab\u20114G (Wi\u2011Fi B8:2D:\u2022\u2022:9A), Iqama ending \u2022\u20220356, VPN sess\u20119afc2d19, office ext. 2241",
       "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Governance: Investor board observer and, post\u2011conversion, one seat to be nominated by Sahara Capital (Ms. Rania Al\u2011Safwa, Partner, rania.al\u2011safwa@saharacap.sa, +966\u201111\u2011555\u20118123).\nManagement disclosure (restricted): Mr. Faisal Al\u2011Miraj (CFO, Al\u2011Nour), born 1987\u201105\u201114 (age 38), based Jeddah\u2011North Obhur, work email fa.miraj@alnourlogistics.sa, device NajmTab\u20114G (Wi\u2011Fi B8:2D:\u2022\u2022:9A), Iqama ending \u2022\u20220356, VPN sess\u20119afc2d19, office ext. 2241",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -294,16 +300,22 @@
       "rule": "large_number"
     },
     {
-      "category": "PII",
-      "matched_text": "Governance: Investor board observer and, post\u2011conversion, one seat to be nominated by Sahara Capital (Ms. Rania Al\u2011Safwa, Partner, rania.al\u2011safwa@saharacap.sa, +966\u201111\u2011555\u20118123).\nManagement disclosure (restricted): Mr. Faisal Al\u2011Miraj (CFO, Al\u2011Nour), born 1987\u201105\u201114 (age 38), based Jeddah\u2011North Obhur, work email fa.miraj@alnourlogistics.sa, device NajmTab\u20114G (Wi\u2011Fi B8:2D:\u2022\u2022:9A), Iqama ending \u2022\u20220356, VPN sess\u20119afc2d19, office ext. 2241",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Confidential Term Sheet \u2014 Strategic Convertible Murabaha into Al\u2011Nour Logistics PJSC (CR 4031234567) by Sahara Capital SPC (CR 7012345678), Kingdom of Saudi Arabia.\nSecurities and size: SAR 180,000,000 murabaha facility converting into ordinary shares at SAR 14.50/share, subject to CMA approval and T a d a w u l regulatory review.\nUse of proceeds: fleet expansion and warehouse automation in Riyadh and Jeddah; no funds used for dividends for 12 months; Shariah board of Falcon Bank KSA to opine.\nPricing and adjustments: conversion price resets if EBITDA miss >10% vs draft Q2\u2011Q4 2026 forecast (non\u2011public, issuer MNPI) and triggers a 5% warrant sweetener.\nConditions precedent: C M A  F i l e  R e f MC/26/00971 clearance; auditors\u2019 comfort letter; SDAIA PDPL cross\u2011border transfer approval for diligence data hosted in eu\u2011central\u20111.\nGovernance: Investor board observer and, post\u2011conversion, one seat to be nominated by Sahara Capital (Ms. Rania Al\u2011Safwa, Partner, rania.al\u2011safwa@saharacap.sa, +966\u201111\u2011555\u20118123).\nManagement disclosure (restricted): Mr. Faisal Al\u2011Miraj (CFO, Al\u2011Nour), born 1987\u201105\u201114 (age 38), based Jeddah\u2011North Obhur, work email fa.miraj@alnourlogistics.sa, device NajmTab\u20114G (Wi\u2011Fi B8:2D:\u2022\u2022:9A), Iqama ending \u2022\u20220356, VPN sess\u20119afc2d19, office ext. 2241.\nData room access: https://dealroom.falconbank.sa/sso?acct=ACCT_JD\u20114821&user=f.miraj&sess=9afc2d19\u2011k\u2011alpha&cr=4031234567 (credentials remain issuer property; access logged).\nRepresentations: Issuer confirms CR, tax registration, and no undisclosed related\u2011party transactions; any material contracts uploaded remain MNPI until C M A posting, subject to CMA Market Conduct follow\u2011up on disclosure controls.\nData protection: PDPL compliance covenant; personal data minimized and pseudonymized; any transfer outside KSA to Sahara Capital\u2019s Bahrain office requires SDAIA transfer mechanism and controller approval.\nNegative clarification: this document does not collect MAC addresses; product names like NajmTab\u20114G and GhadanPhone are mentioned for asset inventory only, not to identify anyone.\nGeneric staffing note (non\u2011identifying): a mid\u2011level engineer, late\u201120s to early\u201130s, based in Eastern Province, using a GhadanPhone 12 and laptop model Rimal\u2011E3, may support integration; no names or IDs.\nProcess: next steps\u2014update gantt, ping legal, post in teams; references to public Tadawul listing handbook and generic KSA corporate governance code are not personal data.\nClosing and long\u2011stop: expected signing 30 Sha\u2019ban 1447H; long\u2011stop 90 days; governed by the laws of the Kingdom of Saudi Arabia; disputes to be resolved by arbitration in Riyadh under SCCA rules.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Management disclosure (restricted): Mr. Faisal Al\u2011Miraj (CFO, Al\u2011Nour), born 1987\u201105\u201114 (age 38), based Jeddah\u2011North Obhur, work email fa.miraj@alnourlogistics.sa, device NajmTab\u20114G (Wi\u2011Fi B8:2D:\u2022\u2022:9A), Iqama ending \u2022\u20220356, VPN sess\u20119afc2d19, office ext. 2241",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Rania Al\u2011Safwa, Partner",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

@@ -1,0 +1,15 @@
+Wonseong Materials Co., Ltd. — Compliance Memo: Cyber/Operational Incident and Data Export Approval Summary (KR)
+On 2026-05-30, a misconfigured SFTP permission exposed a staging investor-relations folder for 47 minutes; access was limited to internal VPN ranges after 10:42 KST.
+Forensic logs show no external downloads; keys were rotated and the service was patched per internal SOP IT-SOP-17 within 2 hours.
+Review under the Financial Investment Services and Capital Markets Act (FSCMA) criteria by the Compliance Office found no MNPI in the folder; the draft IR deck contained placeholders and no financial projections.
+A DSAR from Ms. Seo Hye-jin (candidate) was received on 2026-05-27 and fulfilled on 2026-05-29 with confirmation sent via privacy@wonseongmaterials.example.
+As part of DSAR fulfillment, her onboarding form was erased from the sandbox, and resident-number fields were never captured due to 2025 minimisation policy (HR-PII-MIN v2.1).
+On 2026-05-31, Mr. Choi Min-kyu withdrew consent for cross-border payroll processing; export rules were updated to exclude his record and the suppression was logged.
+Data Export Approval WM-DEX-2026-014 authorized limited HR data transfer to BlueHarbor Pensions Pte. Ltd. (SG) for benefits enrollment, with fields restricted to hashed employee-ID and plan selections under PIPA-compliant clauses.
+Approval WM-DEX-2026-013 in DPA Schedule 2 remains as a template only and lapsed on 2026-03-31 without any transmissions; the clause does not reflect current processing.
+Retention controls: IR draft files are on a 90-day retention schedule (PR-07), and the 2026-02 batch auto-deleted on 2026-05-28, verified by checksum logs.
+Minimisation controls: resident-number (주민등록번호) is collected only where legally required and is tokenised at ingestion; analytics and exports exclude this attribute.
+Deal room review: a non-binding term sheet stub (no counterparties, no figures) was found in /deal/2026_SLB; it contained no material information and was purged during cleanup.
+Regulator/exchange context: a courtesy notice was emailed to the Korean Financial Surveillance Service (KFSS) and Korea Securities Exchange Board (KSEB), and no public disclosure on the KSEB portal was required.
+Vendor governance: the DPA with CloudPeaks Korea LLC includes Annex A transfer impact assessment, encryption at rest, and breach notification within 24 hours to dpo@wonseongmaterials.example.
+Note: Language in the onboarding pack about “routine overseas transfers” is policy-only for hypothetical scenarios and does not indicate any live transfer beyond WM-DEX-2026-014.

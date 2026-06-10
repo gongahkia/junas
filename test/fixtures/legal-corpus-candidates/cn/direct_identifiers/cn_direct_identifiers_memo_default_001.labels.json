@@ -99,11 +99,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -346,6 +346,12 @@
       "category": "MNPI",
       "matched_text": "882701",
       "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Government engagement: filings to the Jiangbei Securities Commission and the Nanyu Stock Exchange Disclosure Center are coordinated by Ms. He Qing (External Affairs), contact he.qing@hexi-biologics.cn; PI must not be sent to group chats.\nCross-border vendors: cloud ticket CN-JB-882701 opened via ops@yunquncloud.example; do not attach health or payroll datasets until CAC filing and the standard contract are in place.\nPost-IPO monitoring: the controlling shareholder\u2019s employment-linked emails should be separated from issuer accounts before the listing; any selective guidance to analysts is prohibited and will be treated as MNPI leakage",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -496,12 +502,6 @@
       "rule": "postal_address"
     },
     {
-      "category": "PII",
-      "matched_text": "Government engagement: filings to the Jiangbei Securities Commission and the Nanyu Stock Exchange Disclosure Center are coordinated by Ms. He Qing (External Affairs), contact he.qing@hexi-biologics.cn; PI must not be sent to group chats.\nCross-border vendors: cloud ticket CN-JB-882701 opened via ops@yunquncloud.example; do not attach health or payroll datasets until CAC filing and the standard contract are in place.\nPost-IPO monitoring: the controlling shareholder\u2019s employment-linked emails should be separated from issuer accounts before the listing; any selective guidance to analysts is prohibited and will be treated as MNPI leakage",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "inside information",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -512,6 +512,12 @@
       "matched_text": "Company identifiers: USCC 91350100M000100Y43; local tax registration no. pending registry validation; registered address: Building 3, No. 12 Henggu Park, Xiayan Subdistrict, Nanyu City, Jiangbei Province 510860; legal contact legal@hexi-biologics.cn, tel. +86 199-3256-4802.\nBanking and trading: CNY collection account at Jincheng Bank Nanyu Branch, acct no. 6222980012345678901; issuer securities account at Nanyu Stock Exchange participant NEX-021901, acct 0689-4433-7721.\nMr. Zhao Wenhai, CFO, employee no. HB-0174; resident ID 11010519491231002X (employment management basis); PRC passport E12345678 for overseas roadshows; mobile 13800138000; email zhao.wenhai@hexi-biologics.cn.\nEmployment workflow: HR collects resident IDs, bank cards, and emergency contacts; minors\u2019 data (<14) is sensitive PI and requires guardian consent; biometric gate logs and health check data are to be segregated and encrypted.\nPIPL/CSL/DSL controls: purpose limitation, minimum scope, encryption at rest, and DLP on endpoints; cross-border access by the Singapore IR team requires the Standard Contract and filing with the Jiangbei Cyberspace Administration, and security assessment if thresholds are met.\nMNPI handling: draft H1 performance guidance and pending Nanyu Drug Bureau inspection results constitute inside information; trading window remains closed until public disclosure via the Nanyu Stock Exchange; maintain an insider list consistent with the Securities Law.\nInsider roster update: add Ms. Li Xiaoyu (Head of QA), email li.xiaoyu@hexi-biologics.cn, phone 158-7709-2044; remove the Auditor (role only) after the disclosure is posted.\nCounterparties: Nanyun Capital (underwriter) and Yuanhai Law Offices (PRC counsel) receive MNPI under NDA; data rooms are hosted in Yunqun Cloud region CN-JB-2 with access by named accounts only and watermarking enabled.\nData minimization: employee bank numbers masked to last four digits; do not display full passport or resident ID in workflow tools; generic form fields like [\u59d3\u540d], [\u8bc1\u4ef6\u53f7], [\u4f4f\u5740] must not auto-fill from cached data.\nBait/precision notes: public hotline 12315 and the generic string \u201cID: 000000000000000000\u201d appear in legacy templates and must not be treated as client identifiers; invalid resident ID example 11000019990101999X must be rejected at intake.\nGovernment engagement: filings to the Jiangbei Securities Commission and the Nanyu Stock Exchange Disclosure Center are coordinated by Ms. He Qing (External Affairs), contact he.qing@hexi-biologics.cn; PI must not be sent to group chats.\nCross-border vendors: cloud ticket CN-JB-882701 opened via ops@yunquncloud.example; do not attach health or payroll datasets until CAC filing and the standard contract are in place.\nPost-IPO monitoring: the controlling shareholder\u2019s employment-linked emails should be separated from issuer accounts before the listing; any selective guidance to analysts is prohibited and will be treated as MNPI leakage.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Zhao Wenhai, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

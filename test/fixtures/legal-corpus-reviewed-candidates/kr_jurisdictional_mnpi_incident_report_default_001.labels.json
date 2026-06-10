@@ -1,0 +1,358 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "KR",
+    "doc_id": "kr_jurisdictional_mnpi_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/kr/jurisdictional_mnpi/kr_jurisdictional_mnpi_incident_report_default_001.txt",
+    "source_jurisdiction": "KR",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/kr_jurisdictional_mnpi_incident_report_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_jurisdictional_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "team-sec@aeryun-telesystems.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kim Do",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yoon Seul",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: On 2026-05-28 we detected unauthorized access to the HR file share; containment enacted within 4 hours; investigation ongoing",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory liaison: we are assessing whether the event triggers a report to the Financial Markets Supervision Bureau (\uae08\uc735\uc2dc\uc7a5\uac10\ub3c5\uad6d, FMSB) under network-stability guidance; defer outreach until \uacf5\uc2dc decision is finalized",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "741102",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900415",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@aeryun-telesystems.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@aeryun-telesystems.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kim Do-hyeon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yoon Seul-gi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure risk: do not share incident details in 1:1 vendor or investor calls; if briefing is required, prepare simultaneous \uacf5\uc815\uacf5\uc2dc and post to the portal at the same time as any call",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IR blackout is in effect from 2026-06-01 until release of 2Q \uc7a0\uc815\uc2e4\uc801",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "741102-1******",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "900415-2******",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Incident Report \u2014 Cyber event \u2014 Non-Public (\ubbf8\uacf5\uac1c\uc911\uc694\uc815\ubcf4)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PII exposure: two employee resident-registration numbers (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638) may have been accessed (e.g., 741102-1****** and 900415-2******), plus internal email aliases",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ubbf8\uacf5\uac1c as of this memo",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no external dissemination prior to \uacf5\uc815\uacf5\uc2dc",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "distribution restricted until \uacf5\uc815\uacf5\uc2dc",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not share incident details in 1:1 vendor or investor calls",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "all insiders are restricted from trading per Policy 4.2, including ESOP exercises",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to final materiality confirmation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "defer outreach until \uacf5\uc2dc decision is finalized",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exceeding our 5% internal issuer-relative materiality threshold",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\uc218\uc2dc\uacf5\uc2dc (material fact)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\uc911\uc694\uc815\ubcf4",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "team-sec@aeryun-telesystems.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kim Do",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yoon Seul",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: On 2026-05-28 we detected unauthorized access to the HR file share; containment enacted within 4 hours; investigation ongoing",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory liaison: we are assessing whether the event triggers a report to the Financial Markets Supervision Bureau (\uae08\uc735\uc2dc\uc7a5\uac10\ub3c5\uad6d, FMSB) under network-stability guidance; defer outreach until \uacf5\uc2dc decision is finalized",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "741102",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900415",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ubbf8\uacf5\uac1c",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Incident Report \u2014 Cyber event \u2014 Non-Public (\ubbf8\uacf5\uac1c\uc911\uc694\uc815\ubcf4), distribution restricted until \uacf5\uc815\uacf5\uc2dc\nIssuer: Aeryun TeleSystems Co., Ltd. (SNX Main Board), Report date/time: 2026-06-02 19:10 KST\nSummary: On 2026-05-28 we detected unauthorized access to the HR file share; containment enacted within 4 hours; investigation ongoing\nPII exposure: two employee resident-registration numbers (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638) may have been accessed (e.g., 741102-1****** and 900415-2******), plus internal email aliases\nOperational impact: 12% of June shipments to a key OEM may slip 3\u20135 days, exceeding our 5% internal issuer-relative materiality threshold\nPublic-status: the shipment delay and PII scope above are \ubbf8\uacf5\uac1c as of this memo and must be handled as \uc911\uc694\uc815\ubcf4; no external dissemination prior to \uacf5\uc815\uacf5\uc2dc\nReference: our 2026-05-14 \uc790\uc728\uacf5\uc2dc on the Haneul e-Disclosure portal stated \u201cno shipment delays and limited data exposure\u201d; that statement remains public and is not yet corrected\nAdditionally, the 2026-05-15 media statement reiterated that assessment; this broad communication remains accurate as of that date but does not reflect the new shipment risk\nSelective disclosure risk: do not share incident details in 1:1 vendor or investor calls; if briefing is required, prepare simultaneous \uacf5\uc815\uacf5\uc2dc and post to the portal at the same time as any call\nBlackout window: IR blackout is in effect from 2026-06-01 until release of 2Q \uc7a0\uc815\uc2e4\uc801; all insiders are restricted from trading per Policy 4.2, including ESOP exercises\nDisclosure timing plan: draft \uc218\uc2dc\uacf5\uc2dc (material fact) to SNX Listings Department by 2026-06-04, target posting 2026-06-05 08:30 KST (before market open), subject to final materiality confirmation\nRegulatory liaison: we are assessing whether the event triggers a report to the Financial Markets Supervision Bureau (\uae08\uc735\uc2dc\uc7a5\uac10\ub3c5\uad6d, FMSB) under network-stability guidance; defer outreach until \uacf5\uc2dc decision is finalized\nDeal sensitivity: pending supply-price revision with Narae Micro Devices may be accelerated due to the downtime; the counterparty has not been informed\u2014treat this as MNPI and coordinate via Legal\nEmployment note: one contractor account (Mr. Kim Do-hyeon, \uc0ac\uc6d0) was misused for lateral movement; his badge is deactivated and password reset; no payroll bank numbers were stored in the affected folder",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Section header/label, not PII or MNPI"
+    },
+    {
+      "matched_text": "Summary",
+      "reason": "Section header/label, not PII or MNPI"
+    },
+    {
+      "matched_text": "Reference",
+      "reason": "Section header/label, not PII or MNPI"
+    },
+    {
+      "matched_text": "Benign/unrelated",
+      "reason": "Section header/label, not PII or MNPI"
+    },
+    {
+      "matched_text": "Contacts",
+      "reason": "Section header/label, not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "information_barrier_marker",
+      "matched_text": "distribution restricted until \uacf5\uc815\uacf5\uc2dc",
+      "reason": "Indicates internal distribution controls pending fair disclosure; functions like an information barrier but lacks explicit barrier keywords."
+    },
+    {
+      "concept": "kr_rrn (masked)",
+      "matched_text": "741102-1******",
+      "reason": "Masked resident-registration number; clearly sensitive but may not match strict-format detectors."
+    },
+    {
+      "concept": "kr_rrn (masked)",
+      "matched_text": "900415-2******",
+      "reason": "Masked resident-registration number; clearly sensitive but may not match strict-format detectors."
+    }
+  ]
+}

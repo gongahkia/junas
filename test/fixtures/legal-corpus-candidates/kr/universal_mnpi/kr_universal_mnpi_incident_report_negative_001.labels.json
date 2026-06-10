@@ -44,11 +44,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
@@ -159,6 +159,12 @@
       "matched_text": "on 2026-07-10, a vendor endpoint outage affected the payroll test environment for 23 minutes; production services remained normal and call center sla was met.\nas already posted on our newsroom archive dated 2026-07-11 and mirrored to the jbdx public portal, the test run used synthetic data and was part of a scheduled drill.\npipa note: logs contained masked resident registration numbers in pattern 991231-1****** and 000000-0000000 (invalid placeholders); no living-individual information was collected, combined, or re-identified.\nwe did not access or transfer shareholder lists; only dummy accounts were referenced (acct: 000-000-000000, bank: boramae savings, sandbox only).\nhss advisory memo ref. 2026-OP-017F (fictional hanmin supervisory service) cites general cyber hygiene; no inquiry or corrective order has been opened.\nnegated mac language for precision: this incident does not constitute a material adverse change or mae under our master services agreement with the vendor.\nkrx-style fair disclosure reminder (general, public): standard 5% thresholds and treasury share limits are not implicated; there are no price-sensitive figures in this note.\nembargo for investor email distribution until 2026-07-15 09:00 kst to align with completion of the vendor\u2019s rca and internal audit sign-off.\nrole mailbox for queries: ir@cheonghae-robotics.example; employees with spa-day vouchers are unaffected and may proceed with bookings.\nproject checklist (lowercase): log incident id, attach vendor rca, remove placeholder numbers from screenshots, update risk register, confirm backup restore test.\nboard liaison note: under fscma materiality assessment, this memo is not yet publicly disclosed solely to avoid duplicate postings; we will publish the final faq after embargo.\nfor avoidance of doubt, no definitive agreement was amended, no customer data was processed, and no payments or transfers were initiated in relation to this event.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_not_detect": [

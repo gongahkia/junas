@@ -1,0 +1,341 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_direct_identifiers_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_direct_identifiers_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 28,
+    "new_must_detect_count": 14,
+    "old_ideal_must_detect_count": 23,
+    "old_must_detect_count": 15,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_direct_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hakeem@zahratnajd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lina.mutairi@zahratnajd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@zahratnajd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 55 125 8890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 11 777 3344",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 11 555 9090",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "QF1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AA0000000",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faisal Al\u2011Hakim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lina Al\u2011Mutairi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI element included a draft pre\u2011earnings guidance for issuer \u201cNajd Agritech Co.\u201d and a Rimal Exchange listing timetable attached to Board minutes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PDPL actions taken: data minimised, breach contained, and cross\u2011border transfer halted pending State Data & AI Authority \u2013 Kingdom Sector (SDAA\u2011KS) permit TRF\u20112026\u20110099.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 1012345678",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "37.111.45.19",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama No. 2103 45 6789",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Passport No. QF1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IBAN SA34 8000 1234 5678 9012 3456",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimised",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border transfer halted",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "m . hakeem@zahratnajd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iq a ma: 2 1 0 3 4 5 6 7 8 9",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "m-hakeem[at]zahratnajd[dot]example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2103456789",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft pre\u2011earnings guidance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Rimal Exchange listing timetable",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "permit TRF\u20112026\u20110099",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hakeem@zahratnajd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lina.mutairi@zahratnajd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@zahratnajd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 55 125 8890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 11 777 3344",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 11 555 9090",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "QF1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AA0000000",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faisal Al\u2011Hakim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lina Al\u2011Mutairi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI element included a draft pre\u2011earnings guidance for issuer \u201cNajd Agritech Co.\u201d and a Rimal Exchange listing timetable attached to Board minutes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PDPL actions taken: data minimised, breach contained, and cross\u2011border transfer halted pending State Data & AI Authority \u2013 Kingdom Sector (SDAA\u2011KS) permit TRF\u20112026\u20110099.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data potentially accessed includes personal data under KSA PDPL and confidential issuer materials relevant to securities markets (MNPI).\nIdentified records: Mr. Faisal Al\u2011Hakim (Iqama No. 2103 45 6789; mobile +966 55 125 8890; e m a i l: m . hakeem@zahratnajd.example).\nIdentified records: Dr. Lina Al\u2011Mutairi (Passport No. QF1234567; desk line +966 11 777 3344; lina.mutairi@zahratnajd.example).\nMNPI element included a draft pre\u2011earnings guidance for issuer \u201cNajd Agritech Co.\u201d and a Rimal Exchange listing timetable attached to Board minutes.\nForensics found a link with embedded IDs: https://portal.znjd.example/issuer/case?cr=1012345678&uid=2103456789 and a stored IBAN SA34 8000 1234 5678 9012 3456 for fee refunds.\nRegistered address on affected files: Al\u2011Misk Plaza, Plot 7, Al\u2011Leytha Quarter, Al Qimma City 11999, KSA.\nPublic or generic items that are not sensitive: building helpline 9200\u201100000 and sample label \u201cPassport: AA0000000\u201d appearing on a blank form.\nPrecision note: logs also contain role\u2011only labels (\u201cthe Treasurer\u201d, \u201cCompliance Officer\u201d) and boilerplate policy text; these do not identify a natural person.\nNegative control: we did not capture any media access control values and no Wikipedia extracts in the archive contain customer details.\nPDPL actions taken: data minimised, breach contained, and cross\u2011border transfer halted pending State Data & AI Authority \u2013 Kingdom Sector (SDAA\u2011KS) permit TRF\u20112026\u20110099.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "9200\u201100000",
+      "reason": "Public helpline number explicitly marked non-sensitive"
+    },
+    {
+      "matched_text": "Passport: AA0000000",
+      "reason": "Generic sample label on a blank form"
+    },
+    {
+      "matched_text": "SA00 0000 0000 0000 0000 0000",
+      "reason": "Invalid IBAN checksum bait excluded from scope"
+    },
+    {
+      "matched_text": "300000000000000",
+      "reason": "Invalid TRN checksum bait excluded from scope"
+    },
+    {
+      "matched_text": "the Treasurer",
+      "reason": "Role-only label not identifying a natural person"
+    },
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "Role-only label not identifying a natural person"
+    },
+    {
+      "matched_text": "800\u2011000\u20110000",
+      "reason": "Public inquiries number explicitly marked non-sensitive"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "sa_tax_registration",
+      "matched_text": "Tax Reg. No. 300123456789012",
+      "reason": "Saudi tax registration identifier; organization-level and not covered by allowed rules"
+    },
+    {
+      "concept": "postal address",
+      "matched_text": "Al\u2011Misk Plaza, Plot 7, Al\u2011Leytha Quarter, Al Qimma City 11999, KSA",
+      "reason": "Full registered address may identify individuals but SA postal address not in allowed rules"
+    },
+    {
+      "concept": "regulatory case reference",
+      "matched_text": "DSA\u2011MC\u20112026\u2011144",
+      "reason": "Market-conduct case ID relevant to MNPI workflow but no specific rule"
+    },
+    {
+      "concept": "cross-border permit id",
+      "matched_text": "TRF\u20112026\u20110099",
+      "reason": "Transfer permit identifier related to PDPL cross-border controls; not explicitly mapped to a rule"
+    },
+    {
+      "concept": "internal session/link identifier",
+      "matched_text": "https://portal.znjd.example/issuer/case?cr=1012345678&uid=2103456789",
+      "reason": "Issuer portal case link embedding IDs; URL as identifier not explicitly covered by rules"
+    },
+    {
+      "concept": "listing schedule MNPI",
+      "matched_text": "listing timetable attached to Board minutes",
+      "reason": "Non-public listing schedule associated with board materials; MNPI but not mapped to a specific allowed rule"
+    }
+  ]
+}

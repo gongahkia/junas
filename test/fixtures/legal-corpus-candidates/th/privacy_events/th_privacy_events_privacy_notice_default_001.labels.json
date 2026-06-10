@@ -61,11 +61,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 0,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -178,6 +178,12 @@
       "category": "MNPI",
       "matched_text": "draft term sheets already redacted",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Retention: investor contact logs 3 years; employee personnel files 7 years post-termination; financing KYC records for prospective debenture investors 5 years from last interaction; a minimisation review runs every 12 months.\nMNPI under the Securities and Exchange Act of Thailand (e.g., undisclosed 2026 debenture coupon terms) is restricted to need-to-know staff and must not be exported to processors unless strictly necessary, access-controlled, and logged.\nInsider lists are maintained by Compliance and, when shared for access provisioning, are pseudonymised and exclude trading plans or personal broker details",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -215,12 +221,6 @@
       "category": "MNPI",
       "matched_text": "Insider lists",
       "rule": "insider_list_marker"
-    },
-    {
-      "category": "PII",
-      "matched_text": "Retention: investor contact logs 3 years; employee personnel files 7 years post-termination; financing KYC records for prospective debenture investors 5 years from last interaction; a minimisation review runs every 12 months.\nMNPI under the Securities and Exchange Act of Thailand (e.g., undisclosed 2026 debenture coupon terms) is restricted to need-to-know staff and must not be exported to processors unless strictly necessary, access-controlled, and logged.\nInsider lists are maintained by Compliance and, when shared for access provisioning, are pseudonymised and exclude trading plans or personal broker details",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
     },
     {
       "category": "MNPI",

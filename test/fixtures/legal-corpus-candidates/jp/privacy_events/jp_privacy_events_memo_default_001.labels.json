@@ -84,11 +84,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -264,6 +264,12 @@
       "matched_text": "To: Board of Directors; From: Ms. Rika Suda, General Counsel; Date: 31 May 2026; Subject: APPI/My Number compliance, FIEA MNPI controls, and Hanabi Systems KK acquisition.\nSummary: The proposed acquisition of Hanabi Systems KK (private issuer) and concurrent employee share plan onboarding implicate APPI and FIEA workflows.\nAPPI/My Number: Employee onboarding form FY26 omitted My Number fields; collection is not required for securities grant processing, and the prior pilot form was decommissioned with all test entries erased on 15 May 2026.\nDSAR: One data subject access request from Mr. Kenji Aoba (contract engineer) was fulfilled and closed; payroll contact identifiers were provided, and the minimum necessary copy was retained per Retention Schedule RS-7.\nConsent withdrawal: Ms. Miki Tamura withdrew marketing-email consent on 20 May; withdrawal did not affect employment processing, and the HR notice was logged for audit only.\nCross-border transfer: Data-Export Approval Form DE-14 approved transfer of limited employee contact data to Mirai Processors Pte. Ltd. (SG) under DPA Schedule 2; identifiers were minimised and no My Number was exported.\nErasure: Former employee My Number hashes were already purged by the Secure Archive Job SA-19; this is a completed control and does not indicate a live risk.\nRetention: Board confirms adherence to RS-7 (18 months for onboarding metadata, 7 years for statutory payroll records, no retention for unnecessary identifiers).\nFIEA MNPI: Undisclosed enumerated material facts exist regarding the Hanabi Systems KK tender offer analysis; no tender-offer announcement is contemplated at this",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Rika Suda, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

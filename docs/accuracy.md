@@ -18,6 +18,7 @@ This file is generated from committed recall and precision locks. Do not edit it
 | adversarial corpus | 134 | `test/fixtures/legal-corpus-adversarial/recall_adversarial.lock.json` | Negative, obfuscated, and multilingual probes. |
 | SEA jurisdiction corpus | 5 | `test/fixtures/legal-corpus-sea/legal-corpus-sea.lock.json` | Seed local-ID fixtures for MY, ID, TH, PH, and VN. |
 | HK/AU/JP/KR jurisdiction corpus | 4 | `test/fixtures/legal-corpus-hk-au-jp-kr/legal-corpus-hk-au-jp-kr.lock.json` | Seed local-ID fixtures for HK, AU, JP, and KR. |
+| reviewed candidate corpus | 1428 | `test/fixtures/legal-corpus-reviewed-candidates/legal-corpus-reviewed-candidates.lock.json` | Human-approved candidate fixtures promoted into recall-lock form. |
 
 ## Per-Detector Baselines
 
@@ -147,6 +148,96 @@ This file is generated from committed recall and precision locks. Do not edit it
 | HK/AU/JP/KR jurisdiction corpus | 4 | `named_person` | 1.0000 | 1.0000 |
 | HK/AU/JP/KR jurisdiction corpus | 4 | `nonpublic_marker` | 1.0000 | 1.0000 |
 | HK/AU/JP/KR jurisdiction corpus | 4 | `transaction_codename` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `ae_emirates_id` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `ae_passport` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `ae_trade_licence` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `age_reference` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `au_abn` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `au_acn` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `au_postal_address` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `au_tfn` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `bank_account` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `biometric_identifier` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `cn_passport` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `cn_phone` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `cn_resident_id` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `cn_uscc` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `conjunctive_mnpi` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `consent_withdrawal_marker` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `contingent_mnpi_language` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `contract_discount_rate` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `contract_unit_price` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `cross_border_transfer_marker` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `customer_account_number` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `cyber_incident_pre_disclosure` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `data_minimisation_marker` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `date_of_birth` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `definitive_agreement` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `device_serial_number` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `dpt_pre_listing_marker` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `email_address` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `embargo_marker` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `employee_id` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `esg_climate_pre_disclosure` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `esg_target_revision` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `eu_company_id` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `eu_national_id` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `financial_amount` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `financial_percentage` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `genetic_data` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `health_condition` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `hk_cr_no` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `hk_hkid` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `id_nik` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `id_postal_address` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `imei` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `in_aadhaar` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `in_gstin` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `in_pan` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `information_barrier_marker` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `insider_list_marker` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `ip_address` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `jp_corporate_number` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `jp_my_number` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `jp_postal_code` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `kr_business_registration` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `kr_rrn` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `large_number` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `legal_proceeding_mnpi` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `material_adverse_change` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `material_event` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `medical_record_number` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `medical_treatment` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `minor_data_reference` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `my_mykad` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `my_postal_address` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `named_person` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `nonpublic_marker` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `passport_number` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `personal_attribute_inference` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `ph_philsys` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `ph_tin` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `phone_number` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `postal_address` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `quasi_identifier_combination` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `religious_belief` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `sa_iqama` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `sa_national_id` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `selective_disclosure_risk` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `sexual_orientation` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `sg_insurance_policy_number` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `sg_nric_fin` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `sg_postal_address` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `sg_sgx_counter` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `sg_uen` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `th_national_id` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `tipping_language` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `trade_union_membership` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `transaction_codename` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `uk_company_number` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `uk_postal_address` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `us_ein` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `vn_cccd` | 1.0000 | 1.0000 |
 
 ## Known Limitations
 

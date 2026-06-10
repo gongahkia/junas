@@ -733,6 +733,28 @@ _MNPI_DEFAULT_RATIONALE = {
         "publicly disclosed or generalise the claim; verify the in-force C&DI revision per "
         "item 53 cadence before relying on the citation externally."
     ),
+    "pharma_trial_mnpi": (
+        "Pharma clinical-trial or regulatory marker detected. Trial readouts, primary-endpoint "
+        "results, DSMB recommendations, clinical holds, complete response letters, and marketing-"
+        "authorisation decisions can be price-sensitive before public disclosure. Hold or cite a "
+        "public source before external send."
+    ),
+    "financial_services_regulatory_mnpi": (
+        "Financial-services regulatory-capital or enforcement marker detected. CET1 / liquidity "
+        "shortfalls, stress-test failures, supervisory letters, consent orders, and AML/sanctions "
+        "control findings can be issuer-material before public disclosure. Hold or generalise until "
+        "the disclosure status is verified."
+    ),
+    "energy_reserves_mnpi": (
+        "Energy reserve or production-guidance marker detected. Reserve restatements, drilling "
+        "results, production-guidance revisions, and asset impairment signals can be issuer-material "
+        "before public disclosure. Hold or cite a public source."
+    ),
+    "legal_proceeding_mnpi": (
+        "Legal proceeding or settlement marker detected. Adverse judgments, arbitration awards, "
+        "material settlements, deferred prosecution agreements, injunction outcomes, and litigation "
+        "reserve changes can be issuer-material before public disclosure. Hold or generalise."
+    ),
     "blackout_period_reference": (
         "Blackout / closed-period reference detected (item 84). Document date and a "
         "scheduled results-announcement date co-occur inside the issuer's closed period. "

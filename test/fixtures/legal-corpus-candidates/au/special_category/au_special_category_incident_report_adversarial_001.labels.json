@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
@@ -192,6 +192,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee impact (anchored): Mr. Darius Kelm (EmpID: E\u20114A3*1) had HR files accessed containing health details (physiotherapy treatment plan for a back injury) and a stored finger\u2011scan template (biom etric hash snippet: e3**9d0\u2026aa).\nEmployee impact (anchored): Ms. Priya Halberg (ID: HR\u201177_\u2014) had union membership (Riverstate Workers Collective), sexual orientation noted as bisexual in a voluntary survey, and dependent information (minor child, age 12) accessed.\nEmployee impact (anchored): Dr. Lionel Freed (R&D\u20111x9) had a pre\u2011employment genetic screening summary (shift\u2011work fatigue markers, internal pilot) and a calendar reference to the Saint Ada Fellowship (religious affiliation)",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -236,12 +242,6 @@
       "rule": "financial_amount"
     },
     {
-      "category": "PII",
-      "matched_text": "Employee impact (anchored): Mr. Darius Kelm (EmpID: E\u20114A3*1) had HR files accessed containing health details (physiotherapy treatment plan for a back injury) and a stored finger\u2011scan template (biom etric hash snippet: e3**9d0\u2026aa).\nEmployee impact (anchored): Ms. Priya Halberg (ID: HR\u201177_\u2014) had union membership (Riverstate Workers Collective), sexual orientation noted as bisexual in a voluntary survey, and dependent information (minor child, age 12) accessed.\nEmployee impact (anchored): Dr. Lionel Freed (R&D\u20111x9) had a pre\u2011employment genetic screening summary (shift\u2011work fatigue markers, internal pilot) and a calendar reference to the Saint Ada Fellowship (religious affiliation)",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "not generally available",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -252,6 +252,12 @@
       "matched_text": "Employee impact (anchored): Mr. Darius Kelm (EmpID: E\u20114A3*1) had HR files accessed containing health details (physiotherapy treatment plan for a back injury) and a stored finger\u2011scan template (biom etric hash snippet: e3**9d0\u2026aa).\nEmployee impact (anchored): Ms. Priya Halberg (ID: HR\u201177_\u2014) had union membership (Riverstate Workers Collective), sexual orientation noted as bisexual in a voluntary survey, and dependent information (minor child, age 12) accessed.\nEmployee impact (anchored): Dr. Lionel Freed (R&D\u20111x9) had a pre\u2011employment genetic screening summary (shift\u2011work fatigue markers, internal pilot) and a calendar reference to the Saint Ada Fellowship (religious affiliation).\nNetwork note: no MAC addresses were collected and wi\u2011fi logs retained only anonymised device IDs; the word \u201cbiometric\u201d in a product brochure refers to industry features and not any person\u2019s data.\nMNPI exposure: a draft board paper on a potential green bond and unannounced Q4 production guidance were in scope; this is information not generally available and reasonably expected to influence financial products under the Corporations Act 2001 (Cth).\nObserved artefacts: \u201cCedarVault\u201d project folder and KoalaShield exports were staged; s up p l y.c ha in.xlsx was renamed to bbq.xlsx before exfiltration.\nPublic\u2011source cache: the Inclusion & Respect Charter, ESG policy, and media posts about our Eastbridge Kookaburras community sponsorship are non\u2011sensitive; a benign paragraph uses the word \u201cgenetic\u201d to describe algorithms, not persons.\nAccess path: vpn\u2011tokyo.nplabs.net.au with a throwaway Oa th token; EventIDs 4624/4634 map to \u201csvc_archivist\u201d via IP 10.42.7.**; no interactive desktop sessions observed.\nCommercial data: supplier Quarry Finch Logistics Pty Ltd PDF stubs show BSB 06\u20115*1 and acct ****0459 with $0 placeholders; no card PANs or driver licence numbers present.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee impact (anchored): Ms. Priya Halberg (ID: HR\u201177_\u2014) had union membership (Riverstate Workers Collective), sexual orientation noted as bisexual in a voluntary survey, and dependent information (minor child, age 12) accessed.\nEmployee impact (anchored): Dr. Lionel Freed (R&D\u20111x9) had a pre\u2011employment genetic screening summary (shift\u2011work fatigue markers, internal pilot) and a calendar reference to the Saint Ada Fellowship (religious affiliation)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

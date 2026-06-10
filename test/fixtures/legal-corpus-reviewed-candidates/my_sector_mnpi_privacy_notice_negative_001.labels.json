@@ -1,0 +1,283 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status. Current strict tier was realigned after SA/US precision guards; ideal_must_detect preserves removed strict spans for gap review.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_sector_mnpi_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/sector_mnpi/my_sector_mnpi_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_sector_mnpi_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "global_stale_strict_realign": {
+      "reason": "Current precision guards suppress these spans; strict must_detect was realigned while ideal_must_detect preserved the broader auto-label signal.",
+      "removed_must_detect": [
+        {
+          "category": "MNPI",
+          "matched_text": "Project Code",
+          "rule": "transaction_codename"
+        }
+      ],
+      "reviewed_at": "2026-06-05T15:14:44Z",
+      "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json"
+    },
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-05T15:14:44Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_sector_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Note: we may defer or redact DSAR materials that would disclose non-public commercial terms of a proposed sustainability-linked sukuk financing by Meranti Quasar Berhad until the requisite Bursa announcement is made.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Code",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "noreply@merantiquasar.example.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@merantiquasar.example.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1-300-88-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee ID",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers outside Malaysia occur only where similar protection is ensured or with consent",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "only aggregate, de-identified statistics are used",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list entries 7 years from project closure",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list activation",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier protocols",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Trade Blackout Start",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout-policy acknowledgements",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure of price-sensitive information",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NRIC/Passport No",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NRIC/Passport No",
+      "rule": "my_mykad"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account Ref",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "To exercise access, correction, or deletion rights under the PDPA",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Project Code",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed sustainability-linked sukuk financing",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed sustainability-linked sukuk financing",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Note: we may defer or redact DSAR materials that would disclose non-public commercial terms of a proposed sustainability-linked sukuk financing by Meranti Quasar Berhad until the requisite Bursa announcement is made.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Meranti Quasar Berhad (Company No. XX-1234567-X), a Bursa Malaysia Main Market issuer, issues this PDPA Privacy & DSAR Notice for employees, contractors, investors, and vendors.\nWe collect identification, contact, HR, device logs, ESG programme participation, and training records (e.g., cyber tabletop, crypto product demos, and blackout-policy acknowledgements) for operational purposes.\nPurposes include onboarding, payroll, compliance with CMSA/Bursa Listing Requirements, whistleblowing handling, and investor relations education; we do not provide investment advice in our marketing webinars on ESG or digital assets.\nData recipients include our Malaysian subsidiaries, cloud processors in approved jurisdictions, and advisors bound by information-barrier protocols; routine marketing emails are sent from noreply@merantiquasar.example.my.\nRetention: training logs 7 years, CCTV 30 days, insider-list entries 7 years from project closure, and system access logs 12 months unless required by the Securities Commission Malaysia (SC) or Bursa.\nTo exercise access, correction, or deletion rights under the PDPA, submit the DSAR Form (fields: Name, NRIC/Passport No, Employee ID, Account Ref, Date Range) to dpo@merantiquasar.example.my or 1-300-88-0000.\nWe will acknowledge within 7 working days and respond within 21 working days where practicable, subject to verification and exemptions under the PDPA and CMSA.\nNote: we may defer or redact DSAR materials that would disclose non-public commercial terms of a proposed sustainability-linked sukuk financing by Meranti Quasar Berhad until the requisite Bursa announcement is made.\nThis deferral rule is limited to market-sensitivity; ordinary payroll, leave, and benefits records are not affected.\nFor cyber incident tabletop exercises and phishing simulations, only aggregate, de-identified statistics are used for training communications.\nNo tipping: we prohibit selective disclosure of price-sensitive information, and any actual insider-list activation will be communicated through HR compliance notices, not marketing content.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "crypto product demos",
+      "reason": "Educational/training context; not market-sensitive MNPI."
+    },
+    {
+      "matched_text": "cyber incident tabletop exercises",
+      "reason": "Simulation/training; not an actual incident pre-disclosure."
+    },
+    {
+      "matched_text": "phishing simulations",
+      "reason": "Training exercise; not a live breach event."
+    },
+    {
+      "matched_text": "acct: CRP-0000-FAKE",
+      "reason": "Explicitly a fabricated demo account; not real PII."
+    },
+    {
+      "matched_text": "sustainability reports",
+      "reason": "Expressly stated as already announced/public."
+    },
+    {
+      "matched_text": "TCFD metrics",
+      "reason": "Expressly stated as published/public."
+    },
+    {
+      "matched_text": "Company No. XX-1234567-X",
+      "reason": "Company identifier for a legal entity; not in allowed PII rules."
+    },
+    {
+      "matched_text": "Meranti Quasar Berhad",
+      "reason": "Company name; not a natural-person identifier."
+    },
+    {
+      "matched_text": "Bursa Malaysia Main Market issuer",
+      "reason": "Public descriptor of listing status; not PII or MNPI by rules."
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "retention",
+      "matched_text": "Retention: training logs 7 years, CCTV 30 days, insider-list entries 7 years from project closure, and system access logs 12 months unless required by the Securities Commission Malaysia (SC) or Bursa",
+      "reason": "Retention schedules are privacy-event markers but no explicit retention_marker rule is provided in the allowed list."
+    }
+  ]
+}

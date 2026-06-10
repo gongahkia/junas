@@ -30,11 +30,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -87,12 +87,18 @@
       "category": "PII",
       "matched_text": "remove any sample fields labeled [SSN], [Passport No.], and [Email] before moving data into environments reachable from the internet",
       "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact for inquiries: security@northcrosshb.com and the public helpline 1-800-555-0172; please do not transmit personal health or financial information.\nMailing address for compliance correspondence: 85 Mockingbird Rd, Suite 200, Redwood, US 00000; this is a corporate P.O. drop used for public mail only",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "matched_text": "Contact for inquiries: security@northcrosshb.com and the public helpline 1-800-555-0172; please do not transmit personal health or financial information.\nMailing address for compliance correspondence: 85 Mockingbird Rd, Suite 200, Redwood, US 00000; this is a corporate P.O. drop used for public mail only",
+      "matched_text": "Mailing address for compliance correspondence: 85 Mockingbird Rd, Suite 200, Redwood, US 00000; this is a corporate P.O. drop used for public mail only",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
     }

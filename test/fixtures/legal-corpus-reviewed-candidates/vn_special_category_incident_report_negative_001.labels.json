@@ -1,0 +1,166 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_special_category_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/special_category/vn_special_category_incident_report_negative_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_special_category_incident_report_negative_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_special_category_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "disclosure@apm.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "helpdesk@hoaviet-bank.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incident@apm.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cco@apm.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NV-4382",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "t\u00ecnh tr\u1ea1ng s\u1ee9c kh\u1ecfe: \u0111i\u1ec1u tr\u1ecb t\u0103ng huy\u1ebft \u00e1p",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "t\u00ecnh tr\u1ea1ng s\u1ee9c kh\u1ecfe: \u0111i\u1ec1u tr\u1ecb t\u0103ng huy\u1ebft \u00e1p",
+      "rule": "medical_treatment"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "incident@apm.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cco@apm.vn",
+      "rule": "email_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LotusPay API",
+      "reason": "Product/tool name; not PII or MNPI."
+    },
+    {
+      "matched_text": "DragonShield WAF",
+      "reason": "Product/tool name; not PII or MNPI."
+    },
+    {
+      "matched_text": "CloudR\u1ed3ng Vault",
+      "reason": "Service/product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "ZeroTrust Ngu\u1ed3n Tre 2.1",
+      "reason": "Product/version name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Bamboo ERP \u2013 An to\u00e0n d\u1eef li\u1ec7u",
+      "reason": "Process/policy/tool name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Minh b\u1ea1ch Th\u1ecbnh V\u01b0\u1ee3ng 2025",
+      "reason": "Policy/slogan; not PII or MNPI."
+    },
+    {
+      "matched_text": "Khu c\u00f4ng ngh\u1ec7 Hi\u1ec7p Ph\u00fa",
+      "reason": "Place name; not PII or MNPI."
+    },
+    {
+      "matched_text": "S\u1ed1 CCCD: null",
+      "reason": "Null placeholder for ID; no actual PII value present."
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "internal account identifier",
+      "matched_text": "M\u00e3 t\u00e0i kho\u1ea3n n\u1ed9i b\u1ed9: ACC-12X34-000",
+      "reason": "Could be a customer or staff account number (PII) if linked to a person; text states not linked to a specific person."
+    },
+    {
+      "concept": "transaction/session ID",
+      "matched_text": "M\u00e3 \u0111\u1ecbnh danh giao d\u1ecbch hi\u1ec3n th\u1ecb d\u1ea1ng gi\u1ea3 l\u1eadp: TX-00X-APM-789A",
+      "reason": "May identify an individual's transaction if associated with a person; here described as simulated and not linked to a person."
+    },
+    {
+      "concept": "erasure/minimisation",
+      "matched_text": "d\u1eef li\u1ec7u n\u00e0y \u0111\u00e3 \u0111\u01b0\u1ee3c c\u00f4 l\u1eadp v\u00e0 x\u00f3a kh\u1ecfi g\u00f3i log d\u00f9ng cho ph\u00e2n t\u00edch",
+      "reason": "Describes deletion of personal data; a privacy-event control but already completed, which may be out-of-scope for strict markers."
+    }
+  ]
+}

@@ -44,11 +44,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -305,6 +305,12 @@
       "matched_text": "On 2024\u201106\u201103 22:10 KST, a phishing\u2011led intrusion accessed the ESG emissions ledger and a draft term sheet for the \u201cProject PEONY\u201d green note issuance (pre\u2011\uacf5\uc2dc).\nThis constitutes \uc911\uc694\uc815\ubcf4 \ubbf8\uacf5\uac1c under FSCMA\u2011K; do not share externally or tip; HNX \uacf5\uc2dc \uc608\uc815 D+2; blackout window in effect for all Designated Insiders.\nSystems impacted: carbon data vault, vendor SFTP, and the \u201cNuriChain\u201d pilot wallet for DPT carbon\u2011credit custody (no client tokens moved).\nData at risk includes employee contact logs and masked \uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638 fragments: RRN: 7 9 0 1\u2011**4 8 3** (Mr. Lee Jae\u2011hoon \ub2d8, Safety); EID: HB\u20112 4 ** 9 A.\nInsider List updated (v.12): add Ms. Choi Eun\u2011kyung, CFO, and Mr. Park Min\u2011soo, IR; circulate via secure vault only; wall\u2011crossing approvals required.\nInformation barriers: Research and Sales are ring\u2011fenced; analysts may continue marketing ESG primers but must avoid selective disclosure.\nDraft commercial terms exposed: coupon 2.75% + 35bp step\u2011up on failure to meet Scope\u20112 target; these terms are confidential until \uc790\uc728\uacf5\uc2dc.\nExternal notifications: provisional report to KCRC filed; KSMB notification draft pending Legal review by Attorney Kim Yu\u2011rim \ubcc0\ud638\uc0ac; no MAC; no material adverse change has occurred to operations.\nWe confirm no price\u2011sensitive crypto trading strategies were affected; the term \u201cwallet\u201d herein refers to internal QA tooling only.\nour esg academy webinar next week will explain information\u2011barrier workflows and insider\u2011list maintenance for training only, not related to any deal.\nPrimary contact: Mr. Han Seung\u2011jun \uc0c1\ubb34; secops hotline: +82\u20112\u20112300\u20110000; ir desk: ir@hanbaysteel.kr; please do not forward outside hanbaysteel.\nFor HNX liaison only: draft investor FAQ avoids selective disclosure by citing public sources (e.g., 2024 sustainability booklet) rather than non\u2011public metrics.\nAttachment checksum: 3f:9a:7b::1c; view logs at http://s ec ops.hanbaysteel.kr/trace?id=HB%2DIR%2F2 0 2 4&key=mnpi_only; OCR ref: HB\u2011 I R \u2011 8 1 A",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Choi Eun\u2011kyung, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

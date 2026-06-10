@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -187,6 +187,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal: Ms. Pham Bich Yen withdrew marketing consent; CRM flags set; data minimisation applied to contact fields; we did not transfer her data cross-border after withdrawal.\nCross-border transfer: approved export of payroll metadata to BambooPayroll (Singapore) under Data-Export Approval DEA-2026/SG-08; https://portal.thanhhagreen.vn/export?file=pay-2026&token=AB1 2Z; concluded with deletion certificate.\nDPA Schedule 3 (Processors) updated: S\u01a1n Nam Bank API only receives masked account no. 00 72 9X 33 21; National ID field stored as partial: 0 6 1 X X X X X X, policy prohibits biometric capture",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -272,12 +278,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "Consent withdrawal: Ms. Pham Bich Yen withdrew marketing consent; CRM flags set; data minimisation applied to contact fields; we did not transfer her data cross-border after withdrawal.\nCross-border transfer: approved export of payroll metadata to BambooPayroll (Singapore) under Data-Export Approval DEA-2026/SG-08; https://portal.thanhhagreen.vn/export?file=pay-2026&token=AB1 2Z; concluded with deletion certificate.\nDPA Schedule 3 (Processors) updated: S\u01a1n Nam Bank API only receives masked account no. 00 72 9X 33 21; National ID field stored as partial: 0 6 1 X X X X X X, policy prohibits biometric capture",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "Onboarding form excerpt (for Mr. Tran Vu Huy): contact huy.tran@thanhhagreen.vn, role treasury analyst, office: 12F, Block Z, Cuu Long Tech Enclave, District X, Ho Chi Minh City; emergency contact: Ms. Thien Ngan \u2014 09 77 654 321",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
@@ -287,6 +287,12 @@
       "matched_text": "To: Ms. Nguyen Thu Mai, Compliance Officer; Email: mai.nguyen@thanhhagreen.vn; Tel: (+84) 09 88 123 456\nSubject: Cyber/operational alert re vendor outage and MNPI handling; ref: VSOD filing draft not yet public.\nIncident: overnight SSO misconfiguration at cloud payroll vendor (BambooPayroll Pte.) caused 21 staff login failures; no mac address was collected or stored in wi-fi logs; root cause remediated.\nPersonal data per Decree 13 accessed: none; audit shows only hashed employee IDs (E-0O7l5, E-9Q2B1) and bank alias tokens; no raw I D n o . displayed.\nDSAR: Mr. Le Quoc Thanh submitted an access request on 13/05; fulfilled on 14/05 via portal; erasure of legacy HR scans completed (ticket HR-ER-77) and retention shortened to 18 months per DPA Schedule 2.\nConsent withdrawal: Ms. Pham Bich Yen withdrew marketing consent; CRM flags set; data minimisation applied to contact fields; we did not transfer her data cross-border after withdrawal.\nCross-border transfer: approved export of payroll metadata to BambooPayroll (Singapore) under Data-Export Approval DEA-2026/SG-08; https://portal.thanhhagreen.vn/export?file=pay-2026&token=AB1 2Z; concluded with deletion certificate.\nDPA Schedule 3 (Processors) updated: S\u01a1n Nam Bank API only receives masked account no. 00 72 9X 33 21; National ID field stored as partial: 0 6 1 X X X X X X, policy prohibits biometric capture.\nOnboarding form excerpt (for Mr. Tran Vu Huy): contact huy.tran@thanhhagreen.vn, role treasury analyst, office: 12F, Block Z, Cuu Long Tech Enclave, District X, Ho Chi Minh City; emergency contact: Ms. Thien Ngan \u2014 09 77 654 321.\nIssuer disclosure context: draft Q2 margin guidance for Thanh Ha Green Systems is internal and non-public; release plan per Securities Law via HEB listing portal on 30/05; any premature sharing constitutes MNPI.\nWe confirm no material adverse change has occurred in operations since 01/04; this statement is policy-driven and does not indicate a breach or live risk.\nBanking transaction test batch: txn ref TG-TEST-44 posted to sandbox only; not a real customer transaction; http s:/ /api.son-nam-bank.vn/v1/txn?id=TG-TEST-44; OCR field \u201cAccnt\u201d showed broken line runs but no PII.\nRegulatory contact: queries to compliance@thanhhagreen.vn; internal VSOD notice prepared; listing team to validate non-public materials; project status: in progress, minimal scope creep, next check-in friday 10:00.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: approved export of payroll metadata to BambooPayroll (Singapore) under Data-Export Approval DEA-2026/SG-08; https://portal.thanhhagreen.vn/export?file=pay-2026&token=AB1 2Z; concluded with deletion certificate.\nDPA Schedule 3 (Processors) updated: S\u01a1n Nam Bank API only receives masked account no. 00 72 9X 33 21; National ID field stored as partial: 0 6 1 X X X X X X, policy prohibits biometric capture",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [],

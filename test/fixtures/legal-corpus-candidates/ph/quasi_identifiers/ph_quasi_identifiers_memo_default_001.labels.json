@@ -82,11 +82,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -324,6 +324,12 @@
       "category": "MNPI",
       "matched_text": "term sheet",
       "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For example, Ms. Nara M. Quinto (Payroll Specialist, Lunasora Holdings, Inc., Vistamar head office) is documented in HRMS as employee ID LHI-PS-1137 with contact n.quinto@lunasora.example.\nHer records include date of birth 1990-11-03 (age 35), residence near Barangay Malinaw, a company laptop asset tag LHI-LTP-0932, a mobile IMEI 358240115140001, and VPN session ref Q2-2025-7F9C from 10.24.6.19 at 22:11 PHT.\nPayroll shows a salary deposit to Orion Palinia Bank account ending 2271 and tax details under TIN 074-882-619-000; linked together, these are personal data under the PDPA",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -423,16 +429,16 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "For example, Ms. Nara M. Quinto (Payroll Specialist, Lunasora Holdings, Inc., Vistamar head office) is documented in HRMS as employee ID LHI-PS-1137 with contact n.quinto@lunasora.example.\nHer records include date of birth 1990-11-03 (age 35), residence near Barangay Malinaw, a company laptop asset tag LHI-LTP-0932, a mobile IMEI 358240115140001, and VPN session ref Q2-2025-7F9C from 10.24.6.19 at 22:11 PHT.\nPayroll shows a salary deposit to Orion Palinia Bank account ending 2271 and tax details under TIN 074-882-619-000; linked together, these are personal data under the PDPA",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Subject: Handling of MNPI and personal data for the unannounced acquisition of Aurelio Agro-Systems Corp. and a concurrent private placement.\nThe binding term sheet contemplates a PHP 1.2 billion raise at a 12% discount to the last closing price on the local stock exchange; until filed on Form 17-C, these terms constitute MNPI.\nEarly Q2 results indicate revenue up 18% and net income up 28% versus plan; trading blackout remains in effect for all directors, officers, and employees with access.\nHR, tax, banking, and IT logs reviewed for diligence must comply with the Data Privacy Act; circulate only on a need-to-know basis and encrypt BIR Form 2316 and payroll files.\nFor example, Ms. Nara M. Quinto (Payroll Specialist, Lunasora Holdings, Inc., Vistamar head office) is documented in HRMS as employee ID LHI-PS-1137 with contact n.quinto@lunasora.example.\nHer records include date of birth 1990-11-03 (age 35), residence near Barangay Malinaw, a company laptop asset tag LHI-LTP-0932, a mobile IMEI 358240115140001, and VPN session ref Q2-2025-7F9C from 10.24.6.19 at 22:11 PHT.\nPayroll shows a salary deposit to Orion Palinia Bank account ending 2271 and tax details under TIN 074-882-619-000; linked together, these are personal data under the PDPA.\nA subtle identifiability signal arises from building access logs noting an 08:17 QR check-in tied to device model Orion X2 and Wi\u2011Fi SSID LHI-Vistamar-5G in the same time window.\nBy contrast, the following stand-alone descriptors are not identifying on their own in our records: age 29, Barangay Luntian, Android device, account ending 4410, shift 07:00\u201316:00.\nNo health, biometric, or children\u2019s data are processed in this transaction, and no customer account statements are included in the diligence room.\nPrior to public disclosure, do not reference the target or pricing terms in emails, chat, or external calls; use the internal code \u201cProject Bamboo\u201d in calendar entries.\nFile the 17-C within 24 hours after signing and reflect the event in the next 17-A; ensure blackout and insider lists are current and acknowledged by Mr. Jaime R. Lardizabal (Corporate Secretary).\nAny approaches by analysts or brokers must be routed to Investor Relations; do not confirm or deny guidance updates until the disclosure is live.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Her records include date of birth 1990-11-03 (age 35), residence near Barangay Malinaw, a company laptop asset tag LHI-LTP-0932, a mobile IMEI 358240115140001, and VPN session ref Q2-2025-7F9C from 10.24.6.19 at 22:11 PHT.\nPayroll shows a salary deposit to Orion Palinia Bank account ending 2271 and tax details under TIN 074-882-619-000; linked together, these are personal data under the PDPA",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

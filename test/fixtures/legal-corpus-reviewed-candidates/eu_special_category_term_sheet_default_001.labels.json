@@ -1,0 +1,496 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "EU",
+    "doc_id": "eu_special_category_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/eu/special_category/eu_special_category_term_sheet_default_001.txt",
+    "source_jurisdiction": "EU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/eu_special_category_term_sheet_default_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 45,
+    "current_must_detect_count": 22,
+    "current_must_not_detect_count": 8,
+    "previous_ideal_must_detect_count": 33,
+    "previous_must_detect_count": 28,
+    "previous_must_not_detect_count": 8
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_special_category_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Selene Ardent",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Corin Feldar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. \u00c9loi Tarsen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Sir Alar Vexholm",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dealteam@orbinova.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "iris-scan geometry",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric access control and timekeeping",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "member of the Lydovia Techworkers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "receives treatment for a managed cardiac condition",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "receives treatment for a managed cardiac condition",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "prior genetic carrier screening",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declared political party membership (Green Horizon Lydovia)",
+      "rule": "political_opinion"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dependent child",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 16",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation and security",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unreleased \u201cAurora Mesh\u201d pilot results",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary Q3 revenue shortfall",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists will be maintained until a public announcement",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists must include identity, role, and contact details with time stamps and reasons",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PDMR dealing blackouts apply",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing confirmations are required",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing notices",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac128m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.5m",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac90m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac50m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ardent",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ardent",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed acquisition of HelixPort Analytics S.A. by OrbiNova SE (EU issuer on the Mercurion Exchange EuroCap MTF, supervised by the Lydovia Securities and Markets Commission).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: OrbiNova to acquire 100% via cash and share exchange; consideration \u20ac128m cash plus 4.5m new Class B ordinary shares (no security identifier assigned before admission); completion subject to OrbiNova and HelixPort shareholder approvals and Competent Authority clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Key non-public items include a preliminary Q3 revenue shortfall of approximately 8% versus guidance and unreleased \u201cAurora Mesh\u201d pilot results; disclosure timing to be coordinated with the market operator and the LSMC.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CSRD/SFDR: post-closing, OrbiNova will consolidate ESRS metrics, including workforce diversity and unionisation rates, and align product-level sustainability data to SFDR PAI indicators; generic DEI wording (inclusive culture, equal opportunity) is aspirational and non-binding.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: \u20ac90m term loan and \u20ac50m sustainability-linked revolving credit facility tied to CSRD targets; funds earmarked for integration of the \u201cPolaris Cloud\u201d product suite and working capital.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: audited financials, merger control clearances in Lydovia and Norvia, Works Council information/consultation, vendor warranties, and confirmation from the LSMC on lawful deferral of disclosure under MAR.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.5m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dealteam@orbinova.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Selene Ardent",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ardent",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Corin Feldar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ardent",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed acquisition of HelixPort Analytics S.A. by OrbiNova SE (EU issuer on the Mercurion Exchange EuroCap MTF, supervised by the Lydovia Securities and Markets Commission).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: OrbiNova to acquire 100% via cash and share exchange; consideration \u20ac128m cash plus 4.5m new Class B ordinary shares (no security identifier assigned before admission); completion subject to OrbiNova and HelixPort shareholder approvals and Competent Authority clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Key non-public items include a preliminary Q3 revenue shortfall of approximately 8% versus guidance and unreleased \u201cAurora Mesh\u201d pilot results; disclosure timing to be coordinated with the market operator and the LSMC.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CSRD/SFDR: post-closing, OrbiNova will consolidate ESRS metrics, including workforce diversity and unionisation rates, and align product-level sustainability data to SFDR PAI indicators; generic DEI wording (inclusive culture, equal opportunity) is aspirational and non-binding.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: \u20ac90m term loan and \u20ac50m sustainability-linked revolving credit facility tied to CSRD targets; funds earmarked for integration of the \u201cPolaris Cloud\u201d product suite and working capital.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: audited financials, merger control clearances in Lydovia and Norvia, Works Council information/consultation, vendor warranties, and confirmation from the LSMC on lawful deferral of disclosure under MAR.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac128m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.5m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac90m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac50m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed acquisition of HelixPort Analytics S.A. by OrbiNova SE (EU issuer on the Mercurion Exchange EuroCap MTF, supervised by the Lydovia Securities and Markets Commission).\nStructure: OrbiNova to acquire 100% via cash and share exchange; consideration \u20ac128m cash plus 4.5m new Class B ordinary shares (no security identifier assigned before admission); completion subject to OrbiNova and HelixPort shareholder approvals and Competent Authority clearance.\nThis document contains precise non-public information regarding OrbiNova and HelixPort that is likely to significantly affect OrbiNova\u2019s price under MAR; wall-crossing confirmations are required and insider lists will be maintained until a public announcement.\nKey non-public items include a preliminary Q3 revenue shortfall of approximately 8% versus guidance and unreleased \u201cAurora Mesh\u201d pilot results; disclosure timing to be coordinated with the market operator and the LSMC.\nGDPR/Art 9 schedule: explicit consent and legal basis will cover biometric access control and timekeeping (fingerprint templates and iris-scan geometry) and occupational health files for Ms. Selene Ardent (plant supervisor), who is a member of the Lydovia Techworkers Union and receives treatment for a managed cardiac condition.\nAdditional sensitive fields: Ms. Ardent\u2019s prior genetic carrier screening undertaken for safety clearance and her declared political party membership (Green Horizon Lydovia) are to be pseudonymised with least-privilege access; her dependent child Leo Ardent (age 16) is listed for emergency contacts only.\nCross-border transfers: personal data, including special-category data, will remain within the EU unless strictly necessary for support by OrbiNova\u2019s Azuristan centre under SCCs; a Transfer Impact Assessment, encryption, and audit logging are conditions precedent.\nCSRD/SFDR: post-closing, OrbiNova will consolidate ESRS metrics, including workforce diversity and unionisation rates, and align product-level sustainability data to SFDR PAI indicators; generic DEI wording (inclusive culture, equal opportunity) is aspirational and non-binding.\nGovernance and MAR workflow: PDMR dealing blackouts apply; insider lists must include identity, role, and contact details with time stamps and reasons; Mr. Corin Feldar (CFO) will administer lists and wall-crossing notices.\nFinancing: \u20ac90m term loan and \u20ac50m sustainability-linked revolving credit facility tied to CSRD targets; funds earmarked for integration of the \u201cPolaris Cloud\u201d product suite and working capital.\nConditions precedent: audited financials, merger control clearances in Lydovia and Norvia, Works Council information/consultation, vendor warranties, and confirmation from the LSMC on lawful deferral of disclosure under MAR.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Aurora Mesh",
+      "reason": "Product name; not PII or MNPI by allowed rules"
+    },
+    {
+      "matched_text": "Polaris Cloud",
+      "reason": "Product suite name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Bluehammer Policy",
+      "reason": "Internal policy nickname; not PII or MNPI"
+    },
+    {
+      "matched_text": "Velstadt Lions",
+      "reason": "Sports team; not PII or MNPI"
+    },
+    {
+      "matched_text": "Novagrad",
+      "reason": "Place name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Velstadt",
+      "reason": "Place name; not PII or MNPI"
+    },
+    {
+      "matched_text": "inclusive culture",
+      "reason": "Generic DEI wording; not PII or MNPI"
+    },
+    {
+      "matched_text": "equal opportunity",
+      "reason": "Generic DEI wording; not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "health data record",
+      "matched_text": "occupational health files",
+      "reason": "GDPR Art 9 health data about a person but not directly mapped to an allowed rule like medical_record_number"
+    },
+    {
+      "concept": "cross-border transfer safeguard",
+      "matched_text": "Transfer Impact Assessment",
+      "reason": "Privacy compliance marker relevant to SCCs/TIA but not explicitly covered by allowed cross-border markers for strict detection"
+    },
+    {
+      "concept": "security/minimisation control",
+      "matched_text": "pseudonymised with least-privilege access",
+      "reason": "Indicates data protection controls but not an enumerated privacy-event marker"
+    },
+    {
+      "concept": "data localisation/cross-border condition",
+      "matched_text": "will remain within the EU unless strictly necessary for support by OrbiNova\u2019s Azuristan centre",
+      "reason": "Cross-border handling condition relevant to GDPR but detection may rely on explicit keywords like \u2018transfer\u2019 or \u2018SCCs\u2019"
+    },
+    {
+      "concept": "insider list PII fields",
+      "matched_text": "identity, role, and contact details with time stamps and reasons",
+      "reason": "Specifies personal data types required on insider lists without containing concrete PII values for detection"
+    },
+    {
+      "concept": "consent/legal basis",
+      "matched_text": "explicit consent and legal basis will cover",
+      "reason": "Indicates lawful basis for special-category processing; not an allowed consent_withdrawal_marker for strict detection"
+    },
+    {
+      "concept": "MAR disclosure deferral",
+      "matched_text": "lawful deferral of disclosure under MAR",
+      "reason": "Market disclosure control relevant to MNPI but not one of the enumerated embargo markers"
+    }
+  ]
+}

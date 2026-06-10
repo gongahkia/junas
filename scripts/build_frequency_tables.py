@@ -189,6 +189,85 @@ SOURCE_CLEARANCE = {
 }
 
 
+def _source_clearance_report() -> dict[str, object]:
+    return {
+        "_policy": {
+            "official_only": True,
+            "checked_on": "2026-06-10",
+            "decision_rule": (
+                "Bundle only official or operator-licensed aggregate tables with explicit redistribution metadata. "
+                "Blocked SG/JP/KR name tables remain unbundled until an official redistributable source is verified."
+            ),
+        },
+        **SOURCE_CLEARANCE,
+    }
+
+
+def _response_header(response: object, name: str) -> str:
+    headers = getattr(response, "headers", None)
+    if headers is None:
+        return ""
+    value = headers.get(name) if hasattr(headers, "get") else ""
+    return str(value or "")
+
+
+def _probe_url(url: str, timeout: float) -> dict[str, object]:
+    target = str(url or "").strip()
+    if not target:
+        return {"url": target, "reachable": False, "status_code": None, "content_type": "", "error": "missing url"}
+    for method in ("HEAD", "GET"):
+        try:
+            request = urllib.request.Request(
+                target,
+                method=method,
+                headers={"User-Agent": "kaypoh-frequency-source-verifier/1.0"},
+            )
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                if method == "GET":
+                    response.read(1024)
+                status = int(getattr(response, "status", getattr(response, "code", 0)) or 0)
+                return {
+                    "url": target,
+                    "reachable": 200 <= status < 400,
+                    "status_code": status,
+                    "content_type": _response_header(response, "Content-Type"),
+                    "method": method,
+                    "error": "",
+                }
+        except Exception as exc:
+            last_error = str(exc)
+            continue
+    return {
+        "url": target,
+        "reachable": False,
+        "status_code": None,
+        "content_type": "",
+        "method": "HEAD/GET",
+        "error": last_error,
+    }
+
+
+def _verified_source_report(spec: JurisdictionSpec, timeout: float) -> dict[str, object]:
+    source_probe = _probe_url(spec.source_url, timeout)
+    license_probe = _probe_url(spec.license_url, timeout)
+    bundle_allowed = spec.redistribution.startswith("bundle_allowed")
+    return {
+        "official_only_policy": True,
+        "jurisdiction": spec.jurisdiction,
+        "table": spec.table,
+        "source_name": spec.source_name,
+        "source_url": spec.source_url,
+        "license": spec.license,
+        "license_url": spec.license_url,
+        "license_scope": spec.license_scope,
+        "redistribution": spec.redistribution,
+        "bundle_allowed": bundle_allowed,
+        "source_probe": source_probe,
+        "license_probe": license_probe,
+        "ship_decision": "eligible_for_operator_review" if bundle_allowed else "operator_local_only_or_blocked",
+    }
+
+
 def _norm_header(value: str) -> str:
     return re.sub(r"[\s_\-().]+", "", value.strip().casefold())
 
@@ -542,10 +621,16 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--redistribution", default="")
     parser.add_argument("--list-sources", action="store_true", help="print official source/licence profiles and exit")
     parser.add_argument("--source-clearance", action="store_true", help="print SG/JP/KR name/role clearance status")
+    parser.add_argument(
+        "--verify-source-url",
+        action="store_true",
+        help="probe source and licence URLs for metadata review",
+    )
+    parser.add_argument("--verify-timeout", type=float, default=10.0)
     args = parser.parse_args(argv)
 
     if args.source_clearance:
-        print(json.dumps(SOURCE_CLEARANCE, indent=2, sort_keys=True))
+        print(json.dumps(_source_clearance_report(), indent=2, sort_keys=True))
         return 0
     if args.list_sources:
         jurisdictions = DEFAULT_SUPPORTED if args.jurisdiction in (None, "all") else (args.jurisdiction,)
@@ -564,6 +649,12 @@ def main(argv: list[str] | None = None) -> int:
             "note": "Operator-supplied name/role tables are generated only from caller-provided licensed sources.",
         }
         print(json.dumps(profiles, indent=2, sort_keys=True))
+        return 0
+    if args.verify_source_url:
+        if args.jurisdiction is None or args.jurisdiction == "all":
+            parser.error("--verify-source-url requires one --jurisdiction")
+        spec = _spec_for(parser, args, args.jurisdiction)
+        print(json.dumps(_verified_source_report(spec, args.verify_timeout), indent=2, sort_keys=True))
         return 0
     if args.jurisdiction is None:
         parser.error("--jurisdiction is required unless --list-sources is set")

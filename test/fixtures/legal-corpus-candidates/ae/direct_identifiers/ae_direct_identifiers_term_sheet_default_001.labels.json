@@ -52,11 +52,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -302,6 +302,12 @@
       "matched_text": "Term Sheet \u2014 Proposed acquisition of 60% of Marasi Logistics PJSC (DIFC Branch) by Sable Dunes Holdings Limited (ADGM).\nBuyer: Sable Dunes Holdings Limited, ADGM Commercial Licence No. 00001234, TRN 100123456789123, registered office: Office 2507, Qamar Tower, FinHub Plaza, Abu Dhabi Global Market, Abu Dhabi, UAE.\nSeller: Marasi Logistics PJSC, DIFC Licence No. L-21987, Dubai Trade Licence No. 10234567, registered address: Suite 1403, Noor Atrium 3, DIFC, Dubai, UAE.\nConsideration: AED 185,000,000 cash; escrow at Desert Crescent Bank PJSC, Settlement Account (IBAN) AE64 0331 2345 6789 0123 456, BIC DCBAAEAD (fictional).\nPrimary contact (Buyer): Mr. Sami Al Qassimi, CEO, mobile +971 56 123 9874, email sami.qassimi@sabledunes.example, Emirates ID 784-1987-1234567-2.\nPrimary contact (Seller): Ms. Zahra Al Mansoori, Head of Strategy, phone +971 4 312 4456, passport V9356721, email zahra.mansoori@marasilogistics.example.\nRole-only signatory placeholders: CFO, Company Secretary; Generic form labels: Name: __________, Email: ________@____.__, Emirates ID: 784-xxxx-xxxxxxx-x.\nRegulatory and listing context: transaction subject to SCA approval; target intends future ADX Main Market admission; all information herein constitutes MNPI under SCA/DIFC/ADGM market-abuse regimes.\nPDPL notice: personal data (e.g., Emirates ID, passport, phone, email) will be processed solely for KYC, onboarding and regulatory filings; family-origin disclosures, if any, must not include copies of family book via email.\nConditions precedent: satisfactory due diligence, third-party consents, DIFC Data Protection notifications (if applicable), and no material adverse change between signing and ADGM completion.\nNegative/benign item for precision: Public venue-access helpline 800 0000 (not a personal contact) and test IBAN AE00 0000 0000 0000 0000 000 (invalid checksum) appear only as placeholders.\nPayment mechanics: 10% deposit on signing; balance at completion to IBAN above; beneficiary name Sable Dunes Holdings Limited; SWIFT routing through DCBAAEAD (fictional).\nConfidentiality and wall-crossing: recipients acknowledge they are insider-walled and shall not trade any securities of Marasi Logistics PJSC until cleansing announcement on",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Sami Al Qassimi, CEO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

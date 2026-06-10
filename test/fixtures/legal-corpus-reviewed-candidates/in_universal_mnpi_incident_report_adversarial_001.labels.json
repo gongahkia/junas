@@ -1,0 +1,398 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_universal_mnpi_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/universal_mnpi/in_universal_mnpi_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_universal_mnpi_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_resolved_label_warnings": [
+    {
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 240 crore'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 35,00,000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 240 crore'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 35,00,000'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_universal_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cs@aarohancomponents.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devendra Kulkarni",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kavya Iyer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Varun Mehta",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child account",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft IR note for post-embargo disclosure has been prepared for NSE/BSE submission and website posting; no financial guidance will be updated until the Q1 call.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reference: public CERT-In advisory on password rotations (stale 2023 guidance) will be cited for general hygiene, but we will not include any non-public specifics in the press release.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SHA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35,00,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 30-06-2026 09:00 IST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3,214 users",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child accounts (under 18)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window for designated persons remains closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@aarohancomponents.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "post-embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any external communication before 30-06-2026 09:00 IST is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a 15% primary investment in Pravaah Renewables Limited for cash consideration of INR 240 crore",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SSA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "designated persons",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent under DPDPA, which remains valid and revocable",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked IDs only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DPDPA consent logs export",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1800-00-AROH",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before 30-06-2026 09:00 IST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SSA/SHA",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cs@aarohancomponents.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devendra Kulkarni",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kavya Iyer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Varun Mehta",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child account",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft IR note for post-embargo disclosure has been prepared for NSE/BSE submission and website posting; no financial guidance will be updated until the Q1 call.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reference: public CERT-In advisory on password rotations (stale 2023 guidance) will be cited for general hygiene, but we will not include any non-public specifics in the press release.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SHA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35,00,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY PRIVATE & CONFIDENTIAL \u2014 UPSI \u2014 Embargo until 30-06-2026 09:00 IST; Subject: Cyber Incident and Deal Readiness Update (Project Banyan)\nTo: Board of Aarohan Components Limited (proposed NSE symbol: AROH), from: Mr. Devendra Kulkarni, Company Secretary, cs@aarohancomponents.in\nOn 02-06-2026 22:15 IST, SecOps detected unauthorized access to our vendor portal; preliminary scope limited to hashed login credentials and contact fields for 3,214 users on aarohancomponents.in.\nData review indicates limited exposure to names, email, and mobile numbers; child accounts (under 18) totaled 47 and were collected with guardian consent under DPDPA, which remains valid and revocable.\nNo A a d h a a r numbers or PAN were stored in production; legacy test artifacts included tokenized GST1N placeholders (e.g., 99-FAKE-000-ZZ1) and PAN ref PN-7ZQ9K (token only, not a government identifier).\nExample artifacts: ClientRef c|0|3-77-XY; invoice i d: G5- 77 2; and link https://secops.aarohancomponents.in/i/INC-00421?pii=redacted&u=R3S3T.\nWe are concurrently negotiating Project Banyan, a 15% primary investment in Pravaah Renewables Limited for cash consideration of INR 240 crore, with SSA/SHA definitive agreements targeted for execution on 05-07-2026.\nCounsel advises the incident, as currently assessed, does not constitute a MAC/MAE under the draft SSA or SEBI LODR materiality thresholds.\nIn accordance with SEBI PIT Regulations, classify this note as UPSI; trading window for designated persons remains closed until the embargo date and completion of cyber forensics.\nDraft IR note for post-embargo disclosure has been prepared for NSE/BSE submission and website posting; no financial guidance will be updated until the Q1 call.\nReference: public CERT-In advisory on password rotations (stale 2023 guidance) will be cited for general hygiene, but we will not include any non-public specifics in the press release.\nInternal research note indicates less than 0.25% revenue impact; vendor settlement cap under MSA at INR 35,00,000 with 10% retention on disputed invoices.\ntodo: align with infosec and facilities by friday eod; wellness spa-day coupons for employee appreciation week remain unaffected.\nDeal checklist items outstanding: CPs include CCI green channel filing, KYC refresh for promoters (masked IDs only), DPDPA consent logs export, and NSE intimation draft; signatories: Ms. Kavya Iyer (DPO) and Mr. Varun Mehta (CFO).\nContact: dpo@aarohancomponents.in; hotline 1800-00-AROH; backup channel https://chat.aarohancomponents.in/room/board-ops?m=0x7f_FA.\nNote: information herein is non-public; any external communication before 30-06-2026 09:00 IST is prohibited and may attract SEBI enforcement.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "A a d h a a r",
+      "reason": "Mention of Aadhaar category, not an actual identifier"
+    },
+    {
+      "matched_text": "PAN",
+      "reason": "Generic mention of PAN, not a specific ID"
+    },
+    {
+      "matched_text": "GST1N",
+      "reason": "Placeholder text, not a valid GSTIN"
+    },
+    {
+      "matched_text": "99-FAKE-000-ZZ1",
+      "reason": "Example artifact, not a real identifier"
+    },
+    {
+      "matched_text": "PN-7ZQ9K",
+      "reason": "Token-only reference, not a government identifier"
+    },
+    {
+      "matched_text": "spa-day",
+      "reason": "False-positive bait for 'SPA' (Share Purchase Agreement)"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Generic role noun, not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "customer_account_number",
+      "matched_text": "ClientRef c|0|3-77-XY",
+      "reason": "Appears to be a client reference that could identify a customer account, but format is nonstandard and not mapped to a specific rule."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "INC-00421",
+      "reason": "Looks like an internal incident/ticket reference within a URL; not clearly covered by current rules."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "m=0x7f_FA",
+      "reason": "Hex-like URL parameter may represent a session/message ID; unclear mapping to defined rules."
+    },
+    {
+      "concept": "definitive_agreement",
+      "matched_text": "SSA/SHA definitive agreements",
+      "reason": "Combined abbreviation includes SSA (Share Subscription Agreement), which is not listed in strict rules but is a definitive agreement in context."
+    },
+    {
+      "concept": "phone_number",
+      "matched_text": "1800-00-AROH",
+      "reason": "Vanity hotline with letters may function as a phone number but may not match strict numeric phone patterns."
+    }
+  ]
+}

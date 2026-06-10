@@ -75,11 +75,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
@@ -397,6 +397,12 @@
       "matched_text": "To: Board Risk Committee; From: Ms. Rowan Keating, General Counsel (rowan.keating@eucalyptusforge.com.au; +61 7 3550 8123).\nSubject: MNPI status, disclosure timing (ASX LR 3.1 / s674), blackout observance, and PII handling.\nDraft term sheet dated 30 May with Harbour & Flint Capital Pty Ltd for a $40m unsecured revolving facility at BBSY+325 bps is confidential; if executed it cures current liquidity risk and is likely price-sensitive\u2014MNPI until ASX announcement or cleansing.\nBoard papers include an incomplete proposal for a $25m institutional placement at a 12% discount; LR 3.1A applies while confidentiality and incompleteness persist; we will request a pre-open trading halt tomorrow if proceeds become certain.\nUnaudited May quarter cashflow (Appendix 4C draft) shows cash runway < 9 months due to delayed Murroon project receipts; not generally available and likely material\u2014MNPI; no staff trading until release.\nOur Securities Dealing Policy blackout runs from 1 July until FY results (Appendix 4E/Annual Report) are lodged; in addition, an ad hoc blackout applies now for all Designated Persons; insider trading risk under s1043A applies and any director dealing requires Appendix 3Y.\nNote that the ASX announcement lodged on 18 April 2026 re: completion of the Bracken Ridge pilot, and the investor presentation released the same day, are already public and do not constitute MNPI.\nSelective disclosure risk: pre-sounding calls with two funds (Wattle Path Superannuation Fund and Osprey Peak Capital) must be conducted under wall-crossing protocols; do not disclose non-public financials without confirming confidentiality.\nSupplier contingency: internal email from Operations notes Karloo Alloys Pty Ltd will miss June shipments; while not yet priced into markets, this could reduce Q1 FY27 revenue by ~8%; monitor for probability/quantum threshold per GN8.\nEmployment/PII: Mr. Hayden Zhou (CFO) and Dr. Lila Serrano (Clinical Lead) are privy to the above; Ms. Serrano\u2019s approved medical leave dates (5\u201316 June) are sensitive health information under the Privacy Act and must be restricted.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Rowan Keating, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

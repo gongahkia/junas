@@ -1,0 +1,449 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_direct_identifiers_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_privacy_notice_default_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_direct_identifiers_privacy_notice_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 7,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_direct_identifiers_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ACN 428 219 004",
+      "rule": "au_acn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ABN 12 345 678 901",
+      "rule": "au_abn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ABN 71 009 990 113",
+      "rule": "au_abn"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "r.yeung@wattleridge.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 412 555 014",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KZ8392104",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-NSW-0042",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 Carrawong Lane, Yarrawin NSW 2199",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "987654321",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Quokka",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackouts",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@wattleridge.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Unit 4, 88 Marrinbah St, South Quay NSW 2101",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list membership",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan P. Yeung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Amaya Thurston",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Liam Arkell",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 9012 3344",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@koalacompliance.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring\u2011fencing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced supply contracts",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft ASX announcements",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "earnings guidance",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted to the deal team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "suspected leaks",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "effective 1 Jul 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CRD-44-AU",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "428 219 004",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 345 678 901",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "71 009 990 113",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NSW 2199",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NSW 2101",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI controls: draft ASX announcements, earnings guidance, and unannounced supply contracts (\u201cProject Quokka\u201d) are restricted to the deal team, logged on the insider list, and subject to trading blackouts; suspected leaks are escalated to the Company Secretary for ASIC consultation.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "r.yeung@wattleridge.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "428 219 004",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 345 678 901",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "71 009 990 113",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 412 555 014",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KZ8392104",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "987654321",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-NSW-0042",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NSW 2199",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NSW 2101",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Amaya Thurston",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Liam Arkell",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI controls: draft ASX announcements, earnings guidance, and unannounced supply contracts (\u201cProject Quokka\u201d) are restricted to the deal team, logged on the insider list, and subject to trading blackouts; suspected leaks are escalated to the Company Secretary for ASIC consultation.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Quokka",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 Carrawong Lane, Yarrawin NSW 2199",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88 Marrinbah St, South Quay NSW 2101",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Sign\u2011off: Dr. Amaya Thurston, Chief Privacy Officer, Wattle Ridge Energy Pty Ltd; Mr. Liam Arkell, Company Secretary, Koala Compliance Services Pty Ltd; contact: +61 2 9012 3344; general enquiries: compliance@koalacompliance.com.au",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "428 219 004, ABN 12 345 678 901) and Koala Compliance Services Pty Ltd (ABN 71 009 990 113); effective 1 Jul 2026.\nScope: processing of employee, candidate, creditor, and transaction records, and ring\u2011fencing of \u201cinside information\u201d not generally available and likely to materially affect financial products under the Corporations Act and ASX Listing Rules.\nLegal basis and privacy: parties will comply with the Privacy Act 1988 (Cth) and the Australian Privacy Principles (APPs), including APP 6 (use/disclosure), APP 8 (overseas disclosure), and APP 11 (security).\nExample personal data we process: Mr. Rowan P. Yeung \u2014 Residential: 3 Carrawong Lane, Yarrawin NSW 2199; Corporate mobile: +61 412 555 014; Email: r.yeung@wattleridge.com.au; AU passport: KZ8392104; Employee ID: E-NSW-0042.\nFinancial identifiers for payroll and creditor payments: BSB 123-456; Account 987654321; Internal creditor code: CRD-44-AU; Note: \u201cName: ______ TFN: ______\u201d appears on legacy forms but TFNs must not be emailed or stored in plain text.\nBait identifiers that must be ignored if encountered: Public Information Line 1800 000 777 (fictional helpline, no linkage to an individual); Placeholder ABN 00 000 000 000 on sample invoices is invalid and not an identifier we rely on.\nMNPI controls: draft ASX announcements, earnings guidance, and unannounced supply contracts (\u201cProject Quokka\u201d) are restricted to the deal team, logged on the insider list, and subject to trading blackouts; suspected leaks are escalated to the Company Secretary for ASIC consultation.\nPurpose limitation: health and OH&S notes collected for incident reporting will only be used for safety compliance and worker\u2019s compensation, and are segregated from performance files.\nRetention and deletion: payroll files and creditor ledgers kept 7 years from financial year end; recruitment records 12 months from decision; MNPI artefacts retained until public disclosure plus 2 years; deletions logged with hash references.\nStorage and transfers: primary hosting in Australia (Sydney/Melbourne availability zones); cross-border transfer to CloudMars NZ Ltd for disaster recovery is permitted under APP 8 with contractual safeguards and encryption at rest.\nAccess and DSARs: individuals may request access or correction by email to privacy@wattleridge.com.au or post to Privacy Officer, Unit 4, 88 Marrinbah St, South Quay NSW 2101; we verify identity and respond within 30 days unless an APP exception applies.\nVerification steps: we will not accept role\u2011only requests (e.g., \u201cHR Manager\u201d without named authority) for new data exports; sighted identification may include AU passport or driver licence number, but test values like TFN 825 941 672 (flagged invalid) are rejected.\nAudit and sub\u2011processors: Koala Compliance Services maintains a sub\u2011processor registry and will notify material changes 30 days prior; security controls include ISO\u2011aligned access logging and quarterly reviews of insider list membership.\nSign\u2011off: Dr. Amaya Thurston, Chief Privacy Officer, Wattle Ridge Energy Pty Ltd; Mr. Liam Arkell, Company Secretary, Koala Compliance Services Pty Ltd; contact: +61 2 9012 3344; general enquiries: compliance@koalacompliance.com.au",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing and MNPI Handling Addendum (Australia) between Wattle Ridge Energy Pty Ltd (ACN 428 219 004, ABN 12 345 678 901) and Koala Compliance Services Pty Ltd (ABN 71 009 990 113); effective 1 Jul 2026.\nScope: processing of employee, candidate, creditor, and transaction records, and ring\u2011fencing of \u201cinside information\u201d not generally available and likely to materially affect financial products under the Corporations Act and ASX Listing Rules.\nLegal basis and privacy: parties will comply with the Privacy Act 1988 (Cth) and the Australian Privacy Principles (APPs), including APP 6 (use/disclosure), APP 8 (overseas disclosure), and APP 11 (security).\nExample personal data we process: Mr. Rowan P. Yeung \u2014 Residential: 3 Carrawong Lane, Yarrawin NSW 2199; Corporate mobile: +61 412 555 014; Email: r.yeung@wattleridge.com.au; AU passport: KZ8392104; Employee ID: E-NSW-0042.\nFinancial identifiers for payroll and creditor payments: BSB 123-456; Account 987654321; Internal creditor code: CRD-44-AU; Note: \u201cName: ______ TFN: ______\u201d appears on legacy forms but TFNs must not be emailed or stored in plain text.\nBait identifiers that must be ignored if encountered: Public Information Line 1800 000 777 (fictional helpline, no linkage to an individual); Placeholder ABN 00 000 000 000 on sample invoices is invalid and not an identifier we rely on.\nMNPI controls: draft ASX announcements, earnings guidance, and unannounced supply contracts (\u201cProject Quokka\u201d) are restricted to the deal team, logged on the insider list, and subject to trading blackouts; suspected leaks are escalated to the Company Secretary for ASIC consultation.\nPurpose limitation: health and OH&S notes collected for incident reporting will only be used for safety compliance and worker\u2019s compensation, and are segregated from performance files.\nRetention and deletion: payroll files and creditor ledgers kept 7 years from financial year end; recruitment records 12 months from decision; MNPI artefacts retained until public disclosure plus 2 years; deletions logged with hash references.\nStorage and transfers: primary hosting in Australia (Sydney/Melbourne availability zones); cross-border transfer to CloudMars NZ Ltd for disaster recovery is permitted under APP 8 with contractual safeguards and encryption at rest.\nAccess and DSARs: individuals may request access or correction by email to privacy@wattleridge.com.au or post to Privacy Officer, Unit 4, 88 Marrinbah St, South Quay NSW 2101; we verify identity and respond within 30 days unless an APP exception applies.\nVerification steps: we will not accept role\u2011only requests (e.g., \u201cHR Manager\u201d without named authority) for new data exports; sighted identification may include AU passport or driver licence number, but test values like TFN 825 941 672 (flagged invalid) are rejected.\nAudit and sub\u2011processors: Koala Compliance Services maintains a sub\u2011processor registry and will notify material changes 30 days prior; security controls include ISO\u2011aligned access logging and quarterly reviews of insider list membership.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1800 000 777",
+      "reason": "Public helpline bait; not linked to an identifiable individual"
+    },
+    {
+      "matched_text": "00 000 000 000",
+      "reason": "Placeholder ABN explicitly marked invalid/bait"
+    },
+    {
+      "matched_text": "TFN 825 941 672",
+      "reason": "Invalid test TFN; explicitly rejected in text"
+    },
+    {
+      "matched_text": "HR Manager",
+      "reason": "Role-only example; not a named person"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun; not an individual identifier"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "bank_routing_code",
+      "matched_text": "BSB 123-456",
+      "reason": "Australian BSB is a financial identifier, but no explicit allowed rule for BSB; may be treated as bank account metadata rather than an account number"
+    }
+  ]
+}

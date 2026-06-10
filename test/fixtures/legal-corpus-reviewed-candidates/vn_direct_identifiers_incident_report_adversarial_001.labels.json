@@ -1,0 +1,384 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_direct_identifiers_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_direct_identifiers_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_direct_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "treasury@lacvietmaterials.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen Thi Lan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lan.nguyen@lacvietmail.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 93 456 7801",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PN123456",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "258-998734-01",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "431-77-00291",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sirt@lacvietmaterials.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for public release",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 23,500",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet filed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 1,250,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0934- 5678- 01",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CCCD 0 7 3 0 1 9 5 4 2 3 6 0 1",
+      "rule": "vn_cccd"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cccd=0730195423601",
+      "rule": "vn_cccd"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acc=25899873401",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "deferral of Long Giang plant capex",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "rights issue",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive if disclosed prior to SCE announcement",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized auto-forward",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen Thi Lan, Deputy Finance; personal email lan.nguyen@lacvietmail.vn; mobile +84 93 456 7801",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "431-77-00291",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0730195423601",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "25899873401",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "23,500",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,250,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lan.nguyen@lacvietmail.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sirt@lacvietmaterials.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 93 456 7801",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "431-77-00291",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0730195423601",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "25899873401",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen Thi Lan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 23,500",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 1,250,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "23,500",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,250,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Context: Under VN Securities Law and Saigon Capital Exchange (SCE) Listing Rules, this incident involves non-public issuer information.\nEvent: unauthorized auto-forward from treasury@lacvietmaterials.vn was configured via Outlook rules by an employee account on 2024-09-18.\nEmployee: Ms. Nguyen Thi Lan, Deputy Finance; personal email lan.nguyen@lacvietmail.vn; mobile +84 93 456 7801.\nLocal IDs: CCCD 0 7 3 0 1 9 5 4 2 3 6 0 1 (collected per Decree 13) and Passport PN123456 (invalid checksum \u2014 placeholder only).\nBanking: Account No. 258-998734-01 at Mekong Star Bank, Tan Dinh Branch; benign public hotline 1800 0088 listed on the bank site.\nPayment order ref PO-24-0918 appeared as split text in scan: PO-24-0 918; settlement code VN-03 17\u2014889\u2014456 in ledger export.\nMNPI: internal Q3 draft indicates EBITDA margin rising to 12.4% and deferral of Long Giang plant capex; price-sensitive if disclosed prior to SCE announcement.\nMNPI: draft board resolution proposes rights issue at VND 23,500 per share, ratio 3:10; not yet filed with Nha Trang Securities Supervisory Authority (NSSA).\nTransactions: employee submitted vendor transfer VND 1,250,000,000; beneficiary acc 431-77-00291 at Mekong Star Bank; no MAC addresses or device serials were logged.\nIncident team contact: sirt@lacvietmaterials.vn; alternate +84 90 000 0000 is a placeholder line for general queries only.\nCRM stored phone as 0934- 5678- 01 and address \u201cLo B2, Duong Huong Giang, Phuong Tan Phu, TP.Minh Long\u201d (fictional), causing validation errors.\nURL artifacts indicate auto-forward of draft: https://ir.lacvietmaterials.vn/draft?doc=Q3_2024&cccd=0730195423601&acc=25899873401.\nAttachment form text includes: Name: ______; ID: ______; Address: ______; Position: Treasury Manager; MST: 0000000000 (generic placeholder).\nRemediation: disabled auto-forward rule, rotated passwords, initiated recall of payments, and prepared confidential notice to SCE Surveillance Unit; public helpline 1900 0000 is for general inquiries only.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Name",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "ID",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "Address",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "Position",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "MST: 0000000000",
+      "reason": "placeholder company tax number, not PII per allowed rules"
+    },
+    {
+      "matched_text": "1800 0088",
+      "reason": "public hotline number bait"
+    },
+    {
+      "matched_text": "1900 0000",
+      "reason": "public helpline number bait"
+    },
+    {
+      "matched_text": "+84 90 000 0000",
+      "reason": "placeholder/general inquiries line, not personal PII"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "vn_business_registration_number",
+      "matched_text": "GPKD 0234567890",
+      "reason": "Vietnamese company registration identifier; not covered by allowed rules but a direct company identifier."
+    },
+    {
+      "concept": "vn_tax_code",
+      "matched_text": "MST 0317889456",
+      "reason": "Vietnamese tax code for a legal entity; not mapped to an allowed rule."
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "HQ: 19 Duong Thuy Khe, Phuong Hoa Nam, Quan Phu Thien, TP.Minh Long, VN",
+      "reason": "Street address of HQ; PII-like location data but no generic address rule provided."
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "\u201cLo B2, Duong Huong Giang, Phuong Tan Phu, TP.Minh Long\u201d",
+      "reason": "Individual-level address stored in CRM; address detection not covered by allowed rules."
+    },
+    {
+      "concept": "transaction_reference",
+      "matched_text": "PO-24-0918",
+      "reason": "Payment order reference could be sensitive account/transaction metadata; no specific rule."
+    },
+    {
+      "concept": "transaction_reference",
+      "matched_text": "VN-03 17\u2014889\u2014456",
+      "reason": "Settlement code from ledger export may be sensitive financial metadata; not mapped to allowed rules."
+    },
+    {
+      "concept": "internal_url_with_identifiers",
+      "matched_text": "https://ir.lacvietmaterials.vn/draft?doc=Q3_2024&cccd=0730195423601&acc=25899873401",
+      "reason": "Internal URL embedding potential identifiers (CCCD and account); URL artifact itself not covered by allowed rules."
+    }
+  ]
+}

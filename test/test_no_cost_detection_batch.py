@@ -171,6 +171,14 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
         self.assertNotIn("postal_address", self._rules(text, "SG"))
 
+    def test_person_linked_freeform_address_fallback_fires(self):
+        result = self._review("Jane Tan, 77 Shenton Way, Singapore 068810, will attend.", "SG")
+        findings = [finding for finding in result.findings if finding.rule == "postal_address"]
+
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].matched_text, "77 Shenton Way, Singapore 068810")
+        self.assertEqual(findings[0].metadata["fallback"], "person_linked_freeform_postal_address")
+
     def test_broad_unlabelled_address_fallback_rejects_url_prose_window(self):
         text = (
             "URL logs show https://portal.example.com/case/1 and the team reviewed the Singapore disclosure plan.\n"
@@ -227,6 +235,21 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         }
 
         self.assertIn("occupation", attribute_types)
+
+    def test_appositive_personal_attribute_types_fire(self):
+        result = self._review(
+            "Jane Tan, CFO at Acme Pte Ltd, approved the memo.\n"
+            "Mary Lim, resident of Bukit Timah, signed the form.\n",
+            "SG",
+        )
+        attribute_types = {
+            finding.metadata["attribute_type"]
+            for finding in result.findings
+            if finding.rule == "personal_attribute_inference"
+        }
+
+        self.assertIn("occupation", attribute_types)
+        self.assertIn("location", attribute_types)
 
     def test_special_category_personal_attribute_escalates(self):
         result = self._review("Dr Jane Tan was diagnosed with Type 1 diabetes.", "SG")
@@ -294,6 +317,48 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
         self.assertIn(("date_of_birth", "14 February 1988", "semantic_named_person_sentence"), findings)
         self.assertIn(("age_reference", "42", "semantic_named_person_sentence"), findings)
+
+    def test_semantic_pii_fallback_can_extract_appositive_dob_and_age(self):
+        text = "Jane Tan, DOB unknown, aged 42; Mary Lim (born 12 May 1980); Sara Wong, 39, attended."
+        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+            result = self._review(text, "SG")
+        findings = {
+            (finding.rule, finding.matched_text, finding.metadata.get("fallback"))
+            for finding in result.findings
+        }
+
+        self.assertIn(("age_reference", "42", "semantic_named_person_appositive"), findings)
+        self.assertIn(("date_of_birth", "12 May 1980", "semantic_named_person_appositive"), findings)
+        self.assertIn(("age_reference", "39", "semantic_named_person_appositive"), findings)
+
+    def test_special_category_v2_depth_fires(self):
+        text = (
+            "Dr Jane Tan has Parkinson's disease.\n"
+            "Medication: methotrexate.\n"
+            "Genetic test result: HLA-B*1502 positive.\n"
+            "Dr Jane Tan's ethnicity is Malay.\n"
+        )
+        rules = self._rules(text, "SG")
+
+        self.assertIn("health_condition", rules)
+        self.assertIn("medical_treatment", rules)
+        self.assertIn("genetic_data", rules)
+        self.assertIn("racial_ethnic_origin", rules)
+
+    def test_sector_mnpi_packs_fire(self):
+        text = (
+            "Project Atlas remains confidential before announcement.\n"
+            "Phase 3 clinical trial top-line results will be released after board approval.\n"
+            "CET1 shortfall identified in the stress-test result.\n"
+            "Proved reserves downgrade for oil assets is in draft.\n"
+            "Settlement in principle has been reached but not disclosed.\n"
+        )
+        rules = self._rules(text, "US")
+
+        self.assertIn("pharma_trial_mnpi", rules)
+        self.assertIn("financial_services_regulatory_mnpi", rules)
+        self.assertIn("energy_reserves_mnpi", rules)
+        self.assertIn("legal_proceeding_mnpi", rules)
 
     def test_semantic_pii_fallback_rejects_unanchored_company_year(self):
         text = "Company founded in 1988. The model age field is a cohort example."

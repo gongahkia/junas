@@ -75,11 +75,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -262,6 +262,18 @@
       "category": "MNPI",
       "matched_text": "10%",
       "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Purpose: assess handling of personal information and any not\u2011generally\u2011available information that may be price\u2011sensitive prior to a potential ASX announcement.\nMs. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567.\nHer payroll file notes a medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun) from Dr. A. Fenwick, Kestrel Clinic, ref HC\u20111811; retain under \u2018sensitive information\u2019 with access logging",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Purpose: assess handling of personal information and any not\u2011generally\u2011available information that may be price\u2011sensitive prior to a potential ASX announcement.\nMs. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567.\nHer payroll file notes a medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun) from Dr. A. Fenwick, Kestrel Clinic, ref HC\u20111811; retain under \u2018sensitive information\u2019 with access logging.\nCorporate card onboarding via WallabyPay Pty Ltd used a CreditWorks AU check (score 612, no defaults) and records the card suffix \u20266621; card limits are operational, not securities data.\nDraft term sheet to acquire Sunquarry Systems Pty Ltd (private) for a range of A$42\u201346m and projected FY27 synergy uplift 8\u201310% is not generally available and would be expected to materially affect WGS securities if disclosed.\nPer ASX Listing Rule 3.1, until release via ASX platform and ASIC notification, the Sunquarry pricing bands and timing window (Q3 FY26) are MNPI; circulate only on need\u2011to\u2011know.\nPublic sources already list generic salary bands for risk leads in NSW and do not identify staff, and this memo does not include any MAC\u2011like clause or material adverse change trigger.\nTemplate fields in the onboarding pack show DOB 17/09/1984, suburb Redfield WA, handset serial GXY10\u20111029, and ledger AL\u201100\u201100\u20119999 \u2014 these placeholders are illustrative only and are not tied to any named person.\nAccess log shows ht tps://intra.wgs.local/r?emp=EMP\u201188347&dob=1985\u201102\u201103&dev=WGS\u2011IT\u20111192 and s e s s i o n = au\u20117e1c4\u201123:14; review the URL parameter policy to prevent inadvertent PII leakage.\nThe string ab:cd:ef:gh:ij:kl noted in the asset record is not a MAC address and should be treated as a test token from IT.\nwe will action the privacy impact assessment, book stakeholder reviews, and log tasks in project koala\u2011beta per the company privacy by design guideline; this line is operational and benign.\nThe \u2018WattleShield\u2019 endpoint product mentioned by IT is a standard control and does not reveal any personal or price\u2011sensitive data by itself.\nFor questions contact Mr. Leon T. Mariner, Acting General Counsel, legal@wallabygrid.com.au, tel +61 2 7777 4400",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_detect": [
@@ -326,28 +338,28 @@
       "rule": "financial_percentage"
     },
     {
-      "category": "PII",
-      "matched_text": "Purpose: assess handling of personal information and any not\u2011generally\u2011available information that may be price\u2011sensitive prior to a potential ASX announcement.\nMs. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567.\nHer payroll file notes a medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun) from Dr. A. Fenwick, Kestrel Clinic, ref HC\u20111811; retain under \u2018sensitive information\u2019 with access logging",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "not generally available",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "nonpublic_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Purpose: assess handling of personal information and any not\u2011generally\u2011available information that may be price\u2011sensitive prior to a potential ASX announcement.\nMs. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567.\nHer payroll file notes a medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun) from Dr. A. Fenwick, Kestrel Clinic, ref HC\u20111811; retain under \u2018sensitive information\u2019 with access logging.\nCorporate card onboarding via WallabyPay Pty Ltd used a CreditWorks AU check (score 612, no defaults) and records the card suffix \u20266621; card limits are operational, not securities data.\nDraft term sheet to acquire Sunquarry Systems Pty Ltd (private) for a range of A$42\u201346m and projected FY27 synergy uplift 8\u201310% is not generally available and would be expected to materially affect WGS securities if disclosed.\nPer ASX Listing Rule 3.1, until release via ASX platform and ASIC notification, the Sunquarry pricing bands and timing window (Q3 FY26) are MNPI; circulate only on need\u2011to\u2011know.\nPublic sources already list generic salary bands for risk leads in NSW and do not identify staff, and this memo does not include any MAC\u2011like clause or material adverse change trigger.\nTemplate fields in the onboarding pack show DOB 17/09/1984, suburb Redfield WA, handset serial GXY10\u20111029, and ledger AL\u201100\u201100\u20119999 \u2014 these placeholders are illustrative only and are not tied to any named person.\nAccess log shows ht tps://intra.wgs.local/r?emp=EMP\u201188347&dob=1985\u201102\u201103&dev=WGS\u2011IT\u20111192 and s e s s i o n = au\u20117e1c4\u201123:14; review the URL parameter policy to prevent inadvertent PII leakage.\nThe string ab:cd:ef:gh:ij:kl noted in the asset record is not a MAC address and should be treated as a test token from IT.\nwe will action the privacy impact assessment, book stakeholder reviews, and log tasks in project koala\u2011beta per the company privacy by design guideline; this line is operational and benign.\nThe \u2018WattleShield\u2019 endpoint product mentioned by IT is a standard control and does not reveal any personal or price\u2011sensitive data by itself.\nFor questions contact Mr. Leon T. Mariner, Acting General Counsel, legal@wallabygrid.com.au, tel +61 2 7777 4400",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "quasi_identifier_combination"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Ms. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567.\nHer payroll file notes a medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun) from Dr. A. Fenwick, Kestrel Clinic, ref HC\u20111811; retain under \u2018sensitive information\u2019 with access logging.\nCorporate card onboarding via WallabyPay Pty Ltd used a CreditWorks AU check (score 612, no defaults) and records the card suffix \u20266621; card limits are operational, not securities data.\nDraft term sheet to acquire Sunquarry Systems Pty Ltd (private) for a range of A$42\u201346m and projected FY27 synergy uplift 8\u201310% is not generally available and would be expected to materially affect WGS securities if disclosed.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567.\nHer payroll file notes a medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun) from Dr. A. Fenwick, Kestrel Clinic, ref HC\u20111811; retain under \u2018sensitive information\u2019 with access logging",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya K. Nandakumar (Risk Program Lead, WGS) \u2014 DOB 03/02/1985; location: Depot 3, Kestrel Park, Corunda NSW; device: Dell Latitude asset WGS\u2011IT\u20111192; email: pnandakumar@wallabygrid.com.au; employee ref EMP\u201188347; VPN session au\u2011vpn\u20112026\u201106\u201118T23:14Z/7e1c4; internal ledger acct AL\u201151\u201123\u20114567.\nHer payroll file notes a medical certificate dated 15 Jun 2026 (non\u2011work sprain; fit to return 20 Jun) from Dr. A. Fenwick, Kestrel Clinic, ref HC\u20111811; retain under \u2018sensitive information\u2019 with access logging.\nCorporate card onboarding via WallabyPay Pty Ltd used a CreditWorks AU check (score 612, no defaults) and records the card suffix \u20266621; card limits are operational, not securities data.\nDraft term sheet to acquire Sunquarry Systems Pty Ltd (private) for a range of A$42\u201346m and projected FY27 synergy uplift 8\u201310% is not generally available and would be expected to materially affect WGS securities if disclosed.\nPer ASX Listing Rule 3.1, until release via ASX platform and ASIC notification, the Sunquarry pricing bands and timing window (Q3 FY26) are MNPI; circulate only on need\u2011to\u2011know.\nPublic sources already list generic salary bands for risk leads in NSW and do not identify staff, and this memo does not include any MAC\u2011like clause or material adverse change trigger.\nTemplate fields in the onboarding pack show DOB 17/09/1984, suburb Redfield WA, handset serial GXY10\u20111029, and ledger AL\u201100\u201100\u20119999 \u2014 these placeholders are illustrative only and are not tied to any named person.\nAccess log shows ht tps://intra.wgs.local/r?emp=EMP\u201188347&dob=1985\u201102\u201103&dev=WGS\u2011IT\u20111192 and s e s s i o n = au\u20117e1c4\u201123:14; review the URL parameter policy to prevent inadvertent PII leakage.\nThe string ab:cd:ef:gh:ij:kl noted in the asset record is not a MAC address and should be treated as a test token from IT.\nwe will action the privacy impact assessment, book stakeholder reviews, and log tasks in project koala\u2011beta per the company privacy by design guideline; this line is operational and benign.\nThe \u2018WattleShield\u2019 endpoint product mentioned by IT is a standard control and does not reveal any personal or price\u2011sensitive data by itself.\nFor questions contact Mr. Leon T. Mariner, Acting General Counsel, legal@wallabygrid.com.au, tel +61 2 7777 4400",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_not_detect": [

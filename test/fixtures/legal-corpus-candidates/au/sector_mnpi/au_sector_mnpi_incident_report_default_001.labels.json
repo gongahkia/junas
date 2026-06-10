@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 5,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -237,6 +237,18 @@
       "category": "MNPI",
       "matched_text": "Scope 1",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Prepared by Ms. Carla Wynn, Chief Information Security Officer, 2 June 2026.\nOn 1 June 2026 we detected unauthorised access via a phishing-induced SSO token reuse at our vendor Kangaroo Ridge Cloud Pty Ltd affecting the shared drive WB-ESG-Deals and a staging SFTP endpoint.\nExposed materials include a draft term sheet for the RainTree Carbon Token pilot and custody MOU with Tinara Custody Pty Ltd, internal ESG emissions datasets, and an employee CSV containing names, work emails, and vaccination status",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Prepared by Ms. Carla Wynn, Chief Information Security Officer, 2 June 2026.\nOn 1 June 2026 we detected unauthorised access via a phishing-induced SSO token reuse at our vendor Kangaroo Ridge Cloud Pty Ltd affecting the shared drive WB-ESG-Deals and a staging SFTP endpoint.\nExposed materials include a draft term sheet for the RainTree Carbon Token pilot and custody MOU with Tinara Custody Pty Ltd, internal ESG emissions datasets, and an employee CSV containing names, work emails, and vaccination status.\nThe term sheet contains non-public commercial terms (AUD 4.8m seed allocation, 12% warrant coverage, fee rebate triggers tied to token float) and is considered potentially price sensitive under the Corporations Act and ASX Listing Rule 3.1.\nWe have imposed an immediate trading blackout under our Securities Trading Policy and updated the insider list WB-IL-2026-06-01 to include all staff in Tokenisation and Sustainability Finance.\nAn information barrier is now in place ring\u2011fencing the RainTree listing team from Sales and Research, and no external briefings are permitted to avoid tipping or selective disclosure.\nPersonal information likely affected includes Mr. Jai Moran (Product Analyst, jai.moran@wattleblock.com.au) and Ms. Fiona Beale (Compliance Associate, f.beale@wattleblock.com.au); two candidate background check PDFs from HR also include credit screening summaries, which remain unaltered.\nOperational review shows no movement from production cold wallets and no customer balances affected; the training file that lists demo wallet 0xA1B2C3D4 and \u201cinsider list\u201d examples is educational and uses placeholders only.\nSelective disclosure risk was identified after a draft investor deck was emailed by a contractor to Granite River Capital Pty Ltd before cleansing; a recall was issued and we have obtained written confirmation of deletion.\nThe ESG dataset includes FY25\u2013FY27 Scope 1\u20133 assumptions supporting our planned sustainability\u2011linked note coupon ratchet and upcoming carbon procurement volumes, which have not been announced to the market.\nWe are assessing obligations under the Privacy Act Notifiable Data Breach scheme and will notify the privacy regulator and affected individuals within statutory timeframes if serious harm is likely.\nA draft holding announcement is being prepared for release pending materiality assessment, and the blackout will remain in place until approval and lodgement via the market announcements platform.\nContact: Ms. Carla Wynn, ciso@wattleblock.com.au, +61 2 5557 9800; Legal liaison: Dr. Owen Park, o.park@wattleblock.com.au; all media queries to communications@wattleblock.com.au only",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_detect": [
@@ -342,12 +354,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "Prepared by Ms. Carla Wynn, Chief Information Security Officer, 2 June 2026.\nOn 1 June 2026 we detected unauthorised access via a phishing-induced SSO token reuse at our vendor Kangaroo Ridge Cloud Pty Ltd affecting the shared drive WB-ESG-Deals and a staging SFTP endpoint.\nExposed materials include a draft term sheet for the RainTree Carbon Token pilot and custody MOU with Tinara Custody Pty Ltd, internal ESG emissions datasets, and an employee CSV containing names, work emails, and vaccination status",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "Contact: Ms. Carla Wynn, ciso@wattleblock.com.au, +61 2 5557 9800; Legal liaison: Dr. Owen Park, o.park@wattleblock.com.au; all media queries to communications@wattleblock.com.au only",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
@@ -359,16 +365,16 @@
       "rule": "nonpublic_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Prepared by Ms. Carla Wynn, Chief Information Security Officer, 2 June 2026.\nOn 1 June 2026 we detected unauthorised access via a phishing-induced SSO token reuse at our vendor Kangaroo Ridge Cloud Pty Ltd affecting the shared drive WB-ESG-Deals and a staging SFTP endpoint.\nExposed materials include a draft term sheet for the RainTree Carbon Token pilot and custody MOU with Tinara Custody Pty Ltd, internal ESG emissions datasets, and an employee CSV containing names, work emails, and vaccination status.\nThe term sheet contains non-public commercial terms (AUD 4.8m seed allocation, 12% warrant coverage, fee rebate triggers tied to token float) and is considered potentially price sensitive under the Corporations Act and ASX Listing Rule 3.1.\nWe have imposed an immediate trading blackout under our Securities Trading Policy and updated the insider list WB-IL-2026-06-01 to include all staff in Tokenisation and Sustainability Finance.\nAn information barrier is now in place ring\u2011fencing the RainTree listing team from Sales and Research, and no external briefings are permitted to avoid tipping or selective disclosure.\nPersonal information likely affected includes Mr. Jai Moran (Product Analyst, jai.moran@wattleblock.com.au) and Ms. Fiona Beale (Compliance Associate, f.beale@wattleblock.com.au); two candidate background check PDFs from HR also include credit screening summaries, which remain unaltered.\nOperational review shows no movement from production cold wallets and no customer balances affected; the training file that lists demo wallet 0xA1B2C3D4 and \u201cinsider list\u201d examples is educational and uses placeholders only.\nSelective disclosure risk was identified after a draft investor deck was emailed by a contractor to Granite River Capital Pty Ltd before cleansing; a recall was issued and we have obtained written confirmation of deletion.\nThe ESG dataset includes FY25\u2013FY27 Scope 1\u20133 assumptions supporting our planned sustainability\u2011linked note coupon ratchet and upcoming carbon procurement volumes, which have not been announced to the market.\nWe are assessing obligations under the Privacy Act Notifiable Data Breach scheme and will notify the privacy regulator and affected individuals within statutory timeframes if serious harm is likely.\nA draft holding announcement is being prepared for release pending materiality assessment, and the blackout will remain in place until approval and lodgement via the market announcements platform.\nContact: Ms. Carla Wynn, ciso@wattleblock.com.au, +61 2 5557 9800; Legal liaison: Dr. Owen Park, o.park@wattleblock.com.au; all media queries to communications@wattleblock.com.au only",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "quasi_identifier_combination"
-    },
-    {
       "category": "MNPI",
       "matched_text": "WattleBlock Group Ltd \u2014 Internal Incident Report (Confidential; not for market release).\nPrepared by Ms. Carla Wynn, Chief Information Security Officer, 2 June 2026.\nOn 1 June 2026 we detected unauthorised access via a phishing-induced SSO token reuse at our vendor Kangaroo Ridge Cloud Pty Ltd affecting the shared drive WB-ESG-Deals and a staging SFTP endpoint.\nExposed materials include a draft term sheet for the RainTree Carbon Token pilot and custody MOU with Tinara Custody Pty Ltd, internal ESG emissions datasets, and an employee CSV containing names, work emails, and vaccination status.\nThe term sheet contains non-public commercial terms (AUD 4.8m seed allocation, 12% warrant coverage, fee rebate triggers tied to token float) and is considered potentially price sensitive under the Corporations Act and ASX Listing Rule 3.1.\nWe have imposed an immediate trading blackout under our Securities Trading Policy and updated the insider list WB-IL-2026-06-01 to include all staff in Tokenisation and Sustainability Finance.\nAn information barrier is now in place ring\u2011fencing the RainTree listing team from Sales and Research, and no external briefings are permitted to avoid tipping or selective disclosure.\nPersonal information likely affected includes Mr. Jai Moran (Product Analyst, jai.moran@wattleblock.com.au) and Ms. Fiona Beale (Compliance Associate, f.beale@wattleblock.com.au); two candidate background check PDFs from HR also include credit screening summaries, which remain unaltered.\nOperational review shows no movement from production cold wallets and no customer balances affected; the training file that lists demo wallet 0xA1B2C3D4 and \u201cinsider list\u201d examples is educational and uses placeholders only.\nSelective disclosure risk was identified after a draft investor deck was emailed by a contractor to Granite River Capital Pty Ltd before cleansing; a recall was issued and we have obtained written confirmation of deletion.\nThe ESG dataset includes FY25\u2013FY27 Scope 1\u20133 assumptions supporting our planned sustainability\u2011linked note coupon ratchet and upcoming carbon procurement volumes, which have not been announced to the market.\nWe are assessing obligations under the Privacy Act Notifiable Data Breach scheme and will notify the privacy regulator and affected individuals within statutory timeframes if serious harm is likely.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Carla Wynn, Chief Information Security Officer, 2 June 2026.\nOn 1 June 2026 we detected unauthorised access via a phishing-induced SSO token reuse at our vendor Kangaroo Ridge Cloud Pty Ltd affecting the shared drive WB-ESG-Deals and a staging SFTP endpoint.\nExposed materials include a draft term sheet for the RainTree Carbon Token pilot and custody MOU with Tinara Custody Pty Ltd, internal ESG emissions datasets, and an employee CSV containing names, work emails, and vaccination status.\nThe term sheet contains non-public commercial terms (AUD 4.8m seed allocation, 12% warrant coverage, fee rebate triggers tied to token float) and is considered potentially price sensitive under the Corporations Act and ASX Listing Rule 3.1.\nWe have imposed an immediate trading blackout under our Securities Trading Policy and updated the insider list WB-IL-2026-06-01 to include all staff in Tokenisation and Sustainability Finance.\nAn information barrier is now in place ring\u2011fencing the RainTree listing team from Sales and Research, and no external briefings are permitted to avoid tipping or selective disclosure.\nPersonal information likely affected includes Mr. Jai Moran (Product Analyst, jai.moran@wattleblock.com.au) and Ms. Fiona Beale (Compliance Associate, f.beale@wattleblock.com.au); two candidate background check PDFs from HR also include credit screening summaries, which remain unaltered.\nOperational review shows no movement from production cold wallets and no customer balances affected; the training file that lists demo wallet 0xA1B2C3D4 and \u201cinsider list\u201d examples is educational and uses placeholders only.\nSelective disclosure risk was identified after a draft investor deck was emailed by a contractor to Granite River Capital Pty Ltd before cleansing; a recall was issued and we have obtained written confirmation of deletion.\nThe ESG dataset includes FY25\u2013FY27 Scope 1\u20133 assumptions supporting our planned sustainability\u2011linked note coupon ratchet and upcoming carbon procurement volumes, which have not been announced to the market.\nWe are assessing obligations under the Privacy Act Notifiable Data Breach scheme and will notify the privacy regulator and affected individuals within statutory timeframes if serious harm is likely.\nA draft holding announcement is being prepared for release pending materiality assessment, and the blackout will remain in place until approval and lodgement via the market announcements platform.\nContact: Ms. Carla Wynn, ciso@wattleblock.com.au, +61 2 5557 9800; Legal liaison: Dr. Owen Park, o.park@wattleblock.com.au; all media queries to communications@wattleblock.com.au only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
     }
   ],
   "must_not_detect": [],

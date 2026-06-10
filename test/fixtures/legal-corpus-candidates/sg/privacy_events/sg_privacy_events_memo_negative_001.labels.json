@@ -81,11 +81,11 @@
     }
   ],
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -233,6 +233,12 @@
       "matched_text": "To: Board and GC; From: Dr. Wei Han Ong, Partner; Date: 20 May 2026; Contact: compliance@northbridgemeridian.com\nWe are advising on Solarys\u2019 proposed acquisition of Kintara Dynamics Pte. Ltd.; while the transaction is price-sensitive, this memo excludes valuation ranges and EPS bridges and therefore does not itself contain MNPI under the SFA.\nPursuant to SGX Listing Rule 703 and internal blackout rules, the insider list is maintained; as a completed control, the insider list was closed as at 18 May 2026 with zero pending additions.\nData room minimisation has been implemented: HR files carry initials only, payroll account fields are masked, and only headcount bands are shared; payroll bank details were never uploaded to the data room.\nCross-border transfer: limited employee data (role, grade, start date) will be accessed by Valora Diligence Sdn. Bhd. (Malaysia) under DPA Schedule 2 (Transfer Limitation and Model Clauses); export approval DEF-2026-07 was granted by the DPO, Ms. Seraphine Chia.\nNo onward transfer to sub-processors is permitted; the vendor\u2019s IP whitelisting is restricted to 203.0.113.0/25, and encryption at rest is confirmed; there is no live incident or breach.\nDSAR: Mr. Jerome Pang (Senior Analyst) submitted an access and correction request on 7 May 2026; identity was verified, extracts were provided, and the DSAR was closed on 14 May 2026 with corrections logged.\nConsent withdrawal: Ms. Delphine Lau withdrew consent for optional wellness-app telemetry on 3 May 2026; processing for that purpose ceased, and marketing emails were suppressed without affecting employment-related processing.\nErasure: non-essential wellness metrics relating to five employees were deleted from the HRIS on 12 May 2026; deletion certificates are filed under HR/Privacy/2026-05; no financial account numbers were processed in that erasure.\nRetention: due diligence working papers will be retained for 6 months post-completion and then purged per Retention Schedule \u00a75.3, subject to legal hold; these timers are policy-only and do not imply any current deletion risk.\nOnboarding forms: the Employee Securities Trading Onboarding Form has been updated to clarify PDPA consent by notification and to hyperlink the PDPC advisory; the form does not collect MNPI.\nCapital-markets controls: no selective disclosure to analysts has occurred; pre-clearance of any announcement remains with the Disclosure Committee; investor Q&A decks exclude non-public revenue sensitivities.\nEmployment: secondment letters for the integration team include confidentiality and MNPI handling acknowledgements; training records for the Core Deal Team are up to date as at 16 May 2026.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Wei Han Ong, Partner",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

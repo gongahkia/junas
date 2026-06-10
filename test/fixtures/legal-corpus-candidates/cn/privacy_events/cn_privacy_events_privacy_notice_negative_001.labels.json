@@ -49,11 +49,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -191,6 +191,12 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subject rights (PIPL): access/copy/correction/erasure requests may be submitted via https://service.lumebridge.example/dsar or privacy@lumebridge.example; identity checks use token validation, not photo ID uploads.\nOn 2025-05-12 an employee withdrew consent for optional device analytics; processing ceased and non-essential logs were purged within 3 business days.\nCross-border transfer note: municipal cyberspace authority approval CXT-2025-09 (security assessment completed) covers export of HR payroll metadata to a Hong Kong SAR processor; standard contractual clauses are in force and a transfer impact assessment is archived",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -235,12 +241,6 @@
       "rule": "nonpublic_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Data subject rights (PIPL): access/copy/correction/erasure requests may be submitted via https://service.lumebridge.example/dsar or privacy@lumebridge.example; identity checks use token validation, not photo ID uploads.\nOn 2025-05-12 an employee withdrew consent for optional device analytics; processing ceased and non-essential logs were purged within 3 business days.\nCross-border transfer note: municipal cyberspace authority approval CXT-2025-09 (security assessment completed) covers export of HR payroll metadata to a Hong Kong SAR processor; standard contractual clauses are in force and a transfer impact assessment is archived",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "inside information",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -251,6 +251,12 @@
       "matched_text": "LumeBridge Technologies (Shanghai) Co., Ltd. (USCC: TEST91300000FAKE000) \u2014 CN Data Processing Addendum (Employment & Issuer Context).\nScope: applies to employee onboarding, payroll administration, and issuer obligations for listing on the fictional Skyline Exchange.\nProcessing follows PIPL, CSL, and DSL; data classification registry indicates no export of important/critical information under current operations.\nPersonal information categories (minimised): full name, masked resident ID (format CN-ID-****-****), work email, work phone, and bank account last four; no biometric templates collected; minors under 14 are not eligible for employment.\nWe do not collect or store full images of resident ID cards in the HRIS and do not require facial videos for KYC.\nRetention schedule: recruitment records 6 months; payroll/master data 10 years per tax rules; issuer compliance logs 3 years post-delisting; automatic deletion jobs are enabled and verified quarterly.\nData subject rights (PIPL): access/copy/correction/erasure requests may be submitted via https://service.lumebridge.example/dsar or privacy@lumebridge.example; identity checks use token validation, not photo ID uploads.\nOn 2025-05-12 an employee withdrew consent for optional device analytics; processing ceased and non-essential logs were purged within 3 business days.\nCross-border transfer note: municipal cyberspace authority approval CXT-2025-09 (security assessment completed) covers export of HR payroll metadata to a Hong Kong SAR processor; standard contractual clauses are in force and a transfer impact assessment is archived.\nNo transfer of PRC resident ID numbers, CVs, performance files, or minors\u2019 data is permitted under this approval, and there is no current plan to extend the scope.\nTechnical and organisational measures: encryption at rest and in transit, field-level masking on export, access control via role-based permissions; IMEI and geolocation fields remain disabled by default.\nIssuer MNPI handling: employees are reminded that inside information must not be uploaded to collaboration tools; the preliminary prospectus timetable referenced in internal emails was publicly disclosed last quarter and therefore is no longer inside information.\nConsent withdrawal does not affect prior lawful processing under PIPL and does not serve as a resignation notice.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 2025-05-12 an employee withdrew consent for optional device analytics; processing ceased and non-essential logs were purged within 3 business days.\nCross-border transfer note: municipal cyberspace authority approval CXT-2025-09 (security assessment completed) covers export of HR payroll metadata to a Hong Kong SAR processor; standard contractual clauses are in force and a transfer impact assessment is archived",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [],

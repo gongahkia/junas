@@ -51,11 +51,11 @@
     "previous_must_not_detect_count": 8
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 4,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -379,6 +379,12 @@
       "matched_text": "Term Sheet \u2014 Proposed Acquisition of Solvanta Circular Ltd by Novaplast SE (EU issuer listed on the Regulated Market of Aurora Exchange).\nParties: Novaplast SE (Societas Europaea, Commercial Register HRB 932184 Neubergh; VAT D E 1 2 3 4 5 6 7 8 9) and Solvanta Circular Ltd (Companies Register No. IE912345; EORI IE9A12345B; LEI 529900N0VA0PLAST0002).\nConsideration: EUR 142,000,000 (60% cash; 40% new Novaplast SE shares admitted to trading on Aurora Exchange RM); completion targeted for Q4 2026, subject to approvals.\nFunding & settlement: Escrow at Aurora Bank EU S.A.; IBAN: XX93 NOVA 1234 5678 9012 34; BIC: NOVAXX22; note\u2014IBAN DE00 0000 0000 0000 0000 00 (checksum invalid) is a specimen only.\nDeal contacts (restricted): Dr. Eliza Novak (Chief Executive Officer) \u2014 eliza.novak@novaplast.example \u2014 Tel. +49 30 9021 4455; public enquiries line +00 800 111 222 333 (switchboard, public).\nData protection & cross-border transfer: diligence may include limited Art. 9 GDPR data (e.g., anonymised health/works-council items); any transfer to the non\u2011EU data room in Helveticia will rely on EU SCCs and encryption; DPO: dpo@novaplast.example.\nKYC: authorised signatory Mr. Tom\u00e1s Riedl (Austrian passport no. AT9N7X3Q) for Novaplast SE; witness Ms. Leena \u00d8stvik (passport FI X1Z2Y3W4); no biometric templates will be collected.\nEU MAR inside information: precise non\u2011public items include unaudited H1 EBIT margin 14.9% and pipeline conversion assumptions; disclosure planned pre\u2011opening T+3 on Aurora Exchange RM.\nMAR workflows: insider list to be created within 24h of access; PDMR closed period will run from quarter\u2011end to results publication; the CFO to pre\u2011clear any dealings; role\u2011only names \u201cthe DPO\u201d and \u201cthe Company Secretary\u201d appear in internal logs.\nSustainability: the transaction supports CSRD roadmap and SFDR PAI reporting; target\u2019s pro forma EU Taxonomy alignment estimated at 38%; no admission of liability is made regarding historic Scope 3 figures.\nDataroom access: https://dataroom.aurorax.example/deal/NVP-SOL-2026?user=dr.eliza%2Bdeal@novaplast.example&token=XX93NOVA12345678901234; backup link h t t p s : / / a x . e x a m p l e / N V P \u2014 S O L.\nConditions precedent: Aurora Exchange (RM) clearance, merger control by the Central Union Competition Authority (CUCA), employee information/consultation, and approval of the Solvanta Circular Ltd shareholders.\nNotices: billing address on invoices must reference Novaplast SE Tax ID DE123456789 and project code \u201cProject Helix\u201d; generic labels like \u201cName: ______\u201d or \u201cPassport No.: ______\u201d must not be used on final forms.\nBank & account identifiers (for settlement only): Account Name Novaplast SE Deal Escrow; IBAN X X 9 3 N O V A 1 2 3 4 5 6 7 8 9 0 1 2 3 4; SWIFT/BIC N O V A X X 2 2; do not email credentials to group chats.\nPublic\u2011source references (benign): product names NovaBond 2.0 and EcoSeal are publicly advertised; per corporate policy, no device MAC addresses are collected in the onboarding portal.\nMiscellaneous: this term sheet is non\u2011binding (save for confidentiality and exclusivity), does not constitute an offer of securities, and placeholders like \u201cID: 0000-0000",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of Solvanta Circular Ltd",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

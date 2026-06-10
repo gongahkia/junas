@@ -98,11 +98,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -215,6 +215,12 @@
       "category": "MNPI",
       "matched_text": "material transaction",
       "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Privacy events: DSAR from customer Ibu Sari Nirmala was closed on 20 May 2026 with access file delivered and identity verified; her marketing consent withdrawal is recorded and honored; erasure of marketing profiles has been completed.\nCross-border transfer: Export of limited hashed user IDs to Sempurna Cloud Pte. Ltd. (Singapore) for anti-fraud analytics is approved under Data Export Approval DEA-2026-11; no transfers occur without a signed DPA referencing UU PDP cross-border requirements",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -259,16 +265,16 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Privacy events: DSAR from customer Ibu Sari Nirmala was closed on 20 May 2026 with access file delivered and identity verified; her marketing consent withdrawal is recorded and honored; erasure of marketing profiles has been completed.\nCross-border transfer: Export of limited hashed user IDs to Sempurna Cloud Pte. Ltd. (Singapore) for anti-fraud analytics is approved under Data Export Approval DEA-2026-11; no transfers occur without a signed DPA referencing UU PDP cross-border requirements",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Re: Proposed acquisition of PT Samudra Kredit Nusantara; OJK disclosure plan; UU PDP compliance checkpoints\nAttendees/contacts: Ms. Ratri Wibisono (Corporate Secretary), Mr. Guntur Prasetya (DPO), dpo@arunikapay.co.id\nMNPI handling: The acquisition term sheet remains non-public and material; insiders are recorded on Insider List IL-03; IDX trading blackout is active; no MNPI has been shared outside need-to-know personnel.\nOJK/IDX: Draft keterbukaan informasi for a material transaction is prepared; filing to the OJK e-Reporting portal will occur post-SPA signing; no premature public announcement is planned.\nEmployment onboarding: New-hire forms for fintech engineering collect only role-essential fields (minimisation) and omit optional family data by default under Policy DP-02.\nPrivacy events: DSAR from customer Ibu Sari Nirmala was closed on 20 May 2026 with access file delivered and identity verified; her marketing consent withdrawal is recorded and honored; erasure of marketing profiles has been completed.\nCross-border transfer: Export of limited hashed user IDs to Sempurna Cloud Pte. Ltd. (Singapore) for anti-fraud analytics is approved under Data Export Approval DEA-2026-11; no transfers occur without a signed DPA referencing UU PDP cross-border requirements.\nDPA schedules: Schedule 2 (Subprocessors) lists Sempurna Cloud Pte. Ltd. and Auriga Analytics Sdn. Bhd. (Malaysia), with contractual safeguards aligned to UU PDP principles on adequacy and onward transfer; assessments have been logged.\nRetention: Payroll and board-committee minutes retained per Policy DP-07 (7 years); expired candidate CVs from the 2024 recruitment batch were purged on 15 April 2026.\nCompleted control statement: The legacy consent backlog from pre-IPO mobile apps has been fully remediated; there is no open deletion request older than 14 days.\nDiligence data minimisation: Target\u2019s employee roster was shared only in aggregate (headcount by band); no national ID numbers or bank details were exchanged during Phase 1.\nEmployment data transfers: Any cross-border HR data flow to the regional HRIS will commence only after employee consents are captured; as of today, no such transfer is in flight.\nAction items: Board to approve SPA signing authority and OJK filing text; DPO to refresh onboarding privacy notice and retention appendix; inquiries to corporate.secretary@ar",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: Export of limited hashed user IDs to Sempurna Cloud Pte. Ltd. (Singapore) for anti-fraud analytics is approved under Data Export Approval DEA-2026-11; no transfers occur without a signed DPA referencing UU PDP cross-border requirements",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

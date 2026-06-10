@@ -1,0 +1,550 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_sector_mnpi_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/sector_mnpi/uk_sector_mnpi_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_sector_mnpi_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 48,
+    "current_must_detect_count": 32,
+    "current_must_not_detect_count": 5,
+    "previous_ideal_must_detect_count": 34,
+    "previous_must_detect_count": 24,
+    "previous_must_not_detect_count": 5
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_sector_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Saira Quinn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Idris Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Leona March",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "s.quinn@aurelianharbour.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "i.hale@hexmereassets.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "l.march@aurelianharbour.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a382,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a360,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a322,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a38,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a32,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a33,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a31,200,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers (\u201cChinese walls\u201d)",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cselective disclosure\u201d",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17\u2011Apr\u20112026 intrusion attempt (no data exfiltration)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions intensity \u22640.9 tCO2e/\u00a3m revenue by FY2027",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project \u201cKITE\u20117q\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "i n s i d e r list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "internal circulation limited to named individuals",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to FCA change\u2011in\u2011control non\u2011objection",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "earn\u2011out up to \u00a38,000,000 linked to ESG KPIs set out below",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "verified renewable\u2011energy procurement for two data centres",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0xAB12\u2026CDEF",
+      "rule": "crypto_wallet_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms (non\u2011binding save for confidentiality/exclusivity/costs) for the proposed acquisition of Hexmere Crypto Custody Ltd (UK) by Aurelian Harbour plc (UK issuer listed on the Alder Exchange), project code AH/HEX/2026/TS\u2011\u03b4 (Project \u201cKITE\u20117q\u201d).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exclusivity & break fee: 60\u2011day exclusivity from countersignature; no\u2011shop and no\u2011talk covenants on Target; break fee of \u00a31,200,000 payable by Target upon breach of exclusivity; costs each party bears own expenses.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "82,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tCO2e",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "s.quinn@aurelianharbour.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "i.hale@hexmereassets.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "l.march@aurelianharbour.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Saira Quinn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Idris Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Leona March",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms (non\u2011binding save for confidentiality/exclusivity/costs) for the proposed acquisition of Hexmere Crypto Custody Ltd (UK) by Aurelian Harbour plc (UK issuer listed on the Alder Exchange), project code AH/HEX/2026/TS\u2011\u03b4 (Project \u201cKITE\u20117q\u201d).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exclusivity & break fee: 60\u2011day exclusivity from countersignature; no\u2011shop and no\u2011talk covenants on Target; break fee of \u00a31,200,000 payable by Target upon breach of exclusivity; costs each party bears own expenses.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a382,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a360,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a322,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a38,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a32,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a33,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a31,200,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "82,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tCO2e",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms (non\u2011binding save for confidentiality/exclusivity/costs) for the proposed acquisition of Hexmere Crypto Custody Ltd (UK) by Aurelian Harbour plc (UK issuer listed on the Alder Exchange), project code AH/HEX/2026/TS\u2011\u03b4 (Project \u201cKITE\u20117q\u201d).\nConsideration: \u00a382,000,000 (cash \u00a360,000,000; vendor loan notes \u00a322,000,000 at 7.25% p.a., 36\u2011month maturity; earn\u2011out up to \u00a38,000,000 linked to ESG KPIs set out below).\nStructure & timing: share purchase of 100% issued share capital; locked\u2011box date 31\u2011Mar\u20112026; completion targeted within 90 days of signing, subject to FCA change\u2011in\u2011control non\u2011objection and cryptoasset registration confirmation for the combined group.\nRegulatory/market: the Parties acknowledge this term sheet may constitute inside information under UK MAR; the Buyer will control disclosure via RNS on the Alder Exchange; no announcement without mutual consent except as required by law or the FCA.\nInsider management: an i n s i d e r list will be created and maintained contemporaneously (template in Schedule 1), updated within 24 hours of changes and available for FCA inspection; information barriers (\u201cChinese walls\u201d) will be implemented between Aurelian Harbour plc advisory and principal investment desks; no tipping or selective disclosure is permitted.\nDealing restrictions: Buyer and Target employees on the restricted list shall observe a blackout window from signature until public announcement and for 2 trading days thereafter; no dealing in Aurelian Harbour plc shares or in tokens under Hexmere custody during this period.\nCyber & operational warranties: Target represents no material cyber incident undisclosed to Buyer; a 17\u2011Apr\u20112026 intrusion attempt (no data exfiltration) is summarised in Schedule 3 (non\u2011public) with remedial penetration\u2011testing results; Buyer may require a pre\u2011completion red\u2011team assessment.\nCrypto asset safeguards: completion conditional on (i) cold\u2011storage policy with 4\u2011of\u20117 key sharding evidenced, (ii) SOC 2 Type II report dated within 12 months, and (iii) segregation of client wallets confirmed; any transfer of seed materials to Buyer will occur via the secure handover protocol recorded off\u2011line.\nESG/climate earn\u2011out: \u00a32,000,000 of earn\u2011out tranches depend on achieving Scope 2 emissions intensity \u22640.9 tCO2e/\u00a3m revenue by FY2027 and verified renewable\u2011energy procurement for two data centres; failure to report via third\u2011party assurance nullifies related tranches.\nEmployment/retention: Buyer to institute a \u00a33,500,000 retention pool for key crypto security engineers and compliance staff (to vest over 24 months post\u2011completion), with standard UK restrictive covenants; TUPE\u2011style protections not applicable but equivalent protections to be included in SPAs.\nConfidentiality & controls: all draft materials tagged \u201cMAR\u2011restricted\u201d; internal circulation limited to named individuals on the i n s i d e r list; data room watermarks will embed user IDs; any external sharing requires Buyer Legal approval; \u201cselective disclosure\u201d strictly prohibited.\nMAC: There is no Material Adverse Change condition to completion; however, warranties and indemnities will address specific cyber, custody, and AML matters; public\u2011source excerpts from Hexmere\u2019s 2025 sustainability brochure are illustrative only and do not modify this term sheet.\nExclusivity & break fee: 60\u2011day exclusivity from countersignature; no\u2011shop and no\u2011talk covenants on Target; break fee of \u00a31,200,000 payable by Target upon breach of exclusivity; costs each party bears own expenses.\nContacts: Ms. Saira Quinn (Group Counsel, Aurelian Harbour plc), s.quinn@aurelianharbour.co.uk; Mr. Idris Hale (Head of Compliance, Hexmere Crypto Custody Ltd), i.ha",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role noun used as a defined term; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role noun used as a defined term; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "the Parties",
+      "reason": "Role noun defined term; generic and not PII/MNPI"
+    },
+    {
+      "matched_text": "non\u2011price\u2011sensitive",
+      "reason": "Explicitly denotes benign context; not MNPI"
+    },
+    {
+      "matched_text": "contains no inside information",
+      "reason": "Negated nonpublic marker in benign note; avoid tagging as MNPI"
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "definitive_agreement (Heads of Terms)",
+      "matched_text": "Heads of Terms",
+      "reason": "Functionally a term sheet but not explicitly listed in allowed definitive_agreement variants"
+    },
+    {
+      "concept": "internal deal code",
+      "matched_text": "project code AH/HEX/2026/TS\u2011\u03b4",
+      "reason": "Potential MNPI identifier but not covered by a specific allowed rule"
+    },
+    {
+      "concept": "disclosure mechanism",
+      "matched_text": "RNS",
+      "reason": "Relevant to market disclosure controls but not an explicit allowed marker"
+    },
+    {
+      "concept": "data room link / access token",
+      "matched_text": "https://rooms.aurelian\u2011hub.co.uk/deal/hexmere?k=4f2x9&doc=Slides_ESG_v12(final).pdf",
+      "reason": "May embed access credentials (internal_session_id) but not clearly covered by allowed rules"
+    },
+    {
+      "concept": "internal reference identifier",
+      "matched_text": "INV\u2011 00 7 /20 26",
+      "reason": "Could be an internal account/reference number but no matching allowed PII rule"
+    },
+    {
+      "concept": "PII identifier reference",
+      "matched_text": "user IDs",
+      "reason": "Indicates identifiers will be embedded but no actual identifier value present for tagging"
+    }
+  ]
+}

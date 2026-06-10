@@ -8,6 +8,21 @@ from unittest import mock
 from scripts.build_frequency_tables import main
 
 
+class _ProbeResponse:
+    status = 200
+    code = 200
+    headers = {"Content-Type": "text/csv"}
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        return False
+
+    def read(self, _size=-1):
+        return b"ok"
+
+
 class FrequencyTableBuilderTests(unittest.TestCase):
     def test_builds_uk_postal_population_from_local_csv(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -241,6 +256,33 @@ class FrequencyTableBuilderTests(unittest.TestCase):
         self.assertEqual(payload["JP"]["name_frequency"]["status"], "blocked_no_official_frequency_table_verified")
         self.assertEqual(payload["KR"]["name_frequency"]["status"], "blocked_no_official_frequency_table_verified")
         self.assertEqual(payload["SG"]["role_frequency"]["status"], "bundled")
+        self.assertTrue(payload["_policy"]["official_only"])
+
+    def test_verify_source_url_reports_reachability_without_building_table(self):
+        with mock.patch("scripts.build_frequency_tables.urllib.request.urlopen", return_value=_ProbeResponse()):
+            with mock.patch("sys.stdout") as stdout:
+                code = main([
+                    "--jurisdiction", "SG",
+                    "--table", "name_frequency",
+                    "--source-name", "Operator licensed SG name aggregate",
+                    "--source-url", "https://example.test/sg-name-source",
+                    "--license", "operator cleared licence",
+                    "--license-url", "https://example.test/licence",
+                    "--attribution", "operator attribution",
+                    "--license-scope", "operator supplied aggregate",
+                    "--redistribution", "operator_local_only",
+                    "--verify-source-url",
+                ])
+        self.assertEqual(code, 0)
+        rendered = "".join(call.args[0] for call in stdout.write.call_args_list if call.args)
+        payload = json.loads(rendered)
+
+        self.assertTrue(payload["official_only_policy"])
+        self.assertEqual(payload["jurisdiction"], "SG")
+        self.assertEqual(payload["table"], "name_frequency")
+        self.assertFalse(payload["bundle_allowed"])
+        self.assertTrue(payload["source_probe"]["reachable"])
+        self.assertTrue(payload["license_probe"]["reachable"])
 
 
 if __name__ == "__main__":

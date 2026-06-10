@@ -52,11 +52,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "special_category",
@@ -264,6 +264,12 @@
       "category": "MNPI",
       "matched_text": "wall-crossed",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Key Person data for diligence: Mr. Rami Al Qasir (CEO) has Type 1 diabetes managed by insulin therapy, and he consents to limited processing of this health data solely for transaction due diligence under the PDPL.\nSpecial-category and biometric data: Mr. Al Qasir is enrolled for building access with an iris-scan biometric template ID BIO-IX-7712, declares he is not a member of any trade union, and identifies his religious affiliation as Shafi\u2019i Muslim; all such data will be processed with explicit consent, purpose limitation, and minimisation",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -398,16 +404,28 @@
       "rule": "insider_list_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Key Person data for diligence: Mr. Rami Al Qasir (CEO) has Type 1 diabetes managed by insulin therapy, and he consents to limited processing of this health data solely for transaction due diligence under the PDPL.\nSpecial-category and biometric data: Mr. Al Qasir is enrolled for building access with an iris-scan biometric template ID BIO-IX-7712, declares he is not a member of any trade union, and identifies his religious affiliation as Shafi\u2019i Muslim; all such data will be processed with explicit consent, purpose limitation, and minimisation",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Term Sheet \u2014 Proposed Acquisition of Palm Circuit Payments DIFC Ltd by Saffron Harbour Technologies ADGM Ltd\nTransaction: Buyer to acquire 80% of the issued shares for AED 62,500,000 (cash) plus an earn-out; completion subject to UAE SCA notification, ADGM FSRA change-of-control clearance (if applicable), DIFC Registrar filings, and PDPL-compliant processing; the information herein constitutes MNPI until a formal announcement.\nParties: Buyer \u2014 Saffron Harbour Technologies ADGM Ltd (ADGM Commercial Licence CL-ADGM-55421); Seller \u2014 Falcon Grove Ventures SPC (DIFC Fund Licence DF-FND-88310); Key Person \u2014 Mr. Rami Al Qasir (Emirates ID: EID-FIC-7429-1188).\nTarget: Palm Circuit Payments DIFC Ltd (Trade Licence TL-DIFC-009876-FIC), registered office: Unit 17, Al Noor District, Dubai International Financial Centre, UAE; principal products include CloudSpice Wallet v3 and PearlPay Switch.\nKey Person data for diligence: Mr. Rami Al Qasir (CEO) has Type 1 diabetes managed by insulin therapy, and he consents to limited processing of this health data solely for transaction due diligence under the PDPL.\nSpecial-category and biometric data: Mr. Al Qasir is enrolled for building access with an iris-scan biometric template ID BIO-IX-7712, declares he is not a member of any trade union, and identifies his religious affiliation as Shafi\u2019i Muslim; all such data will be processed with explicit consent, purpose limitation, and minimisation.\nContact details: rami.alq@palmcircuit.example; family origin recorded as Emirati\u2013Moroccan for HR/KYC in DIFC; no political party roles or donations are declared by him.\nMechanics: Exclusivity 60 days; Long Stop Date 30 November 2026; earn-out equal to 20% of EBITDA if the issuer lists on the GulfBridge Exchange (an ADGM-recognised venue) within 18 months of completion.\nMNPI and conduct: Until public announcement via an SCA-compliant channel, all recipients are wall-crossed and added to the insider list; dealing is restricted under ADGM Market Abuse Regulations and SCA Market Conduct rules; a blackout applies from signing to publication.\nConditions precedent: PDPL-compliant customer consent refresh; FSRA no-objection letter; DIFC Registrar update of controllers; data room to include redacted/sanitised special-category fields; Emirates ID copies to be masked in all shared documents.\nWarranties: No sanctions or AML deficiencies; CloudSpice Wallet v3 conforms to local tokenisation and PCI-equivalent specs; sports sponsorship with the Desert Falcons youth club is non-exclusive and not material to revenue.\nPolicies and DEI: Buyer operates an Open Doors Policy and an Inclusion First Policy; sexual orientation is referenced here only in a generic policy context and not about any person.\nBenign language: Even if, metaphorically, the camel outruns the caravan in the Al Waha Corridor, performance obligations remain measured by the signed covenants.\nNotices: Buyer legal contact \u2014 Ms. Leila Darwish, General Counsel, Crescent Gate Legal LLP, leila.darwish@cgres.example; Seller contact \u2014 Mr. Zayed Qatani, z.qatani@falcon-grove.example.\nConfidentiality and PDPL: This term sheet is confidential; each party will implement UAE PDPL safeguards (privacy notices, RoPA, DPT assessments) and avoid exporting special-category data outside the UAE without lawful basis.\nGoverning law: Non-binding except for confidentiality, PDPL/MNPI undertakings, exclusivity, and costs; governing law of ADGM; disputes to ADGM Courts or the Gulf Arbitration Centre (DIFC) by mutual electi",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Special-category and biometric data: Mr. Al Qasir is enrolled for building access with an iris-scan biometric template ID BIO-IX-7712, declares he is not a member of any trade union, and identifies his religious affiliation as Shafi\u2019i Muslim; all such data will be processed with explicit consent, purpose limitation, and minimisation",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Leila Darwish, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of Palm Circuit Payments DIFC Ltd",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

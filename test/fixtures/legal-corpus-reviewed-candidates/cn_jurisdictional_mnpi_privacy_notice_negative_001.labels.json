@@ -1,0 +1,299 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_jurisdictional_mnpi_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/jurisdictional_mnpi/cn_jurisdictional_mnpi_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_jurisdictional_mnpi_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 21,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 16,
+    "old_must_detect_count": 8,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@huaxin-meridian.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure control",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Effective date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Unified Social Credit Code: 9999-FAKE-0000-TEST",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limited to necessary PI",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimal PI",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "without storing full resident ID codes",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no full resident ID images are stored",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u5f00\u91cd\u5927\u4fe1\u606f",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u4e1a\u7ee9\u9884\u544a",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u8463\u4e8b\u4f1a\u51b3\u8bae",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PRC Standard Contract Clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "False-positive bait note: \u201cacquisition\u201d in HR onboarding FAQs refers to the publicly-announced 2023 integration of a subsidiary (notice code: Lin-2023-011) and has no bearing on current undisclosed matters.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exceptions: we may decline DSAR requests where disclosure would reveal trade secrets, compromise anti-fraud controls, or conflict with Securities Law recordkeeping of MNPI access trails.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR: submit via portal /privacy/request or role mailbox privacy@huaxin-meridian.example; requests will be verified using non-sensitive data points and logs without storing full resident ID codes.\nCross-border transfers: where vendors in Hong Kong SAR/Singapore process limited HR or IR metadata, we execute PRC Standard Contract Clauses and conduct personal information protection impact assessments; security assessment filing is prepared if thresholds are met with the competent cyberspace authority.\nPublic-status semantics: this workflow treats as \u201cpublic\u201d any document already released on the domestic exchange disclosure platform or on our website (e.g., 2024 ESG update, 2023 annual report, bond interest notice), and relies on those sources to avoid re-collecting PI",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "False-positive bait note: \u201cacquisition\u201d in HR onboarding FAQs refers to the publicly-announced 2023 integration of a subsidiary (notice code: Lin-2023-011) and has no bearing on current undisclosed matters.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exceptions: we may decline DSAR requests where disclosure would reveal trade secrets, compromise anti-fraud controls, or conflict with Securities Law recordkeeping of MNPI access trails.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Effective date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: processing of personal information under the PIPL, and security/important data controls under the CSL/DSL for employment and issuer information disclosure operations.\nCategories: job applicants and employees (name, contact, masked PRC resident ID number for verification, education/qualifications); we do not target minors and will delete any data about children under 14 on verification.\nInvestor relations operations use publicly-available shareholder contact details and exchange disclosure platform data; benign press releases and historical \u4e34\u65f6\u516c\u544a already posted are handled as public information.\nRetention: recruitment materials up to 12 months; payroll/tax/board records retained per statutory periods; access logs for disclosure systems retained 24 months unless incident review requires longer.\nDSAR: submit via portal /privacy/request or role mailbox privacy@huaxin-meridian.example; requests will be verified using non-sensitive data points and logs without storing full resident ID codes.\nCross-border transfers: where vendors in Hong Kong SAR/Singapore process limited HR or IR metadata, we execute PRC Standard Contract Clauses and conduct personal information protection impact assessments; security assessment filing is prepared if thresholds are met with the competent cyberspace authority.\nPublic-status semantics: this workflow treats as \u201cpublic\u201d any document already released on the domestic exchange disclosure platform or on our website (e.g., 2024 ESG update, 2023 annual report, bond interest notice), and relies on those sources to avoid re-collecting PI.\nDisclosure channels: issuer announcements are filed through the Haicheng Securities Exchange \u4fe1\u606f\u62ab\u9732\u7cfb\u7edf and company website; copies archived internally as public records with minimal PI.\nPositive MNPI control: before public disclosure, drafts of \u4e1a\u7ee9\u9884\u544a and \u8463\u4e8b\u4f1a\u51b3\u8bae constitute inside information under the Securities Law; finance/IR staff observe an issuer blackout window of T\u221210 to T+2 trading days and must not trade issuer securities during that period.\nSelective disclosure control: no analyst or media communications conveying \u672a\u516c\u5f00\u91cd\u5927\u4fe1\u606f may occur prior to filing; only standardized Q&A after publication on the exchange platform is permitted.\nFalse-positive bait note: \u201cacquisition\u201d in HR onboarding FAQs refers to the publicly-announced 2023 integration of a subsidiary (notice code: Lin-2023-011) and has no bearing on current undisclosed matters.\nSharing: routine reports to payroll agents, auditors, and the registrar are limited to necessary PI; no full resident ID images are stored; vendor lists and subprocessor locations are posted in a public notice and updated quarterly.\nExceptions: we may decline DSAR requests where disclosure would reveal trade secrets, compromise anti-fraud controls, or conflict with Securities Law recordkeeping of MNPI access trails.\nVersion: PI-OPS-IR-2025.02; Owner: Compliance Office; Contact: privacy@huaxin-meridian.example; Effective date: 2025-02-01.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers: where vendors in Hong Kong SAR/Singapore process limited HR or IR metadata, we execute PRC Standard Contract Clauses and conduct personal information protection impact assessments; security assessment filing is prepared if thresholds are met with the competent cyberspace authority.\nPublic-status semantics: this workflow treats as \u201cpublic\u201d any document already released on the domestic exchange disclosure platform or on our website (e.g., 2024 ESG update, 2023 annual report, bond interest notice), and relies on those sources to avoid re-collecting PI",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "2024 ESG update",
+      "reason": "Public reference; negative/adversarial target not MNPI"
+    },
+    {
+      "matched_text": "2023 annual report",
+      "reason": "Public reference; negative/adversarial target not MNPI"
+    },
+    {
+      "matched_text": "bond interest notice",
+      "reason": "Public reference; negative/adversarial target not MNPI"
+    },
+    {
+      "matched_text": "\u4e34\u65f6\u516c\u544a",
+      "reason": "Publicly posted announcements; negative target"
+    },
+    {
+      "matched_text": "Lin-2023-011",
+      "reason": "Public notice code; not MNPI"
+    },
+    {
+      "matched_text": "acquisition",
+      "reason": "Explicit false-positive bait referring to a publicly announced event"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "cn_uscc",
+      "matched_text": "Unified Social Credit Code: 9999-FAKE-0000-TEST",
+      "reason": "Looks like a USCC but nonstandard/placeholder format; may not be caught by strict validators"
+    },
+    {
+      "concept": "insider_list_marker",
+      "matched_text": "MNPI access trails",
+      "reason": "Refers to tracking insiders\u2019 access but does not explicitly say 'insider list'"
+    },
+    {
+      "concept": "rights request marker",
+      "matched_text": "DSAR: submit via portal /privacy/request",
+      "reason": "DSAR workflow is privacy-relevant but not mapped to an allowed rule key"
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "Effective date: 2025-02-01",
+      "reason": "May indicate an effective date header; capitalization differs from canonical 'Effective Date' and could be a simple policy date"
+    }
+  ]
+}

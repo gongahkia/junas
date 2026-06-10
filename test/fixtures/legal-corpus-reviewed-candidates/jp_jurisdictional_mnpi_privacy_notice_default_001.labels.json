@@ -1,0 +1,387 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "JP",
+    "doc_id": "jp_jurisdictional_mnpi_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/jp/jurisdictional_mnpi/jp_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "source_jurisdiction": "JP",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/jp_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-04T04:34:12Z",
+      "warnings": [
+        "drop ideal_must_detect: text not verbatim rule='data_minimisation_marker' text='irreversely deleted'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_jurisdictional_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@kisaragi-robotics.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aoi Ninomiya",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daichi Morikawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purpose of processing: employment administration, payroll, equity-based compensation, and acquisition due diligence for a contemplated TOB (\u516c\u958b\u8cb7\u4ed8\u3051) of Hoshizora Sensors KK; no secondary use without fresh notice and lawful basis.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI (\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f) under FIEA Arts. 166\u2013167 includes board decisions, TOB/tender-offer facts, mergers, and earnings revisions; such information is confined to a clean team and an insider list (\u30a4\u30f3\u30b5\u30a4\u30c0\u30fc\u540d\u7c3f) is maintained.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout windows: directors, officers, employees, and advisors are restricted from trading from quarter-end until earnings are released on TDnet, and during deal-specific blackouts from signing of the NDA until public announcement; extensions may be imposed by the Compliance Office.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Audit and training: both parties will retain processing and MNPI access logs for 5 years and complete annual APPI/FIEA training; note that the FY2023 Securities Report filed on EDINET is public and should not be unnecessarily restricted, but draft earnings tables remain non-public until TDnet release.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@kisaragi-robotics.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u30a4\u30f3\u30b5\u30a4\u30c0\u30fc\u540d\u7c3f",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "deal-specific blackouts",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "My Number",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no secondary use",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "kept only for the statutory period",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "third-country transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TOB (\u516c\u958b\u8cb7\u4ed8\u3051)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "board resolves",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@kisaragi-robotics.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aoi Ninomiya",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daichi Morikawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purpose of processing: employment administration, payroll, equity-based compensation, and acquisition due diligence for a contemplated TOB (\u516c\u958b\u8cb7\u4ed8\u3051) of Hoshizora Sensors KK; no secondary use without fresh notice and lawful basis.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI (\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f) under FIEA Arts. 166\u2013167 includes board decisions, TOB/tender-offer facts, mergers, and earnings revisions; such information is confined to a clean team and an insider list (\u30a4\u30f3\u30b5\u30a4\u30c0\u30fc\u540d\u7c3f) is maintained.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout windows: directors, officers, employees, and advisors are restricted from trading from quarter-end until earnings are released on TDnet, and during deal-specific blackouts from signing of the NDA until public announcement; extensions may be imposed by the Compliance Office.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Audit and training: both parties will retain processing and MNPI access logs for 5 years and complete annual APPI/FIEA training; note that the FY2023 Securities Report filed on EDINET is public and should not be unnecessarily restricted, but draft earnings tables remain non-public until TDnet release.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing and MNPI Handling Addendum (Japan) between Kisaragi Robotics Co., Ltd. (TSE Prime issuer) and Taikou Advisory KK (\u59d4\u8a17\u5148), governing APPI \u201cpersonal data\u201d (including \u201cindividual numbers\u201d/My Number) and FIEA material non-public information.\n\u201cPersonal data\u201d includes employee HR records, board member contact details, and My Number collected for payroll withholding; \u201cindividual identification codes\u201d under APPI are treated as sensitive and segregated.\nPurpose of processing: employment administration, payroll, equity-based compensation, and acquisition due diligence for a contemplated TOB (\u516c\u958b\u8cb7\u4ed8\u3051) of Hoshizora Sensors KK; no secondary use without fresh notice and lawful basis.\nRetention: My Number is kept only for the statutory period applicable to tax/withholding documentation and then irreversibly deleted (typically up to 7 years), with secure key wipe and access log review.\nDSAR: Data subjects may request disclosure/correction/cessation of use of retained personal data via dsar@kisaragi-robotics.example.jp; we will respond without delay and within two months after verifying identity (government ID check permitted, but do not email copies of My Number).\nCross-border transfers: where support services reside in Singapore, we obtain prior consent or confirm appropriate measures under APPI Art. 28 and provide information on the foreign data protection system; records of third-country transfers are maintained and available on request.\nMNPI (\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f) under FIEA Arts. 166\u2013167 includes board decisions, TOB/tender-offer facts, mergers, and earnings revisions; such information is confined to a clean team and an insider list (\u30a4\u30f3\u30b5\u30a4\u30c0\u30fc\u540d\u7c3f) is maintained.\nPublic-status and timing: until \u201c\u516c\u8868\u201d via TDnet, facts remain non-public; if the board resolves (including a circular resolution) after market close, disclosure will be made on the next business day before the TSE trading session via TDnet in accordance with Timely Disclosure Rules.\nSelective disclosure is prohibited; IR or analyst communications may occur only after the relevant matter is posted on TDnet (and, where applicable, EDINET), and meeting decks must be version-locked to the public release.\nBlackout windows: directors, officers, employees, and advisors are restricted from trading from quarter-end until earnings are released on TDnet, and during deal-specific blackouts from signing of the NDA until public announcement; extensions may be imposed by the Compliance Office.\nIssuer-relative materiality is assessed against likely impact on Kisaragi Robotics\u2019 share price on the TSE Prime Market; unrelated operational updates of third parties (e.g., Sakura Freight KK\u2019s warehouse relocation press release) are not MNPI for Kisaragi.\nPublic information safe harbor: items already announced on TDnet (e.g., our 2025-02-10 \u201cNotice of Establishment of JV with Tenzan Mobile KK\u201d) may be discussed internally; however, any non-public updates or deviations from those public statements remain MNPI until re-announced.\nAccess and controls: only Ms. Aoi Ninomiya (General Counsel) and Mr. Daichi Morikawa (Chief Compliance Officer) may authorize secondary use or disclosure; deal files are stored on the restricted \u201cShirogane\u201d drive with per-user keys and dual-approval export.\nSecurity for My Number: encryption at rest and in transit, strict key management, role-based access, and tamper-evident logs; the processor must notify privacy@kisaragi-robotics.example.jp within 24 hours of any suspected incident.\nAudit and training: both parties will retain processing and MNPI access logs for 5 years and complete annual APPI/FIEA training; note that the FY2023 Securities Report filed on EDINET is public and should not be unnecessarily restricted, but draft earnings tables remain non-public until TDnet release.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u59d4\u8a17\u5148",
+      "reason": "Defined-role term for a party, not PII/MNPI."
+    },
+    {
+      "matched_text": "NDA",
+      "reason": "Not one of the definitive agreement types in scope (SPA/SHA/APA/MOU/LOI/Term Sheet)."
+    },
+    {
+      "matched_text": "Shirogane",
+      "reason": "Storage drive name; not a 'Project <Name>' transaction codename."
+    },
+    {
+      "matched_text": "Sakura Freight KK\u2019s warehouse relocation press release",
+      "reason": "Public third-party operational update; non-issuer and non-MNPI by policy."
+    },
+    {
+      "matched_text": "FY2023 Securities Report",
+      "reason": "Public EDINET filing; not MNPI."
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "Government identification PII",
+      "matched_text": "government ID",
+      "reason": "Generic mention of government ID checks is legally relevant but not tied to a specific listed identifier rule."
+    },
+    {
+      "concept": "Tender-offer target identity",
+      "matched_text": "Hoshizora Sensors KK",
+      "reason": "Counterparty identity in a contemplated TOB may be MNPI if non-public, but not directly covered by a specific MNPI rule token."
+    },
+    {
+      "concept": "Public-status marker",
+      "matched_text": "\u201c\u516c\u8868\u201d",
+      "reason": "Indicates public announcement status; relevant to non-public/public semantics but not itself a nonpublic marker token."
+    },
+    {
+      "concept": "Employment PII descriptors",
+      "matched_text": "employee HR records",
+      "reason": "Describes categories of personal data without specific identifiers; useful context but not mapped to a listed PII rule token."
+    }
+  ]
+}

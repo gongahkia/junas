@@ -1,0 +1,16 @@
+Operational Incident Report — PDPL & Market Conduct Context (KSA)
+Reporting entity: Waha Energy JSC (fictional issuer), CR 700-XX99-AB12; business unit: Digital Operations.
+Date of detection: 1448-02-11H; detection tool: Desert Falcon SIEM v4.2; incident type: misconfigured vendor portal.
+Summary: a test cache on the Saha360 Wellness Portal exposed form labels (e.g., National ID/Iqama, Name, Department) without live values, due to a staging-to-prod sync.
+Scope: 37 portal pages cached; content consisted of UI text, sample placeholders (e.g., 0000-0000-0000), and generic DEI banners; no CMA MNPI observed.
+One legacy HR folder referenced an image tagged to the fictional employee Mazen Al‑Rimal that included a fingerprint template used for clock-in, i.e., biometric data under PDPL special categories.
+No national ID/Iqama numbers, medical test results, or payroll records were accessible in the portal cache; invalid identifier-shaped strings were placeholders only.
+Issuer workflow impact: insider list, pre‑clearance, and disclosure committee processes were not implicated; sustainability KPIs shown were already announced in the recent Saudi Exchange filing.
+Regulatory context: assessed under KSA PDPL and CMA market‑conduct guidance; preliminary view is no market-sensitive non‑public information was exposed.
+Data transfer consideration: no cross‑border movement occurred; pending SDAIA transfer assessment template remains in draft and contains only lorem fields.
+Containment: cache purged; WAF rules tightened; OasisGuard policy pack and PDPL Data Minimization Standard v2.1‑KSA applied.
+Notifications: role mailbox privacy@wahaenergy.example and it‑ops@wahaenergy.example informed; vendor RimalSoft acknowledged misconfiguration in ticket RS‑CFG‑TEST.
+Planned measures: disable auto‑promote from staging, implement eDisclosure portal peer review, and roll out Desert Falcon Green Zone hardening.
+Cultural note: our DEI charter encourages a level playing field; like the Riyadh Sandcats keeping their formation, we will keep our lines tight.
+Assurance: internal audit will sample 5% of HR repositories to confirm no further special‑category data is stored outside approved systems.
+Contact channel: public helpline 800‑000‑WAHA; CMA liaison to be updated with a benign incident summary during routine market‑conduct follow‑up.

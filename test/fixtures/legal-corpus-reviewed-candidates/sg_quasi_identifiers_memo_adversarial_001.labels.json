@@ -1,0 +1,338 @@
+{
+  "_agent_review": {
+    "notes": "Removed second-pass false-positive labels, added must-not suppressions, and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-agent-cleanup-pass",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "second_pass_blockers_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending.",
+      "reviewer": "codex-agent-review",
+      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+      "status": "technical_reviewed_pending_human_approval"
+    },
+    {
+      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves.",
+      "reviewer": "codex-gpt-agent-second-pass",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "second_pass_needs_edit_pending_human_approval"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T02:30:40Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T02:30:40Z",
+    "accepted_by": "gongahkia",
+    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "owner_approved_sg_stage_a_for_internal_benchmarking"
+  },
+  "_owner_acceptance_history": [
+    {
+      "accepted_at_utc": "2026-05-29T01:41:07Z",
+      "accepted_by": "gongahkia",
+      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "owner_accepted_agent_review_for_experimental_use"
+    }
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_quasi_identifiers_memo_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/quasi_identifiers/sg_quasi_identifiers_memo_adversarial_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_quasi_identifiers_memo_adversarial_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_quasi_identifiers_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Heliotrope Robotics Limited",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal circulation only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aveline Khoo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 14-03-1990",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aveline.khoo@harbourpine.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sap_hkhoo-0314",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "se ss-90ak-2026-05-28",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HPC-LT-90AK",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HPC\u2011LT\u2011?0AK",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "00-1A-**-**-7D-5F",
+      "rule": "mac_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7d5f_90ak",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aveline Khoo, Senior IR Manager at Harbour Pine Capital, DOB 14-03-1990, based at 12 Bayleaf Square, Lvl 25, Jade Promenade, accessed the draft offer via notebook \"HPC-LT-90AK\" and handset \"QuokkaPhone-12\" on 28-05-2026 08:16 SGT",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Corporate email aveline.khoo@harbourpine.com.sg, internal account \"sap_hkhoo-0314\", session ref se ss-90ak-2026-05-28, and chat link https://threadworks.harbourpine.com/ch/offer?t=pre&uid=avk-0314 together may identify an individual",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IT logs show a guest Wi\u2011Fi login at the Bayleaf Square meeting room at 10:03 SGT under device \"HPC\u2011LT\u2011?0AK\" with masked MAC 00-1A-**-**-7D-5F; combined with role and time, re-identification risk is non-trivial",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$2.02",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$11.2m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available and reasonably expected to affect price",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid forwarding outside the deal team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "maintain an updated insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not collect NRIC numbers for meeting access",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A 35-year-old engineer in Citrus Park using an OrchidOS handset and commuting by bus, without more, is not identifiable and should not be treated as specific personal data.\nPublic-source references (e.g., Heliotrope\u2019s 2025 ESG overview publicly posted) can be used for diligence, but do not combine with internal Q3 run-rate models.\nIT logs show a guest Wi\u2011Fi login at the Bayleaf Square meeting room at 10:03 SGT under device \"HPC\u2011LT\u2011?0AK\" with masked MAC 00-1A-**-**-7D-5F; combined with role and time, re-identification risk is non-trivial",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "internal circulation only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aveline Khoo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aveline.khoo@harbourpine.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$2.02",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$11.2m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14-03-1990",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal memo by Garnet & Loke LLC to Harbour Pine Capital Limited (SGX Mainboard issuer): proposed acquisition of Heliotrope Robotics Limited.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aveline Khoo, Senior IR Manager at Harbour Pine Capital, DOB 14-03-1990, based at 12 Bayleaf Square, Lvl 25, Jade Promenade, accessed the draft offer via notebook \"HPC-LT-90AK\" and handset \"QuokkaPhone-12\" on 28-05-2026 08:16 SGT.\nCorporate email aveline.khoo@harbourpine.com.sg, internal account \"sap_hkhoo-0314\", session ref se ss-90ak-2026-05-28, and chat link https://threadworks.harbourpine.com/ch/offer?t=pre&uid=avk-0314 together may identify an individual.\nTreat those quasi-identifiers as personal data under PDPA; avoid forwarding outside the deal team and log access in the PDPA register",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aveline Khoo, Senior IR Manager at Harbour Pine Capital, DOB 14-03-1990, based at 12 Bayleaf Square, Lvl 25, Jade Promenade, accessed the draft offer via notebook \"HPC-LT-90AK\" and handset \"QuokkaPhone-12\" on 28-05-2026 08:16 SGT.\nCorporate email aveline.khoo@harbourpine.com.sg, internal account \"sap_hkhoo-0314\", session ref se ss-90ak-2026-05-28, and chat link https://threadworks.harbourpine.com/ch/offer?t=pre&uid=avk-0314 together may identify an individual.\nTreat those quasi-identifiers as personal data under PDPA; avoid forwarding outside the deal team and log access in the PDPA register.\nThe Draft Announcement includes an indicative cash consideration of S$2.02 per Heliotrope share and synergy assumptions of S$11.2m; this is MNPI under SFA/SGX as not generally available and reasonably expected to affect price.\nWe note no material adverse change is triggered by supplier delays; this is not a MAC and not a profit warning.\nA 35-year-old engineer in Citrus Park using an OrchidOS handset and commuting by bus, without more, is not identifiable and should not be treated as specific personal data.\nPublic-source references (e.g., Heliotrope\u2019s 2025 ESG overview publicly posted) can be used for diligence, but do not combine with internal Q3 run-rate models.\nIT logs show a guest Wi\u2011Fi login at the Bayleaf Square meeting room at 10:03 SGT under device \"HPC\u2011LT\u2011?0AK\" with masked MAC 00-1A-**-**-7D-5F; combined with role and time, re-identification risk is non-trivial",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal memo by Garnet & Loke LLC to Harbour Pine Capital Limited (SGX Mainboard issuer): proposed acquisition of Heliotrope Robotics Limited.\nUnder PDPA and SFA/SGX principles, this note is for internal circulation only and is not a trading instruction or public disclosure.\nMs. Aveline Khoo, Senior IR Manager at Harbour Pine Capital, DOB 14-03-1990, based at 12 Bayleaf Square, Lvl 25, Jade Promenade, accessed the draft offer via notebook \"HPC-LT-90AK\" and handset \"QuokkaPhone-12\" on 28-05-2026 08:16 SGT.\nCorporate email aveline.khoo@harbourpine.com.sg, internal account \"sap_hkhoo-0314\", session ref se ss-90ak-2026-05-28, and chat link https://threadworks.harbourpine.com/ch/offer?t=pre&uid=avk-0314 together may identify an individual.\nTreat those quasi-identifiers as personal data under PDPA; avoid forwarding outside the deal team and log access in the PDPA register.\nThe Draft Announcement includes an indicative cash consideration of S$2.02 per Heliotrope share and synergy assumptions of S$11.2m; this is MNPI under SFA/SGX as not generally available and reasonably expected to affect price.\nWe note no material adverse change is triggered by supplier delays; this is not a MAC and not a profit warning.\nA 35-year-old engineer in Citrus Park using an OrchidOS handset and commuting by bus, without more, is not identifiable and should not be treated as specific personal data.\nPublic-source references (e.g., Heliotrope\u2019s 2025 ESG overview publicly posted) can be used for diligence, but do not combine with internal Q3 run-rate models.\nIT logs show a guest Wi\u2011Fi login at the Bayleaf Square meeting room at 10:03 SGT under device \"HPC\u2011LT\u2011?0AK\" with masked MAC 00-1A-**-**-7D-5F; combined with role and time, re-identification risk is non-trivial.\nmeeting url h t t p s ://dealroom.harbourpine.com.sg/m&a/rf q?id=MB-2026-061&ses=7d5f_90ak, broken characters reflect OCR artefacts in the scan and do not alter content.\nContact Compliance at compliance@harbourpine.com.sg or ext 8421 for SGX Listing Manual Rule 703/704 queries; do not send the Draft via ChitChat and never share passwords.\nEmployment matters: coordinate with HR on retention pools and notify staff via PDPA-compliant notices before adding users to the data room; do not collect NRIC numbers for meeting access.\nCapital Markets workflow: pre-clear analyst briefing decks through DealVault\u2011IR, maintain an updated insider list, and stage the release for 7:30 a.m. SGT pending SGXnet clearance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Public-source references (e.g., Heliotrope\u2019s 2025 ESG overview publicly posted) can be used for diligence, but do not combine with internal Q3 run-rate models.\nIT logs show a guest Wi\u2011Fi login at the Bayleaf Square meeting room at 10:03 SGT under device \"HPC\u2011LT\u2011?0AK\" with masked MAC 00-1A-**-**-7D-5F; combined with role and time, re-identification risk is non-trivial",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "We note no material adverse change is triggered by supplier delays; this is not a MAC and not a profit warning.",
+      "reason": "Public, benign, or negated material-event context; not strict MNPI truth."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "email address (group mailbox)",
+      "matched_text": "compliance@harbourpine.com.sg",
+      "reason": "Generic team inbox may not relate to an identifiable individual under PDPA."
+    },
+    {
+      "concept": "phone extension",
+      "matched_text": "ext 8421",
+      "reason": "Short internal extension lacks sufficient context to identify an individual alone."
+    },
+    {
+      "concept": "device model/name",
+      "matched_text": "QuokkaPhone-12",
+      "reason": "Appears to be a model or label rather than a unique device serial number."
+    },
+    {
+      "concept": "internal account identifier",
+      "matched_text": "ledger ac c t 00 3-9 7-AX",
+      "reason": "May be a de-identified ledger/account code not linked to an individual; not clearly a bank_account."
+    },
+    {
+      "concept": "device tag",
+      "matched_text": "MBR\u201122",
+      "reason": "Device tag appears without any link to a person; may not be personal data on its own."
+    },
+    {
+      "concept": "partial address/location",
+      "matched_text": "12 Bayleaf Square, Lvl 25, Jade Promenade",
+      "reason": "No Singapore 6-digit postal code; location alone is a weak identifier unless linked with other data."
+    },
+    {
+      "concept": "generic demographics",
+      "matched_text": "A 35-year-old engineer in Citrus Park",
+      "reason": "Example of non-identifiable demographics; not specific to an individual per the memo."
+    }
+  ]
+}

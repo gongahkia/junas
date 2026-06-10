@@ -98,11 +98,11 @@
     "reviewer": "codex-gpt-assisted-strict-tier-review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -428,6 +428,12 @@
       "matched_text": "Internal memo: PDPA/CMSA controls for Project Cendana \u2013 from Company Secretary (Saujana Lattice Berhad) to Board, CFO, and Compliance, dated 29 May 2026.\nThe proposed private placement (up to 62,000,000 new SLB shares at RM1.12 per share, ~8% discount to 5\u2011day VWAP) with Bintang Arteri Capital Sdn Bhd is non\u2011public and constitutes MNPI under the Exchange Main Market Listing Requirements and applicable capital markets laws.\nA conditional share purchase with Rimba Digital Sdn Bhd (60% stake for RM45m; anticipated EPS accretion ~6% in FY2027) remains confidential; do not circulate beyond the insider list until the announcement is cleared for release by the Exchange.\nUnder PDPA, personal data in employment and financing drafts must be minimised: names, emails, device IDs, session logs, payroll accounts, office locations, and DOBs can directly or indirectly identify a data subject.\nClustered identifiers: Encik Firdaus Ilyas bin Mahzan (Chief Projects Officer, Saujana Lattice Berhad), DOB 12 March 1984 (age 42), office at HQ\u2014Bandar Seri Angkasa, Negeri Damar, work email firdaus.mahzan@saujanalattice.com, staff ID SLB\u2011EMP\u20110421, device SLB\u2011Laptop\u2011FA84 and Mahaphone\u2011X2 SN MPX2\u2011FA84\u20116109, payroll at Nova Kelapa Bank Berhad a/c ending 7719.\nFurther context for the same individual: VPN session SLB\u2011VPN\u201126\u201105\u201129\u20117842 connected 08:41\u201310:02 via internal IP 10.28.17.51, Teams invite ref SLB\u2011INV\u20112026\u20110530 (Meranti 3), and security door access log 4F\u2011317 at 08:39; these are PDPA\u2011relevant when combined.\nSeparately, the following weak items appear in templates and are not tied to any named staff: DOB 1990\u201107\u201114, device tag LPT\u20118871, generic account ref 3301, and \u201cSuite 1205, Menara Jati, Precinct Aria, 52110, Negeri Damar.\u201d\nGeneric descriptors (e.g., male in his thirties located in the central region) on their own should not be treated as identifying under PDPA, but avoid combining them with device or account references.\nHR queries may be directed to Puan Zulaikha Noor, HR Business Partner, zulaikha.noor@saujanalattice.com, tel +60 3 4800 7702.\nCompliance queries on insider lists and data rooms: compliance@saujanalattice.com; physical access is restricted to Secure Room Kenari, Level 8, HQ.\nNo external communication on pricing, timetables, or expected proceeds may be made until the draft announcement is finalised and approved; a trading blackout applies to the insider list (including Encik Firdaus) until publication.\nPlease redact bank account numbers, device serials, and session identifiers in Board packs; if necessary, retain only last four digits or truncated hashes (e.g., SLB\u2011VPN\u2011\u2026\u20117842).\nThe financing term sheet with Bintang Arteri Capital Sdn Bhd includes a maintenance covenant (Net Debt/EBITDA \u2264 2.5x) and a cross\u2011default trigger if EBITDA falls below RM60m; these terms are MNPI until the Exchange release.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "to Board, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

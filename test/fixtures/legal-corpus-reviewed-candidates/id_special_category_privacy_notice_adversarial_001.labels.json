@@ -1,0 +1,333 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "ID",
+    "doc_id": "id_special_category_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/id/special_category/id_special_category_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "ID",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/id_special_category_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+62-21-555-0123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Catatan: dokumen ini bukan pengumuman merger, bukan MAC, dan tidak memuat rekomendasi beli/jual; informasi dari sumber publik (mis. siaran pers, portal be g .co.id) diproses terpisah dari MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project NusaMesh",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bapak Rafi Wirawan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EIP-77F0",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "template sidik jari presensi",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "catatan pengobatan diabetes dari Klinik Prabawa",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "keanggotaan Serikat Pekerja Aurora",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "preferensi keagamaan sebagai penganut Hindu",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ibu Citra Lestari",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "orientasi seksual (lesbian)",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "afiliasi politik non-eksekutif pada Partai Rimba Sejahtera",
+      "rule": "political_opinion"
+    },
+    {
+      "category": "PII",
+      "matched_text": "usia 15",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@aurorafintech.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Pemindahan lintas batas ke pusat data ap-sea-9",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "u s e r \u2014 r a f i @ aurorafintech.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ananda Dimas Wirawan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data anak\u2014Ananda Dimas Wirawan (usia 15, DepRef: min-15\u2014d w \u2014 x)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EIP%2D77F0",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "rencana akuisisi",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wajib dibatasi aksesnya sampai pengumuman resmi melalui BEG/OJK-A",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pelanggaran kebijakan kebocoran MNPI",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "penundaan keterbukaan OJK-A",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+62-21-555-0123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Catatan: dokumen ini bukan pengumuman merger, bukan MAC, dan tidak memuat rekomendasi beli/jual; informasi dari sumber publik (mis. siaran pers, portal be g .co.id) diproses terpisah dari MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project NusaMesh",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Para Pihak: PT Aurora Fintech Nusantara T b k (Pengendali Data/Emiten BEG, ticker 'AFN') dan PT Bayu Layanan Digital (Prosesor & entitas yang diakuisisi) sehubungan transisi pasca-penutupan.\nKami memproses Data Pribadi sebagaimana dimaksud UU PDP (data tentang orang perseorangan yang teridentifikasi/teridentifikasi, sendiri atau dikombinasikan), untuk tujuan ketenagakerjaan, layanan fintech, dan pengelolaan pemegang saham.\nInformasi Material yang Belum Diungkapkan (MNPI) terkait rencana akuisisi, proyeksi keuangan, dan memorandum Dewan wajib dibatasi aksesnya sampai pengumuman resmi melalui BEG/OJK-A; pelanggaran kebijakan kebocoran MNPI dikenai sanksi internal berdasarkan Hukum Pasar Modal Nusantara.\nData khusus\u2014Bapak Rafi Wirawan (EIP-77F0; u s e r \u2014 r a f i @ aurorafintech.co.id) mencakup template sidik jari presensi, catatan pengobatan diabetes dari Klinik Prabawa, keanggotaan Serikat Pekerja Aurora, dan preferensi keagamaan sebagai penganut Hindu, diproses berdasar persetujuan tertulis dan kewajiban ketenagakerjaan.\nIbu Citra Lestari (Penasihat, Board memo ref MEMO-AQN-09) secara eksplisit memberikan data orientasi seksual (lesbian) dan afiliasi politik non-eksekutif pada Partai Rimba Sejahtera untuk pengaturan tunjangan, yang disegel pada GarudaVault dan hanya dapat diakses oleh Tim DPO.\nData anak\u2014Ananda Dimas Wirawan (usia 15, DepRef: min-15\u2014d w \u2014 x) digunakan untuk manfaat kesehatan keluarga; verifikasi wali dilakukan sebelum pemrosesan benefit, tanpa meminta nomor identitas pemerintah.\nPermintaan Akses Subjek (DSAR) dapat diajukan ke dpo@aurorafintech.co.id atau https://privacy.aurorafintech.co.id/dsar?id=EIP%2D77F0&loc=id_jkt; kami menanggapi dalam 14 hari kerja, kecuali bila terikat penundaan keterbukaan OJK-A.\nPemindahan lintas batas ke pusat data ap-sea-9 dikelola melalui Perjanjian Pemrosesan Data Lintas Batas setara, termasuk enkripsi at-rest, audit, dan komitmen penerima untuk mematuhi standar UU PDP; subprosesor: Cloud Garuda Pte., Project NusaMesh.\nRetensi: data gaji 7 tahun, catatan kesehatan pegawai 5 tahun pasca-terminasi, log MNPI sampai publikasi BEG + 2 tahun, dan email terkait due diligence 4 tahun; penghapusan menggunakan prosedur 'SapuBersih v2.4'.\nAkses dikontrol lewat autentikasi biometrik perangkat & kunci FIDU; kami menggunakan 'genetic algorithm' pada modul pencegahan penipuan, namun kami tidak mengumpulkan data genetik biologis untuk pemasaran.\nCatatan: dokumen ini bukan pengumuman merger, bukan MAC, dan tidak memuat rekomendasi beli/jual; informasi dari sumber publik (mis. siaran pers, portal be g .co.id) diproses terpisah dari MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Jl. Bintang Timur No. 88, Jakarta 10220",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "id_postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Pengendali Data",
+      "reason": "Defined-role term; not PII/MNPI"
+    },
+    {
+      "matched_text": "Emiten BEG",
+      "reason": "Defined-role/exchange descriptor; not PII/MNPI"
+    },
+    {
+      "matched_text": "Prosesor",
+      "reason": "Defined-role term; not PII/MNPI"
+    },
+    {
+      "matched_text": "LayarPay",
+      "reason": "Product name; negative/adversarial target"
+    },
+    {
+      "matched_text": "SingaCard",
+      "reason": "Product name; negative/adversarial target"
+    },
+    {
+      "matched_text": "GarudaVault",
+      "reason": "Product/tool name; not PII/MNPI"
+    },
+    {
+      "matched_text": "genetic algorithm",
+      "reason": "False-positive bait; not genetic data"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated Material Adverse Change; rule excludes negated MAC"
+    },
+    {
+      "matched_text": "Kebijakan Keterbukaan Informasi Emiten",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "DEI",
+      "reason": "Generic DEI prose; not PII/MNPI"
+    },
+    {
+      "matched_text": "Bandung Komodos",
+      "reason": "Sports team; negative/adversarial target"
+    },
+    {
+      "matched_text": "tanpa meminta nomor identitas pemerintah",
+      "reason": "Negated minimisation control; rule says do not label negated controls"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "Permintaan Akses Subjek (DSAR) dapat diajukan",
+      "reason": "Indicates data subject rights request process; no explicit allowed DSAR rule name provided"
+    },
+    {
+      "concept": "DSAR portal URL",
+      "matched_text": "https://privacy.aurorafintech.co.id/dsar?id=EIP%2D77F0&loc=id_jkt",
+      "reason": "Contains query identifiers linked to a specific user; URL-based identifiers not explicitly covered"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retensi: data gaji 7 tahun, catatan kesehatan pegawai 5 tahun pasca-terminasi, log MNPI sampai publikasi BEG + 2 tahun, dan email terkait due diligence 4 tahun",
+      "reason": "Specifies retention periods; retention marker not in allowed rules list"
+    },
+    {
+      "concept": "information_barrier_marker",
+      "matched_text": "hanya dapat diakses oleh Tim DPO",
+      "reason": "Access restriction implies information barrier but phrasing may be too contextual for current detectors"
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "UserRef: afn\u2014EIP-77F0\u20140x0a",
+      "reason": "Looks like an internal user/session reference; not clearly mapped to a specific allowed identifier"
+    },
+    {
+      "concept": "employee_id (URL-encoded)",
+      "matched_text": "EIP%2D77F0",
+      "reason": "URL-encoded employee identifier may not be detected by standard ID regexes"
+    }
+  ]
+}

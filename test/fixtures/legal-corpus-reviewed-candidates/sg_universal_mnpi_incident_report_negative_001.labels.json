@@ -1,0 +1,192 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_universal_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/universal_mnpi/sg_universal_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_universal_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_universal_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ap@tidalarc.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@tidalarc.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sgx_help@tidalarc.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "S0000000Z",
+      "rule": "sg_nric_fin"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 14:00 SGT, 18 Mar 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "investor-relations draft Q&A prepared",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber incident operational update",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE clause",
+      "rule": "material_adverse_change"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sgx_help@tidalarc.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Tidal Arc Technologies Ltd. (SGX-ST Mainboard issuer) \u2014 cyber incident operational update \u2014 2026-03-17, 09:30 SGT\nSummary: attempted credential-stuffing on vendor payment portal \u201cNovaPay Gateway\u201d was detected by SOC tooling; no outage, no ransomware, and services remained available.\nPublic sources: similar patterns described in open CERT advisories and PDPC publications; reference: PDPC Guide to Data Protection by Design and MAS Notice on Cyber Hygiene (both publicly available).\nPDPA assessment: no personal data of any individual was accessed; only role mailboxes were probed (e.g., ap@tidalarc.example, ir@tidalarc.example), and MFA was effective.\nBanking/ID bait: strings resembling NRIC or account numbers found in spam headers were invalid placeholders (e.g., S0000000Z, SG-00-000-000) and are not linked to our systems.\nIR handling: investor-relations draft Q&A prepared, embargo until 14:00 SGT, 18 Mar 2026 for posting on SGXNet pursuant to Listing Rule 703 timing.\nMarkets context: board memo notes the matter is operational and, as framed, is not expected to be price-sensitive under Listing Rule 703; prior cyber posture disclosures already on SGXNet (2025-10-02) are unchanged.\nM&A overlap (public): integration of Seaside Analytics Pte. Ltd. was announced on 2025-12-15; the draft SPA contains a MAC/MAE clause that is not triggered by this incident.\nEmployment impact: precautionary resets for service accounts only; no staff disciplinary actions and no payroll adjustments contemplated.\nESG note: environmental and social KPIs are unaffected, and the incident did not touch the emissions data platform used for sustainability reporting.\nCompliance checklist: actions recorded under CM-SFA-SGX: 2026/OP/CYB-014 with approvals by role holders (CISO, CoSec, IR lead); no change to published risk factors.\nContact points: public investor queries via ir@tidalarc.example; SGX filing queries via sgx_help@tidalarc.example; PDPC public helpline as listed on pdpc.gov.sg.\nFor avoidance of doubt: this update does not constitute earnings guidance or a revision to any offering document; no new securities identifiers are created (ISIN: ZZ0000000000 placeholder).\nwellness note: staff spa-day vouchers for quarterly wellness week are unaffected and will be issued as scheduled.\nPost-incident review: lowercase project-management notes to remain in the tracker; no confidential minutes circulated, and red-team exercise remains on the previously announced timetable.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day",
+      "reason": "Wellness voucher context; not a Share Purchase Agreement"
+    },
+    {
+      "matched_text": "SG-00-000-000",
+      "reason": "Placeholder string; not a recognised ID/account per allowed rules"
+    },
+    {
+      "matched_text": "ZZ0000000000",
+      "reason": "Placeholder ISIN; not covered by allowed rules"
+    },
+    {
+      "matched_text": "NovaPay Gateway",
+      "reason": "Vendor product name; not a transaction codename"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "internal reference ID",
+      "matched_text": "CM-SFA-SGX: 2026/OP/CYB-014",
+      "reason": "Could be an internal compliance/ops tracking identifier but not clearly mapped to allowed ID rules"
+    },
+    {
+      "concept": "information barrier practice",
+      "matched_text": "no confidential minutes circulated",
+      "reason": "Implicates handling of potentially sensitive information, but not clearly an enumerated information barrier marker in allowed rules"
+    }
+  ]
+}

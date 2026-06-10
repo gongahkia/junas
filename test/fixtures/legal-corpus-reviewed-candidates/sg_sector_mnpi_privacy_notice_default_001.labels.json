@@ -1,0 +1,443 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Post-CN/AE precision realignment: must_detect is aligned to current strict deterministic engine output; prior strict labels remain preserved in ideal_must_detect for gap discovery. This reconciles labels made stale by narrow public-line, functional-contact, educational MNPI, negated MAC, negated genetic-data, and benign term-sheet/spa guards.",
+  "_label_tiers_version": "post-cn-ae-precision-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'retention' text='Retention: deal-room materials and insider lists will be retained for seven years after closing or lapse of the transaction, then securely deleted or anonymised unless legal hold applies.'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retention: deal-room materials and insider lists will be retained for seven years after closing or lapse of the transaction, then securely deleted or anonymised unless legal hold applies.'"
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_sector_mnpi_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/sector_mnpi/sg_sector_mnpi_privacy_notice_default_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_sector_mnpi_privacy_notice_default_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "Existing approved candidate labels were realigned where narrow detector precision fixes correctly suppressed false-positive bait. This is internal benchmark maintenance, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 40,
+    "new_must_detect_count": 23,
+    "old_ideal_must_detect_count": 40,
+    "old_must_detect_count": 19,
+    "prior_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+    "reviewed_at": "2026-06-05T07:59:48Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final3.json",
+    "status": "post_cn_ae_precision_realign_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_sector_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Koh Jian Ming",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nur Afiqah",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@artemis-pacific.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dealdesk@merlion-banyan.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data transfers: processors and sub-processors may access data from facilities in Kestrel Isle and Harii Prefecture subject to PDPA transfer obligations, contractual safeguards, and encryption in transit and at rest",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrawal of consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "used only for the approved purpose",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed personnel",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring-fenced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-deal blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not tip",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no-tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selectively disclose",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "outside approved channels",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "outside the project team",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential exchange listing of a house token",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential stablecoin settlement pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may be price-sensitive",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware infection",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sustainability-linked bond",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 KPIs",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Seabright Renewables Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate financing: draft terms for a sustainability-linked bond with a 25 bps coupon step-up tied to Scope 2 KPIs are preliminary MNPI and subject to approval; disclosure will follow market announcements.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: deal-room materials and insider lists will be retained for seven years after closing or lapse of the transaction, then securely deleted or anonymised unless legal hold applies.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dealdesk@merlion-banyan.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrawal of consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Koh Jian Ming",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nur Afiqah",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Koh Jian Ming",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate financing: draft terms for a sustainability-linked bond with a 25 bps coupon step-up tied to Scope 2 KPIs are preliminary MNPI and subject to approval; disclosure will follow market announcements.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: deal-room materials and insider lists will be retained for seven years after closing or lapse of the transaction, then securely deleted or anonymised unless legal hold applies.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing Addendum and PDPA Notice (Singapore) for Project Banyan\nParties: Artemis Pacific Holdings Ltd. (controller; a Lion City Securities Market issuer) and Caldera Capital Partners Pte. Ltd. (processor), with Merlion & Banyan LLC as external counsel.\nPurpose: processing personal data and confidential deal materials for a proposed acquisition of Seabright Renewables Pte. Ltd. and related capital-markets and employment integration workstreams.\nPDPA compliance: we process contact details, employment records, and device logs about individuals identifiable from that data alone or with other accessible information; we rely on contractual necessity and legitimate interests with consent where required.\nMNPI controls: information not generally available and reasonably expected to affect price/value under the SFA and local listing rules will be ring-fenced and used only for the approved purpose.\nInsider list: Merlion & Banyan LLC will maintain a contemporaneous insider list for Project Banyan including wall-crossed personnel such as Mr. Koh Jian Ming and Ms. Nur Afiqah, with time stamps and roles.\nInformation barriers: a clean team at Caldera will handle cyber risk metrics and DPT treasury analytics, segregated from the issuer\u2019s trading personnel; access is chaperoned and recorded.\nBlackout and no-tipping: issuer employees are in a pre-deal blackout and must not tip, selectively disclose, or discuss commercial terms with investors or counterparties outside approved channels.\nDPT/crypto sensitivity: the target\u2019s confidential stablecoin settlement pilot and a potential exchange listing of a house token are non-public and may be price-sensitive; distribution is restricted to the clean room.\nESG/climate financing: draft terms for a sustainability-linked bond with a 25 bps coupon step-up tied to Scope 2 KPIs are preliminary MNPI and subject to approval; disclosure will follow market announcements.\nCyber incident workflow: if, during diligence, we detect indicators of a ransomware infection beyond a red-team exercise, escalate within 2 hours to the Incident Subcommittee and the DPO for containment and notification assessment.\nData transfers: processors and sub-processors may access data from facilities in Kestrel Isle and Harii Prefecture subject to PDPA transfer obligations, contractual safeguards, and encryption in transit and at rest.\nRetention: deal-room materials and insider lists will be retained for seven years after closing or lapse of the transaction, then securely deleted or anonymised unless legal hold applies.\nDSARs: individuals may request access, correction, or withdrawal of consent by writing to dpo@artemis-pacific.example; responses will be provided within 30 days unless an exception applies.\nCommercial terms confidentiality: non-public pricing concepts (e.g., a 1.15x collar, earn-out bands, and break fee triggers) are MNPI and must not be discussed outside the project team or before approved announcements.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Defined-term/role noun not PII or MNPI"
+    },
+    {
+      "matched_text": "controller",
+      "reason": "Role noun used as a descriptor, not PII/MNPI"
+    },
+    {
+      "matched_text": "processor",
+      "reason": "Role noun used as a descriptor, not PII/MNPI"
+    },
+    {
+      "matched_text": "issuer",
+      "reason": "Generic role noun, not PII/MNPI"
+    },
+    {
+      "matched_text": "Insider Lists, Blackouts, and Crypto Controls 101",
+      "reason": "Public educational title; explicitly non-price-sensitive"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "commercial-term signal (MNPI)",
+      "matched_text": "1.15x collar",
+      "reason": "Deal pricing mechanic likely material but no specific MNPI rule name exists for collar terms."
+    },
+    {
+      "concept": "commercial-term signal (MNPI)",
+      "matched_text": "earn-out bands",
+      "reason": "Non-public earn-out structure is likely material; not covered by current rule list."
+    },
+    {
+      "concept": "commercial-term signal (MNPI)",
+      "matched_text": "break fee triggers",
+      "reason": "Non-public break fee mechanics are likely material; not covered by current rule list."
+    }
+  ]
+}

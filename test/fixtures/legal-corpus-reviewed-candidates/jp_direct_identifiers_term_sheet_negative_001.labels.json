@@ -1,0 +1,265 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "JP",
+    "doc_id": "jp_direct_identifiers_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_term_sheet_negative_001.txt",
+    "source_jurisdiction": "JP",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/jp_direct_identifiers_term_sheet_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_direct_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "123456789012",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000000000000",
+      "rule": "jp_corporate_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000-0000",
+      "rule": "jp_postal_code"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@hoshizora-kogyo.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123456789012",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TR0000000",
+      "rule": "passport_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditional Tender Offer under FIEA",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed subscription for new shares",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential tender offer",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Buyer access limited to aggregated employee data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no transfer of individual codes except as permitted",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "placeholder fields such as [Employee Name] and [Address] to remain blank",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no solicitation to employees via personal phones or emails; use role mailboxes only",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "123456789012",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Strategic Investment and Conditional Tender Offer under FIEA \u2014 between Hoshizora Kogyo KK and Seifu Capital Partners GK\nIssuer: Hoshizora Kogyo Kabushiki Kaisha (fictional), Corporate Number (H\u014djin Bang\u014d): 0000000000000 (example only)\nRegistered Office: 1-2-3 Kurohana-dori, Minami-Hoshimi Ward, Sazanami Prefecture 000-0000, Japan (fictional)\nIssuer contact (IR role mailbox): ir@hoshizora-kogyo.co.jp; public helpline (fictional): 0120-000-999\nListing venue: Kanto Digital Securities Exchange (KDSE, fictional); disclosures to be made via KDSE Timely Disclosure network under FIEA\nTransaction: Proposed subscription for new shares and potential tender offer to reach a strategic threshold, subject to board approval and employee consultation\nPublic status: The intention to explore a TOB was publicly announced on 2025-04-01 via KDSE; this term sheet does not contain undisclosed enumerated material facts\nConditions precedent: Board of Directors resolutions, Special Committee review, and confirmation of no violation of APPI regarding employee data processing\nDiligence scope: Buyer access limited to aggregated employee data; no transfer of individual codes except as permitted; placeholder fields such as [Employee Name] and [Address] to remain blank\nHR reliance example (do not populate in final): Individual Number (My Number) 123456789012 (illustrative, invalid check digit); Passport No. TR0000000 (example, invalid)\nSettlement mechanics: Escrow arrangement to be appointed; settlement account placeholder: Bank Code 9999, Branch 000, Account 0000000, Account Name: [Escrow Agent KK] (example only)\nTax and filings: Local Tax Office code 99-9999 (format sample); consumption tax not applicable to share issuance; notifications per FIEA and Companies Act\nShareholding disclosures: Large Shareholding Report threshold (5% Rule) filings to the Securities Monitoring Office (fictional) within statutory timelines\nRepresentations: Each party represents no reliance on non-public information; role-only titles (e.g., Representative Director, Audit & Supervisory Committee Member) to execute on behalf of entities\nCommunications: KDSE inquiries (fictional public helpline) 0120-111-222; no solicitation to employees via personal phones or emails; use role mailboxes only\nGoverning law and forum: Japan; disputes to be submitted to East Tokyo Summary Court (fictional); this term sheet is non-binding except for confidentiality, exclusivity, and governing law provisions",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0120-000-999",
+      "reason": "Public helpline number; not personal PII"
+    },
+    {
+      "matched_text": "0120-111-222",
+      "reason": "Public helpline number; not personal PII"
+    },
+    {
+      "matched_text": "[Employee Name]",
+      "reason": "Placeholder/generic label, not actual PII"
+    },
+    {
+      "matched_text": "[Address]",
+      "reason": "Placeholder/generic label, not actual PII"
+    },
+    {
+      "matched_text": "[Escrow Agent KK]",
+      "reason": "Placeholder/generic label, not actual PII"
+    },
+    {
+      "matched_text": "Representative Director",
+      "reason": "Role noun/title, not a named person"
+    },
+    {
+      "matched_text": "Audit & Supervisory Committee Member",
+      "reason": "Role noun/title, not a named person"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "tax_identifier",
+      "matched_text": "Local Tax Office code 99-9999",
+      "reason": "May be a local tax office identifier; JP tax office codes are not covered by current allowed rules"
+    },
+    {
+      "concept": "bank_account",
+      "matched_text": "Account 0000000",
+      "reason": "Looks like a bank account number placeholder; detection is ambiguous and may not represent real PII"
+    },
+    {
+      "concept": "court_citation",
+      "matched_text": "East Tokyo Summary Court",
+      "reason": "Court reference potentially akin to court citation; JP-specific court identifiers not in allowed rule set"
+    }
+  ]
+}

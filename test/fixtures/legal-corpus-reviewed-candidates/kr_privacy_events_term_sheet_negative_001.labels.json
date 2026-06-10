@@ -1,0 +1,298 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "KR",
+    "doc_id": "kr_privacy_events_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/kr/privacy_events/kr_privacy_events_term_sheet_negative_001.txt",
+    "source_jurisdiction": "KR",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/kr_privacy_events_term_sheet_negative_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_privacy_events_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@daehancircuitry.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limited to what is necessary",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Daehan Circuitry Co., Ltd. (KRX KOSDAQ issuer) and Solbaram Partners SPC propose a strategic financing via non-voting convertible preferred shares.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention/Minimisation: Diligence\u2011related personal data will be retained for up to three years from closing or earlier erasure where legally permissible; collection is limited to what is necessary for FSC/FSS\u2011supervised reporting.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000000-0000000",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011Border Transfer (positive)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Export Approval DEA\u201126\u2011041",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent Withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Retention/Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean\u2011team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Investor onboarding forms request minimal data fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer of limited employee contact data",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masking applied to any legacy records",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "are excluded from the data room",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "processor \u201cMokpo Cloud Analytics KK\u201d in Japan",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdraws consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "effective 2026\u201103\u201101",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean\u2011team access only to aggregated financials and anonymised operational metrics",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material facts",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Processing Addendum: A DPA is attached as Schedule DP\u20111; \u201cpersonal information\u201d is defined in accordance with PIPA, and special identification information will be handled with heightened controls.\nOnboarding/KYC Forms: Investor onboarding forms request minimal data fields; Resident Registration Number fields are disabled and display the placeholder 000000-0000000, with masking applied to any legacy records.\nCross\u2011Border Transfer (positive): Data Export Approval DEA\u201126\u2011041 covers transfer of limited employee contact data (work name, role title, work email) to the processor \u201cMokpo Cloud Analytics KK\u201d in Japan under company standard contractual safeguards and DPA Schedule DP\u20112, effective 2026\u201103\u201101",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@daehancircuitry.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limited to what is necessary",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Daehan Circuitry Co., Ltd. (KRX KOSDAQ issuer) and Solbaram Partners SPC propose a strategic financing via non-voting convertible preferred shares.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention/Minimisation: Diligence\u2011related personal data will be retained for up to three years from closing or earlier erasure where legally permissible; collection is limited to what is necessary for FSC/FSS\u2011supervised reporting.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Daehan Circuitry Co., Ltd. (KRX KOSDAQ issuer) and Solbaram Partners SPC propose a strategic financing via non-voting convertible preferred shares.\nUse of Proceeds: General working capital and domestic R&D; no proceeds allocated to share buybacks absent a separate board resolution.\nPublic Disclosure/MNPI: Issuer confirms all important information per the FSCMA has been publicly disclosed on DART; no MNPI will be provided in diligence absent formal wall\u2011crossing and clean\u2011team procedures.\nRegulatory: Filing of material facts and investor\u2011relations notices on KRX to be completed prior to signing; no objection or comment from the FSC/FSS is anticipated based on prior consultations.\nConfidentiality: A mutual NDA will govern diligence; clean\u2011team access only to aggregated financials and anonymised operational metrics.\nData Processing Addendum: A DPA is attached as Schedule DP\u20111; \u201cpersonal information\u201d is defined in accordance with PIPA, and special identification information will be handled with heightened controls.\nOnboarding/KYC Forms: Investor onboarding forms request minimal data fields; Resident Registration Number fields are disabled and display the placeholder 000000-0000000, with masking applied to any legacy records.\nCross\u2011Border Transfer (positive): Data Export Approval DEA\u201126\u2011041 covers transfer of limited employee contact data (work name, role title, work email) to the processor \u201cMokpo Cloud Analytics KK\u201d in Japan under company standard contractual safeguards and DPA Schedule DP\u20112, effective 2026\u201103\u201101.\nConsent Withdrawal: If a data subject withdraws consent, processing ceases and erasure is executed per the retention matrix; there are no pending withdrawals as of the date of this term sheet.\nDSAR Handling: Data subject access requests will be accepted via privacy.office@daehancircuitry.example and fulfilled within statutory timelines; no open DSARs are noted in the compliance memo.\nRetention/Minimisation: Diligence\u2011related personal data will be retained for up to three years from closing or earlier erasure where legally permissible; collection is limited to what is necessary for FSC/FSS\u2011supervised reporting.\nEmployment Data Scope: Secondment onboarding for integration planning will collect only role descriptors and work contact details; payroll numbers, bank account information, and resident\u2011number images are excluded from the data room.\nConditions Precedent: Completion of DPA schedules, delivery of the privacy compliance memo CP\u2011IR\u20112026, confirmation of KRX notices, and receipt of customary board approvals.\nNegative Clarification: This term sheet does not authorise any immediate deletion, transfer, or disclosure of MNPI; references to erasure, cross\u2011border transfer, and resident\u2011numb",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Onboarding/KYC Forms: Investor onboarding forms request minimal data fields; Resident Registration Number fields are disabled and display the placeholder 000000-0000000, with masking applied to any legacy records.\nCross\u2011Border Transfer (positive): Data Export Approval DEA\u201126\u2011041 covers transfer of limited employee contact data (work name, role title, work email) to the processor \u201cMokpo Cloud Analytics KK\u201d in Japan under company standard contractual safeguards and DPA Schedule DP\u20112, effective 2026\u201103\u201101",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "role-noun/section label treated as a defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "role noun defined term, not a named person"
+    },
+    {
+      "matched_text": "processor",
+      "reason": "role noun defined term, not a named person"
+    },
+    {
+      "matched_text": "NDA",
+      "reason": "contract acronym not in target definitive-agreement rules"
+    },
+    {
+      "matched_text": "DPA",
+      "reason": "policy acronym/schedule reference, not PII/MNPI"
+    },
+    {
+      "matched_text": "KYC",
+      "reason": "regulatory acronym, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "Data subject access requests",
+      "reason": "DSAR handling is privacy-relevant but no explicit DSAR rule is listed in allowed PII rules"
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure is executed",
+      "reason": "Erasure is a privacy event but no explicit erasure rule is in allowed list"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "retained for up to three years from closing",
+      "reason": "Retention period is privacy-relevant but no explicit retention rule is in allowed list"
+    },
+    {
+      "concept": "special identification information",
+      "matched_text": "special identification information",
+      "reason": "Korean PIPA concept for sensitive IDs; not enumerated in allowed PII rules"
+    },
+    {
+      "concept": "kr_rrn category mention",
+      "matched_text": "Resident Registration Number",
+      "reason": "Category mention without an actual ID number; allowed rule expects a numeric RRN value"
+    },
+    {
+      "concept": "embargo/timing reference",
+      "matched_text": "prior to signing",
+      "reason": "Timing reference related to signing but does not match explicit embargo markers"
+    },
+    {
+      "concept": "resident number sensitive data reference",
+      "matched_text": "resident\u2011number images",
+      "reason": "Sensitive ID-document reference but not covered by specific allowed PII rules"
+    }
+  ]
+}

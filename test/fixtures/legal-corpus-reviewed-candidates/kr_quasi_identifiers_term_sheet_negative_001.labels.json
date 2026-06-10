@@ -1,0 +1,281 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "KR",
+    "doc_id": "kr_quasi_identifiers_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/kr/quasi_identifiers/kr_quasi_identifiers_term_sheet_negative_001.txt",
+    "source_jurisdiction": "KR",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/kr_quasi_identifiers_term_sheet_negative_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_quasi_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "1989-07-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SD-UL-9921",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KYC/AML form placeholders (for post-closing): Name (print): ______; Resident Registration No. (if required by law): 000000-0000000; Address: ______; Account No.: ___-____-_____ (invalid sample); Device IMEI: [not collected].",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Timetable: Signing targeted for Q3 2026 and closing within 30\u201360 days thereafter, subject to FSC clearance and standard closing deliverables.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1989-07-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SN SD-UL-9921",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SRD-OPS-311",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000000-0000000",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@seorimdynamics.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UL-OPS-117",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Resident Registration No. (if required by law): 000000-0000000",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee onboarding and retention (intended positive cluster): designated operations manager (DOB 1989-07-14), stationed at Ulsan logistics center, uses company tablet SN SD-UL-9921 and laptop tag UL-OPS-117, payroll account tail 4420, internal HR ID SRD-OPS-311, intranet handle \u201coceanleaf\u201d; no personal name is recorded in this term sheet",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll account tail 4420",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "generic demographic information (e.g., age band, city, job title) may be used for workforce planning without identifying an individual",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "observer shall use a role mailbox only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prohibition on insider trading and sharing of MNPI",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confirmation that no MNPI is withheld from the market as of signing",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "1989-07-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SD-UL-9921",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KYC/AML form placeholders (for post-closing): Name (print): ______; Resident Registration No. (if required by law): 000000-0000000; Address: ______; Account No.: ___-____-_____ (invalid sample); Device IMEI: [not collected].",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Timetable: Signing targeted for Q3 2026 and closing within 30\u201360 days thereafter, subject to FSC clearance and standard closing deliverables.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Timetable: Signing targeted for Q3 2026 and closing within 30\u201360 days thereafter, subject to FSC clearance and standard closing deliverables.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to FSC clearance",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Investment in Seorim Dynamics Co., Ltd. by Blueharbor Growth Fund SPC (non-binding; for discussion).\nSummary and status: The parties publicly announced their intent on 2025-03-18 via KRX KIND; this draft does not contain undisclosed material facts.\nParties: Issuer \u2014 Seorim Dynamics Co., Ltd. (KOSDAQ-listed, manufacturing telemetry modules); Investor \u2014 Blueharbor Growth Fund SPC and affiliates.\nStructure: Primary issuance of new common shares with a concurrent secondary sale by an existing shareholder; final mix to be agreed.\nConsideration: Combination of cash and exchangeable notes; indicative price per share and quantity to be determined after due diligence and board approval.\nRegulatory and listing: Filings with the FSC and FSS as required under the FSCMA; listing maintenance with KRX; fair disclosure via KIND and issuer IR website.\nConditions precedent: No breach of law; absence of unremedied audit qualifications; confirmation that no MNPI is withheld from the market as of signing.\nEmployee onboarding and retention (intended positive cluster): designated operations manager (DOB 1989-07-14), stationed at Ulsan logistics center, uses company tablet SN SD-UL-9921 and laptop tag UL-OPS-117, payroll account tail 4420, internal HR ID SRD-OPS-311, intranet handle \u201coceanleaf\u201d; no personal name is recorded in this term sheet.\nKYC/AML form placeholders (for post-closing): Name (print): ______; Resident Registration No. (if required by law): 000000-0000000; Address: ______; Account No.: ___-____-_____ (invalid sample); Device IMEI: [not collected].\nCorporate approvals: Issuer and investor board approvals; KRX pre-review if required; labor union consultation for non-economic terms where applicable.\nCovenants: Use of proceeds limited to R&D and working capital; prohibition on insider trading and sharing of MNPI; public IR updates to be posted quarterly.\nInvestor rights: Registration rights under Korean shelf registration regime, ROFR on certain future issuances, and one observer seat; observer shall use a role mailbox only.\nTimetable: Signing targeted for Q3 2026 and closing within 30\u201360 days thereafter, subject to FSC clearance and standard closing deliverables.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role-noun defined term; not PII."
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Role-noun defined term; not PII."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun collective; not PII."
+    },
+    {
+      "matched_text": "observer",
+      "reason": "Generic role noun; not PII."
+    },
+    {
+      "matched_text": "Device IMEI: [not collected]",
+      "reason": "No identifier value present."
+    },
+    {
+      "matched_text": "age band, city, job title",
+      "reason": "Generic demographics; not identifying on their own."
+    },
+    {
+      "matched_text": "labor union consultation",
+      "reason": "Organizational process; not an individual's trade union membership."
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "username/handle",
+      "matched_text": "intranet handle \u201coceanleaf\u201d",
+      "reason": "Personal handle is identifying but there is no explicit allowed rule for usernames."
+    },
+    {
+      "concept": "location as quasi-identifier",
+      "matched_text": "Ulsan logistics center",
+      "reason": "Work location can contribute to identifiability but is not a standalone allowed rule."
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "Signing targeted for Q3 2026",
+      "reason": "Timing language suggests an embargo-like milestone but lacks explicit marker terms such as \"Signing Date\"."
+    }
+  ]
+}

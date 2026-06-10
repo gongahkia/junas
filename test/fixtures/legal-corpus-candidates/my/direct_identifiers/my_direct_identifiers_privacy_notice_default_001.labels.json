@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -207,6 +207,12 @@
       "category": "MNPI",
       "matched_text": "outside need-to-know",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We process personal data under the PDPA (information relating directly or indirectly to an identified or identifiable data subject), including names, NRIC/Passport, contact details, and device IDs collected in employment, financing and deal documentation.\nFor onboarding, we may collect NRIC No.: 900101-14-1234 and Malaysia Passport No.: A8234567 for YBhg. Dato\u2019 Suriya Rahman (director) to satisfy Bursa and CMSA suitability and reporting checks.\nPayroll and reimbursement require bank details (MYR Current A/C: 00-0000-000000) and mobile contact +60 19-700 1122; where possible, we mask account numbers beyond the last four digits",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -297,7 +303,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "We process personal data under the PDPA (information relating directly or indirectly to an identified or identifiable data subject), including names, NRIC/Passport, contact details, and device IDs collected in employment, financing and deal documentation.\nFor onboarding, we may collect NRIC No.: 900101-14-1234 and Malaysia Passport No.: A8234567 for YBhg. Dato\u2019 Suriya Rahman (director) to satisfy Bursa and CMSA suitability and reporting checks.\nPayroll and reimbursement require bank details (MYR Current A/C: 00-0000-000000) and mobile contact +60 19-700 1122; where possible, we mask account numbers beyond the last four digits",
+      "matched_text": "For onboarding, we may collect NRIC No.: 900101-14-1234 and Malaysia Passport No.: A8234567 for YBhg. Dato\u2019 Suriya Rahman (director) to satisfy Bursa and CMSA suitability and reporting checks.\nPayroll and reimbursement require bank details (MYR Current A/C: 00-0000-000000) and mobile contact +60 19-700 1122; where possible, we mask account numbers beyond the last four digits",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
     }

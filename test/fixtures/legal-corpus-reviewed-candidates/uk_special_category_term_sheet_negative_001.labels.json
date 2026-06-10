@@ -1,0 +1,265 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_special_category_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/special_category/uk_special_category_term_sheet_negative_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_special_category_term_sheet_negative_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 14,
+    "current_must_detect_count": 9,
+    "current_must_not_detect_count": 9,
+    "previous_ideal_must_detect_count": 8,
+    "previous_must_detect_count": 5,
+    "previous_must_not_detect_count": 9
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_special_category_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ongoing treatment for type 1 diabetes",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ongoing treatment for type 1 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists to be maintained per Article 18 UK MAR",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dealteam@wrenford-capital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no further health data will be processed for diligence",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Class 1 transaction",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Northlake Payments Ltd by Wrenford Capital plc (LSE Main Market issuer regulated by the FCA) [Date: 20X6].",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Acquisition of 100% of the shares via share purchase; consideration mix of cash and new Wrenford Capital plc ordinary shares at \u00a3X.XX per share (illustrative).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Underwritten placing of new shares and a committed revolving facility from Hawthorne Bridge Bank Limited; placeholder identifiers ISIN: GB00-XYZ-0000 and Facility Ref: 000-ABC-000 (invalid).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dealteam@wrenford-capital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Northlake Payments Ltd by Wrenford Capital plc (LSE Main Market issuer regulated by the FCA) [Date: 20X6].",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Acquisition of 100% of the shares via share purchase; consideration mix of cash and new Wrenford Capital plc ordinary shares at \u00a3X.XX per share (illustrative).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Underwritten placing of new shares and a committed revolving facility from Hawthorne Bridge Bank Limited; placeholder identifiers ISIN: GB00-XYZ-0000 and Facility Ref: 000-ABC-000 (invalid).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Northlake Payments Ltd by Wrenford Capital plc (LSE Main Market issuer regulated by the FCA) [Date: 20X6].\nStructure: Acquisition of 100% of the shares via share purchase; consideration mix of cash and new Wrenford Capital plc ordinary shares at \u00a3X.XX per share (illustrative).\nRegulatory: May constitute a Class 1 transaction; any announcement to be made via a non-MNPI RNS and in accordance with UK MAR and DTR 2; insider lists to be maintained per Article 18 UK MAR.\nConditions precedent: FCA change-in-control approval (FSMA s.178), no Phase 2 CMA reference, and consent from the LSE; seller warranties customary for a UK financial-services deal.\nFinancing: Underwritten placing of new shares and a committed revolving facility from Hawthorne Bridge Bank Limited; placeholder identifiers ISIN: GB00-XYZ-0000 and Facility Ref: 000-ABC-000 (invalid).\nTimetable: Heads agreed; public intention to proceed noted in prior illustrative RNS of 01/01/20X0; long-stop date 20X6-Q4; all dates subject to FCA clearance.\nEmployees: No redundancies planned; TUPE considerations to be reviewed; generic Wellness@Work Policy and Data Harmony Policy apply across the group.\nInsider information: This term sheet contains no inside information and is not a recommendation; it uses generic examples and stale public facts for illustration.\nIntentional disclosure (special category): Employee A, solely for occupational health assessment, has disclosed ongoing treatment for type 1 diabetes; no further health data will be processed for diligence.\nData room & security: Access subject to Biometric Access Control Policy at the Canary Wharf office; the policy describes systems, not any individual\u2019s biometrics.\nBusiness integration: Migration of the Aurora Edge payments platform to Wrenford\u2019s CloudForge v9 within 180 days post-completion; Leeds hub to coordinate.\nCulture & DEI: Rainbow Inclusion Commitment and Conduct & Culture Framework will apply; this clause is aspirational DEI prose and has no bearing on MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Biometric Access Control Policy",
+      "reason": "Policy name about systems, not an individual biometric identifier"
+    },
+    {
+      "matched_text": "Wellness@Work Policy",
+      "reason": "Policy/DEI title, not PII/MNPI"
+    },
+    {
+      "matched_text": "Data Harmony Policy",
+      "reason": "Policy title, not PII/MNPI"
+    },
+    {
+      "matched_text": "Rainbow Inclusion Commitment",
+      "reason": "Aspirational DEI prose, not PII/MNPI"
+    },
+    {
+      "matched_text": "Conduct & Culture Framework",
+      "reason": "Policy/framework name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Brixton Rovers",
+      "reason": "Sports team reference; false-positive bait"
+    },
+    {
+      "matched_text": "Canary Wharf",
+      "reason": "Place name/location, not personal data"
+    },
+    {
+      "matched_text": "Aurora Edge",
+      "reason": "Product/platform name, not PII/MNPI"
+    },
+    {
+      "matched_text": "CloudForge v9",
+      "reason": "Product/version name, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "pseudonymous_identifier",
+      "matched_text": "Employee A",
+      "reason": "Identifies a specific individual in context but not covered by named_person rule; pseudonymous label tied to health data"
+    },
+    {
+      "concept": "material_event",
+      "matched_text": "Underwritten placing of new shares",
+      "reason": "If non-public, a capital raise could be MNPI; here presented illustratively"
+    },
+    {
+      "concept": "customer_account_number",
+      "matched_text": "Facility Ref: 000-ABC-000",
+      "reason": "Looks like an internal reference number; placeholder and not clearly personal data"
+    },
+    {
+      "concept": "data_minimisation_marker",
+      "matched_text": "no further health data will be processed for diligence",
+      "reason": "Indicates data minimisation control but phrased as a negation; borderline under rule excluding negated controls"
+    }
+  ]
+}

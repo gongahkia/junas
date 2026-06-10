@@ -46,11 +46,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -237,6 +237,12 @@
       "matched_text": "Term Sheet Usulan Akuisisi Strategis (Non-Binding) \u2014 PT Nusantara Pay Tbk (Perseroan) dan PT Citra Lintas Data (Target)\nTransaksi: Perseroan bermaksud mengakuisisi 80% saham Target seharga IDR 480.000.000.000; informasi ini bersifat material non-publik hingga penyampaian resmi kepada Otoritas Jasa Keuangan Persada (OJK-P) dan Bursa Efek Samudra (BES).\nPembayaran: kombinasi tunai IDR 280.000.000.000 dan penerbitan Obligasi Konversi internal Kelas A; pendanaan berasal dari fasilitas sindikasi Bank Samudra Raya (fiksi) dan kas internal Perseroan.\nSyarat Tunda: persetujuan RUPSLB, pernyataan efektif OJK-P, persetujuan BES, penyelesaian uji tuntas keuangan/teknologi, dan pemenuhan perizinan PSE untuk layanan pembayaran dan pinjaman berbasis aplikasi.\nKetentuan Kepegawaian: manajemen Target (termasuk CTO) menandatangani perjanjian kerja 24 bulan; tidak ada perubahan pada skema tunjangan yang diatur dalam PKB; paket retensi dibayarkan bertahap jika KPI pascaintegrasi tercapai.\nKeterbukaan Informasi: pengumuman publik dilakukan setelah persetujuan Dewan Komisaris; draf memo dewan bertanggal 17-07-2026 disimpan di data room Perseroan dan hanya dapat diakses oleh pihak berwenang.\nKontak internal (cluster quasi-identifier): Bpk. Farhan Aditya, CFO, lahir 12-06-1985 (39 tahun), domisili Kota Samudra, email farhan.aditya@nusantarapay.example.id, perangkat kerja NusaTab-3 ID NP-CFO-Tab-77, sesi VPN SID-85F3, rekening payroll Bank Samudra Raya ****7890.\nSelama uji tuntas, Bpk. Farhan mengakses folder \u201cModel Keuangan\u201d dari kantor Kawasan Bisnis Samudra Lantai 15, jaringan Wi-Fi kantor SSID NP-DirOps, pukul 21:14 WIB; catatan akses tersebut merupakan informasi material non-publik dan tunduk pada kebijakan keamanan internal.\nContoh umum non-identifikasi (terpisah): usia 33, domisili kota besar, jabatan analis di sektor ritel, perangkat Android generik, 4 digit akhir e-wallet 1122\u2014informasi tersebut sendiri tidak mengidentifikasi individu.\nPerwakilan Target: Ibu Diah Kirana (CEO), kontak negosiasi via dealroom@citralintasdata.example.id; kewenangan terbatas pada hal komersial sampai persetujuan akhir ditandatangani.\nPenutupan diestimasi 60 hari kerja sejak efektif OJK-P; Rencana Akuntansi: konsolidasi lini bisnis pembayaran QR dan pinjaman mikro; integrasi karyawan mengikuti PKB dan sosialisasi perubahan struktur gaji.\nEksklusivitas dan No-Shop: 45 hari sejak tanggal term sheet; Target dilarang mencari penawar alternatif dan tidak boleh menerbitkan saham/opsi baru tanpa persetujuan tertulis Perseroan.\nPembatalan: berlaku break fee IDR 9.600.000.000 jika salah satu pihak mundur tanpa sebab wajar; sengketa diselesaikan melalui BASA (Badan Arbitrase Samudra Asia) dengan tempat arbitrase di Kota Samudra.\nKepatuhan: pengolahan Data Pribadi sesuai Kebijakan PDP Perseroan dan ketentuan OJK-P; hanya quasi-identifiers diproses untuk KYC; log akses sistem disimpan maksimal 90 hari dan dienkripsi.\nPernyataan presisi: penyebutan \u201cpegawai usia 28 di Bandung\u201d atau \u201cpengguna iOS\u201d dalam memo HR bersifat generik dan tidak mengidentifikasi siapa pun tanpa konteks tambahan.\nKontak Perseroan: Sekretaris Perusahaan, Dr. Yudha Santosa, corpsec@nusantarapay.example.id, hotline internal 150-882; jadwal RUPSLB tentatif 22-08-2026 di Kantor Pusat, Jl. Samudra Indah No. 10, Ko",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Farhan Aditya, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

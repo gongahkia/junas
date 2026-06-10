@@ -1,0 +1,422 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "EU",
+    "doc_id": "eu_special_category_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/eu/special_category/eu_special_category_privacy_notice_default_001.txt",
+    "source_jurisdiction": "EU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/eu_special_category_privacy_notice_default_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 39,
+    "current_must_detect_count": 13,
+    "current_must_not_detect_count": 9,
+    "previous_ideal_must_detect_count": 32,
+    "previous_must_detect_count": 22,
+    "previous_must_not_detect_count": 9
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_special_category_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@aurorameridian.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+999 1200 4500",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sofia Lenz",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Livia Petrescu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AM-4142",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee ID AM-4142",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "provided a facial\u2011recognition template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "facial\u2011recognition template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "certified sick\u2011leave",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Oskar Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declared union membership",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Sir Cillian Drummond",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure of a fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a note linking his vegetarian meals to religious observance",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religious observance",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@aurorameridian.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Kov\u00e1cs",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "self\u2011identified as bisexual",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bisexual",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border transfers rely on SCCs with supplementary encryption and a transfer impact assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "third country",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "strictly limited to necessity",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "special\u2011category data strictly limited to necessity",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we pseudonymise and archive minimal audit logs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAR Art 18 insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public terms of a contemplated private placement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossed insiders",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted repositories",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider\u2011list versioning",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimal audit logs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purposes include: maintaining MAR Art 18 insider lists, wall\u2011crossing for financing of Aurora Meridian Series B Green Notes, whistleblowing triage, and CSRD/SFDR disclosures; legal bases are Art 6(1)(c) compliance with legal obligations and, for special categories, Art 9(2)(b) and (g).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal data may include identification, contact and employment details, trading restrictions, and special\u2011category data strictly limited to necessity, such as biometric clock\u2011in templates and occupational health notes for access controls and legal claims. \nIn March 2026, Dr. Livia Petrescu (employee ID AM-4142, Novigrad R&D) provided a facial\u2011recognition template and certified sick\u2011leave; and Mr. Oskar Vale declared union membership during a conflicts\u2011of\u2011interest review. \nOn 2026\u201104\u201122, Sir Cillian Drummond asked for erasure of a fingerprint template and a note linking his vegetarian meals to religious observance via our DSAR portal at privacy@aurorameridian.eu; processing was restricted pending legal hold",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+999 1200 4500",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AM-4142",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sofia Lenz",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Livia Petrescu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Oskar Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purposes include: maintaining MAR Art 18 insider lists, wall\u2011crossing for financing of Aurora Meridian Series B Green Notes, whistleblowing triage, and CSRD/SFDR disclosures; legal bases are Art 6(1)(c) compliance with legal obligations and, for special categories, Art 9(2)(b) and (g).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We act as controller; contact our Data Protection Officer, Ms. Sofia Lenz, at dpo@aurorameridian.eu or +999 1200 4500 for any request under GDPR. \nPurposes include: maintaining MAR Art 18 insider lists, wall\u2011crossing for financing of Aurora Meridian Series B Green Notes, whistleblowing triage, and CSRD/SFDR disclosures; legal bases are Art 6(1)(c) compliance with legal obligations and, for special categories, Art 9(2)(b) and (g). \nPersonal data may include identification, contact and employment details, trading restrictions, and special\u2011category data strictly limited to necessity, such as biometric clock\u2011in templates and occupational health notes for access controls and legal claims. \nIn March 2026, Dr. Livia Petrescu (employee ID AM-4142, Novigrad R&D) provided a facial\u2011recognition template and certified sick\u2011leave; and Mr. Oskar Vale declared union membership during a conflicts\u2011of\u2011interest review. \nOn 2026\u201104\u201122, Sir Cillian Drummond asked for erasure of a fingerprint template and a note linking his vegetarian meals to religious observance via our DSAR portal at privacy@aurorameridian.eu; processing was restricted pending legal hold. \nWe also receive limited voluntary DEI survey data where Ms. Hana Kov\u00e1cs self\u2011identified as bisexual, which is never used for hiring or performance decisions and is aggregated for CSRD metrics. \nMNPI is captured in restricted repositories during transactions (e.g., non\u2011public terms of a contemplated private placement) and is disclosed only to wall\u2011crossed insiders and the National Competent Authority of Monturia on request. \nProcessors include Nebula Metrics LLC (Urbaria, third country) for scenario modelling and Cloudolith BV (Eirgrad, EU) for secure hosting; cross\u2011border transfers rely on SCCs with supplementary encryption and a transfer impact assessment. \nData are retained for five years after the last update of an insider list, two years for access control biometrics, and as required by the Labour Code of Novaria for whistleblowing files, after which we pseudonymi",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "In March 2026, Dr. Livia Petrescu (employee ID AM-4142, Novigrad R&D) provided a facial\u2011recognition template and certified sick\u2011leave; and Mr. Oskar Vale declared union membership during a conflicts\u2011of\u2011interest review. \nOn 2026\u201104\u201122, Sir Cillian Drummond asked for erasure of a fingerprint template and a note linking his vegetarian meals to religious observance via our DSAR portal at privacy@aurorameridian.eu; processing was restricted pending legal hold",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LatticeSpark",
+      "reason": "Product name, not PII/MNPI."
+    },
+    {
+      "matched_text": "genetic\u2011algorithm module",
+      "reason": "Algorithm/product feature; not personal genetic data."
+    },
+    {
+      "matched_text": "Riverton Meteors",
+      "reason": "Sports team; not PII/MNPI."
+    },
+    {
+      "matched_text": "Euronexia Growth Market of Novaria",
+      "reason": "Market/place name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Series B Green Notes",
+      "reason": "Security/product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "biometric precision",
+      "reason": "Metaphor per text; not a data element."
+    },
+    {
+      "matched_text": "DEI",
+      "reason": "Generic policy acronym; not PII."
+    },
+    {
+      "matched_text": "sexual orientation, religion, or health information",
+      "reason": "Negated policy statement; not about an identifiable person."
+    },
+    {
+      "matched_text": "genetic data",
+      "reason": "Negated generic reference; not personal data in this context."
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "restriction_marker",
+      "matched_text": "processing was restricted pending legal hold",
+      "reason": "GDPR Art 18 restriction of processing is privacy-relevant but no explicit allowed rule provided."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "Data are retained for five years after the last update of an insider list, two years for access control biometrics, and as required by the Labour Code of Novaria for whistleblowing files",
+      "reason": "Retention durations are privacy-relevant but not listed as an allowed rule key."
+    },
+    {
+      "concept": "dsar_request_marker",
+      "matched_text": "DSAR portal",
+      "reason": "Indicates a data subject rights submission channel; not mapped to a specific allowed rule."
+    },
+    {
+      "concept": "automated_decision_marker",
+      "matched_text": "no solely automated decisions with legal or similarly significant effects are taken",
+      "reason": "Art 22 automated-decision statement is privacy-relevant but not covered by allowed rules."
+    }
+  ]
+}

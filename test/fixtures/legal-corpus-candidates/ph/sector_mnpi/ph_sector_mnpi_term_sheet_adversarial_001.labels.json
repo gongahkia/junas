@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -506,6 +506,12 @@
       "matched_text": "Project Talangka Term Sheet \u2014 Proposed Acquisition of BitKat Remit Corp. (PH private) by Luneta Renewables Holdings, Inc. (PH private).\nPrimary contacts: Atty. Marisela Quinto (Buyer Counsel) marisela.quinto@lrhi.ph; Mr. Elvin R. Dalisay (Seller CFO) elvin.dalisay@bitkatremit.ph; office: Unit 1902, Larawan Center, Barangay Liwayway, San Pedro Norte, Metro Balintawak 1245 (fictional).\nTransaction: LRHI to acquire 80% of Target\u2019s outstanding shares; consideration in Philippine Pesos; intended sustainability-linked financing; filings to be made under the Philippine Securities Regulation Code with the Securities and Listings Bureau (SLB\u2011Ph) and, if required, the Mabini Stock Exchange (MSE), subject to confidentiality controls.\nConsideration and escrow: PHP 1,250,000,000; 10% escrow at IslaTrust Cooperative acct 00-9x-44-113 for 18 months; completion accounts with customary net debt/working capital adjustments; DST and local transfer levies borne 50/50.\nDigital assets/crypto: Target operates the BKAT token and a cross\u2011chain bridge; pre\u2011closing covenants require disabling mint functions, wind\u2011down of non\u2011KYC wallets, and no announcement of token features; BKAT is not listed on any exchange and may be converted or burned at Buyer\u2019s option; bridge risk may trigger intangible impairment in post\u2011closing purchase accounting.\nCyber and data: Due diligence notes a 12 May 2026 credential\u2011stuffing incident (non\u2011public); remediation underway with BugShield Pro EDR deployment and third\u2011party attestations pending; closing conditional on clean penetration test and evidence of customer notification templates per privacy policy.\nESG/climate: Condition precedent for climate\u2011risk assessment of data center energy mix and renewable PUE; Seller to source REC equivalents for 24 months; covenants for GHG scope 2 intensity baseline and quarterly emissions reporting to support green financing.\nCommercial terms: Earn\u2011out up to PHP 250,000,000 over 24 months if monthly active wallets exceed 500,000 and net take rate \u2265 1.2%; break fee PHP 25,000,000; non\u2011compete and non\u2011solicit for 36 months; warranties on wallet balances, private\u2011key management, and token treasury.\nInsider list and blackout: Insider list to be maintained per SRC best practice; trading blackout for LRHI insiders from signing until MSE disclosure; information labeled \u201cconfidential nonpublic\u201d; no tipping or selective disclosure to third parties, partners, or influencers.\nInformation barriers: LRHI Capital Markets and Sales to be ring\u2011fenced; only deal team access to \u201cProject Talangka\u201d mailbox at dealroom://mse.local/r/9f-a2; audit trail and read\u2011receipt controls enabled; T r a d i n g   b l a c k o u t   w i n d o w   r e m i n d e r s   t o   b e   a u t o \u2011 n o t i f i e d.\nEducational/marketing (benign): The retail app user guide uses the words crypto wallet and token bridge in a training screenshot about password hygiene only and does not describe pricing, issuance, or investment features.\nHR/tax/ops: Key employee retention pool PHP 60,000,000; no change\u2011in\u2011control tax gross\u2011up; DST and withholdings handled per Pagasa Revenue Authority circulars (fictional); standard PH labor code compliance; migration plan for payroll wallets to bank rails by T+45.\nNegative/precision bait: For illustration only, this draft expressly does not include nor trigger any material adverse change concept and cites public\u2011source climate FAQs (e.g., \u201cKamalig University open notes\u201d) without reliance on unpublished data.\nDisclosure controls: Announcements to MSE/SLB\u2011Ph and company website only upon clearance; until then, treat all terms as MNPI; management Q&A to be recorded to avoid selective disclosure; url https://docs.lrhi.ph/talangka?uid=AB12-xyZZ-9900.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of BitKat Remit Corp",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

@@ -1,0 +1,455 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "EU",
+    "doc_id": "eu_jurisdictional_mnpi_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/eu/jurisdictional_mnpi/eu_jurisdictional_mnpi_term_sheet_default_001.txt",
+    "source_jurisdiction": "EU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/eu_jurisdictional_mnpi_term_sheet_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 41,
+    "current_must_detect_count": 19,
+    "current_must_not_detect_count": 6,
+    "previous_ideal_must_detect_count": 32,
+    "previous_must_detect_count": 20,
+    "previous_must_not_detect_count": 6
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_jurisdictional_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac148m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac32m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac120m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "c.22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure delayed under MAR Art 17(4) until signing",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market soundings",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "l.brandt@stonebridgeren.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@stonebridgeren.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dr. Livia Brandt",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Paolo Ricci",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfers of personal data outside the EEA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no processing of special\u2011category personal data (GDPR Art 9) other than aggregated, anonymised workforce statistics for reporting",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean\u2011team protocols",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to Aurelia Financial Markets Authority (AFMA) merger clearance and customary approvals",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Expected signing 28 June 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closing in Q4 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if confidentiality cannot be ensured",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossing consents",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "under NDA",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CSRD reporting",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SFDR PAI indicators",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Acquisition of HelixGrid Oy by Stonebridge Renewables N.V",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AFMA merger clearance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dr",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2014 Indicative Term Sheet: Proposed Acquisition of HelixGrid Oy by Stonebridge Renewables N.V.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Acquisition of 70% of issued shares at signing with a call option for the remaining 30% exercisable 24\u201336 months post-closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration: \u20ac148m cash at closing plus \u20ac32m earn-out; c.22% of Issuer\u2019s last reported market capitalisation, assessed for issuer\u2011relative materiality and likely to be price-sensitive.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Timetable: Expected signing 28 June 2026; closing in Q4 2026, subject to Aurelia Financial Markets Authority (AFMA) merger clearance and customary approvals; this document constitutes inside information under EU MAR Art 7.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Sustainability undertakings: Post\u2011closing, Target to align with Issuer\u2019s CSRD reporting and SFDR PAI indicators; no processing of special\u2011category personal data (GDPR Art 9) other than aggregated, anonymised workforce statistics for reporting.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: AFMA merger clearance, employee information/consultation where required, no MAC, customary warranties, completion accounts in \u20ac, and notifications required by the ASE Rulebook.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Funded from existing cash and a committed \u20ac120m revolving facility from Venturo Bank S.A. (fictional), which has received only high\u2011level, non\u2011inside information to date.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "l.brandt@stonebridgeren.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dr",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Paolo Ricci",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2014 Indicative Term Sheet: Proposed Acquisition of HelixGrid Oy by Stonebridge Renewables N.V.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Acquisition of 70% of issued shares at signing with a call option for the remaining 30% exercisable 24\u201336 months post-closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration: \u20ac148m cash at closing plus \u20ac32m earn-out; c.22% of Issuer\u2019s last reported market capitalisation, assessed for issuer\u2011relative materiality and likely to be price-sensitive.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Timetable: Expected signing 28 June 2026; closing in Q4 2026, subject to Aurelia Financial Markets Authority (AFMA) merger clearance and customary approvals; this document constitutes inside information under EU MAR Art 7.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Sustainability undertakings: Post\u2011closing, Target to align with Issuer\u2019s CSRD reporting and SFDR PAI indicators; no processing of special\u2011category personal data (GDPR Art 9) other than aggregated, anonymised workforce statistics for reporting.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: AFMA merger clearance, employee information/consultation where required, no MAC, customary warranties, completion accounts in \u20ac, and notifications required by the ASE Rulebook.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Funded from existing cash and a committed \u20ac120m revolving facility from Venturo Bank S.A. (fictional), which has received only high\u2011level, non\u2011inside information to date.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac148m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac32m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac120m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2014 Indicative Term Sheet: Proposed Acquisition of HelixGrid Oy by Stonebridge Renewables N.V.\nIssuer: Stonebridge Renewables N.V., admitted to trading on the Aurelia Stock Exchange (ASE) Regulated Market; Target: HelixGrid Oy (private).\nStructure: Acquisition of 70% of issued shares at signing with a call option for the remaining 30% exercisable 24\u201336 months post-closing.\nConsideration: \u20ac148m cash at closing plus \u20ac32m earn-out; c.22% of Issuer\u2019s last reported market capitalisation, assessed for issuer\u2011relative materiality and likely to be price-sensitive.\nTimetable: Expected signing 28 June 2026; closing in Q4 2026, subject to Aurelia Financial Markets Authority (AFMA) merger clearance and customary approvals; this document constitutes inside information under EU MAR Art 7.\nDisclosure: Disclosure delayed under MAR Art 17(4) until signing; regulated information to be disseminated via ASE RIS by 07:30 CET on the next trading day or earlier if confidentiality cannot be ensured.\nInsider controls: PDMR dealing prohibited during MAR closed periods and throughout a transaction-specific blackout window; Issuer to maintain an insider list per MAR Art 18 and leak\u2011response protocols.\nPublic reference (press): The Issuer\u2019s 5 April 2026 press release stating it was \u201cconsidering smart\u2011grid opportunities\u201d is public via the Aurelia OAM and does not disclose the Target, price, or terms.\nPublic reference (filing): The Issuer\u2019s 2025 Annual Report filed with the Aurelia OAM on 20 February 2026 is public and contains no reference to this proposed transaction.\nSelective disclosure/market soundings: Limited to lenders and advisers under NDA; any market soundings to comply with MAR Art 11 with contemporaneous records and wall\u2011crossing consents.\nSustainability undertakings: Post\u2011closing, Target to align with Issuer\u2019s CSRD reporting and SFDR PAI indicators; no processing of special\u2011category personal data (GDPR Art 9) other than aggregated, anonymised workforce statistics for reporting.\nData transfers: Cross\u2011border transfers of personal data outside the EEA (to processors in Norlandia) to rely on SCCs with supplementary measures; clean\u2011team protocols apply to employee\u2011level datasets in the data room.\nConditions precedent: AFMA merger clearance, employee information/consultation where required, no MAC, customary warranties, completion accounts in \u20ac, and notifications required by the ASE Rulebook.\nFinancing: Funded from existing cash and a committed \u20ac120m revolving facility from Venturo Bank S.A. (fictional), which has received only high\u2011level, non\u2011inside information to date.\nBenign operational note: The Issuer\u2019s canteen refurbishment next week is unrelated to this transaction and is not price\u2011sensitive.\nContacts: Ms. Dr. Livia Brandt, General Counsel, l.brandt@stonebridgeren.example; Mr. Paolo Ricci, Head of Investor Relations, ir@stonebridgeren.example.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Livia Brandt, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role/defined term; not PII or MNPI itself"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role/defined term; not PII or MNPI itself"
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC; excluded per rule 8"
+    },
+    {
+      "matched_text": "The Issuer\u2019s 5 April 2026 press release stating it was \u201cconsidering smart\u2011grid opportunities\u201d is public via the Aurelia OAM and does not disclose the Target, price, or terms",
+      "reason": "Public press reference; not MNPI per negative target"
+    },
+    {
+      "matched_text": "The Issuer\u2019s 2025 Annual Report filed with the Aurelia OAM on 20 February 2026 is public and contains no reference to this proposed transaction",
+      "reason": "Public filing reference; not MNPI per negative target"
+    },
+    {
+      "matched_text": "The Issuer\u2019s canteen refurbishment next week is unrelated to this transaction and is not price\u2011sensitive",
+      "reason": "Non-price-sensitive operational note; exclude from MNPI"
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "information barrier/comms control",
+      "matched_text": "leak\u2011response protocols",
+      "reason": "Leak handling may be treated as information barrier control but not enumerated explicitly in allowed rules"
+    },
+    {
+      "concept": "disclosure timing",
+      "matched_text": "by 07:30 CET on the next trading day",
+      "reason": "Regulated dissemination timing is MAR-relevant but not mapped to a specific allowed rule"
+    },
+    {
+      "concept": "cross-border safeguard",
+      "matched_text": "SCCs with supplementary measures",
+      "reason": "Indicates transfer mechanism and safeguards; may merit its own marker beyond cross-border transfer"
+    },
+    {
+      "concept": "PDMR dealing restriction/blackout",
+      "matched_text": "PDMR dealing prohibited",
+      "reason": "Dealing prohibition suggests closed-period controls; borderline whether to tag separately from blackout window"
+    },
+    {
+      "concept": "employee consultation requirement",
+      "matched_text": "employee information/consultation",
+      "reason": "Potentially material procedural condition but not clearly covered by an allowed MNPI rule"
+    }
+  ]
+}

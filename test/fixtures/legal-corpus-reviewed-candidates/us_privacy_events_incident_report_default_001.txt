@@ -1,0 +1,16 @@
+Incident Report: Northriver HealthBank, Inc. — Operational/Privacy Event Summary, 2026-05-31 (US issuer; healthcare–banking)
+Prepared by Ms. Lila Romero, Chief Privacy Officer, with Mr. Owen Kessler, VP Cyber Risk; contact: privacy@northriverhealthbank.example, 415-555-0188
+Overview: On 2026-05-29 we detected a misconfigured SFTP credential used by vendor SilverCompass Analytics LLC during onboarding.
+Scope: Credential exposure affected a staging bucket for appointment reminders; no PHI as defined by HIPAA or GLBA account numbers were accessed.
+Data categories: hashed device IDs, partial ZIP (3-digit), and consent status flags; the DPA Schedule 2 (Data Categories/Retention) applied.
+Privacy workflow events: one DSAR from a California consumer (ticket CA-DSAR-12077) requesting access and erasure; consent withdrawal submitted by a patient household via portal on 2026-05-30.
+Actions: We implemented erasure of linked contact tokens within 7 days and placed a legal hold to preserve audit logs; retention minimisation revised from 24 to 12 months in Schedule 2.
+Cross-border transfer: automated nightly export of de-identified engagement metrics to Great Dunes Cloud EU S.à r.l. (Luxembourg) was paused pending Data-Export Approval DEA-2026-044.
+Note: Prior approval DEA-2026-031 remains closed; this control is completed and does not indicate an ongoing export risk.
+Security: Keys rotated, SFTP disabled until vendor completed refreshed onboarding form OF-2026-11; penetration review found no evidence of exfiltration.
+Reg FD/MNPI: No material non-public information about projected patient enrollments or quarterly deposit flows was shared selectively with analysts or investors; all disclosures remain in public Form 8-K filings.
+Analyst interaction on 2026-05-30 was limited to previously released metrics; internal memo to staff reiterates Rule 10b-5 and Reg FD obligations.
+HIPAA/GLBA compliance: Business Associate Agreement and GLBA vendor provisions were reviewed; SilverCompass bound to encryption-at-rest and minimisation controls under DPA Sections 3–5.
+Customer communications: CCPA notice delivered to affected California households; opt-out preferences honored, and no targeted marketing occurred after consent withdrawal.
+Regulatory engagement: We notified the U.S. Office for Civil Rights intake portal as a precaution; no state breach thresholds were triggered under applicable statutes.
+Next steps: finalize DEA-2026-044, update training for onboarding reviewers, and close DSAR CA-DSAR-12077 with confirmation email to requester by 2026-06-05.

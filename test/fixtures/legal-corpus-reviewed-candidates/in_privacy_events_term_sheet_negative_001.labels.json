@@ -1,0 +1,305 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_privacy_events_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/privacy_events/in_privacy_events_term_sheet_negative_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_privacy_events_term_sheet_negative_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_privacy_events_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child account",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Neelivra Retail Technologies Limited by Yavnika Vector Private Limited (India)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Children\u2019s data: Target states it does not onboard individuals under 18 without verifiable parental consent; a single consent withdrawal for a child account has been received and is pending suppression within 7 days before Closing",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post-closing integration: Buyer policies will align with the DPDPA and sectoral KYC norms; PAN/GSTIN of vendors will be collected through standard onboarding forms using illustrative IDs (e.g., 11AAAAA1111A1Z1) in test environments only",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "11AAAAA1111A1Z1",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000 0000 0000",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "help@service.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@neelivra.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@yavnika.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid collecting Aadhaar",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Children\u2019s data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window change",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Onboarding forms: Customer KYC templates avoid collecting Aadhaar; fields labelled \u201cAadhaar (optional \u2014 0000 0000 0000 placeholder)\u201d and \u201cPAN (not for minors)\u201d are non-mandatory, and GSTIN capture is vendor-only\nChildren\u2019s data: Target states it does not onboard individuals under 18 without verifiable parental consent; a single consent withdrawal for a child account has been received and is pending suppression within 7 days before Closing\nCross-border transfers: No customer Aadhaar/PAN/GSTIN is transferred outside India; Data-Export Approval DEA-014 for de-identified support metrics to a processor in Neralia was approved on 15-02-2026 and executed",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child account",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Neelivra Retail Technologies Limited by Yavnika Vector Private Limited (India)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Children\u2019s data: Target states it does not onboard individuals under 18 without verifiable parental consent; a single consent withdrawal for a child account has been received and is pending suppression within 7 days before Closing",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post-closing integration: Buyer policies will align with the DPDPA and sectoral KYC norms; PAN/GSTIN of vendors will be collected through standard onboarding forms using illustrative IDs (e.g., 11AAAAA1111A1Z1) in test environments only",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Neelivra Retail Technologies Limited by Yavnika Vector Private Limited (India)\nParties: Buyer \u2014 Yavnika Vector Private Limited; Target \u2014 Neelivra Retail Technologies Limited (a listed entity on the Novara Stock Exchange, India)\nStructure: Purchase of a controlling stake via share purchase and open offer, subject to SEBI (SAST) and SEBI (LODR) compliance; no price or ratio is set in this term sheet\nMNPI/UPSI: The parties acknowledge SEBI PIT obligations; no unpublished price sensitive information beyond publicly announced strategic review is shared, and financials referenced are from public quarterly filings\nConditions precedent: stock exchange no-objection, CCI approval if applicable, and receipt of a DPDPA compliance memo confirming adherence to consent, purpose limitation, and security safeguards\nData protections: Schedule D (Data Processing Addendum) incorporates retention (transaction logs purged after 365 days; last purge 31-01-2026 completed), data minimisation, and a DSAR workflow tested in Q4 FY26 with all test tickets closed\nOnboarding forms: Customer KYC templates avoid collecting Aadhaar; fields labelled \u201cAadhaar (optional \u2014 0000 0000 0000 placeholder)\u201d and \u201cPAN (not for minors)\u201d are non-mandatory, and GSTIN capture is vendor-only\nChildren\u2019s data: Target states it does not onboard individuals under 18 without verifiable parental consent; a single consent withdrawal for a child account has been received and is pending suppression within 7 days before Closing\nCross-border transfers: No customer Aadhaar/PAN/GSTIN is transferred outside India; Data-Export Approval DEA-014 for de-identified support metrics to a processor in Neralia was approved on 15-02-2026 and executed\nRepresentations: No biometrics or health data processed; employee data is limited to role emails and official titles; generic helplines and role mailboxes (e.g., help@service.example) are used for CRM entries\nRegulatory reporting: Any board decisions constituting UPSI will be disclosed by Target under SEBI (LODR) Regulation 30 prior to any trading window change; this term sheet constitutes a non-binding summary only\nPost-closing integration: Buyer policies will align with the DPDPA and sectoral KYC norms; PAN/GSTIN of vendors will be collected through standard onboarding forms using illustrative IDs (e.g., 11AAAAA1111A1Z1) in test environments only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Children\u2019s data: Target states it does not onboard individuals under 18 without verifiable parental consent; a single consent withdrawal for a child account has been received and is pending suppression within 7 days before Closing\nCross-border transfers: No customer Aadhaar/PAN/GSTIN is transferred outside India; Data-Export Approval DEA-014 for de-identified support metrics to a processor in Neralia was approved on 15-02-2026 and executed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of Neelivra Retail Technologies Limited",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR workflow tested in Q4 FY26",
+      "reason": "DSAR markers are relevant privacy events but no explicit allowed rule exists for DSAR."
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "No open DSARs or erasure requests remain as of the date hereof",
+      "reason": "Indicates DSAR status; DSAR rule is not in allowed list."
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "erasure requests",
+      "reason": "Erasure handling is a privacy event but no explicit erasure rule is provided."
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "prior erasure tickets were completed",
+      "reason": "References erasure requests completion; no allowed erasure marker rule."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retention (transaction logs purged after 365 days; last purge 31-01-2026 completed)",
+      "reason": "Retention/purge policy is relevant but there is no explicit retention rule in the allowed list."
+    },
+    {
+      "concept": "cross_border_transfer_marker",
+      "matched_text": "Data-Export Approval DEA-014 for de-identified support metrics to a processor in Neralia was approved on 15-02-2026 and executed",
+      "reason": "Cross-border transfer approval is relevant but executed (completed control), which should not be labeled per rules."
+    },
+    {
+      "concept": "cross_border_transfer_marker",
+      "matched_text": "No customer Aadhaar/PAN/GSTIN is transferred outside India",
+      "reason": "Negated cross-border transfer; relevant but excluded by rules."
+    },
+    {
+      "concept": "consent_marker",
+      "matched_text": "verifiable parental consent",
+      "reason": "General consent reference is relevant to child data but only withdrawal is covered by allowed rules."
+    }
+  ]
+}

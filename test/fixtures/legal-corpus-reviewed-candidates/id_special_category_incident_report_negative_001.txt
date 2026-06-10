@@ -1,0 +1,16 @@
+Laporan Insiden Operasional (Siber) ini disusun untuk keterbukaan informasi OJK oleh PT Seraya Fintek Tbk, emiten yang tercatat di BEI, terkait modul dompet elektronik “SakuBiru”.
+Pada 21 Mei 2026 pukul 02:30 WIB, integrasi otomatis di sandbox “SakuBiru” menggandakan hak akses ke folder laporan sehingga profil internal “read-only” dapat melihat artefak non-produksi.
+Sebanyak 24 dokumen non-produksi yang berisi kuesioner keamanan vendor dan formulir onboarding kosong terakses; tidak ada saldo, pembayaran, atau data transaksi live yang terekspos.
+Log menunjukkan hanya metadata dan nama kebijakan seperti “Kebijakan Keamanan Data 2025” serta panduan budaya “Pedoman DEI Harmoni,” tanpa data pelanggan.
+Rujukan internal seperti “Tim Rajawali,” “Sprint Maraton Compliance,” atau “Pantai Selatan” adalah metafora proyek dan tidak menunjuk ke nasabah, mitra, atau pihak terkait.
+Selembar lampiran memuat clearance kesehatan kerja milik karyawan bernama Raka Hartanto (catatan pemantauan hipertensi) dan sempat dilihat oleh dua analis TI berwenang.
+Tidak ada template biometrik, pemindaian wajah, agama, keanggotaan serikat, pandangan politik, orientasi seksual, atau data genetik; label form “NIK:”, “NPWP:”, dan “Nomor Rekening:” muncul sebagai placeholder kosong.
+Akar sebab adalah misaplikasi peran “ROLE_REPORT_VIEWER” pada modul “SakuBiru Insight” setelah patch rutin, bukan intrusi eksternal.
+Remediasi segera: RBAC di-reset pukul 07:15 WIB, indeks file dipurge, folder sandbox disinkronkan ulang, dan token sandbox diputar.
+Sebagai kehati-hatian berdasarkan kebijakan internal “POJK Keterbukaan Insiden TI”, kami akan menyampaikan keterbukaan informasi ke OJK dan ringkasan di IDXNet tanpa memuat detail kesehatan personal.
+Dampak terhadap transaksi dan MNPI: tidak mempengaruhi pelaporan keuangan, tidak mengubah panduan, dan tidak memuat informasi material non-publik terkait rencana akuisisi PT Bima Sakti Digital yang telah diumumkan sebelumnya.
+Urusan ketenagakerjaan: payroll, kontrak, dan daftar kontak staf tidak terakses; kotak surat peran hr@serayafintek.co.id tersedia untuk pertanyaan internal.
+Layanan pelanggan: call center 1500-XY9 dan email compliance@serayafintek.co.id dibuka untuk pertanyaan eksternal; ini adalah kanal publik dan tidak mengidentifikasi individu.
+Artefak pelatihan berlabel “Password:” dan “Nama Lengkap:” pada tangkapan layar adalah template lorem-ipsum tanpa isian nyata.
+Validasi kontrol: IDS, DLP, dan SIEM tidak mendeteksi eksfiltrasi; nilai SHA-256 di konsol (mis. 00AA11BB22CC) adalah hash uji yang tidak terkait dengan catatan pengguna.
+Untuk keperluan BEI/OJK, memo ini mendukung pengajuan keterbukaan informasi dalam 2x24 jam dan edaran kepada Komisaris serta Direksi; tidak ada permohonan trading halt.

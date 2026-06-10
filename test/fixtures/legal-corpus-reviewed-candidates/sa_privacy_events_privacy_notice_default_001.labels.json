@@ -1,0 +1,297 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_privacy_events_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/privacy_events/sa_privacy_events_privacy_notice_default_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_privacy_events_privacy_notice_default_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 26,
+    "new_must_detect_count": 12,
+    "old_ideal_must_detect_count": 23,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_privacy_events_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+966-11-287-9044",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nada Al-Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al-Baridi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Laila Al-Qashqari",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adil Al-Muammar",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI segregation: draft earnings, undisclosed corporate actions, and board agendas for Barq Oasis Holdings CJSC are tagged as MNPI and were not included in any export; no non-public issuer information left KSA environments.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "44781234",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR-50829910-KSA",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IQ-44781234-KSA",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@barqoasis.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@barqoasis.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew marketing consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Effective 2026-04-15",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI segregation",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft earnings",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "board agendas",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not collect biometrics or precise birth dates",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama values are truncated and salted-hash stored for verification-only matching",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "approval following an SDAIA-style procedure (KDA-XBT-2026-013) was issued by the Kingdom Data Authority on 2026-05-01",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a single export executed 2026-05-03 to Eqlim Cloud FZE (UAE)",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+966-11-287-9044",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nada Al-Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al-Baridi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Laila Al-Qashqari",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adil Al-Muammar",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI segregation: draft earnings, undisclosed corporate actions, and board agendas for Barq Oasis Holdings CJSC are tagged as MNPI and were not included in any export; no non-public issuer information left KSA environments.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "44781234",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Erasure: recruitment records for Dr. Laila Al-Qashqari (candidate) were deleted on 2026-04-28; issuer records linked to RGX disclosures are retained under legal hold and excluded from deletion pursuant to the Kingdom Securities Rulebook.\nCross-border transfer: approval following an SDAIA-style procedure (KDA-XBT-2026-013) was issued by the Kingdom Data Authority on 2026-05-01 for vendor support only; a single export executed 2026-05-03 to Eqlim Cloud FZE (UAE) included pseudonymised signatory data (hashed Iqama, truncated CR, business email) and excluded any scanned IDs",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ion identifying a natural person directly or indirectly; issuer onboarding for RGX listing collects authorized signatory name, Iqama No. IQ-44781234-KSA, corporate CR number, business email, and mobile, as declared in the Issuer Onboarding Form v3.1.\nData minimisation: we do not collect biometrics or precise birth dates for issuer onboarding; Iqama values are truncated and salted-hash stored for verification-only matching.\nConsent: Ms. Nada Al-Hazmi withdrew marketing consent on 2026-05-02 via privacy@barqoasis.sa; request closed, promotional messages suppressed within 48 hours; regulatory and service notices are unaffected.\nDSAR: Mr. Sami Al-Baridi submitted access request DSAR-2026-091 on 2026-05-10; copy of onboarding and KYC records delivered 2026-05-13 with Iqama image redacted and CR document masked; identity verified using a one-time code sent to the registered mobile.\nErasure: recruitment records for Dr. Laila Al-Qashqari (candidate) were deleted on 2026-04-28; issuer records linked to RGX disclosures are retained under legal hold and excluded from deletion pursuant to the Kingdom Securities Rulebook.\nCross-border transfer: approval following an SDAIA-style procedure (KDA-XBT-2026-013) was issued by the Kingdom Data Authority on 2026-05-01 for vendor support only; a single export executed 2026-05-03 to Eqlim Cloud FZE (UAE) included pseudonymised signatory data (hashed Iqama, truncated CR, business email) and excluded any scanned IDs.\nMNPI segregation: draft earnings, undisclosed corporate actions, and board agendas for Barq Oasis Holdings CJSC are tagged as MNPI and were not included in any export; no non-public issuer information left KSA environments.\nCompleted control: the emergency SFTP route referenced in SOP v1.2 was decommissioned on 2025-11-01 and is not available in production.\nRetention: issuer KYC data retained 10 years from offboarding; vendor support logs 12 months; marketing preferences 24 months; automated deletion job RET-CR-10Y executed 2026-05-20 (job id RET/BOH/2026/051).\nData export approval validity ended 2026-06-01; as of this memo, no further cross-border transfers are scheduled or in progress.\nSecurity note: non-production testing uses synthetic datasets only; no live PII or MNPI is present in development or UAT systems.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role-noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role-noun/defined term, not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "DSAR_marker",
+      "matched_text": "DSAR: Mr. Sami Al-Baridi submitted access request DSAR-2026-091 on 2026-05-10",
+      "reason": "Data-subject access request event; taxonomy lacks an explicit DSAR marker rule"
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "Erasure: recruitment records for Dr. Laila Al-Qashqari (candidate) were deleted on 2026-04-28",
+      "reason": "Deletion event relevant to PDPL; no explicit erasure marker in allowed rules"
+    },
+    {
+      "concept": "retention_policy",
+      "matched_text": "Retention: issuer KYC data retained 10 years from offboarding; vendor support logs 12 months; marketing preferences 24 months; automated deletion job RET-CR-10Y executed 2026-05-20 (job id RET/BOH/2026/051)",
+      "reason": "Retention durations and deletion job are privacy-handling signals not covered by a specific allowed rule"
+    },
+    {
+      "concept": "negated_cross_border_transfer",
+      "matched_text": "Data export approval validity ended 2026-06-01; as of this memo, no further cross-border transfers are scheduled or in progress",
+      "reason": "Indicates no ongoing transfers; per rule, negated or ended controls/events should not be tagged as live markers"
+    }
+  ]
+}

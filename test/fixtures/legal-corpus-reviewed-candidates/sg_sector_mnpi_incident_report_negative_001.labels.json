@@ -1,0 +1,252 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_sector_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/sector_mnpi/sg_sector_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_sector_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_sector_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "T0000000Z",
+      "rule": "sg_nric_fin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "grc@merantiquanta.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "itsc@merantiquanta.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dealing blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier tabletop",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier register",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anti-tipping messaging",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "could be price-sensitive",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed private placement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "M&A-Restricted",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending confirmation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Operational/Cyber",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No exchange announcement is contemplated at this stage",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "T0000000Z",
+      "rule": "sg_nric_fin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "grc@merantiquanta.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "itsc@merantiquanta.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Operational/Cyber \u2014 Meranti Quanta Holdings Ltd (Mainboard-listed in Singapore) \u2014 Incident Ref MQH-INC-2026-013\nWindow: 28\u201329 May 2026 SGT; Location: Head Office, Harbour Vista, Singapore\nSummary: Routine patching caused intermittent outages in UAT for the GreenLedger ESG Dashboard and the CryptoSafe Demo Node; production remained stable\nMarket sensitivity: None expected; references to \u201ccrypto\u201d are limited to lab tool names and no token issuance, custody, or trading functions were affected\nPersonal data: No PDPA personal data resides in the impacted UAT; log fields with \u201cNRIC\u201d labels hold only dummy values such as T0000000Z for testing\nDisclosure posture: Our FY2025 ESG scorecard was already released via the exchange announcement portal on 12 Apr 2026; this note merely repeats those publicly available metrics\nGovernance/training: The team concurrently ran an information-barrier tabletop and refreshed anti-tipping messaging; the insider list referenced in the drill is a blank template\nTechnical detail: A misconfigured API gateway rotated keys during a planned maintenance blackout; rollback executed and keys re-issued per local TRM guidelines\nThird-party coordination: A standard support ticket (SR-00X-TEST) was lodged with the hosting vendor through its public service desk; preliminary checks show no compromise indicators\nPositive MNPI span: Separately, preliminary forensics show a service account briefly accessed a folder containing draft board papers on a proposed private placement for Meranti Quanta Holdings Ltd; as this is not generally available and could be price-sensitive under the SFA and local exchange rules, a dealing blackout was imposed and relevant roles were added to the insider list pending confirmation\nContainment: Access to the affected collaboration site is now restricted to the \u201cM&A-Restricted\u201d security group; external sharing is disabled and no download events are observed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "planned maintenance blackout",
+      "reason": "Operational maintenance context; not a trading/dealing blackout MNPI marker"
+    },
+    {
+      "matched_text": "CryptoSafe Demo Node",
+      "reason": "Lab tool name; not a DPT/crypto market event"
+    },
+    {
+      "matched_text": "GreenLedger ESG Dashboard",
+      "reason": "Product/tool name; not an ESG pre-disclosure signal"
+    },
+    {
+      "matched_text": "FY2025 ESG scorecard",
+      "reason": "Stated as already publicly released; not MNPI"
+    },
+    {
+      "matched_text": "Company Secretarial",
+      "reason": "Organisational function; not a named person or MNPI marker"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "sgx_listed_entity_reference",
+      "matched_text": "Meranti Quanta Holdings Ltd",
+      "reason": "Issuer name implies listed status but not an SGX counter/ticker per allowed rule"
+    },
+    {
+      "concept": "internal_ticket_identifier",
+      "matched_text": "SR-00X-TEST",
+      "reason": "Unique internal support/ticket ID could be sensitive operational metadata but not covered by allowed PII rules"
+    },
+    {
+      "concept": "nonpublic_corporate_documents",
+      "matched_text": "draft board papers",
+      "reason": "Indicates confidential governance materials relevant to MNPI, but no explicit rule category covers such phrasing"
+    }
+  ]
+}

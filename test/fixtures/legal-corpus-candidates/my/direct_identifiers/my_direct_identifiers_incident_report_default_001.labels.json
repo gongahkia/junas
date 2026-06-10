@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -245,6 +245,12 @@
       "matched_text": "Incident Report \u2014 Cybersecurity Event (Internal Draft; not for external circulation).\nSaujana Data Berhad (Company No.: 201701234567 (1287654-H); Income Tax No.: C1987654321) is a public company listed on the Main Market of Bursa Polisara Securities Berhad.\nRegistered Office: Level 25, Menara Fajar, 6 Jalan Damai 3, 50470 Kuala Lumpur, Wilayah Persekutuan; Tel: +60 3-7800 4421; Email: ir@saujanadata.com.my.\nOn 2 June 2026 at 03:40 MYT, our SOC detected unauthorised encryption activity on 12 application servers in the Klang Valley data cluster attributable to the \u201cKARAPATI\u201d ransomware variant.\nPreliminary review indicates limited exfiltration of HR files including one staff profile: Encik Farid Rahman (No. MyKad: 850231-14-8891; Passport No.: A12345678; Mobile: +60 12-664 9920; Email: farid.rahman@saujanadata.com.my).\nNo customer master records or payment card data were accessed; backups remain intact and restoration is 70% complete as at 14:00 MYT.\nThe incident has disrupted order provisioning for two enterprise clients and may defer revenue recognition estimated at RM12\u201315 million for Q2 FY2026; this constitutes potentially material non-public information under the Main Market Listing Requirements.\nA draft market announcement under paragraph 9.03 of the Listing Requirements has been prepared for submission to Bursa Polisara Securities Berhad, pending Board and Risk & Audit Committee approval.\nWe have activated the incident response plan, engaged a forensics firm, and notified our insurers under Policy No.: SD-OP-662301, with banking standby via Bank Nusantara Berhad (Account No.: 5120-8899-1203).\nVendor interface keys were rotated; restoration of the billing gateway (Node BG-07) and the Petaling Jaya office WAN link are expected by 6 June 2026.\nPlease direct regulatory queries to Puan Alia Noor, Company Secretary, alia.noor@saujanadata.com.my, or the Compliance Office at +60 3-2770 1122.\nFor public enquiries, the general helpline 1-800-88-0000 is a public service number and must not be used for incident reporting; external statements are embargoed until release.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "by Encik Hafiz Salim, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

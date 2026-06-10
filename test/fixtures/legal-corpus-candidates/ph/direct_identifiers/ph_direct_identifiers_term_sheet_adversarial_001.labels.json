@@ -57,11 +57,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -307,6 +307,12 @@
       "matched_text": "Project TAMARAW \u2014 Term Sheet for proposed acquisition of 60% of Kalyonix Power Corporation by Viridia Holdings, Inc. (confidential; Philippines jurisdiction).\nBuyer: Viridia Holdings, Inc., Philippine SEC Company Reg. No.: CS20 26-093821; principal office at Unit 1203, Viridia Tower, 5th Ave cor 34th St, North Bonifacio District, Taguig 1634, Metro Manila.\nTarget: Kalyonix Power Corporation (SRC reporting company), BIR TIN 245-718-903-000; registered office at Km. 28 East Service Rd., Barangay Mabolo West, Lakan City 4029, Laguna Province.\nConsideration: PHP 4,800,000,000 cash at closing; price subject to working capital adjustment; completion targeted within 90 days of SEC clearance and PSE disclosure compliance.\nFunding and Escrow: Alfaro Trust Bank \u2013 Fort Branch, PHP Current Acct No. 00-569-104738-2 (VIRIDIA DEAL ESCROW); SWIFT: ALTFPHM2; Branch Code: 005-FORT (test-only bank codes; no live wires).\nConditions Precedent: SEC-PH clearance; PSE disclosure alignment; either compliance with or exemption from SRC Rule 19 tender offer (as applicable); no injunction; third-party consents including lenders.\nMNPI/Blackout: Parties acknowledge receipt of material non-public information; trading blackout and insider list maintenance required per SRC and PSE Listing Rules until Form 17-C is filed and public disclosure is made.\nHR and Tax: No transfer of employee personnel files; only anonymized payroll tax summaries to BIR adviser for diligence; sample SSS No. 12-3456789-9 (checksum invalid; example only) must not be used for any processing.\nCovenants: Ordinary course operations; no dividends without consent; no MAC termination for general economic or industry-wide conditions; anti-bribery and sanctions reps to be repeated at closing.\nDisclosure: Buyer and Target to file SEC Form 17-C within three (3) PSE trading days after signing; press release coordinated through joint communications protocol and IR guidelines.\nData Room: access via https://data.viridia-holdings.ph/deal?cid=CS20 26-093821&tid=245-718-903-000 (note: spacing due to OCR); document titles may include benign product names like AuroraSwitch v2 and are not personal data.\nContacts (Buyer): Mr. Ramon Ilustre, Chief Financial Officer; mobile +63 917 555 0123; ramon.ilustre@viridia-holdings.ph; for KYC only \u2014 PH Passport No.: P 7834 219 (present t",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ramon Ilustre, Chief Financial Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

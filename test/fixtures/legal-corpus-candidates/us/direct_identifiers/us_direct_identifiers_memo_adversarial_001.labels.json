@@ -82,11 +82,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -258,6 +258,12 @@
       "matched_text": "To: Board Audit & Compliance Committee; From: Ms. Alina Cortez, Chief Compliance Officer; cc: analyst relations (role only), treasury.\nEntity identifiers: Delaware Div. of Corporations File No. 6587421; E I N: 1 2 - 3 4 5 6 7 8 9; principal office 41 Spruce Loop, Fairvale, UT 84000.\nContact for follow-up: alina.cortez@virelia-thera.com; direct 415-555-0191; public helpline 800-555-1212 (general inquiries only).\nBanking workflow: Harbor & Glen Community Bank KYC received using acct 0 0 6 7 - 2 2 9 9 3 1 and ABA 123456789 (invalid per our checksum check); do not retransmit until confirmation.\nEmployee identification used for KYC: Ms. Jenna Vale (VP, Clinical Ops), U.S. passport P<USAVALE<<JENNA<<<<<<<<<<<<<<<<<<< 710238945; copy stored in secure vault.\nPreliminary Q2 admissions and payer mix indicate net patient service revenue trending ~7\u20139% above internal guidance; this is MNPI under Rule 10b-5/Reg FD and not to be shared with sell-side analysts.\nWe plan a simultaneous press release and Form 8-K filing before the Midtown Exchange investor day; any selective briefings (e.g., Mr. Dorian Pike at Lumidrift Research) are prohibited.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Alina Cortez, Chief Compliance Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

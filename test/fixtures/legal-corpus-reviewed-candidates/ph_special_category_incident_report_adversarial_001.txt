@@ -1,0 +1,16 @@
+Incident Report — Palengke Holdings, Inc.; cyber intrusion affecting HR/payroll share at Metro Balayan DC on 2026-05-29, 02:14 PHT; location tag: Barangay Liwayway (internal site code BLW-DC1).
+Prepared for the Board Audit & Risk Committee and, if warranted, for inclusion in Form 17-C under the SRC; this document avoids disclosure of trade secrets not necessary for investors’ reasonable understanding.
+Summary: an unauthorized login to BayanVault Core 3.2 via a reused vendor key allowed read-only access to an HR folder; no device MAC addresses were logged, and the intrusion lasted ~11 minutes.
+Scope of data: internal HR and payroll exports, one draft capital-markets slide deck, and a redlined policy; no ATM switch, KYC engine, or teller modules were touched despite superficial naming overlaps.
+Identified person: Mr. Roberto A. Ilagan (Employee No. HRS-093-Δ1; Finance Analyst; r.ilagan@palengkeholdings.ph) whose record included: health data (insulin therapy schedules and HMO claim codes), biometric data (fingerprint template file fp_tpl-E-09•7•5 .bin), religious affiliation declared as “Iglesia ng Liwanag” on optional HR form, union dues to “Palengke Workers Guild,” and dependent details for J.M. Ilagan (minor; SLH-15-Δ9 school ref).
+Potential MNPI observed: “Project Daluyong” draft deck on a proposed PHP-denominated bond issuance, unaudited Q2 run rates, and a term sheet with placeholder covenants; these were not publicly disclosed at the time of access.
+Assessment: a reasonable investor may find the draft terms and run-rate trends material; trading blackout was imposed for covered persons pending verification and any necessary current report.
+Non-impact notes: no tax returns or BIR e-submissions were present; system health checks passed; references to public Treasury bill calendars were in a training PDF only.
+Ancillary items: a purchase request for sports jerseys (Santa Isabela Komets) and a vendor brochure for Alabat CRM Sync were co-located; these are non-sensitive.
+Root cause: third-party token for “Alabat CRM Sync” had excessive scope; event path shows vpn.palengkeholdings.ph/login?sid=gr4y-7t&redir=h%74%74ps://intra/hr/pay/exp%2FMay; logs show acc ****-44 88 sch ed ule mismatches consistent with replay.
+Containment: vendor key revoked, TukoGuard rules tightened, CoconutDB audit flag enabled; we did not deploy any keylogger, and the breach window was a thin sliver of night.
+Contacts and notifications: DPO — Atty. Mica L. Vergara (dpo@palengkeholdings.ph); investor queries to compliance@palengkeholdings.ph; data subjects to receive notices within 72 hours per DPA guidance.
+Attachments inventory (redacted): 1) R o b e r t o _ I l a g a n _ hmo-claim.pdf, 2) fp_tpl-E-09•7•5 .bin, 3) draft17c-ProjectDaluyong_v0-9.pptx, 4) union_dues_Jan- M a r _report.csv.
+Public note draft (non-PII): “we value inclusion and accountability”; Equal Horizons DEI Policy applies to all staff; this policy does not process genetic data; the word genetic here refers to algorithms, not any person.
+Filing note: if MNPI exposure is confirmed, a brief current report will be prepared and coordinated with the Exchange; ref link h t t p s : / / filings.ph/ex/17C?id=ZX9_7- 2 1 A B.
+next steps: validate file hashes, obtain vendor attestations, finalize 17-c language, complete DPO report, and close with post-incident lessons.

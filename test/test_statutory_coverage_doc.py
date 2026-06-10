@@ -61,6 +61,12 @@ _UNIVERSAL_MNPI_RULES = {
     "contract_unit_price", "contract_discount_rate", "volume_commitment",
     "royalty_rate", "total_contract_value",
     "contingent_mnpi_language", "tipping_language", "selective_disclosure_risk",
+    "insider_list_marker", "information_barrier_marker",
+    "dpt_pre_listing_marker", "dpt_protocol_event_marker",
+    "esg_climate_pre_disclosure", "esg_target_revision",
+    "cyber_incident_pre_disclosure", "pharma_trial_mnpi",
+    "financial_services_regulatory_mnpi", "energy_reserves_mnpi",
+    "legal_proceeding_mnpi", "blackout_period_reference", "conjunctive_mnpi",
 }
 
 # Cross-cutting / synthetic rules.

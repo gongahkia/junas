@@ -81,11 +81,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "universal_mnpi",
@@ -248,6 +248,12 @@
       "category": "MNPI",
       "matched_text": "Embargo date/time for external communications: 2026-07-15 09:00 ICT",
       "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Subject: Proposed THB 1,250,000,000 convertible debentures and 19.9% private placement to Meridian Harbor Holdings Ltd. (BVI) with cross-border Facility Agreement\nEmbargo date/time for external communications: 2026-07-15 09:00 ICT, pending SET/SEC review and notification under the SEA\nDefinitive agreements targeted for execution: Share Subscription Agreement (SSA), Convertible Debenture Terms, Intercreditor Deed; draft governed by Thai law with Singapore-law security package",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -342,16 +348,16 @@
       "rule": "large_number"
     },
     {
-      "category": "PII",
-      "matched_text": "Subject: Proposed THB 1,250,000,000 convertible debentures and 19.9% private placement to Meridian Harbor Holdings Ltd. (BVI) with cross-border Facility Agreement\nEmbargo date/time for external communications: 2026-07-15 09:00 ICT, pending SET/SEC review and notification under the SEA\nDefinitive agreements targeted for execution: Share Subscription Agreement (SSA), Convertible Debenture Terms, Intercreditor Deed; draft governed by Thai law with Singapore-law security package",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "STRICTLY CONFIDENTIAL \u2013 Non-Public \u2013 Project Lotus Banyan \u2013 Board/Compliance Briefing (Aurora Fibre Public Company Limited, SET ticker AFB)\nFrom: Ms. Waranya Chai, General Counsel, waranya.chai@aurorafibre.co.th; To: Board of Directors; Date: 2026-06-28\nSubject: Proposed THB 1,250,000,000 convertible debentures and 19.9% private placement to Meridian Harbor Holdings Ltd. (BVI) with cross-border Facility Agreement\nEmbargo date/time for external communications: 2026-07-15 09:00 ICT, pending SET/SEC review and notification under the SEA\nDefinitive agreements targeted for execution: Share Subscription Agreement (SSA), Convertible Debenture Terms, Intercreditor Deed; draft governed by Thai law with Singapore-law security package\nMAC/MAE: the SSA carves out general market/FX movements; parties confirm that no Material Adverse Change has occurred since 31 May 2026, and disclosure itself shall not constitute a MAE\nConditions precedent include: EGM approval (not less than 75% of votes), waiver of tender offer requirement under SEC rules if below 25%, and Bank of Thailand consent for offshore inflow\nUse of proceeds: refinance THB 600,000,000 short-term bridge and fund Plant 3 expansion; no dividend covenant breach expected (net debt/EBITDA forecast 2.8x post-deal)\nPDPA note: limit personal data in the SET filing to director names and positions; redact employee IDs and contact details from appendices\nPublic-source reference: capacity metrics in our 2568 Form 56-1 One Report and the 2025 SET presentation are already public and may be cited\nInvestor-relations draft (internal): we anticipate EPS dilution of approximately 6.4% in year one, improving thereafter on volume ramp; do not include pro forma tables before embargo lifts\nCompliance risk: trading blackout applies to all insiders from memo circulation; breach may contravene SEA Section 241 on insider trading and Section 246 on disclosure",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Waranya Chai, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

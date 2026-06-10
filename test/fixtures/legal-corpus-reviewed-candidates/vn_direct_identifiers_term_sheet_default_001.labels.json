@@ -1,0 +1,316 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_direct_identifiers_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_term_sheet_default_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_direct_identifiers_term_sheet_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_resolved_label_warnings": [
+    {
+      "disposition": "Resolved during VN Stage B strict-tier reconciliation. Cleaner warnings were invalid-rule, category-normalization, or unsupported financial-amount span drops; deterministic strict labels are now sourced from PreSendReviewEngine and LLM breadth remains in ideal_must_detect.",
+      "resolved_at_utc": "2026-06-03T13:05:14Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='1.250.000.000.000 VND'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='1.250.000.000.000 VND'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_direct_identifiers_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "\u00d4ng Ph\u1ea1m \u0110\u1ee9c Linh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "linh.pham@sabien-energy.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84-90-123-4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "052793004812",
+      "rule": "vn_cccd"
+    },
+    {
+      "category": "PII",
+      "matched_text": "N12345678",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123456789012345",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@sabien-energy.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Mekong",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Th\u00f4ng tin ch\u01b0a c\u00f4ng b\u1ed1",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Kh\u00f4ng c\u00f3 thay \u0111\u1ed5i b\u1ea5t l\u1ee3i tr\u1ecdng y\u1ebfu \u0111\u1ed1i v\u1edbi t\u00e0i s\u1ea3n \u0111i\u1ec7n gi\u00f3 T\u00e2n Ph\u00fa",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "th\u1eddi gian phong t\u1ecfa",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ti\u1ebft l\u1ed9 tr\u01b0\u1edbc khi c\u00f4ng b\u1ed1 theo quy \u0111\u1ecbnh HOSE/UBCKNN c\u00f3 th\u1ec3 g\u00e2y \u1ea3nh h\u01b0\u1edfng \u0111\u00e1ng k\u1ec3 t\u1edbi gi\u00e1 c\u1ed5 phi\u1ebfu d\u1ef1 ki\u1ebfn SBNE",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "(ch\u01b0a c\u00f4ng b\u1ed1)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "H\u0110MB c\u1ed5 ph\u1ea7n",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "t\u00e0i li\u1ec7u chia s\u1ebb theo quy\u1ec1n truy c\u1eadp \u0111\u01b0\u1ee3c ki\u1ec3m so\u00e1t",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1.250.000.000.000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "123456789012345",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "linh.pham@sabien-energy.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84-90-123-4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1.250.000.000.000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "052793004812",
+      "rule": "vn_cccd"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Mekong",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "123456789012345",
+      "rule": "large_number"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SBNE",
+      "reason": "Defined-term abbreviation for company, not PII/MNPI span"
+    },
+    {
+      "matched_text": "B\u00ean B\u00e1n",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "B\u00ean Mua",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Tr\u01b0\u1edfng ph\u00f2ng ph\u00e1p ch\u1ebf",
+      "reason": "Role title only, not a person name"
+    },
+    {
+      "matched_text": "CMND/CCCD: ________",
+      "reason": "Placeholder form label, not actual PII"
+    },
+    {
+      "matched_text": "S\u1ed1 \u0110T: 0xxx-xxxx",
+      "reason": "Placeholder phone format, not actual PII"
+    },
+    {
+      "matched_text": "000000000000",
+      "reason": "Placeholder/invalid bank account number"
+    },
+    {
+      "matched_text": "VN00-SEASTAR-0000000000000",
+      "reason": "Invalid/placeholder IBAN, not a real account"
+    },
+    {
+      "matched_text": "1800-1111",
+      "reason": "Public hotline number excluded from PII"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "swift_bic",
+      "matched_text": "DHEAVNVX",
+      "reason": "Bank identifier code present; may be sensitive operationally but not covered by allowed rules"
+    },
+    {
+      "concept": "dataroom_link",
+      "matched_text": "https://dataroom.example.com/vn/mekong",
+      "reason": "Nonpublic dataroom URL can indicate MNPI access, but no explicit rule category"
+    },
+    {
+      "concept": "pre_listing_intent",
+      "matched_text": "\u0110\u1ecbnh h\u01b0\u1edbng ni\u00eam y\u1ebft HOSE trong 18 th\u00e1ng sau \u0111\u00f3ng",
+      "reason": "Planned listing timeline can be MNPI; not mapped to an explicit allowed rule"
+    },
+    {
+      "concept": "vn_company_tax_id",
+      "matched_text": "MST: 0839457621",
+      "reason": "Vietnam company tax identifier; local identifier not in current allowed rules"
+    },
+    {
+      "concept": "vn_company_tax_id",
+      "matched_text": "MST: 0319876543",
+      "reason": "Vietnam company tax identifier; local identifier not in current allowed rules"
+    },
+    {
+      "concept": "vn_business_registration_number",
+      "matched_text": "\u0110KKD: 0839457621",
+      "reason": "Company registration number; identifier not covered by allowed rules"
+    }
+  ]
+}

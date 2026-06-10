@@ -1,0 +1,364 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_direct_identifiers_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_direct_identifiers_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 30,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_direct_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "E12345678",
+      "rule": "cn_passport"
+    },
+    {
+      "category": "PII",
+      "matched_text": "138-1234-5678",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "139-8723-0045",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-10-5656-7788",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chen.bo@sandalwood-supply.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@helioschem.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "6222 8888 0033 4455 66",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liang Yuxin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chen Bo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhou Wei (DPO)",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9132 0900 MA9T 8K3 Q7L",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "41 02 03 19 90 07 15 12 3 8",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "yuxin.l iang@helioschem.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mirrored to a Hong Kong analytics node",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a CAC security assessment filing will be submitted before any resumed export",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "we will publish a brief once remediation is confirmed",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-disclosure window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary view is not price-sensitive",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no minors under 14 were involved",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "iang@helioschem.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9132 0900",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "138-1234-5678",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E12345678",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhou Wei",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "next steps: finalize root-cause CAPA, track jira sec-ops ticket eng-42, update data retention policy v2.1; as per SZSE public guidance note on cybersecurity disclosures, we will publish a brief once remediation is confirmed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "473000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "iang@helioschem.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chen.bo@sandalwood-supply.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9132 0900",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "138-1234-5678",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E12345678",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E12345678",
+      "rule": "cn_passport"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liang Yuxin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chen Bo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhou Wei",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "next steps: finalize root-cause CAPA, track jira sec-ops ticket eng-42, update data retention policy v2.1; as per SZSE public guidance note on cybersecurity disclosures, we will publish a brief once remediation is confirmed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "next steps: finalize root-cause CAPA, track jira sec-ops ticket eng-42, update data retention policy v2.1; as per SZSE public guidance note on cybersecurity disclosures, we will publish a brief once remediation is confirmed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "473000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No. 88 Keji Avenue, Gaoxin District, Nanyang, Henan 473000, PRC; Unified Social Credit Code: 9132 0900 MA9T 8K3 Q7L",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Registered address: No. 88 Keji Avenue, Gaoxin District, Nanyang, Henan 473000, PRC; Unified Social Credit Code: 9132 0900 MA9T 8K3 Q7L.\nSummary: a spear-phishing email led to unauthorized access to one finance mailbox; the mailbox was contained within 52 minutes and credentials were reset under the CSL internal control plan.\nPersonal information per PIPL potentially exposed: names, work emails, and mobile numbers of suppliers and two employees; no minors under 14 were involved; we did not collect MAC addresses or facial templates.\nEmployee data potentially accessed (employment onboarding workflow): Ms. Liang Yuxin, mobile 138-1234-5678, email yuxin.l iang@helioschem.cn, Resident ID (obfuscated): 41 02 03 19 90 07 15 12 3 8.\nVendor contact potentially accessed: Mr. Chen Bo, PRC Passport E12345678, mobile 139-8723-0045, email chen.bo@sandalwood-supply.cn (fictional supplier).\nLimited payroll attachment names were listed but not opened; one bank account identifier for salary credit may have been visible: 6222 8888 0033 4455 66 (HeliosChem payroll at Nanyang Rural Commercial Bank).\nLocal authority touchpoint: Nanyang Gaoxin District Taxation Bureau filing ref HN-NY-GX-2026-00123 for data rectification under DSL Article 35; no tax return content was exfiltrated.\nGeneric form artifacts observed in phishing lure (adversarial bait, not our templates): Name: ______; ID No.: 51010119991231003Z (invalid checksum); Tel: 12345 (government service hotline); Role: CFO (role-only, no individual named).\nCross-border consideration: email security logs had been mirrored to a Hong Kong analytics node; mirroring is now suspended and a CAC security assessment filing will be submitted before any resumed export.\nMNPI assessment: a draft Q2 board agenda title and an internal earnings calendar reference were in the mailbox; under the Securities Law and SZSE Listing Rules (reference to pre-disclosure window), we treat this as inside information until the scheduled disclosure, but preliminary view is not price-sensitive.\nRegulatory notifications: SZSE company disclosure contact informed; CSRC Henan Bureau preliminary report filed within 24 hours; no trading suspension request is anticipated.\nData protection contact: Mr. Zhou Wei (DPO), dpo@helioschem.cn, hotline +86-10-5656-7788; for consumer complaints use 12315 (public line), not our incident desk.\nFor investor queries: https://notice.heliosc hem.cn/ir?mnpi=draftQ2 and https://portal.helioschem.cn/reset?uid=E12345678 (internal reset link, now disabled); USCC reference echoed in notice as 9132 0900 MA9T 8K3 Q7L.\nnext steps: finalize root-cause CAPA, track jira sec-ops ticket eng-42, update data retention policy v2.1; as per SZSE public guidance note on cybersecurity disclosures, we will publish a brief once remediation is confirmed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Tel: 12345",
+      "reason": "Public helpline number; negative/adversarial bait"
+    },
+    {
+      "matched_text": "12315",
+      "reason": "Public helpline number; not individual PII"
+    },
+    {
+      "matched_text": "51010119991231003Z",
+      "reason": "Invalid checksum ID bait; do not treat as valid cn_resident_id"
+    },
+    {
+      "matched_text": "Name: ______",
+      "reason": "Generic form label; not actual PII"
+    },
+    {
+      "matched_text": "Role: CFO",
+      "reason": "Role-only title with no individual named"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "cn_passport in URL parameter",
+      "matched_text": "E12345678",
+      "reason": "Appears as uid value in a link; same format as CN passport but context is ambiguous"
+    },
+    {
+      "concept": "biometric_identifier (negated mention)",
+      "matched_text": "facial templates",
+      "reason": "Sensitive category referenced as not collected; no actual biometric data present"
+    },
+    {
+      "concept": "device identifier mention (negated)",
+      "matched_text": "MAC addresses",
+      "reason": "Device identifiers referenced as not collected; no actual MAC address values present"
+    }
+  ]
+}

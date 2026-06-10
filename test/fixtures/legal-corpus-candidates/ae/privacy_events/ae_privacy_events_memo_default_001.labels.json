@@ -99,11 +99,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "privacy_events",
@@ -221,6 +221,12 @@
       "category": "MNPI",
       "matched_text": "wall-crossing",
       "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A DSAR from Ms. Laila Haddad (HR associate) was fulfilled on 23 May 2026 within PDPL timelines, providing payroll and benefits data with masking of bank account numbers; no cross-border transfer occurred in responding.\nMr. Saeed Al Rami withdrew consent for marketing communications on 12 May 2026, and his CRM profile was suppressed; this suppression is propagated to downstream processors nightly.\nData Export Approval DEA-06/2026 was granted by Group DPO for cross-border transfer of HR and vendor data to processors DesertCloud Technologies Pvt. Ltd. (India) and FalconSwitch S.A. (Luxembourg), subject to DPA Schedule 2 safeguards and encryption in transit and at rest",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -286,12 +292,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "A DSAR from Ms. Laila Haddad (HR associate) was fulfilled on 23 May 2026 within PDPL timelines, providing payroll and benefits data with masking of bank account numbers; no cross-border transfer occurred in responding.\nMr. Saeed Al Rami withdrew consent for marketing communications on 12 May 2026, and his CRM profile was suppressed; this suppression is propagated to downstream processors nightly.\nData Export Approval DEA-06/2026 was granted by Group DPO for cross-border transfer of HR and vendor data to processors DesertCloud Technologies Pvt. Ltd. (India) and FalconSwitch S.A. (Luxembourg), subject to DPA Schedule 2 safeguards and encryption in transit and at rest",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "A right-to-erasure request from Dr. Tariq Al Mansouri (vendor contact for Bayt Al Najm Supplies LLC) was completed on 19 May 2026, removing background-check PDFs and suppressing audit logs beyond legal retention.\nWith respect to MNPI, the issuer financial model and draft term sheet for Nakhla Payments ADGM Ltd. remain non-public; insider lists are maintained and wall-crossing letters executed, and any sharing to the offshore VDR is restricted to named recipients under Board Approval BA-2026-14.\nNo live privacy incident is open, and the Q1 data export deviation (missing hashing on two test files) was closed on 29 April 2026 with corrective action verified",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
@@ -301,6 +301,12 @@
       "matched_text": "A DSAR from Ms. Laila Haddad (HR associate) was fulfilled on 23 May 2026 within PDPL timelines, providing payroll and benefits data with masking of bank account numbers; no cross-border transfer occurred in responding.\nMr. Saeed Al Rami withdrew consent for marketing communications on 12 May 2026, and his CRM profile was suppressed; this suppression is propagated to downstream processors nightly.\nData Export Approval DEA-06/2026 was granted by Group DPO for cross-border transfer of HR and vendor data to processors DesertCloud Technologies Pvt. Ltd. (India) and FalconSwitch S.A. (Luxembourg), subject to DPA Schedule 2 safeguards and encryption in transit and at rest.\nFor the above transfers, only hashed identifiers, names, and role-based emails are included; no shareholders\u2019 Emirates ID numbers or family book references were transmitted outside the UAE.\nProcessor DPAs (DesertCloud and FalconSwitch) have been executed, with Schedule A enumerating categories including Emirates ID (masked), trade licence number (e.g., TL-AX93827), and contact details; sandbox environments must use synthetic records only.\nA right-to-erasure request from Dr. Tariq Al Mansouri (vendor contact for Bayt Al Najm Supplies LLC) was completed on 19 May 2026, removing background-check PDFs and suppressing audit logs beyond legal retention.\nWith respect to MNPI, the issuer financial model and draft term sheet for Nakhla Payments ADGM Ltd. remain non-public; insider lists are maintained and wall-crossing letters executed, and any sharing to the offshore VDR is restricted to named recipients under Board Approval BA-2026-14.\nNo live privacy incident is open, and the Q1 data export deviation (missing hashing on two test files) was closed on 29 April 2026 with corrective action verified.\nPolicy DP-12 prohibits passport or Emirates ID images in the VDR, and this control is implemented and periodically tested; references in this memo are illustrative and do not disclose full identifiers.\nNote that market disclosures will follow SCA and ADGM requirements; until publication, any issuer materials in circulation are treated as MNPI and must not be used for trading or tipped to unauthorised persons.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Saeed Al Rami withdrew consent for marketing communications on 12 May 2026, and his CRM profile was suppressed; this suppression is propagated to downstream processors nightly.\nData Export Approval DEA-06/2026 was granted by Group DPO for cross-border transfer of HR and vendor data to processors DesertCloud Technologies Pvt. Ltd. (India) and FalconSwitch S.A. (Luxembourg), subject to DPA Schedule 2 safeguards and encryption in transit and at rest",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

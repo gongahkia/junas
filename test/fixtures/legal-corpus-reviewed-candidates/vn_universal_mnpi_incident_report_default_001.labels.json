@@ -1,0 +1,366 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_universal_mnpi_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/universal_mnpi/vn_universal_mnpi_incident_report_default_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_universal_mnpi_incident_report_default_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_universal_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for disclosure under the Viet Nam Securities Law",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 15 July 2026 17:00 ICT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until VSSC acknowledgment",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Camellia",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 120 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "+15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u00d4ng L\u00ea \u0110\u1ee9c Phong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "B\u00e0 Tr\u1ea7n Di\u1ec7u Linh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguy\u1ec5n Th\u1ea3o My",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@thanhminhtech.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "th.my@tmtx.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Binding term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "acquisition of 60% of Mekong Renewables JSC",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber operational incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "notify Department of Cyber Safety under VN ICT Authority within 72 hours",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to VSSC clearance",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "after embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive elements",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "260602-17",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Binding term sheet dated 28 May 2026 contemplates acquisition of 60% of Mekong Renewables JSC for VND 120 billion; the definitive agreement signature is targeted for 20 July 2026 subject to VSSC clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor-relations draft note (non-public) proposes disclosure after SVSE filing; embargo until VSSC acknowledgment; price-sensitive elements include synergies and revised EBITDA guidance of +15% FY2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "If VSSC guidance requires immediate public disclosure, IR will update wording to avoid MNPI and move the earnings preview to a separate release.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "th.my@tmtx.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "260602-17",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Binding term sheet dated 28 May 2026 contemplates acquisition of 60% of Mekong Renewables JSC for VND 120 billion; the definitive agreement signature is targeted for 20 July 2026 subject to VSSC clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor-relations draft note (non-public) proposes disclosure after SVSE filing; embargo until VSSC acknowledgment; price-sensitive elements include synergies and revised EBITDA guidance of +15% FY2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "If VSSC guidance requires immediate public disclosure, IR will update wording to avoid MNPI and move the earnings preview to a separate release.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Camellia",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 120 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Board memo \u2014 C\u00f4ng ty C\u1ed5 ph\u1ea7n Thanh Minh Tech (TMT), proposed SVSE ticker TMTX \u2014 CONFIDENTIAL, not for disclosure under the Viet Nam Securities Law; embargo until 15 July 2026 17:00 ICT.\nSubject: Cyber operational incident and transaction impacts \u2014 Project Camellia (deal codename) with Mekong Renewables JSC.\nAt 02:40 ICT on 02 June 2026, our payment gateway hosted by Lotus Cloud Services experienced unauthorized access; \u00d4ng L\u00ea \u0110\u1ee9c Phong (CISO) reports potential exposure of employee emails and device IDs as defined under Decree 13.\nNo customer national ID data is stored in this module, and initial forensics indicate less than 0.8% of HR workstation logs were exfiltrated.\nWe have temporarily suspended vendor payouts via Orient Jade Bank; transaction batch ref OJB-260602-17 is on hold and payroll run will proceed with manual approvals.\nThis incident, while material for operations, does not constitute a MAC/MAE under the draft Share Purchase Agreement for Project Camellia, per Section 7.2 (negated MAC language).\nBinding term sheet dated 28 May 2026 contemplates acquisition of 60% of Mekong Renewables JSC for VND 120 billion; the definitive agreement signature is targeted for 20 July 2026 subject to VSSC clearance.\nInvestor-relations draft note (non-public) proposes disclosure after SVSE filing; embargo until VSSC acknowledgment; price-sensitive elements include synergies and revised EBITDA guidance of +15% FY2026.\nContact: B\u00e0 Tr\u1ea7n Di\u1ec7u Linh, IR Director, ir@thanhminhtech.vn; request board sign-off on the incident notification to clients and the VN data protection office.\nResearch desk internal note cites last year\u2019s public press about general sector outages; that article is stale and does not reflect current system architecture.\nChecklist items: notify Department of Cyber Safety under VN ICT Authority within 72 hours, confirm Orient Jade Bank reconciliation, and align with SVSE disclosure timetable under Guideline 12/2025/VSSC.\nlowercase pm: todo circulate draft response, hold back q&a until after embargo, schedule vendor sync; team spa day remains friday, not related to this memo.\nEmployee banking data retained in encrypted form; Ms. Nguy\u1ec5n Th\u1ea3o My has requested confirmation via th.my@tmtx.vn that her payroll account remains unaffected.\nIf VSSC guidance requires immediate public disclosure, IR will update wording to avoid MNPI and move the earnings preview to a separate release.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC/MAE",
+      "reason": "Negated MAC language; do not label per rule 8."
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "False-positive bait for 'SPA' (Share Purchase Agreement)."
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "email_address category reference",
+      "matched_text": "employee emails",
+      "reason": "References a PII category without specific addresses; category mention not covered by strict rules."
+    },
+    {
+      "concept": "device identifier",
+      "matched_text": "device IDs",
+      "reason": "References device identifiers as personal data but no specific ID value; not clearly covered by allowed rule without a value."
+    },
+    {
+      "concept": "vn_cccd category mention",
+      "matched_text": "customer national ID data",
+      "reason": "Mentions national ID data but negated and no identifier is provided."
+    },
+    {
+      "concept": "bank_customer_reference",
+      "matched_text": "OJB-260602-17",
+      "reason": "Looks like a transaction reference; unclear if linked to an identifiable individual."
+    },
+    {
+      "concept": "embargo/schedule marker",
+      "matched_text": "definitive agreement signature is targeted for 20 July 2026",
+      "reason": "Scheduling for signing may be sensitive but does not match explicit embargo marker patterns like 'Signing Date'."
+    },
+    {
+      "concept": "pre-listing ticker symbol",
+      "matched_text": "SVSE ticker TMTX",
+      "reason": "Proposed ticker may be non-public and price-sensitive but not captured by current MNPI rule set."
+    },
+    {
+      "concept": "MNPI significance marker",
+      "matched_text": "price-sensitive elements",
+      "reason": "Signals materiality but is not a concrete event/amount that current rules reliably detect."
+    }
+  ]
+}

@@ -1,0 +1,419 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 1
+  },
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_universal_mnpi_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/universal_mnpi/sa_universal_mnpi_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_universal_mnpi_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 35,
+    "new_must_detect_count": 22,
+    "old_ideal_must_detect_count": 29,
+    "old_must_detect_count": 18,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_universal_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sec@alnuwair.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "reem.atheer@alnuwair.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-11-555-0142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-11-555-0199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hatem Al-Mirfa",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al-Harqani",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term sheet variance for buyer financing: escrow raised by SAR 18.0m and earn-out reduced by 2.5%; do not discuss externally before the embargo window lapses.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Board minute: if remediation slips past 5 days, notify lenders per covenant 6.1, otherwise no change to guidance; research note draft remains under embargo and is not to be circulated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Saffron Dune",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "under embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.4m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "480.0m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18.0m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@alnuwair.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eng. Reem Al-Atheer",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "EMBARGO until 20 May 2026 09:00 AST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a definitive SPA dated 18 May 2026 was executed",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE/MAC clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss externally before the embargo window lapses",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "research note draft remains under embargo and is not to be circulated",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational cyber incident report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RBE Listing Hold",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IQ: 2 1 \u2022 \u2022 \u2022 \u2022 \u2022 \u2022 7 8 9",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR: 4 0 3 0 \u2022 \u2022 \u2022 \u2022 9 0",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "C R 4 0 3 0**9 0",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "I Q 1 0**4 4 5 5",
+      "rule": "sa_iqama"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sec@alnuwair.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "reem.atheer@alnuwair.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-11-555-0142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-11-555-0199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hatem Al-Mirfa",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al-Harqani",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term sheet variance for buyer financing: escrow raised by SAR 18.0m and earn-out reduced by 2.5%; do not discuss externally before the embargo window lapses.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Board minute: if remediation slips past 5 days, notify lenders per covenant 6.1, otherwise no change to guidance; research note draft remains under embargo and is not to be circulated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Saffron Dune",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "under embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.4m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "480.0m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18.0m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact: Mr. Hatem Al-Mirfa, Board Secretary, sec@alnuwair.example.sa, +966-11-555-0142; operational lead: Eng. Reem Al-Atheer, reem.atheer@alnuwair.example.sa; DPO: Dr. Layla Al-Harqani, dpo@alnuwair.example.sa, +966-11-555-0199 ext 772",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY CONFIDENTIAL \u2014 NON-PUBLIC \u2014 Project Saffron Dune \u2014 EMBARGO until 20 May 2026 09:00 AST \u2014 RBE Listing Hold\nOperational cyber incident report: On 22 Apr 2026 (14 Shawwal 1447 AH), Al Nuwair Energy CJSC detected credential stuffing on vendor-facing APIs hosted at the Al Qassim plant.\nThe attack caused a 3.6% OT sensor outage and deferred invoicing by SAR 12.4m, with a provisional Q2 revenue impact of 2.5% pending remediation.\nPDPL data categories at risk: masked Iqama IDs (e.g., IQ: 2 1 \u2022 \u2022 \u2022 \u2022 \u2022 \u2022 7 8 9), masked Commercial Registration (CR: 4 0 3 0 \u2022 \u2022 \u2022 \u2022 9 0), and work emails of suppliers; lawful basis asserted under urgent security necessity.\nA \u201cSDAIYAH\u201d transfer-portal ticket KX-2047 was opened to evaluate cross-border log analysis; no outbound transfer has been executed and logs remain stored in-Kingdom.\nIssuer workflow note: Board memo prepared for RBE disclosure protocol and pre-brief to the CMAK Market Conduct team; IR draft Q&A v3 is attached for Chair review.\nDeal context (MNPI): under Project Saffron Dune, a definitive SPA dated 18 May 2026 was executed with Desert Palms Industrial LLC for divestment of the plastics unit, price SAR 480.0m subject to working-capital true-up.\nThe SPA includes a MAE/MAC clause; current assessment is that the incident does not constitute, and is not reasonably likely to constitute, a MAC as defined in Section 8.2.\nTerm sheet variance for buyer financing: escrow raised by SAR 18.0m and earn-out reduced by 2.5%; do not discuss externally before the embargo window lapses.\nPublic note: the vendor\u2019s 2024 uptime targets and our cyber policy summary are already available in last year\u2019s sustainability report and local press briefings.\nlowercase pm note \u2014 align with it and procurement; then ping hr about the desert spa-day vouchers; this is not material and should not go into any market communication.\nContact: Mr. Hatem Al-Mirfa, Board Secretary, sec@alnuwair.example.sa, +966-11-555-0142; operational lead: Eng. Reem Al-Atheer, reem.atheer@alnuwair.example.sa; DPO: Dr. Layla Al-Harqani, dpo@alnuwair.example.sa, +966-11-555-0199 ext 772.\nO b f u s c a t e d I D s: C R 4 0 3 0**9 0; I Q 1 0**4 4 5 5; site code RYD-PLT-0 3; warehouse GPS h t t p : / / maps.internal.example/geo?lat=24.7&lon=46.7 (internal only).\nInternal link: https://risk.rbe.example/rpt?case=PDPL-INC%2F2026-04-22&embargo=2026-05-20T09%3A00%2B03%3A00&codename=Saffron%20Dune.\nBoard minute: if remediation slips past 5 days, notify lenders per covenant 6.1, otherwise no change to guidance; research note draft remains under embargo and is not to be circulated.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "vendor",
+      "reason": "role-noun; not a defined PII/MNPI value"
+    },
+    {
+      "matched_text": "buyer",
+      "reason": "role-noun; not a defined PII/MNPI value"
+    },
+    {
+      "matched_text": "desert spa-day vouchers",
+      "reason": "false-positive bait; not a definitive agreement"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "embargo_marker",
+      "matched_text": "EMBARGO until 20 May 2026 09:00 AST",
+      "reason": "embargo indicated by 'EMBARGO' wording rather than standard tags like 'Embargoed' or 'Press Hold'"
+    },
+    {
+      "concept": "blackout_period_reference",
+      "matched_text": "RBE Listing Hold",
+      "reason": "functions like a listing/blackout hold but not captured by canonical 'blackout' phrasing"
+    },
+    {
+      "concept": "material_adverse_change",
+      "matched_text": "MAE/MAC clause",
+      "reason": "references MAC/MAE without the exact 'Material Adverse Change' or 'Material Adverse Effect' terms"
+    },
+    {
+      "concept": "sa_iqama",
+      "matched_text": "IQ: 2 1 \u2022 \u2022 \u2022 \u2022 \u2022 \u2022 7 8 9",
+      "reason": "masked/obfuscated formatting may evade strict pattern-based detection"
+    },
+    {
+      "concept": "sa_commercial_registration",
+      "matched_text": "CR: 4 0 3 0 \u2022 \u2022 \u2022 \u2022 9 0",
+      "reason": "obfuscated formatting and spacing may not match standard CR regexes"
+    },
+    {
+      "concept": "sa_commercial_registration",
+      "matched_text": "C R 4 0 3 0**9 0",
+      "reason": "spaced and asterisked sequence is atypical for CR patterns"
+    },
+    {
+      "concept": "sa_iqama",
+      "matched_text": "I Q 1 0**4 4 5 5",
+      "reason": "spaced and asterisked sequence is atypical for iqama patterns"
+    }
+  ]
+}

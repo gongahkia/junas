@@ -1,0 +1,303 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Post-CN/AE precision realignment: must_detect is aligned to current strict deterministic engine output; prior strict labels remain preserved in ideal_must_detect for gap discovery. This reconciles labels made stale by narrow public-line, functional-contact, educational MNPI, negated MAC, negated genetic-data, and benign term-sheet/spa guards.",
+  "_label_tiers_version": "post-cn-ae-precision-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_jurisdictional_mnpi_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/jurisdictional_mnpi/au_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "Existing approved candidate labels were realigned where narrow detector precision fixes correctly suppressed false-positive bait. This is internal benchmark maintenance, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 27,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 27,
+    "old_must_detect_count": 7,
+    "prior_label_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+    "reviewed_at": "2026-06-05T07:59:48Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final3.json",
+    "status": "post_cn_ae_precision_realign_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@curalta.example.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "unsubscribe@curalta.example.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan P. Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Saira Kellett",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Overseas disclosures",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "where data is processed by Nuvama Cirrus Pte Ltd (Singapore) and KauriWorks Ltd (NZ)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "to opt-out of marketing",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not require copies of government IDs for onboarding where a certified alternate is sighted",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ticket: A U - P R 1 2 3 4",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EmpRef: AU//QF-1 7 3",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EmpBadge: EB-**-7Z",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CardID: CL**-9x-44",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we will verify identity using internal tokens only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not trade or tip",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no dealing by directors or employees from quarter-end until the AUSE release of Appendix 4C/Appendix 4D, and from financial year-end until the Preliminary Final Report",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "analyst/press briefings must use only publicly available information",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cleansing notices are lodged before resumption where applicable",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "loss of a top-5 customer",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if confidentiality is lost, disclosure is \u201cimmediate\u201d",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not selectively disclosed",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@curalta.example.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@curalta.example.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "unsubscribe@curalta.example.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Saira Kellett",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing & MNPI Handling Addendum between Curalta BioSystems Ltd and Mallee Capital Pty Ltd (issuer listed on the Australian Unified Securities Exchange, \u201cAUSE\u201d)\nScope: Personal information means information or opinion about an identified or reasonably identifiable individual under the Privacy Act 1988 (Cth); we process employee, health (workplace safety), recruitment, and credit-related data to deliver HR/payroll, clinic rostering, and expense-card services (EmpRef: AU//QF-1 7 3; CardID: CL**-9x-44).\nRetention & minimisation: payroll and contractor records are retained 7 years, health surveillance data per WHS obligations (max 30 years or earlier if de-identified), credit assessments 5 years, then purged; we do not require copies of government IDs for onboarding where a certified alternate is sighted; see http://intra.curaltabio.example/policy?doc=AU-PRIV-APP11#retention.\nIndividual rights: requests for access/correction under APP 12/13 may be lodged via privacy.office@curalta.example.au; we will verify identity using internal tokens only (Ticket: A U - P R 1 2 3 4) and respond in a reasonable period.\nOverseas disclosures: where data is processed by Nuvama Cirrus Pte Ltd (Singapore) and KauriWorks Ltd (NZ), we take reasonable steps to ensure APP 8 compliance and enter contract terms equivalent to APP 8.1; absence of such safeguards requires express, informed consent.\nSecurity & breaches: suspected eligible data breaches are assessed within 30 days under the NDB scheme and, if likely to cause serious harm, notifications are made to affected individuals and the Australian Markets Oversight Commission (AMOC).\nMNPI controls: \u201cMNPI\u201d means information not generally available and that a reasonable person would expect to have a material effect on the price or value of Curalta securities (s1042A/s1043A Corporations Act); staff must not trade or tip where MNPI is held.\nBlackout windows: no dealing by directors or employees from quarter-end until the AUSE release of Appendix 4C/Appendix 4D, and from financial year-end until the Preliminary Final Report; exceptions require Company Secretary approval and are logged (L R 3 . 1 and 3.1A con tinuous dis clo sure).\nSelective disclosure: analyst/press briefings must use only publicly available information; any inadvertent disclosure is escalated to the Company Secretary, Mr. Rowan P. Hale, for \u201cimmediate\u201d AUSE release or trading halt request; cleansing notices are lodged before resumption where applicable.\nPublic-status note: the AUSE announcement dated 15 Jan 2025 (Appendix 4E Preliminary Final Report) and our 20 Feb 2025 product brochure (Yarrawa Core v3.2) are already public; referencing those materials in meetings does not involve MNPI; stale 2023 market commentary remains public and not selectively disclosed.\nIssuer-relative materiality: for internal monitoring only (not a safe harbour), we treat \u22652.5% movement in consolidated revenue or loss of a top-5 customer as likely material and subject to L R 3 . 1 disclosure unless LR 3.1A confiden",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "AUSE",
+      "reason": "Defined exchange acronym; not PII/MNPI content"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun/defined role, not an individual's name by itself"
+    },
+    {
+      "matched_text": "Privacy Officer",
+      "reason": "Role noun/defined role, not PII"
+    },
+    {
+      "matched_text": "material adverse change clause",
+      "reason": "Negated context; do not label as material_adverse_change per rule"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "card identifier",
+      "matched_text": "CardID: CL**-9x-44",
+      "reason": "Likely a personal expense-card identifier but not clearly mapped to an allowed rule beyond a broad account number"
+    },
+    {
+      "concept": "pseudonymisation marker",
+      "matched_text": "pseudonymised at source",
+      "reason": "Privacy-by-design control relevant to minimisation/identifiability but not explicitly covered by allowed rules"
+    },
+    {
+      "concept": "breach-notification regime",
+      "matched_text": "NDB scheme",
+      "reason": "References the OAIC notifiable data breach framework; not directly mapped to allowed rules"
+    },
+    {
+      "concept": "DSAR rights marker",
+      "matched_text": "requests for access/correction under APP 12/13",
+      "reason": "Access/correction rights are privacy-event markers but no explicit allowed rule except consent withdrawal"
+    },
+    {
+      "concept": "consent requirement",
+      "matched_text": "express, informed consent",
+      "reason": "Indicates consent basis for overseas disclosures; only withdrawal marker is explicitly allowed"
+    }
+  ]
+}

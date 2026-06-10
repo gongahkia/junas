@@ -45,11 +45,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
     "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
@@ -200,6 +200,12 @@
       "matched_text": "Meridian Isles Holdings, Inc. \u2014 Data Retention and MNPI Handling Workflow (PH), v1.3; Unit 804 Aurora Centrum, 85 Ilang\u2011Ilang St., Brgy. San Liway, Luzdel City 1409.\nThis workflow covers HR, tax, payroll banking, and capital\u2011markets records; processing by BayanLink Payments OPC (payroll) and CloudVista APAC Pte. (hosting) is under our DPA and cross\u2011border safeguards.\nPersonal data means information by which a person is identified or can be directly ascertained with other data under the Data Privacy Act; sensitive personal data (e.g., health data) receives enhanced controls.\nData Privacy Officer: Atty. Lira M. Santos; DSAR/queries via dpo@meridianisles.ph or +63 2 591 8899; we acknowledge within 5 days and substantively respond within 30 days, subject to lawful exceptions.\nHR collects employee names, residential addresses, employee numbers, tax identifiers, and payroll bank details solely for employment, payroll, and statutory compliance; finance keeps officer and director registers for regulatory reporting.\nRetention: HR files 10 years from separation; payroll and tax support 10 years from filing; insider lists, director/officer registers, and trading blackout records 7 years from last update; capital\u2011markets working papers 7 years unless a regulator requires longer.\nMNPI includes non\u2011public financials, board approvals, capital\u2011raising plans, and unannounced restructurings as defined under the SRC (e.g., Sec. 27 on insider trading); no selective disclosure to analysts, lenders, or vendors is permitted.\nPublic disclosure of material events is made promptly via the Exchange\u2019s EDGE portal in accordance with SRC Rule 17 (e.g., current reports on Form 17\u2011C); insiders observe blackout windows from two weeks before Form 17\u2011Q/17\u2011A filing until two trading days after posting.\nAs disclosed on EDGE in Form 17\u2011C dated 15 Aug 2025 regarding the lease of the Nueva Romera Annex, that item is already public and is not treated as MNPI here; this note does not alter the public status of any such filing.\nIssuer\u2011relative materiality is assessed by the CFO and Compliance (e.g., a staffing change in a small branch may be immaterial, but a head\u2011office consolidation or debt covenant breach may be material given our scale and leverage).\nTransfers: limited PII may be sent to CloudVista APAC Pte. (Singapore) under standard contractual clauses and local privacy regulator guidelines; MNPI may not be transferred to processors unless strictly necessary and ring\u2011fenced by access controls.\nSecurity controls: role\u2011based access, encryption at rest/in transit, and redaction for external auditors; any dataset containing MNPI is tagged \u201cEDGE\u2011Pending\u201d and added to the Insider List maintained by Compliance.\nBenign note: our 12 Jan 2024 website press release on a community outreach program and an industry memo from Isla Bank Cooperative about ATM fee schedules are general communications and do not trigger MNPI handling, retention, or blackout rules.\nEscalation: suspected data breaches or inadvertent MNPI disclosures must be reported within 24 hours to dpo@meridianisles.ph and compliance@meridianisles.ph; where required, we notify the privacy",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "insider lists, director",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [],

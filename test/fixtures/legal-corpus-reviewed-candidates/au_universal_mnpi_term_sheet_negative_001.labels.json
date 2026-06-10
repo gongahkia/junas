@@ -1,0 +1,221 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_universal_mnpi_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/universal_mnpi/au_universal_mnpi_term_sheet_negative_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_universal_mnpi_term_sheet_negative_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_universal_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "abn 00 000 000 000",
+      "rule": "au_abn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acn 000 000 000",
+      "rule": "au_acn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@reliantiron.au.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mou",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subscription agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "collaboration agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive documents",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal drafting for investor relations only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "external statements to be made after asx lodgement",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "target lodgement of 02/12/2026 09:00 aedt",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no customer pii, health data, or credit files will be shared",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "regulatory references: see public asx guidance note 8 and asic rg 247 on effective disclosure for background; queries to role mailbox legal@reliantiron.au.example",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "funding and consideration: pricing methodology to reference a volume-weighted average price period disclosed at the time of any asx notice; no debt financing or guarantees are contemplated in this draft",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exploratory",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "regulatory references: see public asx guidance note 8 and asic rg 247 on effective disclosure for background; queries to role mailbox legal@reliantiron.au.example",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "funding and consideration: pricing methodology to reference a volume-weighted average price period disclosed at the time of any asx notice; no debt financing or guarantees are contemplated in this draft",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mou",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exploratory",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "asic relief",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-binding term sheet \u2014 proposed strategic collaboration between reliant iron pty ltd (abn 00 000 000 000) and kestrel harbour group ltd (acn 000 000 000)\ncontext: australian corporations act 2001 (cth) and asx listing rules apply; parties acknowledge obligations under s1043a and continuous disclosure\npublic background: both companies announced a non-binding mou on 15/03/2024 and published summary terms on their websites; this draft builds on that public information\nstructure: potential subscription for up to 9.9% new ordinary shares in reliant iron and a commercial collaboration on supply chain analytics, subject to confirmatory due diligence\ndocumentation: subscription agreement and collaboration agreement to be negotiated on customary terms; this document is not binding and is not an offer to the public\nconditions precedent: board approvals, any required asic relief if applicable, and no regulatory objection; for the avoidance of doubt, there is no mac or mae condition\ncarve-outs: general market movements, changes in law, or industry-wide cost inflation will not be treated as adverse to proceeding, noting the exploratory nature of the proposal\ntiming: target execution of definitive documents by 31/08/2026 with a non-binding long stop of 30/09/2026, subject to scheduling and holiday periods\ncommunications: internal drafting for investor relations only; external statements to be made after asx lodgement, with a target lodgement of 02/12/2026 09:00 aedt\nregulatory references: see public asx guidance note 8 and asic rg 247 on effective disclosure for background; queries to role mailbox legal@reliantiron.au.example\ngovernance: no board seats contemplated at this stage; observer rights may be discussed in the subscription agreement draft\nfunding and consideration: pricing methodology to reference a volume-weighted average price period disclosed at the time of any asx notice; no debt financing or guarantees are contemplated in this draft",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day voucher",
+      "reason": "Leisure reference; not a Share Purchase Agreement (SPA)"
+    },
+    {
+      "matched_text": "mac",
+      "reason": "Negated MAC clause; rule excludes 'no MAC' contexts"
+    },
+    {
+      "matched_text": "mae",
+      "reason": "Negated MAE clause; rule excludes 'no MAE' contexts"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "insider trading reference",
+      "matched_text": "s1043a",
+      "reason": "Regulatory cite indicates insider trading obligations but not directly covered by a specific allowed MNPI rule"
+    }
+  ]
+}

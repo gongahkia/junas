@@ -82,11 +82,11 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -267,6 +267,18 @@
       "matched_text": "Mr. Eladio M. Quirante (PH Passport No. PZ9 820 13Q; employee ID LFV-0193) will sign the MGX sponsor\u2019s certificate; copy his travel desk via travel@lakanfoods.ph.\nThe draft disclosure includes unaudited Q2 EBITDA and a preliminary price range and timetable for the follow-on (not yet on mgx.ph/announcements), and is therefore MNPI under the Securities Regulation Code.\nWe confirm this memo is not a MAC trigger and we did not access third-party MNPI; only internal forecasts and board-approved matters are referenced.\nHR reminders: use updated Revenue Bureau Form RB\u20112316; generic form fields such as \u201cEmployee Name: ______\u201d and \u201cSSS No.: ______\u201d are placeholders only.\nNote that the sample identifier TIN 123-456-789-001 is invalid and must not be used in any submission; similarly, Passport No. XX0 000 000 is for training only.\nFor general public concerns, refer callers to the Public Services Hotline 8888 or emergency 911; these numbers are not company contacts.\nPayroll and withholding will be processed via PayLakad 2.0; see pm backlog ticket finops-mvp-qa for cutover steps, not a legal record.\nBoard blackout commences 7 days before pricing; trading clearance requests should go to c o m p l i a n c e @ l a k a n f o o d s . p h and the HR Manager (role-only).\nThe share purchase from Tamaraw Capital Partners Pte. Ltd. (RCR Entity ID: RCR-PL-778263) closes T+2 with settlement instructions in Annex A, not for external release.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "18 Lira East Rd., Brgy. Hiyas, Eastport City 1123",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "77 Mabaya St., Barangay Sinagtala, Southport 4401",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

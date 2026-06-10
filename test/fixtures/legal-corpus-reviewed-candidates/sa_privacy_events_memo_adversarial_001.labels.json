@@ -1,0 +1,353 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-sa-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-sa-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SA Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T12:36:18Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T12:36:18Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
+    "status": "owner_approved_sa_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_privacy_events_memo_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/privacy_events/sa_privacy_events_memo_adversarial_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_privacy_events_memo_adversarial_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 27,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 27,
+    "old_must_detect_count": 7,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_privacy_events_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "qattan@nuyumlogistics.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Matrouk",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Huda Al\u2011Rasheed",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zakariyya Qassim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Mazin Al\u2011Qattan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@nuyumlogistics.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966\u201111\u2011000\u20110000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dr.f.rashad@board\u2011nuyum.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966\u20115\u2011555\u201112\u201112",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@nuyumlogistics.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "m.f.al\u2011qattan@nuyumlogistics.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama No: 23 4 9\u202208\u20225127",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eng. Lina Al\u2011Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dataset minimised to metadata only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Retention & minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list tooling active",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list additions",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 701\u2022\u202283\u20220021",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Na t io nal ID obfuscated: 1\u20228\u20227\u20223\u2022\u2014\u20224\u20229",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opted out",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data\u2011Export Approval ID NLG\u2011DT\u201125\u2011044",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sealed data room",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "qattan@nuyumlogistics.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Matrouk",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Huda Al\u2011Rasheed",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zakariyya Qassim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Mazin Al\u2011Qattan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Erasure: ex\u2011employee records for Ms. Huda Al\u2011Rasheed (Na t io nal ID obfuscated: 1\u20228\u20227\u20223\u2022\u2014\u20224\u20229, fictional) deleted from HR suite on 2026\u201105\u201120; backup purge queued for 30\u2011day retention lapse; audit hash: 5f:a1:zz:90",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privacy event \u2014 DSAR: Mr. Sami Al\u2011Matrouk (Iqama No: 23 4 9\u202208\u20225127, fictional) submitted access request on 2026\u201105\u201112; fulfilled 2026\u201105\u201118 with identity verification and redaction of third\u2011party data; delivery via secure link.\nErasure: ex\u2011employee records for Ms. Huda Al\u2011Rasheed (Na t io nal ID obfuscated: 1\u20228\u20227\u20223\u2022\u2014\u20224\u20229, fictional) deleted from HR suite on 2026\u201105\u201120; backup purge queued for 30\u2011day retention lapse; audit hash: 5f:a1:zz:90.\nConsent withdrawal: vendor training set \u2014 Mr. Zakariyya Qassim opted out on 2026\u201104\u201130; images removed and dataset minimised to metadata only; consent re\u2011obtained for non\u2011biometric tags on 2026\u201105\u201120; no service impact.\nRetention & minimisation: PDPL\u2011RS\u201102 keeps issuer onboarding forms for 7 years; we store last\u20114 only for identity fields (example mask \u2018***\u2011*\u2011*\u20114 7 9 2\u2019); full IDs are not used in testing or staging.\nCross\u2011border control: PDPL\u2011CBT\u201104 pre\u2011approval was completed 2025\u201103\u201114 and is closed; no personal data will move until new case\u2011by\u2011case approval is granted; this is a completed control, not a live risk.\nMarket\u2011conduct: Draft prospectus materials remain in sealed data room; this memo does not contain MNPI; any figures cited are from public press briefs and policy manuals.\nAP coordination: Sahim Gate Capital (Authorised Person; AP No. AP\u2011 3  8  2  0, fictional) confirms insider list tooling active; trading window closed since Q2 pre\u2011close; zero insider list additions in the last 14 days.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Negated example of data not collected; avoid false-positive device identifier"
+    },
+    {
+      "matched_text": "IMEI",
+      "reason": "Negated example of data not collected; avoid false-positive device identifier"
+    },
+    {
+      "matched_text": "device fingerprints",
+      "reason": "Negated example of data not collected; avoid false-positive device identifier"
+    },
+    {
+      "matched_text": "transfer to US analytics cluster",
+      "reason": "Deprecated/non-live phrase; not an active cross-border flow"
+    },
+    {
+      "matched_text": "pre\u2011approval was completed 2025\u201103\u201114 and is closed",
+      "reason": "Completed control; do not flag as live cross-border transfer"
+    },
+    {
+      "matched_text": "no personal data will move",
+      "reason": "Explicit negation of data transfer; not a live risk"
+    },
+    {
+      "matched_text": "does not contain MNPI",
+      "reason": "Explicit negation of MNPI content"
+    },
+    {
+      "matched_text": "5f:a1:zz:90",
+      "reason": "Audit hash not a valid MAC address; avoid false positive"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "DSAR_marker",
+      "matched_text": "DSAR",
+      "reason": "Data subject access request marker is a privacy event but not enumerated in allowed rules"
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "Erasure",
+      "reason": "Deletion/erasure event is privacy-relevant but not enumerated in allowed rules"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "keeps issuer onboarding forms for 7 years",
+      "reason": "Retention duration policy is privacy-relevant but retention marker not in allowed rules"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "30\u2011day retention lapse",
+      "reason": "Retention/purge timing is privacy-relevant but retention marker not in allowed rules"
+    }
+  ]
+}

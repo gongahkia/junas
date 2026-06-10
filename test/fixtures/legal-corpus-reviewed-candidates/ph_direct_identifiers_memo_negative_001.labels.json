@@ -1,0 +1,289 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled PH Stage A strict labels to deterministic strict-mode findings after manual precision review; retained broader model-derived labels in ideal_must_detect. Narrow precision fixes covered completed DSAR/no-pending controls, PH benefit-ID/BankAcct/doccode phone bait, invalid/placeholder PH TIN, role mailboxes, training-control MNPI bait, and negated/explanatory MAC/MAE prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ph-stage-a-20260529",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "PH",
+    "doc_id": "ph_direct_identifiers_memo_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_negative_001.txt",
+    "source_jurisdiction": "PH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ph_direct_identifiers_memo_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list administration",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TIN 000-000-000-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account No. 0000-1234-56",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@mvhi.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll@mvhi.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02) 8123-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 2 8555 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Passport No. P98765431",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TIN masking (xxx-xxx-xx0-000 acceptable)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid storing scans in shared folders beyond 30 days per retention policy",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout from 01\u201315 July 2026",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no material non-public information under the SRC should be circulated outside the blackout list",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Do not add personal mobile numbers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no name or personal contact accompanies it",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "P98765431",
+      "rule": "passport_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "payroll@mvhi.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "P98765431",
+      "rule": "passport_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer: Mapayapa Valley Holdings, Inc. (MVHI), a domestic corporation preparing Commission Form 17-C updates and Exchange notices; context includes HR separations, tax certifications, and bank instructions.\nOnly public, already-announced information will be included in filings; no material non-public information under the SRC should be circulated outside the blackout list.\nHR: Attachments such as Form 2316, exit clearances, and employee data sheets must use generic fields and redact direct identifiers except where legally required.\nExample placeholders (invalid by design): TIN 000-000-000-000; SSS 00-0000000-0; PhilHealth 00-000000000-0; Pag-IBIG MID 0000-0000-0000; \u201cEmployee Name: [Role only]\u201d.\nBanking: For template letters to Salinlahi Savings Bank re payroll and dividends, use Account Name Mapayapa Valley Holdings, Inc.; Account No. 0000-1234-56; SWIFT MVHIPHMM0XX; all values are samples and not to be transmitted.\nCompany details for drafts may include SEC Reg. No. CS2026-654321 and Exchange symbol MVHI, with a pseudo-ISIN PH00MVHI0000 for layout; these are non-live and carry no trading signal.\nRegistered office (fictional for drafts): Unit 12F Bayanihan Tower, 123 Sampaguita Road, Brgy. Sanligaya, Quezon City 1111, Philippines; do not substitute this with any real residence address.\nDirect queries to role mailboxes only: compliance@mvhi.ph and payroll@mvhi.ph; for tax clarifications, contact the BIR helpdesk at (02) 8123-0000 (public helpline).\nInsider list administration: under SRC provisions, MVHI maintains trading blackout from 01\u201315 July 2026 around routine board meetings; this window is ad",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123 Sampaguita Road, Brgy. Sanligaya, Quezon City 1111",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "role noun label, not a person or identifier"
+    },
+    {
+      "matched_text": "Employee Name: [Role only]",
+      "reason": "generic form label and role-only placeholder"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "ph_government_id_sss",
+      "matched_text": "SSS 00-0000000-0",
+      "reason": "Philippine SSS numbers are personal identifiers but not covered by an allowed rule in this taxonomy."
+    },
+    {
+      "concept": "ph_government_id_philhealth",
+      "matched_text": "PhilHealth 00-000000000-0",
+      "reason": "PhilHealth IDs are personal identifiers but not covered by an allowed rule in this taxonomy."
+    },
+    {
+      "concept": "ph_government_id_pagibig",
+      "matched_text": "Pag-IBIG MID 0000-0000-0000",
+      "reason": "Pag-IBIG member IDs are personal identifiers but not covered by an allowed rule in this taxonomy."
+    },
+    {
+      "concept": "ph_company_registration_number",
+      "matched_text": "SEC Reg. No. CS2026-654321",
+      "reason": "Company registration numbers are direct company identifiers but no PH-specific rule is defined here."
+    },
+    {
+      "concept": "security_identifier_isin",
+      "matched_text": "PH00MVHI0000",
+      "reason": "ISIN-style security identifiers are relevant for capital markets but not listed as a detectable rule."
+    },
+    {
+      "concept": "swift_bic_code",
+      "matched_text": "SWIFT MVHIPHMM0XX",
+      "reason": "BIC/SWIFT codes are financial identifiers but not covered by the allowed rules."
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "Unit 12F Bayanihan Tower, 123 Sampaguita Road, Brgy. Sanligaya, Quezon City 1111, Philippines",
+      "reason": "A detailed address can be identifying, but there is no PH postal-address rule in the allowed set."
+    },
+    {
+      "concept": "stock_ticker",
+      "matched_text": "Exchange symbol MVHI",
+      "reason": "Ticker symbols are market identifiers but not covered by the allowed rules."
+    }
+  ]
+}

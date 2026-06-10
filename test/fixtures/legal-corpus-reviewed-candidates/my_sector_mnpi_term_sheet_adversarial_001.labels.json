@@ -1,0 +1,468 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_sector_mnpi_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/sector_mnpi/my_sector_mnpi_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_sector_mnpi_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 8,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM 220,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM 15,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM 150,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM 3,500,000'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM 220,000,000'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_sector_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "suraya.rahman@meranti-capital.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Meranti to acquire 60% of NeoPalm for RM 220,000,000; consideration mix 70% cash, 30% vendor loan notes; non-binding save for confidentiality, exclusivity, governing law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: RM 150,000,000 syndicated Islamic term facility (3\u2011year, profit rate 3M KLIBOR + 175 bps) plus issuance of up to 12,000,000 new Meranti shares subject to MSMR placement thresholds.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Cenderawasih Term Sheet",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Cenderawasih",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3M",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "150,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cProject Cenderawasih\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Clean Team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cCEN\u201d pilot token",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware incident (declared internally but not yet public)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border transfers of personal data",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dato\u2019 Suraya Rahman",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Meranti to acquire 60% of NeoPalm",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "earlier leak",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "net carbon intensity < 18 kgCO2e/boe",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal team ring\u2011fenced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Research/Trading segregated",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list upload ref",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no DPT/crypto dealings",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Clean Team only",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 3 7 9 2 8 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MRNT\u2011EMP\u20110 4 7 **",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88\u2011xx\u2011440\u20111 9 9",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "FRM/NEO/2026\u20110 0 7",
+      "rule": "bank_customer_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "suraya.rahman@meranti-capital.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Meranti to acquire 60% of NeoPalm for RM 220,000,000; consideration mix 70% cash, 30% vendor loan notes; non-binding save for confidentiality, exclusivity, governing law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: RM 150,000,000 syndicated Islamic term facility (3\u2011year, profit rate 3M KLIBOR + 175 bps) plus issuance of up to 12,000,000 new Meranti shares subject to MSMR placement thresholds.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Cenderawasih Term Sheet",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Cenderawasih",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3M",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "150,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 Project Cenderawasih Term Sheet (Malaysia).\nParties: Meranti Capital Berhad (listed on Main Market of Bursa Seri Mutiara); Target: NeoPalm Energy Sdn Bhd (private).\nTransaction: Meranti to acquire 60% of NeoPalm for RM 220,000,000; consideration mix 70% cash, 30% vendor loan notes; non-binding save for confidentiality, exclusivity, governing law.\nPricing Adjustment: Earn-out of RM 15,000,000 if independently verified net carbon intensity < 18 kgCO2e/boe by 31 Dec; verification agent to be appointed jointly.\nConditions Precedent: approvals from SC\u2011NP, Meranti shareholder EGM, lender consent, and delivery of a remediation plan for the 12 May ransomware incident (declared internally but not yet public).\nDisclosure & MNPI: This document contains non\u2011public information; announcements to Bursa Seri Mutiara to be triggered on SSA signing or earlier leak; no tipping or selective disclosure.\nInsiders & Blackout: Insider list to be maintained per MSMR 14.x; directors and Connected Persons under trading blackout from 02\u201330 Jul, with pre\u2011clearance required for trades thereafter.\nInformation Barriers: Deal team ring\u2011fenced; Research/Trading segregated; Clean Team only; no DPT/crypto dealings in the \u201cCEN\u201d pilot token by insiders until public disclosure.\nFinancing: RM 150,000,000 syndicated Islamic term facility (3\u2011year, profit rate 3M KLIBOR + 175 bps) plus issuance of up to 12,000,000 new Meranti shares subject to MSMR placement thresholds.\nDisclaimers/MAC: No representation of future token issuance; any internal cyber drill content is educational only and not market guidance; the 12 May incident shall not of itself constitute a MAC.\nCovenants: Target to cease new crypto\u2011mining services and wind down \u201cNeoChain NodeOps\u201d pre\u2011Completion; Vendor to certify no cross\u2011border transfers of personal data without PDPA\u2011compliant consent.\nConfidentiality & Exclusivity: Exclusivity 90 days; break fee RM 3,500,000 payable by Vendor for superior proposal; parties to use code name \u201cProject Cenderawasih\u201d in all correspondence.\nOperations/Marketing (benign): our marketing team will host a public ESG webinar on climate disclosure and cyber hygiene for SMEs; materials use generic examples and contain no price\u2011sensitive data.\nContacts: Dato\u2019 Suraya Rahman (CFO), suraya.rahman@meranti-capital.test, Tel +60 1X\u20113 3 7 9 2 8 0; employee id MRNT\u2011EMP\u20110 4 7 ** for internal access only.\nData Room: http://da ta.meranti-capital.test/rooms/R-3%2Fv2 (read\u2011only); insider list upload ref IL\u201109A.*; o per a tion s note: next steps: align with legal and it.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Vendor",
+      "reason": "Role-noun/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun/defined term, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "consent requirement marker",
+      "matched_text": "PDPA\u2011compliant consent",
+      "reason": "Relates to consent but taxonomy only lists consent_withdrawal_marker, not general consent requirement"
+    },
+    {
+      "concept": "insider list reference id",
+      "matched_text": "IL\u201109A.*",
+      "reason": "Identifier for insider list upload not explicitly covered by insider_list_marker rule"
+    },
+    {
+      "concept": "bank identifier (SWIFT/BIC)",
+      "matched_text": "SWIFT LAPSMYKK\u2011**",
+      "reason": "Financial identifier not enumerated as an allowed PII rule"
+    },
+    {
+      "concept": "interest margin",
+      "matched_text": "175 bps",
+      "reason": "Expressed in basis points, may not be captured by a strict percentage detector"
+    }
+  ]
+}

@@ -1,0 +1,464 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "TH",
+    "doc_id": "th_universal_mnpi_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/th/universal_mnpi/th_universal_mnpi_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "TH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/th_universal_mnpi_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_universal_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "prasert.k@banyanthai.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "comms@banyanthai.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000 (12.5",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Oranuch Sorasri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Concurrent confidential financing: draft Convertible Debenture Subscription Agreement with Indigo Reef Investors SPC for THB 900,000,000 under codename Project Lemongrass; not yet filed with the Office of the SEC or SET.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "M&A deal checklist item 12(b): bringdown of cybersecurity representations at signing; counsel to confirm external penetration test note \u201cmedium\u201d risk only.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lemongrass",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 145,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 900,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 2,300,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "145,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,300,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed until 2026-07-15 17:00 ICT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Prasert Kittinan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout applies",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 2026-07-15 17:00 ICT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Convertible Debenture Subscription Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet filed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber/operational event",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data transfers to Singapore and Laos",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked identifiers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "emp: PR-**79",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "id: BT-0O1-TH",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not upload to SET SMART",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-brief only",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ext 4421",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct xx-4321-TH",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material change",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "prasert.k@banyanthai.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "comms@banyanthai.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000 (12.5",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Oranuch Sorasri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Concurrent confidential financing: draft Convertible Debenture Subscription Agreement with Indigo Reef Investors SPC for THB 900,000,000 under codename Project Lemongrass; not yet filed with the Office of the SEC or SET.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "M&A deal checklist item 12(b): bringdown of cybersecurity representations at signing; counsel to confirm external penetration test note \u201cmedium\u201d risk only.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lemongrass",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 145,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 900,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 2,300,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "145,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,300,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY NON-PUBLIC \u2014 Internal Incident Report (Thai PDPA/SEA) \u2014 Project Lemongrass \u2014 Embargo until 2026-07-15 17:00 ICT.\nIssuer: Banyan Thai Networks PCL (SET ticker: BTNX) \u2014 cyber/operational event affecting finance and HR systems via vendor Cloud Mekong Pte. Ltd. under Data Processing Agreement dated 2025-11-30 (definitive).\nOn 2026-06-01 02:40 ICT, abnormal SFTP traffic to sg-east.edge.mekong-cloud.example caused delayed payroll and temporary lockout of 212 employees incl. Khun Prasert Kittinan (VP Finance, prasert.k@banyanthai.co.th, Ext 4421).\nPreliminary exposure THB 145,000,000 (12.5% of FY2025 net profit) if remediation delays disrupt settlement of revolving credit with Azure Palm Bank Ltd., acct xx-4321-TH; no customer funds moved.\nConcurrent confidential financing: draft Convertible Debenture Subscription Agreement with Indigo Reef Investors SPC for THB 900,000,000 under codename Project Lemongrass; not yet filed with the Office of the SEC or SET.\nManagement assessment: the incident does not constitute a MAC/MAE under the SPA and Bridge Loan Term Sheet (clause 7.2) but may trigger a temporary covenant breach on R12 service uptime.\nIR note (draft for One Report/56-1) is withheld; do not upload to SET SMART until Legal pre-clearance; blackout applies under SEA s.241 insider trading rules.\nAs publicly available on SETNews 2025-08-10, BTNX\u2019s ESG rating and the 2025 solar PPA are unchanged and unrelated to this event.\ntodo: align with it ops; re-check bac kup media; see link https://ir.btnx.co.th/u?p=lem%2Fgra%5Ess&id=INV-7a9 \u2014 if 404, ping sec-filings team.\nData transfers to Singapore and Laos remain within DPA annex II; PDPA s.28 notice to affected staff will include masked identifiers (e.g., emp: PR-**79, id: BT-0O1-TH) and Thai/English bilingual content.\nBoard memo to Audit Committee Chair, Dr. Oranuch Sorasri, noting potential delay to SET Form 246-2 update re substantial holders; investor-relations Q&A attached (non-public, pre-brief only).\nM&A deal checklist item 12(b): bringdown of cybersecurity representations at signing; counsel to confirm external penetration test note \u201cmedium\u201d risk only.\nInvoice ref INV-00-7L| split across con- tracts; pay- ment freeze tag set to \u201chold/lem0n\u201d in TMS; supplier code 0xA3-TH; OCR shows \u201cBANYA N-THAI\u201d on batch 003.\nHR wellness program and spa-day vouchers continue as scheduled; employee reimbursements are capped by policy and not market-sensitive.\nTarget remediation by 2026-06-05; SET disclosure draft embargoed until 2026-07-15 17:00 ICT or earlier if material change occurs; media queries to comms@banyanthai.co.th only.\nInternal research note estimates downtime cost at ~THB 2,300,000 per hour; assumption set B in fin model v3.9.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "wellness bait; not special-category data"
+    },
+    {
+      "matched_text": "does not constitute a MAC/MAE",
+      "reason": "negated material adverse change"
+    },
+    {
+      "matched_text": "publicly available",
+      "reason": "explicit public-source reference"
+    },
+    {
+      "matched_text": "hold/lem0n",
+      "reason": "not a 'Project <Name>' codename pattern"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "role noun / label, not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "phone_number",
+      "matched_text": "Ext 4421",
+      "reason": "Extension only; may not meet phone pattern for strict detection"
+    },
+    {
+      "concept": "bank_account",
+      "matched_text": "acct xx-4321-TH",
+      "reason": "Partially masked account-like string; format is nonstandard"
+    },
+    {
+      "concept": "employee_id",
+      "matched_text": "emp: PR-**79",
+      "reason": "Masked internal identifier; may not be reliably classified by rules"
+    },
+    {
+      "concept": "employee_id",
+      "matched_text": "id: BT-0O1-TH",
+      "reason": "Internal masked ID; unclear if employee or general identifier"
+    },
+    {
+      "concept": "customer_account_number",
+      "matched_text": "INV-00-7L|",
+      "reason": "Invoice reference may be a transaction ID, not a customer account; rule coverage unclear"
+    },
+    {
+      "concept": "customer_account_number",
+      "matched_text": "supplier code 0xA3-TH",
+      "reason": "Supplier identifier may not be in allowed PII categories"
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "Embargo until 2026-07-15 17:00 ICT",
+      "reason": "'Embargo until' may not match strict embargo token 'Embargoed' in current detectors"
+    },
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "confidential",
+      "reason": "Generic 'confidential' may not be recognized by strict detectors without header context"
+    },
+    {
+      "concept": "definitive_agreement",
+      "matched_text": "Convertible Debenture Subscription Agreement",
+      "reason": "Definitive agreement type outside enumerated SPA/SHA/APA/MOU/LOI/Term Sheet list"
+    },
+    {
+      "concept": "information_barrier_marker",
+      "matched_text": "do not upload to SET SMART",
+      "reason": "Instruction suggests information control but not a canonical 'wall' phrase"
+    },
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "pre-brief only",
+      "reason": "Phrase implies selective sharing but may be ambiguous for automated rules"
+    },
+    {
+      "concept": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber/operational event",
+      "reason": "Incident language is contextual; may not trigger cyber incident rules without explicit 'breach' wording"
+    },
+    {
+      "concept": "contingent_mnpi_language",
+      "matched_text": "material change",
+      "reason": "Common phrase; detectors may avoid due to high false positive risk"
+    },
+    {
+      "concept": "cross_border_transfer_marker",
+      "matched_text": "Data transfers to Singapore and Laos",
+      "reason": "Cross-border indicator phrasing varies; may not be codified in rules"
+    },
+    {
+      "concept": "data_minimisation_marker",
+      "matched_text": "masked identifiers",
+      "reason": "Minimisation concept may not be explicitly mapped in current extractors"
+    }
+  ]
+}

@@ -85,11 +85,11 @@
     "previous_must_not_detect_count": 4
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -262,6 +262,12 @@
       "category": "MNPI",
       "matched_text": "Scope 2",
       "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Sustainability finance tie\u2011ins intersect SFDR Article 4 PAI indicators; avoid embedding bank account numbers or customer\u2011level meter IDs in ESRS E1/E2 workbooks, and prefer pseudonymous facility codes.\nContact Compliance at compliance@auroraventis.eu or via https://comms.auroraventis.eu/brief?case=AV\u2011MNPI\u20112026\u2011 41&locale=de\u2011DE; records management ticket RM\u2011 2 8 0 7 is logged.\nDevice log shows sess 8e\u201177\u201119 ended 17:42 CET, building Rhein\u2011Mitte floor 3, badge UID XX\u2011X\u2011 1 1Z5; retention for raw logs is 30 days, keys k0\u2011k2 reside on EU HSM node fr\u2011heli os\u20113, and names are intentionally excluded from working tabs",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -316,12 +322,6 @@
       "rule": "esg_climate_pre_disclosure"
     },
     {
-      "category": "PII",
-      "matched_text": "Sustainability finance tie\u2011ins intersect SFDR Article 4 PAI indicators; avoid embedding bank account numbers or customer\u2011level meter IDs in ESRS E1/E2 workbooks, and prefer pseudonymous facility codes.\nContact Compliance at compliance@auroraventis.eu or via https://comms.auroraventis.eu/brief?case=AV\u2011MNPI\u20112026\u2011 41&locale=de\u2011DE; records management ticket RM\u2011 2 8 0 7 is logged.\nDevice log shows sess 8e\u201177\u201119 ended 17:42 CET, building Rhein\u2011Mitte floor 3, badge UID XX\u2011X\u2011 1 1Z5; retention for raw logs is 30 days, keys k0\u2011k2 reside on EU HSM node fr\u2011heli os\u20113, and names are intentionally excluded from working tabs",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "inside information",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
@@ -332,6 +332,12 @@
       "matched_text": "Internal Compliance Memorandum \u2014 Aurora Ventis SE (EU issuer) \u2014 MAR/GDPR/CSRD\u2013SFDR coordination re pre-disclosure sustainability KPIs and financing.\nThe Company is admitted to trading on the regulated market of NovaReg Market in the Union, and the competent financial authority of the Republic of Obermark is our home authority; the below evaluates inside information and data protection controls.\nMs. Elina Voren, Head of Sustainability, DoB 1 9 8 5-11-02 (age 40), office Rhein\u2011Mitte Campus, uses device av-lt09 (s erial AV- LT09-0 1 3), session ref 8e-77-19, user handle evoren@auroraventis.eu, and extension 044\u201188\u2011 1 1, for CSRD ESRS E1 data consolidation.\nHer team account acc: AV-SE-SUST-004, VPN node eu\u2011rm\u2011vpn12, and meeting room E\u2011203 were used for file staging at h ttps://intra.auroraventis.eu/sess?id=7f3c b9&loc=Rhein\u2011Mitte&seg=E1\u2011beta, with device MAC noted as a2:4c:7e:xx:12 (obf.).\nArt 9 GDPR risk arises because vendor forms included optional trade\u2011union affiliation and biometric door\u2011log hashes; DPIA\u20112026\u2011SUST must be refreshed and special category data removed or subject to SCCs and encryption in transit.\nCross\u2011border transfer: PineCircle Analytics SARL (processor) mirrors non\u2011final CSRD/SFDR PAI metric files to Lyravia for model runs under SCC set SCC\u20112026\u2011AV\u20113, transfer tool id TT\u20110 9 2, with AES\u2011256 and EU\u2011only key escrow.\nMNPI assessment under EU MAR: the unannounced 2026 guidance revision and a draft PPA with Solvica Wind Cooperative (expected Scope 2 reduction 34%) plus potential green bond sizing are precise, non\u2011public, and likely price\u2011sensitive until the board approves the CSRD note and press release.\nThe insider list segment \u201cProject Emerald\u201d (list id PRJ\u2011EMR\u2011 118) is maintained by Secretariat, with timestamps 15/09/2026 08:30\u201310:00 CET and access restricted; market sounding is not initiated and no selective disclosure occurred.\nFor context only, public\u2011source benchmarks from regional climate registries and generic demographics (e.g., middle\u2011aged residents in coastal areas, junior analysts by band) are aggregated; no MAC addresses were stored in that dataset.\nThe following identifiers appear in a template unrelated to any person: birth year 1977; city Eastport; device model FieldTab X3; ac c o un t EU\u2011RM\u201100452; sample IP 10.25.0.14; these placeholders should not be treated as identifying.\nTrading restrictions: maintain a blackout for persons discharging managerial responsibilities and close associates until publication on NovaReg Market\u2019s disclosure portal; apply Article 18 MAR insider list updates after each draft change.\nSustainability finance tie\u2011ins intersect SFDR Article 4 PAI indicators; avoid embedding bank account numbers or customer\u2011level meter IDs in ESRS E1/E2 workbooks, and prefer pseudonymous facility codes.\nContact Compliance at compliance@auroraventis.eu or via https://comms.auroraventis.eu/brief?case=AV\u2011MNPI\u20112026\u2011 41&locale=de\u2011DE; records management ticket RM\u2011 2 8 0 7 is logged.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact Compliance at compliance@auroraventis.eu or via https://comms.auroraventis.eu/brief?case=AV\u2011MNPI\u20112026\u2011 41&locale=de\u2011DE; records management ticket RM\u2011 2 8 0 7 is logged.\nDevice log shows sess 8e\u201177\u201119 ended 17:42 CET, building Rhein\u2011Mitte floor 3, badge UID XX\u2011X\u2011 1 1Z5; retention for raw logs is 30 days, keys k0\u2011k2 reside on EU HSM node fr\u2011heli os\u20113, and names are intentionally excluded from working tabs",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

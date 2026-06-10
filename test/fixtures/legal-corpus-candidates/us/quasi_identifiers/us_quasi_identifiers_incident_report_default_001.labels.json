@@ -30,11 +30,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -222,6 +222,12 @@
       "category": "MNPI",
       "matched_text": "potential Item 8.01 Form 8\u2011K",
       "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Mina Caldwell, Interim CISO, initiated containment at 10:42 ET by revoking SID:b7f4-9c2e-77aa, disabling auto-forward rules on dhale@averishealthbank.com, and rotating API keys tied to app role hb-support-rw.\nWe notified our HIPAA Privacy Officer and GLBA Safeguards Coordinator; notifications to state privacy regulators (including California\u2019s CCPA) and to the federal market regulator regarding a potential Item 8.01 Form 8\u2011K are under evaluation.\nInventory review shows a non-personal example row in a training file with DOB 1970-01-01, ZIP 12345, and device S-0000-TEST; this illustrative data was not part of the incident and does not identify any consumer",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -287,12 +293,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Mina Caldwell, Interim CISO, initiated containment at 10:42 ET by revoking SID:b7f4-9c2e-77aa, disabling auto-forward rules on dhale@averishealthbank.com, and rotating API keys tied to app role hb-support-rw.\nWe notified our HIPAA Privacy Officer and GLBA Safeguards Coordinator; notifications to state privacy regulators (including California\u2019s CCPA) and to the federal market regulator regarding a potential Item 8.01 Form 8\u2011K are under evaluation.\nInventory review shows a non-personal example row in a training file with DOB 1970-01-01, ZIP 12345, and device S-0000-TEST; this illustrative data was not part of the incident and does not identify any consumer",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "Mr. Darius Hale (DOB 1986-03-14), Senior Systems Administrator, logged in from West Ormond, NM via VPN node vpn-west-02 using device AVH-IT-0441 (Zevon T490) and corporate email dhale@averishealthbank.com.\nA phishing page captured Mr. Hale\u2019s session token (SID:b7f4-9c2e-77aa) and was used for 23 minutes to view 27 masked HSA summaries (acct ****4829, ****3107) and 14 clinic lab order headers (site code NM-OR-12; MRN prefixes P-00).\nNo full SSNs, complete account numbers, diagnoses, or lab results were opened, but names and dates were redacted at the UI layer rather than at the API.\nA separate misrouted email auto-forwarded a restricted ShareBox link to Mr. Leon Carver, an analyst at Westridge Analytics, containing a draft investor deck with preliminary unaudited Q3 HSA deposit growth (-3.1% to -3.6%) and tentative clinic consolidation plans.\nThe link was active for 17 minutes and was not broadly disseminated, creating potential selective disclosure concerns under Reg FD and Rule 10b-5 if trading were to occur.\nDr. Mina Caldwell, Interim CISO, initiated containment at 10:42 ET by revoking SID:b7f4-9c2e-77aa, disabling auto-forward rules on dhale@averishealthbank.com, and rotating API keys tied to app role hb-support-rw.\nWe notified our HIPAA Privacy Officer and GLBA Safeguards Coordinator; notifications to state privacy regulators (including California\u2019s CCPA) and to the federal market regulator regarding a potential Item 8.01 Form 8\u2011K are under evaluation.\nInventory review shows a non-personal example row in a training file with DOB 1970-01-01, ZIP 12345, and device S-0000-TEST; this illustrative data was not part of the incident and does not identify any consumer.\nAdditional separated attributes observed in anonymized metrics\u2014age 30\u201339, ZIP prefix 606, device model ZetaPhone 11, employer size 1\u201350\u2014are aggregated and cannot be linked to an individual record.\nFor clarity, no patient treatment decisions, loan decisions, or ACH transfers were executed from the compromised session, and core banking ledgers at Braddon Trust Bank, N.A. (our internal processing sandbox) were isolated.\nAs of now, we assess limited exposure of quasi-identifiers relating to Mr. Hale (DOB, role, device tag, location, email, session ID) and limited exposure of masked account metadata, but no unmasked PHI or GLBA account data.\nTo mitigate Reg FD risk, we have scheduled a broad webcast and will furnish public slides with the same preliminary metrics within 24 hours; Mr. Carver confirmed deletion and no further dissemination.\nContact: privacy@averishealthbank.com or investorrelations@averishealthbank.com for additional information; customers may also call 877-555-0142",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "quasi_identifier_combination"
@@ -302,6 +302,12 @@
       "matched_text": "The incident originated when Mr. Darius Hale (DOB 1986-03-14), Senior Systems Administrator, logged in from West Ormond, NM via VPN node vpn-west-02 using device AVH-IT-0441 (Zevon T490) and corporate email dhale@averishealthbank.com.\nA phishing page captured Mr. Hale\u2019s session token (SID:b7f4-9c2e-77aa) and was used for 23 minutes to view 27 masked HSA summaries (acct ****4829, ****3107) and 14 clinic lab order headers (site code NM-OR-12; MRN prefixes P-00).\nNo full SSNs, complete account numbers, diagnoses, or lab results were opened, but names and dates were redacted at the UI layer rather than at the API.\nA separate misrouted email auto-forwarded a restricted ShareBox link to Mr. Leon Carver, an analyst at Westridge Analytics, containing a draft investor deck with preliminary unaudited Q3 HSA deposit growth (-3.1% to -3.6%) and tentative clinic consolidation plans.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We notified our HIPAA Privacy Officer and GLBA Safeguards Coordinator; notifications to state privacy regulators (including California\u2019s CCPA) and to the federal market regulator regarding a potential Item 8.01 Form 8\u2011K are under evaluation.\nInventory review shows a non-personal example row in a training file with DOB 1970-01-01, ZIP 12345, and device S-0000-TEST; this illustrative data was not part of the incident and does not identify any consumer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [],

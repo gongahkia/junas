@@ -46,11 +46,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -242,6 +242,12 @@
       "matched_text": "Term Sheet \u2014 Proposed Strategic Acquisition by Siam Delta Holdings Public Company Limited (RET: SDH)\nParties: Buyer \u2014 Siam Delta Holdings PCL (Thai listed company); Seller \u2014 Nakhon Sky Logistics Co., Ltd.; both incorporated in Thailand.\nTransaction: Acquisition of a controlling stake in Nakhon Sky Logistics through a mix of share purchase and primary subscription.\nConsideration: Combination of newly issued SDH shares listed on the River Exchange of Thailand (RET) and cash; pricing methodology to follow OCMAT disclosure templates.\nRegulatory: Subject to Office of Capital Markets Administration of Thailand (OCMAT) notifications and RET free-float/major transaction rules; public enquiries may contact RET Helpdesk 02-000-0000.\nConditions Precedent: Approval by SDH shareholders at EGM, OCMAT clearance, merger control and foreign business permission; absence of material adverse change.\nDisclosure: This summary reflects public and already-announced parameters only and excludes undisclosed MNPI; any inside information will be handled under the issuer\u2019s PDPA-compliant controls.\nEmployment & PDPA: Employees of Nakhon Sky Logistics to be retained; personal data processed for contractual and legal purposes; sample form fields: Name: _______; Citizen ID: 1-2345-67890-12-3; Department: _______.\nFinancing: Senior term facility to be arranged with a Thai financial institution; escrow account: [to be designated]; no bank account or SWIFT details are exchanged in this term sheet.\nGovernance: Post-closing board composition to include Independent Director, CFO, and Company Secretary (role-only identifiers; formal names to be proposed in the circular).\nCovenants: Conduct of business in the ordinary course; no dividend outside existing published policy; no related-party transactions except as disclosed to the market.\nKYC & Signing: Authorized Signatory (Thai passport UZ1234567) to appear for verification at closing; certified copies to be provided to the notary and registrar.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "to include Independent Director, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [

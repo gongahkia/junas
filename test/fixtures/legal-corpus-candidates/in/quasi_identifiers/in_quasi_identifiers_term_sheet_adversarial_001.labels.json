@@ -40,11 +40,11 @@
     "status": "codex_reconciled_pending_owner_review"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 2,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "quasi_identifiers",
@@ -332,6 +332,12 @@
       "category": "MNPI",
       "matched_text": "before internal circularisation",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Governance post-closing: Reniva to nominate one director and one observer; proposed nominee is Mr. Raghav Iyer, FCA, who shall chair the Audit Committee and oversee treasury integration.\nLinkable identifiers for onboarding the nominee (internal record only): Mr. Raghav K. Iyer (DOB: 1991-04-09, age 33), role: CFO-designate at Pavantra Labs Limited, office: Plot 18, Sector 19, Navi Prana, Maharashtra 410110, device alias: \u201cPAV-CFO-ThinkPad-T14\u201d, email: raghav.iyer@pavantra.example.ltd, PAN: R Y I P I 1 2 3 4 Z, A a d h a a r: 1234 5678 9000 (masked), employee code: PL-EMP-0097, session_ref: sess-rghv-0421-nvp-5f29",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -466,16 +472,16 @@
       "rule": "information_barrier_marker"
     },
     {
-      "category": "PII",
-      "matched_text": "Governance post-closing: Reniva to nominate one director and one observer; proposed nominee is Mr. Raghav Iyer, FCA, who shall chair the Audit Committee and oversee treasury integration.\nLinkable identifiers for onboarding the nominee (internal record only): Mr. Raghav K. Iyer (DOB: 1991-04-09, age 33), role: CFO-designate at Pavantra Labs Limited, office: Plot 18, Sector 19, Navi Prana, Maharashtra 410110, device alias: \u201cPAV-CFO-ThinkPad-T14\u201d, email: raghav.iyer@pavantra.example.ltd, PAN: R Y I P I 1 2 3 4 Z, A a d h a a r: 1234 5678 9000 (masked), employee code: PL-EMP-0097, session_ref: sess-rghv-0421-nvp-5f29",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
       "category": "MNPI",
       "matched_text": "Term Sheet \u2014 Proposed acquisition of 51% equity share capital of Pavantra Labs Limited (an Indian listed public company) by Reniva Energy Limited; this document is indicative and non-binding except for Confidentiality, Exclusivity, Costs, and Governing Law (India).\nConsideration and valuation: INR 3,240,000,000 payable in two tranches (80% at Closing, 20% after 12 months subject to working capital true-up); any reference to share price is UPSI under SEBI (PIT) Regulations until disclosed to stock exchanges.\nConfidentiality and UPSI handling: parties shall maintain information barriers per SEBI PIT and internal codes; only designated insiders may access the data room and all emails must use the subject tag \u201c[Pavantra-Reniva\u2013UPSI]\u201d; no employee MAC addresses are collected for monitoring.\nData protection: processing of personal data will comply with the Digital Personal Data Protection Act, 2023; consents will be captured for specified purposes and revocable; sensitive identifiers (Aadhaar/PAN/GSTIN) will be masked and not retained beyond legal retention norms.\nChildren\u2019s data: no data of individuals under 18 will be processed for due diligence; if any child data is encountered inadvertently, it will be segregated and deleted with audit logs.\nGovernance post-closing: Reniva to nominate one director and one observer; proposed nominee is Mr. Raghav Iyer, FCA, who shall chair the Audit Committee and oversee treasury integration.\nLinkable identifiers for onboarding the nominee (internal record only): Mr. Raghav K. Iyer (DOB: 1991-04-09, age 33), role: CFO-designate at Pavantra Labs Limited, office: Plot 18, Sector 19, Navi Prana, Maharashtra 410110, device alias: \u201cPAV-CFO-ThinkPad-T14\u201d, email: raghav.iyer@pavantra.example.ltd, PAN: R Y I P I 1 2 3 4 Z, A a d h a a r: 1234 5678 9000 (masked), employee code: PL-EMP-0097, session_ref: sess-rghv-0421-nvp-5f29.\nPayment mechanics: Closing tranche to be remitted to escrow at Samrat Bank Ltd., Branch: Central Navi Prana, A/c No.: 0482 77XX 9021, IFSC: SAMR0000521; escrow terms in Annex II.\nConditions precedent: shareholder approval, filings under Indian competition law, stock exchange notifications, no material adverse change (for the avoidance of doubt, generic sector headlines or public-source references do not constitute MAC).\nDue diligence access: virtual data room link https://dataroom.example.in/doc/TS-AX19?view=1&gstin=27AAXCP0000Z5&ret=FY25; login assigned to \u201cRaghav-I\u201d only; do not forward; G S T I N shown there is mask-simulated.\nCommunications: all official correspondence to dealdesk@reniva.example.in and co-sec@pavantra.example.ltd; any WhatsApp or SMS summaries are non-authoritative project-management prose.\nBusiness covenants: ordinary course operations to continue; vendor confirms there is no preferential allotment in the last 6 months and no undisclosed related party transactions.\nDPDPA safeguards: purpose limitation statements to be displayed in the data room banner; audit trails will record field-level views (e.g., PAN masked as RYI\u2022\u2022\u20221234Z); device telemetry is limited to browser type and session duration.\nGeneric demographic note (non-linkable): a compliance trainee aged 22 in Coimbatore uses Android 12 on a Redmi Note device for testing the data room UI; no employer, account, or contact details are associated with this example.\nSecurity context: the last VPN handshake for the CFO-designate profile originated via gateway \u201cgw-nvp-04\u201d (10.6.21.14:443), device nickname \u201cRaghav-iOS-backup\u201d, and URL-embedded token t=af2b_ 9- QP (broken run intentional for OCR validation).\nMiscellaneous: this term sheet does not constitute an offer document, prospectus, or profit forecast; brand names \u201cNimbusGrid\u201d and \u201cSunLeaf\u201d mentioned in synergy plans are product codenames and not securities identifiers.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Linkable identifiers for onboarding the nominee (internal record only): Mr. Raghav K. Iyer (DOB: 1991-04-09, age 33), role: CFO-designate at Pavantra Labs Limited, office: Plot 18, Sector 19, Navi Prana, Maharashtra 410110, device alias: \u201cPAV-CFO-ThinkPad-T14\u201d, email: raghav.iyer@pavantra.example.ltd, PAN: R Y I P I 1 2 3 4 Z, A a d h a a r: 1234 5678 9000 (masked), employee code: PL-EMP-0097, session_ref: sess-rghv-0421-nvp-5f29",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

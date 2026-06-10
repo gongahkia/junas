@@ -1,0 +1,677 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_sector_mnpi_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/sector_mnpi/us_sector_mnpi_term_sheet_default_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_sector_mnpi_term_sheet_default_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 68,
+    "new_must_detect_count": 40,
+    "old_ideal_must_detect_count": 46,
+    "old_must_detect_count": 32,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_sector_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lila.serrano@nmeridianhealth.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "jkeats@praxisbiobank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Serrano",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jonah Keats",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Serrano",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Keats",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darius Quan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed Acquisition of Praxis BioBank, Inc. by Northstar Meridian Health, LLC (US issuer; subject to SEC rules and Reg FD).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Committed senior term facility from Harbor Gate Bank, N.A. (fictional) and seller rollover of $10,000,000 subordinated notes; no public offering contemplated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing Conditions: customary reps/warranties; HSR filing if required; HIPAA and GLBA compliance certifications; no Material Adverse Effect; completion of IT/cyber diligence to Buyer\u2019s satisfaction.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/Climate Covenant: Buyer financing includes a 15 bps margin ratchet linked to achieving \u226530% Scope 2 emissions reduction at acquired facilities by YE2028 and maintaining a \u201cB\u201d or higher internal climate risk score.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Analyst Interactions: Any contact with research analysts at Redwood Beacon Securities LLC or other broker\u2011dealers must be coordinated by IR; no guidance sharing or selective provision of cyber, ESG, or token\u2011related metrics pre\u2011disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post\u2011Closing Covenants: Retain key personnel (including Mr. Darius Quan, CTO) for 12 months with stay bonuses; remediate critical CVEs within 60 days; wind\u2011down CareToken; publish first combined ESG update within 90 days post-close.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exclusivity/No-Shop: Seller agrees to a 45\u2011day exclusivity period and will route unsolicited indications to Buyer within 24 hours; break fee $6,000,000 upon material breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Heliotrope",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$142,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$18,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$24,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$10,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$3.2",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$4.0 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$6,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "142,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,400",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@nmeridianhealth.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darius Quan, CTO",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout Window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reg FD/Selective Disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective provision of cyber, ESG, or token\u2011related metrics pre\u2011disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unreported ransomware event",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Item 1.05 Form 8\u2011K",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping or trading on this MNPI is prohibited under Rule 10b\u20115",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$50,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossed persons",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "designated \u201cProject Heliotrope\u201d data room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "from signing until two full trading days after public announcement",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No communications of deal terms or performance metrics to analysts, investors, or lenders except via Form 8\u2011K and publicly accessible webcast",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any contact with research analysts at Redwood Beacon Securities LLC or other broker\u2011dealers must be coordinated by IR; no guidance sharing or selective provision of cyber, ESG, or token\u2011related metrics pre\u2011disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may require an Item 1.05 Form 8\u2011K post-close",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/Climate Covenant",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u226530% Scope 2 emissions reduction",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u226530%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CareToken",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "stablecoin",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No transfer of PHI except de\u2011identified data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opt\u2011out notices",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal climate risk score",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lila.serrano@nmeridianhealth.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "jkeats@praxisbiobank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Serrano",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jonah Keats",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Serrano",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Keats",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darius Quan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed Acquisition of Praxis BioBank, Inc. by Northstar Meridian Health, LLC (US issuer; subject to SEC rules and Reg FD).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Committed senior term facility from Harbor Gate Bank, N.A. (fictional) and seller rollover of $10,000,000 subordinated notes; no public offering contemplated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing Conditions: customary reps/warranties; HSR filing if required; HIPAA and GLBA compliance certifications; no Material Adverse Effect; completion of IT/cyber diligence to Buyer\u2019s satisfaction.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/Climate Covenant: Buyer financing includes a 15 bps margin ratchet linked to achieving \u226530% Scope 2 emissions reduction at acquired facilities by YE2028 and maintaining a \u201cB\u201d or higher internal climate risk score.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Analyst Interactions: Any contact with research analysts at Redwood Beacon Securities LLC or other broker\u2011dealers must be coordinated by IR; no guidance sharing or selective provision of cyber, ESG, or token\u2011related metrics pre\u2011disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post\u2011Closing Covenants: Retain key personnel (including Mr. Darius Quan, CTO) for 12 months with stay bonuses; remediate critical CVEs within 60 days; wind\u2011down CareToken; publish first combined ESG update within 90 days post-close.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exclusivity/No-Shop: Seller agrees to a 45\u2011day exclusivity period and will route unsolicited indications to Buyer within 24 hours; break fee $6,000,000 upon material breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Heliotrope",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$142,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$18,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$24,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$10,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$3.2",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$4.0 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$6,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "142,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,400",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed Acquisition of Praxis BioBank, Inc. by Northstar Meridian Health, LLC (US issuer; subject to SEC rules and Reg FD).\nParties/Contacts: Buyer\u2014Northstar Meridian Health, LLC (contact: Ms. Lila Serrano, VP Corp Dev, lila.serrano@nmeridianhealth.example); Seller\u2014Praxis BioBank, Inc. (contact: Mr. Jonah Keats, CEO, jkeats@praxisbiobank.example).\nStructure/Consideration: 100% equity purchase; Purchase Price $142,000,000 cash at close; $18,000,000 escrow (18 months) for indemnities; Earn-out up to $24,000,000 based on FY27\u2013FY28 adjusted EBITDA.\nFinancing: Committed senior term facility from Harbor Gate Bank, N.A. (fictional) and seller rollover of $10,000,000 subordinated notes; no public offering contemplated.\nClosing Conditions: customary reps/warranties; HSR filing if required; HIPAA and GLBA compliance certifications; no Material Adverse Effect; completion of IT/cyber diligence to Buyer\u2019s satisfaction.\nCyber Incident (MNPI): Seller has preliminarily identified a privileged, unreported ransomware event dated 05/14/26 with estimated remediation costs of $3.2\u2013$4.0 million; this information is material and non-public and may require an Item 1.05 Form 8\u2011K post-close.\nDigital Assets (MNPI): Seller operates a limited pilot \u201cCareToken\u201d stablecoin for patient engagement (circa 12,400 tokens outstanding, <$50,000 float); Buyer requires wind\u2011down within 90 days of close; pilot details are confidential and not publicly disclosed.\nESG/Climate Covenant: Buyer financing includes a 15 bps margin ratchet linked to achieving \u226530% Scope 2 emissions reduction at acquired facilities by YE2028 and maintaining a \u201cB\u201d or higher internal climate risk score.\nInformation Barriers/Insider List: Buyer Legal Ops will maintain a draft insider list; wall\u2011crossed persons (including Ms. Serrano and Mr. Keats) must execute NDAs prior to receiving diligence materials; no dissemination outside clean team and designated \u201cProject Heliotrope\u201d data room.\nReg FD/Selective Disclosure: No communications of deal terms or performance metrics to analysts, investors, or lenders except via Form 8\u2011K and publicly accessible webcast; any sell\u2011side or buy\u2011side briefings must occur after public disclosure and be script\u2011controlled.\nBlackout Window: Buyer and Seller employees with knowledge of this transaction are subject to a trading blackout from signing until two full trading days after public announcement; violations constitute grounds for termination for cause.\nAnalyst Interactions: Any contact with research analysts at Redwood Beacon Securities LLC or other broker\u2011dealers must be coordinated by IR; no guidance sharing or selective provision of cyber, ESG, or token\u2011related metrics pre\u2011disclosure.\nData/Privacy: No transfer of PHI except de\u2011identified data; transfer of GLBA\u2011covered customer information will be governed by a separate data\u2011sharing addendum with opt\u2011out notices as required by applicable US law.\nOperational/Benign Use: The company\u2019s ESG marketing brochure and cyber awareness webinar reuse terms like \u201ctoken,\u201d \u201cinsider list,\u201d and \u201cinformation barrier\u201d solely for general education and training, not to convey deal\u2011stage or market\u2011sensitive information.\nPost\u2011Closing Covenants: Retain key personnel (including Mr. Darius Quan, CTO) for 12 months with stay bonuses; remediate critical CVEs within 60 days; wind\u2011down CareToken; publish first combined ESG update within 90 days post-close.\nTipping Prohibition: Directors, employees, consultants, and advisors are reminded that tipping or trading on this MNPI is prohibited under Rule 10b\u20115; all inquiries should be directed to Compliance at compliance@nmeridianhealth.example.\nExclusivity/No-Shop: Seller agrees to a 45\u2011day exclusivity period and will route unsolicited indications to Buyer within 24 hours; break fee $6,000,000 upon material breach.\nExpiration/Governing Law: This term sheet is non\u2011binding (except confidentiality, exclusivity, and governing law) and expires at 5:00 pm ET on 07/31/26; governed by the laws of the",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Jonah Keats, CEO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Darius Quan, CTO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of Praxis BioBank, Inc",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of Praxis BioBank, Inc. by Northstar Meridian Health, LLC (US issuer; subject to SEC rules and Reg FD).\nParties/Contacts: Buyer\u2014Northstar Meridian Health, LLC (contact: Ms. Lila Serrano, VP Corp Dev, lila.serrano@nmeridianhealth.example); Seller\u2014Praxis BioBank, Inc. (contact: Mr. Jonah Keats, CEO, jkeats@praxisbiobank.example).\nStructure/Consideration: 100% equity purchase; Purchase Price $142,000,000 cash at close; $18,000,000 escrow (18 months) for indemnities; Earn-out up to $24,000,000 based on FY27\u2013FY28 adjusted EBITDA.\nFinancing: Committed senior term facility from Harbor Gate Bank, N.A. (fictional) and seller rollover of $10,000,000 subordinated notes; no public offering contemplated.\nClosing Conditions: customary reps/warranties; HSR filing if required; HIPAA and GLBA compliance certifications; no Material Adverse Effect; completion of IT/cyber diligence to Buyer\u2019s satisfaction.\nCyber Incident (MNPI): Seller has preliminarily identified a privileged, unreported ransomware event dated 05/14/26 with estimated remediation costs of $3.2\u2013$4.0 million; this information is material and non-public and may require an Item 1.05 Form 8\u2011K post-close.\nDigital Assets (MNPI): Seller operates a limited pilot \u201cCareToken\u201d stablecoin for patient engagement (circa 12,400 tokens outstanding, <$50,000 float); Buyer requires wind\u2011down within 90 days of close; pilot details are confidential and not publicly disclosed.\nESG/Climate Covenant: Buyer financing includes a 15 bps margin ratchet linked to achieving \u226530% Scope 2 emissions reduction at acquired facilities by YE2028 and maintaining a \u201cB\u201d or higher internal climate risk score.\nInformation Barriers/Insider List: Buyer Legal Ops will maintain a draft insider list; wall\u2011crossed persons (including Ms. Serrano and Mr. Keats) must execute NDAs prior to receiving diligence materials; no dissemination outside clean team and designated \u201cProject Heliotrope\u201d data room.\nReg FD/Selective Disclosure: No communications of deal terms or performance metrics to analysts, investors, or lenders except via Form 8\u2011K and publicly accessible webcast; any sell\u2011side or buy\u2011side briefings must occur after public disclosure and be script\u2011controlled.\nBlackout Window: Buyer and Seller employees with knowledge of this transaction are subject to a trading blackout from signing until two full trading days after public announcement; violations constitute grounds for termination for cause.\nAnalyst Interactions: Any contact with research analysts at Redwood Beacon Securities LLC or other broker\u2011dealers must be coordinated by IR; no guidance sharing or selective provision of cyber, ESG, or token\u2011related metrics pre\u2011disclosure.\nData/Privacy: No transfer of PHI except de\u2011identified data; transfer of GLBA\u2011covered customer information will be governed by a separate data\u2011sharing addendum with opt\u2011out notices as required by applicable US law.\nOperational/Benign Use: The company\u2019s ESG marketing brochure and cyber awareness webinar reuse terms like \u201ctoken,\u201d \u201cinsider list,\u201d and \u201cinformation barrier\u201d solely for general education and training, not to convey deal\u2011stage or market\u2011sensitive information.\nPost\u2011Closing Covenants: Retain key personnel (including Mr. Darius Quan, CTO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "\u201ctoken,\u201d",
+      "reason": "Benign educational usage per Operational/Benign Use."
+    },
+    {
+      "matched_text": "\u201cinsider list,\u201d",
+      "reason": "Benign educational usage per Operational/Benign Use."
+    },
+    {
+      "matched_text": "\u201cinformation barrier\u201d",
+      "reason": "Benign educational usage per Operational/Benign Use."
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "embargo_marker",
+      "matched_text": "07/31/26",
+      "reason": "Expiration date/time may function as an embargo but not one of the explicit marker phrases."
+    },
+    {
+      "concept": "cyber_incident_date",
+      "matched_text": "05/14/26",
+      "reason": "Incident date is sensitive in context but not a distinct allowed rule."
+    },
+    {
+      "concept": "financial_rate",
+      "matched_text": "15 bps",
+      "reason": "Margin ratchet in basis points is financially sensitive but not covered by percentage/amount rules."
+    },
+    {
+      "concept": "regulatory_clearance",
+      "matched_text": "HSR filing",
+      "reason": "Hart-Scott-Rodino clearance can be material but no explicit rule tag provided."
+    }
+  ]
+}

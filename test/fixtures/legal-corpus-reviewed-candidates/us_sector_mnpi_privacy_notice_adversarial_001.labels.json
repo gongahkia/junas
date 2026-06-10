@@ -1,0 +1,429 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_sector_mnpi_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/sector_mnpi/us_sector_mnpi_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_sector_mnpi_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 41,
+    "new_must_detect_count": 21,
+    "old_ideal_must_detect_count": 30,
+    "old_must_detect_count": 21,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_sector_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@ciphersage.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jae Kim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lila Mercado",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Farah",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aaron Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing purpose: healthcare-banking analytics and fraud defense using minimum necessary data; no sale of personal information; GLBA and HIPAA carve-outs preserved; de-identification per NIST/ONC guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reg FD discipline: market-facing disclosures only via Form 8\u2011K, earnings release, or webcast; non-deal roadshow materials must be pre-cleared; internal draft decks are not for distribution.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Larch",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.4m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "99.95%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@vireohealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1\u2011833\u2011555\u20110199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@vireohealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Farah DuPont",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure to analysts, investors, or broker-dealers",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping is prohibited",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list (restricted)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout effective T+0",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "treat as potentially material until assessed",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$12.4m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR workflow",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimum necessary data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2026-05-27 cyber anomaly on Orchard-EHR archival bucket (us-east-1) under review",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Digital asset pilot (non-public): \u201cCareCoin\u201d rewards token for HSA wellness cohorts launching on testnet",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss token economics or on-chain partner selection with external analysts prior to public disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no sharing of CareCoin pilot metrics with equity research until 8\u2011K or press release",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "green loan term sheet contemplates a 10 bps step-down tied to Scope 1+2 reductions\u2014treat as MNPI",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing required for covered research",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-deal roadshow materials must be pre-cleared",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "communications must route through Investor Relations",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@ciphersage.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jae Kim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lila Mercado",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Farah",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aaron Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing purpose: healthcare-banking analytics and fraud defense using minimum necessary data; no sale of personal information; GLBA and HIPAA carve-outs preserved; de-identification per NIST/ONC guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reg FD discipline: market-facing disclosures only via Form 8\u2011K, earnings release, or webcast; non-deal roadshow materials must be pre-cleared; internal draft decks are not for distribution.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Larch",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.4m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "99.95%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing purpose: healthcare-banking analytics and fraud defense using minimum necessary data; no sale of personal information; GLBA and HIPAA carve-outs preserved; de-identification per NIST/ONC guidance.  \nMNPI protocol: no selective disclosure to analysts, investors, or broker-dealers; wall-crossing required for covered research; communications must route through Investor Relations; tipping is prohibited.  \nSensitive event notice (confidential): 2026-05-27 cyber anomaly on Orchard-EHR archival bucket (us-east-1) under review; treat as potentially material until assessed; internal case \u201cProject Larch.\u201d  \nInsider list (restricted): Mr. Jae Kim (SVP SecOps), Dr. Lila Mercado (CMO), Ms. Farah DuPont (Compliance), vendor lead Mr. Aaron Vale; list maintained at htt ps://invest.vireo.example/insider?case=L A R C H-01; trading blackout effective T+0 for covered persons.  \nInformation barriers: CipherSage research team segregated from Vireo capital markets; no sharing of CareCoin pilot metrics with equity research until 8\u2011K or press release; physical and logical barriers enforced.  \nDigital asset pilot (non-public): \u201cCareCoin\u201d rewards token for HSA wellness cohorts launching on testnet; do not discuss token economics or on-chain partner selection with external analysts prior to public disclosure; internal code ref: PRJ\u2011SPRU CE\u2011\u03b1.  \nCommercial terms (confidential): Nimbus Cloud Services sustainability-SLA bundle at $12.4m/year with 99.95% EHR uptime and carbon-offset certification; green loan term sheet contemplates a 10 bps step-down tied to Scope 1+2 reductions\u2014treat as MNPI.  \nReg FD discipline: market-facing disclosures only via Form 8\u2011K, earnings release, or webcast; non-deal roadshow materials must be pre-cleared; internal draft decks are not for distribution.  \nEducational/marketing note: our ESG training module uses examples of \u201cclimate-linked\u201d loans and \u201ctokenization\u201d vocabulary for awareness only and contains no live commercial terms or MNPI.  \nDSAR workflow: verify identity, exclude privileged or trade-secret content and MNPI from responses, and apply GLBA/HIPAA exceptions; submit requests via privacy@vireohealthbank.example or 1\u2011833\u2011555\u20110199; masked IDs (e.g., x x x\u2011xx\u20114 3 2 1) only in correspondence.  \nData transfers and retention: US-only storage (us-east-1/us-west-2), AES\u2011256 at rest, TLS in transit; incident logs retained 24 months; DocID: VHB\u2011DPA\u201120 26 se g m e n t: 04; audit trail hashes posted internally at htt ps://go.vireo.example/audit?d=VHB\u2011DPA\u201104.  \nMateriality caveat: this addendum does not constitute, and shall not be deemed, a material adverse change, an offer to sell any security or token, or a public communication for Reg FD purposes.  \nPublic reference: Scope 2 emissions baselines are already disclosed in Vireo\u2019s 2026 Q1 ESG Report; nothing herein supersedes public filings.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aaron Vale, Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jae Kim (SVP SecOps), Dr. Lila Mercado (CMO), Ms. Farah DuPont (Compliance), vendor lead Mr. Aaron Vale; list maintained at htt ps://invest.vireo.example/insider?case=L A R C H-01; trading blackout effective T+0 for covered persons.  \nInformation barriers: CipherSage research team segregated from Vireo capital markets; no sharing of CareCoin pilot metrics with equity research until 8\u2011K or press release; physical and logical barriers enforced.  \nDigital asset pilot (non-public): \u201cCareCoin\u201d rewards token for HSA wellness cohorts launching on testnet; do not discuss token economics or on-chain partner selection with external analysts prior to public disclosure; internal code ref: PRJ\u2011SPRU CE\u2011\u03b1.  \nCommercial terms (confidential): Nimbus Cloud Services sustainability-SLA bundle at $12.4m/year with 99.95% EHR uptime and carbon-offset certification; green loan term sheet contemplates a 10 bps step-down tied to Scope 1+2 reductions\u2014treat as MNPI.  \nReg FD discipline: market-facing disclosures only via Form 8\u2011K, earnings release, or webcast; non-deal roadshow materials must be pre-cleared; internal draft decks are not for distribution.  \nEducational/marketing note: our ESG training module uses examples of \u201cclimate-linked\u201d loans and \u201ctokenization\u201d vocabulary for awareness only and contains no live commercial terms or MNPI.  \nDSAR workflow: verify identity, exclude privileged or trade-secret content and MNPI from responses, and apply GLBA/HIPAA exceptions; submit requests via privacy@vireohealthbank.example or 1\u2011833\u2011555\u20110199; masked IDs (e.g., x x x\u2011xx\u20114 3 2 1) only in correspondence.  \nData transfers and retention: US-only storage (us-east-1/us-west-2), AES\u2011256 at rest, TLS in transit; incident logs retained 24 months; DocID: VHB\u2011DPA\u201120 26 se g m e n t: 04; audit trail hashes posted internally at htt ps://go.vireo.example/audit?d=VHB\u2011DPA\u201104.  \nMateriality caveat: this addendum does not constitute, and shall not be deemed, a material adverse change, an offer to sell any security or token, or a public communication for Reg FD purposes.  \nPublic reference: Scope 2 emissions baselines are already disclosed in Vireo\u2019s 2026 Q1 ESG Report; nothing herein supersedes public filings.  \nops note: migrate carecoin testnet logs to cold storage; demo dataset only; confirm no patient PII; update runbook before friday.  \nQuestions: contact Ms. Farah DuPont, Compliance Officer, compliance@vireohealthbank.example, or Mr. Aaron Vale, Counsel (vendor), legal@ciphersage.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC reference; rule 8 excludes labeling negated MAC/MAE."
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "bank_customer_reference (masked)",
+      "matched_text": "A C C T: **87**-HSA",
+      "reason": "Example of masked account ref; not a standard numeric pattern and may be non-identifying."
+    },
+    {
+      "concept": "financial_percentage",
+      "matched_text": "10 bps",
+      "reason": "Basis points indicate a percentage change but lacks percent sign; may not be covered by strict percentage regex."
+    },
+    {
+      "concept": "transaction code",
+      "matched_text": "PRJ\u2011SPRU CE\u2011\u03b1",
+      "reason": "Internal project code reference that is not in the 'Project <Name>' codename pattern."
+    },
+    {
+      "concept": "us_ssn (masked)",
+      "matched_text": "x x x\u2011xx\u20114 3 2 1",
+      "reason": "Looks like a masked SSN pattern; insufficient digits and spaces prevent matching allowed SSN rule."
+    },
+    {
+      "concept": "internal identifier",
+      "matched_text": "L A R C H-01",
+      "reason": "Case identifier in URL parameter; could be an internal case or incident ID but not clearly mapped to an allowed rule."
+    },
+    {
+      "concept": "internal document identifier",
+      "matched_text": "VHB\u2011DPA\u201104",
+      "reason": "Internal doc/audit reference; potentially identifying within the organization but not mapped to a specific allowed rule."
+    }
+  ]
+}

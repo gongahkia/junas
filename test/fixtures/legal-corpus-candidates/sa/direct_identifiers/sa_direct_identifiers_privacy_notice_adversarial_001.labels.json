@@ -30,11 +30,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
-    "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 3,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "direct_identifiers",
@@ -157,6 +157,12 @@
       "category": "MNPI",
       "matched_text": "does not authorize disclosure of MNPI outside approved workflows",
       "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Banking and settlement: client IBAN SA00 1234 5678 9012 3456 7890 (invalid for illustration), with account alias ops-settle-01; we do not collect device MAC addresses.\nCross-border transfer workflow: prior approval via the SDAIA Transfer Registry is requested at https://portal.sdaia-x.example/apply?cr=10177888990&nid=2190357462, encryption in transit and at rest is enforced, and logs are reviewed quarterly.\nSub-processors: Desert Data Cloud FZ-LLC (Sub-processor ID DDC-2026-04) hosts in Riyadh and Dammam under PDPL-aligned clauses and technical measures, overseen by Dr. Lina Al-Jasser, DPO",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_detect": [
@@ -207,12 +213,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "Banking and settlement: client IBAN SA00 1234 5678 9012 3456 7890 (invalid for illustration), with account alias ops-settle-01; we do not collect device MAC addresses.\nCross-border transfer workflow: prior approval via the SDAIA Transfer Registry is requested at https://portal.sdaia-x.example/apply?cr=10177888990&nid=2190357462, encryption in transit and at rest is enforced, and logs are reviewed quarterly.\nSub-processors: Desert Data Cloud FZ-LLC (Sub-processor ID DDC-2026-04) hosts in Riyadh and Dammam under PDPL-aligned clauses and technical measures, overseen by Dr. Lina Al-Jasser, DPO",
-      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-      "rule": "postal_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "Data subject rights (access/rectification/erasure): submit DSARs to dsar@aldarahcapital.sa.example or by post to PO Box 00000, Riyadh 11400; generic public enquiries line 800-000-0000 must not be used for PII.\nFor verification we may request two factors, such as Iqama no., last 4 digits of mobile, or CR copy; generic form labels like Name:_____, ID:_____, Account:_____ on legacy forms are not persisted in production",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "postal_address"
@@ -222,6 +222,12 @@
       "matched_text": "Data subjects may include issuer insiders such as Mr. Salem Al-Qassimi (National ID/Iqama 2 1 9 0 3 5 7 4 6 2) and consultants holding Passport KX1234567 for onboarding verification.\nMNPI handling: we maintain insider lists during closed periods for the Najd Exchange-listed issuer Zahrat Logistics PJSC (Issuer Code ZL-PJSC-09), with access limited to compliance and audit logs retained.\nWe process direct identifiers (mobile, email), business identifiers (CR extract, tax file), and professional details solely for SMAK market-conduct oversight and issuer workflow execution.\nBanking and settlement: client IBAN SA00 1234 5678 9012 3456 7890 (invalid for illustration), with account alias ops-settle-01; we do not collect device MAC addresses.\nCross-border transfer workflow: prior approval via the SDAIA Transfer Registry is requested at https://portal.sdaia-x.example/apply?cr=10177888990&nid=2190357462, encryption in transit and at rest is enforced, and logs are reviewed quarterly.\nSub-processors: Desert Data Cloud FZ-LLC (Sub-processor ID DDC-2026-04) hosts in Riyadh and Dammam under PDPL-aligned clauses and technical measures, overseen by Dr. Lina Al-Jasser, DPO.\nData subject rights (access/rectification/erasure): submit DSARs to dsar@aldarahcapital.sa.example or by post to PO Box 00000, Riyadh 11400; generic public enquiries line 800-000-0000 must not be used for PII.\nFor verification we may request two factors, such as Iqama no., last 4 digits of mobile, or CR copy; generic form labels like Name:_____, ID:_____, Account:_____ on legacy forms are not persisted in production.\nRetention: MNPI is retained for 5 years after public disclosure via issuer announcements; non-MNPI onboarding records are retained for 24 months unless legal holds apply.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer workflow: prior approval via the SDAIA Transfer Registry is requested at https://portal.sdaia-x.example/apply?cr=10177888990&nid=2190357462, encryption in transit and at rest is enforced, and logs are reviewed quarterly.\nSub-processors: Desert Data Cloud FZ-LLC (Sub-processor ID DDC-2026-04) hosts in Riyadh and Dammam under PDPL-aligned clauses and technical measures, overseen by Dr. Lina Al-Jasser, DPO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
     }
   ],
   "must_not_detect": [

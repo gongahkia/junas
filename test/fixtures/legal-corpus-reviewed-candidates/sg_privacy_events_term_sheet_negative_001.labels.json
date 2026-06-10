@@ -1,0 +1,307 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_privacy_events_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/privacy_events/sg_privacy_events_term_sheet_negative_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_privacy_events_term_sheet_negative_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_privacy_events_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring\u2011fenced clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@ficusmarine.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@orchardvp.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A one\u2011time export of an employee contact directory to a regional HRIS vendor in Malaysia has been approved",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal data fields in diligence rooms are limited to role\u2011based contact points",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "unnecessary identity\u2011number fields are removed as part of minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "role mailboxes only\u2014no personal addresses to be used",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Only aggregated or role\u2011based data is accessible to Orchard\u2019s diligence team",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no customer PII is shared",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "marketing consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team under Annex CT\u20111",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "FMHL",
+      "rule": "sg_sgx_counter"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Minimisation and retention: Personal data fields in diligence rooms are limited to role\u2011based contact points; retention for diligence artifacts is capped at 6 years per Policy PD\u2011RET\u201106, after which erasure procedures apply; these are policy statements and not notices of any breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Representations: The issuer represents that, as at signing, it is not aware of any unresolved PDPA enforcement notices and has implemented a data breach response plan; references to \u201cerasure,\u201d \u201cDSAR,\u201d and \u201cconsent withdrawal\u201d in this term sheet reflect policy controls, not active incidents.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to shareholder approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation and retention: Personal data fields in diligence rooms are limited to role\u2011based contact points; retention for diligence artifacts is capped at 6 years per Policy PD\u2011RET\u201106, after which erasure procedures apply; these are policy statements and not notices of any breach.\nCross\u2011border transfer approval (intentional positive): A one\u2011time export of an employee contact directory to a regional HRIS vendor in Malaysia has been approved under internal Data Export Approval DE\u20112025\u20110145, with transfer restrictions and contractual clauses mapped in DPA Schedule 2",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@orchardvp.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Minimisation and retention: Personal data fields in diligence rooms are limited to role\u2011based contact points; retention for diligence artifacts is capped at 6 years per Policy PD\u2011RET\u201106, after which erasure procedures apply; these are policy statements and not notices of any breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Representations: The issuer represents that, as at signing, it is not aware of any unresolved PDPA enforcement notices and has implemented a data breach response plan; references to \u201cerasure,\u201d \u201cDSAR,\u201d and \u201cconsent withdrawal\u201d in this term sheet reflect policy controls, not active incidents.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to shareholder approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Confidentiality and clean team: Only aggregated or role\u2011based data is accessible to Orchard\u2019s diligence team; no customer PII is shared and any MNPI review occurs after public disclosure or within a ring\u2011fenced clean team under Annex CT\u20111",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Investment in Ficus Marine Holdings Ltd. (SGX Mainboard; ticker: FMHL) by Orchard Venture Partners Pte. Ltd.\nPublic disclosure and MNPI: This summary aligns with the issuer\u2019s previously published SGXNET announcements and does not contain MNPI under the SFA or SGX Listing Rules.\nStructure: Primary issuance of new ordinary shares and a secondary purchase from existing non\u2011controlling shareholders, for an aggregate stake not exceeding approximately 12%, subject to shareholder approval; no price terms are set out in this summary.\nConditions precedent: SGX approval (if required), shareholders\u2019 approval at EGM, MAS/SFA compliance confirmations, completion of confirmatory due diligence limited to non\u2011price\u2011sensitive matters.\nData protection schedule: Schedule DPA\u20111 (Processor Terms) and Annex Privacy\u2011Ops form part of this term sheet; controls follow PDPA (Cap. 26) obligations on purpose limitation, notification, and accountability.\nMinimisation and retention: Personal data fields in diligence rooms are limited to role\u2011based contact points; retention for diligence artifacts is capped at 6 years per Policy PD\u2011RET\u201106, after which erasure procedures apply; these are policy statements and not notices of any breach.\nCross\u2011border transfer approval (intentional positive): A one\u2011time export of an employee contact directory to a regional HRIS vendor in Malaysia has been approved under internal Data Export Approval DE\u20112025\u20110145, with transfer restrictions and contractual clauses mapped in DPA Schedule 2.\nDSAR and consent withdrawal: There are no outstanding DSARs; the last two requests (ex\u2011employee access and marketing consent withdrawal) were completed and closed in accordance with Policy PD\u2011IND\u201103; this line records closure, not an open incident.\nErasure status: Routine quarterly erasure of obsolete applicant CVs in the diligence staging folder was completed and logged (Batch ER\u2011Q1\u20112025); no live erasure failures are reported.\nOnboarding forms and notices: Employee onboarding Form OF\u2011EMP\u20112025 includes PDPA collection notices and a plain\u2011language consent statement; unnecessary identity\u2011number fields are removed as part of minimisation.\nConfidentiality and clean team: Only aggregated or role\u2011based data is accessible to Orchard\u2019s diligence team; no customer PII is shared and any MNPI review occurs after public disclosure or within a ring\u2011fenced clean team under Annex CT\u20111.\nEmployment and integration: No automatic transfer of employment; any post\u2011completion hires will use the standard PDPA\u2011compliant onboarding process with privacy notices and optional marketing consent boxes unchecked by default.\nRepresentations: The issuer represents that, as at signing, it is not aware of any unresolved PDPA enforcement notices and has implemented a data breach response plan; references to \u201cerasure,\u201d \u201cDSAR,\u201d and \u201cconsent withdrawal\u201d in this term sheet reflect policy controls, not active incidents.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer approval (intentional positive): A one\u2011time export of an employee contact directory to a regional HRIS vendor in Malaysia has been approved under internal Data Export Approval DE\u20112025\u20110145, with transfer restrictions and contractual clauses mapped in DPA Schedule 2",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Role noun in context, not PII or MNPI."
+    },
+    {
+      "matched_text": "parties",
+      "reason": "Generic role noun; not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "There are no outstanding DSARs",
+      "reason": "Access rights are privacy-relevant but there is no explicit DSAR rule; also denotes closure."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "retention for diligence artifacts is capped at 6 years per Policy PD\u2011RET\u201106",
+      "reason": "Retention limits are relevant but no explicit retention marker rule exists."
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "after which erasure procedures apply",
+      "reason": "Erasure controls are referenced but no allowed rule exists for erasure markers."
+    },
+    {
+      "concept": "erasure status",
+      "matched_text": "Erasure status: Routine quarterly erasure of obsolete applicant CVs in the diligence staging folder was completed and logged (Batch ER\u2011Q1\u20112025)",
+      "reason": "Describes erasure program/closure; no explicit erasure marker rule."
+    },
+    {
+      "concept": "embargo/timing reference",
+      "matched_text": "as at signing",
+      "reason": "Temporal reference to signing but not one of the exact allowed embargo markers."
+    },
+    {
+      "concept": "DSAR request",
+      "matched_text": "ex\u2011employee access",
+      "reason": "Indicates an access request under PDPA but no explicit DSAR rule exists; marked as completed/closed."
+    }
+  ]
+}

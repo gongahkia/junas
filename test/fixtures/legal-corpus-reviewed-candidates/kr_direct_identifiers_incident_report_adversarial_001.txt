@@ -1,0 +1,15 @@
+Haneul Steel Co., Ltd. incident notification under PIPA and FSCMA to the Board and for submission to FSC/FSS, Seoul Growth Board (SGB) listing context.
+Company identifier: 사업자등록번호 421-87-31095; IR contact: security@haneulsteel.co.kr.
+On 2026-06-02 03:20 KST our SOC observed data exfiltration via a vendor VPN account issued to Mr. Park Min-su of Namu Data Services Co.
+Accessed shares included HR “onboarding” and IR “drafts”; two .hwp files contained resident-number fields and passport scans for interns.
+Example record: Ms. Choi Ara (Intern) 주민등록번호 920305 - 2 0 1 2 3 4 5; KR Passport M1234567X (checksum invalid, sample only).
+Investor-relations folder included IR-2026-Q3-DRAFT and a non-public term sheet for a private placement with Seonwoo Ventures SPC; this constitutes 중요정보 미공개.
+However, this summary does not include MNPI figures and numbers are redacted; not a material adverse change under the draft SPA.
+Preliminary assessment indicates no customer data; union payroll unaffected; product “BlueFurnace 3” operations normal and shipping KPIs on track.
+Containment actions: rotated VPN certs, disabled the compromised account, and patched the jump host; action items: update runbook by eod.
+Forensic notes: exfil path smb://fileserv01/hr/ and s3://ir-drafts/; suspicious url h t t p s : / / ir.haneulsteel.co.kr/notice?ref=FSCMA174&doc=IR-2026-Q3-DRAFT.
+Contact channel: security@haneulsteel.co.kr, phone 010-8423-5532; role-only escalation: CFO, IR lead.
+Settlement/payment details were not accessed; nonetheless we are monitoring Daejin Bank ac c t 132- 04 5- 987654 for anomalies.
+Public helpline bait: for general inquiries call 1400 City Helpline (public line, not account-specific), or Tel: 000-0000-0000 [placeholder].
+Reporting plan: PIPA Art.34 breach notice within 24h and FSCMA voluntary report; filing on SGB portal with doc id SGB-INC-26-0714.
+This notice is issued per internal sop-ir-09 rev b; public-source references were used for threat indicators only.

@@ -1,0 +1,405 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 2
+  },
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_universal_mnpi_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/universal_mnpi/sa_universal_mnpi_incident_report_default_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_universal_mnpi_incident_report_default_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 36,
+    "new_must_detect_count": 21,
+    "old_ideal_must_detect_count": 29,
+    "old_must_detect_count": 19,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_universal_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "k.shamrani@najdports.com.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@najdports.com.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "officeofchair@najdports.com.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2094765123",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2073359014",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nasser Al-Bishri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lina Al-Mutairi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Reem Al-Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction impact: the definitive Share Purchase Agreement for Project Saffron (acquisition of Red Dune Cold Chain LLC) signed 2026-06-01 at SAR 182,000,000 with a 12% earn-out remains in effect.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IR draft language (internal use only): \u201cThe Company confirms operations are stable; remediation concluded within 4 hours; no service-level breach; estimated containment cost SAR 1.6 million (~0.4% of FY revenue).\u201d",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal use only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Saffron",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.6 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "182,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 1010999888",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama 2094765123",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama 2073359014",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@najdports.com.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo: Do not disclose externally before 2026-07-15 09:00 AST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet v7.2",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SA38-80**-**21",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "to be redacted in public notice",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Transfer Impact Assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SAR 182,000,000",
+      "rule": "total_contract_value"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized access to a shared HR mailbox",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not expected to constitute a Material Adverse Change",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "does not trigger any MAE termination right under the SPA",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for distribution outside authorized recipients",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any analyst queries to be routed via",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "k.shamrani@najdports.com.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@najdports.com.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "officeofchair@najdports.com.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2094765123",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2073359014",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nasser Al-Bishri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lina Al-Mutairi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Reem Al-Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction impact: the definitive Share Purchase Agreement for Project Saffron (acquisition of Red Dune Cold Chain LLC) signed 2026-06-01 at SAR 182,000,000 with a 12% earn-out remains in effect.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IR draft language (internal use only): \u201cThe Company confirms operations are stable; remediation concluded within 4 hours; no service-level breach; estimated containment cost SAR 1.6 million (~0.4% of FY revenue).\u201d",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal use only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Saffron",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.6 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "182,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Najd Ports Services Company (JSC), Tadawul: NPX, CR 1010999888 \u2014 Operational Incident Report \u2014 MNPI / Non-Public\nDeal Codename: Project Saffron; Embargo: Do not disclose externally before 2026-07-15 09:00 AST per Issuer Disclosure Committee instruction.\nOn 2026-06-03, a phishing email titled \u201cfree spa day for staff\u201d led to unauthorized access to a shared HR mailbox; preliminary forensic log shows 17 minutes of session activity from an IP outside KSA.\nData exposure (PDPL scope): names, company emails, and Iqama numbers for 27 contractors; sample record: \u201cK. Al-Shamrani, Iqama 2094765123, k.shamrani@najdports.com.sa\u201d (to be redacted in public notice).\nNo full bank details leaked; only masked IBAN fragments (e.g., SA38-80**-**21) and shift rosters; no medical data.\nSDAIA transfer controls: cross-border replication to our disaster-recovery node is paused; Data Transfer Impact Assessment filed, permit request ref SDAIA-DTIA-26-441 submitted 2026-06-04.\nTransaction impact: the definitive Share Purchase Agreement for Project Saffron (acquisition of Red Dune Cold Chain LLC) signed 2026-06-01 at SAR 182,000,000 with a 12% earn-out remains in effect.\nCounsel advises the incident is not expected to constitute a Material Adverse Change and does not trigger any MAE termination right under the SPA.\nCMA market-conduct follow-up: self-report filed 2026-06-04, CMA ref MC-24-4471; draft Tadawul announcement prepared for board approval.\nBoard memo ref BM-26-017 and Term Sheet v7.2 note enhanced vendor audit rights; Mr. Nasser Al-Bishri (Acting CFO, Iqama 2073359014) to brief the Audit Committee.\nPublic-source context: a March post in the Riyadh Business Chronicle speculated on a system outage at a different port operator, which is unrelated and outdated.\nIR draft language (internal use only): \u201cThe Company confirms operations are stable; remediation concluded within 4 hours; no service-level breach; estimated containment cost SAR 1.6 million (~0.4% of FY revenue).\u201d\nlowercase pm note: action: coordinate with it and hr, update risk register, and circulate dpia addendum by eod.\nIssuer workflow: Disclosure Committee sign-off required before posting on Tadawul IR portal; any analyst queries to be routed via Dr. Lina Al-Mutairi (DPO) at dpo@najdports.com.sa and Eng. Tariq Al-Sabri (CISO) at security@najdports.com.sa.\nFor board oversight, please contact Ms. Reem Al-Hazmi, Chair, via officeofchair@najdports.com.sa; this document contains MNPI and is not for distribution outside authorized recipients.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "The Company",
+      "reason": "Role-noun defined term that should not be tagged as PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "named_person (honorific not in allowed list)",
+      "matched_text": "Eng. Tariq Al-Sabri",
+      "reason": "Personal name with title 'Eng.' which is not among the permitted honorifics (Dr/Mr/Ms/Mrs/Prof)."
+    },
+    {
+      "concept": "named_person",
+      "matched_text": "K. Al-Shamrani",
+      "reason": "Person name without honorific or signature-block context; may still be PII but excluded by rule 5."
+    },
+    {
+      "concept": "cross_border_transfer_marker",
+      "matched_text": "cross-border replication to our disaster-recovery node is paused",
+      "reason": "Indicates cross-border data transfer architecture but currently paused; rule 17 prefers live transfers only."
+    },
+    {
+      "concept": "regulatory permit reference",
+      "matched_text": "SDAIA-DTIA-26-441",
+      "reason": "Transfer permit reference relevant to cross-border compliance, not explicitly covered by allowed rules."
+    },
+    {
+      "concept": "ticker symbol",
+      "matched_text": "Tadawul: NPX",
+      "reason": "Issuer ticker is market-related but not an explicit MNPI rule in the taxonomy."
+    },
+    {
+      "concept": "regulator reference number",
+      "matched_text": "MC-24-4471",
+      "reason": "CMA reference number may be sensitive process data but not covered by enumerated rules."
+    },
+    {
+      "concept": "cyber forensic detail",
+      "matched_text": "17 minutes of session activity",
+      "reason": "Operational incident detail; relevant to cyber event but not a listed MNPI/PII pattern."
+    }
+  ]
+}

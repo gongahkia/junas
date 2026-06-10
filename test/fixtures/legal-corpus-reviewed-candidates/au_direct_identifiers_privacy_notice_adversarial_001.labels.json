@@ -1,0 +1,238 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_direct_identifiers_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_direct_identifiers_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_direct_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Penfold",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@karri-industries.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MZ4598123",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account 4910 2229",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Keating",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ABN: 12 345 678 901",
+      "rule": "au_abn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A C N: 6 1 2  340  78O",
+      "rule": "au_acn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61-3-7O1O-3344",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "BSB 732-199",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring\u2011fenced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "role\u2011based access ensures only the Company Secretary and CFO teams can view pre\u2011lodgement financials",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfers to our NZ processing node occur under APP 8 and contractual safeguards; no onward sale",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not paste tfn or passport numbers into kookaburracrm or sprint boards; use the secure HR vault",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: payroll and credit files kept 7 years per Corporations Act and ASIC recordkeeping guidance; MNPI retained per board trading policy.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5B",
+      "rule": "financial_amount"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Penfold",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Keating",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: payroll and credit files kept 7 years per Corporations Act and ASIC recordkeeping guidance; MNPI retained per board trading policy.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DPO: Ms. Liora Penfold, privacy@karri-industries.example, P: +61-3-7O1O-3344 (Melbourne switch).\nThis DPA applies to processing under the Privacy Act 1988 (Cth) and handling of MNPI under the Corporations Act 2001 and ASIC/ASX Listing Rules.\nKarri Industries engages WattleWorks Data Pty Ltd (fictional vendor) as processor for payroll and equity plan admin",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DPO: Ms. Liora Penfold, privacy@karri-industries.example, P: +61-3-7O1O-3344 (Melbourne switch).\nThis DPA applies to processing under the Privacy Act 1988 (Cth) and handling of MNPI under the Corporations Act 2001 and ASIC/ASX Listing Rules.\nKarri Industries engages WattleWorks Data Pty Ltd (fictional vendor) as processor for payroll and equity plan admin.\nCategories: employee names, business emails, AU passport nos. (e.g., MZ4598123), payroll BSB 732-199 / Account 4910 2229, and device IDs (but not MAC addresses).\nFor avoidance of doubt, we do not collect media access control addresses or Wi\u2011Fi probe data.\nMNPI (e.g., unaudited production figures or draft Appendix 5B cashflow) is ring\u2011fenced and embargoed until an ASX announcement is generally available.\nData subject requests: submit via https://portal.karri-industries.example/dsar?ref=AU-9  2  7-44 or write to DPO.\nRetention: payroll and credit files kept 7 years per Corporations Act and ASIC recordkeeping guidance; MNPI retained per board trading policy.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1800 555 900",
+      "reason": "Public helpline number explicitly stated as not personal PII."
+    },
+    {
+      "matched_text": "TFN: ________",
+      "reason": "Blank template label; not an identifier."
+    },
+    {
+      "matched_text": "Manager: ________",
+      "reason": "Blank template label; not an identifier."
+    },
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Explicitly excluded generic technology term; not collected."
+    },
+    {
+      "matched_text": "media access control addresses",
+      "reason": "Explicitly excluded generic technology term; not collected."
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": []
+}

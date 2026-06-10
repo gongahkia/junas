@@ -1,0 +1,314 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "ID",
+    "doc_id": "id_sector_mnpi_memo_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/id/sector_mnpi/id_sector_mnpi_memo_negative_001.txt",
+    "source_jurisdiction": "ID",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/id_sector_mnpi_memo_negative_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_sector_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@ndt.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A draft term sheet for a potential acquisition of PT Dompet Rakyat Fintek by NDT remains non-public and is not yet submitted to BSI; access is limited and an insider list will be compiled by Compliance Ops.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Separately, a real payment API outage investigation may indicate a cyber incident impacting settlement integrity; until OJKN disclosure thresholds are assessed, circulate details only on the need-to-know channel.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "helpdesk@ndt.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@ndt.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0800-000-000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping content",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout dates",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know channel",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may indicate",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@ndt.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A draft term sheet for a potential acquisition of PT Dompet Rakyat Fintek by NDT remains non-public and is not yet submitted to BSI; access is limited and an insider list will be compiled by Compliance Ops.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Separately, a real payment API outage investigation may indicate a cyber incident impacting settlement integrity; until OJKN disclosure thresholds are assessed, circulate details only on the need-to-know channel.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public/stale item: Our 2025 ESG roadmap and climate targets were published on BSI\u2019s issuer portal and the NDT investor site on 28-02-2025; no new sustainability commitments are being proposed here.\nOperations-only: The SakuKripto sandbox and KriptaLite loyalty points are part of a tabletop exercise; no token issuance, exchange listing, or customer balances are in scope.\nTemplate forms (sample): Nama [blank], Unit [blank], Email [helpdesk@ndt.example]; no KTP/NIK or address is requested in these drafts.\nSample codes for training only: Ticker: NDTX?, ISIN: IDN000000000X, Agreement Ref: AGR-XX-0000; these are invalid placeholders.\nInsider handling (policy): maintain an information-barrier between Strategy and Sales; do not use rumor boards, do not forward tipping content; blackout dates are posted on the intranet calendar.\nPublic M&A news: PT Dompet Rakyat Fintek\u2019s exploration of strategic options was noted in last quarter\u2019s media roundup, with no binding agreements disclosed; marketing may reference that public coverage only.\nA draft term sheet for a potential acquisition of PT Dompet Rakyat Fintek by NDT remains non-public and is not yet submitted to BSI; access is limited and an insider list will be compiled by Compliance Ops.\nCyber tabletop note: the \u201cIncident Aurora\u201d drill materials describe simulated ransomware scenarios and are for training; they do not reflect a live breach.\nSeparately, a real payment API outage investigation may indicate a cyber incident impacting settlement integrity; until OJKN disclosure thresholds are assessed, circulate details only on the need-to-know channel.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NDT",
+      "reason": "Defined abbreviation for the company, not PII/MNPI"
+    },
+    {
+      "matched_text": "crypto",
+      "reason": "Educational example only; not a market-sensitive event"
+    },
+    {
+      "matched_text": "insider-list",
+      "reason": "Educational example only; not a market-sensitive event"
+    },
+    {
+      "matched_text": "information barrier",
+      "reason": "Educational example only; not a market-sensitive event"
+    },
+    {
+      "matched_text": "blackout",
+      "reason": "Educational example only; not a market-sensitive event"
+    },
+    {
+      "matched_text": "SakuKripto",
+      "reason": "Sandbox/training context; no token issuance"
+    },
+    {
+      "matched_text": "KriptaLite",
+      "reason": "Sandbox/training context; no token issuance"
+    },
+    {
+      "matched_text": "Incident Aurora",
+      "reason": "Tabletop drill; not a live cyber incident"
+    },
+    {
+      "matched_text": "volume discount",
+      "reason": "Generic marketing language; not securities MNPI"
+    },
+    {
+      "matched_text": "tiered APR",
+      "reason": "Generic marketing language; not securities MNPI"
+    },
+    {
+      "matched_text": "price collar",
+      "reason": "Generic marketing language; not securities MNPI"
+    },
+    {
+      "matched_text": "KTP/NIK",
+      "reason": "Negated; indicates no ID data collected"
+    },
+    {
+      "matched_text": "NDTX?",
+      "reason": "Training placeholder ticker; not MNPI"
+    },
+    {
+      "matched_text": "IDN000000000X",
+      "reason": "Training placeholder ISIN; not MNPI"
+    },
+    {
+      "matched_text": "AGR-XX-0000",
+      "reason": "Training placeholder reference; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "regulatory disclosure threshold",
+      "matched_text": "OJKN disclosure thresholds",
+      "reason": "Signals pending assessment of disclosure obligations; not an explicit allowed marker"
+    },
+    {
+      "concept": "market infrastructure impact",
+      "matched_text": "settlement integrity",
+      "reason": "Potentially material operational risk but not mapped to a specific MNPI rule"
+    },
+    {
+      "concept": "pre-filing status",
+      "matched_text": "not yet submitted to BSI",
+      "reason": "Implies pending submission/embargo but not an enumerated embargo marker"
+    },
+    {
+      "concept": "information access control",
+      "matched_text": "access is limited",
+      "reason": "Implies information barrier/selective access but not an explicit rule phrase"
+    }
+  ]
+}

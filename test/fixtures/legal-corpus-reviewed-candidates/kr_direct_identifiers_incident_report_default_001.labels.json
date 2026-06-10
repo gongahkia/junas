@@ -1,0 +1,274 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "KR",
+    "doc_id": "kr_direct_identifiers_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_incident_report_default_001.txt",
+    "source_jurisdiction": "KR",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/kr_direct_identifiers_incident_report_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_direct_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dy.kim@daonenergy.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02-6742-2500",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "861231-1234567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02-6742-2599",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "010-5555-2711",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "210-9876-543210",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02-6742-2001",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "482-87-19304",
+      "rule": "kr_business_registration"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@daonenergy.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "203.0.113.42",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "210-9876-543210",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "861231-1234567",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "M12345678",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\uae40\ub3c4\uc724 \uc0c1\ubb34\ub2d8",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ubbf8\uacf5\uac1c \uc911\uc694\uc815\ubcf4",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IR\uc6a9 \ubbf8\uacf5\uac1c 2Q \uc190\uc775 \uc804\ub9dd",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\uc804\ub7b5\uc801 \ud22c\uc790 \uac80\ud1a0 \ucd08\uc548",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\uc804\ub7b5\uc801 \ud22c\uc790 \uc720\uce58 \uc81c\uc548 \ube44\uacf5\uac1c \ucd08\uc548",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\uc774\uc0ac\ud68c \ubcf4\uace0 \uc608\uc815\uc758 \ud569\uc791\uac80\ud1a0 \uba54\ubaa8",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ud604\uc7ac\uae4c\uc9c0 \ub300\uc678\uacf5\uc2dc\ub294 \uc774\ub8e8\uc5b4\uc9c0\uc9c0 \uc54a\uc558\uc74c",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IR \ud3ec\ud138 \uc811\uadfc\uad8c\ud55c \uc624\ub0a8\uc6a9 \ubc1c\uc0dd \ud1b5\uc9c0",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dy.kim@daonenergy.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02-6742-2500",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "861231-1234567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02-6742-2599",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "010-5555-2711",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "210-9876-543210",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02-6742-2001",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "482-87-19304",
+      "rule": "kr_business_registration"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ubbf8\uacf5\uac1c",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ub2e4\uc628\uc5d0\ub108\uc9c0 \uc8fc\uc2dd\ud68c\uc0ac(\uc0ac\uc5c5\uc790\ub4f1\ub85d\ubc88\ud638: 482-87-19304)\ub294 \ud55c\uad6d\uac70\ub798\uc18c \uacf5\uc2dc(Disclosure) \ubc0f \uae08\uc735\uc704\uc6d0\ud68c\u00b7\uae08\uc735\uac10\ub3c5\uc6d0 \ubcf4\uace0 \uc694\uac74\uc5d0 \ub530\ub77c \ubcf8 \uac74\uc744 \ubcf4\uace0\ud569\ub2c8\ub2e4.\n\ubcf8\uc810 \uc8fc\uc18c: \uc11c\uc6b8\ud2b9\ubcc4\uc2dc \ud55c\uc11c\uad6c \ubbf8\ub798\ub300\ub85c 123, \uac00\ub78c\ud0c0\uc6cc 18\uce35 | \ub300\ud45c\uc804\ud654: 02-6742-2500 | IR \uc774\uba54\uc77c: ir@daonenergy.example.kr\n2026-05-30 19:42~20:15 \uc0ac\uc774 \ud1f4\uc9c1 \uacc4\uc57d\uc9c1 \uacc4\uc815\uc774 IR \ud3ec\ud138 \ub0b4 \ube44\uacf5\uac1c \ud3f4\ub354\uc5d0 \ube44\uc815\uc0c1\uc801\uc73c\ub85c \uc811\uadfc\ud558\uc600\uc73c\uba70, \ub0b4\ubd80 \uc810\uac80 \uacb0\uacfc \uc678\ubd80 \uc720\ucd9c \uc815\ud669\uc740 \uc81c\ud55c\uc801\uc774\ub098 \uc7a0\uc7ac\uc801 \ub178\ucd9c \ud56d\ubaa9\uc774 \ud655\uc778\ub418\uc5c8\uc2b5\ub2c8\ub2e4.\n\uc7a0\uc7ac \ub178\ucd9c \ud56d\ubaa9: (1) \uc784\uc9c1\uc6d0 \uba54\ud0c0\ub370\uc774\ud130 \uc77c\ubd80(\uc608: \uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638 861231-1234567 \u2014 \uac80\uc99d \uc2e4\ud328\ub85c \uc2e4\uc81c \uc720\ud6a8\ud558\uc9c0 \uc54a\uc74c), (2) \uc678\uc8fc \uc778\ub825 \uc5ec\uad8c\ubc88\ud638 M12345678(\uc0d8\ud50c \ud3ec\ub9f7, \uacc4\uc57d \uc2dd\ubcc4\uc6a9), (3) IR\uc6a9 \ubbf8\uacf5\uac1c 2Q \uc190\uc775 \uc804\ub9dd, (4) \uc804\ub7b5\uc801 \ud22c\uc790 \uac80\ud1a0 \ucd08\uc548(Deal Term Sheet).\n\ubcf4\uc548\ucd1d\uad04 \uae40\ub3c4\uc724 \uc0c1\ubb34\ub2d8(CISO) \uc5f0\ub77d\ucc98: dy.kim@daonenergy.example.kr | \uc804\uc6a9\uc120: 02-6742-2599 | \ube44\uc0c1: 010-5555-2711.\n\uc811\uadfc \ub85c\uadf8 \uc0c1 203.0.113.42\ub85c\ubd80\ud130 \ub2e4\uc911 \ub85c\uadf8\uc778 \uc2dc\ub3c4\uac00 \uc788\uc5c8\uc73c\ub098, \ucca8\ubd80\ud30c\uc77c \uc678\ubd80 \ubc18\ucd9c \uc2dc\ub3c4\ub294 DLP \uc815\ucc45\uc5d0 \uc758\ud574 \ucc28\ub2e8\ub418\uc5c8\uace0 \uc774\uc0c1 \uc1a1\uc2e0 \uc774\uba54\uc77c\uc740 \ubc1c\uacac\ub418\uc9c0 \uc54a\uc558\uc2b5\ub2c8\ub2e4.\nIR \uc790\ub8cc \uce90\uc2dc\uc5d0\uc11c \uacf5\uae09\uc5c5\uccb4 \uc815\uc0b0\uacc4\uc88c\uac00 \ud655\uc778\ub428: \ud558\ub298\uc740\ud589 \uac00\ub9f9\uacc4\uc88c 210-9876-543210 (\uc608\uc2dc \ud615\uc2dd, \uc2e4\uacb0\uc81c \ubbf8\ubc1c\uc0dd) \u2014 \uae08\uc804 \uc774\uccb4\ub098 \uacb0\uc81c\uc9c0\uc2dc\ub294 \uc5c6\uc5c8\uc2b5\ub2c8\ub2e4.\n\ubbf8\uacf5\uac1c \uc911\uc694\uc815\ubcf4(FSCMA \uc81c174\uc870 \ud574\ub2f9 \uac00\ub2a5\uc131): (i) \u2018\uc5f0\ud654\uc790\uc0b0\ud30c\ud2b8\ub108\uc2a4 \uc720\ud55c\ud68c\uc0ac\u2019\ub85c\ubd80\ud130\uc758 \uc804\ub7b5\uc801 \ud22c\uc790 \uc720\uce58 \uc81c\uc548 \ube44\uacf5\uac1c \ucd08\uc548, (ii) \uc774\uc0ac\ud68c \ubcf4\uace0 \uc608\uc815\uc758 \ud569\uc791\uac80\ud1a0 \uba54\ubaa8 \u2014 \ud604\uc7ac\uae4c\uc9c0 \ub300\uc678\uacf5\uc2dc\ub294 \uc774\ub8e8\uc5b4\uc9c0\uc9c0 \uc54a\uc558\uc74c.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1332",
+      "reason": "Public helpline number; explicitly stated as not a customer/employee contact"
+    },
+    {
+      "matched_text": "\uc131\uba85",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "\uc5f0\ub77d\ucc98",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638",
+      "reason": "Generic form label placeholder, not actual PII"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "address identifier",
+      "matched_text": "\uc11c\uc6b8\ud2b9\ubcc4\uc2dc \ud55c\uc11c\uad6c \ubbf8\ub798\ub300\ub85c 123, \uac00\ub78c\ud0c0\uc6cc 18\uce35",
+      "reason": "Full street address is PII under PIPA but no explicit generic address rule exists in the allowed set"
+    }
+  ]
+}

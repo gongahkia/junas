@@ -54,11 +54,11 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
   },
   "_strict_runtime_reconciliation": {
-    "actor": "codex-stage-b-reconcile",
+    "actor": "angryapplegravy@gmail.com",
     "moved_stale_must_detect": 0,
-    "promoted_runtime_findings": 1,
-    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
-    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
     "source": "scripts/reconcile_candidate_strict_labels.py"
   },
   "_taxonomy_concept": "sector_mnpi",
@@ -439,6 +439,24 @@
       "matched_text": "Confidential Term Sheet \u2014 Project S A M A R \u2014 Ref: TSH\u20110O1\u2011AD G M (UAE PDPL/SCA/ADGM context; non\u2011public)\nParties: Buyer\u2014Al Sarab Green Metals Ltd (ADGM SPV, Trade Licence TL\u2011ADGM\u20115 1 9 2); Contact: Ms. Layla Al\u2011Qaryah, Managing Director, layla.qaryah@alsarab.example; Emirates ID (masked): 784\u20111999\u201100X7777\u20111.\nTarget: Miraj Virtual Asset Exchange DIFC Ltd (Trade Licence DIFC\u2011L\u201123\u201109X), principal office: Level 12, Gate East, DIFC, Dubai.\nTransaction: Proposed acquisition of 60% of issued shares; valuation AED 148,000,000; consideration mix 80% cash / 20% earn\u2011out linked to ESG/climate KPIs (Scope 2 reduction, TCFD scenario reporting milestones).\nRegulatory/Approvals: Subject to VARA no\u2011objection re DPT operations and ADGM FSRA acknowledgment; SCA Market Conduct provisions to apply to any issuer\u2011related communications.\nMNPI/Confidentiality: Parties acknowledge receipt of non\u2011public market\u2011sensitive issuer information including unannounced cyber incident remediation and pre\u2011launch crypto staking features; selective disclosure and tipping are prohibited.\nCyber/Cybersecurity: Target to disclose details of 25\u2011May wallet key rotation after third\u2011party SOC alert (no client losses; not yet public); buyer price\u2011adjustment right if breach severity \u2265 \u201cHigh\u201d per internal policy.\nInsider Controls: Maintain SCA/ADGM\u2011compliant insider list (Emirates ID/trade licence masked) and establish information barriers between deal team and any trading personnel; blackout window from signing until 2 full DFM/ADX trading days after public announcement.\nEducational carve\u2011out: the crypto custody webinar on https://learn.miraj.example/va-basics is general marketing content and does not include MNPI, insider tips, or client PII.\nConditions Precedent: clean KYC (family\u2011origin data segregated under PDPL), audit of carbon data series for 2023\u20132025, and confirmation that no material adverse change has occurred; for clarity, an ESG rating downgrade alone shall not constitute a MAC.\nCommercial Terms: 90\u2011day exclusivity, AED 6,000,000 reverse break fee, employee retention pool 5% fully diluted, and standard DIFC law warranties and indemnities.\nCommunications: announcements to be coordinated; no selective investor briefings; use https://dealroom.example/Pr0jectSamar?ref=TSH%2F0O1 with two\u2011factor; any PDFs may contain o c r\u2011like spacing or obfuscated IDs for watermarking.\nOperations note (non\u2011sensitive): runbook in jira/confluence; action: update insider list owners and info\u2011barrier attestation workflow; due eow; this line is purely project management.",
       "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
       "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ziyad Faroun\u2011Jahiz, CEO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Nadir Al\u2011Sirafi, Director",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Yara Al\u2011Luhuf, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
     }
   ],
   "must_not_detect": [
