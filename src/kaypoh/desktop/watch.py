@@ -195,7 +195,11 @@ def _emit_summary(summary: ReviewSummary, config: WatchConfig) -> None:
 
 
 def _config_from_args(args: argparse.Namespace) -> WatchConfig:
-    local_token = args.local_token or os.environ.get("KAYPOH_LOCAL_DAEMON_TOKEN", "") or _read_token_file(args.local_token_file)
+    local_token = (
+        args.local_token
+        or os.environ.get("KAYPOH_LOCAL_DAEMON_TOKEN", "")
+        or _read_token_file(args.local_token_file)
+    )
     return WatchConfig(
         base_url=args.base_url,
         source_jurisdiction=args.source_jurisdiction,

@@ -17,6 +17,8 @@ export KAYPOH_CODESIGN_IDENTITY="Developer ID Application: Example Pte Ltd (TEAM
 export KAYPOH_NOTARYTOOL_PROFILE=kaypoh-notary
 ```
 
+`scripts/package_macos_desktop.sh` runs `codesign`, `notarytool`, and `stapler` when those release env vars are set.
+
 Install and auto-start:
 
 ```sh

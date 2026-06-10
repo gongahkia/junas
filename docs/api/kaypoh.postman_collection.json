@@ -12,6 +12,10 @@
     {
       "key": "kaypohApiKey",
       "value": "dev-secret"
+    },
+    {
+      "key": "kaypohLocalToken",
+      "value": ""
     }
   ],
   "item": [
@@ -188,6 +192,112 @@
       },
       "response": [],
       "description": "Get runtime health"
+    },
+    {
+      "name": "POST /local/pairing/approve",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-Kaypoh-Local-Token",
+            "value": "{{kaypohLocalToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/local/pairing/approve",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "local",
+            "pairing",
+            "approve"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pairing_id\": \"sample-id\",\n  \"pairing_code\": \"string\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Approve local daemon pairing"
+    },
+    {
+      "name": "POST /local/pairing/claim",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/local/pairing/claim",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "local",
+            "pairing",
+            "claim"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pairing_id\": \"sample-id\",\n  \"pairing_code\": \"string\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Claim approved local daemon pairing"
+    },
+    {
+      "name": "POST /local/pairing/start",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/local/pairing/start",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "local",
+            "pairing",
+            "start"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Start local daemon pairing"
     },
     {
       "name": "GET /local/pairing/status",

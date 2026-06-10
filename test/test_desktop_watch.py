@@ -17,7 +17,10 @@ class DesktopWatchTests(unittest.TestCase):
                 return {"overall_risk": "HIGH", "document_score": 90.0, "findings": [{"rule": "sg_nric_fin"}]}
             return {"anonymized_text": "Send [NRIC_FIN_1]"}
 
-        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(watch, "_post_json_with_headers", side_effect=fake_post):
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            mock.patch.object(watch, "_post_json_with_headers", side_effect=fake_post),
+        ):
             root = Path(tmp)
             source = root / "note.txt"
             out = root / "out"
@@ -39,7 +42,10 @@ class DesktopWatchTests(unittest.TestCase):
             self.assertEqual(path, "/review")
             return {"overall_risk": "HIGH", "document_score": 80.0, "findings": [{"rule": "email_address"}]}
 
-        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(watch, "_post_json_with_headers", side_effect=fake_post):
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            mock.patch.object(watch, "_post_json_with_headers", side_effect=fake_post),
+        ):
             source = Path(tmp) / "note.txt"
             source.write_text("Email jane@example.com", encoding="utf-8")
             summaries = watch.scan_paths([source], watch.WatchConfig())

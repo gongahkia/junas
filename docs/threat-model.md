@@ -1,5 +1,7 @@
 # Data Flow And Threat Model
 
+This threat model is an operator-facing summary, not a substitute for a formal security review.
+
 ## Data Flow
 
 1. Client sends inline text or a base64 document to the API.

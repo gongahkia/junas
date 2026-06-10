@@ -1334,6 +1334,41 @@ class BatchClassifyResponse(BaseModel):
     )
 
 
+class LocalPairingStartRequest(BaseModel):
+    client_name: str = Field(
+        "kaypoh-local-client",
+        max_length=120,
+        description="Human-readable browser, Office, or desktop client name shown during local approval.",
+    )
+
+
+class LocalPairingCodeRequest(BaseModel):
+    pairing_id: str = Field(..., min_length=1, max_length=128, description="Pairing request id from start.")
+    pairing_code: str = Field(..., min_length=1, max_length=32, description="Short code shown to the user.")
+
+
+class LocalPairingStartResponse(BaseModel):
+    pairing_id: str
+    pairing_code: str
+    expires_at: int
+    token_ttl_seconds: int
+
+
+class LocalPairingApproveResponse(BaseModel):
+    approved: bool
+    pairing_id: str
+    client_id: str
+    expires_at: int
+
+
+class LocalPairingClaimResponse(BaseModel):
+    approved: bool
+    client_id: str = ""
+    client_token: str = ""
+    expires_at: int
+    token_type: str = ""
+
+
 class HealthResponse(BaseModel):
     status: str = Field(description="Health endpoint status.")
     lexicon_loaded: bool = Field(False, description="Deprecated compatibility field; legacy layer archived.")

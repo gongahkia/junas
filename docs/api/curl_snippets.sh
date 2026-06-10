@@ -32,6 +32,22 @@ curl -sS -X POST "${BASE_URL}/documents/scrub" \
 # GET /health - Get runtime health
 curl -sS -X GET "${BASE_URL}/health"
 
+# POST /local/pairing/approve - Approve local daemon pairing
+curl -sS -X POST "${BASE_URL}/local/pairing/approve" \
+  -H "Content-Type: application/json" \
+  -H "X-Kaypoh-Local-Token: ${KAYPOH_LOCAL_DAEMON_TOKEN}" \
+  -d '{"pairing_id":"sample-id","pairing_code":"string"}'
+
+# POST /local/pairing/claim - Claim approved local daemon pairing
+curl -sS -X POST "${BASE_URL}/local/pairing/claim" \
+  -H "Content-Type: application/json" \
+  -d '{"pairing_id":"sample-id","pairing_code":"string"}'
+
+# POST /local/pairing/start - Start local daemon pairing
+curl -sS -X POST "${BASE_URL}/local/pairing/start" \
+  -H "Content-Type: application/json" \
+  -d '{}'
+
 # GET /local/pairing/status - Get local daemon pairing status
 curl -sS -X GET "${BASE_URL}/local/pairing/status"
 

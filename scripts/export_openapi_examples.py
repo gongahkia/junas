@@ -9,7 +9,6 @@ import sys
 from pathlib import Path
 from typing import Any
 
-
 ROOT = Path(__file__).resolve().parent.parent
 SRC_ROOT = ROOT / "src"
 
@@ -17,8 +16,6 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
-
-import backend.main as backend_main
 
 
 def dereference_schema(schema: dict[str, Any], components: dict[str, Any]) -> dict[str, Any]:
@@ -145,6 +142,8 @@ def build_postman_item(
         headers.append({"key": "Content-Type", "value": "application/json"})
     if path.startswith("/classify"):
         headers.append({"key": "X-API-Key", "value": "{{kaypohApiKey}}"})
+    if path == "/local/pairing/approve":
+        headers.append({"key": "X-Kaypoh-Local-Token", "value": "{{kaypohLocalToken}}"})
 
     path_parts = [part for part in path.split("/") if part]
     url = {
@@ -199,6 +198,8 @@ def build_curl_block(
         lines.append('  -H "Content-Type: application/json" \\')
     if path.startswith("/classify"):
         lines.append('  -H "X-API-Key: ${KAYPOH_API_KEY:-dev-secret}" \\')
+    if path == "/local/pairing/approve":
+        lines.append('  -H "X-Kaypoh-Local-Token: ${KAYPOH_LOCAL_DAEMON_TOKEN}" \\')
     if body_payload is not None:
         compact = json.dumps(body_payload, separators=(",", ":"))
         lines.append(f"  -d '{compact}'")
@@ -209,6 +210,8 @@ def build_curl_block(
 
 
 def main() -> int:
+    import backend.main as backend_main
+
     parser = argparse.ArgumentParser(description="Export Postman collection and curl snippets from OpenAPI")
     parser.add_argument(
         "--base-url",
@@ -249,6 +252,7 @@ def main() -> int:
         "variable": [
             {"key": "baseUrl", "value": args.base_url},
             {"key": "kaypohApiKey", "value": "dev-secret"},
+            {"key": "kaypohLocalToken", "value": ""},
         ],
         "item": [
             build_postman_item(

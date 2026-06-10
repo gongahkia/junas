@@ -83,6 +83,11 @@ from kaypoh.backend.schemas import (
     DocumentScrubResponse,
     HealthResponse,
     LLMAdjudicationResponse,
+    LocalPairingApproveResponse,
+    LocalPairingClaimResponse,
+    LocalPairingCodeRequest,
+    LocalPairingStartRequest,
+    LocalPairingStartResponse,
     ObservabilityResponse,
     OpaqueRedactionResponse,
     PlaceholderReplacementResponse,
@@ -324,14 +329,6 @@ def _pending_pairings() -> dict[str, dict[str, Any]]:
         if not isinstance(value, dict) or int(value.get("expires_at", 0)) <= now:
             store.pop(key, None)
     return store
-
-
-async def _json_object(request: Request) -> dict[str, Any]:
-    try:
-        body = await request.json()
-    except Exception:
-        return {}
-    return body if isinstance(body, dict) else {}
 
 
 def _require_access(
@@ -2186,11 +2183,12 @@ async def local_pairing_status():
 
 @app.post(
     "/local/pairing/start",
+    response_model=LocalPairingStartResponse,
     tags=["Runtime"],
     summary="Start local daemon pairing",
     description="Create a short-lived first-connect pairing request for browser and Office clients.",
 )
-async def local_pairing_start(request: Request):
+async def local_pairing_start(req: LocalPairingStartRequest, request: Request):
     settings = current_runtime_settings().local_daemon
     if not settings.acl_enabled:
         return PrettyJSONResponse(status_code=409, content={"detail": "local daemon ACL is disabled"})
@@ -2199,8 +2197,7 @@ async def local_pairing_start(request: Request):
     except LocalDaemonAuthError as exc:
         return PrettyJSONResponse(status_code=503, content={"detail": f"local daemon token not provisioned: {exc}"})
 
-    body = await _json_object(request)
-    client_name = str(body.get("client_name") or "kaypoh-local-client").strip()[:120] or "kaypoh-local-client"
+    client_name = req.client_name.strip()[:120] or "kaypoh-local-client"
     origin = request.headers.get("Origin", "")
     pairing_id = uuid.uuid4().hex
     pairing_code = f"{secrets.randbelow(1_000_000):06d}"
@@ -2222,12 +2219,13 @@ async def local_pairing_start(request: Request):
 
 @app.post(
     "/local/pairing/approve",
+    response_model=LocalPairingApproveResponse,
     tags=["Runtime"],
     summary="Approve local daemon pairing",
     description="Approve a pending pairing request from a desktop/tray process that already has the daemon secret.",
 )
 async def local_pairing_approve(
-    request: Request,
+    req: LocalPairingCodeRequest,
     x_kaypoh_local_token: str | None = Header(default=None, alias=LOCAL_TOKEN_HEADER),
 ):
     settings = current_runtime_settings().local_daemon
@@ -2240,9 +2238,8 @@ async def local_pairing_approve(
     if not x_kaypoh_local_token or not hmac.compare_digest(x_kaypoh_local_token, secret):
         return PrettyJSONResponse(status_code=401, content={"detail": "missing or invalid local daemon approval token"})
 
-    body = await _json_object(request)
-    pairing_id = str(body.get("pairing_id") or "")
-    pairing_code = str(body.get("pairing_code") or "")
+    pairing_id = req.pairing_id
+    pairing_code = req.pairing_code
     entry = _pending_pairings().get(pairing_id)
     if entry is None:
         return PrettyJSONResponse(status_code=404, content={"detail": "pairing request not found"})
@@ -2271,11 +2268,12 @@ async def local_pairing_approve(
 
 @app.post(
     "/local/pairing/claim",
+    response_model=LocalPairingClaimResponse,
     tags=["Runtime"],
     summary="Claim approved local daemon pairing",
     description="Return the signed local client token after the desktop/tray approval step completes.",
 )
-async def local_pairing_claim(request: Request):
+async def local_pairing_claim(req: LocalPairingCodeRequest):
     settings = current_runtime_settings().local_daemon
     if not settings.acl_enabled:
         return PrettyJSONResponse(status_code=409, content={"detail": "local daemon ACL is disabled"})
@@ -2284,9 +2282,8 @@ async def local_pairing_claim(request: Request):
     except LocalDaemonAuthError as exc:
         return PrettyJSONResponse(status_code=503, content={"detail": f"local daemon token not provisioned: {exc}"})
 
-    body = await _json_object(request)
-    pairing_id = str(body.get("pairing_id") or "")
-    pairing_code = str(body.get("pairing_code") or "")
+    pairing_id = req.pairing_id
+    pairing_code = req.pairing_code
     store = _pending_pairings()
     entry = store.get(pairing_id)
     if entry is None:
