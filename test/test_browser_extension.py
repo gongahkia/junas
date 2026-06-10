@@ -22,6 +22,11 @@ class BrowserExtensionTests(unittest.TestCase):
         js = (EXT / "options.js").read_text(encoding="utf-8")
         self.assertIn('value="anonymize"', html)
         self.assertIn("interceptPaste", html)
+        self.assertIn('id="startPairing"', html)
+        self.assertIn('id="completePairing"', html)
+        self.assertIn("/local/pairing/start", js)
+        self.assertIn("/local/pairing/claim", js)
+        self.assertIn("client_token", js)
         self.assertIn("interceptPaste: false", js)
         self.assertIn("interceptPaste.checked", js)
 

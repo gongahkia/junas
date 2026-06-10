@@ -93,6 +93,99 @@ class LocalDaemonAclTests(unittest.TestCase):
         self.assertTrue(payload["token_provisioned"])
         self.assertNotIn("local-test-token", response.text)
 
+    def test_first_connect_pairing_issues_signed_client_token(self):
+        with patch.dict(os.environ, self._env(), clear=False):
+            with TestClient(main.app) as client:
+                start = client.post(
+                    "/local/pairing/start",
+                    json={"client_name": "test extension"},
+                    headers={"Origin": "https://chatgpt.com"},
+                )
+                self.assertEqual(start.status_code, 200, start.text)
+                started = start.json()
+                self.assertIn("pairing_id", started)
+                self.assertIn("pairing_code", started)
+                self.assertNotIn("client_token", started)
+
+                pending = client.post(
+                    "/local/pairing/claim",
+                    json={
+                        "pairing_id": started["pairing_id"],
+                        "pairing_code": started["pairing_code"],
+                    },
+                    headers={"Origin": "https://chatgpt.com"},
+                )
+                self.assertEqual(pending.status_code, 202, pending.text)
+                self.assertFalse(pending.json()["approved"])
+
+                approve = client.post(
+                    "/local/pairing/approve",
+                    json={
+                        "pairing_id": started["pairing_id"],
+                        "pairing_code": started["pairing_code"],
+                    },
+                    headers={
+                        "Origin": "https://chatgpt.com",
+                        "X-Kaypoh-Local-Token": "local-test-token",
+                    },
+                )
+                self.assertEqual(approve.status_code, 200, approve.text)
+                self.assertTrue(approve.json()["approved"])
+                self.assertNotIn("client_token", approve.text)
+
+                claim = client.post(
+                    "/local/pairing/claim",
+                    json={
+                        "pairing_id": started["pairing_id"],
+                        "pairing_code": started["pairing_code"],
+                    },
+                    headers={"Origin": "https://chatgpt.com"},
+                )
+                self.assertEqual(claim.status_code, 200, claim.text)
+                token = claim.json()["client_token"]
+                self.assertGreaterEqual(token.count("."), 2)
+
+                response = client.post(
+                    "/classify",
+                    json={"text": "public update"},
+                    headers={
+                        "Origin": "https://chatgpt.com",
+                        "X-Kaypoh-Local-Token": token,
+                    },
+                )
+                self.assertEqual(response.status_code, 200, response.text)
+                self.assertEqual(response.json()["classification"], "SAFE")
+
+    def test_pairing_approval_rejects_signed_client_token(self):
+        with patch.dict(os.environ, self._env(), clear=False):
+            signed = main.sign_local_client_token(
+                "local-test-token",
+                client_id="client-1",
+                client_name="test extension",
+                origin="https://chatgpt.com",
+                ttl_seconds=300,
+            )
+            with TestClient(main.app) as client:
+                start = client.post(
+                    "/local/pairing/start",
+                    json={"client_name": "test extension"},
+                    headers={"Origin": "https://chatgpt.com"},
+                ).json()
+                response = client.post(
+                    "/local/pairing/approve",
+                    json={
+                        "pairing_id": start["pairing_id"],
+                        "pairing_code": start["pairing_code"],
+                    },
+                    headers={
+                        "Origin": "https://chatgpt.com",
+                        "X-Kaypoh-Local-Token": signed,
+                    },
+                )
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()["detail"], "missing or invalid local daemon approval token")
+
     def test_cors_preflight_allows_configured_origin_without_token(self):
         with patch.dict(os.environ, self._env(), clear=False):
             app_main = importlib.reload(main)

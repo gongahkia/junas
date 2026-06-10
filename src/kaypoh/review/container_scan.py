@@ -392,6 +392,44 @@ def _collect_zip_images(
     return candidates
 
 
+def _office_media_findings(archive: zipfile.ZipFile, *, prefix: str, source: str) -> list[ContainerFinding]:
+    findings: list[ContainerFinding] = []
+    for name in sorted(item for item in archive.namelist() if item.startswith(prefix)):
+        try:
+            payload = archive.read(name, pwd=None)
+        except Exception:
+            payload = b""
+        mime_type = image_mime_from_name(name, payload) if payload else infer_mime_type(name, payload)
+        findings.append(
+            _finding(
+                source,
+                name,
+                mime_type,
+                "Office embedded media is present and mapped for review",
+                severity="medium",
+            )
+        )
+    return findings
+
+
+def _office_embedded_object_findings(
+    archive: zipfile.ZipFile,
+    *,
+    prefix: str,
+    source: str,
+) -> list[ContainerFinding]:
+    return [
+        _finding(
+            source,
+            name,
+            "[present]",
+            "Office embedded object is present and may require native review",
+            severity="high",
+        )
+        for name in sorted(item for item in archive.namelist() if item.startswith(prefix))
+    ]
+
+
 def _scan_docx(data: bytes, *, image_scan_enabled: bool, container_prefix: str) -> ContainerScanResult:
     with _zip_archive(data) as archive:
         _validate_zip(archive)
@@ -415,10 +453,18 @@ def _scan_docx(data: bytes, *, image_scan_enabled: bool, container_prefix: str) 
                     severity="high",
                 )
             )
+            findings.extend(
+                _office_embedded_object_findings(
+                    archive,
+                    prefix="word/embeddings/",
+                    source="docx_embedded_object",
+                )
+            )
         if any(name.startswith("word/fonts/") for name in names):
             findings.append(
                 _finding("docx_embedded_font", "word/fonts", "[present]", "DOCX embedded font present", severity="low")
             )
+        findings.extend(_office_media_findings(archive, prefix="word/media/", source="docx_embedded_media"))
         for rel_name in sorted(name for name in names if name.endswith(".rels")):
             rel_xml = archive.read(rel_name)
             if b"TargetMode=\"External\"" in rel_xml or b"TargetMode='External'" in rel_xml:
@@ -490,6 +536,10 @@ def _scan_xlsx(data: bytes, *, image_scan_enabled: bool, container_prefix: str) 
                             severity="medium",
                         )
                     )
+        findings.extend(
+            _office_embedded_object_findings(archive, prefix="xl/embeddings/", source="xlsx_embedded_object")
+        )
+        findings.extend(_office_media_findings(archive, prefix="xl/media/", source="xlsx_embedded_media"))
         images = _collect_zip_images(
             archive,
             prefix="xl/media/",
@@ -535,6 +585,10 @@ def _scan_pptx(data: bytes, *, image_scan_enabled: bool, container_prefix: str) 
                         severity="high",
                     )
                 )
+        findings.extend(
+            _office_embedded_object_findings(archive, prefix="ppt/embeddings/", source="pptx_embedded_object")
+        )
+        findings.extend(_office_media_findings(archive, prefix="ppt/media/", source="pptx_embedded_media"))
         images = _collect_zip_images(
             archive,
             prefix="ppt/media/",
@@ -583,7 +637,28 @@ def _scan_pdf(
     form = _pdf_get(root, "/AcroForm")
     if form:
         result.findings.append(_finding("pdf_acroform", "AcroForm", "[present]", "PDF AcroForm fields are present"))
+        if _pdf_get(form, "/XFA"):
+            result.findings.append(
+                _finding(
+                    "pdf_xfa",
+                    "XFA",
+                    "[present]",
+                    "PDF XFA form packet is present; native rendering semantics may differ from text extraction",
+                    severity="high",
+                )
+            )
         result.text_blocks.extend(_pdf_form_text(form))
+        result.findings.extend(_pdf_signature_findings(form))
+    if _pdf_get(root, "/Perms"):
+        result.findings.append(
+            _finding(
+                "pdf_signature_permissions",
+                "Perms",
+                "[present]",
+                "PDF signature permissions or DocMDP transform is present",
+                severity="high",
+            )
+        )
     embedded = _pdf_embedded_files(root)
     for name, payload in embedded:
         result.findings.append(
@@ -664,6 +739,52 @@ def _pdf_form_text(form: Any) -> list[str]:
         if values:
             blocks.append("[PDF form field]\n" + "\n".join(values))
     return blocks
+
+
+def _pdf_signature_findings(form: Any) -> list[ContainerFinding]:
+    findings: list[ContainerFinding] = []
+    fields = _pdf_get(form, "/Fields") or []
+    for index, field_ref in enumerate(fields):
+        field = field_ref.get_object() if hasattr(field_ref, "get_object") else field_ref
+        field_type = str(_pdf_get(field, "/FT") or "")
+        value = _pdf_get(field, "/V")
+        value_obj = value.get_object() if hasattr(value, "get_object") else value
+        value_is_sig = isinstance(value_obj, dict) and str(_pdf_get(value_obj, "/Type") or "") == "/Sig"
+        if field_type != "/Sig" and not value_is_sig:
+            continue
+        field_name = str(_pdf_get(field, "/T") or f"signature_{index + 1}")
+        findings.append(
+            _finding(
+                "pdf_signature_field",
+                field_name,
+                "[present]",
+                "PDF signature field is present",
+                severity="high",
+            )
+        )
+        if isinstance(value_obj, dict) and _pdf_get(value_obj, "/ByteRange"):
+            findings.append(
+                _finding(
+                    "pdf_signature_byte_range",
+                    field_name,
+                    _pdf_get(value_obj, "/ByteRange"),
+                    "PDF signature byte range is present; signed-region semantics require native validation",
+                    severity="high",
+                )
+            )
+        for key in ("/Name", "/M", "/Reason", "/Location"):
+            item = _pdf_get(value_obj, key) if isinstance(value_obj, dict) else None
+            if item:
+                findings.append(
+                    _finding(
+                        "pdf_signature_metadata",
+                        f"{field_name}:{key.lstrip('/')}",
+                        item,
+                        "PDF signature metadata is present",
+                        severity="medium",
+                    )
+                )
+    return findings
 
 
 def _pdf_embedded_files(root: Any) -> list[tuple[str, bytes]]:

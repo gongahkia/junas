@@ -44,10 +44,31 @@ def run_smoke() -> tuple[bool, list[dict[str, Any]]]:
 
         main._state.clear()
         with TestClient(main.app) as client:
+            pairing_start = client.post(
+                "/local/pairing/start",
+                headers={"Origin": "https://chatgpt.com"},
+                json={"client_name": "smoke"},
+            )
+            signed_token = ""
+            if pairing_start.status_code == 200:
+                pairing = pairing_start.json()
+                client.post(
+                    "/local/pairing/approve",
+                    headers={"Origin": "https://chatgpt.com", "X-Kaypoh-Local-Token": TOKEN},
+                    json={"pairing_id": pairing["pairing_id"], "pairing_code": pairing["pairing_code"]},
+                )
+                claim = client.post(
+                    "/local/pairing/claim",
+                    headers={"Origin": "https://chatgpt.com"},
+                    json={"pairing_id": pairing["pairing_id"], "pairing_code": pairing["pairing_code"]},
+                )
+                if claim.status_code == 200:
+                    signed_token = claim.json()["client_token"]
             cases = [
                 ("disallowed_origin", _post_classify(client, "https://evil.example"), 403),
                 ("missing_token", _post_classify(client, "https://chatgpt.com", token=""), 401),
                 ("extension_allowed", _post_classify(client, "chrome-extension://abcdef"), 200),
+                ("signed_token_allowed", _post_classify(client, "https://chatgpt.com", token=signed_token), 200),
                 (
                     "cors_preflight_allowed",
                     client.options(

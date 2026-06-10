@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-import fnmatch
 import base64
+import fnmatch
 import hashlib
 import hmac
 import json

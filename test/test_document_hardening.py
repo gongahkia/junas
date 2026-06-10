@@ -9,6 +9,7 @@ from io import BytesIO
 from fastapi.testclient import TestClient
 
 import backend.main as main
+from kaypoh.review.container_scan import scan_container
 from kaypoh.review.metadata import inspect_metadata
 
 
@@ -114,6 +115,48 @@ def _zip_bytes(name: str, payload: bytes) -> bytes:
     with BytesIO() as buffer:
         with zipfile.ZipFile(buffer, "w") as archive:
             archive.writestr(name, payload)
+        return buffer.getvalue()
+
+
+def _docx_with_media_and_object() -> bytes:
+    with BytesIO() as buffer:
+        with zipfile.ZipFile(buffer, "w") as archive:
+            archive.writestr(
+                "word/document.xml",
+                (
+                    '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+                    "<w:body><w:p><w:r><w:t>Visible text.</w:t></w:r></w:p></w:body></w:document>"
+                ),
+            )
+            archive.writestr("word/media/image1.png", b"\x89PNG\r\n\x1a\n")
+            archive.writestr("word/embeddings/oleObject1.bin", b"ole payload")
+        return buffer.getvalue()
+
+
+def _pdf_with_xfa_and_signature() -> bytes:
+    from pypdf import PdfWriter
+    from pypdf.generic import ArrayObject, DictionaryObject, NameObject, NumberObject, TextStringObject
+
+    writer = PdfWriter()
+    writer.add_blank_page(width=72, height=72)
+    signature_value = DictionaryObject({
+        NameObject("/Type"): NameObject("/Sig"),
+        NameObject("/ByteRange"): ArrayObject([NumberObject(0), NumberObject(10), NumberObject(20), NumberObject(30)]),
+        NameObject("/Name"): TextStringObject("Priya Raman"),
+        NameObject("/Reason"): TextStringObject("approved"),
+    })
+    signature_field = DictionaryObject({
+        NameObject("/FT"): NameObject("/Sig"),
+        NameObject("/T"): TextStringObject("ApprovalSignature"),
+        NameObject("/V"): writer._add_object(signature_value),
+    })
+    acroform = DictionaryObject({
+        NameObject("/Fields"): ArrayObject([writer._add_object(signature_field)]),
+        NameObject("/XFA"): TextStringObject("<template/>"),
+    })
+    writer._root_object.update({NameObject("/AcroForm"): writer._add_object(acroform)})
+    with BytesIO() as buffer:
+        writer.write(buffer)
         return buffer.getvalue()
 
 
@@ -345,6 +388,32 @@ class DocumentHardeningTests(unittest.TestCase):
         self.assertIn("pptx_speaker_notes", sources)
         self.assertIn("pptx_slide_master", sources)
 
+    def test_office_embedded_media_and_objects_are_mapped_without_ocr(self):
+        encoded = base64.b64encode(_docx_with_media_and_object()).decode("ascii")
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/review",
+                json={"document_base64": encoded, "document_filename": "media.docx"},
+            )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        sources = {finding["source"] for finding in response.json()["document"]["metadata_findings"]}
+        self.assertIn("docx_embedded_media", sources)
+        self.assertIn("docx_embedded_object", sources)
+
+    def test_pdf_xfa_and_signature_semantics_are_flagged(self):
+        result = scan_container(
+            _pdf_with_xfa_and_signature(),
+            filename="signed.pdf",
+            mime_type="application/pdf",
+        )
+        sources = {finding.source for finding in result.findings}
+
+        self.assertIn("pdf_xfa", sources)
+        self.assertIn("pdf_signature_field", sources)
+        self.assertIn("pdf_signature_byte_range", sources)
+        self.assertIn("pdf_signature_metadata", sources)
+
     def test_eml_attachment_is_recursed(self):
         message = EmailMessage()
         message["From"] = "sender@example.com"
@@ -394,12 +463,16 @@ class DocumentHardeningTests(unittest.TestCase):
                 self.assertEqual(response.status_code, 200, response.text)
                 self.assertTrue(any(finding["rule"] == "sg_nric_fin" for finding in response.json()["findings"]))
 
-    def test_msg_and_macro_enabled_containers_fail_closed(self):
+    def test_msg_7z_and_macro_enabled_containers_fail_closed(self):
         msg_response_payload = base64.b64encode(b"not really msg").decode("ascii")
         with TestClient(main.app) as client:
             msg_response = client.post(
                 "/review",
                 json={"document_base64": msg_response_payload, "document_filename": "mail.msg"},
+            )
+            seven_z_response = client.post(
+                "/review",
+                json={"document_base64": base64.b64encode(b"7z payload").decode("ascii"), "document_filename": "a.7z"},
             )
             docm_response = client.post(
                 "/review",
@@ -411,6 +484,7 @@ class DocumentHardeningTests(unittest.TestCase):
             )
 
         self.assertEqual(msg_response.status_code, 422)
+        self.assertEqual(seven_z_response.status_code, 422)
         self.assertEqual(docm_response.status_code, 422)
 
 
