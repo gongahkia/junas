@@ -30,6 +30,15 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         self.assertNotIn("eu_national_id", self._rules("Dutch BSN: 123456789", "EU"))
         self.assertNotIn("eu_national_id", self._rules("Polish PESEL: 44051401358", "EU"))
 
+    def test_danish_cpr_label_slice_is_date_validated(self):
+        result = self._review("Danish CPR: 010190-1234", "EU")
+        findings = [finding for finding in result.findings if finding.rule == "eu_national_id"]
+
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].metadata["member_state"], "DK")
+        self.assertEqual(findings[0].metadata["validator"], "date_shape")
+        self.assertNotIn("eu_national_id", self._rules("Danish CPR: 320190-1234", "EU"))
+
     def test_conservative_uk_us_hk_address_slices_fire(self):
         self.assertIn("uk_postal_address", self._rules("Send to 221B Baker Street NW1 6XE.", "UK"))
         self.assertIn("us_postal_address", self._rules("Ship to 123 Market Street, CA 94105.", "US"))
