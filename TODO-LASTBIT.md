@@ -6,11 +6,10 @@
   2. Local daemon security
       - browser/Office first-connect pairing
       - signed token flow
-      - token storage UX
       - Origin/CORS hardening smoke tests
 
   3. Distribution surfaces
-      - browser paste interception + signed extension package
+      - signed extension package
       - Word add-in
       - Outlook event-based pre-send hook
       - native tray UX / watched-folder UX
