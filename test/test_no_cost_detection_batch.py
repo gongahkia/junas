@@ -38,6 +38,38 @@ class NoCostDetectionBatchTests(unittest.TestCase):
             self._rules("Flat 7, 12th Floor, Pacific House, Hong Kong.", "HK"),
         )
 
+    def test_local_address_slices_fire_for_remaining_jurisdictions(self):
+        cases = [
+            ("MY", "Send to 12 Jalan Ampang Kuala Lumpur 50450 Malaysia.", "my_postal_address"),
+            ("ID", "Resident address: Jalan Sudirman No. 10, Jakarta 10210.", "id_postal_address"),
+            ("TH", "Home: 88 Sukhumvit Road, Bangkok 10110.", "th_postal_address"),
+            ("PH", "Ship to 12 Ayala Avenue, Makati 1226.", "ph_postal_address"),
+            ("VN", "Address: 12 Nguyen Hue Street, District 1, Ho Chi Minh City 700000.", "vn_postal_address"),
+            ("IN", "Notice to 12 MG Road, Bengaluru 560001 India.", "in_postal_address"),
+            ("CN", "收件地址: 100000 北京市朝阳区建国路88号.", "cn_postal_address"),
+            ("AE", "Home: Office 1201, Sheikh Zayed Road, Dubai.", "ae_postal_address"),
+            ("SA", "Residence: 12 King Fahd Road, Riyadh 12271.", "sa_postal_address"),
+        ]
+        for jurisdiction, text, rule in cases:
+            with self.subTest(jurisdiction=jurisdiction):
+                self.assertIn(rule, self._rules(text, jurisdiction))
+
+    def test_local_address_slices_reject_generic_place_prose(self):
+        cases = [
+            ("MY", "The Jalan Ampang corridor market report mentions Kuala Lumpur."),
+            ("ID", "Jakarta 10210 is used as a routing example without a street."),
+            ("TH", "Bangkok 10110 appears in a public brochure."),
+            ("PH", "Makati 1226 is a location label in the slide."),
+            ("VN", "Ho Chi Minh City 700000 is printed as a city index."),
+            ("IN", "Bengaluru 560001 appears in a vendor coverage table."),
+            ("CN", "Beijing 100000 is a region label."),
+            ("AE", "Dubai office locations are listed by city only."),
+            ("SA", "Riyadh 12271 is a service-region code."),
+        ]
+        for jurisdiction, text in cases:
+            with self.subTest(jurisdiction=jurisdiction):
+                self.assertFalse(any(rule.endswith("_postal_address") for rule in self._rules(text, jurisdiction)))
+
     def test_multiline_uk_and_us_address_slices_fire(self):
         self.assertIn("uk_postal_address", self._rules("Send to:\n221B Baker Street\nLondon NW1 6XE", "UK"))
         self.assertIn("us_postal_address", self._rules("Ship to:\n123 Market Street\nSan Francisco CA 94105", "US"))

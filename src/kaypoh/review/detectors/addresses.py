@@ -53,6 +53,54 @@ EU_POSTAL_ADDRESS_RE = re.compile(
     r"(?:AT|BE|CZ|DE|DK|ES|FI|FR|IE|IT|NL|PL|PT|RO|SE|SK)\s*[- ]?\d{4,6}\b",
     re.IGNORECASE,
 )
+MY_POSTAL_ADDRESS_RE = re.compile(
+    r"\b\d{1,5}\s+(?:Jalan|Lorong|Persiaran|Lebuh|Taman)\s+[A-Z][A-Za-z0-9' -]{2,60},?\s+"
+    r"(?:[A-Z][A-Za-z' -]{2,40},?\s+)?\d{5}\s+(?:Kuala\s+Lumpur|Selangor|Johor|Penang|Malaysia)\b",
+    re.IGNORECASE,
+)
+ID_POSTAL_ADDRESS_RE = re.compile(
+    r"\b(?:Jl\.?|Jalan)\s+[A-Z][A-Za-z0-9' .-]{2,60}\s+(?:No\.?\s*)?\d{1,5},?\s+"
+    r"(?:[A-Z][A-Za-z' -]{2,40},?\s+)?(?:Jakarta|Surabaya|Bandung|Indonesia)\s+\d{5}\b",
+    re.IGNORECASE,
+)
+TH_POSTAL_ADDRESS_RE = re.compile(
+    r"\b\d{1,5}\s+[A-Z][A-Za-z0-9' -]{2,60}\s+(?:Road|Rd|Soi),?\s+"
+    r"(?:[A-Z][A-Za-z' -]{2,40},?\s+)?(?:Bangkok|Phuket|Chiang\s+Mai|Thailand)\s+\d{5}\b",
+    re.IGNORECASE,
+)
+PH_POSTAL_ADDRESS_RE = re.compile(
+    r"\b\d{1,5}\s+[A-Z][A-Za-z0-9' -]{2,60}\s+"
+    r"(?:Street|St|Road|Rd|Avenue|Ave|Boulevard|Blvd),?\s+"
+    r"(?:Makati|Taguig|Quezon\s+City|Manila|Cebu|Philippines)\s+\d{4}\b",
+    re.IGNORECASE,
+)
+VN_POSTAL_ADDRESS_RE = re.compile(
+    r"\b\d{1,5}\s+[A-Z][A-Za-z0-9' -]{2,60}\s+(?:Street|St|Road|Rd|Đường),?\s+"
+    r"(?:District\s+\d{1,2},?\s+)?(?:Ho\s+Chi\s+Minh\s+City|Hanoi|Da\s+Nang|Vietnam)\s+\d{5,6}\b",
+    re.IGNORECASE,
+)
+IN_POSTAL_ADDRESS_RE = re.compile(
+    r"\b\d{1,5}\s+[A-Z][A-Za-z0-9' -]{2,60}\s+(?:Road|Rd|Street|St|Marg|Nagar),?\s+"
+    r"(?:[A-Z][A-Za-z' -]{2,40},?\s+)?(?:IN-)?\d{6}\s+(?:India|Mumbai|Delhi|Bengaluru|Chennai)\b",
+    re.IGNORECASE,
+)
+CN_POSTAL_ADDRESS_RE = re.compile(
+    r"(?:\b\d{6}\s*(?:北京市|上海市|深圳市|广州市|杭州市)[^\n]{2,80}(?:路|街|号)|"
+    r"\b\d{1,5}\s+[A-Z][A-Za-z0-9' -]{2,60}\s+(?:Road|Rd|Street|St),?\s+"
+    r"(?:Beijing|Shanghai|Shenzhen|Guangzhou|China)\s+\d{6}\b)",
+    re.IGNORECASE,
+)
+AE_POSTAL_ADDRESS_RE = re.compile(
+    r"\b(?:Office|Unit|Flat|Suite)\s+[A-Z0-9-]{1,8},?\s+"
+    r"[A-Z][A-Za-z0-9' -]{2,60}\s+(?:Road|Rd|Street|St),?\s+"
+    r"(?:Dubai|Abu\s+Dhabi|Sharjah|UAE|United\s+Arab\s+Emirates)\b",
+    re.IGNORECASE,
+)
+SA_POSTAL_ADDRESS_RE = re.compile(
+    r"\b\d{1,5}\s+[A-Z][A-Za-z0-9' -]{2,60}\s+(?:Road|Rd|Street|St),?\s+"
+    r"(?:Riyadh|Jeddah|Dammam|Saudi\s+Arabia)\s+\d{5}(?:-\d{4})?\b",
+    re.IGNORECASE,
+)
 GENERIC_ADDRESS_LABEL_RE = re.compile(
     r"(?im)(?:^|[;\n])\s*(?P<label>residential\s+address|mailing\s+address|registered\s+address|"
     r"home\s+address|office\s+address|billing\s+address|delivery\s+address|service\s+address|"
@@ -184,6 +232,24 @@ def detect_address_findings(
         address_patterns.append(("kr_postal_address", KR_POSTAL_ADDRESS_RE, "Korea postcode-address signal"))
     if "EU" in pack_codes:
         address_patterns.append(("eu_postal_address", EU_POSTAL_ADDRESS_RE, "EU street/postcode address signal"))
+    if "MY" in pack_codes:
+        address_patterns.append(("my_postal_address", MY_POSTAL_ADDRESS_RE, "Malaysia street/postcode address signal"))
+    if "ID" in pack_codes:
+        address_patterns.append(("id_postal_address", ID_POSTAL_ADDRESS_RE, "Indonesia street/postcode address signal"))
+    if "TH" in pack_codes:
+        address_patterns.append(("th_postal_address", TH_POSTAL_ADDRESS_RE, "Thailand street/postcode address signal"))
+    if "PH" in pack_codes:
+        address_patterns.append(("ph_postal_address", PH_POSTAL_ADDRESS_RE, "Philippines street/postcode address signal"))
+    if "VN" in pack_codes:
+        address_patterns.append(("vn_postal_address", VN_POSTAL_ADDRESS_RE, "Vietnam street/postcode address signal"))
+    if "IN" in pack_codes:
+        address_patterns.append(("in_postal_address", IN_POSTAL_ADDRESS_RE, "India street/postcode address signal"))
+    if "CN" in pack_codes:
+        address_patterns.append(("cn_postal_address", CN_POSTAL_ADDRESS_RE, "China street/postcode address signal"))
+    if "AE" in pack_codes:
+        address_patterns.append(("ae_postal_address", AE_POSTAL_ADDRESS_RE, "UAE address signal"))
+    if "SA" in pack_codes:
+        address_patterns.append(("sa_postal_address", SA_POSTAL_ADDRESS_RE, "Saudi Arabia street/postcode address signal"))
 
     out: list[Any] = []
     seen: set[tuple[str, int, int]] = set()
