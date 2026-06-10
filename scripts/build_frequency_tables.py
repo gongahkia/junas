@@ -125,6 +125,69 @@ SPECS = {
     ),
 }
 
+SOURCE_CLEARANCE = {
+    "SG": {
+        "name_frequency": {
+            "status": "blocked_no_official_redistributable_source_verified",
+            "checked_on": "2026-06-10",
+            "candidate_sources": [
+                "https://data.gov.sg/",
+                "https://www.singstat.gov.sg/",
+            ],
+            "license_position": (
+                "data.gov.sg datasets are redistributable under the Singapore Open Data Licence when a dataset "
+                "is offered there; no official SG name-frequency dataset was verified for bundling."
+            ),
+            "ship_decision": "do_not_bundle_without_source_clearance",
+        },
+        "role_frequency": {
+            "status": "bundled",
+            "checked_on": "2026-06-10",
+            "candidate_sources": ["https://data.gov.sg/datasets/d_3ba99a6cc9f643bacb63bdab296d7bff/view"],
+            "license_position": "Singapore Open Data Licence with source citation.",
+            "ship_decision": "bundled_broad_role_alias_proxy",
+        },
+    },
+    "JP": {
+        "name_frequency": {
+            "status": "blocked_no_official_frequency_table_verified",
+            "checked_on": "2026-06-10",
+            "candidate_sources": ["https://www.e-stat.go.jp/en/stat-search"],
+            "license_position": (
+                "e-Stat numerical data can be used with source citation, but no official name-frequency table "
+                "was verified in the open e-Stat surface."
+            ),
+            "ship_decision": "do_not_bundle_without_source_clearance",
+        },
+        "role_frequency": {
+            "status": "candidate_official_source_license_ok_build_not_implemented",
+            "checked_on": "2026-06-10",
+            "candidate_sources": ["https://www.e-stat.go.jp/en/stat-search"],
+            "license_position": "e-Stat numerical data terms are compatible with CC BY 4.0 with source citation.",
+            "ship_decision": "operator_builder_only_until_source_table_mapping_is_reviewed",
+        },
+    },
+    "KR": {
+        "name_frequency": {
+            "status": "blocked_no_official_frequency_table_verified",
+            "checked_on": "2026-06-10",
+            "candidate_sources": ["https://kosis.kr/eng/"],
+            "license_position": (
+                "KOSIS public-data policy permits free use including profit-purpose use, subject to statutory "
+                "and third-party-right exclusions; no official name-frequency table was verified for bundling."
+            ),
+            "ship_decision": "do_not_bundle_without_source_clearance",
+        },
+        "role_frequency": {
+            "status": "candidate_official_source_policy_ok_build_not_implemented",
+            "checked_on": "2026-06-10",
+            "candidate_sources": ["https://kosis.kr/eng/statisticsList/statisticsListIndex.do"],
+            "license_position": "KOSIS public-data policy permits free use including profit-purpose use.",
+            "ship_decision": "operator_builder_only_until_source_table_mapping_is_reviewed",
+        },
+    },
+}
+
 
 def _norm_header(value: str) -> str:
     return re.sub(r"[\s_\-().]+", "", value.strip().casefold())
@@ -478,8 +541,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--license-scope", default="")
     parser.add_argument("--redistribution", default="")
     parser.add_argument("--list-sources", action="store_true", help="print official source/licence profiles and exit")
+    parser.add_argument("--source-clearance", action="store_true", help="print SG/JP/KR name/role clearance status")
     args = parser.parse_args(argv)
 
+    if args.source_clearance:
+        print(json.dumps(SOURCE_CLEARANCE, indent=2, sort_keys=True))
+        return 0
     if args.list_sources:
         jurisdictions = DEFAULT_SUPPORTED if args.jurisdiction in (None, "all") else (args.jurisdiction,)
         profiles = {code: SPECS[code].__dict__ for code in jurisdictions if code in SPECS}
