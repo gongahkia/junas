@@ -11,18 +11,18 @@ class DesktopWatchTests(unittest.TestCase):
     def test_scan_paths_reviews_file_and_writes_anonymized_copy_only_when_requested(self):
         calls = []
 
-        def fake_post(base_url, path, payload, timeout_seconds):
-            calls.append((base_url, path, payload, timeout_seconds))
+        def fake_post(base_url, path, payload, timeout_seconds, headers):
+            calls.append((base_url, path, payload, timeout_seconds, headers))
             if path == "/review":
                 return {"overall_risk": "HIGH", "document_score": 90.0, "findings": [{"rule": "sg_nric_fin"}]}
             return {"anonymized_text": "Send [NRIC_FIN_1]"}
 
-        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(watch, "_post_json", side_effect=fake_post):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(watch, "_post_json_with_headers", side_effect=fake_post):
             root = Path(tmp)
             source = root / "note.txt"
             out = root / "out"
             source.write_text("Send S1234567D", encoding="utf-8")
-            config = watch.WatchConfig(anonymize_output_dir=out)
+            config = watch.WatchConfig(anonymize_output_dir=out, local_token="signed-token")
 
             summaries = watch.scan_paths([source], config)
 
@@ -32,13 +32,14 @@ class DesktopWatchTests(unittest.TestCase):
         self.assertEqual(calls[0][1], "/review")
         self.assertEqual(calls[1][1], "/anonymize")
         self.assertEqual(calls[0][2]["text"], "Send S1234567D")
+        self.assertEqual(calls[0][4]["X-Kaypoh-Local-Token"], "signed-token")
 
     def test_scan_paths_does_not_call_anonymize_without_explicit_output_dir(self):
-        def fake_post(_base_url, path, _payload, _timeout_seconds):
+        def fake_post(_base_url, path, _payload, _timeout_seconds, _headers):
             self.assertEqual(path, "/review")
             return {"overall_risk": "HIGH", "document_score": 80.0, "findings": [{"rule": "email_address"}]}
 
-        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(watch, "_post_json", side_effect=fake_post):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(watch, "_post_json_with_headers", side_effect=fake_post):
             source = Path(tmp) / "note.txt"
             source.write_text("Email jane@example.com", encoding="utf-8")
             summaries = watch.scan_paths([source], watch.WatchConfig())
@@ -75,6 +76,26 @@ class DesktopWatchTests(unittest.TestCase):
 
         self.assertEqual(payload["source"], "clipboard")
         self.assertEqual(payload["finding_count"], 0)
+
+    def test_config_reads_local_token_file(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            token_file = Path(tmp) / "token"
+            token_file.write_text("signed-token\n", encoding="utf-8")
+            args = mock.Mock(
+                base_url="http://127.0.0.1:8765",
+                source_jurisdiction="SG",
+                destination_jurisdiction="SG",
+                document_type="generic",
+                review_profile="strict",
+                timeout_seconds=10.0,
+                anonymize_output_dir=None,
+                local_token="",
+                local_token_file=token_file,
+                notify=False,
+            )
+            config = watch._config_from_args(args)
+
+        self.assertEqual(config.local_token, "signed-token")
 
 
 if __name__ == "__main__":

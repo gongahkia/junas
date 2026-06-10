@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.kaypoh.local</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__INSTALL_DIR__/kaypoh-local</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>__LOG_DIR__/kaypoh-local.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>__LOG_DIR__/kaypoh-local.err.log</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>KAYPOH_HOST</key>
+    <string>127.0.0.1</string>
+    <key>KAYPOH_PORT</key>
+    <string>8765</string>
+    <key>KAYPOH_LOCAL_DAEMON_ACL_ENABLED</key>
+    <string>1</string>
+  </dict>
+</dict>
+</plist>
