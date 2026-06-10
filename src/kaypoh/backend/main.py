@@ -1361,7 +1361,8 @@ def _apply_surfacing_lanes_to_result(result: Any, tenant: TenantContext) -> Any:
 
         return apply_surfacing_lanes(result.findings, tenant_id=tenant.storage_tenant_id)
     except SurfacingLaneError as exc:
-        raise HTTPException(status_code=503, detail=_layer_error_detail(ReviewLayerError("surfacing_lane", str(exc)))) from exc
+        detail = _layer_error_detail(ReviewLayerError("surfacing_lane", str(exc)))
+        raise HTTPException(status_code=503, detail=detail) from exc
 
 
 def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantContext) -> ReviewResponse:
@@ -1406,6 +1407,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
             matter_id=req.matter_id,
             review_profile=req.review_profile,
             tenant_id=tenant.storage_tenant_id,
+            document_structure=getattr(document, "document_structure", None),
         )
     except ReviewLayerError as exc:
         raise HTTPException(status_code=503, detail=_layer_error_detail(exc)) from exc
@@ -1534,6 +1536,7 @@ def _run_placeholder_review_sync(
             matter_id=req.matter_id,
             review_profile=req.review_profile,
             tenant_id=tenant.storage_tenant_id,
+            document_structure=getattr(document, "document_structure", None),
         )
     except ReviewLayerError as exc:
         raise HTTPException(status_code=503, detail=_layer_error_detail(exc)) from exc

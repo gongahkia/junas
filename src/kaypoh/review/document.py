@@ -28,6 +28,7 @@ from kaypoh.review.container_scan import (
 from kaypoh.review.container_scan import (
     infer_mime_type as infer_container_mime_type,
 )
+from kaypoh.review.document_structure import DocumentStructure, parse_document_structure, parse_docx_structure
 from kaypoh.review.image_scan import (
     ImageCandidate,
     collect_docx_images,
@@ -75,6 +76,7 @@ class ExtractedDocument:
     image_candidates: list[ImageCandidate] | None = None
     image_text_spans: list[Any] | None = None
     image_scan_provider: str = "none"
+    document_structure: DocumentStructure | None = None
 
 
 def _clean_text(text: str) -> str:
@@ -93,6 +95,10 @@ def _decode_base64(raw: str) -> bytes:
 
 
 def _extract_docx(data: bytes) -> str:
+    try:
+        return parse_docx_structure(data).text
+    except Exception:
+        pass
     with zipfile.ZipFile(BytesIO(data)) as archive:
         try:
             document_xml = archive.read("word/document.xml")
@@ -273,6 +279,7 @@ def extract_review_document(
     except Exception as exc:
         raise ValueError(f"metadata inspection failed closed: {exc}") from exc
     container_text = ""
+    document_structure: DocumentStructure | None = None
     container_findings: list[dict[str, str]] = []
     container_warnings: list[str] = []
     container_image_candidates: list[ImageCandidate] = []
@@ -302,7 +309,11 @@ def extract_review_document(
         extraction_warnings = container_warnings
         image_candidates: list[ImageCandidate] = []
     elif mime_type == SUPPORTED_DOCX_MIME:
-        extracted = container_text or _extract_docx(data)
+        if container_text:
+            extracted = container_text
+        else:
+            document_structure = parse_docx_structure(data)
+            extracted = document_structure.text
         method = "docx_container_xml"
         page_count = None
         extraction_quality = "accepted"
@@ -362,6 +373,8 @@ def extract_review_document(
     cleaned = _clean_text(extracted)
     if not cleaned and not image_candidates:
         raise ValueError("document extraction produced no text")
+    if document_structure is not None and document_structure.text != cleaned:
+        document_structure = parse_document_structure(cleaned)
     return ExtractedDocument(
         text=cleaned,
         filename=filename,
@@ -375,4 +388,5 @@ def extract_review_document(
         image_candidates=image_candidates,
         image_text_spans=[],
         image_scan_provider="none",
+        document_structure=document_structure,
     )

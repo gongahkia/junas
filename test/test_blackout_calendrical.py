@@ -8,6 +8,8 @@ Detection requires both a document-date anchor and an earnings-date anchor; peri
 (annual / interim) is parsed from the earnings phrase and selects the right window.
 """
 
+import os
+import tempfile
 import unittest
 
 from kaypoh.review.engine import PreSendReviewEngine
@@ -16,6 +18,13 @@ from kaypoh.review.engine import PreSendReviewEngine
 class BlackoutDetectorTests(unittest.TestCase):
     def setUp(self):
         self.engine = PreSendReviewEngine()
+        self._old_calendar = os.environ.pop("KAYPOH_EARNINGS_CALENDAR_CSV", None)
+
+    def tearDown(self):
+        if self._old_calendar is None:
+            os.environ.pop("KAYPOH_EARNINGS_CALENDAR_CSV", None)
+        else:
+            os.environ["KAYPOH_EARNINGS_CALENDAR_CSV"] = self._old_calendar
 
     def _blackouts(self, result):
         return [f for f in result.findings if f.rule == "blackout_period_reference"]
@@ -151,6 +160,28 @@ class BlackoutDetectorTests(unittest.TestCase):
             entity_id=None, include_suggestions=False,
         )
         self.assertEqual(self._blackouts(r), [])
+
+    def test_operator_calendar_csv_ticker_lookup(self):
+        with tempfile.NamedTemporaryFile("w", encoding="utf-8", newline="", delete=False) as handle:
+            handle.write("jurisdiction,ticker,period,announcement_date,issuer\n")
+            handle.write("SG,D05,interim,2026-08-10,DBS Group\n")
+            calendar_path = handle.name
+        self.addCleanup(lambda: os.path.exists(calendar_path) and os.unlink(calendar_path))
+        os.environ["KAYPOH_EARNINGS_CALENDAR_CSV"] = calendar_path
+
+        text = "Date: 1 Aug 2026\nTicker: SGX:D05\nQuiet period applies."
+        r = self.engine.review(
+            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
+            entity_id=None, include_suggestions=False,
+        )
+
+        b = self._blackouts(r)
+        self.assertEqual(len(b), 1)
+        self.assertIn("operator earnings calendar", b[0].reason)
+        self.assertIn("SG 14-day blackout window", b[0].reason)
+        self.assertEqual(b[0].metadata["earnings_calendar_source"], "operator_csv")
+        self.assertEqual(b[0].metadata["ticker"], "D05")
+        self.assertEqual(b[0].metadata["rule_jurisdictions"], ["SG"])
 
 
 if __name__ == "__main__":

@@ -250,17 +250,28 @@ def detect_address_findings(
         first_line = lines[0] if lines else value
         if not PERSON_LINKED_ADDRESS_RE.search(first_line):
             continue
-        if "\n" in value and not any(ch.isdigit() for ch in "\n".join(lines[1:])):
+        candidate_start, candidate_end, candidate_value = start, end, value
+        if len(lines) > 1 and not _has_generic_address_substance(first_line):
+            tail_match = re.search(r"\r?\n[ \t]*(?P<tail>\S.*)", value, re.DOTALL)
+            if tail_match:
+                tail_value = tail_match.group("tail").strip()
+                if _has_generic_address_substance(tail_value):
+                    candidate_start = start + tail_match.start("tail")
+                    candidate_end = candidate_start + len(tail_value)
+                    candidate_start, candidate_end = _trim_address_value(ctx.text, candidate_start, candidate_end)
+                    candidate_value = ctx.text[candidate_start:candidate_end]
+        candidate_lines = candidate_value.splitlines()
+        if "\n" in candidate_value and not any(ch.isdigit() for ch in "\n".join(candidate_lines[1:])):
             continue
-        if _looks_org_only_address(value):
+        if _looks_org_only_address(candidate_value):
             continue
-        if not _has_generic_address_substance(value):
+        if not _has_generic_address_substance(candidate_value):
             continue
-        key = ("postal_address", start, end)
+        key = ("postal_address", candidate_start, candidate_end)
         if key in seen:
             continue
         seen.add(key)
-        occupied.append((start, end))
+        occupied.append((candidate_start, candidate_end))
         out.append(
             new_finding(
                 idx=idx,
@@ -268,9 +279,9 @@ def detect_address_findings(
                 rule="postal_address",
                 jurisdiction=ctx.jurisdiction,
                 severity="medium",
-                matched_text=value,
-                start=start,
-                end=end,
+                matched_text=candidate_value,
+                start=candidate_start,
+                end=candidate_end,
                 reason="Broad unlabelled postal-address signal",
                 legal_basis=ctx.legal_basis,
                 metadata={"fallback": "broad_unlabelled_postal_address"},

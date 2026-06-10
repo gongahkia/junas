@@ -1,6 +1,6 @@
 # Kaypoh Statutory Coverage
 
-> Last revised 2026-06-09. Procurement-facing artefact mapping every shipped detector to the statute it implements. Authoritative source for "what kaypoh actually detects under PDPA / GDPR / SFA / MAR / Reg FD" assertions. Companion to `ARCHITECTURE-PIVOT-24-MAY.md` §First-Principles Statutory Analysis — that section is the editorial draft; this doc is the standalone artefact a procurement reviewer can hand to compliance.
+> Last revised 2026-06-10. Procurement-facing artefact mapping every shipped detector to the statute it implements. Authoritative source for "what kaypoh actually detects under PDPA / GDPR / SFA / MAR / Reg FD" assertions. Companion to `ARCHITECTURE-PIVOT-24-MAY.md` §First-Principles Statutory Analysis — that section is the editorial draft; this doc is the standalone artefact a procurement reviewer can hand to compliance.
 
 This file is regression-tested. `test/test_statutory_coverage_doc.py` asserts that every jurisdiction in `citations.py:_MNPI_JURISDICTION_SUFFIX` / `_PII_JURISDICTION_SUFFIX`, every detector rule_name in `jurisdictions_data/*.toml`, and every PII/MNPI rationale key in `citations.py` is mentioned somewhere in this file. Drift fails CI.
 
@@ -9,6 +9,16 @@ This file is regression-tested. `test/test_statutory_coverage_doc.py` asserts th
 Kaypoh is a pre-send document safety layer detecting **personal data (PII)** and **material non-public information (MNPI)** evidence in documents destined for GenAI prompts, email, or external sharing. It is **not** a horizontal DLP replacement (Purview / Netskope / Nightfall already compete on detector breadth). The wedge is SG/SEA-native local-ID + legal-MNPI detection with statute-cited rationales.
 
 Citations below are reproduced from public commentary and official statute text. Statute section numbers (notably SG SFA s215/s218/s219/s221, HK SFO Cap. 571 Part XIV s270-281, JP FIEA Art 166-167, KR FSCMA Art 174-179) should be re-verified against the official statute revision in force before external use; item 53 owns this cadence.
+
+## Endpoint data states
+
+Kaypoh exposes three rewrite operations with distinct legal states. GDPR Art 4(5), GDPR Recital 26, A29WP Opinion 05/2014, ICO anonymisation guidance, and PDPC Advisory Guidelines on Anonymisation treat reversibility and means reasonably likely to re-identify as the key distinction.
+
+| Endpoint | Data state after rewrite | Mapping retained | Re-identification posture | Operational controls |
+|---|---|---|---|---|
+| `/pseudonymize` | Pseudonymised personal data | Yes; deterministic mapping persisted per tenant/session | Still personal data because the mapping can re-identify the subject | Tenant-scoped HMAC IDs, mapping-store access control, audit journal, key rotation |
+| `/anonymize` | Intended anonymised text | No mapping retained; deterministic placeholders only | Not personal data only if residual singling-out/linkability/inference risk is not reasonably likely | No mapping write, metadata scrub path, residual-risk findings remain visible |
+| `/redact` | Redacted text | No mapping retained; opaque markers hide entity type | Lowest re-identification surface among shipped rewrite operations, subject to context left in the document | No mapping write, opaque replacement markers, audit journal, metadata scrub path |
 
 ## Jurisdictions in scope
 

@@ -2,6 +2,14 @@
 
 This file is generated from committed recall and precision locks. Do not edit it by hand.
 
+## Endpoint Data States
+
+| Endpoint | Data state | Mapping retained | Accuracy caveat |
+|---|---|---|---|
+| `/pseudonymize` | Pseudonymised personal data | Yes | Detector baselines describe span detection before reversible replacement; output remains re-identifiable where the controller holds the mapping. |
+| `/anonymize` | Placeholder-only anonymised text | No | Detector baselines do not prove statistical anonymisation; residual singling-out/linkability/inference risk remains document-context dependent. |
+| `/redact` | Opaque redacted text | No | Detector baselines describe what was found for redaction; residual risk depends on unredacted context and container metadata handling. |
+
 ## Corpus Locks
 
 | Corpus | Fixtures | Lock file | Description |

@@ -185,6 +185,14 @@ class CrossSectionInvariant(unittest.TestCase):
         # Procurement artefact MUST disclaim that it's not legal advice.
         self.assertIn("not legal advice", self.doc_text.lower())
 
+    def test_doc_has_endpoint_data_state_table(self):
+        self.assertIn("Endpoint data states", self.doc_text)
+        for endpoint in ("/pseudonymize", "/anonymize", "/redact"):
+            self.assertIn(endpoint, self.doc_text)
+        self.assertIn("Pseudonymised personal data", self.doc_text)
+        self.assertIn("Intended anonymised text", self.doc_text)
+        self.assertIn("Redacted text", self.doc_text)
+
 
 class JurisdictionPackRegistryParityTests(unittest.TestCase):
     """Every TOML pack on disk must be referenced in the doc by code. The reverse — the

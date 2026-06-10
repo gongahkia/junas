@@ -19,7 +19,7 @@ from kaypoh.review.detectors import (
 )
 from kaypoh.review.document_structure import parse_document_structure
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
-from kaypoh.review.jurisdictions import JurisdictionRulePack, resolve_rule_packs
+from kaypoh.review.jurisdictions import JurisdictionRulePack, normalize_jurisdiction, resolve_rule_packs
 from kaypoh.workflow.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
 
 SG_NRIC_RE = re.compile(r"\b[STFGM]\d{7}[A-Z]\b", re.IGNORECASE)
@@ -3277,6 +3277,7 @@ def _detect_minor_data_references(
                 end=m.end(),
                 reason="; ".join(reason_parts),
                 legal_basis=legal_basis,
+                metadata={"rule_jurisdictions": triggered_juris or applicable},
             )
         )
         idx += 1
@@ -3787,9 +3788,9 @@ def _scale_financial_by_entity_size(
 #  - ASX: no exchange-mandated duration (LR 12.9 + GN 27 require an issuer trading policy
 #    but do not set a length). Advisory only.
 #
-# v1 ships per-juris explicit-date detection only. ticker → next-earnings-date lookup is
-# deferred to v2 (audit_grade; depends on item 73 entity_size_lookup substrate + EDGAR
-# connector — earnings dates without a paid feed are estimates, not ground truth).
+# v1 shipped per-juris explicit-date detection. v2 adds an operator-maintained CSV hook
+# (`KAYPOH_EARNINGS_CALENDAR_CSV`) for deterministic no-network ticker/entity lookups.
+# External paid/provider lookup stays out of the local runtime path.
 
 _BLACKOUT_WINDOW_DAYS: dict[str, dict[str, int]] = {
     "SG": {"interim": 14, "annual": 30},   # SGX MB 1207(19)(c)
@@ -3833,6 +3834,12 @@ _DOC_DATE_ANCHORS: tuple[re.Pattern[str], ...] = (
     re.compile(r"\bToday(?:'s\s+date)?\s+is\s+([\w,/\- ]{6,30})", re.IGNORECASE),
     re.compile(r"\bMemo\s+date\s*[:\-]\s*([\w,/\- ]{6,30})", re.IGNORECASE),
     re.compile(r"\bDated\s+(?:as\s+of\s+)?([\w,/\- ]{6,30})", re.IGNORECASE),
+)
+_EARNINGS_CALENDAR_ENV = "KAYPOH_EARNINGS_CALENDAR_CSV"
+_TICKER_CONTEXT_RE = re.compile(
+    r"\b(?:ticker|stock\s+code|counter|SGX|HKEX|ASX|LSE|NYSE|NASDAQ)\s*[:#-]?\s*"
+    r"(?:(?:SGX|HKEX|ASX|LSE|NYSE|NASDAQ)\s*[:#-]?\s*)?"
+    r"(?P<ticker>[A-Z][A-Z0-9.]{0,9})\b"
 )
 
 # Date parsing covering the SG/UK/EU/HK conventions reviewers actually use.
@@ -3896,6 +3903,107 @@ def _parse_date(text: str) -> tuple[int, int, int] | None:
     return None
 
 
+@dataclass(frozen=True)
+class _CalendarMatch:
+    jurisdiction: str
+    ticker: str
+    issuer: str
+    period: str
+    announcement_date: tuple[int, int, int]
+    start: int
+    end: int
+    matched_text: str
+
+
+def _normalize_ticker(value: str) -> str:
+    token = (value or "").strip().upper()
+    if ":" in token:
+        token = token.rsplit(":", 1)[-1]
+    return re.sub(r"[^A-Z0-9.]", "", token)
+
+
+def _ticker_contexts(text: str) -> dict[str, tuple[int, int, str]]:
+    out: dict[str, tuple[int, int, str]] = {}
+    for match in _TICKER_CONTEXT_RE.finditer(text):
+        ticker = _normalize_ticker(match.group("ticker"))
+        if ticker:
+            out.setdefault(ticker, (match.start("ticker"), match.end("ticker"), match.group()))
+    return out
+
+
+def _operator_calendar_matches(
+    text: str,
+    *,
+    applicable_juris: list[str],
+    entity_id: str | None,
+) -> list[_CalendarMatch]:
+    import csv
+    import os
+
+    path = os.environ.get(_EARNINGS_CALENDAR_ENV, "").strip()
+    if not path:
+        return []
+
+    ticker_contexts = _ticker_contexts(text)
+    text_casefold = text.casefold()
+    entity_key = (entity_id or "").strip().casefold()
+    applicable = set(applicable_juris)
+    matches: list[_CalendarMatch] = []
+    try:
+        with open(path, newline="", encoding="utf-8") as handle:
+            reader = csv.DictReader(handle)
+            required = {"jurisdiction", "ticker", "period", "announcement_date"}
+            fieldnames = set(reader.fieldnames or [])
+            missing = required - fieldnames
+            if missing:
+                raise ValueError(f"missing columns: {', '.join(sorted(missing))}")
+            for row_index, row in enumerate(reader, start=2):
+                jurisdiction = normalize_jurisdiction(row.get("jurisdiction"), default="")
+                if jurisdiction not in applicable:
+                    continue
+                period = (row.get("period") or "").strip().casefold()
+                if period not in {"interim", "annual"}:
+                    raise ValueError(f"row {row_index}: period must be interim or annual")
+                announcement_date = _parse_date(row.get("announcement_date") or "")
+                if announcement_date is None:
+                    raise ValueError(f"row {row_index}: invalid announcement_date")
+                ticker = _normalize_ticker(row.get("ticker") or "")
+                issuer = (row.get("issuer") or "").strip()
+                ticker_hit = ticker_contexts.get(ticker) if ticker else None
+                issuer_hit = bool(issuer and issuer.casefold() in text_casefold)
+                entity_hit = bool(entity_key and entity_key in {ticker.casefold(), issuer.casefold()})
+                if not ticker_hit and not issuer_hit and not entity_hit:
+                    continue
+                if ticker_hit:
+                    start, end, matched_text = ticker_hit
+                else:
+                    needle = issuer if issuer_hit else (issuer or ticker)
+                    start = text_casefold.find(needle.casefold()) if needle else 0
+                    if start < 0:
+                        start = 0
+                    end = start + len(needle)
+                    matched_text = needle
+                matches.append(
+                    _CalendarMatch(
+                        jurisdiction=jurisdiction,
+                        ticker=ticker,
+                        issuer=issuer,
+                        period=period,
+                        announcement_date=announcement_date,
+                        start=start,
+                        end=end,
+                        matched_text=matched_text,
+                    )
+                )
+    except OSError as exc:
+        raise ValueError(f"{_EARNINGS_CALENDAR_ENV} is unreadable: {exc}") from exc
+    except csv.Error as exc:
+        raise ValueError(f"{_EARNINGS_CALENDAR_ENV} is malformed: {exc}") from exc
+    except ValueError as exc:
+        raise ValueError(f"{_EARNINGS_CALENDAR_ENV} is invalid: {exc}") from exc
+    return matches
+
+
 def _detect_blackout_period_references(
     text: str,
     *,
@@ -3903,6 +4011,7 @@ def _detect_blackout_period_references(
     jurisdiction: str,
     legal_basis: str,
     idx_start: int,
+    entity_id: str | None = None,
 ) -> list["ReviewFinding"]:
     """Fire `blackout_period_reference` when document date + earnings date co-occur within
     the per-jurisdiction blackout window. Only fires when at least one applicable juris is
@@ -3968,9 +4077,71 @@ def _detect_blackout_period_references(
                         f"{applicable_window}-day blackout window (delta={delta} days)"
                     ),
                     legal_basis=legal_basis,
+                    metadata={
+                        "rule_jurisdictions": [window_owner],
+                        "blackout_window_owner": window_owner,
+                        "blackout_window_days": applicable_window,
+                        "period": period,
+                        "document_date": doc_d.isoformat(),
+                        "earnings_date": ed.isoformat(),
+                        "earnings_calendar_source": "explicit_document_text",
+                    },
                 )
             )
             idx += 1
+    seen_calendar: set[tuple[str, str, tuple[int, int, int], str]] = set()
+    for calendar_match in _operator_calendar_matches(
+        text,
+        applicable_juris=applicable_juris,
+        entity_id=entity_id,
+    ):
+        ed = _dt.date(*calendar_match.announcement_date)
+        delta = (ed - doc_d).days
+        if delta < 0:
+            continue
+        window = _BLACKOUT_WINDOW_DAYS[calendar_match.jurisdiction][calendar_match.period]
+        if delta > window:
+            continue
+        key = (
+            calendar_match.jurisdiction,
+            calendar_match.ticker,
+            calendar_match.announcement_date,
+            calendar_match.period,
+        )
+        if key in seen_calendar:
+            continue
+        seen_calendar.add(key)
+        out.append(
+            _new_finding(
+                idx=idx,
+                category="MNPI",
+                rule="blackout_period_reference",
+                jurisdiction=jurisdiction,
+                severity="medium",
+                matched_text=calendar_match.matched_text,
+                start=calendar_match.start,
+                end=calendar_match.end,
+                reason=(
+                    f"Document dated {doc_d.isoformat()}; operator earnings calendar has "
+                    f"{calendar_match.period} results announcement on {ed.isoformat()} "
+                    f"within {calendar_match.jurisdiction} {window}-day blackout window "
+                    f"(delta={delta} days)"
+                ),
+                legal_basis=legal_basis,
+                metadata={
+                    "rule_jurisdictions": [calendar_match.jurisdiction],
+                    "blackout_window_owner": calendar_match.jurisdiction,
+                    "blackout_window_days": window,
+                    "period": calendar_match.period,
+                    "document_date": doc_d.isoformat(),
+                    "earnings_date": ed.isoformat(),
+                    "earnings_calendar_source": "operator_csv",
+                    "ticker": calendar_match.ticker,
+                    "issuer": calendar_match.issuer,
+                },
+            )
+        )
+        idx += 1
     return out
 
 
@@ -4030,6 +4201,58 @@ def _legal_basis(packs: list[JurisdictionRulePack], field_name: str) -> str:
                 rules.append(rule)
                 seen.add(rule)
     return ", ".join(rules)
+
+
+def _rule_jurisdictions_for_finding(
+    finding: "ReviewFinding",
+    packs: list[JurisdictionRulePack],
+) -> list[str]:
+    pack_codes = [pack.code for pack in packs]
+    pack_set = set(pack_codes)
+    raw = finding.metadata.get("rule_jurisdictions")
+    if isinstance(raw, str):
+        codes = [normalize_jurisdiction(raw, default="") or raw.upper()]
+    elif isinstance(raw, list):
+        codes = [
+            normalize_jurisdiction(str(item), default="") or str(item).upper()
+            for item in raw
+            if str(item).strip()
+        ]
+    else:
+        codes = []
+    filtered = [code for code in codes if code in pack_set]
+    if filtered:
+        return list(dict.fromkeys(filtered))
+    if finding.rule == "selective_disclosure_risk" and "US" in pack_set:
+        return ["US"]
+    prefix = finding.rule.split("_", 1)[0].upper()
+    if prefix in pack_set:
+        return [prefix]
+    return pack_codes
+
+
+def _annotate_jurisdiction_attribution(
+    findings: list["ReviewFinding"],
+    *,
+    packs: list[JurisdictionRulePack],
+    source_jurisdiction: str,
+    destination_jurisdiction: str,
+) -> None:
+    considered = [pack.code for pack in packs]
+    source_code = normalize_jurisdiction(source_jurisdiction, default="SG")
+    destination_code = normalize_jurisdiction(destination_jurisdiction, default="SG")
+    for finding in findings:
+        rule_juris = _rule_jurisdictions_for_finding(finding, packs)
+        finding.metadata = {
+            **finding.metadata,
+            "jurisdictions_considered": considered,
+            "rule_jurisdictions": rule_juris,
+            "source_jurisdiction": source_code,
+            "destination_jurisdiction": destination_code,
+            "source_juris_finding": source_code in rule_juris,
+            "destination_juris_finding": destination_code in rule_juris,
+            "jurisdiction_policy": "strictest_wins",
+        }
 
 
 class PreSendReviewEngine:
@@ -4838,6 +5061,7 @@ class PreSendReviewEngine:
         matter_id: str | None = None,
         review_profile: str = "strict",
         tenant_id: str | None = None,
+        document_structure: Any | None = None,
     ) -> ReviewResult:
         if review_profile not in VALID_REVIEW_PROFILES:
             raise ValueError(
@@ -4895,7 +5119,7 @@ class PreSendReviewEngine:
                     add_matter_terms(matter_id, defined_terms - matter_inherited, tenant_id=tenant_id)
             except Exception as exc:
                 raise ReviewLayerError("matter_defined_terms", f"matter defined-term store failed: {exc}") from exc
-        document_structure = parse_document_structure(text)
+        document_structure = document_structure or parse_document_structure(text)
         findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(
             text, packs, defined_terms, document_type
         )
@@ -4936,6 +5160,7 @@ class PreSendReviewEngine:
                 jurisdiction=_pack_scope(packs),
                 legal_basis=mnpi_legal_basis,
                 idx_start=len(findings),
+                entity_id=entity_id,
             )
         )
 
@@ -5069,6 +5294,12 @@ class PreSendReviewEngine:
             mnpi_score = self._score(findings, "MNPI")
             document_score = max(pii_score, mnpi_score)
             overall_risk = _risk_from_score(document_score)
+        _annotate_jurisdiction_attribution(
+            findings,
+            packs=packs,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+        )
         try:
             suggestions = self._suggestions(findings, include_suggestions, tenant_id=tenant_id)
         except CitationOverrideError as exc:

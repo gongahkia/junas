@@ -90,6 +90,7 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         findings = [finding for finding in result.findings if finding.rule == "postal_address"]
 
         self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].matched_text, "12 Jalan Ampang\nKuala Lumpur 50450 Malaysia")
         self.assertEqual(findings[0].metadata["fallback"], "broad_unlabelled_postal_address")
 
     def test_broad_unlabelled_address_fallback_rejects_org_only_registered_office(self):
@@ -197,7 +198,10 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         text = "Patient Jane Tan was born on 14 February 1988.\nSubject Jane Tan is 42 years old."
         with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
             result = self._review(text, "SG")
-        findings = {(finding.rule, finding.matched_text, finding.metadata.get("fallback")) for finding in result.findings}
+        findings = {
+            (finding.rule, finding.matched_text, finding.metadata.get("fallback"))
+            for finding in result.findings
+        }
 
         self.assertIn(("date_of_birth", "14 February 1988", "semantic_sentence_anchor"), findings)
         self.assertIn(("age_reference", "42", "semantic_sentence_anchor"), findings)
