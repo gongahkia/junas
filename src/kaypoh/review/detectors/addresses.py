@@ -80,7 +80,7 @@ VN_POSTAL_ADDRESS_RE = re.compile(
     re.IGNORECASE,
 )
 IN_POSTAL_ADDRESS_RE = re.compile(
-    r"\b\d{1,5}\s+[A-Z][A-Za-z0-9' -]{2,60}\s+(?:Road|Rd|Street|St|Marg|Nagar),?\s+"
+    r"\b\d{1,5}\s+[A-Z][A-Za-z0-9' -]{1,60}?\s+(?:Road|Rd|Street|St|Marg|Nagar),?\s+"
     r"(?:[A-Z][A-Za-z' -]{2,40},?\s+)?(?:IN-)?\d{6}\s+(?:India|Mumbai|Delhi|Bengaluru|Chennai)\b",
     re.IGNORECASE,
 )
@@ -217,6 +217,7 @@ def detect_address_findings(
     new_finding: Callable[..., Any],
 ) -> list[Any]:
     address_patterns: list[tuple[str, re.Pattern[str], str]] = []
+    late_address_patterns: list[tuple[str, re.Pattern[str], str]] = []
     pack_codes = {pack.code for pack in ctx.packs}
     if "UK" in pack_codes:
         address_patterns.append(("uk_postal_address", UK_POSTAL_ADDRESS_RE, "UK postcode-address signal"))
@@ -233,23 +234,23 @@ def detect_address_findings(
     if "EU" in pack_codes:
         address_patterns.append(("eu_postal_address", EU_POSTAL_ADDRESS_RE, "EU street/postcode address signal"))
     if "MY" in pack_codes:
-        address_patterns.append(("my_postal_address", MY_POSTAL_ADDRESS_RE, "Malaysia street/postcode address signal"))
+        late_address_patterns.append(("my_postal_address", MY_POSTAL_ADDRESS_RE, "Malaysia street/postcode signal"))
     if "ID" in pack_codes:
-        address_patterns.append(("id_postal_address", ID_POSTAL_ADDRESS_RE, "Indonesia street/postcode address signal"))
+        late_address_patterns.append(("id_postal_address", ID_POSTAL_ADDRESS_RE, "Indonesia street/postcode signal"))
     if "TH" in pack_codes:
-        address_patterns.append(("th_postal_address", TH_POSTAL_ADDRESS_RE, "Thailand street/postcode address signal"))
+        late_address_patterns.append(("th_postal_address", TH_POSTAL_ADDRESS_RE, "Thailand street/postcode signal"))
     if "PH" in pack_codes:
-        address_patterns.append(("ph_postal_address", PH_POSTAL_ADDRESS_RE, "Philippines street/postcode address signal"))
+        late_address_patterns.append(("ph_postal_address", PH_POSTAL_ADDRESS_RE, "Philippines street/postcode signal"))
     if "VN" in pack_codes:
-        address_patterns.append(("vn_postal_address", VN_POSTAL_ADDRESS_RE, "Vietnam street/postcode address signal"))
+        late_address_patterns.append(("vn_postal_address", VN_POSTAL_ADDRESS_RE, "Vietnam street/postcode signal"))
     if "IN" in pack_codes:
-        address_patterns.append(("in_postal_address", IN_POSTAL_ADDRESS_RE, "India street/postcode address signal"))
+        late_address_patterns.append(("in_postal_address", IN_POSTAL_ADDRESS_RE, "India street/postcode signal"))
     if "CN" in pack_codes:
-        address_patterns.append(("cn_postal_address", CN_POSTAL_ADDRESS_RE, "China street/postcode address signal"))
+        late_address_patterns.append(("cn_postal_address", CN_POSTAL_ADDRESS_RE, "China street/postcode signal"))
     if "AE" in pack_codes:
-        address_patterns.append(("ae_postal_address", AE_POSTAL_ADDRESS_RE, "UAE address signal"))
+        late_address_patterns.append(("ae_postal_address", AE_POSTAL_ADDRESS_RE, "UAE address signal"))
     if "SA" in pack_codes:
-        address_patterns.append(("sa_postal_address", SA_POSTAL_ADDRESS_RE, "Saudi Arabia street/postcode address signal"))
+        late_address_patterns.append(("sa_postal_address", SA_POSTAL_ADDRESS_RE, "Saudi Arabia street/postcode signal"))
 
     out: list[Any] = []
     seen: set[tuple[str, int, int]] = set()
@@ -354,4 +355,28 @@ def detect_address_findings(
             )
         )
         idx += 1
+    for rule, pattern, reason in late_address_patterns:
+        for match in pattern.finditer(ctx.text):
+            key = (rule, match.start(), match.end())
+            if key in seen or _overlaps((match.start(), match.end()), occupied):
+                continue
+            if _looks_org_only_address(_line_context(ctx.text, match.start(), match.end())):
+                continue
+            seen.add(key)
+            occupied.append((match.start(), match.end()))
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule=rule,
+                    jurisdiction=ctx.jurisdiction,
+                    severity="medium",
+                    matched_text=match.group(0),
+                    start=match.start(),
+                    end=match.end(),
+                    reason=reason,
+                    legal_basis=ctx.legal_basis,
+                )
+            )
+            idx += 1
     return out

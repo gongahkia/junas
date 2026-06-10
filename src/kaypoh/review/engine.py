@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ipaddress
 import re
 from dataclasses import dataclass, field
 from typing import Any
@@ -14,8 +15,8 @@ from kaypoh.review.detectors import (
     detect_address_findings,
     detect_core_identifier_findings,
     detect_personal_attribute_inferences,
-    detect_sg_wedge_remainder_findings,
     detect_semantic_pii_fallback_findings,
+    detect_sg_wedge_remainder_findings,
     detect_us_driver_license_findings,
     driver_license_coverage_warnings,
     semantic_pii_degraded_modes,
@@ -175,7 +176,7 @@ EMBARGO_RE = re.compile(
     re.IGNORECASE,
 )
 NONPUBLIC_RE = re.compile(
-    r"\b(confidential|non-public|nonpublic|not yet public|not disclosed|undisclosed|"
+    r"\b(confidential|non-public|nonpublic|not yet public|not yet publicly disclosed|not disclosed|undisclosed|"
     r"internal only|internal circulation only|internal use only|restricted|do not distribute|"
     r"should not be distributed externally|before announcement|pre-announcement|"
     r"quiet period|material non-public information|inside information|price[- ]sensitive information|PSI|"
@@ -1856,6 +1857,13 @@ def _is_spa_day_reference(text: str, start: int, end: int) -> bool:
 
 def _digits_only(value: str) -> str:
     return "".join(ch for ch in value if ch.isdigit())
+
+
+def _ip_version(value: str) -> int | None:
+    try:
+        return ipaddress.ip_address(value).version
+    except ValueError:
+        return None
 
 
 def _clamped_llm_warning_severity(warning: dict[str, Any]) -> str:

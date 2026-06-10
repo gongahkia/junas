@@ -743,7 +743,10 @@ def detect_core_identifier_findings(
                 idx=idx, category="PII", rule="eu_national_id", jurisdiction=ctx.jurisdiction, severity="high",
                 matched_text=value, start=match.start("id"), end=match.end("id"),
                 reason=f"EU {country} national identifier detected", legal_basis=ctx.legal_basis,
-                metadata={"member_state": country, "validator": validator if country in validated_countries else "label"},
+                metadata={
+                    "member_state": country,
+                    "validator": validator if country in validated_countries else "label",
+                },
             ))
             idx += 1
         for match in EU_MEMBER_STATE_ID_RE.finditer(ctx.text):
@@ -788,7 +791,11 @@ def detect_core_identifier_findings(
     return out
 
 
-def detect_us_driver_license_findings(ctx: DetectorContext, idx_start: int, new_finding: Callable[..., Any]) -> list[Any]:
+def detect_us_driver_license_findings(
+    ctx: DetectorContext,
+    idx_start: int,
+    new_finding: Callable[..., Any],
+) -> list[Any]:
     if not any(pack.code == "US" for pack in ctx.packs):
         return []
     out: list[Any] = []
@@ -813,7 +820,11 @@ def detect_us_driver_license_findings(ctx: DetectorContext, idx_start: int, new_
     return out
 
 
-def detect_sg_wedge_remainder_findings(ctx: DetectorContext, idx_start: int, new_finding: Callable[..., Any]) -> list[Any]:
+def detect_sg_wedge_remainder_findings(
+    ctx: DetectorContext,
+    idx_start: int,
+    new_finding: Callable[..., Any],
+) -> list[Any]:
     if not any(pack.code == "SG" for pack in ctx.packs):
         return []
     out: list[Any] = []
@@ -859,7 +870,10 @@ def driver_license_coverage_warnings(
             if not _valid_us_driver_license(state, number) and _driver_license_value_is_masked(number):
                 warnings.append({
                     "rule_guess": "us_driver_license",
-                    "why": "Driver-license-like field appears masked or partial; state-specific validation was not applied.",
+                    "why": (
+                        "Driver-license-like field appears masked or partial; "
+                        "state-specific validation was not applied."
+                    ),
                     "confidence": 0.68,
                 })
             continue
@@ -867,19 +881,28 @@ def driver_license_coverage_warnings(
         if candidate in _US_STATE_CODES and _driver_license_value_is_masked(number):
             warnings.append({
                 "rule_guess": "us_driver_license",
-                "why": "Driver-license-like field appears masked or partial; state-specific validation was not applied.",
+                "why": (
+                    "Driver-license-like field appears masked or partial; "
+                    "state-specific validation was not applied."
+                ),
                 "confidence": 0.68,
             })
         elif candidate and candidate not in _US_STATE_CODES:
             warnings.append({
                 "rule_guess": "us_driver_license",
-                "why": "Driver-license-like field has an unsupported issuer/state; state-specific validation was not applied.",
+                "why": (
+                    "Driver-license-like field has an unsupported issuer/state; "
+                    "state-specific validation was not applied."
+                ),
                 "confidence": 0.72,
             })
         else:
             warnings.append({
                 "rule_guess": "us_driver_license",
-                "why": "Driver-license-like field is missing an issuing state; state-specific validation was not applied.",
+                "why": (
+                    "Driver-license-like field is missing an issuing state; "
+                    "state-specific validation was not applied."
+                ),
                 "confidence": 0.7,
             })
     return warnings

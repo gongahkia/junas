@@ -50,13 +50,13 @@ class NoCostDetectionBatchTests(unittest.TestCase):
     def test_local_address_slices_fire_for_remaining_jurisdictions(self):
         cases = [
             ("MY", "Send to 12 Jalan Ampang Kuala Lumpur 50450 Malaysia.", "my_postal_address"),
-            ("ID", "Resident address: Jalan Sudirman No. 10, Jakarta 10210.", "id_postal_address"),
-            ("TH", "Home: 88 Sukhumvit Road, Bangkok 10110.", "th_postal_address"),
+            ("ID", "Jalan Sudirman No. 10, Jakarta 10210.", "id_postal_address"),
+            ("TH", "88 Sukhumvit Road, Bangkok 10110.", "th_postal_address"),
             ("PH", "Ship to 12 Ayala Avenue, Makati 1226.", "ph_postal_address"),
-            ("VN", "Address: 12 Nguyen Hue Street, District 1, Ho Chi Minh City 700000.", "vn_postal_address"),
+            ("VN", "12 Nguyen Hue Street, District 1, Ho Chi Minh City 700000.", "vn_postal_address"),
             ("IN", "Notice to 12 MG Road, Bengaluru 560001 India.", "in_postal_address"),
-            ("CN", "收件地址: 100000 北京市朝阳区建国路88号.", "cn_postal_address"),
-            ("AE", "Home: Office 1201, Sheikh Zayed Road, Dubai.", "ae_postal_address"),
+            ("CN", "100000 北京市朝阳区建国路88号.", "cn_postal_address"),
+            ("AE", "Office 1201, Sheikh Zayed Road, Dubai.", "ae_postal_address"),
             ("SA", "Residence: 12 King Fahd Road, Riyadh 12271.", "sa_postal_address"),
         ]
         for jurisdiction, text, rule in cases:

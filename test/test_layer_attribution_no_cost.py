@@ -1,7 +1,9 @@
 import json
 import unittest
 from pathlib import Path
+from unittest import mock
 
+from scripts.run_layer_attribution_eval import main
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 RUN_ID = "20260606-strict-item120"
@@ -32,6 +34,17 @@ class LayerAttributionNoCostReportTests(unittest.TestCase):
         for doc in payload["documents"]:
             count += sum(1 for finding in doc.get("unexpected", []) if finding.get("rule") == "conjunctive_mnpi")
         self.assertGreater(count, 0)
+
+    def test_audit_grade_preflight_is_no_spend(self):
+        with mock.patch("sys.stdout") as stdout:
+            code = main(["--audit-grade-preflight"])
+        self.assertEqual(code, 0)
+        rendered = "".join(call.args[0] for call in stdout.write.call_args_list if call.args)
+        payload = json.loads(rendered)
+
+        self.assertFalse(payload["allow_external_cost"])
+        self.assertFalse(payload["ready_to_run_paid_sweep"])
+        self.assertIn("No candidate evaluation was run", payload["note"])
 
 
 if __name__ == "__main__":

@@ -1,3 +1,4 @@
+import json
 import tempfile
 import unittest
 import zipfile
@@ -228,6 +229,18 @@ class FrequencyTableBuilderTests(unittest.TestCase):
         self.assertIn("e-Stat Terms of Use", rendered)
         self.assertIn("Open Government Data Portal scope of use: limitless", rendered)
         self.assertIn("U.S. Census Bureau", rendered)
+
+    def test_source_clearance_reports_blocked_name_tables(self):
+        with mock.patch("sys.stdout") as stdout:
+            code = main(["--source-clearance"])
+        self.assertEqual(code, 0)
+        rendered = "".join(call.args[0] for call in stdout.write.call_args_list if call.args)
+        payload = json.loads(rendered)
+
+        self.assertEqual(payload["SG"]["name_frequency"]["ship_decision"], "do_not_bundle_without_source_clearance")
+        self.assertEqual(payload["JP"]["name_frequency"]["status"], "blocked_no_official_frequency_table_verified")
+        self.assertEqual(payload["KR"]["name_frequency"]["status"], "blocked_no_official_frequency_table_verified")
+        self.assertEqual(payload["SG"]["role_frequency"]["status"], "bundled")
 
 
 if __name__ == "__main__":

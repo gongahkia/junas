@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -18,6 +19,15 @@ from scripts import bucket_candidate_misses, evaluate_candidate_corpus, miss_con
 
 DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "reports" / "layer-attribution"
+AUDIT_GRADE_ENV_KEYS = (
+    "KAYPOH_LLM_ENABLED",
+    "KAYPOH_LLM_PROVIDER",
+    "KAYPOH_LLM_API_KEY",
+    "KAYPOH_LLM_BASE_URL",
+    "KAYPOH_LLM_AZURE_API_VERSION",
+    "KAYPOH_LLM_TENANT_OPT_IN_OPENAI",
+    "KAYPOH_LLM_TENANT_OPT_IN_AZURE_OPENAI",
+)
 
 
 def _resolve(path: Path) -> Path:
@@ -109,6 +119,22 @@ def _profiles_from_args(args: argparse.Namespace) -> list[str]:
     return list(dict.fromkeys(profiles))
 
 
+def audit_grade_preflight(*, allow_external_cost: bool) -> dict[str, Any]:
+    env_state = {key: bool(os.environ.get(key, "").strip()) for key in AUDIT_GRADE_ENV_KEYS}
+    provider = os.environ.get("KAYPOH_LLM_PROVIDER", "").strip() or "configured-default"
+    return {
+        "profile": "audit_grade",
+        "allow_external_cost": allow_external_cost,
+        "provider": provider,
+        "env_present": env_state,
+        "ready_to_run_paid_sweep": bool(allow_external_cost and env_state["KAYPOH_LLM_API_KEY"]),
+        "note": (
+            "No candidate evaluation was run. Re-run with --profile audit_grade --allow-external-cost "
+            "only after API spend is approved."
+        ),
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Run candidate corpus evaluation and ideal-miss attribution reports",
@@ -125,8 +151,16 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--examples-per-cell", type=int, default=3)
     parser.add_argument("--fail-on-missed", action="store_true")
     parser.add_argument("--run-id", help="Stable output prefix, useful for CI/tests")
+    parser.add_argument(
+        "--audit-grade-preflight",
+        action="store_true",
+        help="print no-spend audit_grade readiness JSON",
+    )
     args = parser.parse_args(argv)
 
+    if args.audit_grade_preflight:
+        print(json.dumps(audit_grade_preflight(allow_external_cost=args.allow_external_cost), indent=2, sort_keys=True))
+        return 0
     profiles = _profiles_from_args(args)
     if "audit_grade" in profiles and not args.allow_external_cost:
         print(
