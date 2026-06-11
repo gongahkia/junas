@@ -144,7 +144,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--summary-output",
         type=Path,
-        default=REPO_ROOT / "reports" / "reviewed_bucket_sidecars_20260606.json",
+        default=REPO_ROOT / "reports" / "current" / "reviewed_bucket_sidecars_20260606.json",
     )
     args = parser.parse_args(argv)
 

@@ -55,9 +55,9 @@ class CalibrationCLITests(unittest.TestCase):
             env["PYTHONPATH"] = str(REPO_ROOT / "src")
             env["KMP_DUPLICATE_LIB_OK"] = "TRUE"
             # patch DEFAULT_OUTPUT via env-aware override would be cleaner; for now we
-            # accept that the script writes to configs/runtime_calibrated.toml and
+            # accept that the script writes to config/runtime_calibrated.toml and
             # back it up around the test.
-            target = REPO_ROOT / "configs" / "runtime_calibrated.toml"
+            target = REPO_ROOT / "config" / "runtime_calibrated.toml"
             backup = target.read_text(encoding="utf-8") if target.exists() else None
             try:
                 result = self._run("--iterations", "5", "--apply")

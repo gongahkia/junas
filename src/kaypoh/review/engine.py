@@ -1134,7 +1134,7 @@ NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES = frozenset({"spa", "nda", "sha", "term_she
 #   single medium finding score ≈ 55; two medium findings ≈ 58; one high ≈ 85.
 # So the band [25, 70) covers documents with at least one medium finding but no high.
 # `scripts/calibrate_escalation_threshold.py` writes tenant-specific bounds into
-# configs/runtime.py once enough journal-replay data exists.
+# kaypoh.configs.runtime once enough journal-replay data exists.
 LLM_TIER_MNPI_LOWER = 25.0
 LLM_TIER_MNPI_UPPER = 70.0
 

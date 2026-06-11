@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SUMMARY_PATH = REPO_ROOT / "reports" / "reviewed_bucket_sidecars_20260606.json"
+SUMMARY_PATH = REPO_ROOT / "reports" / "current" / "reviewed_bucket_sidecars_20260606.json"
 
 
 class ReviewedBucketSidecarTests(unittest.TestCase):
