@@ -1,12 +1,6 @@
  What I’d do next, in order:
 
-  1. Harder ingest reality: .msg/7z still fail closed, OCR optional, and
-     broad free-form address parsing is intentionally partial. Next
-     useful work is more hostile document-container corpus: Outlook
-     exports, PDFs with annotations/forms, weird DOCX comments/track-
-        changes, XLSX hidden sheets/pivot caches.
-
-  2. LLM governance path. Distillation exists, but no promoted local
+  1. LLM governance path. Distillation exists, but no promoted local
      adapter/baseline. Add model-card style docs, privacy eval, and
           invariant gates. This aligns with EU GPAI obligations now in
      application and enforceable from 2026-08-02 for new providers.
@@ -14,7 +8,7 @@
      (digital-strategy.ec.europa.eu
                                           (https://digital-strategy.ec.europa.eu/en/policies/guidelines-gpai-providers))
 
-                                                               3. Regulatory-aligned detector expansion:
+                                                               2. Regulatory-aligned detector expansion:
 
   - Pseudonymisation docs should keep stressing “still personal data if
      linkable”; EDPB says this directly. (edpb.europa.eu

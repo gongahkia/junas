@@ -897,10 +897,40 @@ def _scan_eml(
             result.text_blocks.append(f"[Email {header}]\n{value}")
             result.findings.append(_finding("eml_header", header, value, "Email header can contain personal data"))
     for part in message.walk():
-        if part.is_multipart():
-            continue
         content_type = part.get_content_type()
         filename = part.get_filename() or ""
+        if content_type == "message/rfc822":
+            forwarded_name = filename or "forwarded.eml"
+            result.findings.append(
+                _finding(
+                    "eml_forwarded_message",
+                    forwarded_name,
+                    "[present]",
+                    "Forwarded email message recursively scanned",
+                    severity="medium",
+                )
+            )
+            payload = part.get_payload()
+            nested_messages = payload if isinstance(payload, list) else []
+            for index, nested_message in enumerate(nested_messages, start=1):
+                if not hasattr(nested_message, "as_bytes"):
+                    continue
+                nested_filename = forwarded_name if index == 1 else f"{forwarded_name}:{index}"
+                nested_prefix = (
+                    f"{container_prefix}/{nested_filename}" if container_prefix else nested_filename
+                )
+                nested = _scan_by_type(
+                    nested_message.as_bytes(policy=policy.default),
+                    filename=nested_filename,
+                    mime_type="message/rfc822",
+                    image_scan_enabled=image_scan_enabled,
+                    depth=depth + 1,
+                    container_prefix=nested_prefix,
+                )
+                result.extend(nested, prefix=nested_filename)
+            continue
+        if part.is_multipart():
+            continue
         payload = part.get_payload(decode=True) or b""
         disposition = str(part.get_content_disposition() or "")
         if content_type == "text/plain":

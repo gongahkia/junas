@@ -3,6 +3,7 @@
 - Kaypoh is not legal advice, external counsel review, or a procurement-grade legal evaluation.
 - Native `.msg` and `7z` files fail closed unless converted or extracted by a trusted upstream tool.
 - PDF signatures, XFA, AcroForm fields, annotations, embedded files, and URI actions are surfaced for review; cryptographic signature validation is not performed.
+- EML attachments and forwarded messages, DOCX comments/track-changes, XLSX hidden sheets/pivot caches, PPTX notes, and ZIP/TAR members are scanned with bounded recursive traversal.
 - Macro-enabled Office files are refused by default.
 - Image OCR is optional. Without OCR, embedded images are mapped and reported, but image text is not reviewed.
 - Remote public evidence and LLM layers are disabled by default and require explicit opt-in.

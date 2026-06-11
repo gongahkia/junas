@@ -53,6 +53,33 @@ def _docx_bytes() -> bytes:
         return buffer.getvalue()
 
 
+def _docx_weird_comments_and_track_changes() -> bytes:
+    document_xml = (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        "<w:body>"
+        '<w:p><w:del w:author="Priya Raman" w:date="2026-05-26T01:02:03Z">'
+        "<w:r><w:delText>Deleted NRIC S1234567D.</w:delText></w:r>"
+        "</w:del></w:p>"
+        '<w:p><w:moveTo w:author="Jane Reviewer" w:date="2026-05-26T02:03:04Z">'
+        "<w:r><w:t>Moved passport E1234567.</w:t></w:r>"
+        "</w:moveTo></w:p>"
+        "</w:body></w:document>"
+    )
+    comments_xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<w:comments xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
+        '<w:comment w:id="0" w:author="Jane Reviewer">'
+        "<w:p><w:r><w:t>Comment mentions Dr Jane Tan.</w:t></w:r></w:p>"
+        "</w:comment></w:comments>"
+    )
+    with BytesIO() as buffer:
+        with zipfile.ZipFile(buffer, "w") as archive:
+            archive.writestr("word/document.xml", document_xml)
+            archive.writestr("word/comments.xml", comments_xml)
+        return buffer.getvalue()
+
+
 def _xlsx_with_hidden_sheet() -> bytes:
     with BytesIO() as buffer:
         with zipfile.ZipFile(buffer, "w") as archive:
@@ -81,6 +108,21 @@ def _xlsx_with_hidden_sheet() -> bytes:
                 ),
             )
         return buffer.getvalue()
+
+
+def _eml_with_forwarded_message() -> bytes:
+    inner = EmailMessage()
+    inner["From"] = "Jane Tan <jane@example.sg>"
+    inner["To"] = "Deal Team <deal@example.sg>"
+    inner["Subject"] = "Project Atlas forwarded"
+    inner.set_content("Forwarded body contains S1234567D for review.")
+    outer = EmailMessage()
+    outer["From"] = "sender@example.com"
+    outer["To"] = "legal@example.sg"
+    outer["Subject"] = "Outlook export"
+    outer.set_content("Forwarded message attached.")
+    outer.add_attachment(inner, filename="forwarded.eml")
+    return outer.as_bytes(policy=email.policy.default)
 
 
 def _pptx_with_notes() -> bytes:
@@ -153,6 +195,55 @@ def _pdf_with_xfa_and_signature() -> bytes:
     acroform = DictionaryObject({
         NameObject("/Fields"): ArrayObject([writer._add_object(signature_field)]),
         NameObject("/XFA"): TextStringObject("<template/>"),
+    })
+    writer._root_object.update({NameObject("/AcroForm"): writer._add_object(acroform)})
+    with BytesIO() as buffer:
+        writer.write(buffer)
+        return buffer.getvalue()
+
+
+def _pdf_with_annotation_and_form() -> bytes:
+    from pypdf import PdfWriter
+    from pypdf.generic import (
+        ArrayObject,
+        DictionaryObject,
+        NameObject,
+        NumberObject,
+        StreamObject,
+        TextStringObject,
+    )
+
+    writer = PdfWriter()
+    page = writer.add_blank_page(width=612, height=792)
+    font = writer._add_object(
+        DictionaryObject({
+            NameObject("/Type"): NameObject("/Font"),
+            NameObject("/Subtype"): NameObject("/Type1"),
+            NameObject("/BaseFont"): NameObject("/Helvetica"),
+        })
+    )
+    page[NameObject("/Resources")] = DictionaryObject({
+        NameObject("/Font"): DictionaryObject({NameObject("/F1"): font})
+    })
+    stream = StreamObject()
+    stream._data = b"BT /F1 12 Tf 72 720 Td (Enough extractable text for review.) Tj ET"
+    page[NameObject("/Contents")] = writer._add_object(stream)
+    annotation = DictionaryObject({
+        NameObject("/Type"): NameObject("/Annot"),
+        NameObject("/Subtype"): NameObject("/Text"),
+        NameObject("/Rect"): ArrayObject([NumberObject(10), NumberObject(10), NumberObject(40), NumberObject(40)]),
+        NameObject("/Contents"): TextStringObject("Annotation contains S1234567D."),
+        NameObject("/T"): TextStringObject("Jane Reviewer"),
+    })
+    page[NameObject("/Annots")] = ArrayObject([writer._add_object(annotation)])
+    text_field = DictionaryObject({
+        NameObject("/FT"): NameObject("/Tx"),
+        NameObject("/T"): TextStringObject("ReviewerField"),
+        NameObject("/TU"): TextStringObject("Hidden review field"),
+        NameObject("/V"): TextStringObject("Form value contains passport E1234567."),
+    })
+    acroform = DictionaryObject({
+        NameObject("/Fields"): ArrayObject([writer._add_object(text_field)])
     })
     writer._root_object.update({NameObject("/AcroForm"): writer._add_object(acroform)})
     with BytesIO() as buffer:
@@ -358,6 +449,23 @@ class DocumentHardeningTests(unittest.TestCase):
         sources = {finding["source"] for finding in response.json()["document"]["metadata_findings"]}
         self.assertIn("docx_hidden_part", sources)
 
+    def test_docx_weird_comments_and_track_changes_are_reviewed(self):
+        encoded = base64.b64encode(_docx_weird_comments_and_track_changes()).decode("ascii")
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/review",
+                json={"document_base64": encoded, "document_filename": "weird-comments.docx"},
+            )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        rules = {finding["rule"] for finding in payload["findings"]}
+        sources = {finding["source"] for finding in payload["document"]["metadata_findings"]}
+        self.assertIn("sg_nric_fin", rules)
+        self.assertIn("passport_number", rules)
+        self.assertIn("docx_comments", sources)
+        self.assertIn("docx_track_changes", sources)
+
     def test_xlsx_hidden_sheet_and_pivot_cache_are_reviewed(self):
         encoded = base64.b64encode(_xlsx_with_hidden_sheet()).decode("ascii")
         with TestClient(main.app) as client:
@@ -414,6 +522,23 @@ class DocumentHardeningTests(unittest.TestCase):
         self.assertIn("pdf_signature_byte_range", sources)
         self.assertIn("pdf_signature_metadata", sources)
 
+    def test_pdf_annotations_and_form_values_are_reviewed(self):
+        encoded = base64.b64encode(_pdf_with_annotation_and_form()).decode("ascii")
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/review",
+                json={"document_base64": encoded, "document_filename": "annotated-form.pdf"},
+            )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        rules = {finding["rule"] for finding in payload["findings"]}
+        sources = {finding["source"] for finding in payload["document"]["metadata_findings"]}
+        self.assertIn("sg_nric_fin", rules)
+        self.assertIn("passport_number", rules)
+        self.assertIn("pdf_annotation", sources)
+        self.assertIn("pdf_acroform", sources)
+
     def test_eml_attachment_is_recursed(self):
         message = EmailMessage()
         message["From"] = "sender@example.com"
@@ -435,6 +560,20 @@ class DocumentHardeningTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200, response.text)
         self.assertTrue(any(finding["rule"] == "sg_nric_fin" for finding in response.json()["findings"]))
+
+    def test_outlook_forwarded_eml_attachment_is_recursed(self):
+        encoded = base64.b64encode(_eml_with_forwarded_message()).decode("ascii")
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/review",
+                json={"document_base64": encoded, "document_filename": "outlook-export.eml"},
+            )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertTrue(any(finding["rule"] == "sg_nric_fin" for finding in payload["findings"]))
+        sources = {finding["source"] for finding in payload["document"]["metadata_findings"]}
+        self.assertIn("eml_forwarded_message", sources)
 
     def test_zip_path_traversal_fails_closed(self):
         encoded = base64.b64encode(_zip_bytes("../secret.txt", b"S1234567D")).decode("ascii")

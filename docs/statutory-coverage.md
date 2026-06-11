@@ -304,7 +304,7 @@ The detector inventory above is one defensibility axis. The operational surfaces
 | Reviewer identity bound to authenticated principal | shipped | item 57 |
 | Local-daemon production ACL | shipped | item 58 |
 | Workflow-wide fail-closed audit | backlog | item 65 |
-| Binary / container metadata coverage (XLSX pivot cache, PPTX notes, EML attachments, archives) | partial | item 61 |
+| Binary / container metadata coverage (EML attachments and forwarded messages, PDF annotations/forms/signatures/XFA/embedded files, DOCX comments/track-changes, XLSX hidden sheets/pivot caches, PPTX notes, archives) | partial | item 61 |
 | Image OCR / recognition | shipped | item 64 |
 
 ## Disclaimers
