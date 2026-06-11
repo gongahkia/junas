@@ -609,6 +609,26 @@ DATA_MINIMISATION_RE = re.compile(
     r")\b",
     re.IGNORECASE,
 )
+PERSONAL_DATA_SECURITY_SAFEGUARDS_RE = re.compile(
+    r"\b("
+    r"reasonable\s+security\s+safeguards|"
+    r"data\s+security\s+measures\s+(?:for|to\s+protect)\s+personal\s+data|"
+    r"access\s+controls?\s+for\s+personal\s+data|"
+    r"(?:logs?|monitoring)\s+(?:and\s+)?review\s+(?:of|for)\s+personal\s+data\s+access|"
+    r"encryption,?\s+obfuscation,?\s+masking\s+or\s+(?:the\s+use\s+of\s+)?virtual\s+tokens"
+    r")\b",
+    re.IGNORECASE,
+)
+PERSONAL_DATA_BREACH_NOTIFICATION_RE = re.compile(
+    r"\b("
+    r"personal\s+data\s+breach|"
+    r"intimat(?:e|ion)\s+(?:to\s+)?(?:each\s+)?affected\s+data\s+principal|"
+    r"notify\s+(?:each\s+)?affected\s+data\s+principal|"
+    r"breach\s+notification\s+(?:to|for)\s+(?:affected\s+)?data\s+principals?|"
+    r"description\s+of\s+the\s+breach,?\s+including\s+its\s+nature"
+    r")\b",
+    re.IGNORECASE,
+)
 
 
 # item 98: special-category PII v1 seed — religion / union / political. Anchored detectors
@@ -994,7 +1014,7 @@ MULTILINGUAL_SEX_LIFE_RE = re.compile(
 #    under-13 cannot give valid consent
 #  - UK ICO Age-Appropriate Design Code: under 18 in force Sept 2021
 #  - AU OAIC Children's Online Privacy Code: under 18 (mandated by Privacy Amendment Act 2024;
-#    OAIC code due Dec 2026)
+#    OAIC phase-3 consultation ran 31 Mar 2026 to 5 Jun 2026; code due Dec 2026)
 #  - HK PCPD Guidance Note on Personal Data of Minors: under 18
 #  - UAE PDPL: no explicit cliff; defers to Wadeema Law (Federal Law 3/2016) under 18
 #  - KSA PDPL: child = under 18 via Saudi Child Protection Law
@@ -1044,6 +1064,21 @@ MINOR_DATA_RE = re.compile(
     r"|"
     r"(?:personal\s+data|data|information|account|profile)\s+of\s+(?:a\s+|the\s+)?"
     r"(?:minors?|child(?:ren)?|juveniles?|underage\s+(?:user|customer|individual)s?)"
+    r"|"
+    r"(?:child(?:ren)?|minor(?:s)?|underage\s+users?)(?:'?s)?\s+"
+    r"(?:online\s+activity|location\s+data|photos?|videos?)"
+    r"|"
+    r"(?:online\s+activity|location\s+data|photos?|videos?)\s+of\s+"
+    r"(?:minors?|child(?:ren)?|underage\s+users?)"
+    r"|"
+    r"(?:age\s+assurance|age[- ]gating|age\s+verification)\s+(?:for|of)\s+"
+    r"(?:minors?|child(?:ren)?|under[- ]?18s?|underage\s+users?|online\s+service\s+users)"
+    r"|"
+    r"(?:behaviou?ral\s+monitoring|tracking)\s+of\s+"
+    r"(?:minors?|child(?:ren)?|underage\s+users?)"
+    r"|"
+    r"targeted\s+advertis(?:ing|ements?)\s+(?:to|at|for|directed\s+at)\s+"
+    r"(?:minors?|child(?:ren)?|underage\s+users?)"
     r"|"
     # Pattern D: school-grade markers (SG / UK / US)
     r"(?:primary|secondary)\s+(?P<grade_sg>[1-6])\b"
@@ -2168,6 +2203,8 @@ _PII_NEGATION_GUARDED = frozenset({
     "cross_border_transfer_marker",
     "consent_withdrawal_marker",
     "data_minimisation_marker",
+    "personal_data_security_safeguards",
+    "personal_data_breach_notification",
 })
 
 
@@ -3695,6 +3732,10 @@ class PreSendReviewEngine:
                  "Consent-withdrawal / data-subject-rights marker"),
                 ("data_minimisation_marker", DATA_MINIMISATION_RE, "medium",
                  "Data-minimisation / over-collection marker"),
+                ("personal_data_security_safeguards", PERSONAL_DATA_SECURITY_SAFEGUARDS_RE, "medium",
+                 "Personal-data security-safeguards marker"),
+                ("personal_data_breach_notification", PERSONAL_DATA_BREACH_NOTIFICATION_RE, "medium",
+                 "Personal-data breach / notification marker"),
             ]
         )
 

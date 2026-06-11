@@ -29,6 +29,7 @@ REQUIRED_PRIVACY_CHECKS = {
     "remote_raw_text_blocked",
     "tenant_consent_required",
     "privacy_ledger_recorded",
+    "pdpc_genai_personal_data_review",
 }
 
 

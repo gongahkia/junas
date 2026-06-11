@@ -583,6 +583,19 @@ _PII_DEFAULT_RATIONALE = {
         "the documented purpose. Recent enforcement: CNIL fined Free Mobile €27M "
         "(early 2026) for retention failures."
     ),
+    "personal_data_security_safeguards": (
+        "Personal-data security-safeguards marker detected. India DPDP Rules 2025 rule 6 "
+        "requires reasonable security safeguards to prevent personal data breach, including "
+        "data-security measures, access controls, logs/monitoring/review, backups, processor "
+        "contract controls, and technical/organisational measures. Verify controls before "
+        "forwarding operational details."
+    ),
+    "personal_data_breach_notification": (
+        "Personal-data breach / notification marker detected. India DPDP Rules 2025 rule 7 "
+        "requires affected Data Principals to be informed without delay with the breach "
+        "description, consequences, mitigation, safety measures, and contact details. Verify "
+        "notification scope and timing before forwarding."
+    ),
 }
 
 # rule -> short MNPI rationale (the citation is jurisdiction-specific so we layer on a suffix)

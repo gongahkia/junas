@@ -47,3 +47,8 @@ EU AI Act GPAI obligations entered into application on 2025-08-02; Commission
 enforcement powers start on 2026-08-02; providers of GPAI models placed on the
 market before 2025-08-02 must comply by 2027-08-02. Source:
 https://digital-strategy.ec.europa.eu/en/policies/guidelines-gpai-providers
+
+SG PDPC opened public consultation on proposed advisory guidelines for use of
+personal data in Generative AI on 2026-06-02. Promotion evidence must include
+the `pdpc_genai_personal_data_review` privacy check. Source:
+https://www.pdpc.gov.sg/organisations/regulations-decisions/regulatory-guidance/public-consultation-on-the-proposed-advisory-guidelines-on-use-of-personal-data-in-generative-ai

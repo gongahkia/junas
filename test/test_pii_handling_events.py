@@ -1,6 +1,6 @@
-"""Items 109 + 110 + 111: PII-handling-event markers.
+"""Items 109 + 110 + 111 plus DPDP 2025 hooks: PII-handling-event markers.
 
-Three PII-category rules ship at fixed `medium` severity:
+Five PII-category rules ship at fixed `medium` severity:
 
 - 109 `cross_border_transfer_marker` — `transfer outside Singapore`, `SCC executed`,
        `adequacy decision`, `CAC security assessment`, `ASEAN MCCs`, `APEC CBPR`,
@@ -11,8 +11,12 @@ Three PII-category rules ship at fixed `medium` severity:
 - 111 `data_minimisation_marker` — `data minimisation`, `purpose limitation`,
        `limited to what is necessary`, `over-collection`, `excessive data collection`,
        `Minimum Necessary Standard`.
+- DPDP 2025 `personal_data_security_safeguards` — reasonable security safeguards,
+       personal-data access controls, logs/monitoring/review.
+- DPDP 2025 `personal_data_breach_notification` — personal data breach and affected
+       Data Principal notification/intimation.
 
-All three reuse `_is_negated_context` via the new `_PII_NEGATION_GUARDED` frozenset.
+All five reuse `_is_negated_context` via the `_PII_NEGATION_GUARDED` frozenset.
 No MNPI co-occurrence amplifier — these fire at fixed medium standalone.
 """
 
@@ -313,6 +317,48 @@ class DataMinimisationPrecisionTests(_ReviewHelper):
             "data_minimisation_marker"))
 
 
+# ----- India DPDP Rules 2025 security / breach hooks -------------------------------
+
+class DPDP2025SecurityRecallTests(_ReviewHelper):
+    def test_reasonable_security_safeguards(self):
+        self.assertTrue(self._by_rule(
+            self._findings("India plan: implement reasonable security safeguards for the dataset.",
+                           destination_jurisdiction="IN"),
+            "personal_data_security_safeguards"))
+
+    def test_personal_data_access_logs(self):
+        self.assertTrue(self._by_rule(
+            self._findings("Logs and monitoring review for personal data access must be retained.",
+                           destination_jurisdiction="IN"),
+            "personal_data_security_safeguards"))
+
+    def test_personal_data_breach(self):
+        self.assertTrue(self._by_rule(
+            self._findings("A personal data breach may require board and user updates.",
+                           destination_jurisdiction="IN"),
+            "personal_data_breach_notification"))
+
+    def test_data_principal_breach_notification(self):
+        self.assertTrue(self._by_rule(
+            self._findings("Notify each affected Data Principal without delay.",
+                           destination_jurisdiction="IN"),
+            "personal_data_breach_notification"))
+
+
+class DPDP2025PrecisionTests(_ReviewHelper):
+    def test_negated_personal_data_breach(self):
+        self.assertFalse(self._by_rule(
+            self._findings("No personal data breach occurred after the failover.",
+                           destination_jurisdiction="IN"),
+            "personal_data_breach_notification"))
+
+    def test_generic_security_review_does_not_fire(self):
+        self.assertFalse(self._by_rule(
+            self._findings("Security review of the office access badges is pending.",
+                           destination_jurisdiction="IN"),
+            "personal_data_security_safeguards"))
+
+
 # ----- Severity is fixed medium (no co-occurrence amplifier) ----------------------
 
 class SeverityIsFixedMediumTests(_ReviewHelper):
@@ -349,6 +395,14 @@ class SeverityIsFixedMediumTests(_ReviewHelper):
             self._findings("Compliance reviewed the form against the data minimisation principle.",
                            destination_jurisdiction="EU"),
             "data_minimisation_marker")
+        self.assertTrue(f)
+        self.assertEqual(f[0].severity, "medium")
+
+    def test_dpdp_breach_alone_is_medium(self):
+        f = self._by_rule(
+            self._findings("A personal data breach notification must be prepared.",
+                           destination_jurisdiction="IN"),
+            "personal_data_breach_notification")
         self.assertTrue(f)
         self.assertEqual(f[0].severity, "medium")
 
@@ -417,6 +471,22 @@ class CitationTests(unittest.TestCase):
         )
         self.assertIn("HIPAA Minimum Necessary", text)
         self.assertIn("164.502", text)
+
+    def test_dpdp_security_rationale_carries_rule_6(self):
+        text = pii_rationale(
+            rule="personal_data_security_safeguards",
+            jurisdiction="IN",
+            matched_text="reasonable security safeguards",
+        )
+        self.assertIn("DPDP Rules 2025 rule 6", text)
+
+    def test_dpdp_breach_rationale_carries_rule_7(self):
+        text = pii_rationale(
+            rule="personal_data_breach_notification",
+            jurisdiction="IN",
+            matched_text="personal data breach",
+        )
+        self.assertIn("DPDP Rules 2025 rule 7", text)
 
 
 if __name__ == "__main__":

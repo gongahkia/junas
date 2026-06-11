@@ -5,7 +5,7 @@ _MINOR_AGE_CLIFFS. Age cliffs verified against statute text 2026-05-27:
   - DPDPA India 2023 s2(f) + s9: <18
   - PDPC SG Advisory Guidelines on Children's Personal Data (Mar 2024): <18
   - UK ICO Age-Appropriate Design Code: <18
-  - AU OAIC Children's Online Privacy Code (pending Dec 2026): <18
+  - AU OAIC Children's Online Privacy Code (2026 consultation; due Dec 2026): <18
   - HK PCPD Minors Guidance Note: <18
   - UAE PDPL via Wadeema Law / KSA PDPL via Child Protection Law: <18
   - GDPR Art 8: default <16 (member states may lower to 13)
@@ -111,6 +111,24 @@ class MinorDataReferenceTests(unittest.TestCase):
         f = self._fires("Personal data of minors was collected.", source="EU", dest="EU")
         self.assertTrue(len(f) >= 1)
 
+    def test_au_child_online_activity_fires(self):
+        f = self._fires("Children's online activity is logged by the app.", source="AU", dest="AU")
+        self.assertEqual(len(f), 1)
+        self.assertEqual(f[0].severity, "high")
+
+    def test_au_age_assurance_for_online_service_users_fires(self):
+        f = self._fires("Age assurance for online service users is being deployed.", source="AU", dest="AU")
+        self.assertEqual(len(f), 1)
+
+    def test_in_behavioural_monitoring_of_children_fires(self):
+        f = self._fires("Behavioural monitoring of children is disabled pending review.", source="IN", dest="IN")
+        self.assertEqual(len(f), 1)
+        self.assertIn("IN (<18)", f[0].reason)
+
+    def test_in_targeted_ads_to_children_fires(self):
+        f = self._fires("Targeted advertisements directed at children were blocked.", source="IN", dest="IN")
+        self.assertEqual(len(f), 1)
+
     # --- false-positive guards ---
     def test_18_plus_years_experience_does_not_fire(self):
         f = self._fires("Candidate with 18+ years of experience.", source="SG", dest="SG")
@@ -135,6 +153,10 @@ class MinorDataReferenceTests(unittest.TestCase):
 
     def test_29_year_old_does_not_fire(self):
         f = self._fires("A 29-year-old marketing intern queried the IR page.", source="SG", dest="SG")
+        self.assertEqual(len(f), 0)
+
+    def test_generic_age_assurance_training_does_not_fire(self):
+        f = self._fires("Age Assurance Framework training is scheduled for compliance staff.", source="AU", dest="AU")
         self.assertEqual(len(f), 0)
 
     # --- cross-jurisdiction routing ---

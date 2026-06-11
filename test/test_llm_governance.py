@@ -34,6 +34,7 @@ def _privacy_eval(status: str = "pass", *, raw_text_remote_allowed: bool = False
             {"name": "remote_raw_text_blocked", "status": "pass"},
             {"name": "tenant_consent_required", "status": "pass"},
             {"name": "privacy_ledger_recorded", "status": "pass"},
+            {"name": "pdpc_genai_personal_data_review", "status": "pass"},
         ],
     }
 
@@ -135,6 +136,37 @@ class LLMGovernanceTests(unittest.TestCase):
 
         self.assertEqual(result["status"], "fail")
         self.assertTrue(any("remote raw text" in item for item in result["failures"]))
+
+    def test_promoted_manifest_requires_pdpc_genai_check(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            privacy = _privacy_eval()
+            privacy["checks"] = [
+                item for item in privacy["checks"]
+                if item["name"] != "pdpc_genai_personal_data_review"
+            ]
+            (root / "adapter").mkdir()
+            (root / "MODEL_CARD.md").write_text(_model_card_text(), encoding="utf-8")
+            (root / "privacy.json").write_text(json.dumps(privacy), encoding="utf-8")
+            (root / "eval.json").write_text(json.dumps(_eval_report()), encoding="utf-8")
+            manifest = root / "promotion.json"
+            manifest.write_text(
+                json.dumps({
+                    "schema_version": "kaypoh.distillation_promotion.v1",
+                    "promoted": True,
+                    "adapter_path": "adapter",
+                    "model_card_path": "MODEL_CARD.md",
+                    "privacy_eval_path": "privacy.json",
+                    "eval_report_path": "eval.json",
+                    "thresholds": {"min_agreement": 0.9, "max_invariant_violations": 0},
+                }),
+                encoding="utf-8",
+            )
+
+            result = validate_manifest(manifest)
+
+        self.assertEqual(result["status"], "fail")
+        self.assertTrue(any("pdpc_genai_personal_data_review" in item for item in result["failures"]))
 
     def test_eval_against_corpus_writes_report(self):
         with tempfile.TemporaryDirectory() as tmp:

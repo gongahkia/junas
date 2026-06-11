@@ -90,7 +90,8 @@ python3 training/distillation/promotion_gate.py \
 - The student inference path is fully local: no outbound network calls.
 - Promotion requires `privacy_eval.json` to pass `structured_tokens_default`,
   `remote_raw_text_blocked`, `tenant_consent_required`, and
-  `privacy_ledger_recorded`.
+  `privacy_ledger_recorded`, plus the SG PDPC GenAI consultation mirror
+  `pdpc_genai_personal_data_review`.
 
 ## What's intentionally NOT here
 
