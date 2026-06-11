@@ -20,8 +20,7 @@ specs.
 
 Read once for context:
 
-- `README2.md` — public-facing thesis. (Note: `README.md` is locked to
-  legacy desktop product narrative; ignore it.)
+- `README.md` — public-facing thesis and current repo overview.
 - `docs/coverage-matrix.md` — methodology bar. Non-negotiable.
 - `CONTRIBUTING.md` — task contribution flow + adapter rules.
 - `docs/sglb_specs/` — per-task spec docs (SGLB-01 through SGLB-16).
