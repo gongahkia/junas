@@ -1,7 +1,7 @@
 # Kaypoh
 
 <p align="center">
-  <img src="./asset/logo/kaypoh-logo.png" width="50%" alt="Kaypoh">
+  <img src="./asset/logo/kaypoh-logo-3d.png" width="50%" alt="Kaypoh">
 </p>
 
 <p align="center">
