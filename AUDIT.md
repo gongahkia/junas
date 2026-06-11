@@ -1,22 +1,17 @@
  What I’d do next, in order:
 
-  1. Refresh corpus/eval docs. Current fixtures show 1428 candidate
-     docs/labels, while docs still mention old Stage A numbers and stale
-     miss concentration. Regenerate docs/miss_concentration.md, docs/
-     candidate_corpus_status.md, and architecture corpus text.
-
-  2. Product expansion: audit-grade evidence, not more classifier stack.
+  1. Product expansion: audit-grade evidence, not more classifier stack.
      Add ticker to results-calendar lookup for blackout windows, issuer-
      size/materiality lookup providers, and HK “not generally known”
      source thresholds.
 
-  3. Harder ingest reality: .msg/7z still fail closed, OCR optional, and
+  2. Harder ingest reality: .msg/7z still fail closed, OCR optional, and
      broad free-form address parsing is intentionally partial. Next
      useful work is more hostile document-container corpus: Outlook
      exports, PDFs with annotations/forms, weird DOCX comments/track-
         changes, XLSX hidden sheets/pivot caches.
 
-  4. LLM governance path. Distillation exists, but no promoted local
+  3. LLM governance path. Distillation exists, but no promoted local
      adapter/baseline. Add model-card style docs, privacy eval, and
           invariant gates. This aligns with EU GPAI obligations now in
      application and enforceable from 2026-08-02 for new providers.
@@ -24,7 +19,7 @@
      (digital-strategy.ec.europa.eu
                                           (https://digital-strategy.ec.europa.eu/en/policies/guidelines-gpai-providers))
 
-                                                               5. Regulatory-aligned detector expansion:
+                                                               4. Regulatory-aligned detector expansion:
 
   - Pseudonymisation docs should keep stressing “still personal data if
      linkable”; EDPB says this directly. (edpb.europa.eu

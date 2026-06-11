@@ -273,6 +273,7 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         self.assertEqual(sg_row["evaluation"]["candidate_recall"], 1.0)
         self.assertEqual(sg_row["evaluation"]["ideal_candidate_recall"], 0.5)
         self.assertIn("| SG |", render_markdown(report))
+        self.assertIn(f"- Docs: {STAGE_A_DOCS}", render_markdown(report))
 
     def test_autolabel_qa_report_buckets_warnings_and_eval_triage(self):
         with tempfile.TemporaryDirectory() as tmp:

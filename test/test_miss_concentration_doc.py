@@ -5,7 +5,7 @@ from pathlib import Path
 from scripts.miss_concentration import render_markdown
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-REPORT = REPO_ROOT / "reports" / "miss_concentration_2026-06-06.json"
+REPORT = REPO_ROOT / "reports" / "layer-attribution" / "20260608-strict-item70v2_strict_miss_concentration.json"
 DOC = REPO_ROOT / "docs" / "miss_concentration.md"
 
 

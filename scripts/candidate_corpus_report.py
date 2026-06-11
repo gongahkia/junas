@@ -247,10 +247,24 @@ def build_report(corpus: Path, *, eval_reports: list[Path] | None = None) -> dic
 
 
 def render_markdown(report: dict[str, Any]) -> str:
+    summary = report["summary"]
+    eval_reports = ", ".join(report.get("eval_reports") or []) or "none"
     lines = [
         "# Candidate Corpus Report",
         "",
         "Candidate fixtures are quarantine material. Pending labels are not promotion-ready legal baselines.",
+        "",
+        "## Summary",
+        "",
+        f"- Corpus: {report['corpus']}",
+        f"- Evaluation reports: {eval_reports}",
+        f"- Jurisdictions: {summary['jurisdiction_count']}",
+        f"- Docs: {summary['doc_count']}",
+        f"- Approved labels: {summary['approved_labels']}",
+        f"- Pending labels: {summary['pending_labels']}",
+        f"- Stage B or better: {summary['stage_b_or_better']}",
+        "",
+        "## Jurisdictions",
         "",
         "| Jurisdiction | Docs | Stage | Review | Strict recall | Strict precision | Ideal recall | Eval report |",
         "|---|---:|---|---|---:|---:|---:|---|",

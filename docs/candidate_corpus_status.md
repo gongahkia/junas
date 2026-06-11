@@ -2,6 +2,18 @@
 
 Candidate fixtures are quarantine material. Pending labels are not promotion-ready legal baselines.
 
+## Summary
+
+- Corpus: test/fixtures/legal-corpus-candidates
+- Evaluation reports: reports/layer-attribution/20260608-strict-item70v2_strict_candidate_eval.json
+- Jurisdictions: 17
+- Docs: 1428
+- Approved labels: 1428
+- Pending labels: 0
+- Stage B or better: 17
+
+## Jurisdictions
+
 | Jurisdiction | Docs | Stage | Review | Strict recall | Strict precision | Ideal recall | Eval report |
 |---|---:|---|---|---:|---:|---:|---|
 | AE | 84 | stage_b | approved:84 | 1.0000 | 0.9335 | 0.4441 | reports/layer-attribution/20260608-strict-item70v2_strict_candidate_eval.json |
