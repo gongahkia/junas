@@ -47,7 +47,12 @@ class CitationRationaleTests(unittest.TestCase):
         self.assertTrue(text.startswith('"S1234567D" detected → '), text)
 
     def test_matched_text_prefixes_mnpi_rationale(self):
-        text = mnpi_rationale(rule="transaction_codename", jurisdiction="SG", severity="high", matched_text="Project Atlas")
+        text = mnpi_rationale(
+            rule="transaction_codename",
+            jurisdiction="SG",
+            severity="high",
+            matched_text="Project Atlas",
+        )
         self.assertTrue(text.startswith('"Project Atlas" detected → '), text)
 
     def test_matched_text_collapses_whitespace_and_truncates(self):
@@ -88,10 +93,14 @@ class CitedSuggestionsEndToEndTests(unittest.TestCase):
 
         # at least one PII suggestion should cite PDPA, and at least one MNPI suggestion should cite SFA.
         pii_suggestions = [
-            s for s in suggestions if any(f["id"] == s["finding_id"] and f["category"] == "PII" for f in payload["findings"])
+            s
+            for s in suggestions
+            if any(f["id"] == s["finding_id"] and f["category"] == "PII" for f in payload["findings"])
         ]
         mnpi_suggestions = [
-            s for s in suggestions if any(f["id"] == s["finding_id"] and f["category"] == "MNPI" for f in payload["findings"])
+            s
+            for s in suggestions
+            if any(f["id"] == s["finding_id"] and f["category"] == "MNPI" for f in payload["findings"])
         ]
         self.assertTrue(pii_suggestions, "expected PII suggestions for NRIC + named person")
         self.assertTrue(mnpi_suggestions, "expected MNPI suggestions for acquisition + monetary amount")

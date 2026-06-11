@@ -141,7 +141,11 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Create reviewed representative bucket sidecars")
     parser.add_argument("--bucket-report", type=Path, required=True)
     parser.add_argument("--minimum", type=int, default=50)
-    parser.add_argument("--summary-output", type=Path, default=REPO_ROOT / "reports" / "reviewed_bucket_sidecars_20260606.json")
+    parser.add_argument(
+        "--summary-output",
+        type=Path,
+        default=REPO_ROOT / "reports" / "reviewed_bucket_sidecars_20260606.json",
+    )
     args = parser.parse_args(argv)
 
     bucket_report = args.bucket_report if args.bucket_report.is_absolute() else REPO_ROOT / args.bucket_report

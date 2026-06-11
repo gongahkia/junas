@@ -144,7 +144,10 @@ class LocalLLMAdjudicator:
                 "status": "unknown",
                 "configured": True,
                 "healthy": None,
-                "detail": f"provider=local_distilled; model={self.distilled_base_model}; input_mode={self.llm_input_mode}",
+                "detail": (
+                    f"provider=local_distilled; model={self.distilled_base_model}; "
+                    f"input_mode={self.llm_input_mode}"
+                ),
             }
         if not self.base_url:
             return {

@@ -285,7 +285,10 @@ def main() -> int:
                     payload = future.result()
                     d_ok, d_skip, d_err = _record_result(payload)
                     if manifest_path:
-                        _append_jsonl(manifest_path, _manifest_payload(payload, provider=args.provider, model=args.model))
+                        _append_jsonl(
+                            manifest_path,
+                            _manifest_payload(payload, provider=args.provider, model=args.model),
+                        )
                     ok += d_ok
                     skip += d_skip
                     err += d_err

@@ -45,7 +45,16 @@ def _run_one(doc_type: str, slug: str, *, adversarial: bool, multilingual: bool,
     return generate_one(argv)
 
 
-def _generate_pass(label: str, target_dir: Path, prefix_fn, *, count: int, adversarial: bool, model: str, multilingual_every: int) -> tuple[int, int]:
+def _generate_pass(
+    label: str,
+    target_dir: Path,
+    prefix_fn,
+    *,
+    count: int,
+    adversarial: bool,
+    model: str,
+    multilingual_every: int,
+) -> tuple[int, int]:
     succeeded = 0
     failed = 0
     print(f"=== {label}: {count}/type × {len(DOC_TYPES)} types ===", flush=True)

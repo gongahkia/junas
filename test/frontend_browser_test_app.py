@@ -19,7 +19,14 @@ app.add_middleware(
 )
 
 
-def build_span(text: str, matched_text: str, *, layer: str = "lexicon", rule: str = "restricted_list", exact: bool = True):
+def build_span(
+    text: str,
+    matched_text: str,
+    *,
+    layer: str = "lexicon",
+    rule: str = "restricted_list",
+    exact: bool = True,
+):
     start_char = text.index(matched_text)
     end_char = start_char + len(matched_text)
     return {

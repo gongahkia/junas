@@ -69,7 +69,14 @@ def stage_gate_status(
     doc_count = int(row["doc_count"])
     target_docs = TARGET_DOCS[target_stage]
     has_target_docs = doc_count >= target_docs
-    owner_reviewed = has_target_docs and approved >= target_docs and pending == 0 and rejected == 0 and needs_edit == 0 and missing_review == 0
+    owner_reviewed = (
+        has_target_docs
+        and approved >= target_docs
+        and pending == 0
+        and rejected == 0
+        and needs_edit == 0
+        and missing_review == 0
+    )
     clean_eval = _clean_eval(row["evaluation"])
     evaluated = bool(row["evaluation"].get("eval_report"))
     if has_target_docs and clean_eval and owner_reviewed:

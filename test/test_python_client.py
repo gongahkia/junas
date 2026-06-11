@@ -509,7 +509,10 @@ class KaypohClientTests(unittest.TestCase):
             observed["method"] = request.method
             observed["path"] = request.url.path
             observed["body"] = json.loads(request.content.decode("utf-8"))
-            return httpx.Response(200, json=build_anonymize_payload(request_id="anon-async", classification="HIGH_RISK"))
+            return httpx.Response(
+                200,
+                json=build_anonymize_payload(request_id="anon-async", classification="HIGH_RISK"),
+            )
 
         async def scenario() -> None:
             transport = httpx.MockTransport(handler)

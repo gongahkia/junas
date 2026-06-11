@@ -262,7 +262,10 @@ def render_markdown(report: dict[str, Any]) -> str:
         precision = evaluation.get("candidate_precision")
         ideal = evaluation.get("ideal_candidate_recall")
         lines.append(
-            "| {jurisdiction} | {docs} | {stage} | {review} | {recall} | {precision} | {ideal} | {eval_report} |".format(
+            (
+                "| {jurisdiction} | {docs} | {stage} | {review} | {recall} | "
+                "{precision} | {ideal} | {eval_report} |"
+            ).format(
                 jurisdiction=item["jurisdiction"],
                 docs=item["doc_count"],
                 stage=item["stage_by_doc_count"],
@@ -304,7 +307,11 @@ def main(argv: list[str] | None = None) -> int:
     else:
         print(rendered, end="")
     if args.markdown_output:
-        markdown_output = args.markdown_output if args.markdown_output.is_absolute() else REPO_ROOT / args.markdown_output
+        markdown_output = (
+            args.markdown_output
+            if args.markdown_output.is_absolute()
+            else REPO_ROOT / args.markdown_output
+        )
         markdown_output.parent.mkdir(parents=True, exist_ok=True)
         markdown_output.write_text(render_markdown(report), encoding="utf-8")
         print(f"wrote {markdown_output}")

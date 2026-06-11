@@ -118,7 +118,10 @@ class SgSlaLotAndPlanTests(_SgWedgeSecondSliceBase):
         self.assertEqual(hits[0].matched_text, "RT12345")
 
     def test_mcst_without_number_does_not_fire(self):
-        hits = self._findings_by_rule("The MCST committee will review the renovation guide.", "sg_sla_title_plan_number")
+        hits = self._findings_by_rule(
+            "The MCST committee will review the renovation guide.",
+            "sg_sla_title_plan_number",
+        )
         self.assertEqual(hits, [])
 
 

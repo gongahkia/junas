@@ -211,7 +211,11 @@ def main(argv: list[str] | None = None) -> int:
     else:
         print(rendered, end="")
     if args.markdown_output:
-        markdown_output = args.markdown_output if args.markdown_output.is_absolute() else REPO_ROOT / args.markdown_output
+        markdown_output = (
+            args.markdown_output
+            if args.markdown_output.is_absolute()
+            else REPO_ROOT / args.markdown_output
+        )
         markdown_output.parent.mkdir(parents=True, exist_ok=True)
         markdown_output.write_text(render_markdown(payload), encoding="utf-8")
         print(f"wrote {markdown_output}")

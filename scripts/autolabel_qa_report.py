@@ -122,7 +122,12 @@ def _eval_summary(eval_report: Path | None) -> dict[str, Any]:
                 "unexpected": unexpected,
                 "must_not_detect_violations": must_not,
             })
-    worst_docs.sort(key=lambda item: (-(item["missed"] + item["unexpected"] + item["must_not_detect_violations"]), item["path"]))
+    worst_docs.sort(
+        key=lambda item: (
+            -(item["missed"] + item["unexpected"] + item["must_not_detect_violations"]),
+            item["path"],
+        )
+    )
     return {
         "eval_report": _relative(eval_report),
         "doc_count": summary.get("doc_count"),
@@ -166,7 +171,10 @@ def build_report(
         "labels": _labels_summary(corpus),
         "evaluation": _eval_summary(eval_report),
         "ideal_miss_buckets": _bucket_summary(bucket_report),
-        "note": "auto-label QA report; warnings and heuristic buckets require human spot-check before baseline promotion.",
+        "note": (
+            "auto-label QA report; warnings and heuristic buckets require human spot-check "
+            "before baseline promotion."
+        ),
     }
 
 
@@ -192,8 +200,14 @@ def render_markdown(report: dict[str, Any]) -> str:
             "## Candidate Eval",
             "",
             f"- Eval report: {evaluation.get('eval_report', '')}",
-            f"- Strict recall / precision: {evaluation.get('candidate_recall')} / {evaluation.get('candidate_precision')}",
-            f"- Missed / unexpected / must-not: {evaluation.get('missed')} / {evaluation.get('unexpected')} / {evaluation.get('must_not_detect_violations')}",
+            (
+                f"- Strict recall / precision: {evaluation.get('candidate_recall')} / "
+                f"{evaluation.get('candidate_precision')}"
+            ),
+            (
+                f"- Missed / unexpected / must-not: {evaluation.get('missed')} / "
+                f"{evaluation.get('unexpected')} / {evaluation.get('must_not_detect_violations')}"
+            ),
             f"- Unexpected triage: {evaluation.get('unexpected_triage', {})}",
         ])
     if buckets:
@@ -222,8 +236,16 @@ def main(argv: list[str] | None = None) -> int:
     if not corpus.exists():
         print(f"candidate corpus missing: {corpus}", file=sys.stderr)
         return 2
-    eval_report = args.eval_report if not args.eval_report or args.eval_report.is_absolute() else REPO_ROOT / args.eval_report
-    bucket_report = args.bucket_report if not args.bucket_report or args.bucket_report.is_absolute() else REPO_ROOT / args.bucket_report
+    eval_report = (
+        args.eval_report
+        if not args.eval_report or args.eval_report.is_absolute()
+        else REPO_ROOT / args.eval_report
+    )
+    bucket_report = (
+        args.bucket_report
+        if not args.bucket_report or args.bucket_report.is_absolute()
+        else REPO_ROOT / args.bucket_report
+    )
     for path in (eval_report, bucket_report):
         if path and not path.exists():
             print(f"report missing: {path}", file=sys.stderr)
@@ -238,7 +260,11 @@ def main(argv: list[str] | None = None) -> int:
     else:
         print(rendered, end="")
     if args.markdown_output:
-        markdown_output = args.markdown_output if args.markdown_output.is_absolute() else REPO_ROOT / args.markdown_output
+        markdown_output = (
+            args.markdown_output
+            if args.markdown_output.is_absolute()
+            else REPO_ROOT / args.markdown_output
+        )
         markdown_output.parent.mkdir(parents=True, exist_ok=True)
         markdown_output.write_text(render_markdown(report), encoding="utf-8")
         print(f"wrote {markdown_output}")

@@ -83,6 +83,7 @@ def _autolabel_summary(run_dir: Path) -> dict[str, Any]:
     statuses = Counter(str(row.get("status") or "unknown") for row in events)
     warnings = sum(int(row.get("warnings") or 0) for row in events)
     summary = next((row for row in reversed(rows) if row.get("event") == "summary"), {})
+    skipped = sum(count for status, count in statuses.items() if status.startswith("skipped"))
     return {
         "manifest": _relative(run_dir / "autolabel_manifest.jsonl") if rows else "",
         "provider": summary.get("provider", ""),
@@ -90,7 +91,7 @@ def _autolabel_summary(run_dir: Path) -> dict[str, Any]:
         "label_model": summary.get("label_model", ""),
         "fixtures": len(events),
         "labeled": int(summary.get("labeled") or statuses.get("labeled", 0)),
-        "skipped": int(summary.get("skipped") or sum(count for status, count in statuses.items() if status.startswith("skipped"))),
+        "skipped": int(summary.get("skipped") or skipped),
         "errors": int(summary.get("errors") or statuses.get("error", 0)),
         "warnings": warnings,
         "elapsed_seconds": int(summary.get("elapsed_seconds") or 0),

@@ -513,7 +513,12 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         baseline = _load_lock(lock_path)
         _write_lock(lock_path, summary=payload["summary"], reason=args.reason.strip())
-        _append_history(history_path, reason=args.reason.strip(), baseline=baseline, current=_lock_baseline(payload["summary"]))
+        _append_history(
+            history_path,
+            reason=args.reason.strip(),
+            baseline=baseline,
+            current=_lock_baseline(payload["summary"]),
+        )
         print(f"wrote candidate baseline to {lock_path}")
     else:
         baseline = _load_lock(lock_path)

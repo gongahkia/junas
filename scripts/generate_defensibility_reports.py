@@ -26,7 +26,11 @@ def _format_list(values: list[str] | tuple[str, ...], *, empty: str) -> str:
 
 def _recognizer_rows(pack: jurisdictions.JurisdictionRulePack) -> str:
     if not pack.recognizers:
-        return "| Rule | Severity | Defensible basis |\n| --- | --- | --- |\n| None | n/a | Baseline pack relies on universal detectors. |\n"
+        return (
+            "| Rule | Severity | Defensible basis |\n"
+            "| --- | --- | --- |\n"
+            "| None | n/a | Baseline pack relies on universal detectors. |\n"
+        )
     rows = ["| Rule | Severity | Defensible basis |", "| --- | --- | --- |"]
     for recognizer in pack.recognizers:
         rows.append(f"| `{recognizer.rule_name}` | {recognizer.severity} | {recognizer.reason} |")

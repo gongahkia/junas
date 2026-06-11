@@ -50,8 +50,7 @@ class CalibrationCLITests(unittest.TestCase):
         self.assertEqual(len(report["top_k"]), 3)
 
     def test_apply_writes_calibrated_toml(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            out_path = Path(tmp) / "calibrated.toml"
+        with tempfile.TemporaryDirectory():
             env = dict(os.environ)
             env["PYTHONPATH"] = str(REPO_ROOT / "src")
             env["KMP_DUPLICATE_LIB_OK"] = "TRUE"
