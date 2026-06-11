@@ -228,12 +228,41 @@ SG, MY, ID, TH, PH, VN, HK, AU, JP, KR, US, UK, EU, SEA, IN, CN, AE, SA
 
 Each pack lives under [`src/kaypoh/review/jurisdictions_data/`](./src/kaypoh/review/jurisdictions_data/) and is mapped to statutory coverage in [`docs/statutory-coverage.md`](./docs/statutory-coverage.md).
 
-Current coverage includes:
+### Statutory Anchors
 
-- Universal PII detectors: email, phone, passport, bank account, DOB, age, postal address, IP, MAC, IMEI, names, linkable internal IDs, quasi-identifier clusters, and special-category PII.
-- Jurisdiction-specific direct identifiers: national IDs, tax IDs, corporate IDs, financial/account references, address formats, and local legal/registry references.
-- Privacy event detectors: cross-border transfer, consent withdrawal, data minimisation, personal-data safeguards, and breach notification markers.
-- MNPI detectors: deal events, non-public status, financial scalars, contingent language, tipping/selective disclosure, insider-list and information-barrier markers, blackout windows, cyber/ESG/crypto/sector events, and conjunctive MNPI.
+| Code | Jurisdiction | PII statute | MNPI / inside-information statute |
+|---|---|---|---|
+| **SG** | Singapore | Personal Data Protection Act 2012 (PDPA s2, s13, s18) | Securities and Futures Act 2001 ss215, 218, 219 |
+| **MY** | Malaysia | Personal Data Protection Act 2010 (PDPA Malaysia ss6-7) | Capital Markets and Services Act 2007 ss188-189 |
+| **ID** | Indonesia | UU Perlindungan Data Pribadi (UU PDP) No. 27/2022 | OJK Regulation 31/POJK.04/2015 + UU Pasar Modal 8/1995 |
+| **TH** | Thailand | PDPA B.E. 2562 (2019) s26 | Securities and Exchange Act B.E. 2535 ss241-243 |
+| **PH** | Philippines | Data Privacy Act 2012 (RA 10173) s3(g)/(h)/(l) | Securities Regulation Code (RA 8799) s27 |
+| **VN** | Vietnam | Decree 13/2023/ND-CP arts 2-3 | Law on Securities 2019 (Law No. 54/2019/QH14) art 12 |
+| **HK** | Hong Kong | Personal Data (Privacy) Ordinance Cap. 486 s2 | Securities and Futures Ordinance Cap. 571 Part XIV ss270-281 |
+| **AU** | Australia | Privacy Act 1988 (Cth) + Australian Privacy Principles | Corporations Act 2001 (Cth) ss1042A-1043O |
+| **JP** | Japan | APPI Art 2 + My Number Act | Financial Instruments and Exchange Act Arts 166-167 |
+| **KR** | South Korea | PIPA Art 2 + Art 24-2 | Financial Investment Services and Capital Markets Act Arts 174-179 |
+| **US** | United States | CCPA/CPRA Cal. Civ. Code §1798.140(v); HIPAA 45 CFR §164.514; GLBA NPI | Securities Exchange Act 1934 s10(b); SEC Rule 10b-5; Reg FD (17 CFR 243.100); Basic v. Levinson |
+| **UK** | United Kingdom | UK GDPR Art 4(1); Data Protection Act 2018 s3(2) | UK Market Abuse Regulation (UK MAR) Art 7 |
+| **EU** | European Union | GDPR Art 4(1); Recital 26; Art 9 special-category | EU Market Abuse Regulation 596/2014 Art 7 |
+| **SEA** | Southeast Asia baseline | ASEAN cross-border privacy baseline | ASEAN-baseline market-abuse principles |
+| **IN** | India | Digital Personal Data Protection Act 2023 (DPDPA) ss 2(t), 9, 10, 16 | SEBI (Prohibition of Insider Trading) Regulations 2015 |
+| **CN** | China | Personal Information Protection Law 2021 (PIPL) Arts 4, 28, 31, 38; CSL 2016; DSL 2021 | China Securities Law Arts 50-54 |
+| **AE** | United Arab Emirates | UAE Federal Decree-Law 45/2021 (PDPL) Arts 1, 15, 22; DIFC DPL 2020; ADGM Data Protection Regs 2021 | UAE Securities and Commodities Authority (SCA) regulations |
+| **SA** | Saudi Arabia | KSA Personal Data Protection Law 2023 (Royal Decree M/19) + SDAIA Implementing Regulations 2024; Art 29 (cross-border) | Saudi Capital Market Authority (CMA) Market Conduct Regulations |
+
+### Coverage Matrix
+
+| Coverage family | Applies to | Examples |
+|---|---|---|
+| Universal PII | All jurisdiction modes | Email, phone, passport, bank account, DOB, age, postal address, IP address, MAC address, IMEI, named person, linkable internal ID, quasi-identifier cluster, special-category PII, minor data |
+| Jurisdiction-specific PII | Curated TOML packs in `src/kaypoh/review/jurisdictions_data/` | National IDs, tax IDs, company IDs, address formats, financial/account references, local legal references, registry references |
+| Privacy events | Jurisdiction-resolved citation path | Cross-border transfer, consent withdrawal, data minimisation, safeguards, breach notification |
+| Universal MNPI | All jurisdiction modes | Deal events, non-public markers, financial scalars, contingent language, tipping/selective disclosure, insider-list markers, information barriers, blackout windows, conjunctive MNPI |
+| Sector/event MNPI | Evidence rules across supported packs | Cybersecurity incidents, ESG/climate events, digital-asset listing or protocol events, pharma events, financial-services events, energy/mining events, legal proceedings |
+| Optional advisory enrichment | Server/audit-grade opt-in paths | Public evidence, LLM adjudication, defined-term extraction, coverage audit; advisory only, deterministic-high findings remain controlling |
+
+The README keeps the jurisdiction table readable. The exhaustive detector-level tables live in [`docs/statutory-coverage.md`](./docs/statutory-coverage.md), including universal PII rules and jurisdiction-specific recognizers.
 
 Accuracy and corpus notes:
 
