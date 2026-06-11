@@ -2666,12 +2666,233 @@ class EntitySizeLookup:
     are responsible for currency normalisation against the matched value's currency — the engine
     treats `revenue`/`market_cap` as already in the same denomination as the finding text.
 
-    Engine never instantiates a default lookup. Without one, financial_amount and
-    financial_percentage findings keep their default severity and the engine emits a
-    `materiality_lookup_not_configured` degraded mode rather than guess."""
+    Engine auto-loads the operator CSV / JSON lookup only when env configured. Without
+    one, financial_amount and financial_percentage findings keep their default severity
+    and the engine emits a `materiality_lookup_not_configured` degraded mode rather than
+    guess."""
 
     def lookup(self, entity_id: str, jurisdiction: str) -> dict[str, Any] | None:
         raise NotImplementedError
+
+
+_ENTITY_SIZE_CSV_ENV = "KAYPOH_ENTITY_SIZE_CSV"
+_ENTITY_SIZE_JSON_ENV = "KAYPOH_ENTITY_SIZE_JSON"
+_ENTITY_ALIAS_FIELDS: tuple[str, ...] = (
+    "entity_id", "issuer", "issuer_name", "name", "ticker", "stock_code", "counter",
+)
+_ENTITY_NUMERIC_FIELDS: tuple[str, ...] = ("revenue", "market_cap")
+
+
+@dataclass(frozen=True)
+class _EntitySizeRecord:
+    aliases: frozenset[str]
+    jurisdiction: str
+    info: dict[str, Any]
+
+
+def _normalize_entity_lookup_key(value: Any) -> str:
+    token = str(value or "").strip()
+    if not token:
+        return ""
+    if ":" in token:
+        token = token.rsplit(":", 1)[-1]
+    return re.sub(r"\s+", " ", token).casefold()
+
+
+def _entity_lookup_jurisdiction_codes(value: str) -> set[str]:
+    return {
+        code
+        for code in (
+            normalize_jurisdiction(part, default="")
+            for part in str(value or "").split("+")
+        )
+        if code
+    }
+
+
+def _coerce_entity_size_float(value: Any, *, label: str) -> float | None:
+    if value is None or value == "":
+        return None
+    if isinstance(value, int | float):
+        return float(value)
+    raw = str(value).strip().replace(",", "").replace("_", "")
+    if not raw:
+        return None
+    try:
+        return float(raw)
+    except ValueError as exc:
+        raise ValueError(f"{label} must be numeric") from exc
+
+
+def _coerce_entity_size_bool(value: Any) -> bool:
+    if isinstance(value, bool):
+        return value
+    return str(value or "").strip().casefold() in {"1", "true", "yes", "y", "on"}
+
+
+def _coerce_entity_aliases(raw: dict[str, Any]) -> frozenset[str]:
+    aliases: set[str] = set()
+    for alias_field in _ENTITY_ALIAS_FIELDS:
+        value = raw.get(alias_field)
+        values = value if isinstance(value, list | tuple | set) else [value]
+        for item in values:
+            key = _normalize_entity_lookup_key(item)
+            if key:
+                aliases.add(key)
+    return frozenset(aliases)
+
+
+def _normalize_entity_size_record(
+    raw: dict[str, Any],
+    *,
+    row_label: str,
+    source: str,
+) -> _EntitySizeRecord:
+    aliases = _coerce_entity_aliases(raw)
+    if not aliases:
+        raise ValueError(f"{row_label}: missing entity alias column")
+    jurisdiction = normalize_jurisdiction(raw.get("jurisdiction"), default="")
+    info: dict[str, Any] = {"entity_size_source": source}
+    for numeric_field in _ENTITY_NUMERIC_FIELDS:
+        parsed = _coerce_entity_size_float(
+            raw.get(numeric_field),
+            label=f"{row_label}.{numeric_field}",
+        )
+        if parsed is not None:
+            info[numeric_field] = parsed
+    if not any(field in info for field in _ENTITY_NUMERIC_FIELDS):
+        raise ValueError(f"{row_label}: revenue or market_cap is required")
+    if "is_asx_300" in raw:
+        info["is_asx_300"] = _coerce_entity_size_bool(raw.get("is_asx_300"))
+    return _EntitySizeRecord(aliases=aliases, jurisdiction=jurisdiction, info=info)
+
+
+def _lookup_entity_size_record(
+    records: tuple[_EntitySizeRecord, ...],
+    *,
+    entity_id: str,
+    jurisdiction: str,
+) -> dict[str, Any] | None:
+    key = _normalize_entity_lookup_key(entity_id)
+    if not key:
+        return None
+    requested = _entity_lookup_jurisdiction_codes(jurisdiction)
+    fallback: _EntitySizeRecord | None = None
+    for record in records:
+        if key not in record.aliases:
+            continue
+        if not requested or not record.jurisdiction or record.jurisdiction in requested:
+            return dict(record.info)
+        fallback = fallback or record
+    return dict(fallback.info) if fallback else None
+
+
+class CSVEntitySizeLookup(EntitySizeLookup):
+    """Operator-maintained issuer-size lookup loaded from CSV.
+
+    Required columns: one alias column (`entity_id`, `issuer`, `ticker`, etc.) and at
+    least one of `revenue` / `market_cap`. Optional: `jurisdiction`, `is_asx_300`.
+    """
+
+    def __init__(self, path: str):
+        import csv
+
+        self.path = path
+        try:
+            with open(path, newline="", encoding="utf-8") as handle:
+                reader = csv.DictReader(handle)
+                rows = [
+                    _normalize_entity_size_record(
+                        dict(row),
+                        row_label=f"row {index}",
+                        source="operator_csv",
+                    )
+                    for index, row in enumerate(reader, start=2)
+                ]
+        except OSError as exc:
+            raise ValueError(f"{_ENTITY_SIZE_CSV_ENV} is unreadable: {exc}") from exc
+        except csv.Error as exc:
+            raise ValueError(f"{_ENTITY_SIZE_CSV_ENV} is malformed: {exc}") from exc
+        if not rows:
+            raise ValueError(f"{_ENTITY_SIZE_CSV_ENV} contains no issuer-size rows")
+        self._records = tuple(rows)
+
+    def lookup(self, entity_id: str, jurisdiction: str) -> dict[str, Any] | None:
+        return _lookup_entity_size_record(
+            self._records,
+            entity_id=entity_id,
+            jurisdiction=jurisdiction,
+        )
+
+
+class JSONEntitySizeLookup(EntitySizeLookup):
+    """Operator-maintained issuer-size lookup loaded from JSON.
+
+    Accepts either a list of row objects, `{"entities": [...]}`, or a mapping of
+    entity id -> row object.
+    """
+
+    def __init__(self, path: str):
+        import json
+
+        self.path = path
+        try:
+            with open(path, encoding="utf-8") as handle:
+                payload = json.load(handle)
+        except OSError as exc:
+            raise ValueError(f"{_ENTITY_SIZE_JSON_ENV} is unreadable: {exc}") from exc
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"{_ENTITY_SIZE_JSON_ENV} is malformed: {exc}") from exc
+        rows = tuple(self._iter_rows(payload))
+        if not rows:
+            raise ValueError(f"{_ENTITY_SIZE_JSON_ENV} contains no issuer-size rows")
+        self._records = tuple(
+            _normalize_entity_size_record(
+                row,
+                row_label=f"row {index}",
+                source="operator_json",
+            )
+            for index, row in enumerate(rows, start=1)
+        )
+
+    @staticmethod
+    def _iter_rows(payload: Any) -> list[dict[str, Any]]:
+        if isinstance(payload, list):
+            rows = payload
+        elif isinstance(payload, dict) and isinstance(payload.get("entities"), list):
+            rows = payload["entities"]
+        elif isinstance(payload, dict):
+            rows = [
+                {**value, "entity_id": value.get("entity_id") or key}
+                for key, value in payload.items()
+                if isinstance(value, dict)
+            ]
+        else:
+            raise ValueError(f"{_ENTITY_SIZE_JSON_ENV} must be a JSON object or array")
+        if not all(isinstance(row, dict) for row in rows):
+            raise ValueError(f"{_ENTITY_SIZE_JSON_ENV} rows must be objects")
+        return [dict(row) for row in rows]
+
+    def lookup(self, entity_id: str, jurisdiction: str) -> dict[str, Any] | None:
+        return _lookup_entity_size_record(
+            self._records,
+            entity_id=entity_id,
+            jurisdiction=jurisdiction,
+        )
+
+
+def load_entity_size_lookup_from_env() -> EntitySizeLookup | None:
+    import os
+
+    csv_path = os.environ.get(_ENTITY_SIZE_CSV_ENV, "").strip()
+    json_path = os.environ.get(_ENTITY_SIZE_JSON_ENV, "").strip()
+    if csv_path and json_path:
+        raise ValueError(f"set only one of {_ENTITY_SIZE_CSV_ENV} or {_ENTITY_SIZE_JSON_ENV}")
+    if csv_path:
+        return CSVEntitySizeLookup(csv_path)
+    if json_path:
+        return JSONEntitySizeLookup(json_path)
+    return None
 
 
 # Parses an MNPI financial_amount matched_text into a numeric base value in millions. Returns
@@ -2817,6 +3038,13 @@ def _scale_financial_by_entity_size(
             fraction = _parse_financial_percentage(f.matched_text)
             if fraction is None:
                 continue
+        f.metadata = {
+            **f.metadata,
+            "materiality_base": base,
+            "materiality_fraction": fraction,
+        }
+        if entity_info.get("entity_size_source"):
+            f.metadata["entity_size_source"] = entity_info["entity_size_source"]
         if ladder is None:
             # Advisory-only jurisdiction (MAR / SGX / HKEX): annotate reason, leave severity.
             f.reason = (
@@ -3350,10 +3578,10 @@ class PreSendReviewEngine:
         # `coverage_warning` events and surfaced on ReviewResult; advisory only — never
         # mutates findings, scores, or classification.
         self.llm_coverage_auditor = llm_coverage_auditor
-        # item 73: entity revenue / market-cap source. Engine never instantiates a default —
+        # item 73: entity revenue / market-cap source. env providers are operator-driven;
         # without one, financial_amount / financial_percentage findings keep their default
-        # severity and the engine emits a materiality_lookup_not_configured degraded mode.
-        self.entity_size_lookup = entity_size_lookup
+        # severity and emit a materiality_lookup_not_configured degraded mode.
+        self.entity_size_lookup = entity_size_lookup or load_entity_size_lookup_from_env()
         self.pii_pre_named_registry = self._build_pii_pre_named_registry()
         self.pii_post_named_registry = self._build_pii_post_named_registry()
 

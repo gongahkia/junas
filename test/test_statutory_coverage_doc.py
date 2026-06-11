@@ -223,6 +223,20 @@ class StaleStatusGuard(unittest.TestCase):
         for row in stale_rows:
             self.assertNotIn(row, self.doc_text)
 
+    def test_blackout_ticker_lookup_is_not_marked_deferred(self):
+        self.assertNotIn("next-earnings-date lookup deferred", self.doc_text)
+        self.assertNotIn("earnings-date lookup; deferred v2", self.doc_text)
+        self.assertIn("KAYPOH_EARNINGS_CALENDAR_CSV", self.doc_text)
+
+    def test_hk_market_known_threshold_is_not_marked_pending(self):
+        self.assertNotIn("HK-specific stricter threshold pending", self.doc_text)
+        self.assertNotIn("retriever uses general-availability semantics", self.doc_text)
+        self.assertIn("hk_public_status=available_but_not_generally_known", self.doc_text)
+
+    def test_issuer_size_env_providers_are_documented(self):
+        self.assertIn("KAYPOH_ENTITY_SIZE_CSV", self.doc_text)
+        self.assertIn("KAYPOH_ENTITY_SIZE_JSON", self.doc_text)
+
 
 class JurisdictionPackRegistryParityTests(unittest.TestCase):
     """Every TOML pack on disk must be referenced in the doc by code. The reverse — the

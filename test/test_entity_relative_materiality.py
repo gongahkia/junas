@@ -6,9 +6,13 @@ halved bands. Currency normalisation is the lookup's responsibility — these te
 the lookup returns values in the same denomination as matched_text.
 """
 
+import json
+import os
+import tempfile
 import unittest
+from unittest import mock
 
-from kaypoh.review.engine import EntitySizeLookup, PreSendReviewEngine
+from kaypoh.review.engine import EntitySizeLookup, JSONEntitySizeLookup, PreSendReviewEngine
 
 
 class _Lookup(EntitySizeLookup):
@@ -153,6 +157,54 @@ class MaterialityScalerTests(unittest.TestCase):
         fa = self._fa(r)
         # $1B / $5B = 20% → high
         self.assertTrue(any(f.severity == "high" for f in fa))
+
+    def test_csv_provider_autoloads_from_env(self):
+        with tempfile.NamedTemporaryFile("w", encoding="utf-8", newline="", delete=False) as handle:
+            handle.write("entity_id,jurisdiction,revenue,market_cap,is_asx_300,ticker\n")
+            handle.write("AcmeUS,US,1000000000,5000000000,false,ACME\n")
+            path = handle.name
+        self.addCleanup(lambda: os.path.exists(path) and os.unlink(path))
+        env = {"KAYPOH_ENTITY_SIZE_CSV": path, "KAYPOH_ENTITY_SIZE_JSON": ""}
+        with mock.patch.dict(os.environ, env, clear=False):
+            engine = PreSendReviewEngine()
+            r = engine.review(
+                text="Quarterly results show $300 million impairment.",
+                source_jurisdiction="US", destination_jurisdiction="US",
+                entity_id="AcmeUS", include_suggestions=False,
+            )
+
+        fa = self._fa(r)
+        self.assertTrue(any(f.severity == "high" for f in fa))
+        self.assertNotIn("materiality_lookup_not_configured", [m["mode"] for m in r.degraded_modes])
+        self.assertEqual(fa[0].metadata["entity_size_source"], "operator_csv")
+        self.assertAlmostEqual(fa[0].metadata["materiality_fraction"], 0.06)
+
+    def test_json_provider_supports_ticker_aliases(self):
+        payload = {
+            "entities": [
+                {
+                    "ticker": "ASX:BHP",
+                    "jurisdiction": "AU",
+                    "revenue": 1_000_000_000,
+                    "market_cap": 5_000_000_000,
+                    "is_asx_300": True,
+                }
+            ]
+        }
+        with tempfile.NamedTemporaryFile("w", encoding="utf-8", delete=False) as handle:
+            json.dump(payload, handle)
+            path = handle.name
+        self.addCleanup(lambda: os.path.exists(path) and os.unlink(path))
+        engine = PreSendReviewEngine(entity_size_lookup=JSONEntitySizeLookup(path))
+        r = engine.review(
+            text="Quarterly results show $300 million impairment.",
+            source_jurisdiction="AU", destination_jurisdiction="AU",
+            entity_id="BHP", include_suggestions=False,
+        )
+
+        fa = self._fa(r)
+        self.assertTrue(any(f.severity == "high" for f in fa))
+        self.assertEqual(fa[0].metadata["entity_size_source"], "operator_json")
 
 
 if __name__ == "__main__":
