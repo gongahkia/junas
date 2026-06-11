@@ -16,7 +16,6 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-import backend.main as main
 from kaypoh.review.engine import PreSendReviewEngine, ReviewLayerError
 
 
@@ -198,9 +197,9 @@ class CoverageAuditJournalingTests(unittest.TestCase):
         os.environ["KAYPOH_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
         # reload journal + main so they pick up the new env
-        import kaypoh.review.journal as journal_mod
-        import kaypoh.review.decisions as decisions_mod
         import backend.main as main_mod
+        import kaypoh.review.decisions as decisions_mod
+        import kaypoh.review.journal as journal_mod
 
         importlib.reload(journal_mod)
         importlib.reload(decisions_mod)

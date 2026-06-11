@@ -3,7 +3,6 @@ from pathlib import Path
 
 from kaypoh.review import jurisdictions
 
-
 REPO_ROOT = Path(__file__).resolve().parent.parent
 REPORT_DIR = REPO_ROOT / "docs" / "defensibility"
 

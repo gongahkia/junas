@@ -48,7 +48,6 @@ from __future__ import annotations
 import hashlib
 from typing import Any
 
-
 STRUCTURED_CONTEXT_WINDOW_CHARS = 200
 
 # closed-vocabulary materiality_reason values the LLM is allowed to emit in

@@ -19,9 +19,9 @@ from .backend.schemas import (
     ReviewResponse,
 )
 from .client import (
-    AsyncKaypohClient,
     DEFAULT_BASE_URL,
     DEFAULT_TIMEOUT_SECONDS,
+    AsyncKaypohClient,
     KaypohAPIError,
     KaypohClient,
     async_classify_text,

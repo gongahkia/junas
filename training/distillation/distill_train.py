@@ -191,6 +191,8 @@ def train(
     --dry-run never touches the ML stack."""
     try:
         import torch
+        from datasets import Dataset
+        from peft import LoraConfig, TaskType, get_peft_model
         from transformers import (
             AutoModelForCausalLM,
             AutoTokenizer,
@@ -198,8 +200,6 @@ def train(
             Trainer,
             TrainingArguments,
         )
-        from peft import LoraConfig, TaskType, get_peft_model
-        from datasets import Dataset
     except ImportError as exc:
         raise RuntimeError(
             "training requires `torch`, `transformers`, `peft`, and `datasets`. "

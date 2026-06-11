@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import re
 
-
 # matches the two most common defined-term introduction patterns:
 #   (the "Purchaser") | (this "Agreement") | ("Vendor") | (collectively, the "Sellers")
 #   "Company" means | "Buyer" shall mean | "Parties" has the meaning

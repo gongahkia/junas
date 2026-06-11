@@ -12,7 +12,6 @@ import importlib
 import os
 import tempfile
 import unittest
-from pathlib import Path
 
 from kaypoh.review import session_store
 from kaypoh.review.engine import PreSendReviewEngine, ReviewLayerError

@@ -8,8 +8,8 @@ from pathlib import Path
 def _setup_isolated_journal(tmpdir: Path):
     os.environ["KAYPOH_JOURNAL_DIR"] = str(tmpdir)
     os.environ["KAYPOH_JOURNAL_KEY"] = "test-key"
-    import kaypoh.review.journal as journal_mod
     import kaypoh.review.decisions as decisions_mod
+    import kaypoh.review.journal as journal_mod
 
     importlib.reload(journal_mod)
     importlib.reload(decisions_mod)

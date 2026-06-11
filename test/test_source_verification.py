@@ -14,11 +14,11 @@ Five guarantees:
 import unittest
 
 from kaypoh.review.engine import (
-    PreSendReviewEngine,
     SOURCE_VERIFICATION_AMBIGUOUS,
-    SOURCE_VERIFICATION_NOT_CHECKED,
     SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND,
+    SOURCE_VERIFICATION_NOT_CHECKED,
     SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED,
+    PreSendReviewEngine,
 )
 
 

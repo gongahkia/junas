@@ -18,8 +18,8 @@ class AuditPackTests(unittest.TestCase):
         os.environ["KAYPOH_JOURNAL_DIR"] = str(self.tmpdir)
         os.environ["KAYPOH_JOURNAL_KEY"] = "audit-test-key"
 
-        import kaypoh.review.journal as journal_mod
         import kaypoh.review.decisions as decisions_mod
+        import kaypoh.review.journal as journal_mod
 
         importlib.reload(journal_mod)
         importlib.reload(decisions_mod)

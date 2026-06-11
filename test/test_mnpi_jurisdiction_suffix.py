@@ -16,7 +16,6 @@ import unittest
 from kaypoh.review.citations import _MNPI_JURISDICTION_SUFFIX, mnpi_rationale
 from kaypoh.review.engine import PreSendReviewEngine
 
-
 # canonical minimal text that triggers each MNPI rule. Each is intentionally simple so we
 # can isolate the rule and confirm the suffix lands on its suggestion, without other rules
 # competing for the same finding-id slot.

@@ -14,7 +14,6 @@ import unittest
 
 from kaypoh.review.engine import PreSendReviewEngine
 
-
 POSITIVES = [
     ("[2024] SGCA 12", "Court of Appeal"),
     ("[2023] SGHC 145", "High Court General"),

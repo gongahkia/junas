@@ -116,9 +116,9 @@ def main() -> int:
         total_fail += fail
 
     elapsed = int(time.monotonic() - t_start)
-    print(f"\n=== summary ===")
+    print("\n=== summary ===")
     print(f"total ok: {total_ok}  failed: {total_fail}  elapsed: {elapsed}s")
-    print(f"HAND-REVIEW each labels.json stub before refreshing recall.lock.json.")
+    print("HAND-REVIEW each labels.json stub before refreshing recall.lock.json.")
     return 0 if total_fail == 0 else 1
 
 

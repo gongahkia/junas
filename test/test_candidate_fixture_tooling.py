@@ -8,7 +8,8 @@ from unittest.mock import patch
 
 from scripts import autolabel_fixture, autolabel_qa_report, generate_legal_fixture
 from scripts.candidate_corpus_report import STAGE_A_DOCS, build_report, render_markdown
-from scripts.evaluate_candidate_corpus import _evaluate_one, _summary, main as evaluate_candidate_main
+from scripts.evaluate_candidate_corpus import _evaluate_one, _summary
+from scripts.evaluate_candidate_corpus import main as evaluate_candidate_main
 from scripts.fixture_taxonomy import JURISDICTIONS, MNPI_RULES, PII_RULES
 from scripts.reconcile_candidate_strict_labels import reconcile_strict_labels
 

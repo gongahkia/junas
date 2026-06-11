@@ -109,7 +109,7 @@ def _resolve_student(*, provider: str, adapter_path: Path | None, base_model: st
         return _MockStudent()
     if provider == "local_distilled":
         if adapter_path is None or not adapter_path.exists():
-            raise FileNotFoundError(f"--adapter-path required and must exist for local_distilled")
+            raise FileNotFoundError("--adapter-path required and must exist for local_distilled")
         from training.distillation.student_provider import build_local_distilled_adjudicator
 
         return build_local_distilled_adjudicator(

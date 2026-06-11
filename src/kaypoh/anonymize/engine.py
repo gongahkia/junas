@@ -7,7 +7,6 @@ from typing import Any
 
 from kaypoh.review.entity_linker import canonical_org, canonical_person
 
-
 PII_RULE_ENTITY_TYPES = {
     "sg_nric_fin": "NRIC_FIN",
     "sg_uen": "UEN",

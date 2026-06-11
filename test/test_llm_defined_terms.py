@@ -13,7 +13,6 @@ import importlib
 import os
 import tempfile
 import unittest
-from pathlib import Path
 
 from kaypoh.review import llm_defined_terms
 from kaypoh.review.engine import PreSendReviewEngine, ReviewLayerError

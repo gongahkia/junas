@@ -22,11 +22,11 @@ from __future__ import annotations
 
 import os
 import re
-import tomllib
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
 
+import tomllib
 
 _BUILTIN_PACKS_DIR = Path(__file__).parent / "jurisdictions_data"
 

@@ -22,9 +22,9 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
         os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
         os.environ["KAYPOH_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
-        import kaypoh.review.journal as journal_mod
-        import kaypoh.review.decisions as decisions_mod
         import backend.main as main_mod
+        import kaypoh.review.decisions as decisions_mod
+        import kaypoh.review.journal as journal_mod
 
         importlib.reload(journal_mod)
         importlib.reload(decisions_mod)

@@ -28,7 +28,6 @@ from training.distillation.prompts import (
     build_user_content_structured_tokens,
 )
 
-
 _ADJUDICATION_DEFAULT = {
     "status": "disabled",
     "provider": "local_distilled",
@@ -93,8 +92,8 @@ class LocalDistilledAdjudicator:
             return
         try:
             import torch
-            from transformers import AutoModelForCausalLM, AutoTokenizer
             from peft import PeftModel
+            from transformers import AutoModelForCausalLM, AutoTokenizer
         except ImportError as exc:
             raise RuntimeError(
                 "local_distilled requires `torch`, `transformers`, `peft`. "

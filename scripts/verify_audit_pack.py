@@ -21,10 +21,10 @@ SRC_PATH = REPO_ROOT / "src"
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review.journal import JournalEntry, verify_chain  # noqa: E402
-
 # load _seal_manifest from the sibling exporter script without making scripts/ a package
 import importlib.util as _import_util  # noqa: E402
+
+from kaypoh.review.journal import JournalEntry, verify_chain  # noqa: E402
 
 _exporter_spec = _import_util.spec_from_file_location(
     "_kaypoh_export_audit_pack",

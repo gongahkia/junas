@@ -1,8 +1,8 @@
 """Compatibility shim for the canonical `kaypoh.client` module."""
 
+import sys as _sys
 from importlib import import_module as _import_module
 from pathlib import Path as _Path
-import sys as _sys
 
 _SRC_ROOT = _Path(__file__).resolve().parent.parent / "src"
 if str(_SRC_ROOT) not in _sys.path:

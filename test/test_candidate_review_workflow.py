@@ -12,9 +12,10 @@ from scripts.candidate_review import (
     record_human_review,
     write_labels,
 )
-from scripts.check_candidate_stage_gate import STAGE_B_DOCS, main as stage_gate_main, stage_gate_status
-from scripts.promote_candidate_fixtures import MANIFEST_NAME, promote_candidates
+from scripts.check_candidate_stage_gate import STAGE_B_DOCS, stage_gate_status
+from scripts.check_candidate_stage_gate import main as stage_gate_main
 from scripts.promote_candidate_exact_spans import promote_exact_spans
+from scripts.promote_candidate_fixtures import MANIFEST_NAME, promote_candidates
 from scripts.recall_gate import main as recall_gate_main
 from scripts.review_candidate_fixture import main as review_candidate_main
 

@@ -5,5 +5,4 @@ Legacy API entrypoint shim.
 This module exists for backward compatibility with older run commands.
 """
 
-from backend.main import app  # re-export canonical FastAPI app
 

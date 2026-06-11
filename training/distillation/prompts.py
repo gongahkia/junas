@@ -22,7 +22,6 @@ from __future__ import annotations
 import json
 from typing import Any
 
-
 SYSTEM_PROMPT_RAW_TEXT = (
     "You are a local-only compliance adjudicator for MNPI triage. "
     "Classify the document using the local text and public evidence. "

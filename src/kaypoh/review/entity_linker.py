@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import re
 
-
 _HONORIFIC = re.compile(r"^(?:mr|ms|mrs|mdm|dr|prof|sir|dame)\.?\s+", re.IGNORECASE)
 
 # common corporate suffixes across SG, SEA, US, UK, EU, JP. anchored at the trailing edge of

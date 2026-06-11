@@ -6,7 +6,6 @@ from pathlib import Path
 
 import httpx
 
-
 ROOT = Path(__file__).resolve().parent.parent
 SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
