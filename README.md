@@ -222,9 +222,7 @@ flowchart TD
 
 Kaypoh ships curated jurisdiction packs for:
 
-```text
-SG, MY, ID, TH, PH, VN, HK, AU, JP, KR, US, UK, EU, SEA, IN, CN, AE, SA
-```
+🇸🇬 SG, 🇲🇾 MY, 🇮🇩 ID, 🇹🇭 TH, 🇵🇭 PH, 🇻🇳 VN, 🇭🇰 HK, 🇦🇺 AU, 🇯🇵 JP, 🇰🇷 KR, 🇺🇸 US, 🇬🇧 UK, 🇪🇺 EU, 🌏 SEA, 🇮🇳 IN, 🇨🇳 CN, 🇦🇪 AE, 🇸🇦 SA
 
 Each pack lives under [`src/kaypoh/review/jurisdictions_data/`](./src/kaypoh/review/jurisdictions_data/) and is mapped to statutory coverage in [`docs/statutory-coverage.md`](./docs/statutory-coverage.md).
 
@@ -232,24 +230,74 @@ Each pack lives under [`src/kaypoh/review/jurisdictions_data/`](./src/kaypoh/rev
 
 | Code | Jurisdiction | PII statute | MNPI / inside-information statute |
 |---|---|---|---|
-| **SG** | Singapore | Personal Data Protection Act 2012 (PDPA s2, s13, s18) | Securities and Futures Act 2001 ss215, 218, 219 |
-| **MY** | Malaysia | Personal Data Protection Act 2010 (PDPA Malaysia ss6-7) | Capital Markets and Services Act 2007 ss188-189 |
-| **ID** | Indonesia | UU Perlindungan Data Pribadi (UU PDP) No. 27/2022 | OJK Regulation 31/POJK.04/2015 + UU Pasar Modal 8/1995 |
-| **TH** | Thailand | PDPA B.E. 2562 (2019) s26 | Securities and Exchange Act B.E. 2535 ss241-243 |
-| **PH** | Philippines | Data Privacy Act 2012 (RA 10173) s3(g)/(h)/(l) | Securities Regulation Code (RA 8799) s27 |
-| **VN** | Vietnam | Decree 13/2023/ND-CP arts 2-3 | Law on Securities 2019 (Law No. 54/2019/QH14) art 12 |
-| **HK** | Hong Kong | Personal Data (Privacy) Ordinance Cap. 486 s2 | Securities and Futures Ordinance Cap. 571 Part XIV ss270-281 |
-| **AU** | Australia | Privacy Act 1988 (Cth) + Australian Privacy Principles | Corporations Act 2001 (Cth) ss1042A-1043O |
-| **JP** | Japan | APPI Art 2 + My Number Act | Financial Instruments and Exchange Act Arts 166-167 |
-| **KR** | South Korea | PIPA Art 2 + Art 24-2 | Financial Investment Services and Capital Markets Act Arts 174-179 |
-| **US** | United States | CCPA/CPRA Cal. Civ. Code §1798.140(v); HIPAA 45 CFR §164.514; GLBA NPI | Securities Exchange Act 1934 s10(b); SEC Rule 10b-5; Reg FD (17 CFR 243.100); Basic v. Levinson |
-| **UK** | United Kingdom | UK GDPR Art 4(1); Data Protection Act 2018 s3(2) | UK Market Abuse Regulation (UK MAR) Art 7 |
-| **EU** | European Union | GDPR Art 4(1); Recital 26; Art 9 special-category | EU Market Abuse Regulation 596/2014 Art 7 |
-| **SEA** | Southeast Asia baseline | ASEAN cross-border privacy baseline | ASEAN-baseline market-abuse principles |
-| **IN** | India | Digital Personal Data Protection Act 2023 (DPDPA) ss 2(t), 9, 10, 16 | SEBI (Prohibition of Insider Trading) Regulations 2015 |
-| **CN** | China | Personal Information Protection Law 2021 (PIPL) Arts 4, 28, 31, 38; CSL 2016; DSL 2021 | China Securities Law Arts 50-54 |
-| **AE** | United Arab Emirates | UAE Federal Decree-Law 45/2021 (PDPL) Arts 1, 15, 22; DIFC DPL 2020; ADGM Data Protection Regs 2021 | UAE Securities and Commodities Authority (SCA) regulations |
-| **SA** | Saudi Arabia | KSA Personal Data Protection Law 2023 (Royal Decree M/19) + SDAIA Implementing Regulations 2024; Art 29 (cross-border) | Saudi Capital Market Authority (CMA) Market Conduct Regulations |
+| 🇸🇬 **SG** | Singapore | [Personal Data Protection Act 2012][sg-pdpa] (PDPA s2, s13, s18) | [Securities and Futures Act 2001][sg-sfa] ss215, 218, 219 |
+| 🇲🇾 **MY** | Malaysia | [Personal Data Protection Act 2010][my-pdpa] (PDPA Malaysia ss6-7) | [Capital Markets and Services Act 2007][my-cmsa] ss188-189 |
+| 🇮🇩 **ID** | Indonesia | [UU Pelindungan Data Pribadi No. 27/2022][id-pdp] | [OJK Regulation 31/POJK.04/2015][id-ojk-material] + [UU Pasar Modal No. 8/1995][id-pasar-modal] |
+| 🇹🇭 **TH** | Thailand | [PDPA B.E. 2562 (2019)][th-pdpa] s26 | [Securities and Exchange Act B.E. 2535][th-sea] ss241-243 |
+| 🇵🇭 **PH** | Philippines | [Data Privacy Act 2012 (RA 10173)][ph-dpa] s3(g)/(h)/(l) | [Securities Regulation Code (RA 8799)][ph-src] s27 |
+| 🇻🇳 **VN** | Vietnam | [Decree 13/2023/ND-CP][vn-decree13] arts 2-3 | [Law on Securities 2019 (Law No. 54/2019/QH14)][vn-securities] art 12 |
+| 🇭🇰 **HK** | Hong Kong | [Personal Data (Privacy) Ordinance Cap. 486][hk-pdpo] s2 | [Securities and Futures Ordinance Cap. 571][hk-sfo] Part XIV ss270-281 |
+| 🇦🇺 **AU** | Australia | [Privacy Act 1988 (Cth)][au-privacy] + Australian Privacy Principles | [Corporations Act 2001 (Cth)][au-corp] ss1042A-1043O |
+| 🇯🇵 **JP** | Japan | [APPI][jp-appi] Art 2 + [My Number Act][jp-my-number] | [Financial Instruments and Exchange Act][jp-fiea] Arts 166-167 |
+| 🇰🇷 **KR** | South Korea | [PIPA][kr-pipa] Art 2 + Art 24-2 | [Financial Investment Services and Capital Markets Act][kr-fscma] Arts 174-179 |
+| 🇺🇸 **US** | United States | [CCPA/CPRA Cal. Civ. Code §1798.140(v)][us-ccpa]; [HIPAA 45 CFR §164.514][us-hipaa]; [GLBA NPI][us-glba] | [Securities Exchange Act 1934 s10(b)][us-10b]; [SEC Rule 10b-5][us-10b5]; [Reg FD 17 CFR 243.100][us-regfd]; [Basic v. Levinson][us-basic] |
+| 🇬🇧 **UK** | United Kingdom | [UK GDPR Art 4(1)][uk-gdpr]; [Data Protection Act 2018 s3(2)][uk-dpa] | [UK Market Abuse Regulation (UK MAR) Art 7][uk-mar] |
+| 🇪🇺 **EU** | European Union | [GDPR Art 4(1), Recital 26, Art 9][eu-gdpr] | [EU Market Abuse Regulation 596/2014 Art 7][eu-mar] |
+| 🌏 **SEA** | Southeast Asia baseline | [ASEAN privacy baseline][sea-pdp] | [ASEAN capital-markets baseline][sea-acmf] (regional baseline, not a single statute) |
+| 🇮🇳 **IN** | India | [Digital Personal Data Protection Act 2023][in-dpdpa] (DPDPA ss2(t), 9, 10, 16) | [SEBI (Prohibition of Insider Trading) Regulations 2015][in-sebi-pit] |
+| 🇨🇳 **CN** | China | [Personal Information Protection Law 2021][cn-pipl] Arts 4, 28, 31, 38; [Cybersecurity Law 2016][cn-csl]; [Data Security Law 2021][cn-dsl] | [China Securities Law][cn-securities] Arts 50-54 |
+| 🇦🇪 **AE** | United Arab Emirates | [UAE Federal Decree-Law 45/2021 (PDPL)][ae-pdpl] Arts 1, 15, 22; [DIFC DPL 2020][ae-difc-dpl]; [ADGM Data Protection Regulations 2021][ae-adgm-dpr] | [UAE SCA regulations][ae-sca] |
+| 🇸🇦 **SA** | Saudi Arabia | [KSA Personal Data Protection Law 2023][sa-pdpl] (Royal Decree M/19) + [SDAIA Implementing Regulations 2024][sa-pdpl-regs]; Art 29 cross-border | [Saudi CMA Market Conduct Regulations][sa-cma-mcr] |
+
+[sg-pdpa]: https://sso.agc.gov.sg/Act/PDPA2012
+[sg-sfa]: https://sso.agc.gov.sg/Act/SFA2001
+[my-pdpa]: https://lom.agc.gov.my/act-detail.php?type=principal&lang=BI&act=709
+[my-cmsa]: https://lom.agc.gov.my/act-detail.php?type=principal&lang=BI&act=671
+[id-pdp]: https://peraturan.bpk.go.id/Details/229798/uu-no-27-tahun-2022
+[id-ojk-material]: https://www.ojk.go.id/id/regulasi/Pages/POJK-tentang-Keterbukaan-Atas-Informasi-Atau-Fakta-Material-Oleh-Emiten-Atau-Perusahaan-Publik.aspx
+[id-pasar-modal]: https://peraturan.bpk.go.id/Details/46197/uu-no-8-tahun-1995
+[th-pdpa]: https://www.pdpc.or.th/en/content/7825/personal-data-protection-act-be-2562-2019
+[th-sea]: https://www.sec.or.th/EN/Pages/LawandRegulations/SecuritiesExchangeAct.aspx
+[ph-dpa]: https://www.officialgazette.gov.ph/2012/08/15/republic-act-no-10173/
+[ph-src]: https://www.officialgazette.gov.ph/2000/07/19/republic-act-no-8799/
+[vn-decree13]: https://vanban.chinhphu.vn/?pageid=27160&docid=207858
+[vn-securities]: https://vanban.chinhphu.vn/?pageid=27160&docid=198828
+[hk-pdpo]: https://www.elegislation.gov.hk/hk/cap486!en
+[hk-sfo]: https://www.elegislation.gov.hk/hk/cap571!en
+[au-privacy]: https://www.legislation.gov.au/C2004A03712/latest/text
+[au-corp]: https://www.legislation.gov.au/C2004A00818/latest/text
+[jp-appi]: https://laws.e-gov.go.jp/law/415AC0000000057
+[jp-my-number]: https://laws.e-gov.go.jp/law/425AC0000000027
+[jp-fiea]: https://laws.e-gov.go.jp/law/323AC0000000025
+[kr-pipa]: https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EB%B3%B4%ED%98%B8%EB%B2%95
+[kr-fscma]: https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%9E%90%EB%B3%B8%EC%8B%9C%EC%9E%A5%EA%B3%BC%EA%B8%88%EC%9C%B5%ED%88%AC%EC%9E%90%EC%97%85%EC%97%90%EA%B4%80%ED%95%9C%EB%B2%95%EB%A5%A0
+[us-ccpa]: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.140
+[us-hipaa]: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-E/section-164.514
+[us-glba]: https://uscode.house.gov/view.xhtml?path=/prelim@title15/chapter94/subchapter1&edition=prelim
+[us-10b]: https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title15-section78j&num=0&edition=prelim
+[us-10b5]: https://www.ecfr.gov/current/title-17/chapter-II/part-240/subpart-A/section-240.10b-5
+[us-regfd]: https://www.ecfr.gov/current/title-17/chapter-II/part-243/section-243.100
+[us-basic]: https://supreme.justia.com/cases/federal/us/485/224/
+[uk-gdpr]: https://www.legislation.gov.uk/eur/2016/679/article/4
+[uk-dpa]: https://www.legislation.gov.uk/ukpga/2018/12/section/3
+[uk-mar]: https://www.legislation.gov.uk/eur/2014/596/article/7
+[eu-gdpr]: https://eur-lex.europa.eu/eli/reg/2016/679/oj
+[eu-mar]: https://eur-lex.europa.eu/eli/reg/2014/596/oj
+[sea-pdp]: https://asean.org/wp-content/uploads/2012/05/10-ASEAN-Framework-on-PDP.pdf
+[sea-acmf]: https://www.theacmf.org/
+[in-dpdpa]: https://www.indiacode.nic.in/handle/123456789/20027
+[in-sebi-pit]: https://www.sebi.gov.in/section-search.html?searchval=prohibition%20of%20insider%20trading&searchcontext=Regulations
+[cn-pipl]: https://flk.npc.gov.cn/detail2.html?ZmY4MDgxODE3YjY0NzJhMzAxN2I2NTZjYzIwNDAwNDQ
+[cn-csl]: https://flk.npc.gov.cn/detail2.html?MmM5MDlmZGQ2NzhiZjE3OTAxNjc4YmY4Mjc2ZjA5M2Q%3D
+[cn-dsl]: https://flk.npc.gov.cn/detail2.html?ZmY4MDgxODE3OWY1ZTA4MDAxNzlmODg1YzdlNzAzOTI
+[cn-securities]: https://flk.npc.gov.cn/detail2.html?ZmY4MDgwODE3MWU5ZTE4MTAxNzI3ZTMyYjk0ZDdkZTY%3D
+[ae-pdpl]: https://uaelegislation.gov.ae/en/legislations/1526
+[ae-difc-dpl]: https://www.difc.com/business/laws-and-regulations
+[ae-adgm-dpr]: https://en.adgm.thomsonreuters.com/rulebook/data-protection-regulations-2021
+[ae-sca]: https://www.sca.gov.ae/en/regulations.aspx
+[sa-pdpl]: https://sdaia.gov.sa/en/SDAIA/about/Pages/RegulationsAndPolicies.aspx
+[sa-pdpl-regs]: https://sdaia.gov.sa/en/SDAIA/about/Pages/RegulationsAndPolicies.aspx
+[sa-cma-mcr]: https://cma.gov.sa/en/RulesRegulations/Regulations/Pages/default.aspx
 
 ### Coverage Matrix
 
