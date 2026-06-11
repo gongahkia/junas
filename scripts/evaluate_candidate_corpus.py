@@ -69,8 +69,8 @@ def _configured_audit_grade_engine() -> PreSendReviewEngine:
     settings = get_runtime_settings()
     public_evidence = None
     if settings.public_evidence.enabled:
-        from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
         from kaypoh.external.privacy_guard import PrivacyGuard
+        from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
 
         public_evidence = PublicEvidenceRetriever(
             settings.public_evidence,

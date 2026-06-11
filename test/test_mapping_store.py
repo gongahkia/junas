@@ -35,8 +35,8 @@ class MappingStorePersistTests(unittest.TestCase):
         os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
         os.environ["KAYPOH_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
-        import kaypoh.backend.main as main_mod
         import kaypoh.anonymize.mapping_store as mapping_mod
+        import kaypoh.backend.main as main_mod
         import kaypoh.review.journal as journal_mod
 
         importlib.reload(journal_mod)
@@ -149,8 +149,8 @@ class MappingStorePersistTests(unittest.TestCase):
 
     def test_encrypted_mapping_persists_without_plaintext_and_reidentifies(self):
         os.environ["KAYPOH_MAPPING_STORE_KEY"] = Fernet.generate_key().decode("ascii")
-        import kaypoh.backend.main as main_mod
         import kaypoh.anonymize.mapping_store as mapping_mod
+        import kaypoh.backend.main as main_mod
 
         importlib.reload(mapping_mod)
         importlib.reload(main_mod)

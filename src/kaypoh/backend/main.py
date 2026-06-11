@@ -112,6 +112,7 @@ from kaypoh.backend.schemas import (
 )
 from kaypoh.backend.siem import emit_privacy_ledger_events, emit_security_event
 from kaypoh.configs.runtime import RuntimeSettings, get_runtime_settings
+from kaypoh.external.privacy_guard import PrivacyGuard
 from kaypoh.helper.determinism import configure_determinism
 from kaypoh.review.decisions import (
     Decision,
@@ -135,7 +136,6 @@ from kaypoh.review.image_scan import (
 )
 from kaypoh.review.metadata import scrub_document
 from kaypoh.review.subject_index import SubjectIndexError, index_review_findings, require_subject_index_key
-from kaypoh.external.privacy_guard import PrivacyGuard
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -896,7 +896,7 @@ def _optional_int(value: Any) -> int | None:
 
 
 def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) -> ClassifyResponse:
-    """Thin wrapper over engine.review() per ARCHITECTURE-PIVOT-24-MAY.md item 63.
+    """Thin wrapper over engine.review().
 
     Legacy 9-layer pipeline (layer1_lexicon through layer6_regression + layer5_mosaic)
     archived 2026-05-26. /classify is retained as a programmatic surface for technical
@@ -1067,8 +1067,8 @@ def _build_review_engine() -> PreSendReviewEngine:
 
     public_evidence = get_layer_model("public_evidence")
     if public_evidence is None and settings.public_evidence.enabled:
-        from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
         from kaypoh.external.privacy_guard import PrivacyGuard
+        from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
 
         public_evidence = PublicEvidenceRetriever(
             settings.public_evidence,

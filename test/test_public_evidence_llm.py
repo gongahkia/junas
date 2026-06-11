@@ -6,9 +6,9 @@ from unittest import mock
 from fastapi.testclient import TestClient
 
 import kaypoh.backend.main as main
-from kaypoh.review.engine import Classification, ReviewResult
-from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
 from kaypoh.external.privacy_guard import PrivacyGuard
+from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
+from kaypoh.review.engine import Classification, ReviewResult
 from test import observability_test_app as test_app
 
 

@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from kaypoh.backend.schemas import Classification
+from kaypoh.external.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
 from kaypoh.review.citations import CitationOverrideError, mnpi_rationale, pii_rationale
 from kaypoh.review.conjunctive_mnpi import detect_conjunctive_mnpi
 from kaypoh.review.defined_terms import extract_defined_terms, is_defined_term
@@ -24,7 +25,6 @@ from kaypoh.review.detectors import (
 from kaypoh.review.document_structure import parse_document_structure
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
 from kaypoh.review.jurisdictions import JurisdictionRulePack, normalize_jurisdiction, resolve_rule_packs
-from kaypoh.external.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
 
 SG_NRIC_RE = re.compile(r"\b[STFGM]\d{7}[A-Z]\b", re.IGNORECASE)
 # ACRA UEN: legacy 8-9 digit + check letter; new T-format.
@@ -1181,7 +1181,7 @@ MNPI_DOC_TYPE_SEVERITY_OVERRIDES: dict[tuple[str, str], str] = {
 # source-verification states for MNPI findings. exposes whether a public-status check
 # actually happened, so reviewers can tell "we did not look" apart from "we looked and
 # found nothing". PII findings always carry `not_checked` — public-status is not a
-# meaningful concept for personal data. see item 36 in ARCHITECTURE-PIVOT-24-MAY.md.
+# meaningful concept for personal data.
 SOURCE_VERIFICATION_NOT_CHECKED = "not_checked"
 SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED = "public_source_matched"
 SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND = "no_public_source_found"

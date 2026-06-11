@@ -1,7 +1,7 @@
 """US / UK direct-ID recognizers + JP postal-code + AU postal-address recognizers.
 
 Closes the US SSN / EIN, UK NIN, JP postal-code, AU postal-address gaps tracked in
-ARCHITECTURE-PIVOT-24-MAY.md items 33 and 86-followup. Mirrors the HK/AU/JP/KR pack
+US/UK identifier follow-up coverage. Mirrors the HK/AU/JP/KR pack
 discipline: recognizers must fire on canonical samples, validators must reject bad
 inputs, statute suffixes must be present in rationales.
 """

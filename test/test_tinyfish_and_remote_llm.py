@@ -9,10 +9,10 @@ from types import SimpleNamespace
 
 import httpx
 
-from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
 from kaypoh.advisory.llm_adjudicator.helpers import RuntimeLLMCoverageAuditor
 from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
 from kaypoh.external.privacy_guard import PrivacyGuard
+from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
 
 
 def _tinyfish_settings(

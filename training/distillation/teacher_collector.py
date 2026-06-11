@@ -210,8 +210,8 @@ def _resolve_adjudicator(provider_arg: str) -> TeacherAdjudicator:
                 }
         return TeacherAdjudicator(_Mock())
 
-    from kaypoh.configs.runtime import get_runtime_settings
     from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
+    from kaypoh.configs.runtime import get_runtime_settings
 
     settings = get_runtime_settings()
     return TeacherAdjudicator(LocalLLMAdjudicator(settings.llm))
