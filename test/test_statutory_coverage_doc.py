@@ -200,6 +200,30 @@ class CrossSectionInvariant(unittest.TestCase):
         self.assertIn("Redacted text", self.doc_text)
 
 
+class StaleStatusGuard(unittest.TestCase):
+    """Known shipped surfaces must not be contradicted later in the same artefact."""
+
+    def setUp(self):
+        self.doc_text = DOC_PATH.read_text(encoding="utf-8")
+
+    def test_seed_racial_ethnic_detector_is_not_marked_missing(self):
+        stale_row = (
+            "Special-category PII (racial / ethnic origin; broader semantic special-category inference) | no detector"
+        )
+        self.assertNotIn(stale_row, self.doc_text)
+
+    def test_hk_kr_postal_detectors_are_not_marked_unimplemented(self):
+        self.assertNotIn("Local postal-address for HK / KR | not implemented", self.doc_text)
+
+    def test_shipped_operational_surfaces_are_not_backlog(self):
+        stale_rows = {
+            "| Per-tenant citations override | backlog | item 60 |",
+            "| Local-daemon production ACL | backlog | item 58 |",
+        }
+        for row in stale_rows:
+            self.assertNotIn(row, self.doc_text)
+
+
 class JurisdictionPackRegistryParityTests(unittest.TestCase):
     """Every TOML pack on disk must be referenced in the doc by code. The reverse — the
     doc mentioning a code that has no pack — would also be drift but is harder to detect
