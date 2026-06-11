@@ -94,6 +94,7 @@ uv run uvicorn backend.main:app --host 0.0.0.0 --port 8000
 ./scripts/verify_runtime.sh
 uv run python scripts/recall_gate.py
 uv run python scripts/generate_accuracy_doc.py --check
+uv run python training/distillation/promotion_gate.py
 ```
 
 Audit-pack utilities:

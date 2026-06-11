@@ -192,6 +192,13 @@ def _format_confusion(confusion: dict[tuple[str, str], int]) -> dict[str, dict[s
     return out
 
 
+def _report_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Evaluate distilled student against corpora")
     parser.add_argument("--corpus", type=Path, action="append", required=True,
@@ -209,6 +216,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--max-invariant-violations", type=int, default=0,
         help="maximum number of times the student may upgrade past a deterministic label.",
+    )
+    parser.add_argument(
+        "--output-report", type=Path, default=None,
+        help="optional path to write the JSON eval report used by promotion_gate.py",
     )
     args = parser.parse_args(argv)
 
@@ -236,7 +247,7 @@ def main(argv: list[str] | None = None) -> int:
         rows, stats = evaluate(corpus_dir=path, student=student)
         all_rows.extend(rows)
         agreement_rate = stats.agreements / stats.total if stats.total else 1.0
-        per_corpus[str(path.relative_to(REPO_ROOT))] = {
+        per_corpus[_report_path(path)] = {
             "total": stats.total,
             "agreements": stats.agreements,
             "agreement_rate": round(agreement_rate, 4),
@@ -264,6 +275,10 @@ def main(argv: list[str] | None = None) -> int:
             "max_invariant_violations": args.max_invariant_violations,
         },
     }
+    if args.output_report:
+        output_path = args.output_report if args.output_report.is_absolute() else REPO_ROOT / args.output_report
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=2, sort_keys=True))
 
     failed = False

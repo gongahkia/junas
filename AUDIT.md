@@ -1,14 +1,6 @@
  What I’d do next, in order:
 
-  1. LLM governance path. Distillation exists, but no promoted local
-     adapter/baseline. Add model-card style docs, privacy eval, and
-          invariant gates. This aligns with EU GPAI obligations now in
-     application and enforceable from 2026-08-02 for new providers.
-     Source: EU AI Act GPAI timeline/guidelines.
-     (digital-strategy.ec.europa.eu
-                                          (https://digital-strategy.ec.europa.eu/en/policies/guidelines-gpai-providers))
-
-                                                               2. Regulatory-aligned detector expansion:
+                                                               1. Regulatory-aligned detector expansion:
 
   - Pseudonymisation docs should keep stressing “still personal data if
      linkable”; EDPB says this directly. (edpb.europa.eu

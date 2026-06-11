@@ -7,6 +7,7 @@ This folder contains operator and developer documentation.
 - `admin-security.md`: identity, tenant, key, SIEM, and local pairing controls
 - `threat-model.md`: data flow, trust boundaries, threats, controls, and residual risk
 - `known-limitations.md`: explicit unsupported or limited surfaces
+- `llm-governance.md`: LLM promotion, privacy eval, and invariant gates
 - `schema.md`: API and artifact contracts
 - `architecture.md`: pipeline architecture overview
 - `accuracy.md`: generated per-detector recall/precision disclosure

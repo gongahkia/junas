@@ -20,6 +20,7 @@ A LoRA-tuned student model (Qwen-1.5B / Phi-3-mini / Gemma-2B class) can recover
 | `distill_train.py` | LoRA fine-tunes a base model on the JSONL with structured-JSON output supervision. `--dry-run` validates the dataset without touching a GPU. |
 | `eval_against_corpus.py` | Runs the trained student over corpora, measures agreement-rate vs deterministic engine, flags invariant violations. |
 | `student_provider.py` | `LocalDistilledAdjudicator` — loads the LoRA adapter + base model and serves `adjudicate()` calls in the same JSON shape as `LocalLLMAdjudicator`. |
+| `promotion_gate.py` | Blocks `local_distilled` promotion unless the model card, privacy eval, adapter path, and invariant eval report pass. |
 
 ## Runtime activation
 
@@ -68,7 +69,12 @@ python3 training/distillation/eval_against_corpus.py \
     --adapter-path training/distillation/student-lora-v1 \
     --base-model Qwen/Qwen2.5-1.5B-Instruct \
     --min-agreement 0.85 \
-    --max-invariant-violations 0
+    --max-invariant-violations 0 \
+    --output-report reports/llm-distillation/student-lora-v1_eval.json
+
+# 5) promotion gate: model card + privacy eval + invariant eval
+python3 training/distillation/promotion_gate.py \
+    --manifest training/distillation/promotion_manifest.json
 ```
 
 ## Architectural invariants preserved
@@ -82,9 +88,13 @@ python3 training/distillation/eval_against_corpus.py \
 - Teacher collection writes a per-call **training ledger** to `${KAYPOH_JOURNAL_DIR}/training_ledger.jsonl` so the auditor can reconstruct exactly which documents went to the teacher.
 - `structured_tokens` mode lets you distill on hashes-only data — the trained student never has the chance to memorise raw document text.
 - The student inference path is fully local: no outbound network calls.
+- Promotion requires `privacy_eval.json` to pass `structured_tokens_default`,
+  `remote_raw_text_blocked`, `tenant_consent_required`, and
+  `privacy_ledger_recorded`.
 
 ## What's intentionally NOT here
 
-- **No automatic baseline-lock-update on student promotion**: `eval_against_corpus.py` reports whether the student meets thresholds; promoting it to production is a separate, deliberate decision.
+- **No ungated student promotion**: `promotion_gate.py` is the promotion decision point.
+  It currently records that no adapter is promoted.
 - **No multi-tenant fine-tuning**: per-tenant LoRA adapters would require a per-tenant journal sanitisation pipeline that doesn't exist yet. v1 pools across consenting tenants.
 - **No quantisation**: the inference path uses bf16/fp32. 4-bit quantisation via `bitsandbytes` is a follow-up once a real adapter exists to measure against.
