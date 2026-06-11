@@ -10,7 +10,7 @@ from unittest import mock
 from fastapi.testclient import TestClient
 from PIL import Image
 
-import backend.main as main
+import kaypoh.backend.main as main
 from kaypoh.review.document import extract_review_document
 from kaypoh.review.image_scan import (
     AWSRekognitionImageScanner,
@@ -27,7 +27,7 @@ from kaypoh.review.image_scan import (
     image_boxes_for_span,
     scan_image_candidates,
 )
-from kaypoh.workflow.privacy_guard import PrivacyGuard
+from kaypoh.external.privacy_guard import PrivacyGuard
 
 
 @asynccontextmanager

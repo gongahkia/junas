@@ -64,7 +64,7 @@ class TenantIsolationTests(unittest.TestCase):
         self._old_env = {key: os.environ.get(key) for key in self._env}
         os.environ.update(self._env)
 
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         import kaypoh.anonymize.mapping_store as mapping_mod
         import kaypoh.review.decisions as decisions_mod
         import kaypoh.review.journal as journal_mod
@@ -85,7 +85,7 @@ class TenantIsolationTests(unittest.TestCase):
                 os.environ.pop(key, None)
             else:
                 os.environ[key] = old_value
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
 
         importlib.reload(main_mod)
 
@@ -187,7 +187,7 @@ class TenantJWTAuthTests(unittest.TestCase):
         self._old_env = {key: os.environ.get(key) for key in self._env}
         os.environ.update(self._env)
 
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
 
         importlib.reload(main_mod)
         self.main = main_mod
@@ -202,7 +202,7 @@ class TenantJWTAuthTests(unittest.TestCase):
                 os.environ.pop(key, None)
             else:
                 os.environ[key] = old_value
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
 
         importlib.reload(main_mod)
 

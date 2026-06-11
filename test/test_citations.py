@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 
 from fastapi.testclient import TestClient
 
-import backend.main as main
+import kaypoh.backend.main as main
 from kaypoh.review.citations import mnpi_rationale, pii_rationale
 
 

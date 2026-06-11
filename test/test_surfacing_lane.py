@@ -114,7 +114,7 @@ class SurfacingLaneApiTests(unittest.TestCase):
             reason="tenant wants medium findings in daily digest",
             actor="test",
         )
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         import kaypoh.review.decisions as decisions_mod
         import kaypoh.review.journal as journal_mod
 
@@ -134,7 +134,7 @@ class SurfacingLaneApiTests(unittest.TestCase):
                 os.environ.pop(key, None)
             else:
                 os.environ[key] = old_value
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
 
         importlib.reload(main_mod)
 

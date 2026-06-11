@@ -33,7 +33,7 @@
 
 ## FastAPI Orchestration
 
-- Canonical app entrypoint is `kaypoh.backend.main:app`; `backend.main:app` remains as a compatibility shim.
+- Canonical app entrypoint is `kaypoh.backend.main:app`; root `backend.*`, `api.*`, and `configs.*` shims are not supported.
 - Default pipeline is empty because the deterministic engine is called directly.
 - Configurable optional layers are `public_evidence` and `llm_adjudicator`.
 - `GET /health`, `/ready`, `/diagnostics`, and `/metrics` expose runtime status.

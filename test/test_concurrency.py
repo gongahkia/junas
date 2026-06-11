@@ -5,7 +5,7 @@ import unittest
 from concurrent.futures import ThreadPoolExecutor
 from unittest.mock import patch
 
-import backend.main as main
+import kaypoh.backend.main as main
 
 
 class ConcurrencyTests(unittest.TestCase):

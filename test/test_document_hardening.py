@@ -8,7 +8,7 @@ from io import BytesIO
 
 from fastapi.testclient import TestClient
 
-import backend.main as main
+import kaypoh.backend.main as main
 from kaypoh.review.container_scan import scan_container
 from kaypoh.review.metadata import inspect_metadata
 

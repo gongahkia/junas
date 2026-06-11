@@ -94,9 +94,9 @@ def start_backend(args: argparse.Namespace) -> subprocess.Popen:
         env["KAYPOH_CONFIG"] = str(args.config.resolve())
 
     if shutil.which("uv"):
-        cmd = ["uv", "run", "uvicorn", "backend.main:app", "--host", "127.0.0.1", "--port", str(args.port)]
+        cmd = ["uv", "run", "uvicorn", "kaypoh.backend.main:app", "--host", "127.0.0.1", "--port", str(args.port)]
     else:
-        cmd = [sys.executable, "-m", "uvicorn", "backend.main:app", "--host", "127.0.0.1", "--port", str(args.port)]
+        cmd = [sys.executable, "-m", "uvicorn", "kaypoh.backend.main:app", "--host", "127.0.0.1", "--port", str(args.port)]
     return subprocess.Popen(cmd, cwd=str(ROOT), env=env)
 
 

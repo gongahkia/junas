@@ -10,13 +10,11 @@ from kaypoh import KaypohClient
 from kaypoh import AsyncKaypohClient
 ```
 
-Repo-local compatibility imports also exist:
+Repo-local module import:
 
 ```python
-from backend.client import KaypohClient
-from backend.client import AsyncKaypohClient
-from api.client import KaypohClient
-from api.client import AsyncKaypohClient
+from kaypoh.client import KaypohClient
+from kaypoh.client import AsyncKaypohClient
 ```
 
 ## Install

@@ -6,7 +6,7 @@ from io import BytesIO
 
 from fastapi.testclient import TestClient
 
-import backend.main as main
+import kaypoh.backend.main as main
 
 
 @asynccontextmanager
@@ -15,7 +15,7 @@ async def _noop_lifespan(app):
 
 
 # applied here AND in setUp so the test stays correct even after a sibling test does
-# importlib.reload(backend.main), which rebinds `main.app` to a fresh FastAPI instance
+# importlib.reload(kaypoh.backend.main), which rebinds `main.app` to a fresh FastAPI instance
 # whose lifespan would otherwise pull real models and clobber `_state["models"]`.
 main.app.router.lifespan_context = _noop_lifespan
 
@@ -103,7 +103,7 @@ def _docx_base64(paragraphs: list[str]) -> str:
 class PreSendReviewApiTests(unittest.TestCase):
     def setUp(self):
         # re-apply the noop lifespan because sibling test modules may have reloaded
-        # backend.main, which rebinds `app` to a fresh FastAPI instance with the real
+        # kaypoh.backend.main, which rebinds `app` to a fresh FastAPI instance with the real
         # lifespan attached. without this, the lifespan loads real layer models and
         # clobbers `_state["models"]` between the test setting up dummies and TestClient
         # firing the request.

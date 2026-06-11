@@ -14,7 +14,7 @@ regress them without breaking the build:
 import unittest
 
 from kaypoh.review.engine import PreSendReviewEngine
-from kaypoh.workflow.privacy_guard import PrivacyGuard
+from kaypoh.external.privacy_guard import PrivacyGuard
 
 
 def _rules_matched(text: str, *, jurisdiction: str = "SG") -> list[tuple[str, str]]:

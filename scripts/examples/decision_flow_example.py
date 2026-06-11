@@ -9,7 +9,7 @@ Run:
     KAYPOH_REVIEW_PERSIST=1 KAYPOH_DEV_AUTH=1 \\
       KAYPOH_JOURNAL_KEY=$(openssl rand -hex 32) \\
       KAYPOH_SUBJECT_INDEX_KEY=$(openssl rand -hex 32) \\
-      uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+      uvicorn kaypoh.backend.main:app --reload --host 0.0.0.0 --port 8000
 
     python3 scripts/examples/decision_flow_example.py \\
         --reviewer-id "priya.raman@example.bank" \\

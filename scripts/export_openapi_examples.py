@@ -210,7 +210,7 @@ def build_curl_block(
 
 
 def main() -> int:
-    import backend.main as backend_main
+    import kaypoh.backend.main as backend_main
 
     parser = argparse.ArgumentParser(description="Export Postman collection and curl snippets from OpenAPI")
     parser.add_argument(
@@ -246,7 +246,7 @@ def main() -> int:
     collection = {
         "info": {
             "name": "Kaypoh API (Generated from OpenAPI)",
-            "description": "Generated from backend.main:app OpenAPI contract.",
+            "description": "Generated from kaypoh.backend.main:app OpenAPI contract.",
             "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
         },
         "variable": [
@@ -273,7 +273,7 @@ def main() -> int:
         "#!/bin/bash",
         "set -euo pipefail",
         "",
-        "# Generated from backend.main:app OpenAPI contract.",
+        "# Generated from kaypoh.backend.main:app OpenAPI contract.",
         'BASE_URL="${BASE_URL:-http://localhost:8000}"',
         "",
     ]

@@ -24,7 +24,7 @@ class SubjectErasureIndexTests(unittest.TestCase):
         os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
         os.environ["KAYPOH_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         import kaypoh.anonymize.mapping_store as mapping_mod
         import kaypoh.review.decisions as decisions_mod
         import kaypoh.review.journal as journal_mod
@@ -56,7 +56,7 @@ class SubjectErasureIndexTests(unittest.TestCase):
             "KAYPOH_SUBJECT_INDEX_KEY",
         ):
             os.environ.pop(var, None)
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
 
         importlib.reload(main_mod)
 

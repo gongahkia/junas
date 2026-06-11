@@ -57,7 +57,7 @@ def main(argv: list[str] | None = None) -> int:
 
     from kaypoh.configs.runtime import get_runtime_settings
     from kaypoh.review.engine import PreSendReviewEngine
-    from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
+    from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
 
     fixture = args.fixture if args.fixture.is_absolute() else REPO_ROOT / args.fixture
     labels = json.loads(fixture.with_suffix(".labels.json").read_text(encoding="utf-8"))

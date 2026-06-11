@@ -25,7 +25,7 @@ rm -rf "${PROM_DIR}"
 mkdir -p "${PROM_DIR}"
 
 echo "Booting production backend on ${BACKEND_URL}..."
-uvicorn_cmd backend.main:app \
+uvicorn_cmd kaypoh.backend.main:app \
     --host "${HOST}" \
     --port "${PORT}" \
     --workers "${WORKERS}" \

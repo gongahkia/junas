@@ -23,7 +23,7 @@ The default runtime is deterministic-only. `PIPELINE_LAYERS` should normally be 
 Manual launch:
 
 ```sh
-uv run uvicorn backend.main:app --host 0.0.0.0 --port 8000
+uv run uvicorn kaypoh.backend.main:app --host 0.0.0.0 --port 8000
 ```
 
 ## Docker
@@ -55,7 +55,7 @@ KAYPOH_PUBLIC_EVIDENCE_ENABLED=1 \
 KAYPOH_PUBLIC_EVIDENCE_PROVIDER=serper \
 SERPER_API_KEY=... \
 PIPELINE_LAYERS=public_evidence \
-uv run uvicorn backend.main:app --host 0.0.0.0 --port 8000
+uv run uvicorn kaypoh.backend.main:app --host 0.0.0.0 --port 8000
 ```
 
 Supported providers: `exa`, `tinyfish`, `serper`, `serpapi`, `none`.
@@ -73,7 +73,7 @@ KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=1 \
 KAYPOH_LLM_TENANT_OPT_IN_OPENAI=1 \
 KAYPOH_LLM_INPUT_MODE=structured_tokens \
 PIPELINE_LAYERS=llm_adjudicator \
-uv run uvicorn backend.main:app --host 0.0.0.0 --port 8000
+uv run uvicorn kaypoh.backend.main:app --host 0.0.0.0 --port 8000
 ```
 
 Audit-grade helper layers are separate opt-ins. They are never called by `review_profile=strict`.
@@ -83,7 +83,7 @@ KAYPOH_LLM_ENABLED=1 \
 KAYPOH_LLM_DEFINED_TERMS_ENABLED=1 \
 KAYPOH_LLM_COVERAGE_AUDIT_ENABLED=1 \
 PIPELINE_LAYERS=llm_defined_term_extractor,llm_coverage_auditor \
-uv run uvicorn backend.main:app --host 0.0.0.0 --port 8000
+uv run uvicorn kaypoh.backend.main:app --host 0.0.0.0 --port 8000
 ```
 
 `llm_defined_term_extractor` sends only the capped document preamble. If the LLM endpoint is remote, it requires `KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=1` and `KAYPOH_LLM_ALLOW_REMOTE_RAW_TEXT=1`. `llm_coverage_auditor` sends only a structured finding summary plus the document hash.

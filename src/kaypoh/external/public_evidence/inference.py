@@ -6,7 +6,7 @@ from typing import Any
 
 import httpx
 
-from kaypoh.workflow.privacy_guard import PrivacyGuard
+from kaypoh.external.privacy_guard import PrivacyGuard
 
 YEAR_RE = re.compile(r"\b20\d{2}\b")
 

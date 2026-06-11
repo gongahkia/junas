@@ -211,7 +211,7 @@ def _resolve_adjudicator(provider_arg: str) -> TeacherAdjudicator:
         return TeacherAdjudicator(_Mock())
 
     from kaypoh.configs.runtime import get_runtime_settings
-    from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
+    from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
 
     settings = get_runtime_settings()
     return TeacherAdjudicator(LocalLLMAdjudicator(settings.llm))
@@ -230,7 +230,7 @@ def _build_user_content_for_row(*, input_mode: str, text: str, classification: s
     if input_mode == "raw_text":
         return build_user_content_raw_text(text=text, current_classification=classification)
     if input_mode == "structured_tokens":
-        from kaypoh.workflow.layer8_llm_adjudicator.structured_query import (
+        from kaypoh.advisory.llm_adjudicator.structured_query import (
             build_structured_query,
         )
         query = build_structured_query(

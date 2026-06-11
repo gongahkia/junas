@@ -6,7 +6,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-import backend.main as main
+import kaypoh.backend.main as main
 from kaypoh.review import citations
 from kaypoh.review.engine import EntitySizeLookup, PreSendReviewEngine
 

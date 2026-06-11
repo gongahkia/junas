@@ -22,7 +22,7 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
         os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
         os.environ["KAYPOH_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         import kaypoh.review.decisions as decisions_mod
         import kaypoh.review.journal as journal_mod
 
@@ -46,7 +46,7 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
             "KAYPOH_DEV_AUTH",
         ):
             os.environ.pop(var, None)
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         importlib.reload(main_mod)
 
     def _start_session(self, client: TestClient) -> str:
@@ -173,7 +173,7 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
 class ReviewSessionPersistenceDisabledTests(unittest.TestCase):
     def setUp(self):
         os.environ.pop("KAYPOH_REVIEW_PERSIST", None)
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         importlib.reload(main_mod)
         self.main = main_mod
         self.main._state.clear()
@@ -181,7 +181,7 @@ class ReviewSessionPersistenceDisabledTests(unittest.TestCase):
         self.main.app.router.lifespan_context = _noop_lifespan
 
     def tearDown(self):
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         importlib.reload(main_mod)
 
     def test_decision_endpoint_returns_409_when_persistence_disabled(self):

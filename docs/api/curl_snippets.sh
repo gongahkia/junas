@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Generated from backend.main:app OpenAPI contract.
+# Generated from kaypoh.backend.main:app OpenAPI contract.
 BASE_URL="${BASE_URL:-http://localhost:8000}"
 
 # POST /anonymize - Anonymize a document irreversibly

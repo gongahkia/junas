@@ -49,7 +49,7 @@ def _subprocess_with_blocked_deps(snippet: str) -> subprocess.CompletedProcess:
 class LocalSkuRuntimeTests(unittest.TestCase):
     def test_backend_main_importable_without_heavy_deps(self):
         result = _subprocess_with_blocked_deps(
-            "import backend.main as main\n"
+            "import kaypoh.backend.main as main\n"
             "paths = sorted(r.path for r in main.app.routes if hasattr(r, 'methods'))\n"
             "assert '/anonymize' in paths, paths\n"
             "assert '/reidentify' in paths, paths\n"

@@ -134,7 +134,7 @@ class LocalDistilledAdjudicator:
                 )},
             ]
         if self.input_mode == "structured_tokens":
-            from kaypoh.workflow.layer8_llm_adjudicator.structured_query import (
+            from kaypoh.advisory.llm_adjudicator.structured_query import (
                 build_structured_query,
             )
             query = build_structured_query(

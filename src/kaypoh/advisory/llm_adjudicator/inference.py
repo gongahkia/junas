@@ -216,7 +216,7 @@ class LocalLLMAdjudicator:
         """Build the system+user messages for structured-tokens mode. The LLM sees only
         the structured query (rule names, severities, jurisdiction codes, body hash,
         per-finding context-window hashes) — no raw document text."""
-        from kaypoh.workflow.layer8_llm_adjudicator.structured_query import STRUCTURED_REASONS
+        from kaypoh.advisory.llm_adjudicator.structured_query import STRUCTURED_REASONS
 
         allowed_reasons = ", ".join(sorted(STRUCTURED_REASONS))
         return [
@@ -504,7 +504,7 @@ class LocalLLMAdjudicator:
             if self.llm_input_mode == "structured_tokens":
                 # privacy-hardened path: no raw text or matched_text leaves the process.
                 # builder, transport, and response-clamp all live in structured_query.py.
-                from kaypoh.workflow.layer8_llm_adjudicator.structured_query import (
+                from kaypoh.advisory.llm_adjudicator.structured_query import (
                     build_structured_query,
                     clamp_structured_output,
                 )

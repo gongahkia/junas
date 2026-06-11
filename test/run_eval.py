@@ -152,10 +152,10 @@ def main():
         env.setdefault("UV_PROJECT_ENVIRONMENT", str(REPO_ROOT / ".venv-uv"))
         env.setdefault("UV_PYTHON", "3.12")
         if shutil.which("uv"):
-            cmd = ["uv", "run", "uvicorn", "backend.main:app",
+            cmd = ["uv", "run", "uvicorn", "kaypoh.backend.main:app",
                    "--host", "0.0.0.0", "--port", str(args.port)]
         else:
-            cmd = [sys.executable, "-m", "uvicorn", "backend.main:app",
+            cmd = [sys.executable, "-m", "uvicorn", "kaypoh.backend.main:app",
                    "--host", "0.0.0.0", "--port", str(args.port)]
         print(f"[eval] config  : {config_path}")
         print(f"[eval] data    : {data_path}")

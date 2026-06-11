@@ -20,7 +20,7 @@ from types import SimpleNamespace
 import httpx
 
 from kaypoh.configs.runtime import ConfigError, load_runtime_settings
-from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
+from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
 
 
 def _llm_settings(

@@ -19,7 +19,7 @@ echo "Running preflight checks..."
 run_preflight
 
 echo "Booting FastAPI backend on ${BACKEND_URL}..."
-uvicorn_cmd backend.main:app \
+uvicorn_cmd kaypoh.backend.main:app \
     --host "${HOST}" \
     --port "${PORT}" \
     --log-level "${LOG_LEVEL}" \

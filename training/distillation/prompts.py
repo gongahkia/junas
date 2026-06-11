@@ -69,7 +69,7 @@ def build_user_content_raw_text(*, text: str, current_classification: str) -> st
 
 def build_user_content_structured_tokens(structured_query: dict[str, Any]) -> str:
     """User-turn content for structured_tokens mode. The structured query is built
-    by `kaypoh.workflow.layer8_llm_adjudicator.structured_query.build_structured_query`
+    by `kaypoh.advisory.llm_adjudicator.structured_query.build_structured_query`
     at runtime; distillation builds the same query and trains the student to emit
     the closed-vocabulary response."""
     return json.dumps(structured_query, ensure_ascii=False, sort_keys=True)

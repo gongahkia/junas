@@ -7,7 +7,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-import backend.main as main
+import kaypoh.backend.main as main
 from kaypoh.configs import runtime
 from kaypoh.review.engine import PreSendReviewEngine
 

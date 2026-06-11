@@ -24,7 +24,7 @@ from kaypoh.review.detectors import (
 from kaypoh.review.document_structure import parse_document_structure
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
 from kaypoh.review.jurisdictions import JurisdictionRulePack, normalize_jurisdiction, resolve_rule_packs
-from kaypoh.workflow.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
+from kaypoh.external.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
 
 SG_NRIC_RE = re.compile(r"\b[STFGM]\d{7}[A-Z]\b", re.IGNORECASE)
 # ACRA UEN: legacy 8-9 digit + check letter; new T-format.
@@ -1973,7 +1973,7 @@ def _clamped_llm_warning_severity(warning: dict[str, Any]) -> str:
 
 
 def _structured_reason_for_warning(warning: dict[str, Any]) -> str:
-    from kaypoh.workflow.layer8_llm_adjudicator.structured_query import STRUCTURED_REASONS
+    from kaypoh.advisory.llm_adjudicator.structured_query import STRUCTURED_REASONS
 
     candidate = str(
         warning.get("structured_reason")

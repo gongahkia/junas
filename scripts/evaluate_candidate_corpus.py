@@ -69,8 +69,8 @@ def _configured_audit_grade_engine() -> PreSendReviewEngine:
     settings = get_runtime_settings()
     public_evidence = None
     if settings.public_evidence.enabled:
-        from kaypoh.workflow.layer7_public_evidence.inference import PublicEvidenceRetriever
-        from kaypoh.workflow.privacy_guard import PrivacyGuard
+        from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
+        from kaypoh.external.privacy_guard import PrivacyGuard
 
         public_evidence = PublicEvidenceRetriever(
             settings.public_evidence,
@@ -82,17 +82,17 @@ def _configured_audit_grade_engine() -> PreSendReviewEngine:
         )
     llm_adjudicator = None
     if settings.llm.enabled:
-        from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
+        from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
 
         llm_adjudicator = LocalLLMAdjudicator(settings.llm)
     llm_defined_term_extractor = None
     llm_coverage_auditor = None
     if settings.llm.enabled and settings.llm_helpers.defined_terms_enabled:
-        from kaypoh.workflow.layer8_llm_adjudicator.helpers import build_llm_defined_term_extractor
+        from kaypoh.advisory.llm_adjudicator.helpers import build_llm_defined_term_extractor
 
         llm_defined_term_extractor = build_llm_defined_term_extractor(settings.llm)
     if settings.llm.enabled and settings.llm_helpers.coverage_audit_enabled:
-        from kaypoh.workflow.layer8_llm_adjudicator.helpers import build_llm_coverage_auditor
+        from kaypoh.advisory.llm_adjudicator.helpers import build_llm_coverage_auditor
 
         llm_coverage_auditor = build_llm_coverage_auditor(settings.llm)
     return PreSendReviewEngine(

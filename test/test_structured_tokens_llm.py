@@ -18,8 +18,8 @@ from types import SimpleNamespace
 
 import httpx
 
-from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
-from kaypoh.workflow.layer8_llm_adjudicator.structured_query import (
+from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
+from kaypoh.advisory.llm_adjudicator.structured_query import (
     STRUCTURED_REASONS,
     build_structured_query,
     clamp_structured_output,

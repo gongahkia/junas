@@ -25,7 +25,7 @@ def main() -> int:
     _set_local_defaults()
     import uvicorn
 
-    from backend.main import app  # noqa: F401  -- ensures app symbol resolves
+    from kaypoh.backend.main import app  # noqa: F401  -- ensures app symbol resolves
 
     host = os.environ["KAYPOH_HOST"]
     port = int(os.environ["KAYPOH_PORT"])
@@ -40,9 +40,9 @@ def main() -> int:
             os.unlink(socket_path)
         except FileNotFoundError:
             pass
-        uvicorn.run("backend.main:app", uds=socket_path, log_level=log_level)
+        uvicorn.run("kaypoh.backend.main:app", uds=socket_path, log_level=log_level)
     else:
-        uvicorn.run("backend.main:app", host=host, port=port, log_level=log_level)
+        uvicorn.run("kaypoh.backend.main:app", host=host, port=port, log_level=log_level)
     return 0
 
 

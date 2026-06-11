@@ -17,13 +17,13 @@ run_preflight
 
 echo "Starting backend only on ${BACKEND_URL}..."
 if [ "${RELOAD}" = "1" ]; then
-    uvicorn_cmd backend.main:app \
+    uvicorn_cmd kaypoh.backend.main:app \
         --host "${HOST}" \
         --port "${PORT}" \
         --log-level "${LOG_LEVEL}" \
         --reload &
 else
-    uvicorn_cmd backend.main:app \
+    uvicorn_cmd kaypoh.backend.main:app \
         --host "${HOST}" \
         --port "${PORT}" \
         --log-level "${LOG_LEVEL}" &

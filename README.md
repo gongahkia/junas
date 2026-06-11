@@ -11,14 +11,19 @@ Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI rev
 
 ## Layout
 
-- `src/kaypoh/`: canonical Python package.
-- `backend/`, `api/`, `configs/`: compatibility shims for older imports.
-- `scripts/`: UV-first launchers, preflight, recall gates, audit tooling.
+- `src/kaypoh/backend/`: FastAPI app, auth, schemas, observability, and SIEM.
+- `src/kaypoh/review/`: deterministic PII/MNPI review engine, citations, and jurisdiction packs.
+- `src/kaypoh/anonymize/`: placeholder rewriting, mapping persistence, and reidentification.
+- `src/kaypoh/external/`: PrivacyGuard and opt-in public-evidence providers.
+- `src/kaypoh/advisory/`: advisory-only LLM helpers and signals.
+- `src/kaypoh/ingest/`: document/corpus parser support.
+- `scripts/`: UV-first launchers, preflight, recall gates, audit, and packaging tooling.
 - `test/`: automated tests and legal-contract corpora.
+- `reports/`: committed evaluation evidence and generated benchmark reports.
 - `training/distillation/`: pivot-aligned local-student distillation work.
 - `packaging/`: PyInstaller local desktop packaging.
 
-The archived layer1-6 classifier stack, old artifact manifest, root helper folder, and classifier training entrypoints have been removed.
+The archived layer1-6 classifier stack, old artifact manifest, root helper folder, classifier training entrypoints, and root import shims have been removed.
 
 ## Common Commands
 

@@ -60,7 +60,7 @@ jobs:
       - name: Start server
         run: |
           mkdir -p reports
-          uv run uvicorn backend.main:app --host 127.0.0.1 --port 8131 > reports/live_latency_uvicorn.log 2>&1 &
+          uv run uvicorn kaypoh.backend.main:app --host 127.0.0.1 --port 8131 > reports/live_latency_uvicorn.log 2>&1 &
           echo "$!" > reports/live_latency_uvicorn.pid
       - name: Wait for readiness
         run: |

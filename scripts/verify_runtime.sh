@@ -152,7 +152,7 @@ start_server() {
     export KAYPOH_FAIL_ON_LAYER_LOAD_ERROR=1
     export KAYPOH_PRETTY_LOGS=0
     export PIPELINE_LAYERS=
-    exec "${UVICORN_CMD[@]}" backend.main:app --host "$HOST" --port "$port" --log-level warning
+    exec "${UVICORN_CMD[@]}" kaypoh.backend.main:app --host "$HOST" --port "$port" --log-level warning
   ) >"$SERVER_LOG" 2>&1 &
   SERVER_PID=$!
 
@@ -228,7 +228,7 @@ main() {
       src/kaypoh/backend/main.py \
       src/kaypoh/backend/schemas.py \
       src/kaypoh/configs/runtime.py \
-      src/kaypoh/workflow/layer7_public_evidence/inference.py \
+      src/kaypoh/external/public_evidence/inference.py \
       scripts/preflight.py \
       test/test_runtime_settings_validation.py \
       test/test_backend_only_layout.py \

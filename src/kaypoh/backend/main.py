@@ -135,7 +135,7 @@ from kaypoh.review.image_scan import (
 )
 from kaypoh.review.metadata import scrub_document
 from kaypoh.review.subject_index import SubjectIndexError, index_review_findings, require_subject_index_key
-from kaypoh.workflow.privacy_guard import PrivacyGuard
+from kaypoh.external.privacy_guard import PrivacyGuard
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -538,7 +538,7 @@ def get_dependency_status() -> dict[str, DependencyStatus]:
         )
     elif settings.llm.enabled:
         try:
-            from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
+            from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
 
             statuses["llm_adjudicator"] = _status_from_health(
                 LocalLLMAdjudicator(settings.llm).health(),
@@ -567,7 +567,7 @@ def get_dependency_status() -> dict[str, DependencyStatus]:
             statuses[helper_name] = _status_from_health(helper.health(), configured_default=enabled)
         elif enabled:
             try:
-                from kaypoh.workflow.layer8_llm_adjudicator.helpers import (
+                from kaypoh.advisory.llm_adjudicator.helpers import (
                     build_llm_coverage_auditor,
                     build_llm_defined_term_extractor,
                 )
@@ -1067,8 +1067,8 @@ def _build_review_engine() -> PreSendReviewEngine:
 
     public_evidence = get_layer_model("public_evidence")
     if public_evidence is None and settings.public_evidence.enabled:
-        from kaypoh.workflow.layer7_public_evidence.inference import PublicEvidenceRetriever
-        from kaypoh.workflow.privacy_guard import PrivacyGuard
+        from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
+        from kaypoh.external.privacy_guard import PrivacyGuard
 
         public_evidence = PublicEvidenceRetriever(
             settings.public_evidence,
@@ -1081,7 +1081,7 @@ def _build_review_engine() -> PreSendReviewEngine:
 
     llm_adjudicator = get_layer_model("llm_adjudicator")
     if llm_adjudicator is None and settings.llm.enabled:
-        from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
+        from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
 
         llm_adjudicator = LocalLLMAdjudicator(settings.llm)
 
@@ -1090,14 +1090,14 @@ def _build_review_engine() -> PreSendReviewEngine:
     # touching the engine. when unwired, engine falls through to the deterministic regex.
     llm_defined_term_extractor = get_layer_model("llm_defined_term_extractor")
     if llm_defined_term_extractor is None and settings.llm_helpers.defined_terms_enabled:
-        from kaypoh.workflow.layer8_llm_adjudicator.helpers import build_llm_defined_term_extractor
+        from kaypoh.advisory.llm_adjudicator.helpers import build_llm_defined_term_extractor
 
         llm_defined_term_extractor = build_llm_defined_term_extractor(settings.llm)
     # audit_grade-only inverse-audit helper. output is journaled as coverage_warning
     # events and promoted to capped origin=llm findings by the engine.
     llm_coverage_auditor = get_layer_model("llm_coverage_auditor")
     if llm_coverage_auditor is None and settings.llm_helpers.coverage_audit_enabled:
-        from kaypoh.workflow.layer8_llm_adjudicator.helpers import build_llm_coverage_auditor
+        from kaypoh.advisory.llm_adjudicator.helpers import build_llm_coverage_auditor
 
         llm_coverage_auditor = build_llm_coverage_auditor(settings.llm)
 
@@ -1954,19 +1954,19 @@ async def lifespan(app: FastAPI):
         t_layer = time.perf_counter()
         try:
             if layer == "public_evidence":
-                evidence_mod = importlib.import_module("kaypoh.workflow.layer7_public_evidence.inference")
+                evidence_mod = importlib.import_module("kaypoh.external.public_evidence.inference")
                 _state["models"]["public_evidence"] = evidence_mod.PublicEvidenceRetriever.load()
 
             elif layer == "llm_adjudicator":
-                llm_mod = importlib.import_module("kaypoh.workflow.layer8_llm_adjudicator.inference")
+                llm_mod = importlib.import_module("kaypoh.advisory.llm_adjudicator.inference")
                 _state["models"]["llm_adjudicator"] = llm_mod.LocalLLMAdjudicator.load()
             elif layer == "llm_defined_term_extractor":
-                helpers_mod = importlib.import_module("kaypoh.workflow.layer8_llm_adjudicator.helpers")
+                helpers_mod = importlib.import_module("kaypoh.advisory.llm_adjudicator.helpers")
                 _state["models"]["llm_defined_term_extractor"] = (
                     helpers_mod.build_llm_defined_term_extractor(settings.llm)
                 )
             elif layer == "llm_coverage_auditor":
-                helpers_mod = importlib.import_module("kaypoh.workflow.layer8_llm_adjudicator.helpers")
+                helpers_mod = importlib.import_module("kaypoh.advisory.llm_adjudicator.helpers")
                 _state["models"]["llm_coverage_auditor"] = helpers_mod.build_llm_coverage_auditor(settings.llm)
             else:
                 raise ValueError(f"unknown pipeline layer: {layer}")
@@ -2787,4 +2787,4 @@ if __name__ == "__main__":
             i += 1
     sys.argv = filtered_args
 
-    uvicorn.run("backend.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("kaypoh.backend.main:app", host="0.0.0.0", port=8000, reload=True)

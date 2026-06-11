@@ -3,9 +3,9 @@ from contextlib import asynccontextmanager
 from threading import Lock
 from types import SimpleNamespace
 
-import backend.main as main
-from backend.cache import ResponseCache
-from backend.observability import ObservabilityManager
+import kaypoh.backend.main as main
+from kaypoh.backend.cache import ResponseCache
+from kaypoh.backend.observability import ObservabilityManager
 
 
 @asynccontextmanager

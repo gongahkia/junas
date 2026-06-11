@@ -35,7 +35,7 @@ class MappingStorePersistTests(unittest.TestCase):
         os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
         os.environ["KAYPOH_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         import kaypoh.anonymize.mapping_store as mapping_mod
         import kaypoh.review.journal as journal_mod
 
@@ -58,7 +58,7 @@ class MappingStorePersistTests(unittest.TestCase):
             "KAYPOH_SUBJECT_INDEX_KEY",
         ):
             os.environ.pop(var, None)
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         importlib.reload(main_mod)
 
     def test_pseudonymize_persists_mapping_and_reidentify_recovers_from_hash(self):
@@ -125,7 +125,7 @@ class MappingStorePersistTests(unittest.TestCase):
     def test_anonymize_does_not_persist_when_persistence_disabled(self):
         os.environ["KAYPOH_REVIEW_PERSIST"] = "0"
         # rebind the persistence flag without reimporting the whole module
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         importlib.reload(main_mod)
         main_mod._state.clear()
         main_mod.app.openapi_schema = None
@@ -149,7 +149,7 @@ class MappingStorePersistTests(unittest.TestCase):
 
     def test_encrypted_mapping_persists_without_plaintext_and_reidentifies(self):
         os.environ["KAYPOH_MAPPING_STORE_KEY"] = Fernet.generate_key().decode("ascii")
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         import kaypoh.anonymize.mapping_store as mapping_mod
 
         importlib.reload(mapping_mod)
@@ -270,7 +270,7 @@ class MappingStorePersistTests(unittest.TestCase):
 class ReidentifyInlineMappingStillWorksTests(unittest.TestCase):
     def setUp(self):
         os.environ.pop("KAYPOH_REVIEW_PERSIST", None)
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         importlib.reload(main_mod)
         self.main = main_mod
         self.main._state.clear()
@@ -278,7 +278,7 @@ class ReidentifyInlineMappingStillWorksTests(unittest.TestCase):
         self.main.app.router.lifespan_context = _noop_lifespan
 
     def tearDown(self):
-        import backend.main as main_mod
+        import kaypoh.backend.main as main_mod
         importlib.reload(main_mod)
 
     def test_inline_mapping_still_accepted_without_document_hash(self):

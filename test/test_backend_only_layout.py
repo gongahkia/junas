@@ -4,7 +4,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-import backend.main as main
+import kaypoh.backend.main as main
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -46,19 +46,22 @@ class BackendOnlyLayoutTests(unittest.TestCase):
         for path in expected_paths:
             self.assertTrue(path.exists(), f"missing launcher: {path}")
 
-    def test_workflow_layout_is_in_canonical_package(self):
+    def test_runtime_layout_is_in_canonical_package(self):
         expected_paths = [
-            ROOT / "src" / "kaypoh" / "workflow" / "layer0_parser" / "parse_docs.py",
-            ROOT / "src" / "kaypoh" / "workflow" / "layer7_public_evidence" / "inference.py",
-            ROOT / "src" / "kaypoh" / "workflow" / "layer8_llm_adjudicator" / "inference.py",
-            ROOT / "src" / "kaypoh" / "workflow" / "privacy_guard.py",
+            ROOT / "src" / "kaypoh" / "ingest" / "parser_tools" / "parse_docs.py",
+            ROOT / "src" / "kaypoh" / "external" / "public_evidence" / "inference.py",
+            ROOT / "src" / "kaypoh" / "advisory" / "llm_adjudicator" / "inference.py",
+            ROOT / "src" / "kaypoh" / "external" / "privacy_guard.py",
         ]
         for path in expected_paths:
-            self.assertTrue(path.exists(), f"missing workflow file: {path}")
+            self.assertTrue(path.exists(), f"missing runtime file: {path}")
 
     def test_removed_legacy_layout_is_absent(self):
         removed_paths = [
             ROOT / "backend" / "workflow",
+            ROOT / "api",
+            ROOT / "backend",
+            ROOT / "configs",
             ROOT / "clustering",
             ROOT / "embeddings",
             ROOT / "helper",
@@ -66,6 +69,7 @@ class BackendOnlyLayoutTests(unittest.TestCase):
             ROOT / "model-1",
             ROOT / "model-2",
             ROOT / "scripts" / "train_dev.sh",
+            ROOT / "src" / "kaypoh" / "workflow",
             ROOT / "src" / "kaypoh" / "workflow" / "layer1_lexicon",
             ROOT / "src" / "kaypoh" / "workflow" / "layer2_embeddings",
             ROOT / "src" / "kaypoh" / "workflow" / "layer3_clustering",
@@ -79,18 +83,16 @@ class BackendOnlyLayoutTests(unittest.TestCase):
     def test_folder_readmes_exist(self):
         expected_paths = [
             ROOT / "README.md",
-            ROOT / "api" / "README.md",
             ROOT / "archive" / "README.md",
-            ROOT / "backend" / "README.md",
-            ROOT / "configs" / "README.md",
             ROOT / "docs" / "README.md",
             ROOT / "reports" / "README.md",
             ROOT / "scripts" / "README.md",
             ROOT / "scripts" / "launch" / "README.md",
             ROOT / "src" / "kaypoh" / "backend" / "README.md",
             ROOT / "src" / "kaypoh" / "configs" / "README.md",
+            ROOT / "src" / "kaypoh" / "external" / "README.md",
             ROOT / "src" / "kaypoh" / "helper" / "README.md",
-            ROOT / "src" / "kaypoh" / "workflow" / "README.md",
+            ROOT / "src" / "kaypoh" / "ingest" / "parser_tools" / "README.md",
             ROOT / "test" / "README.md",
             ROOT / "training" / "README.md",
         ]

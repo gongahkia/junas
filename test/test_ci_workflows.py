@@ -17,7 +17,7 @@ class CiWorkflowTests(unittest.TestCase):
     def test_live_latency_job_uses_http_mode(self):
         text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
 
-        self.assertIn("uvicorn backend.main:app", text)
+        self.assertIn("uvicorn kaypoh.backend.main:app", text)
         self.assertIn("--base-url http://127.0.0.1:8131", text)
         self.assertIn("test/fixtures/latency-corpus/5k.txt", text)
 

@@ -10,7 +10,7 @@ from typing import Any, Protocol
 
 import httpx
 
-from kaypoh.workflow.privacy_guard import PrivacyGuard
+from kaypoh.external.privacy_guard import PrivacyGuard
 
 SUPPORTED_IMAGE_MIMES = frozenset(
     {
