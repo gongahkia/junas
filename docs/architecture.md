@@ -1,6 +1,6 @@
 # Kaypoh Architecture
 
-Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI review. `ARCHITECTURE-PIVOT-24-MAY.md` is authoritative; this file is a short operational summary.
+Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI review. This file is the architecture overview.
 
 ## Active API Surface
 
@@ -45,4 +45,4 @@ The helper layers are configurable under `[llm_helpers]`, surfaced by `/ready` a
 
 ## Evaluation Corpus
 
-`ARCHITECTURE-PIVOT-24-MAY.md` owns the detailed corpus plan. As of the committed `20260608-strict-item70v2` strict run, `test/fixtures/legal-corpus-candidates/` contains 1,428 reviewed candidate docs / label sidecars across all 17 in-scope jurisdiction packs (84 docs each; Stage B). The committed eval report is `reports/layer-attribution/20260608-strict-item70v2_strict_candidate_eval.json`: 17,552 strict expected labels, strict recall 1.0, and strict precision 0.9269. The heuristic ideal-miss concentration source is `reports/layer-attribution/20260608-strict-item70v2_strict_miss_concentration.json` and is rendered at `docs/miss_concentration.md`. Candidate fixtures are approved for internal benchmarking and gap discovery only; locked recall baselines and procurement-facing accuracy claims still require explicit promotion.
+The architecture overview owns the committed corpus summary. As of the committed `20260608-strict-item70v2` strict run, `test/fixtures/legal-corpus-candidates/` contains 1,428 reviewed candidate docs / label sidecars across all 17 in-scope jurisdiction packs (84 docs each; Stage B). The committed eval report is `reports/layer-attribution/20260608-strict-item70v2_strict_candidate_eval.json`: 17,552 strict expected labels, strict recall 1.0, and strict precision 0.9269. The heuristic ideal-miss concentration source is `reports/layer-attribution/20260608-strict-item70v2_strict_miss_concentration.json` and is rendered at `docs/miss_concentration.md`. Candidate fixtures are approved for internal benchmarking and gap discovery only; locked recall baselines and procurement-facing accuracy claims still require explicit promotion.

@@ -1,6 +1,6 @@
 # Kaypoh Statutory Coverage
 
-> Last revised 2026-06-11. Procurement-facing artefact mapping every shipped detector to the statute it implements. Authoritative source for "what kaypoh actually detects under PDPA / GDPR / SFA / MAR / Reg FD" assertions. Companion to `ARCHITECTURE-PIVOT-24-MAY.md` §First-Principles Statutory Analysis — that section is the editorial draft; this doc is the standalone artefact a procurement reviewer can hand to compliance.
+> Last revised 2026-06-11. Procurement-facing artefact mapping every shipped detector to the statute it implements. Authoritative source for "what kaypoh actually detects under PDPA / GDPR / SFA / MAR / Reg FD" assertions. Companion to `docs/architecture.md`; this doc is the standalone artefact a procurement reviewer can hand to compliance.
 
 This file is regression-tested. `test/test_statutory_coverage_doc.py` asserts that every jurisdiction in `citations.py:_MNPI_JURISDICTION_SUFFIX` / `_PII_JURISDICTION_SUFFIX`, every detector rule_name in `jurisdictions_data/*.toml`, and every PII/MNPI rationale key in `citations.py` is mentioned somewhere in this file. Drift fails CI.
 
@@ -258,7 +258,7 @@ These rules fire regardless of jurisdiction; the statutory anchor is jurisdictio
 
 ## Known statutory gaps
 
-These statutory concepts are recognised in the first-principles analysis and are either still missing or only seed-implemented. Each maps to an expansion-sequence item in `ARCHITECTURE-PIVOT-24-MAY.md`.
+These statutory concepts are recognised in the first-principles analysis and are either still missing or only seed-implemented. Each maps to an expansion-sequence item in the architecture roadmap.
 
 | Statutory concept | Detector gap | Item |
 |---|---|---|
