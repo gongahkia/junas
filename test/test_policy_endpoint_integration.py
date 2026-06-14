@@ -1,5 +1,6 @@
 import sys
 import unittest
+from datetime import UTC, datetime
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -14,6 +15,11 @@ from kaypoh.policy import ACTION_CATALOG
 
 
 class PolicyEndpointIntegrationTests(unittest.TestCase):
+    def _assert_review_expiry(self, payload):
+        self.assertIn("review_expires_at", payload)
+        expires_at = datetime.fromisoformat(payload["review_expires_at"].replace("Z", "+00:00"))
+        self.assertGreater(expires_at, datetime.now(UTC))
+
     def test_review_response_includes_policy_decision_and_send_allowed(self):
         with TestClient(main.app) as client:
             response = client.post("/review", json={"text": "This public update is safe to share."})
@@ -22,6 +28,7 @@ class PolicyEndpointIntegrationTests(unittest.TestCase):
         payload = response.json()
         self.assertIn("send_allowed", payload)
         self.assertIn("policy_decision", payload)
+        self._assert_review_expiry(payload)
         self.assertEqual(payload["action_catalog"], list(ACTION_CATALOG))
         self.assertIn("policy_decision_ms", payload["timings_ms"])
         self.assertEqual(payload["policy_decision"]["decision"], "allow")
@@ -37,6 +44,7 @@ class PolicyEndpointIntegrationTests(unittest.TestCase):
                 payload = response.json()
                 self.assertIn("send_allowed", payload)
                 self.assertIn("policy_decision", payload)
+                self._assert_review_expiry(payload)
                 self.assertEqual(payload["action_catalog"], list(ACTION_CATALOG))
                 self.assertIn("policy_decision_ms", payload["timings_ms"])
                 self.assertEqual(payload["policy_decision"]["decision"], "allow")

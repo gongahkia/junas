@@ -39,4 +39,4 @@ Adapters must treat `policy_decision` as the source of truth and keep `send_allo
 - Malformed response: treat as no valid policy decision and fail per adapter degradation policy.
 - Missing `review_id`: do not create approval or retry flows; fail the adapter check unless the workflow is read-only.
 - Policy id/version mismatch: continue only when the pinned schema/version policy allows it; otherwise block or require admin intervention.
-- User edits content after review: require a new review unless `review_expires_at` or an equivalent adapter-local validity window proves the decision is still current.
+- User edits content after review: require a new review. If content and workflow context are unchanged, require re-review after `review_expires_at`.

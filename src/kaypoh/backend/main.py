@@ -17,6 +17,7 @@ from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
 from dataclasses import replace
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from threading import Lock, Thread
 from typing import Any
@@ -157,6 +158,7 @@ SUPPRESSED_REQUEST_LOG_PATHS = {"/health", "/ready", "/metrics"}
 SPAN_CONTEXT_CHARS = 48
 LOCAL_PAIRING_TTL_SECONDS = 300
 LOCAL_CLIENT_TOKEN_TTL_SECONDS = 90 * 24 * 60 * 60
+REVIEW_DECISION_VALIDITY_SECONDS = 5 * 60
 LOCAL_DAEMON_PROTECTED_PATHS = {
     "/anonymize",
     "/classify",
@@ -1238,6 +1240,11 @@ def _degraded_send_allowed(req: ReviewRequest, degraded_modes: list[dict[str, An
     return not (req.degraded_policy == "block_send" and bool(degraded_modes))
 
 
+def _review_expires_at() -> str:
+    expires_at = datetime.now(UTC) + timedelta(seconds=REVIEW_DECISION_VALIDITY_SECONDS)
+    return expires_at.isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
 def _policy_decision_response(
     *,
     req: ReviewRequest,
@@ -1309,6 +1316,7 @@ def _build_review_response(
     timings_ms["total"] = round(timings_ms.get("total", 0.0) + policy_decision_ms, 3)
     return ReviewResponse(
         request_id=request_id,
+        review_expires_at=_review_expires_at(),
         overall_risk=result.overall_risk,
         classification=result.overall_risk,
         document_score=result.document_score,

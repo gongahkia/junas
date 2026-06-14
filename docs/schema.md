@@ -33,6 +33,10 @@ uv run python scripts/export_openapi_examples.py
 
 Before policy decisions, `send_allowed=false` only meant degraded coverage was present while `degraded_policy=block_send`. That condition still blocks send, but it is now one input to policy evaluation. High-risk PII, high-risk MNPI, reviewer approval state, public evidence, external destination, cross-border context, and configured tenant policy can also affect the final value.
 
+## Review Expiry
+
+Review and rewrite responses include `review_expires_at`, an RFC 3339 UTC timestamp. Adapters must require a fresh `/review` when the timestamp has passed or when the user changes reviewed text, recipients, attachments, destination context, or tenant policy context before send/share completion.
+
 ## Runtime Status
 
 - `/ready` exposes configured optional layers and readiness.

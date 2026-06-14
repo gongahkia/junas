@@ -66,6 +66,7 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertIn("pii_score", review_response["properties"])
         self.assertIn("mnpi_score", review_response["properties"])
         self.assertIn("send_allowed", review_response["properties"])
+        self.assertIn("review_expires_at", review_response["properties"])
         self.assertIn("document_base64", scrub_request["properties"])
         self.assertIn("metadata_findings", scrub_response["properties"])
         self.assertIn("anonymized_text", anonymize_response["properties"])

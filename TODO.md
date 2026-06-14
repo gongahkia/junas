@@ -40,7 +40,7 @@
 - [x] P0/API: Add `docs/api/versioning.md` defining `/v1` compatibility rules, deprecation policy for `/classify`, and how adapter clients should pin schema versions.
 - [x] P0/API: Decide whether to add `/v1/review` aliases or keep root endpoints for v0.1, and record the decision in an ADR before implementing.
 - [x] P0/API: Add request id and idempotency guidance for adapters so repeated Outlook/browser send checks do not create confusing duplicate review sessions.
-- [ ] P0/API: Add a response field or documented header for `review_expires_at` so adapters know when a user must re-review edited content.
+- [x] P0/API: Add a response field or documented header for `review_expires_at` so adapters know when a user must re-review edited content.
 - [ ] P0/API: Add tests that policy decisions are deterministic for identical text, context, policy config, and tenant.
 - [ ] P0/UserActions: Design a `SafeRewriteRequest` and `SafeRewriteResponse` contract that can rewrite only allowed spans while preserving audit evidence and original finding ids.
 - [ ] P0/UserActions: Implement a first deterministic `safe_rewrite` path that applies policy-approved replacements without calling an LLM.

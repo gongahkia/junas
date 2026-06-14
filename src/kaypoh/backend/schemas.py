@@ -702,6 +702,7 @@ class ReviewResponse(BaseModel):
         json_schema_extra={
             "example": {
                 "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "review_expires_at": "2026-06-14T09:35:00Z",
                 "overall_risk": "HIGH_RISK",
                 "classification": "HIGH_RISK",
                 "document_score": 91.0,
@@ -777,6 +778,13 @@ class ReviewResponse(BaseModel):
     )
 
     request_id: Optional[str] = Field(None, description="Per-request UUID also returned as the X-Request-ID header.")
+    review_expires_at: Optional[str] = Field(
+        None,
+        description=(
+            "RFC 3339 UTC timestamp after which adapters must require a fresh review before completing "
+            "a send/share action."
+        ),
+    )
     overall_risk: Classification = Field(description="Document-level pre-send risk rating.")
     classification: Classification = Field(description="Alias of overall_risk for existing classifier consumers.")
     document_score: float = Field(description="Overall numeric risk score after strictest-wins aggregation.")
@@ -1143,6 +1151,7 @@ class PseudonymizeResponse(ReviewResponse):
         json_schema_extra={
             "example": {
                 "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "review_expires_at": "2026-06-14T09:35:00Z",
                 "overall_risk": "HIGH_RISK",
                 "classification": "HIGH_RISK",
                 "document_score": 91.0,
@@ -1262,6 +1271,7 @@ class AnonymizeResponse(ReviewResponse):
         json_schema_extra={
             "example": {
                 "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "review_expires_at": "2026-06-14T09:35:00Z",
                 "overall_risk": "HIGH_RISK",
                 "classification": "HIGH_RISK",
                 "document_score": 91.0,
