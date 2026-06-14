@@ -32,6 +32,7 @@ POLICY_KEYS = frozenset(
         "high_pii_required_actions",
         "high_mnpi_external_actions",
         "public_mnpi_recommended_actions",
+        "reviewer_override_roles",
         "medium_risk_recommended_actions",
         "low_risk_recommended_actions",
     }
@@ -119,6 +120,11 @@ def _profile_from_table(table: Mapping[str, Any]) -> TenantPolicyProfile:
             "public_mnpi_recommended_actions",
             defaults.public_mnpi_recommended_actions,
         ),
+        reviewer_override_roles=_string_tuple(
+            table,
+            "reviewer_override_roles",
+            defaults.reviewer_override_roles,
+        ),
         medium_risk_recommended_actions=_action_tuple(
             table,
             "medium_risk_recommended_actions",
@@ -200,3 +206,20 @@ def _action_tuple(table: Mapping[str, Any], key: str, default: tuple[str, ...]) 
     if not actions:
         raise PolicyConfigError(f"{key} must contain at least one action")
     return tuple(actions)
+
+
+def _string_tuple(table: Mapping[str, Any], key: str, default: tuple[str, ...]) -> tuple[str, ...]:
+    value = table.get(key, default)
+    if not isinstance(value, (list, tuple)):
+        raise PolicyConfigError(f"{key} must be an array of strings")
+    items: list[str] = []
+    for item in value:
+        if not isinstance(item, str):
+            raise PolicyConfigError(f"{key} entries must be strings")
+        cleaned = item.strip()
+        if not cleaned:
+            raise PolicyConfigError(f"{key} entries must be non-empty")
+        items.append(cleaned)
+    if not items:
+        raise PolicyConfigError(f"{key} must contain at least one value")
+    return tuple(items)

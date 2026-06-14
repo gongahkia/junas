@@ -16,6 +16,8 @@ _DECISION_RANK: dict[PolicyDecisionName, int] = {
 
 @dataclass(frozen=True)
 class WorkflowContext:
+    source_jurisdiction: str | None = None
+    destination_jurisdiction: str | None = None
     surface: str | None = None
     workflow: str | None = None
     actor_role: str | None = None
@@ -30,6 +32,8 @@ class WorkflowContext:
     def from_request(cls, request: Any) -> "WorkflowContext":
         domains = getattr(request, "recipient_domains", None) or ()
         return cls(
+            source_jurisdiction=getattr(request, "source_jurisdiction", None),
+            destination_jurisdiction=getattr(request, "destination_jurisdiction", None),
             surface=getattr(request, "surface", None),
             workflow=getattr(request, "workflow", None),
             actor_role=getattr(request, "actor_role", None),
@@ -52,6 +56,7 @@ class TenantPolicyProfile:
     high_pii_required_actions: tuple[str, ...] = ("redact_pii", "request_approval", "safe_rewrite")
     high_mnpi_external_actions: tuple[str, ...] = ("hold_until_public", "request_approval")
     public_mnpi_recommended_actions: tuple[str, ...] = ("cite_public_source", "proceed_with_warning")
+    reviewer_override_roles: tuple[str, ...] = ("legal_reviewer", "compliance_admin")
     medium_risk_recommended_actions: tuple[str, ...] = ("proceed_with_warning",)
     low_risk_recommended_actions: tuple[str, ...] = ("proceed_with_warning",)
 
@@ -115,6 +120,14 @@ class TenantPolicy:
             draft.promote("block")
             draft.required_actions.add(self.profile.degraded_block_action)
             draft.policy_reasons.add("degraded review coverage requires retry before send")
+        if _is_cross_border_context(context):
+            draft.promote("warn")
+            draft.recommended_actions.update(self.profile.medium_risk_recommended_actions)
+            draft.policy_reasons.add("cross-border destination context should be shown to the user")
+        if _is_external_context(context, self.profile):
+            draft.promote("warn")
+            draft.recommended_actions.update(self.profile.medium_risk_recommended_actions)
+            draft.policy_reasons.add("external recipient domain should be shown to the user")
 
         for finding in findings:
             self._evaluate_finding(finding, context, draft)
@@ -161,7 +174,10 @@ class TenantPolicy:
                 draft.promote("warn")
                 draft.recommended_actions.update(self.profile.medium_risk_recommended_actions)
                 draft.policy_reasons.add("high-risk PII has reviewer approval")
-            elif context.requested_action == "request_approval":
+            elif (
+                context.requested_action == "request_approval"
+                or context.actor_role in self.profile.reviewer_override_roles
+            ):
                 draft.promote("approval_required")
                 draft.required_actions.add("request_approval")
                 draft.blocking_findings.add(finding_id)
@@ -241,6 +257,12 @@ def _is_external_context(context: WorkflowContext, profile: TenantPolicyProfile)
     if not context.recipient_domains or not profile.internal_domains:
         return False
     return any(not _matches_internal_domain(domain, profile.internal_domains) for domain in context.recipient_domains)
+
+
+def _is_cross_border_context(context: WorkflowContext) -> bool:
+    if not context.source_jurisdiction or not context.destination_jurisdiction:
+        return False
+    return context.source_jurisdiction.upper() != context.destination_jurisdiction.upper()
 
 
 def _matches_internal_domain(domain: str, internal_domains: tuple[str, ...]) -> bool:
