@@ -18,7 +18,7 @@
 - [x] P0/Product: Add a product glossary covering PII, personal data, MNPI, pre-send review, safe rewrite, redaction, pseudonymization, anonymization, audit evidence, adapter, and surface.
 - [x] P0/Product: Update `docs/known-limitations.md` to state that standalone manual redaction has lower expected adoption than in-workflow pre-send capture.
 - [x] P0/Product: Add examples that show Kaypoh reviewing a GenAI prompt, an external email, a legal memo, a DMS upload, and a Slack-style message using the same backend contract.
-- [ ] P0/API: Design a `PolicyDecisionResponse` schema with `decision`, `send_allowed`, `required_actions`, `recommended_actions`, `blocking_findings`, `policy_id`, `policy_version`, `policy_reasons`, and `review_id`.
+- [x] P0/API: Design a `PolicyDecisionResponse` schema with `decision`, `send_allowed`, `required_actions`, `recommended_actions`, `blocking_findings`, `policy_id`, `policy_version`, `policy_reasons`, and `review_id`.
 - [ ] P0/API: Extend `ReviewRequest` with optional `surface`, `workflow`, `actor_role`, `recipient_domains`, `recipient_count`, `attachment_count`, `sensitivity_label`, `external_destination`, and `requested_action` fields.
 - [ ] P0/API: Add validation tests for the new `ReviewRequest` workflow-context fields, including max lengths, allowed enums, empty-list behavior, and backward compatibility.
 - [ ] P0/API: Implement a tenant policy module under `src/kaypoh/policy/` that evaluates findings plus workflow context into allow, warn, block, approval_required, or rewrite_required.

@@ -546,6 +546,50 @@ class DegradedModeResponse(BaseModel):
     detail: Optional[dict[str, Any]] = Field(None, description="Optional structured detail for operators.")
 
 
+class PolicyDecisionResponse(BaseModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "decision": "block",
+                "send_allowed": False,
+                "required_actions": ["request_approval", "hold_until_public"],
+                "recommended_actions": ["redact_pii"],
+                "blocking_findings": ["mnpi:deal_codenames:42:55:0"],
+                "policy_id": "default",
+                "policy_version": "2026-06-14",
+                "policy_reasons": [
+                    "high-risk MNPI cannot be sent externally before public evidence or reviewer approval"
+                ],
+                "review_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+            }
+        }
+    )
+
+    decision: Literal["allow", "warn", "block", "approval_required", "rewrite_required"] = Field(
+        description="Policy outcome after evaluating findings, workflow context, and degradation state.",
+    )
+    send_allowed: bool = Field(description="Whether the caller may complete the send/share action immediately.")
+    required_actions: list[str] = Field(
+        default_factory=list,
+        description="Actions the caller must complete before the workflow may proceed.",
+    )
+    recommended_actions: list[str] = Field(
+        default_factory=list,
+        description="Non-blocking actions the caller should offer or display.",
+    )
+    blocking_findings: list[str] = Field(
+        default_factory=list,
+        description="Finding ids that contributed to a block, approval_required, or rewrite_required decision.",
+    )
+    policy_id: str = Field(description="Stable tenant policy profile identifier.")
+    policy_version: str = Field(description="Version string for the policy rules used to produce this decision.")
+    policy_reasons: list[str] = Field(
+        default_factory=list,
+        description="Deterministic policy reasons safe to journal and show to adapters.",
+    )
+    review_id: str = Field(description="Review session identifier associated with this policy decision.")
+
+
 class ReviewResponse(BaseModel):
     model_config = ConfigDict(
         json_schema_extra={
