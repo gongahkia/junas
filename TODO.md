@@ -44,7 +44,7 @@
 - [x] P0/API: Add tests that policy decisions are deterministic for identical text, context, policy config, and tenant.
 - [x] P0/UserActions: Design a `SafeRewriteRequest` and `SafeRewriteResponse` contract that can rewrite only allowed spans while preserving audit evidence and original finding ids.
 - [x] P0/UserActions: Implement a first deterministic `safe_rewrite` path that applies policy-approved replacements without calling an LLM.
-- [ ] P0/UserActions: Add safe-rewrite tests for PII-only redaction, MNPI hold text, mixed findings, overlapping spans, and no-op safe documents.
+- [x] P0/UserActions: Add safe-rewrite tests for PII-only redaction, MNPI hold text, mixed findings, overlapping spans, and no-op safe documents.
 - [ ] P0/UserActions: Add a "redact PII only" action that removes or replaces PII findings while leaving MNPI passages visible but flagged.
 - [ ] P0/UserActions: Add a "hold until public" action for high-severity MNPI that returns a user-facing reason and audit-ready rationale.
 - [ ] P0/UserActions: Add a "cite public source" action path for audit-grade public evidence that requires source URL, retrieval timestamp, and privacy-ledger entry.

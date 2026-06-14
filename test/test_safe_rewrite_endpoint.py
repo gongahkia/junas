@@ -11,6 +11,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 import kaypoh.backend.main as main
+from kaypoh.backend.schemas import PolicyDecisionResponse, SafeRewriteRequest
 
 
 @asynccontextmanager
@@ -96,6 +97,73 @@ class SafeRewriteEndpointTests(unittest.TestCase):
         self.assertEqual(payload["rewritten_text"], text)
         self.assertEqual(payload["replacements"], [])
         self.assertTrue(payload["skipped_findings"])
+
+    def test_safe_rewrite_handles_mixed_pii_and_mnpi_findings(self):
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/safe-rewrite",
+                json={
+                    "text": (
+                        "Send Dr Jane Tan S1234567D to external counsel.\n\n"
+                        "Acme Corp will acquire GlobalTech before announcement."
+                    ),
+                    "source_jurisdiction": "SG",
+                    "destination_jurisdiction": "US",
+                    "document_type": "email",
+                },
+            )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        actions = {replacement["action"] for replacement in payload["replacements"]}
+        self.assertIn("[REDACTED PERSONAL DATA]", payload["rewritten_text"])
+        self.assertIn("[HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]", payload["rewritten_text"])
+        self.assertTrue(actions & {"redact_pii", "safe_rewrite"})
+        self.assertIn("hold_until_public", actions)
+
+    def test_safe_rewrite_resolves_overlapping_spans_deterministically(self):
+        request = SafeRewriteRequest.model_validate({"text": "abcdef"})
+        policy_decision = PolicyDecisionResponse(
+            decision="block",
+            send_allowed=False,
+            required_actions=["redact_pii", "hold_until_public"],
+            recommended_actions=[],
+            blocking_findings=["m1", "p1", "p2"],
+            policy_id="default",
+            policy_version="2026-06-14",
+            policy_reasons=[],
+            review_id="review-1",
+        )
+        replacements, skipped = main._safe_rewrite_plan(
+            text="abcdef",
+            findings=[
+                dict(id="m1", category="MNPI", rule="material_event", severity="high", start_char=0, end_char=6),
+                dict(id="p1", category="PII", rule="named_person", severity="high", start_char=0, end_char=4),
+                dict(id="p2", category="PII", rule="email_address", severity="high", start_char=1, end_char=3),
+            ],
+            policy_decision=policy_decision,
+            req=request,
+        )
+
+        self.assertEqual([replacement.finding_id for replacement in replacements], ["p1"])
+        self.assertEqual(
+            {finding.finding_id: finding.reason for finding in skipped},
+            {
+                "m1": "overlaps with higher-priority replacement",
+                "p2": "overlaps with higher-priority replacement",
+            },
+        )
+
+    def test_safe_rewrite_noops_safe_documents(self):
+        text = "This public update is safe to share."
+        with TestClient(main.app) as client:
+            response = client.post("/safe-rewrite", json={"text": text})
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertEqual(payload["rewritten_text"], text)
+        self.assertEqual(payload["replacements"], [])
+        self.assertEqual(payload["skipped_findings"], [])
 
 
 if __name__ == "__main__":
