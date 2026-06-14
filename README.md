@@ -57,10 +57,10 @@ Check readiness:
 curl http://127.0.0.1:8000/ready
 ```
 
-Review and pseudonymize a document:
+Review a document before sending:
 
 ```bash
-curl -X POST http://127.0.0.1:8000/pseudonymize \
+curl -X POST http://127.0.0.1:8000/review \
   -H "Content-Type: application/json" \
   -d '{
     "text": "Send Dr Jane Tan S1234567D the confidential draft.",
@@ -68,6 +68,15 @@ curl -X POST http://127.0.0.1:8000/pseudonymize \
     "destination_jurisdiction": "US",
     "document_type": "SPA"
   }'
+```
+
+Use follow-on actions when the review result requires content changes:
+
+```bash
+curl -X POST http://127.0.0.1:8000/pseudonymize -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft."}'
+curl -X POST http://127.0.0.1:8000/redact -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft."}'
+DOC_B64="$(base64 -i draft.docx | tr -d '\n')"
+curl -X POST http://127.0.0.1:8000/documents/scrub -H "Content-Type: application/json" -d "{\"document_base64\":\"${DOC_B64}\",\"document_filename\":\"draft.docx\"}"
 ```
 
 Run the standard verification gate:
