@@ -65,6 +65,7 @@ class OpenApiSnapshotTests(unittest.TestCase):
                     "/classify",
                     "/classify/batch",
                     "/review",
+                    "/redact-pii",
                     "/safe-rewrite",
                     "/pseudonymize",
                     "/anonymize",
@@ -147,6 +148,14 @@ class OpenApiSnapshotTests(unittest.TestCase):
                 },
                 "ReviewResponse": {
                     "properties": list(schemas["ReviewResponse"]["properties"].keys()),
+                },
+                "RedactPiiRequest": {
+                    "required": schemas["RedactPiiRequest"].get("required", []),
+                    "properties": list(schemas["RedactPiiRequest"]["properties"].keys()),
+                },
+                "RedactPiiResponse": {
+                    "required": schemas["RedactPiiResponse"].get("required", []),
+                    "properties": list(schemas["RedactPiiResponse"]["properties"].keys()),
                 },
                 "SafeRewriteRequest": {
                     "required": schemas["SafeRewriteRequest"].get("required", []),

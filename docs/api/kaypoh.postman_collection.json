@@ -878,6 +878,78 @@
       "description": "Redact a document with opaque markers"
     },
     {
+      "name": "POST /redact-pii",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/redact-pii",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "redact-pii"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"allowed_actions\": [\n    \"redact_pii\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"redact_pii\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Send Dr Jane Tan S1234567D to external counsel.\\n\\nAcme Corp will acquire GlobalTech before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/redact-pii",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "redact-pii"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allowed_actions\": [\n    \"redact_pii\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"redact_pii\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Send Dr Jane Tan S1234567D to external counsel.\\n\\nAcme Corp will acquire GlobalTech before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 103,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_hash\": \"4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f\",\n  \"document_score\": 91.0,\n  \"document_type\": \"email\",\n  \"findings\": [\n    {\n      \"category\": \"MNPI\",\n      \"end_char\": 103,\n      \"id\": \"mnpi:material_event:49:103:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"inside_information_review\",\n      \"matched_text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n      \"reason\": \"Material non-public transaction or announcement signal.\",\n      \"rule\": \"material_event\",\n      \"score\": 91.0,\n      \"severity\": \"high\",\n      \"start_char\": 49\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mapping_persisted\": false,\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 85.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"pii:sg_nric_fin:17:26:0\",\n      \"mnpi:material_event:49:103:0\"\n    ],\n    \"decision\": \"block\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk PII requires safe rewrite or reviewer approval before send\",\n      \"high-risk MNPI requires public evidence or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"hold_until_public\",\n      \"redact_pii\",\n      \"request_approval\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"privacy_operation\": \"redact_pii\",\n  \"replacements\": [\n    {\n      \"action\": \"redact_pii\",\n      \"category\": \"PII\",\n      \"end_char\": 26,\n      \"finding_id\": \"pii:sg_nric_fin:17:26:0\",\n      \"original_text_hash\": \"8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a\",\n      \"replacement_text\": \"[REDACTED PERSONAL DATA]\",\n      \"rule\": \"sg_nric_fin\",\n      \"severity\": \"high\",\n      \"start_char\": 17\n    }\n  ],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"rewrite_policy\": \"pii_only_allowed_spans\",\n  \"rewritten_text\": \"Send Dr Jane Tan [REDACTED PERSONAL DATA] to external counsel.\\n\\nAcme Corp will acquire GlobalTech before announcement.\",\n  \"send_allowed\": false,\n  \"skipped_findings\": [\n    {\n      \"finding_id\": \"mnpi:material_event:49:103:0\",\n      \"reason\": \"redact_pii leaves MNPI visible for policy review\"\n    }\n  ],\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [],\n  \"timings_ms\": {\n    \"extract\": 0.1,\n    \"redact_pii\": 0.1,\n    \"review\": 0.4,\n    \"total\": 0.6\n  }\n}"
+        }
+      ],
+      "description": "Redact PII only"
+    },
+    {
       "name": "POST /reidentify",
       "request": {
         "method": "POST",

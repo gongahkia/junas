@@ -67,6 +67,11 @@ curl -sS -X POST "${BASE_URL}/redact" \
   -H "Content-Type: application/json" \
   -d '{"destination_jurisdiction":"SG","document_type":"email","include_suggestions":true,"source_jurisdiction":"SG","text":"Send Dr Jane Tan S1234567D the confidential draft."}'
 
+# POST /redact-pii - Redact PII only
+curl -sS -X POST "${BASE_URL}/redact-pii" \
+  -H "Content-Type: application/json" \
+  -d '{"allowed_actions":["redact_pii"],"destination_jurisdiction":"US","document_type":"email","requested_action":"redact_pii","source_jurisdiction":"SG","surface":"outlook","text":"Send Dr Jane Tan S1234567D to external counsel.\n\nAcme Corp will acquire GlobalTech before announcement.","workflow":"email_send"}'
+
 # POST /reidentify - Reidentify previously anonymized text
 curl -sS -X POST "${BASE_URL}/reidentify" \
   -H "Content-Type: application/json" \

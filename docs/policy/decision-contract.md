@@ -26,7 +26,7 @@ Adapters must treat `policy_decision` as the source of truth and keep `send_allo
 | Action | Expected adapter behavior |
 |---|---|
 | `retry_review` | Ask the user or system to retry after degraded coverage is resolved. Do not submit original content. |
-| `redact_pii` | Offer irreversible PII removal where available. |
+| `redact_pii` | Offer `/redact-pii` for irreversible PII replacement while leaving MNPI visible and flagged. |
 | `safe_rewrite` | Offer deterministic safe rewrite when the API supports it. |
 | `request_approval` | Create or link to reviewer workflow using `review_id`. |
 | `hold_until_public` | Explain that high-severity MNPI must wait for public disclosure or approval. |

@@ -5,6 +5,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 MAX_CLASSIFY_TEXT_LENGTH = 100000
 SafeRewriteAction = Literal["safe_rewrite", "redact_pii", "hold_until_public"]
+RedactPiiAction = Literal["redact_pii"]
 
 class Classification(str, Enum):
     SAFE = "SAFE"
@@ -394,6 +395,33 @@ class SafeRewriteRequest(ReviewRequest):
                 cleaned.append(item)
                 seen.add(item)
         return cleaned
+
+
+class RedactPiiRequest(SafeRewriteRequest):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "text": (
+                    "Send Dr Jane Tan S1234567D to external counsel.\n\n"
+                    "Acme Corp will acquire GlobalTech before announcement."
+                ),
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "document_type": "email",
+                "surface": "outlook",
+                "workflow": "email_send",
+                "requested_action": "redact_pii",
+                "allowed_actions": ["redact_pii"],
+            }
+        }
+    )
+
+    allowed_actions: list[RedactPiiAction] = Field(
+        default_factory=lambda: ["redact_pii"],
+        min_length=1,
+        max_length=1,
+        description="Only `redact_pii`; this action leaves MNPI text visible and flagged.",
+    )
 
 
 class PseudonymizeRequest(PlaceholderOperationRequest):
@@ -1314,6 +1342,111 @@ class SafeRewriteResponse(ReviewResponse):
     skipped_findings: list[SafeRewriteSkippedFindingResponse] = Field(
         default_factory=list,
         description="Findings left unchanged because policy or caller allowlists did not permit rewrite.",
+    )
+
+
+class RedactPiiResponse(SafeRewriteResponse):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "review_expires_at": "2026-06-14T09:35:00Z",
+                "overall_risk": "HIGH_RISK",
+                "classification": "HIGH_RISK",
+                "document_score": 91.0,
+                "pii_score": 85.0,
+                "mnpi_score": 91.0,
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "jurisdictions_applied": ["SG", "US"],
+                "jurisdiction_policy": "strictest_wins",
+                "document_type": "email",
+                "review_profile": "strict",
+                "degraded_policy": "warn",
+                "send_allowed": False,
+                "policy_decision": {
+                    "decision": "block",
+                    "send_allowed": False,
+                    "required_actions": ["hold_until_public", "redact_pii", "request_approval"],
+                    "recommended_actions": [],
+                    "blocking_findings": ["pii:sg_nric_fin:17:26:0", "mnpi:material_event:49:103:0"],
+                    "policy_id": "default",
+                    "policy_version": "2026-06-14",
+                    "policy_reasons": [
+                        "high-risk PII requires safe rewrite or reviewer approval before send",
+                        "high-risk MNPI requires public evidence or reviewer approval before send",
+                    ],
+                    "review_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                },
+                "action_catalog": [
+                    "redact_pii",
+                    "pseudonymize",
+                    "safe_rewrite",
+                    "cite_public_source",
+                    "request_approval",
+                    "hold_until_public",
+                    "proceed_with_warning",
+                ],
+                "document": {
+                    "filename": "inline.txt",
+                    "mime_type": "text/plain",
+                    "extraction_method": "inline_text",
+                    "page_count": None,
+                    "char_count": 103,
+                },
+                "findings": [
+                    {
+                        "id": "mnpi:material_event:49:103:0",
+                        "category": "MNPI",
+                        "rule": "material_event",
+                        "jurisdiction": "SG",
+                        "severity": "high",
+                        "score": 91.0,
+                        "matched_text": "Acme Corp will acquire GlobalTech before announcement.",
+                        "start_char": 49,
+                        "end_char": 103,
+                        "reason": "Material non-public transaction or announcement signal.",
+                        "legal_basis": "inside_information_review",
+                    }
+                ],
+                "suggestions": [],
+                "privacy_operation": "redact_pii",
+                "rewrite_policy": "pii_only_allowed_spans",
+                "rewritten_text": (
+                    "Send Dr Jane Tan [REDACTED PERSONAL DATA] to external counsel.\n\n"
+                    "Acme Corp will acquire GlobalTech before announcement."
+                ),
+                "document_hash": "4f" * 32,
+                "mapping_persisted": False,
+                "replacements": [
+                    {
+                        "finding_id": "pii:sg_nric_fin:17:26:0",
+                        "action": "redact_pii",
+                        "category": "PII",
+                        "rule": "sg_nric_fin",
+                        "severity": "high",
+                        "start_char": 17,
+                        "end_char": 26,
+                        "replacement_text": "[REDACTED PERSONAL DATA]",
+                        "original_text_hash": "8a" * 32,
+                    }
+                ],
+                "skipped_findings": [
+                    {
+                        "finding_id": "mnpi:material_event:49:103:0",
+                        "reason": "redact_pii leaves MNPI visible for policy review",
+                    }
+                ],
+                "privacy_ledger": [],
+                "timings_ms": {"extract": 0.1, "review": 0.4, "redact_pii": 0.1, "total": 0.6},
+            }
+        }
+    )
+
+    privacy_operation: str = Field("redact_pii", description="Privacy operation applied by this endpoint.")
+    rewrite_policy: str = Field(
+        "pii_only_allowed_spans",
+        description="PII-only deterministic replacement policy; MNPI passages remain visible and flagged.",
     )
 
 

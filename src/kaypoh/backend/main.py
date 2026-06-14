@@ -20,7 +20,7 @@ from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from threading import Lock, Thread
-from typing import Any
+from typing import Any, cast
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.encoders import jsonable_encoder
@@ -98,6 +98,8 @@ from kaypoh.backend.schemas import (
     PseudonymizeResponse,
     PublicEvidenceResponse,
     ReadyResponse,
+    RedactPiiRequest,
+    RedactPiiResponse,
     RedactRequest,
     RedactResponse,
     ReidentifyRequest,
@@ -170,6 +172,7 @@ LOCAL_DAEMON_PROTECTED_PATHS = {
     "/documents/scrub",
     "/pseudonymize",
     "/redact",
+    "/redact-pii",
     "/reidentify",
     "/review",
     "/safe-rewrite",
@@ -204,6 +207,8 @@ Key behaviors:
 - `POST /anonymize` returns irreversible placeholder-only output with no mapping.
 - `POST /redact` returns irreversible opaque markers and no original matched text
   in redaction findings.
+- `POST /redact-pii` returns deterministic PII-only replacements while leaving
+  MNPI passages visible and flagged in findings.
 - `POST /safe-rewrite` returns deterministic policy-approved span replacements
   without calling an LLM or persisting a reidentification mapping.
 - `POST /review` runs the same evidence-first pre-send review without rewriting
@@ -1307,6 +1312,8 @@ def _safe_rewrite_action(
             return "safe_rewrite", "[REDACTED PERSONAL DATA]"
         return None, "no policy-approved PII rewrite action"
     if category == "MNPI" and severity == "high":
+        if "redact_pii" in allowed_actions and "hold_until_public" not in allowed_actions:
+            return None, "redact_pii leaves MNPI visible for policy review"
         if "hold_until_public" in policy_actions and "hold_until_public" in allowed_actions:
             return "hold_until_public", "[HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]"
         return None, "no policy-approved MNPI hold action"
@@ -1787,6 +1794,12 @@ def _run_safe_rewrite_sync(
     req: SafeRewriteRequest,
     request_id: str | None,
     tenant: TenantContext,
+    *,
+    endpoint: str = "/safe-rewrite",
+    privacy_operation: str = "safe_rewrite",
+    rewrite_policy: str = "deterministic_allowed_spans",
+    timing_key: str = "safe_rewrite",
+    response_type: type[SafeRewriteResponse] = SafeRewriteResponse,
 ) -> SafeRewriteResponse:
     timings_ms: dict[str, float] = {}
     t_total_start = time.perf_counter()
@@ -1900,14 +1913,14 @@ def _run_safe_rewrite_sync(
     )
     rewritten_text = _apply_safe_rewrite(document.text, replacements)
     rewrite_replacements = _safe_rewrite_replacements(text=document.text, replacements=replacements)
-    timings_ms["safe_rewrite"] = round((time.perf_counter() - t_safe_rewrite_start) * 1000.0, 3)
-    timings_ms["total"] = round(timings_ms.get("total", 0.0) + timings_ms["safe_rewrite"], 3)
+    timings_ms[timing_key] = round((time.perf_counter() - t_safe_rewrite_start) * 1000.0, 3)
+    timings_ms["total"] = round(timings_ms.get("total", 0.0) + timings_ms[timing_key], 3)
     base_response = review_response.model_dump(mode="python")
     base_response["timings_ms"] = dict(timings_ms)
-    response = SafeRewriteResponse(
+    response = response_type(
         **base_response,
-        privacy_operation="safe_rewrite",
-        rewrite_policy="deterministic_allowed_spans",
+        privacy_operation=privacy_operation,
+        rewrite_policy=rewrite_policy,
         rewritten_text=rewritten_text,
         document_hash=_compute_document_hash(document.text),
         mapping_persisted=False,
@@ -1918,7 +1931,7 @@ def _run_safe_rewrite_sync(
     observability = get_observability()
     if observability is not None:
         observability.observe_classification(
-            endpoint="/safe-rewrite",
+            endpoint=endpoint,
             classification=result.overall_risk.value,
             cache_status="disabled",
             degraded=bool(degraded_modes),
@@ -1927,7 +1940,7 @@ def _run_safe_rewrite_sync(
 
     log_backend_event(
         logging.INFO,
-        event="safe_rewrite_summary",
+        event=f"{privacy_operation}_summary",
         request_id=request_id,
         classification=result.overall_risk.value,
         pii_score=result.pii_score,
@@ -1940,10 +1953,27 @@ def _run_safe_rewrite_sync(
     emit_privacy_ledger_events(
         result.privacy_ledger,
         request_id=request_id,
-        endpoint="/safe-rewrite",
+        endpoint=endpoint,
         settings=current_runtime_settings().siem,
     )
     return response
+
+
+def _run_redact_pii_sync(req: RedactPiiRequest, request_id: str | None, tenant: TenantContext) -> RedactPiiResponse:
+    redact_req = req.model_copy(update={"requested_action": "redact_pii", "allowed_actions": ["redact_pii"]})
+    return cast(
+        RedactPiiResponse,
+        _run_safe_rewrite_sync(
+            redact_req,
+            request_id,
+            tenant,
+            endpoint="/redact-pii",
+            privacy_operation="redact_pii",
+            rewrite_policy="pii_only_allowed_spans",
+            timing_key="redact_pii",
+            response_type=RedactPiiResponse,
+        ),
+    )
 
 
 def _run_placeholder_review_sync(
@@ -2919,6 +2949,27 @@ async def classify_batch(request: Request, req: BatchClassifyRequest):
 async def review_document(request: Request, req: ReviewRequest):
     return await run_in_threadpool(
         _run_review_sync,
+        req,
+        getattr(request.state, "request_id", None),
+        tenant_context_from_request(request),
+    )
+
+
+@app.post(
+    "/redact-pii",
+    response_model=RedactPiiResponse,
+    dependencies=[Depends(require_review_access)],
+    tags=["Anonymization"],
+    summary="Redact PII only",
+    description=(
+        "Run the pre-send PII/MNPI review and return text with deterministic PII replacements only. "
+        "MNPI passages remain visible in rewritten_text and flagged in findings; this endpoint does not "
+        "call an LLM or persist a reidentification mapping."
+    ),
+)
+async def redact_pii_document(request: Request, req: RedactPiiRequest):
+    return await run_in_threadpool(
+        _run_redact_pii_sync,
         req,
         getattr(request.state, "request_id", None),
         tenant_context_from_request(request),

@@ -12,6 +12,7 @@ uv run python scripts/export_openapi_examples.py
 - `POST /pseudonymize`: same review plus reversible deterministic placeholders, mapping returned, optional mapping persistence.
 - `POST /anonymize`: irreversible v2 placeholder-only output; no mapping returned or persisted.
 - `POST /redact`: opaque text markers; no mapping and no original matched text in the redaction response.
+- `POST /redact-pii`: deterministic PII-only replacements; MNPI passages remain visible in text and flagged in findings.
 - `POST /safe-rewrite`: deterministic policy-approved span replacements; no LLM call and no mapping persistence.
 - `POST /reidentify`: restores placeholders from a caller-supplied `/pseudonymize` mapping or persisted pseudonymization document hash.
 - `POST /documents/scrub`: metadata scrub for supported document/image formats.
@@ -41,6 +42,8 @@ Review and rewrite responses include `review_expires_at`, an RFC 3339 UTC timest
 ## Safe Rewrite Contract
 
 `SafeRewriteRequest` extends `ReviewRequest` with `allowed_actions` and optional `allowed_finding_ids`. `SafeRewriteResponse` extends `ReviewResponse` with `rewritten_text`, `document_hash`, `rewrite_policy`, `replacements`, and `skipped_findings`. Each replacement preserves the original `finding_id`, span offsets, applied policy action, replacement text, and SHA-256 hash of the replaced substring.
+
+`RedactPiiRequest` and `RedactPiiResponse` use the same span-audit shape for `/redact-pii`, but restrict actions to `redact_pii`. MNPI findings are not replaced by this action; they remain in `rewritten_text` and are still flagged through `findings` and `skipped_findings`.
 
 ## Runtime Status
 

@@ -76,6 +76,7 @@ Use follow-on actions when the review result requires content changes:
 
 ```bash
 curl -X POST http://127.0.0.1:8000/pseudonymize -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft."}'
+curl -X POST http://127.0.0.1:8000/redact-pii -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft."}'
 curl -X POST http://127.0.0.1:8000/redact -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft."}'
 DOC_B64="$(base64 -i draft.docx | tr -d '\n')"
 curl -X POST http://127.0.0.1:8000/documents/scrub -H "Content-Type: application/json" -d "{\"document_base64\":\"${DOC_B64}\",\"document_filename\":\"draft.docx\"}"
@@ -93,10 +94,11 @@ Run the standard verification gate:
 - Detects MNPI and inside-information signals such as material events, non-public markers, deal codenames, tipping language, selective disclosure risk, blackout windows, ESG/cyber/crypto pre-disclosure, sector MNPI, and conjunctive MNPI evidence.
 - Applies source and destination jurisdictions with strictest-wins scoring.
 - Returns findings, scores, suggestions, statutory rationales, timings, degraded-mode metadata, and optional audit evidence.
-- Rewrites text through three distinct data states:
+- Rewrites text through distinct data states:
   - `/pseudonymize`: reversible deterministic placeholders plus mapping.
   - `/anonymize`: irreversible placeholder-only output with no retained mapping.
   - `/redact`: opaque markers without original matched text in the redaction response.
+  - `/redact-pii`: deterministic PII-only replacement while MNPI remains visible and flagged.
 - Restores reversible pseudonymized text through `/reidentify` when the caller supplies a mapping or a persisted document hash.
 - Scrubs supported document metadata leakage through `/documents/scrub`.
 - Keeps optional public evidence and LLM helper layers disabled unless explicitly enabled by deployer and tenant gates.
@@ -134,6 +136,7 @@ Review and rewrite endpoints:
 - `POST /pseudonymize`
 - `POST /anonymize`
 - `POST /redact`
+- `POST /redact-pii`
 - `POST /safe-rewrite`
 - `POST /reidentify`
 - `POST /documents/scrub`
