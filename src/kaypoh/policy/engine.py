@@ -49,9 +49,9 @@ class TenantPolicyProfile:
     internal_domains: tuple[str, ...] = ()
     warn_on_low_risk_findings: bool = True
     degraded_block_action: str = "retry_review"
-    high_pii_required_actions: tuple[str, ...] = ("redact_pii", "safe_rewrite")
+    high_pii_required_actions: tuple[str, ...] = ("redact_pii", "request_approval", "safe_rewrite")
     high_mnpi_external_actions: tuple[str, ...] = ("hold_until_public", "request_approval")
-    high_mnpi_internal_actions: tuple[str, ...] = ("request_approval",)
+    public_mnpi_recommended_actions: tuple[str, ...] = ("cite_public_source", "proceed_with_warning")
     medium_risk_recommended_actions: tuple[str, ...] = ("proceed_with_warning",)
     low_risk_recommended_actions: tuple[str, ...] = ("proceed_with_warning",)
 
@@ -141,22 +141,36 @@ class TenantPolicy:
         finding_id = _finding_value(finding, "id")
 
         if category == "MNPI" and severity == "high":
-            if _is_external_context(context, self.profile):
+            if _has_public_evidence(finding):
+                draft.promote("warn")
+                draft.recommended_actions.update(self.profile.public_mnpi_recommended_actions)
+                draft.policy_reasons.add("high-risk MNPI has public evidence but should remain visible")
+            elif _has_reviewer_approval(finding):
+                draft.promote("warn")
+                draft.recommended_actions.update(self.profile.medium_risk_recommended_actions)
+                draft.policy_reasons.add("high-risk MNPI has reviewer approval")
+            else:
                 draft.promote("block")
                 draft.required_actions.update(self.profile.high_mnpi_external_actions)
-                draft.policy_reasons.add("high-risk MNPI cannot proceed to an external destination")
-            else:
-                draft.promote("approval_required")
-                draft.required_actions.update(self.profile.high_mnpi_internal_actions)
-                draft.policy_reasons.add("high-risk MNPI requires reviewer approval")
-            draft.blocking_findings.add(finding_id)
+                draft.policy_reasons.add("high-risk MNPI requires public evidence or reviewer approval before send")
+                draft.blocking_findings.add(finding_id)
             return
 
         if category == "PII" and severity == "high":
-            draft.promote("rewrite_required")
-            draft.required_actions.update(self.profile.high_pii_required_actions)
-            draft.blocking_findings.add(finding_id)
-            draft.policy_reasons.add("high-risk PII requires removal or safe rewrite before send")
+            if _has_reviewer_approval(finding):
+                draft.promote("warn")
+                draft.recommended_actions.update(self.profile.medium_risk_recommended_actions)
+                draft.policy_reasons.add("high-risk PII has reviewer approval")
+            elif context.requested_action == "request_approval":
+                draft.promote("approval_required")
+                draft.required_actions.add("request_approval")
+                draft.blocking_findings.add(finding_id)
+                draft.policy_reasons.add("high-risk PII requires reviewer approval before send")
+            else:
+                draft.promote("rewrite_required")
+                draft.required_actions.update(self.profile.high_pii_required_actions)
+                draft.blocking_findings.add(finding_id)
+                draft.policy_reasons.add("high-risk PII requires safe rewrite or reviewer approval before send")
             return
 
         if severity in {"low", "medium"}:
@@ -190,6 +204,35 @@ def _finding_value(finding: Any, key: str) -> str:
     if isinstance(finding, dict):
         return str(finding.get(key, ""))
     return str(getattr(finding, key, ""))
+
+
+def _finding_metadata(finding: Any) -> dict[str, Any]:
+    if isinstance(finding, dict):
+        metadata = finding.get("metadata", {})
+    else:
+        metadata = getattr(finding, "metadata", {})
+    return metadata if isinstance(metadata, dict) else {}
+
+
+def _has_public_evidence(finding: Any) -> bool:
+    public_states = {"public", "public_source_matched", "public_source_match"}
+    if _finding_value(finding, "source_verification").lower() in public_states:
+        return True
+    metadata = _finding_metadata(finding)
+    for key in ("public_status", "materiality_reason", "source_verification"):
+        if str(metadata.get(key, "")).lower() in public_states:
+            return True
+    return bool(metadata.get("public_evidence_confirmed"))
+
+
+def _has_reviewer_approval(finding: Any) -> bool:
+    approval_states = {"approve", "approved", "approval_granted", "policy_exception", "accept_risk"}
+    if _finding_value(finding, "decision").lower() in approval_states:
+        return True
+    metadata = _finding_metadata(finding)
+    if bool(metadata.get("reviewer_approved") or metadata.get("policy_exception_approved")):
+        return True
+    return str(metadata.get("approval_status", "")).lower() in approval_states
 
 
 def _is_external_context(context: WorkflowContext, profile: TenantPolicyProfile) -> bool:
