@@ -21,6 +21,7 @@ Deploy:
 uv run python scripts/render_outlook_manifest.py --profile dev
 uv run python scripts/render_outlook_manifest.py --profile staging --origin https://outlook-addin.staging.example.com
 uv run python scripts/render_outlook_manifest.py --profile production --origin https://outlook-addin.example.com
+uv run python scripts/validate_outlook_manifest.py dist/outlook-addin/production/manifest.xml --profile production
 ```
 
 The source manifest is a template. Rendered manifests are written to `dist/outlook-addin/{profile}/manifest.xml` by default. Dev defaults to `https://localhost:3000`; staging and production require an explicit non-local HTTPS origin.
@@ -55,6 +56,7 @@ Kaypoh policy mapping:
 ## Admin Deployment
 
 - Render `manifest.xml` at build time with `scripts/render_outlook_manifest.py`.
+- Validate rendered manifests with `scripts/validate_outlook_manifest.py` before deployment.
 - Deploy through Microsoft 365 admin-managed deployment for production pilots.
 - Assign to scoped pilot groups before tenant-wide rollout.
 - Configure backend auth or local pairing token; the taskpane stores endpoint and local token in Office runtime storage or localStorage fallback.

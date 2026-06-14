@@ -200,6 +200,7 @@ class DeploymentDocsTests(unittest.TestCase):
             "workflow=\"email_send\"",
             "Admin Deployment",
             "render_outlook_manifest.py",
+            "validate_outlook_manifest.py",
             "Microsoft 365 admin-managed deployment",
             "Fallback Behavior",
             "not a fail-closed enforcement path",

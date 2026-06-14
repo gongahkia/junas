@@ -15,5 +15,5 @@ Admin and audit:
 - `generate_tenant_credentials.py`, `scan_dms_manifest.py`, `check_retention_manifest.py`, `promote_journal_to_corpus.py`
 
 Packaging and clients:
-- `package_macos_desktop.sh`, `package_browser_extension.sh`, `render_outlook_manifest.py`, `check_python_clients.sh`, `export_openapi_examples.py`
+- `package_macos_desktop.sh`, `package_browser_extension.sh`, `render_outlook_manifest.py`, `validate_outlook_manifest.py`, `check_python_clients.sh`, `export_openapi_examples.py`
 - `examples/`: runnable sync and async Python client examples.
