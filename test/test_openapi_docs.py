@@ -34,6 +34,7 @@ class OpenApiDocsTests(unittest.TestCase):
         anonymize_operation = payload["paths"]["/anonymize"]["post"]
         redact_operation = payload["paths"]["/redact"]["post"]
         redact_pii_operation = payload["paths"]["/redact-pii"]["post"]
+        request_approval_operation = payload["paths"]["/request-approval"]["post"]
         safe_rewrite_operation = payload["paths"]["/safe-rewrite"]["post"]
         scrub_operation = payload["paths"]["/documents/scrub"]["post"]
 
@@ -46,6 +47,7 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertEqual(anonymize_operation["summary"], "Anonymize a document irreversibly")
         self.assertEqual(redact_operation["summary"], "Redact a document with opaque markers")
         self.assertEqual(redact_pii_operation["summary"], "Redact PII only")
+        self.assertEqual(request_approval_operation["summary"], "Request reviewer approval")
         self.assertEqual(safe_rewrite_operation["summary"], "Safely rewrite a document deterministically")
         self.assertEqual(scrub_operation["summary"], "Scrub document metadata")
         self.assertIn("privacy-ledger entry", cite_public_source_operation["description"])
@@ -56,6 +58,7 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertIn("without returning or persisting a mapping", anonymize_operation["description"])
         self.assertIn("opaque redaction markers", redact_operation["description"])
         self.assertIn("MNPI passages remain visible", redact_pii_operation["description"])
+        self.assertIn("reviewer roles required", request_approval_operation["description"])
         self.assertIn("does not call an LLM", safe_rewrite_operation["description"])
 
         schemas = payload["components"]["schemas"]
@@ -72,6 +75,8 @@ class OpenApiDocsTests(unittest.TestCase):
         public_source_citation_response = schemas["PublicSourceCitationResponse"]
         redact_pii_request = schemas["RedactPiiRequest"]
         redact_pii_response = schemas["RedactPiiResponse"]
+        request_approval_request = schemas["RequestApprovalRequest"]
+        request_approval_response = schemas["RequestApprovalResponse"]
         safe_rewrite_request = schemas["SafeRewriteRequest"]
         safe_rewrite_response = schemas["SafeRewriteResponse"]
         classify_request = schemas["ClassifyRequest"]
@@ -108,6 +113,9 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertIn("allowed_actions", redact_pii_request["properties"])
         self.assertIn("rewritten_text", redact_pii_response["properties"])
         self.assertIn("skipped_findings", redact_pii_response["properties"])
+        self.assertIn("review_id", request_approval_request["properties"])
+        self.assertIn("required_reviewer_roles", request_approval_response["properties"])
+        self.assertIn("required_policy_actor_roles", request_approval_response["properties"])
         self.assertIn("allowed_actions", safe_rewrite_request["properties"])
         self.assertIn("rewritten_text", safe_rewrite_response["properties"])
         self.assertIn("skipped_findings", safe_rewrite_response["properties"])

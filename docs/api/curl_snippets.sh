@@ -87,6 +87,11 @@ curl -sS -X POST "${BASE_URL}/reidentify" \
   -H "Content-Type: application/json" \
   -d '{"anonymized_text":"Send [PERSON_1] [NRIC_FIN_1] the draft.","mapping":[{"original_text":"Dr Jane Tan","placeholder":"[PERSON_1]"},{"original_text":"S1234567D","placeholder":"[NRIC_FIN_1]"}]}'
 
+# POST /request-approval - Request reviewer approval
+curl -sS -X POST "${BASE_URL}/request-approval" \
+  -H "Content-Type: application/json" \
+  -d '{"finding_ids":["pii:sg_nric_fin:25:34:0"],"reason_code":"rewrite_required","review_id":"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb"}'
+
 # POST /review - Review a document before sending
 curl -sS -X POST "${BASE_URL}/review" \
   -H "Content-Type: application/json" \

@@ -121,6 +121,22 @@ class TenantIsolationTests(unittest.TestCase):
             )
             self.assertEqual(tenant_b_decision.status_code, 404)
 
+            tenant_b_approval = client.post(
+                "/request-approval",
+                headers={"X-API-Key": "tenant-b-key"},
+                json={"review_id": review_id, "finding_ids": [target["id"]]},
+            )
+            self.assertEqual(tenant_b_approval.status_code, 404)
+
+            tenant_a_approval = client.post(
+                "/request-approval",
+                headers={"X-API-Key": "tenant-a-key"},
+                json={"review_id": review_id, "finding_ids": [target["id"]]},
+            )
+            self.assertEqual(tenant_a_approval.status_code, 200, tenant_a_approval.text)
+            self.assertEqual(tenant_a_approval.json()["requester_id"], "alice")
+            self.assertEqual(tenant_a_approval.json()["requester_identity_source"], "api_key")
+
             tenant_a_decision = client.post(
                 f"/review/{review_id}/decision",
                 headers={"X-API-Key": "tenant-a-key"},

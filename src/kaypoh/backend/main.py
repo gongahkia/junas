@@ -110,6 +110,9 @@ from kaypoh.backend.schemas import (
     RedactResponse,
     ReidentifyRequest,
     ReidentifyResponse,
+    RequestApprovalRequest,
+    RequestApprovalResponse,
+    ReviewApprovalRequestState,
     ReviewDecisionRequest,
     ReviewDecisionResponse,
     ReviewDocumentMetadataResponse,
@@ -128,11 +131,12 @@ from kaypoh.backend.siem import emit_privacy_ledger_events, emit_security_event
 from kaypoh.configs.runtime import RuntimeSettings, get_runtime_settings
 from kaypoh.external.privacy_guard import PrivacyGuard
 from kaypoh.helper.determinism import configure_determinism
-from kaypoh.policy import ACTION_CATALOG, WorkflowContext, evaluate_policy
+from kaypoh.policy import ACTION_CATALOG, DEFAULT_POLICY_PROFILE, WorkflowContext, evaluate_policy
 from kaypoh.review.decisions import (
     Decision,
     ReviewSessionError,
     get_session_state,
+    record_approval_request,
     record_decision,
     start_review_session,
 )
@@ -165,6 +169,7 @@ RISK_ORDER = {
     Classification.HIGH_RISK: 2,
 }
 LANE_SUPPRESSED_VIEW_ROLES = frozenset({"auditor", "admin"})
+APPROVAL_REVIEWER_ROLE_ORDER = ("maker", "checker", "admin")
 
 SUPPRESSED_REQUEST_LOG_PATHS = {"/health", "/ready", "/metrics"}
 SPAN_CONTEXT_CHARS = 48
@@ -182,6 +187,7 @@ LOCAL_DAEMON_PROTECTED_PATHS = {
     "/redact",
     "/redact-pii",
     "/reidentify",
+    "/request-approval",
     "/review",
     "/safe-rewrite",
 }
@@ -221,6 +227,8 @@ Key behaviors:
   with display-safe and audit-ready reasons.
 - `POST /cite-public-source` returns audit-grade public-source citations with
   source URL, retrieval timestamp, and privacy-ledger evidence.
+- `POST /request-approval` records a pending approval request in the review
+  journal and returns reviewer-role requirements.
 - `POST /safe-rewrite` returns deterministic policy-approved span replacements
   without calling an LLM or persisting a reidentification mapping.
 - `POST /review` runs the same evidence-first pre-send review without rewriting
@@ -3141,6 +3149,60 @@ async def cite_public_source_document(request: Request, req: CitePublicSourceReq
     )
 
 
+def _run_request_approval_sync(
+    req: RequestApprovalRequest,
+    tenant: TenantContext,
+    requester_id: str,
+    requester_identity_source: str,
+) -> RequestApprovalResponse:
+    _ensure_persistence_enabled()
+    try:
+        result = record_approval_request(
+            review_id=req.review_id,
+            finding_ids=req.finding_ids,
+            required_reviewer_roles=_required_reviewer_roles(),
+            required_policy_actor_roles=_required_policy_actor_roles(),
+            reason_code=req.reason_code,
+            requester_id=requester_id,
+            requester_identity_source=requester_identity_source,
+            tenant_id=tenant.storage_tenant_id,
+        )
+    except ReviewSessionError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return RequestApprovalResponse(**result)
+
+
+@app.post(
+    "/request-approval",
+    response_model=RequestApprovalResponse,
+    dependencies=[Depends(require_review_access)],
+    tags=["Anonymization"],
+    summary="Request reviewer approval",
+    description=(
+        "Record a pending approval request for a prior /review session in the append-only journal. "
+        "The response returns the reviewer roles required to complete the downstream approval decision. "
+        "Requires KAYPOH_REVIEW_PERSIST=1; otherwise 409."
+    ),
+)
+async def request_review_approval(
+    request: Request,
+    req: RequestApprovalRequest,
+    x_reviewer_id: str | None = Header(default=None, alias="X-Reviewer-ID"),
+):
+    tenant = tenant_context_from_request(request)
+    requester_id, requester_identity_source = _resolve_reviewer_identity(
+        tenant=tenant,
+        x_reviewer_id=x_reviewer_id,
+    )
+    return await run_in_threadpool(
+        _run_request_approval_sync,
+        req,
+        tenant,
+        requester_id,
+        requester_identity_source,
+    )
+
+
 @app.post(
     "/redact-pii",
     response_model=RedactPiiResponse,
@@ -3401,6 +3463,16 @@ def _resolve_reviewer_identity(
     return "", "none"
 
 
+def _required_reviewer_roles() -> list[str]:
+    ordered = [role for role in APPROVAL_REVIEWER_ROLE_ORDER if role in DECISION_ROLES]
+    extras = sorted(role for role in DECISION_ROLES if role not in ordered)
+    return ordered + extras
+
+
+def _required_policy_actor_roles() -> list[str]:
+    return list(DEFAULT_POLICY_PROFILE.reviewer_override_roles)
+
+
 def _session_finding_state(finding: dict[str, Any], decision: dict[str, Any] | None) -> ReviewSessionFindingState:
     return ReviewSessionFindingState(
         id=finding["id"],
@@ -3422,6 +3494,20 @@ def _session_finding_state(finding: dict[str, Any], decision: dict[str, Any] | N
         decision_reviewer_identity_source=(
             decision.get("reviewer_identity_source") if decision else None
         ),
+    )
+
+
+def _session_approval_state(approval: dict[str, Any]) -> ReviewApprovalRequestState:
+    return ReviewApprovalRequestState(
+        approval_status="pending",
+        finding_ids=list(approval.get("finding_ids", [])),
+        required_reviewer_roles=list(approval.get("required_reviewer_roles", [])),
+        required_policy_actor_roles=list(approval.get("required_policy_actor_roles", [])),
+        reason_code=approval.get("reason_code", "policy_block"),
+        requester_id=approval.get("requester_id", ""),
+        requester_identity_source=approval.get("requester_identity_source", "none"),
+        seq=approval["seq"],
+        ts=approval["ts"],
     )
 
 
@@ -3453,6 +3539,12 @@ def _serialize_session_state(
         lane_suppressed_findings=suppressed_findings,
         decisions_recorded=len(state.get("decisions", [])),
         audit_exports=list(state.get("audit_exports", [])),
+        pending_approvals=[
+            _session_approval_state(approval)
+            for approval in state.get("approval_requests", [])
+            if approval.get("approval_status") == "pending"
+        ],
+        approvals_requested=len(state.get("approval_requests", [])),
     )
 
 

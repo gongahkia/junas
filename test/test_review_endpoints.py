@@ -1,4 +1,5 @@
 import importlib
+import json
 import os
 import tempfile
 import unittest
@@ -169,6 +170,56 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
             )
             self.assertEqual(response.status_code, 422)
 
+    def test_request_approval_records_pending_state_and_role_requirements(self):
+        with TestClient(self.main.app) as client:
+            review_id = self._start_session(client)
+            target = client.get(f"/review/{review_id}").json()["findings"][0]
+            response = client.post(
+                "/request-approval",
+                json={
+                    "review_id": review_id,
+                    "finding_ids": [target["id"]],
+                    "reason_code": "rewrite_required",
+                },
+            )
+            self.assertEqual(response.status_code, 200, response.text)
+            payload = response.json()
+            self.assertEqual(payload["approval_status"], "pending")
+            self.assertEqual(payload["requested_action"], "request_approval")
+            self.assertEqual(payload["requested_finding_ids"], [target["id"]])
+            self.assertEqual(payload["required_reviewer_roles"], ["maker", "checker", "admin"])
+            self.assertEqual(payload["required_policy_actor_roles"], ["legal_reviewer", "compliance_admin"])
+            self.assertEqual(payload["reason_code"], "rewrite_required")
+            self.assertEqual(payload["requester_id"], "")
+            self.assertEqual(payload["requester_identity_source"], "none")
+            self.assertEqual(len(payload["hmac"]), 64)
+
+            updated = client.get(f"/review/{review_id}").json()
+            self.assertEqual(updated["approvals_requested"], 1)
+            pending = updated["pending_approvals"][0]
+            self.assertEqual(pending["finding_ids"], [target["id"]])
+            self.assertEqual(pending["required_reviewer_roles"], ["maker", "checker", "admin"])
+
+        import kaypoh.review.decisions as decisions_mod
+        import kaypoh.review.journal as journal_mod
+
+        approval_events = [
+            entry for entry in journal_mod.read_journal(review_id=review_id)
+            if entry.event_type == decisions_mod.EVENT_APPROVAL_REQUESTED
+        ]
+        self.assertEqual(len(approval_events), 1)
+        serialized = json.dumps(approval_events[0].payload, sort_keys=True)
+        self.assertNotIn(target["matched_text"], serialized)
+
+    def test_request_approval_rejects_unknown_finding(self):
+        with TestClient(self.main.app) as client:
+            review_id = self._start_session(client)
+            response = client.post(
+                "/request-approval",
+                json={"review_id": review_id, "finding_ids": ["missing-finding"]},
+            )
+            self.assertEqual(response.status_code, 404)
+
 
 class ReviewSessionPersistenceDisabledTests(unittest.TestCase):
     def setUp(self):
@@ -189,6 +240,14 @@ class ReviewSessionPersistenceDisabledTests(unittest.TestCase):
             response = client.post(
                 "/review/anything/decision",
                 json={"finding_id": "x", "action": "accept"},
+            )
+            self.assertEqual(response.status_code, 409)
+
+    def test_request_approval_returns_409_when_persistence_disabled(self):
+        with TestClient(self.main.app) as client:
+            response = client.post(
+                "/request-approval",
+                json={"review_id": "anything"},
             )
             self.assertEqual(response.status_code, 409)
 

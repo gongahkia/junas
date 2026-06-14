@@ -1166,6 +1166,78 @@
       "description": "Reidentify previously anonymized text"
     },
     {
+      "name": "POST /request-approval",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/request-approval",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "request-approval"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"finding_ids\": [\n    \"pii:sg_nric_fin:25:34:0\"\n  ],\n  \"reason_code\": \"rewrite_required\",\n  \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/request-approval",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "request-approval"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"finding_ids\": [\n    \"pii:sg_nric_fin:25:34:0\"\n  ],\n  \"reason_code\": \"rewrite_required\",\n  \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"approval_status\": \"pending\",\n  \"hmac\": \"0000000000000000000000000000000000000000000000000000000000000000\",\n  \"reason_code\": \"rewrite_required\",\n  \"requested_action\": \"request_approval\",\n  \"requested_finding_ids\": [\n    \"pii:sg_nric_fin:25:34:0\"\n  ],\n  \"requester_id\": \"\",\n  \"requester_identity_source\": \"none\",\n  \"required_policy_actor_roles\": [\n    \"legal_reviewer\",\n    \"compliance_admin\"\n  ],\n  \"required_reviewer_roles\": [\n    \"maker\",\n    \"checker\",\n    \"admin\"\n  ],\n  \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"seq\": 3,\n  \"ts\": \"2026-06-14T09:30:00Z\"\n}"
+        }
+      ],
+      "description": "Request reviewer approval"
+    },
+    {
       "name": "POST /review",
       "request": {
         "method": "POST",

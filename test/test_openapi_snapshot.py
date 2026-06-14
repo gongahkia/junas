@@ -68,6 +68,7 @@ class OpenApiSnapshotTests(unittest.TestCase):
                     "/hold-until-public",
                     "/review",
                     "/redact-pii",
+                    "/request-approval",
                     "/safe-rewrite",
                     "/pseudonymize",
                     "/anonymize",
@@ -131,6 +132,18 @@ class OpenApiSnapshotTests(unittest.TestCase):
                 },
                 "ReviewDecisionResponse": {
                     "properties": list(schemas["ReviewDecisionResponse"]["properties"].keys()),
+                },
+                "RequestApprovalRequest": {
+                    "required": schemas["RequestApprovalRequest"].get("required", []),
+                    "properties": list(schemas["RequestApprovalRequest"]["properties"].keys()),
+                },
+                "RequestApprovalResponse": {
+                    "required": schemas["RequestApprovalResponse"].get("required", []),
+                    "properties": list(schemas["RequestApprovalResponse"]["properties"].keys()),
+                },
+                "ReviewApprovalRequestState": {
+                    "required": schemas["ReviewApprovalRequestState"].get("required", []),
+                    "properties": list(schemas["ReviewApprovalRequestState"]["properties"].keys()),
                 },
                 "ReviewSessionStateResponse": {
                     "properties": list(schemas["ReviewSessionStateResponse"]["properties"].keys()),

@@ -15,6 +15,7 @@ uv run python scripts/export_openapi_examples.py
 - `POST /redact-pii`: deterministic PII-only replacements; MNPI passages remain visible in text and flagged in findings.
 - `POST /hold-until-public`: high-severity MNPI hold text with display-safe and audit-ready reasons.
 - `POST /cite-public-source`: audit-grade public-source citation with source URL, retrieval timestamp, and privacy-ledger entry.
+- `POST /request-approval`: records a pending approval request in the review journal and returns reviewer-role requirements.
 - `POST /safe-rewrite`: deterministic policy-approved span replacements; no LLM call and no mapping persistence.
 - `POST /reidentify`: restores placeholders from a caller-supplied `/pseudonymize` mapping or persisted pseudonymization document hash.
 - `POST /documents/scrub`: metadata scrub for supported document/image formats.
@@ -50,6 +51,8 @@ Review and rewrite responses include `review_expires_at`, an RFC 3339 UTC timest
 `HoldUntilPublicRequest` and `HoldUntilPublicResponse` use the same span-audit shape for `/hold-until-public`, but restrict actions to `hold_until_public`. Each held MNPI span returns a display-safe `user_reason` and an `audit_rationale` keyed by finding id and policy id/version.
 
 `CitePublicSourceRequest` requires `review_profile=audit_grade` and returns `CitePublicSourceResponse`. Each citation requires a `source_url`, server-side `retrieval_timestamp`, and the allowed `privacy_ledger_entry` for the outbound public-evidence query.
+
+`RequestApprovalRequest` takes a prior `review_id`, optional `finding_ids`, and a structured `reason_code`. `RequestApprovalResponse` records `approval_status=pending` in the HMAC journal and returns authenticated reviewer roles plus policy actor roles required for downstream approval.
 
 ## Runtime Status
 

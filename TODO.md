@@ -48,7 +48,7 @@
 - [x] P0/UserActions: Add a "redact PII only" action that removes or replaces PII findings while leaving MNPI passages visible but flagged.
 - [x] P0/UserActions: Add a "hold until public" action for high-severity MNPI that returns a user-facing reason and audit-ready rationale.
 - [x] P0/UserActions: Add a "cite public source" action path for audit-grade public evidence that requires source URL, retrieval timestamp, and privacy-ledger entry.
-- [ ] P0/UserActions: Add a "request approval" action that records pending approval in the review journal and returns reviewer-role requirements.
+- [x] P0/UserActions: Add a "request approval" action that records pending approval in the review journal and returns reviewer-role requirements.
 - [ ] P0/UserActions: Extend review decision actions beyond accept, reject, and rewrite only after documenting backward-compatible journal replay behavior.
 - [ ] P0/UserActions: Add tests that rejected findings are excluded from downstream anonymization only after an authorized reviewer decision.
 - [ ] P0/UserActions: Add docs explaining the difference between pseudonymize, anonymize, redact, safe rewrite, and reviewer approval in plain operational terms.

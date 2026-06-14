@@ -8,6 +8,7 @@ SafeRewriteAction = Literal["safe_rewrite", "redact_pii", "hold_until_public"]
 RedactPiiAction = Literal["redact_pii"]
 HoldUntilPublicAction = Literal["hold_until_public"]
 CitePublicSourceAction = Literal["cite_public_source"]
+RequestApprovalReason = Literal["policy_block", "approval_required", "rewrite_required", "user_requested", "other"]
 
 class Classification(str, Enum):
     SAFE = "SAFE"
@@ -475,6 +476,103 @@ class CitePublicSourceRequest(ReviewRequest):
         "cite_public_source",
         description="Action this endpoint performs.",
     )
+
+
+class RequestApprovalRequest(BaseModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "review_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "finding_ids": ["pii:sg_nric_fin:25:34:0"],
+                "reason_code": "rewrite_required",
+            }
+        }
+    )
+
+    review_id: str = Field(
+        ...,
+        min_length=1,
+        max_length=128,
+        description="Review session identifier from a prior /review response.",
+    )
+    finding_ids: Optional[list[str]] = Field(
+        None,
+        max_length=10000,
+        description="Optional finding ids that need approval. Omitted means all findings in the session.",
+    )
+    reason_code: RequestApprovalReason = Field(
+        "policy_block",
+        description="Structured reason for the approval request; no free-form raw text is journaled.",
+    )
+
+    @field_validator("review_id")
+    @classmethod
+    def sanitize_review_id(cls, value: str) -> str:
+        cleaned = value.replace("\x00", "").strip()
+        cleaned = "".join(ch for ch in cleaned if ch.isprintable())
+        if not cleaned:
+            raise ValueError("review_id must contain non-whitespace printable content")
+        return cleaned
+
+    @field_validator("finding_ids")
+    @classmethod
+    def sanitize_finding_ids(cls, value: Optional[list[str]]) -> Optional[list[str]]:
+        if value is None:
+            return None
+        cleaned: list[str] = []
+        seen: set[str] = set()
+        for finding_id in value:
+            normalized = finding_id.replace("\x00", "").strip()
+            normalized = "".join(ch for ch in normalized if ch.isprintable())
+            if not normalized:
+                continue
+            if len(normalized) > 256:
+                raise ValueError("finding_id exceeds maximum length 256")
+            if normalized not in seen:
+                cleaned.append(normalized)
+                seen.add(normalized)
+        return cleaned or None
+
+
+class RequestApprovalResponse(BaseModel):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "review_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "approval_status": "pending",
+                "requested_action": "request_approval",
+                "requested_finding_ids": ["pii:sg_nric_fin:25:34:0"],
+                "required_reviewer_roles": ["maker", "checker", "admin"],
+                "required_policy_actor_roles": ["legal_reviewer", "compliance_admin"],
+                "reason_code": "rewrite_required",
+                "requester_id": "",
+                "requester_identity_source": "none",
+                "seq": 3,
+                "ts": "2026-06-14T09:30:00Z",
+                "hmac": "0" * 64,
+            }
+        }
+    )
+
+    review_id: str = Field(description="Review session identifier.")
+    approval_status: Literal["pending"] = Field("pending", description="Approval state recorded in the journal.")
+    requested_action: str = Field("request_approval", description="Action recorded for adapter routing.")
+    requested_finding_ids: list[str] = Field(description="Finding ids awaiting reviewer approval.")
+    required_reviewer_roles: list[str] = Field(
+        description="Authenticated Kaypoh roles allowed to record the downstream review decision.",
+    )
+    required_policy_actor_roles: list[str] = Field(
+        description="Policy actor roles that may route matching findings through reviewer approval.",
+    )
+    reason_code: RequestApprovalReason = Field(description="Structured reason recorded with the pending approval.")
+    requester_id: str = Field("", description="Requester identifier resolved from auth or dev header.")
+    requester_identity_source: str = Field(
+        "none",
+        description="Source for requester_id: jwt, api_key, dev_header, none, or legacy.",
+    )
+    seq: int = Field(description="Journal sequence number for this approval request event.")
+    ts: str = Field(description="UTC timestamp of the journal entry.")
+    hmac: str = Field(description="HMAC of the journal entry; reference for downstream audit verification.")
 
 
 class PseudonymizeRequest(PlaceholderOperationRequest):
@@ -1163,6 +1261,18 @@ class ReviewDecisionResponse(BaseModel):
     hmac: str = Field(description="HMAC of the journal entry; reference for downstream audit verification.")
 
 
+class ReviewApprovalRequestState(BaseModel):
+    approval_status: Literal["pending"] = Field("pending", description="Approval request state.")
+    finding_ids: list[str] = Field(description="Finding ids awaiting reviewer approval.")
+    required_reviewer_roles: list[str] = Field(description="Authenticated roles required for approval decisions.")
+    required_policy_actor_roles: list[str] = Field(description="Policy actor roles required for approval routing.")
+    reason_code: RequestApprovalReason = Field(description="Structured reason for the approval request.")
+    requester_id: str = Field("", description="Requester identifier recorded with the approval request.")
+    requester_identity_source: str = Field("none", description="Source for requester_id.")
+    seq: int = Field(description="Journal seq for the approval request.")
+    ts: str = Field(description="Timestamp of the approval request.")
+
+
 class ReviewSessionFindingState(BaseModel):
     id: str = Field(description="Finding identifier.")
     category: str = Field(description="PII or MNPI.")
@@ -1215,6 +1325,11 @@ class ReviewSessionStateResponse(BaseModel):
         default_factory=list,
         description="Audit-pack exports recorded against this session.",
     )
+    pending_approvals: list[ReviewApprovalRequestState] = Field(
+        default_factory=list,
+        description="Pending approval requests recorded against this session.",
+    )
+    approvals_requested: int = Field(0, description="Total pending approval request events in this session.")
 
 
 class AnonymizationReplacementResponse(BaseModel):

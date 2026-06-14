@@ -141,6 +141,16 @@
         ]
       }
     },
+    "/request-approval": {
+      "post": {
+        "request_body_ref": "#/components/schemas/RequestApprovalRequest",
+        "response_ref": "#/components/schemas/RequestApprovalResponse",
+        "summary": "Request reviewer approval",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
     "/review": {
       "post": {
         "request_body_ref": "#/components/schemas/ReviewRequest",
@@ -725,6 +735,63 @@
         "timings_ms"
       ]
     },
+    "RequestApprovalRequest": {
+      "properties": [
+        "review_id",
+        "finding_ids",
+        "reason_code"
+      ],
+      "required": [
+        "review_id"
+      ]
+    },
+    "RequestApprovalResponse": {
+      "properties": [
+        "review_id",
+        "approval_status",
+        "requested_action",
+        "requested_finding_ids",
+        "required_reviewer_roles",
+        "required_policy_actor_roles",
+        "reason_code",
+        "requester_id",
+        "requester_identity_source",
+        "seq",
+        "ts",
+        "hmac"
+      ],
+      "required": [
+        "review_id",
+        "requested_finding_ids",
+        "required_reviewer_roles",
+        "required_policy_actor_roles",
+        "reason_code",
+        "seq",
+        "ts",
+        "hmac"
+      ]
+    },
+    "ReviewApprovalRequestState": {
+      "properties": [
+        "approval_status",
+        "finding_ids",
+        "required_reviewer_roles",
+        "required_policy_actor_roles",
+        "reason_code",
+        "requester_id",
+        "requester_identity_source",
+        "seq",
+        "ts"
+      ],
+      "required": [
+        "finding_ids",
+        "required_reviewer_roles",
+        "required_policy_actor_roles",
+        "reason_code",
+        "seq",
+        "ts"
+      ]
+    },
     "ReviewDecisionRequest": {
       "properties": [
         "finding_id",
@@ -823,7 +890,9 @@
         "lane_suppressed_count",
         "lane_suppressed_findings",
         "decisions_recorded",
-        "audit_exports"
+        "audit_exports",
+        "pending_approvals",
+        "approvals_requested"
       ]
     },
     "SafeRewriteReplacementResponse": {

@@ -21,6 +21,7 @@ EVENT_AUDIT_EXPORTED = "audit_exported"
 EVENT_COVERAGE_WARNING = "coverage_warning"  # advisory output from the LLM inverse audit
 EVENT_POLICY_DECISION_RECORDED = "policy_decision_recorded"
 EVENT_SUBJECT_ERASURE_RECORDED = "subject_erasure_recorded"
+EVENT_APPROVAL_REQUESTED = "approval_requested"
 
 
 class ReviewSessionError(ValueError):
@@ -35,6 +36,16 @@ class Decision:
     rationale: str = ""
     reviewer_id: str = ""  # who recorded this decision; auth principal for new production entries
     reviewer_identity_source: str = "none"  # jwt | api_key | dev_header | none | legacy
+
+
+def _dedupe_preserve_order(values: list[str] | tuple[str, ...]) -> list[str]:
+    out: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        if value not in seen:
+            out.append(value)
+            seen.add(value)
+    return out
 
 
 def start_review_session(
@@ -98,6 +109,62 @@ def record_decision(*, review_id: str, decision: Decision, tenant_id: str | None
     }
 
 
+def record_approval_request(
+    *,
+    review_id: str,
+    finding_ids: list[str] | None,
+    required_reviewer_roles: list[str],
+    required_policy_actor_roles: list[str],
+    reason_code: str,
+    requester_id: str = "",
+    requester_identity_source: str = "none",
+    tenant_id: str | None = None,
+) -> dict[str, Any]:
+    session = read_journal(review_id=review_id, tenant_id=tenant_id)
+    if not session or session[0].event_type != EVENT_REVIEW_STARTED:
+        raise ReviewSessionError(f"unknown review_id: {review_id}")
+
+    findings = session[0].payload.get("findings", [])
+    available_ids = [str(f.get("id", "")) for f in findings if str(f.get("id", ""))]
+    target_ids = _dedupe_preserve_order(finding_ids or available_ids)
+    if not target_ids:
+        raise ReviewSessionError("request_approval requires at least one finding_id")
+    unknown_ids = sorted(set(target_ids) - set(available_ids))
+    if unknown_ids:
+        raise ReviewSessionError(f"unknown finding_id: {unknown_ids[0]}")
+
+    payload = {
+        "approval_status": "pending",
+        "requested_action": "request_approval",
+        "finding_ids": target_ids,
+        "required_reviewer_roles": list(required_reviewer_roles),
+        "required_policy_actor_roles": list(required_policy_actor_roles),
+        "reason_code": reason_code,
+        "requester_id": requester_id,
+        "requester_identity_source": requester_identity_source,
+    }
+    entry = append_event(
+        event_type=EVENT_APPROVAL_REQUESTED,
+        review_id=review_id,
+        payload=payload,
+        tenant_id=tenant_id,
+    )
+    return {
+        "review_id": review_id,
+        "approval_status": "pending",
+        "requested_action": "request_approval",
+        "requested_finding_ids": target_ids,
+        "required_reviewer_roles": list(required_reviewer_roles),
+        "required_policy_actor_roles": list(required_policy_actor_roles),
+        "reason_code": reason_code,
+        "requester_id": requester_id,
+        "requester_identity_source": requester_identity_source,
+        "seq": entry.seq,
+        "ts": entry.ts,
+        "hmac": entry.hmac,
+    }
+
+
 def record_subject_erasure(
     *,
     review_id: str,
@@ -131,6 +198,7 @@ def get_session_state(*, review_id: str, tenant_id: str | None = None) -> dict[s
     audit_exports: list[dict[str, Any]] = []
     anonymize_events: list[dict[str, Any]] = []
     policy_decision_events: list[dict[str, Any]] = []
+    approval_request_events: list[dict[str, Any]] = []
     for entry in entries[1:]:
         if entry.event_type == EVENT_DECISION_RECORDED:
             decisions[entry.payload["finding_id"]] = {**entry.payload, "seq": entry.seq, "ts": entry.ts}
@@ -140,6 +208,8 @@ def get_session_state(*, review_id: str, tenant_id: str | None = None) -> dict[s
             audit_exports.append({**entry.payload, "seq": entry.seq, "ts": entry.ts})
         elif entry.event_type == EVENT_POLICY_DECISION_RECORDED:
             policy_decision_events.append({**entry.payload, "seq": entry.seq, "ts": entry.ts})
+        elif entry.event_type == EVENT_APPROVAL_REQUESTED:
+            approval_request_events.append({**entry.payload, "seq": entry.seq, "ts": entry.ts})
     return {
         "review_id": review_id,
         "text_hash": init.get("text_hash"),
@@ -151,6 +221,7 @@ def get_session_state(*, review_id: str, tenant_id: str | None = None) -> dict[s
         "anonymize_events": anonymize_events,
         "audit_exports": audit_exports,
         "policy_decisions": policy_decision_events,
+        "approval_requests": approval_request_events,
     }
 
 

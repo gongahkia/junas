@@ -103,6 +103,7 @@ Run the standard verification gate:
   - `/redact-pii`: deterministic PII-only replacement while MNPI remains visible and flagged.
   - `/hold-until-public`: high-severity MNPI hold text with display-safe and audit-ready reasons.
   - `/cite-public-source`: audit-grade public-source citations with privacy-ledger evidence.
+  - `/request-approval`: pending approval journal entry plus reviewer-role requirements.
 - Restores reversible pseudonymized text through `/reidentify` when the caller supplies a mapping or a persisted document hash.
 - Scrubs supported document metadata leakage through `/documents/scrub`.
 - Keeps optional public evidence and LLM helper layers disabled unless explicitly enabled by deployer and tenant gates.
@@ -143,6 +144,7 @@ Review and rewrite endpoints:
 - `POST /redact-pii`
 - `POST /hold-until-public`
 - `POST /cite-public-source`
+- `POST /request-approval`
 - `POST /safe-rewrite`
 - `POST /reidentify`
 - `POST /documents/scrub`
