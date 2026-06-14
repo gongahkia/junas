@@ -11,6 +11,7 @@ Runtime target: Chromium MV3 extension for managed Chrome/Edge pilots.
 Current files:
 
 - `manifest.json`: extension manifest, target host permissions, content-script matches, options page, service worker.
+- `adapters.js`: target selector registry for ChatGPT, Claude, Gemini, and generic editable fallback.
 - `content.js`: optional paste interception and review/rewrite result panel.
 - `service_worker.js`: backend call bridge.
 - `options.html`, `options.js`: endpoint, operation, paste interception, and token settings.
@@ -25,6 +26,7 @@ Current behavior:
 
 - Targets `https://chatgpt.com/*`, `https://claude.ai/*`, and `https://gemini.google.com/*`.
 - Product copy must describe this adapter as pre-send review for GenAI prompts on managed browser surfaces.
+- Target adapters define explicit prompt selectors for ChatGPT, Claude, Gemini, and a generic `textarea`/`input`/`contenteditable` fallback.
 - Calls the local Kaypoh daemon at `http://127.0.0.1:8765` by default.
 - Supports `review` plus replacement flows selected in options.
 - Paste interception is opt-in through extension settings.

@@ -16,6 +16,7 @@ class BrowserExtensionTests(unittest.TestCase):
             scripts["matches"],
             ["https://chatgpt.com/*", "https://claude.ai/*", "https://gemini.google.com/*"],
         )
+        self.assertEqual(scripts["js"], ["adapters.js", "content.js"])
         self.assertIn("http://127.0.0.1:8765/*", manifest["host_permissions"])
         self.assertNotIn("scripting", manifest["permissions"])
 
@@ -40,6 +41,8 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn('document.addEventListener("paste"', text)
         self.assertIn("let currentSettings", text)
         self.assertIn("chrome.storage.onChanged.addListener", text)
+        self.assertIn("promptTarget(event.target)", text)
+        self.assertIn("KAYPOH_BROWSER_ADAPTERS", text)
         self.assertIn("if (!cfg.interceptPaste) return", text)
         self.assertIn('cfg.operation === "review"', text)
         self.assertIn("captureInsertionPoint(target)", text)
@@ -56,6 +59,25 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("result.anonymized_text", text)
         self.assertIn("result.redacted_text", text)
         self.assertIn('"kaypoh-process-text"', text)
+
+    def test_target_adapter_selectors_are_declared(self):
+        text = (EXT / "adapters.js").read_text(encoding="utf-8")
+        for token in (
+            'id: "chatgpt"',
+            'hostnames: ["chatgpt.com"]',
+            "[data-testid='prompt-textarea']",
+            'id: "claude"',
+            'hostnames: ["claude.ai"]',
+            "div.ProseMirror[contenteditable='true']",
+            'id: "gemini"',
+            'hostnames: ["gemini.google.com"]',
+            "rich-textarea textarea",
+            'id: "generic"',
+            "textarea",
+            "resolvePromptTarget",
+            "findPromptComposer",
+        ):
+            self.assertIn(token, text)
 
     def test_browser_extension_docs_avoid_universal_dlp_claims(self):
         text = (ROOT / "docs" / "integrations" / "browser-extension.md").read_text(encoding="utf-8")

@@ -82,6 +82,74 @@ class FrontendIntegrationTests(unittest.TestCase):
             """
         )
 
+    def test_browser_target_adapters_resolve_known_prompt_selectors(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/browser_extension/adapters.js", "utf8");
+            const context = {};
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "adapters.js"});
+            const adapters = context.KAYPOH_BROWSER_ADAPTERS;
+
+            function rootReturning(expectedSelector) {
+              return {
+                selectors: [],
+                querySelector(selector) {
+                  this.selectors.push(selector);
+                  return selector === expectedSelector ? {selector} : null;
+                }
+              };
+            }
+
+            function elementMatching(expectedSelector) {
+              return {
+                matches(selector) {
+                  return selector === expectedSelector;
+                },
+                closest() {
+                  return null;
+                },
+                tagName: "DIV",
+                isContentEditable: true
+              };
+            }
+
+            const chatgptLocation = {hostname: "chatgpt.com"};
+            const claudeLocation = {hostname: "claude.ai"};
+            const geminiLocation = {hostname: "gemini.google.com"};
+            const genericLocation = {hostname: "example.test"};
+
+            assert.strictEqual(adapters.adapterForLocation(chatgptLocation).id, "chatgpt");
+            assert.strictEqual(adapters.adapterForLocation(claudeLocation).id, "claude");
+            assert.strictEqual(adapters.adapterForLocation(geminiLocation).id, "gemini");
+            assert.strictEqual(adapters.adapterForLocation(genericLocation).id, "generic");
+
+            assert.strictEqual(
+              adapters.findPromptComposer(rootReturning("[data-testid='prompt-textarea']"), chatgptLocation).selector,
+              "[data-testid='prompt-textarea']"
+            );
+            assert.strictEqual(
+              adapters.findPromptComposer(rootReturning("div.ProseMirror[contenteditable='true']"), claudeLocation)
+                .selector,
+              "div.ProseMirror[contenteditable='true']"
+            );
+            assert.strictEqual(
+              adapters.findPromptComposer(rootReturning("rich-textarea textarea"), geminiLocation).selector,
+              "rich-textarea textarea"
+            );
+            assert.strictEqual(
+              adapters.findPromptComposer(rootReturning("textarea"), genericLocation).selector,
+              "textarea"
+            );
+            assert.ok(
+              adapters.resolvePromptTarget(elementMatching("[data-testid='prompt-textarea']"), chatgptLocation)
+            );
+            """
+        )
+
     def test_outlook_launch_event_blocks_degraded_review(self):
         self.run_node(
             r"""

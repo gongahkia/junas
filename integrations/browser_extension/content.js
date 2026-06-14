@@ -48,6 +48,12 @@ function isEditable(element) {
   return element.isContentEditable === true;
 }
 
+function promptTarget(element) {
+  const adapter = globalThis.KAYPOH_BROWSER_ADAPTERS;
+  const resolved = adapter?.resolvePromptTarget ? adapter.resolvePromptTarget(element, window.location) : element;
+  return isEditable(resolved) ? resolved : null;
+}
+
 function captureInsertionPoint(element) {
   if (element && typeof element.setRangeText === "function") {
     const start = element.selectionStart ?? element.value.length;
@@ -92,8 +98,8 @@ chrome.runtime.onMessage.addListener((message) => {
 });
 
 document.addEventListener("paste", async (event) => {
-  const target = event.target;
-  if (!isEditable(target)) return;
+  const target = promptTarget(event.target);
+  if (!target) return;
   const cfg = currentSettings;
   if (!cfg.interceptPaste) return;
   const text = event.clipboardData?.getData("text/plain") || "";
