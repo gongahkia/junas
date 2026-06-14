@@ -1222,6 +1222,78 @@ class RedactedDocumentResponse(BaseModel):
 
 
 class SafeRewriteResponse(ReviewResponse):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "review_expires_at": "2026-06-14T09:35:00Z",
+                "overall_risk": "HIGH_RISK",
+                "classification": "HIGH_RISK",
+                "document_score": 85.0,
+                "pii_score": 85.0,
+                "mnpi_score": 0.0,
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "jurisdictions_applied": ["SG", "US"],
+                "jurisdiction_policy": "strictest_wins",
+                "document_type": "email",
+                "review_profile": "strict",
+                "degraded_policy": "warn",
+                "send_allowed": False,
+                "policy_decision": {
+                    "decision": "rewrite_required",
+                    "send_allowed": False,
+                    "required_actions": ["redact_pii", "request_approval", "safe_rewrite"],
+                    "recommended_actions": [],
+                    "blocking_findings": ["pii:sg_nric_fin:25:34:0"],
+                    "policy_id": "default",
+                    "policy_version": "2026-06-14",
+                    "policy_reasons": ["high-risk PII requires safe rewrite or reviewer approval before send"],
+                    "review_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                },
+                "action_catalog": [
+                    "redact_pii",
+                    "pseudonymize",
+                    "safe_rewrite",
+                    "cite_public_source",
+                    "request_approval",
+                    "hold_until_public",
+                    "proceed_with_warning",
+                ],
+                "document": {
+                    "filename": "inline.txt",
+                    "mime_type": "text/plain",
+                    "extraction_method": "inline_text",
+                    "page_count": None,
+                    "char_count": 48,
+                },
+                "findings": [],
+                "suggestions": [],
+                "privacy_operation": "safe_rewrite",
+                "rewrite_policy": "deterministic_allowed_spans",
+                "rewritten_text": "Send Dr Jane Tan [REDACTED PERSONAL DATA] to external counsel.",
+                "document_hash": "4f" * 32,
+                "mapping_persisted": False,
+                "replacements": [
+                    {
+                        "finding_id": "pii:sg_nric_fin:25:34:0",
+                        "action": "redact_pii",
+                        "category": "PII",
+                        "rule": "sg_nric_fin",
+                        "severity": "high",
+                        "start_char": 17,
+                        "end_char": 26,
+                        "replacement_text": "[REDACTED PERSONAL DATA]",
+                        "original_text_hash": "8a" * 32,
+                    }
+                ],
+                "skipped_findings": [],
+                "privacy_ledger": [],
+                "timings_ms": {"extract": 0.1, "review": 0.4, "safe_rewrite": 0.1, "total": 0.6},
+            }
+        }
+    )
+
     privacy_operation: str = Field("safe_rewrite", description="Privacy operation applied by this endpoint.")
     rewrite_policy: str = Field(
         "deterministic_allowed_spans",

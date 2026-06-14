@@ -1142,6 +1142,78 @@
         }
       ],
       "description": "Record a per-finding decision"
+    },
+    {
+      "name": "POST /safe-rewrite",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/safe-rewrite",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "safe-rewrite"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"allowed_actions\": [\n    \"safe_rewrite\",\n    \"redact_pii\",\n    \"hold_until_public\"\n  ],\n  \"allowed_finding_ids\": [\n    \"pii:sg_nric_fin:25:34:0\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"safe_rewrite\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/safe-rewrite",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "safe-rewrite"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allowed_actions\": [\n    \"safe_rewrite\",\n    \"redact_pii\",\n    \"hold_until_public\"\n  ],\n  \"allowed_finding_ids\": [\n    \"pii:sg_nric_fin:25:34:0\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"safe_rewrite\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 48,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_hash\": \"4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f\",\n  \"document_score\": 85.0,\n  \"document_type\": \"email\",\n  \"findings\": [],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mapping_persisted\": false,\n  \"mnpi_score\": 0.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 85.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"pii:sg_nric_fin:25:34:0\"\n    ],\n    \"decision\": \"rewrite_required\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk PII requires safe rewrite or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"redact_pii\",\n      \"request_approval\",\n      \"safe_rewrite\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"privacy_operation\": \"safe_rewrite\",\n  \"replacements\": [\n    {\n      \"action\": \"redact_pii\",\n      \"category\": \"PII\",\n      \"end_char\": 26,\n      \"finding_id\": \"pii:sg_nric_fin:25:34:0\",\n      \"original_text_hash\": \"8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a\",\n      \"replacement_text\": \"[REDACTED PERSONAL DATA]\",\n      \"rule\": \"sg_nric_fin\",\n      \"severity\": \"high\",\n      \"start_char\": 17\n    }\n  ],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"rewrite_policy\": \"deterministic_allowed_spans\",\n  \"rewritten_text\": \"Send Dr Jane Tan [REDACTED PERSONAL DATA] to external counsel.\",\n  \"send_allowed\": false,\n  \"skipped_findings\": [],\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [],\n  \"timings_ms\": {\n    \"extract\": 0.1,\n    \"review\": 0.4,\n    \"safe_rewrite\": 0.1,\n    \"total\": 0.6\n  }\n}"
+        }
+      ],
+      "description": "Safely rewrite a document deterministically"
     }
   ]
 }

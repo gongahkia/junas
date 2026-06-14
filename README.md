@@ -134,6 +134,7 @@ Review and rewrite endpoints:
 - `POST /pseudonymize`
 - `POST /anonymize`
 - `POST /redact`
+- `POST /safe-rewrite`
 - `POST /reidentify`
 - `POST /documents/scrub`
 

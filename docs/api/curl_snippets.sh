@@ -84,3 +84,8 @@ curl -sS -X GET "${BASE_URL}/review/{review_id}"
 curl -sS -X POST "${BASE_URL}/review/{review_id}/decision" \
   -H "Content-Type: application/json" \
   -d '{"action":"reject","finding_id":"pii:named_person:5:16:0","rationale":"Defined term in contract preamble, not a real party","replacement_text":""}'
+
+# POST /safe-rewrite - Safely rewrite a document deterministically
+curl -sS -X POST "${BASE_URL}/safe-rewrite" \
+  -H "Content-Type: application/json" \
+  -d '{"allowed_actions":["safe_rewrite","redact_pii","hold_until_public"],"allowed_finding_ids":["pii:sg_nric_fin:25:34:0"],"destination_jurisdiction":"US","document_type":"email","requested_action":"safe_rewrite","source_jurisdiction":"SG","surface":"outlook","text":"Send Dr Jane Tan S1234567D the confidential draft before announcement.","workflow":"email_send"}'

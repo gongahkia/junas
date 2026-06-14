@@ -12,6 +12,7 @@ uv run python scripts/export_openapi_examples.py
 - `POST /pseudonymize`: same review plus reversible deterministic placeholders, mapping returned, optional mapping persistence.
 - `POST /anonymize`: irreversible v2 placeholder-only output; no mapping returned or persisted.
 - `POST /redact`: opaque text markers; no mapping and no original matched text in the redaction response.
+- `POST /safe-rewrite`: deterministic policy-approved span replacements; no LLM call and no mapping persistence.
 - `POST /reidentify`: restores placeholders from a caller-supplied `/pseudonymize` mapping or persisted pseudonymization document hash.
 - `POST /documents/scrub`: metadata scrub for supported document/image formats.
 - `POST /classify`, `POST /classify/batch`: compatibility wrappers over `engine.review()`.

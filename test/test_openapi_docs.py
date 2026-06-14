@@ -31,6 +31,7 @@ class OpenApiDocsTests(unittest.TestCase):
         pseudonymize_operation = payload["paths"]["/pseudonymize"]["post"]
         anonymize_operation = payload["paths"]["/anonymize"]["post"]
         redact_operation = payload["paths"]["/redact"]["post"]
+        safe_rewrite_operation = payload["paths"]["/safe-rewrite"]["post"]
         scrub_operation = payload["paths"]["/documents/scrub"]["post"]
 
         self.assertEqual(classify_operation["summary"], "Classify one document")
@@ -39,12 +40,14 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertEqual(pseudonymize_operation["summary"], "Pseudonymize a document before sending")
         self.assertEqual(anonymize_operation["summary"], "Anonymize a document irreversibly")
         self.assertEqual(redact_operation["summary"], "Redact a document with opaque markers")
+        self.assertEqual(safe_rewrite_operation["summary"], "Safely rewrite a document deterministically")
         self.assertEqual(scrub_operation["summary"], "Scrub document metadata")
         self.assertIn("deterministic review engine", classify_operation["description"])
         self.assertIn("strictest-wins", review_operation["description"])
         self.assertIn("deterministic reversible placeholders", pseudonymize_operation["description"])
         self.assertIn("without returning or persisting a mapping", anonymize_operation["description"])
         self.assertIn("opaque redaction markers", redact_operation["description"])
+        self.assertIn("does not call an LLM", safe_rewrite_operation["description"])
 
         schemas = payload["components"]["schemas"]
         anonymize_request = schemas["AnonymizeRequest"]
@@ -52,6 +55,8 @@ class OpenApiDocsTests(unittest.TestCase):
         pseudonymize_request = schemas["PseudonymizeRequest"]
         pseudonymize_response = schemas["PseudonymizeResponse"]
         redact_response = schemas["RedactResponse"]
+        safe_rewrite_request = schemas["SafeRewriteRequest"]
+        safe_rewrite_response = schemas["SafeRewriteResponse"]
         classify_request = schemas["ClassifyRequest"]
         review_request = schemas["ReviewRequest"]
         review_response = schemas["ReviewResponse"]
@@ -77,6 +82,9 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertIn("mapping", pseudonymize_response["properties"])
         self.assertIn("redacted_text", redact_response["properties"])
         self.assertIn("redactions", redact_response["properties"])
+        self.assertIn("allowed_actions", safe_rewrite_request["properties"])
+        self.assertIn("rewritten_text", safe_rewrite_response["properties"])
+        self.assertIn("skipped_findings", safe_rewrite_response["properties"])
         include_spans_description = classify_request["properties"]["include_offending_spans"]["description"]
         self.assertIn("Deprecated compatibility flag", include_spans_description)
         classify_response = schemas["ClassifyResponse"]

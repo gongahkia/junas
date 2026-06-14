@@ -16,7 +16,7 @@ from _thread import LockType
 from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
-from dataclasses import replace
+from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from threading import Lock, Thread
@@ -111,6 +111,10 @@ from kaypoh.backend.schemas import (
     ReviewSessionFindingState,
     ReviewSessionStateResponse,
     ReviewSuggestionResponse,
+    SafeRewriteReplacementResponse,
+    SafeRewriteRequest,
+    SafeRewriteResponse,
+    SafeRewriteSkippedFindingResponse,
 )
 from kaypoh.backend.siem import emit_privacy_ledger_events, emit_security_event
 from kaypoh.configs.runtime import RuntimeSettings, get_runtime_settings
@@ -168,6 +172,7 @@ LOCAL_DAEMON_PROTECTED_PATHS = {
     "/redact",
     "/reidentify",
     "/review",
+    "/safe-rewrite",
 }
 LOCAL_DAEMON_PROTECTED_PREFIXES = ("/review/",)
 OPENAPI_TAGS = [
@@ -199,6 +204,8 @@ Key behaviors:
 - `POST /anonymize` returns irreversible placeholder-only output with no mapping.
 - `POST /redact` returns irreversible opaque markers and no original matched text
   in redaction findings.
+- `POST /safe-rewrite` returns deterministic policy-approved span replacements
+  without calling an LLM or persisting a reidentification mapping.
 - `POST /review` runs the same evidence-first pre-send review without rewriting
   the document, returning localized findings, remediation suggestions,
   jurisdiction coverage, and separate PII/MNPI scores.
@@ -1268,6 +1275,160 @@ def _policy_decision_response(
     return response, policy_decision_ms
 
 
+@dataclass(frozen=True)
+class _SafeRewriteCandidate:
+    finding: Any
+    finding_id: str
+    action: str
+    replacement_text: str
+    start_char: int
+    end_char: int
+    priority: int
+
+
+def _finding_attr(finding: Any, name: str, default: Any = "") -> Any:
+    if isinstance(finding, dict):
+        return finding.get(name, default)
+    return getattr(finding, name, default)
+
+
+def _safe_rewrite_action(
+    *,
+    finding: Any,
+    policy_actions: set[str],
+    allowed_actions: set[str],
+) -> tuple[str | None, str]:
+    category = str(_finding_attr(finding, "category", "")).upper()
+    severity = str(_finding_attr(finding, "severity", "")).lower()
+    if category == "PII":
+        if "redact_pii" in policy_actions and "redact_pii" in allowed_actions:
+            return "redact_pii", "[REDACTED PERSONAL DATA]"
+        if "safe_rewrite" in policy_actions and "safe_rewrite" in allowed_actions:
+            return "safe_rewrite", "[REDACTED PERSONAL DATA]"
+        return None, "no policy-approved PII rewrite action"
+    if category == "MNPI" and severity == "high":
+        if "hold_until_public" in policy_actions and "hold_until_public" in allowed_actions:
+            return "hold_until_public", "[HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]"
+        return None, "no policy-approved MNPI hold action"
+    return None, "finding category or severity is not safe-rewrite eligible"
+
+
+def _safe_rewrite_priority(finding: Any) -> int:
+    category = str(_finding_attr(finding, "category", "")).upper()
+    severity = str(_finding_attr(finding, "severity", "")).lower()
+    category_priority = 100 if category == "PII" else 50
+    severity_priority = {"high": 30, "medium": 20, "low": 10}.get(severity, 0)
+    return category_priority + severity_priority
+
+
+def _safe_rewrite_plan(
+    *,
+    text: str,
+    findings: list[Any],
+    policy_decision: PolicyDecisionResponse,
+    req: SafeRewriteRequest,
+) -> tuple[list[_SafeRewriteCandidate], list[SafeRewriteSkippedFindingResponse]]:
+    policy_actions = set(policy_decision.required_actions) | set(policy_decision.recommended_actions)
+    allowed_actions = set(req.allowed_actions)
+    allowed_finding_ids = set(req.allowed_finding_ids or [])
+    candidates: list[_SafeRewriteCandidate] = []
+    skipped: dict[str, str] = {}
+
+    def skip(finding_id: str, reason: str) -> None:
+        if finding_id and finding_id not in skipped:
+            skipped[finding_id] = reason
+
+    for finding in findings:
+        finding_id = str(_finding_attr(finding, "id", ""))
+        if allowed_finding_ids and finding_id not in allowed_finding_ids:
+            skip(finding_id, "finding not in allowed_finding_ids")
+            continue
+        start = int(_finding_attr(finding, "start_char", -1))
+        end = int(_finding_attr(finding, "end_char", -1))
+        if start < 0 or end <= start or end > len(text):
+            skip(finding_id, "invalid finding span")
+            continue
+        action, replacement_text = _safe_rewrite_action(
+            finding=finding,
+            policy_actions=policy_actions,
+            allowed_actions=allowed_actions,
+        )
+        if action is None:
+            skip(finding_id, replacement_text)
+            continue
+        candidates.append(
+            _SafeRewriteCandidate(
+                finding=finding,
+                finding_id=finding_id,
+                action=action,
+                replacement_text=replacement_text,
+                start_char=start,
+                end_char=end,
+                priority=_safe_rewrite_priority(finding),
+            )
+        )
+
+    accepted: list[_SafeRewriteCandidate] = []
+    ordered = sorted(
+        candidates,
+        key=lambda item: (
+            item.start_char,
+            -item.priority,
+            -(item.end_char - item.start_char),
+            item.end_char,
+        ),
+    )
+    for candidate in ordered:
+        if any(
+            candidate.start_char < existing.end_char and existing.start_char < candidate.end_char
+            for existing in accepted
+        ):
+            skip(candidate.finding_id, "overlaps with higher-priority replacement")
+            continue
+        accepted.append(candidate)
+
+    skipped_findings = [
+        SafeRewriteSkippedFindingResponse(finding_id=finding_id, reason=reason)
+        for finding_id, reason in sorted(skipped.items())
+    ]
+    return sorted(accepted, key=lambda item: (item.start_char, item.end_char)), skipped_findings
+
+
+def _apply_safe_rewrite(text: str, replacements: list[_SafeRewriteCandidate]) -> str:
+    rewritten_text = text
+    for replacement in sorted(replacements, key=lambda item: item.start_char, reverse=True):
+        rewritten_text = (
+            rewritten_text[: replacement.start_char]
+            + replacement.replacement_text
+            + rewritten_text[replacement.end_char :]
+        )
+    return rewritten_text
+
+
+def _safe_rewrite_replacements(
+    *,
+    text: str,
+    replacements: list[_SafeRewriteCandidate],
+) -> list[SafeRewriteReplacementResponse]:
+    responses: list[SafeRewriteReplacementResponse] = []
+    for replacement in replacements:
+        original_text = text[replacement.start_char : replacement.end_char]
+        responses.append(
+            SafeRewriteReplacementResponse(
+                finding_id=replacement.finding_id,
+                action=replacement.action,
+                category=str(_finding_attr(replacement.finding, "category", "")),
+                rule=str(_finding_attr(replacement.finding, "rule", "")),
+                severity=str(_finding_attr(replacement.finding, "severity", "")),
+                start_char=replacement.start_char,
+                end_char=replacement.end_char,
+                replacement_text=replacement.replacement_text,
+                original_text_hash=hashlib.sha256(original_text.encode("utf-8")).hexdigest(),
+            )
+        )
+    return responses
+
+
 def _finding_response(finding: Any) -> ReviewFindingResponse:
     return ReviewFindingResponse(
         id=finding.id,
@@ -1617,6 +1778,169 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
         result.privacy_ledger,
         request_id=request_id,
         endpoint="/review",
+        settings=current_runtime_settings().siem,
+    )
+    return response
+
+
+def _run_safe_rewrite_sync(
+    req: SafeRewriteRequest,
+    request_id: str | None,
+    tenant: TenantContext,
+) -> SafeRewriteResponse:
+    timings_ms: dict[str, float] = {}
+    t_total_start = time.perf_counter()
+    t_extract_start = time.perf_counter()
+    try:
+        document = extract_review_document(
+            req,
+            current_runtime_settings().document_ingest,
+            image_scan_enabled=_image_scan_enabled(),
+            image_scan_settings=current_runtime_settings().image_scan,
+        )
+    except (ValueError, ImageScanError) as exc:
+        detail = _image_scan_error_detail(exc) if isinstance(exc, ImageScanError) else str(exc)
+        raise HTTPException(status_code=422, detail=detail) from exc
+    timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
+    degraded_modes = _document_degraded_modes(document)
+
+    t_image_scan_start = time.perf_counter()
+    try:
+        document, image_privacy_ledger = _scan_document_images(
+            document,
+            tenant_id=tenant.tenant_id if tenant.enabled else None,
+        )
+    except ImageScanError as exc:
+        if current_runtime_settings().document_ingest.fail_closed:
+            raise HTTPException(status_code=422, detail=_image_scan_error_detail(exc)) from exc
+        image_privacy_ledger = []
+        degraded_modes.append(_degraded_mode("image_ocr", "failed_open", str(exc)))
+    if image_privacy_ledger:
+        timings_ms["image_ocr"] = round((time.perf_counter() - t_image_scan_start) * 1000.0, 3)
+
+    t_review_start = time.perf_counter()
+    engine = _build_review_engine()
+    try:
+        result = engine.review(
+            text=document.text,
+            source_jurisdiction=req.source_jurisdiction,
+            destination_jurisdiction=req.destination_jurisdiction,
+            entity_id=req.entity_id,
+            include_suggestions=req.include_suggestions,
+            document_type=req.document_type,
+            session_id=req.session_id,
+            matter_id=req.matter_id,
+            review_profile=req.review_profile,
+            tenant_id=tenant.storage_tenant_id,
+            document_structure=getattr(document, "document_structure", None),
+        )
+    except ReviewLayerError as exc:
+        raise HTTPException(status_code=503, detail=_layer_error_detail(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=_detector_error_detail(exc)) from exc
+    _annotate_image_ocr_findings(document, result.findings)
+    lane_result = _apply_surfacing_lanes_to_result(result, tenant)
+    result.privacy_ledger = image_privacy_ledger + list(result.privacy_ledger)
+    degraded_modes.extend(list(getattr(result, "degraded_modes", []) or []))
+    timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
+    try:
+        _persist_review_session(
+            request_id=request_id,
+            req=req,
+            document_text=document.text,
+            findings=result.findings,
+            tenant_id=tenant.storage_tenant_id,
+        )
+    except SubjectIndexError as exc:
+        log_backend_event(logging.WARNING, event="review_subject_index_failed", error=str(exc))
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "message": f"review persistence failed closed: {exc}",
+                "degraded_modes": [
+                    _degraded_mode("subject_index", "failed_closed", str(exc), {})
+                ],
+            },
+        ) from exc
+    _persist_coverage_warnings(
+        request_id=request_id,
+        warnings=result.coverage_warnings,
+        tenant_id=tenant.storage_tenant_id,
+    )
+    timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
+
+    review_response = _build_review_response(
+        req=req,
+        request_id=request_id,
+        document=document,
+        result=result,
+        timings_ms=timings_ms,
+        degraded_modes=degraded_modes,
+        visible_findings=lane_result.visible_findings,
+        lane_suppressed_findings=(
+            lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []
+        ),
+        lane_suppressed_count=lane_result.suppressed_count,
+    )
+    _persist_policy_decision_event(
+        request_id=request_id,
+        document_text=document.text,
+        policy_decision=review_response.policy_decision,
+        finding_count=len(result.findings),
+        degraded_modes=degraded_modes,
+        tenant_id=tenant.storage_tenant_id,
+    )
+
+    t_safe_rewrite_start = time.perf_counter()
+    replacements, skipped_findings = _safe_rewrite_plan(
+        text=document.text,
+        findings=list(result.findings),
+        policy_decision=review_response.policy_decision,
+        req=req,
+    )
+    rewritten_text = _apply_safe_rewrite(document.text, replacements)
+    rewrite_replacements = _safe_rewrite_replacements(text=document.text, replacements=replacements)
+    timings_ms["safe_rewrite"] = round((time.perf_counter() - t_safe_rewrite_start) * 1000.0, 3)
+    timings_ms["total"] = round(timings_ms.get("total", 0.0) + timings_ms["safe_rewrite"], 3)
+    base_response = review_response.model_dump(mode="python")
+    base_response["timings_ms"] = dict(timings_ms)
+    response = SafeRewriteResponse(
+        **base_response,
+        privacy_operation="safe_rewrite",
+        rewrite_policy="deterministic_allowed_spans",
+        rewritten_text=rewritten_text,
+        document_hash=_compute_document_hash(document.text),
+        mapping_persisted=False,
+        replacements=rewrite_replacements,
+        skipped_findings=skipped_findings,
+    )
+
+    observability = get_observability()
+    if observability is not None:
+        observability.observe_classification(
+            endpoint="/safe-rewrite",
+            classification=result.overall_risk.value,
+            cache_status="disabled",
+            degraded=bool(degraded_modes),
+            duration_seconds=timings_ms["total"] / 1000.0,
+        )
+
+    log_backend_event(
+        logging.INFO,
+        event="safe_rewrite_summary",
+        request_id=request_id,
+        classification=result.overall_risk.value,
+        pii_score=result.pii_score,
+        mnpi_score=result.mnpi_score,
+        finding_count=len(result.findings),
+        replacement_count=len(replacements),
+        jurisdictions_applied=result.jurisdictions_applied,
+        timings_ms=timings_ms,
+    )
+    emit_privacy_ledger_events(
+        result.privacy_ledger,
+        request_id=request_id,
+        endpoint="/safe-rewrite",
         settings=current_runtime_settings().siem,
     )
     return response
@@ -2595,6 +2919,26 @@ async def classify_batch(request: Request, req: BatchClassifyRequest):
 async def review_document(request: Request, req: ReviewRequest):
     return await run_in_threadpool(
         _run_review_sync,
+        req,
+        getattr(request.state, "request_id", None),
+        tenant_context_from_request(request),
+    )
+
+
+@app.post(
+    "/safe-rewrite",
+    response_model=SafeRewriteResponse,
+    dependencies=[Depends(require_review_access)],
+    tags=["Anonymization"],
+    summary="Safely rewrite a document deterministically",
+    description=(
+        "Run the pre-send PII/MNPI review and return text with deterministic, policy-approved "
+        "span replacements. This endpoint does not call an LLM and does not persist a reidentification mapping."
+    ),
+)
+async def safe_rewrite_document(request: Request, req: SafeRewriteRequest):
+    return await run_in_threadpool(
+        _run_safe_rewrite_sync,
         req,
         getattr(request.state, "request_id", None),
         tenant_context_from_request(request),

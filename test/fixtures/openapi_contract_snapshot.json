@@ -139,6 +139,16 @@
           "Anonymization"
         ]
       }
+    },
+    "/safe-rewrite": {
+      "post": {
+        "request_body_ref": "#/components/schemas/SafeRewriteRequest",
+        "response_ref": "#/components/schemas/SafeRewriteResponse",
+        "summary": "Safely rewrite a document deterministically",
+        "tags": [
+          "Anonymization"
+        ]
+      }
     }
   },
   "schemas": {
@@ -512,6 +522,124 @@
         "lane_suppressed_findings",
         "decisions_recorded",
         "audit_exports"
+      ]
+    },
+    "SafeRewriteReplacementResponse": {
+      "properties": [
+        "finding_id",
+        "action",
+        "category",
+        "rule",
+        "severity",
+        "start_char",
+        "end_char",
+        "replacement_text",
+        "original_text_hash"
+      ],
+      "required": [
+        "finding_id",
+        "action",
+        "category",
+        "rule",
+        "severity",
+        "start_char",
+        "end_char",
+        "replacement_text",
+        "original_text_hash"
+      ]
+    },
+    "SafeRewriteRequest": {
+      "properties": [
+        "text",
+        "document_base64",
+        "document_filename",
+        "document_mime_type",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "document_type",
+        "review_profile",
+        "entity_id",
+        "include_suggestions",
+        "degraded_policy",
+        "surface",
+        "workflow",
+        "actor_role",
+        "recipient_domains",
+        "recipient_count",
+        "attachment_count",
+        "sensitivity_label",
+        "external_destination",
+        "requested_action",
+        "session_id",
+        "matter_id",
+        "allowed_actions",
+        "allowed_finding_ids"
+      ],
+      "required": []
+    },
+    "SafeRewriteResponse": {
+      "properties": [
+        "request_id",
+        "review_expires_at",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "degraded_policy",
+        "send_allowed",
+        "policy_decision",
+        "action_catalog",
+        "document",
+        "findings",
+        "lane_suppressed_count",
+        "lane_suppressed_findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms",
+        "privacy_operation",
+        "rewrite_policy",
+        "rewritten_text",
+        "document_hash",
+        "mapping_persisted",
+        "replacements",
+        "skipped_findings"
+      ],
+      "required": [
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "document",
+        "rewritten_text",
+        "document_hash"
+      ]
+    },
+    "SafeRewriteSkippedFindingResponse": {
+      "properties": [
+        "finding_id",
+        "reason"
+      ],
+      "required": [
+        "finding_id",
+        "reason"
       ]
     }
   },
