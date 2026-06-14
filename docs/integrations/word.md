@@ -1,6 +1,8 @@
 # Word Taskpane
 
-Source: `packaging/word_addin/`
+Source: `integrations/word_addin/`
+
+Compatibility path: `packaging/word_addin/`
 
 Maturity: `experimental`
 
@@ -14,7 +16,7 @@ Current files:
 Deploy:
 
 ```sh
-packaging/word_addin/manifest.xml
+integrations/word_addin/manifest.xml
 ```
 
 Current behavior:

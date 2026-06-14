@@ -1,6 +1,8 @@
 # Outlook Smart Alerts Add-In
 
-Source: `packaging/office_addin/`
+Source: `integrations/outlook_addin/`
+
+Compatibility path: `packaging/office_addin/`
 
 Maturity: `supported-target`
 
@@ -17,7 +19,7 @@ Deploy:
 
 ```sh
 # dev or staging manifest host must serve HTTPS URLs referenced by manifest.xml
-packaging/office_addin/manifest.xml
+integrations/outlook_addin/manifest.xml
 ```
 
 Current behavior:

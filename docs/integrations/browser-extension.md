@@ -1,6 +1,8 @@
 # Browser Extension
 
-Source: `packaging/browser_extension/`
+Source: `integrations/browser_extension/`
+
+Compatibility path: `packaging/browser_extension/`
 
 Maturity: `supported-target`
 

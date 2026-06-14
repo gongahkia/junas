@@ -1,6 +1,8 @@
 # Desktop Watcher
 
-Source: `src/kaypoh/desktop/`, `packaging/kaypoh-local.spec`, `packaging/macos/`
+Source: `integrations/desktop/`, `packaging/kaypoh-local.spec`, `packaging/macos/`
+
+Compatibility path: `src/kaypoh/desktop/`
 
 Maturity: `experimental-local-fallback`
 
