@@ -10,7 +10,7 @@
 - [x] P0/Product: Update `docs/README.md` to include the new `docs/product/` documents and clarify that product docs are normative for roadmap decisions.
 - [x] P0/Product: Add `docs/roadmap.md` with P0 backend policy contract, P1 Outlook Smart Alerts, P1/P2 browser extension, P2 desktop watcher, and explicit exit criteria for each phase.
 - [x] P0/Product: Add `docs/adr/0001-backend-first-adapters-second.md` recording the decision to keep adapters but make backend API and policy decisions the deployment core.
-- [ ] P0/Product: Add `docs/adr/0002-primary-adapter-outlook-first.md` recording whether Outlook Smart Alerts or browser GenAI extension is the first supported adapter, with evidence and tradeoffs.
+- [x] P0/Product: Add `docs/adr/0002-primary-adapter-outlook-first.md` recording whether Outlook Smart Alerts or browser GenAI extension is the first supported adapter, with evidence and tradeoffs.
 - [ ] P0/Product: Add a README note that adapters are not required to integrate Kaypoh because direct HTTP/OpenAPI integration remains the baseline path.
 - [ ] P0/Product: Rename README "Anonymization" API tag language in prose to "Review and rewrite" while preserving endpoint names for compatibility.
 - [ ] P0/Product: Add a "Kill Criteria" subsection to `docs/roadmap.md` requiring adapter promotion to show measurable workflow value, not just technical feasibility.
