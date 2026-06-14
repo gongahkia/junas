@@ -7,7 +7,7 @@ The review journal is append-only. `review_started` records the initial findings
 Legacy actions remain valid:
 
 - `accept`: finding is accepted as valid.
-- `reject`: finding is rejected and excluded by downstream `findings_after_decisions`.
+- `reject`: finding is rejected. It is excluded by downstream `findings_after_decisions` only when recorded by an authorized reviewer identity.
 - `rewrite`: finding is valid and needs replacement text.
 
 Extended actions are additive:
@@ -22,7 +22,9 @@ Extended actions are additive:
 
 - Old journal entries replay unchanged; missing extended actions need no migration.
 - New actions are stored in the same `decision_recorded.payload.action` string field.
-- `reject` is the only action that removes a finding from downstream anonymization input.
+- `reject` is the only action that can remove a finding from downstream anonymization input.
+- Reject removal requires `reviewer_identity_source` of `api_key`, `jwt`, or `dev_header` plus a non-empty `reviewer_id`.
+- `none`, empty, or legacy reviewer identity sources preserve the finding for downstream anonymization.
 - All other known actions keep the finding visible for audit, export, and later review.
 - Unknown future actions must be preserved as strings and treated as non-reject for replay unless a later version documents stricter behavior.
 - Audit exports preserve raw action strings in `decisions.json` and count all known action names instead of collapsing them to the legacy three-action set.

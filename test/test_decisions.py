@@ -82,12 +82,28 @@ class DecisionStateMachineTests(unittest.TestCase):
         self._seed_session()
         self.decisions_mod.record_decision(
             review_id="rev-1",
-            decision=self.decisions_mod.Decision(finding_id="f1", action="reject"),
+            decision=self.decisions_mod.Decision(
+                finding_id="f1",
+                action="reject",
+                reviewer_id="casey",
+                reviewer_identity_source="api_key",
+            ),
         )
         state = self.decisions_mod.get_session_state(review_id="rev-1")
         kept = self.decisions_mod.findings_after_decisions(state)
         kept_ids = {f["id"] for f in kept}
         self.assertEqual(kept_ids, {"f2"})  # f1 rejected, f2 undecided defaults to kept
+
+    def test_findings_after_decisions_keeps_unauthorized_reject(self):
+        self._seed_session()
+        self.decisions_mod.record_decision(
+            review_id="rev-1",
+            decision=self.decisions_mod.Decision(finding_id="f1", action="reject"),
+        )
+        state = self.decisions_mod.get_session_state(review_id="rev-1")
+        kept = self.decisions_mod.findings_after_decisions(state)
+        kept_ids = {f["id"] for f in kept}
+        self.assertEqual(kept_ids, {"f1", "f2"})
 
     def test_verify_journal_warns_on_mixed_identity_sources(self):
         import scripts.verify_journal as verify_journal

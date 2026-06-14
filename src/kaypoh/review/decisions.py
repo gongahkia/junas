@@ -24,6 +24,7 @@ DECISION_ACTIONS = (
 )
 ALLOWED_ACTIONS = frozenset(DECISION_ACTIONS)
 REJECT_ACTIONS = frozenset({"reject"})
+AUTHORIZED_REVIEWER_IDENTITY_SOURCES = frozenset({"api_key", "jwt", "dev_header"})
 POSITIVE_CORPUS_ACTIONS = frozenset(
     {
         "accept",
@@ -68,6 +69,16 @@ def _dedupe_preserve_order(values: list[str] | tuple[str, ...]) -> list[str]:
             out.append(value)
             seen.add(value)
     return out
+
+
+def _is_authorized_reviewer_decision(decision: dict[str, Any]) -> bool:
+    source = str(decision.get("reviewer_identity_source") or "").strip().lower()
+    reviewer_id = str(decision.get("reviewer_id") or "").strip()
+    return source in AUTHORIZED_REVIEWER_IDENTITY_SOURCES and bool(reviewer_id)
+
+
+def _is_authorized_reject(decision: dict[str, Any]) -> bool:
+    return str(decision.get("action") or "") in REJECT_ACTIONS and _is_authorized_reviewer_decision(decision)
 
 
 def start_review_session(
@@ -248,7 +259,7 @@ def get_session_state(*, review_id: str, tenant_id: str | None = None) -> dict[s
 
 
 def findings_after_decisions(state: dict[str, Any]) -> list[dict[str, Any]]:
-    """Return findings retained after reviewer decisions; only reject removes the finding."""
+    """Return findings retained after reviewer decisions; only authorized reject removes a finding."""
     decisions_by_id = {d["finding_id"]: d for d in state.get("decisions", [])}
     kept: list[dict[str, Any]] = []
     for finding in state.get("findings", []):
@@ -257,7 +268,7 @@ def findings_after_decisions(state: dict[str, Any]) -> list[dict[str, Any]]:
             # un-decided findings default to accepted so anonymisation is safe by default
             kept.append(finding)
             continue
-        if decision["action"] in REJECT_ACTIONS:
+        if _is_authorized_reject(decision):
             continue
         kept.append(finding)
     return kept

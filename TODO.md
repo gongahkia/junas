@@ -50,7 +50,7 @@
 - [x] P0/UserActions: Add a "cite public source" action path for audit-grade public evidence that requires source URL, retrieval timestamp, and privacy-ledger entry.
 - [x] P0/UserActions: Add a "request approval" action that records pending approval in the review journal and returns reviewer-role requirements.
 - [x] P0/UserActions: Extend review decision actions beyond accept, reject, and rewrite only after documenting backward-compatible journal replay behavior.
-- [ ] P0/UserActions: Add tests that rejected findings are excluded from downstream anonymization only after an authorized reviewer decision.
+- [x] P0/UserActions: Add tests that rejected findings are excluded from downstream anonymization only after an authorized reviewer decision.
 - [ ] P0/UserActions: Add docs explaining the difference between pseudonymize, anonymize, redact, safe rewrite, and reviewer approval in plain operational terms.
 - [ ] P0/UserActions: Update Python client methods to expose policy decisions and action catalog without forcing callers to parse raw dicts.
 - [ ] P0/UserActions: Add sync and async Python client examples for "review then safe rewrite" and "review then request approval".
