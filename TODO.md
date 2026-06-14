@@ -23,7 +23,7 @@
 - [x] P0/API: Add validation tests for the new `ReviewRequest` workflow-context fields, including max lengths, allowed enums, empty-list behavior, and backward compatibility.
 - [x] P0/API: Implement a tenant policy module under `src/kaypoh/policy/` that evaluates findings plus workflow context into allow, warn, block, approval_required, or rewrite_required.
 - [x] P0/API: Add a default policy profile that blocks degraded `block_send`, warns on low-risk findings, requires rewrite or approval on high-risk PII, and blocks high-risk MNPI unless public evidence or reviewer approval exists.
-- [ ] P0/API: Add policy config loading from TOML with tenant override support, schema validation, explicit policy versioning, and fail-fast startup errors for invalid production policy.
+- [x] P0/API: Add policy config loading from TOML with tenant override support, schema validation, explicit policy versioning, and fail-fast startup errors for invalid production policy.
 - [ ] P0/API: Add policy unit tests covering PII high, MNPI high, mixed PII/MNPI, cross-border recipient, external domain, degraded coverage, reviewer role override, and missing workflow context.
 - [ ] P0/API: Add policy evaluation into `/review`, `/pseudonymize`, `/anonymize`, and `/redact` responses without breaking existing clients that only read `send_allowed`.
 - [ ] P0/API: Add an `action_catalog` response field listing available next actions such as redact_pii, pseudonymize, safe_rewrite, cite_public_source, request_approval, hold_until_public, and proceed_with_warning.
