@@ -128,7 +128,6 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 
 | Prompt | Tier | Notes |
 |---|---|---|
-| `Batch G G4` SGLB-16 Review-Redflag-Recall | 5 | Mechanical defect injection on SG contract templates. Cost-safe. |
 | `Batch H H1` SGLB-10 Citation-Generation | 5 | Uses SAL grammar already on main. Cost-safe. |
 | `Batch F F2` MCP tools (5 wrappers) | 5 | F1 landed (PR #125). Cost-safe. |
 | `Batch F F3` MCP setup docs + example prompts + troubleshooting | 5 | Docs only. Cost-safe. |
@@ -159,7 +158,7 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | `Batch G G1` v0.2 multi-judge upgrade | 5 | v0.1 smoke can fire now with Azure; v0.2 upgrade waits |
 
 ### Total remaining
-- **11 fireable now**, **4 cost-gated**, **4 deferred**. 19 prompts total.
+- **10 fireable now**, **4 cost-gated**, **4 deferred**. 18 prompts total.
 
 ## Fire order
 
@@ -2466,7 +2465,7 @@ on, any spec-doc inconsistencies you noticed while writing.
 
 _Reference copilot polish + v0.2 task expansion._
 
-**TIER 5 — 5 OF (many) DONE ✅ (2026-06-06 to 2026-06-08, commit 20773c7 + PRs #124-126 + local G3 work).**
+**TIER 5 — 6 OF (many) DONE ✅ (2026-06-06 to 2026-06-14, commit 20773c7 + PRs #124-126 + local G3/G4 work).**
 
 | Work unit | What | PR / commit |
 |---|---|---|
@@ -2475,8 +2474,9 @@ _Reference copilot polish + v0.2 task expansion._
 | `Batch F F1` MCP server scaffolding | `junas-mcp` server with stdio + HTTP transports + `health` tool; `mcp>=1.27` pinned | #125 |
 | `SOLO-12` Logfire observability | Opt-in telemetry (default off); 5 no-op contract tests | #124 |
 | `COPILOT-3` DOCX export | python-docx-based export for receipts + chat sessions; 14 tests; <3s for 200-msg session | #126 |
+| `Batch G G4` SGLB-16 Review-Redflag-Recall | 30-case deterministic smoke dataset; span-localised red-flag task, prompt builder, strong evaluator, tests, and harness smoke. Fixed final-text span anchoring for planted governing-law defects. | local work 2026-06-14 |
 
-**Still pending in Tier 5:** Batch G G1/G4 (G1 has v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), Batch F F2/F3/F4, SOLO-7, SOLO-11, COPILOT-1/2/4.
+**Still pending in Tier 5:** Batch G G1 (v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), Batch F F2/F3/F4, SOLO-7, SOLO-11, COPILOT-1/2/4.
 
 # Batch G — v0.2 Task Wave 1 (#50, #54, #55, #57), 4 parallel agents
 
@@ -2663,61 +2663,6 @@ Guidelines.
 ```
 
 </details>
-
-## G4: SGLB-16 Review-Redflag-Recall
-
-```text
-You are working on issue #57 (SGLB-16 Review-Redflag-Recall).
-
-This task PIGGYBACKS on the existing SG clause/template library at
-backend/api/services/{clause_service,template_service}.py.
-
-Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-16.md, CUAD paper
-(Hendrycks et al., NeurIPS 2021).
-
-Files you own:
-- backend/benchmark/dataset_builders/sglb_16.py
-- backend/benchmark/tasks/sglb_16.py
-- backend/benchmark/llm_runner.py (+ prompt builder)
-- backend/benchmark/tasks/__init__.py (+ register)
-- backend/benchmark/datasets/sglb_16_review_redflag.yaml
-- docs/sglb_specs/SGLB-16.md (bump version)
-- backend/tests/test_sglb_16_task.py
-- Makefile: + build-sglb-16
-
-Files you must NOT touch:
-- G1/G2/G3's sglb_NN files.
-
-Task contract:
-- Input: `{"contract_text": str}` — a SG contract with planted
-  defects.
-- Output: JSON array `[{"defect_type": str, "span_start": int,
-  "span_end": int}]`
-- Score: F1 over (defect_type, span) matches with ±10-char tolerance.
-
-Closed defect taxonomy (document explicitly):
-- missing_limitation_of_liability
-- governing_law_non_singapore
-- missing_pdpa_data_protection_clause
-- missing_notice_period
-- missing_dispute_resolution_clause
-- missing_termination_clause
-
-Defect injection (mechanical, no legal judgment):
-1. Start from a clean SG-context contract template.
-2. Inject 3-5 defects deterministically (e.g. delete the limitation
-   clause; swap "Singapore" to "New York" in governing law).
-3. Each injection logged in metadata.
-
-Smoke seed: 30 cases.
-
-Branch: feat/sglb-v0.2-wave-1.
-Commit: `feat(sglb-16): Review-Redflag-Recall (closes #57)`.
-
-Acceptance: 30-case smoke; tests pass.
-Report back: defect-type coverage; any clause type where injection
-is hard.
-```
 
 # Batch H — v0.2 Task Wave 2 (#51, #53, #56), 3 parallel agents
 

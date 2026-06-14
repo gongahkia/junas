@@ -232,6 +232,15 @@ INJECTORS: dict[str, Injector] = {
     ),
 }
 
+DEFECT_APPLICATION_ORDER: dict[str, int] = {
+    "missing_limitation_of_liability": 0,
+    "missing_pdpa_data_protection_clause": 1,
+    "missing_notice_period": 2,
+    "missing_dispute_resolution_clause": 3,
+    "missing_termination_clause": 4,
+    "governing_law_non_singapore": 5,
+}
+
 
 def _case_id(template_id: str, index: int, defects: list[str]) -> str:
     raw = f"{template_id}:{index}:{','.join(defects)}".encode("utf-8")
@@ -249,7 +258,8 @@ def _split(index: int) -> str:
 
 def _defect_plan(index: int) -> list[str]:
     count = 3 + (index % 3)
-    return [DEFECT_TYPES[(index + offset) % len(DEFECT_TYPES)] for offset in range(count)]
+    planned = [DEFECT_TYPES[(index + offset) % len(DEFECT_TYPES)] for offset in range(count)]
+    return sorted(planned, key=DEFECT_APPLICATION_ORDER.__getitem__)
 
 
 def build(n: int = 30, sha: str | None = None) -> tuple[list[Sglb16Case], BuildStats]:
