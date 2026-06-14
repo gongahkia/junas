@@ -9,6 +9,7 @@ import yaml
 from benchmark.schema import Case, Dataset
 from benchmark.synthetic.multi_judge import (
     JudgeSpec,
+    build_local_ollama_judge_specs,
     build_summary,
     main,
     parse_label_vote,
@@ -147,3 +148,15 @@ def test_dry_run_reports_missing_env_keys(tmp_path: Path, capsys) -> None:
     assert rc == 1
     assert payload["missing"] == ["GEMINI_API_KEY"]
     assert payload["would_run"] is False
+
+
+def test_build_local_ollama_specs_accepts_comma_separated_models() -> None:
+    specs = build_local_ollama_judge_specs(
+        models=["qwen2.5vl:7b,llama3.1:8b"],
+        base_url="http://127.0.0.1:11434",
+        seed=7,
+    )
+
+    assert [spec.provider for spec in specs] == ["ollama", "ollama"]
+    assert [spec.model for spec in specs] == ["qwen2.5vl:7b", "llama3.1:8b"]
+    assert specs[0].label == "ollama:qwen2.5vl:7b"

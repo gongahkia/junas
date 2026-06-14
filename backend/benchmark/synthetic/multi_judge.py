@@ -14,6 +14,7 @@ from itertools import combinations
 from pathlib import Path
 from typing import Any, Protocol
 
+import httpx
 
 BACKEND_ROOT = Path(__file__).resolve().parents[2]
 REPO_ROOT = BACKEND_ROOT.parent
@@ -45,6 +46,8 @@ DEFAULT_GEMINI_MODEL = "gemini-2.0-flash"
 AGREEMENT_FLOOR = 0.4
 MAX_TOKENS = 64
 AGREEMENT_LABELS = (*REQUIRED_TONES, INVALID_LABEL)
+DEFAULT_LOCAL_OLLAMA_MODELS = ("qwen2.5vl:7b", "llama3.1:8b")
+DEFAULT_OLLAMA_URL = "http://127.0.0.1:11434"
 
 
 class LLMLike(Protocol):
@@ -61,6 +64,32 @@ class JudgeSpec:
     @property
     def label(self) -> str:
         return f"{self.provider}:{self.model}"
+
+
+class OllamaJudgeClient:
+    def __init__(self, *, model: str, base_url: str, seed: int = 0) -> None:
+        self.model = model
+        self.base_url = base_url.rstrip("/")
+        self.seed = seed
+
+    async def generate(self, messages: list[dict[str, str]], max_tokens: int = 1024) -> str:
+        payload: dict[str, Any] = {
+            "model": self.model,
+            "messages": messages,
+            "stream": False,
+            "format": "json",
+            "options": {
+                "temperature": 0,
+                "seed": self.seed,
+                "num_predict": max_tokens,
+            },
+        }
+        async with httpx.AsyncClient(timeout=httpx.Timeout(180.0)) as client:
+            response = await client.post(f"{self.base_url}/api/chat", json=payload)
+            response.raise_for_status()
+        data = response.json()
+        message = data.get("message") or {}
+        return str(message.get("content") or "")
 
 
 @dataclass(frozen=True)
@@ -101,6 +130,7 @@ async def run_votes(
     output_path: Path,
     max_concurrency: int = 3,
     force: bool = False,
+    group_by_spec: bool = False,
 ) -> list[dict[str, Any]]:
     existing = [] if force else _read_vote_rows(output_path)
     expected_cases = {case.name for case in dataset.cases}
@@ -111,12 +141,20 @@ async def run_votes(
         if row.get("case_id") in expected_cases
         and (str(row.get("provider", "")), str(row.get("model", ""))) in expected_specs
     }
-    pending = [
-        (case, spec)
-        for case in dataset.cases
-        for spec in judge_specs
-        if (case.name, spec.provider, spec.model) not in rows_by_key
-    ]
+    if group_by_spec:
+        pending = [
+            (case, spec)
+            for spec in judge_specs
+            for case in dataset.cases
+            if (case.name, spec.provider, spec.model) not in rows_by_key
+        ]
+    else:
+        pending = [
+            (case, spec)
+            for case in dataset.cases
+            for spec in judge_specs
+            if (case.name, spec.provider, spec.model) not in rows_by_key
+        ]
     output_path.parent.mkdir(parents=True, exist_ok=True)
     if force and output_path.exists():
         output_path.unlink()
@@ -359,6 +397,84 @@ def build_judge_specs(
             client=get_llm_client(gemini_settings),
         ),
     ]
+
+
+def _split_models(raw_models: Sequence[str]) -> list[str]:
+    models: list[str] = []
+    for raw in raw_models:
+        for part in str(raw).split(","):
+            model = part.strip()
+            if model:
+                models.append(model)
+    return models
+
+
+def build_local_ollama_judge_specs(
+    *,
+    models: Sequence[str],
+    base_url: str,
+    seed: int = 0,
+) -> list[JudgeSpec]:
+    resolved = _split_models(models) or list(DEFAULT_LOCAL_OLLAMA_MODELS)
+    return [
+        JudgeSpec(
+            provider="ollama",
+            model=model,
+            client=OllamaJudgeClient(model=model, base_url=base_url, seed=seed),
+        )
+        for model in resolved
+    ]
+
+
+async def _ollama_tags(base_url: str) -> dict[str, Any]:
+    async with httpx.AsyncClient(timeout=httpx.Timeout(10.0)) as client:
+        response = await client.get(f"{base_url.rstrip('/')}/api/tags")
+        response.raise_for_status()
+    data = response.json()
+    return data if isinstance(data, dict) else {}
+
+
+async def local_ollama_preflight_payload(
+    *,
+    dataset_path: Path,
+    output_path: Path,
+    summary_path: Path,
+    models: Sequence[str],
+    base_url: str,
+) -> dict[str, Any]:
+    dataset = load_dataset(dataset_path)
+    requested = _split_models(models) or list(DEFAULT_LOCAL_OLLAMA_MODELS)
+    missing: list[str] = []
+    available: list[str] = []
+    api_error = ""
+    try:
+        tags = await _ollama_tags(base_url)
+        available = [
+            str(item.get("name") or item.get("model") or "")
+            for item in tags.get("models", [])
+            if isinstance(item, dict)
+        ]
+        missing = [model for model in requested if model not in available]
+    except Exception as exc:  # noqa: BLE001
+        api_error = str(exc)
+        missing = list(requested)
+    return {
+        "dry_run": True,
+        "mode": "local_ollama",
+        "dataset": str(dataset_path),
+        "n_cases": len(dataset.cases),
+        "providers": [
+            {"provider": "ollama", "model": model, "available": model in available}
+            for model in requested
+        ],
+        "missing": missing,
+        "api_error": api_error,
+        "would_call": 0 if missing else len(dataset.cases) * len(requested),
+        "estimated_cost_usd": 0.0,
+        "output": str(output_path),
+        "summary": str(summary_path),
+        "would_run": not missing,
+    }
 
 
 def preflight_payload(
@@ -616,21 +732,31 @@ def _compact_stdout(summary: dict[str, Any]) -> dict[str, Any]:
 
 async def _run_all(args: argparse.Namespace) -> dict[str, Any]:
     dataset_path = Path(args.dataset).resolve()
-    output_path = Path(args.output or dataset_path.parent / "judges.jsonl").resolve()
-    summary_path = Path(args.summary or dataset_path.parent / "judges.summary.json").resolve()
+    default_output = "judges.local.jsonl" if args.local_ollama else "judges.jsonl"
+    default_summary = "judges.local.summary.json" if args.local_ollama else "judges.summary.json"
+    output_path = Path(args.output or dataset_path.parent / default_output).resolve()
+    summary_path = Path(args.summary or dataset_path.parent / default_summary).resolve()
     env_file = Path(args.env_file).resolve()
     dataset = load_dataset(dataset_path)
-    specs = build_judge_specs(
-        env_file=env_file,
-        anthropic_model=args.anthropic_model,
-        gemini_model=args.gemini_model,
-    )
+    if args.local_ollama:
+        specs = build_local_ollama_judge_specs(
+            models=args.ollama_model,
+            base_url=args.ollama_base_url,
+            seed=args.seed,
+        )
+    else:
+        specs = build_judge_specs(
+            env_file=env_file,
+            anthropic_model=args.anthropic_model,
+            gemini_model=args.gemini_model,
+        )
     votes = await run_votes(
         dataset=dataset,
         judge_specs=specs,
         output_path=output_path,
         max_concurrency=args.max_concurrency,
         force=args.force,
+        group_by_spec=args.local_ollama,
     )
     summary = build_summary(
         dataset=dataset,
@@ -652,6 +778,19 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--env-file", default=str(REPO_ROOT / ".env"), help="Path to .env with ANTHROPIC_API_KEY and GEMINI_API_KEY.")
     parser.add_argument("--anthropic-model", default="", help=f"Anthropic model override. Defaults to {DEFAULT_ANTHROPIC_MODEL}.")
     parser.add_argument("--gemini-model", default="", help=f"Gemini model override. Defaults to {DEFAULT_GEMINI_MODEL}.")
+    parser.add_argument(
+        "--local-ollama",
+        action="store_true",
+        help="Use local Ollama judges and write judges.local.* outputs.",
+    )
+    parser.add_argument(
+        "--ollama-model",
+        action="append",
+        default=[],
+        help="Ollama model to use; repeatable or comma-separated.",
+    )
+    parser.add_argument("--ollama-base-url", default=DEFAULT_OLLAMA_URL)
+    parser.add_argument("--seed", type=int, default=0, help="Seed passed to local Ollama.")
     parser.add_argument("--max-concurrency", type=int, default=3, help="Maximum concurrent judge calls.")
     parser.add_argument("--force", action="store_true", help="Discard existing rows for this output and rerun all votes.")
     parser.add_argument("--dry-run", action="store_true", help="Report resolved providers and missing keys without calling LLMs.")
@@ -662,29 +801,43 @@ def main(argv: list[str] | None = None) -> int:
     parser = _build_parser()
     args = parser.parse_args(argv)
     dataset_path = Path(args.dataset).resolve()
-    output_path = Path(args.output or dataset_path.parent / "judges.jsonl").resolve()
-    summary_path = Path(args.summary or dataset_path.parent / "judges.summary.json").resolve()
+    default_output = "judges.local.jsonl" if args.local_ollama else "judges.jsonl"
+    default_summary = "judges.local.summary.json" if args.local_ollama else "judges.summary.json"
+    output_path = Path(args.output or dataset_path.parent / default_output).resolve()
+    summary_path = Path(args.summary or dataset_path.parent / default_summary).resolve()
     env_file = Path(args.env_file).resolve()
     if args.dry_run:
-        payload = preflight_payload(
-            env_file=env_file,
-            dataset_path=dataset_path,
-            output_path=output_path,
-            summary_path=summary_path,
-            anthropic_model=args.anthropic_model,
-            gemini_model=args.gemini_model,
-        )
+        if args.local_ollama:
+            payload = asyncio.run(
+                local_ollama_preflight_payload(
+                    dataset_path=dataset_path,
+                    output_path=output_path,
+                    summary_path=summary_path,
+                    models=args.ollama_model,
+                    base_url=args.ollama_base_url,
+                )
+            )
+        else:
+            payload = preflight_payload(
+                env_file=env_file,
+                dataset_path=dataset_path,
+                output_path=output_path,
+                summary_path=summary_path,
+                anthropic_model=args.anthropic_model,
+                gemini_model=args.gemini_model,
+            )
         print(json.dumps(payload, indent=2, sort_keys=True))
         return 1 if payload["missing"] else 0
 
-    missing = [
-        name
-        for name in ("ANTHROPIC_API_KEY", "GEMINI_API_KEY")
-        if not _read_dotenv_value(env_file, name)
-    ]
-    if missing:
-        print(f"error: missing provider keys in {env_file}: {', '.join(missing)}", file=sys.stderr)
-        return 1
+    if not args.local_ollama:
+        missing = [
+            name
+            for name in ("ANTHROPIC_API_KEY", "GEMINI_API_KEY")
+            if not _read_dotenv_value(env_file, name)
+        ]
+        if missing:
+            print(f"error: missing provider keys in {env_file}: {', '.join(missing)}", file=sys.stderr)
+            return 1
     try:
         asyncio.run(_run_all(args))
     except Exception as exc:  # noqa: BLE001
