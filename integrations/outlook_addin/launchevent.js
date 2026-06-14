@@ -22,14 +22,80 @@ function kaypohBodyText(event) {
   });
 }
 
-function kaypohReview(endpoint, token, text) {
+function kaypohGetAsync(accessor, fallback) {
+  return new Promise((resolve) => {
+    if (!accessor || typeof accessor.getAsync !== "function") {
+      resolve(fallback);
+      return;
+    }
+    accessor.getAsync((result) => {
+      if (result.status !== Office.AsyncResultStatus.Succeeded) resolve(fallback);
+      else resolve(result.value || fallback);
+    });
+  });
+}
+
+function kaypohSubjectText() {
+  return kaypohGetAsync(Office.context.mailbox.item.subject, "");
+}
+
+function kaypohRecipientDomains(recipients) {
+  const domains = [];
+  for (const recipient of recipients) {
+    const email = String(recipient?.emailAddress || recipient?.email || "").trim().toLowerCase();
+    const at = email.lastIndexOf("@");
+    if (at > 0 && at < email.length - 1) domains.push(email.slice(at + 1).replace(/\.$/, ""));
+  }
+  return [...new Set(domains)].sort();
+}
+
+function kaypohAllRecipients() {
+  const item = Office.context.mailbox.item;
+  return Promise.all([
+    kaypohGetAsync(item.to, []),
+    kaypohGetAsync(item.cc, []),
+    kaypohGetAsync(item.bcc, [])
+  ]).then((groups) => groups.flat().filter(Boolean));
+}
+
+function kaypohAttachments() {
+  const item = Office.context.mailbox.item;
+  if (!item.getAttachmentsAsync) return Promise.resolve([]);
+  return new Promise((resolve) => {
+    item.getAttachmentsAsync((result) => {
+      if (result.status !== Office.AsyncResultStatus.Succeeded || !Array.isArray(result.value)) resolve([]);
+      else resolve(result.value);
+    });
+  });
+}
+
+function kaypohMessageContext(event) {
+  return Promise.all([kaypohBodyText(event), kaypohSubjectText(), kaypohAllRecipients(), kaypohAttachments()]).then(
+    ([body, subject, recipients, attachments]) => ({
+      body,
+      subject,
+      recipients,
+      attachments
+    })
+  );
+}
+
+function kaypohReviewText(context) {
+  const subject = String(context.subject || "").trim();
+  const body = String(context.body || "").trim();
+  return subject ? `Subject: ${subject}\n\n${body}` : body;
+}
+
+function kaypohReview(endpoint, token, context) {
   const headers = {"Content-Type": "application/json"};
   if (token) headers["X-Kaypoh-Local-Token"] = token;
+  const recipients = Array.isArray(context.recipients) ? context.recipients : [];
+  const attachments = Array.isArray(context.attachments) ? context.attachments : [];
   return fetch(`${endpoint}/review`, {
     method: "POST",
     headers,
     body: JSON.stringify({
-      text,
+      text: kaypohReviewText(context),
       source_jurisdiction: "SG",
       destination_jurisdiction: "SG",
       document_type: "email",
@@ -37,7 +103,10 @@ function kaypohReview(endpoint, token, text) {
       degraded_policy: "block_send",
       surface: "outlook",
       workflow: "email_send",
-      requested_action: "send"
+      requested_action: "send",
+      recipient_domains: kaypohRecipientDomains(recipients),
+      recipient_count: recipients.length,
+      attachment_count: attachments.length
     })
   }).then((response) => {
     if (!response.ok) throw new Error(`kaypoh ${response.status}`);
@@ -95,7 +164,9 @@ function kaypohComplete(event, completion) {
 
 function onMessageSendHandler(event) {
   Promise.all([kaypohStored(KAYPOH_ENDPOINT_KEY), kaypohStored(KAYPOH_TOKEN_KEY)])
-    .then(([endpoint, token]) => kaypohBodyText(event).then((text) => kaypohReview(endpoint || KAYPOH_DEFAULT_ENDPOINT, token, text)))
+    .then(([endpoint, token]) =>
+      kaypohMessageContext(event).then((context) => kaypohReview(endpoint || KAYPOH_DEFAULT_ENDPOINT, token, context))
+    )
     .then((result) => {
       kaypohComplete(event, kaypohSmartAlertCompletion(result));
     })

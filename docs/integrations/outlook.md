@@ -30,12 +30,12 @@ The source manifest is a template. Rendered manifests are written to `dist/outlo
 
 1. User selects Send in Outlook.
 2. Outlook activates the `OnMessageSend` launch event when the client supports Smart Alerts for that item.
-3. `launchevent.js` reads the message body as text.
-4. The handler calls `/review` with `document_type="email"`, `review_profile="strict"`, and `degraded_policy="block_send"`.
+3. `launchevent.js` reads the message body, subject, recipients, and attachment count.
+4. The handler calls `/review` with `document_type="email"`, `review_profile="strict"`, `degraded_policy="block_send"`, `surface="outlook"`, and `workflow="email_send"`.
 5. The handler calls `event.completed({allowEvent: true})` only when review completes without degraded coverage, blocking outcome, or findings above the current threshold.
 6. When blocked, the user opens the Kaypoh taskpane to review or redact before retrying send.
 
-Target production behavior should include `surface="outlook"`, `workflow="email_send"`, recipients, subject, and attachment metadata when Office.js exposes them. The current launch-event code reviews body text only.
+The reviewed text prepends `Subject: ...` to the body so subject text is scanned. Recipient metadata is reduced to domain list and count. Attachment metadata is reduced to count; filenames are not sent.
 
 ## SendMode Behavior
 
@@ -80,7 +80,7 @@ Kaypoh policy mapping:
 - Event handlers should stay short-running; Microsoft documents user prompts after long-running processing and timeout behavior around five minutes.
 - Only one `OnMessageSend` event can be declared per add-in manifest.
 - Smart Alerts dialog text has platform limits; use concise `errorMessage` text and route detailed remediation to the taskpane.
-- Current code does not inspect attachments, subject, recipient domains, sensitivity labels, or external destination yet.
+- Current code does not inspect attachment content, sensitivity labels, or external destination yet.
 
 Security model:
 

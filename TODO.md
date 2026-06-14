@@ -76,7 +76,7 @@
 - [x] P1/Outlook: Replace hard-coded `https://localhost:3000` manifest URLs with a documented build-time manifest templating flow for dev, staging, and production.
 - [x] P1/Outlook: Add a manifest validation script that verifies Mailbox requirement set, `OnMessageSend`, SendMode, runtime URL, taskpane URL, and production HTTPS host.
 - [x] P1/Outlook: Implement Smart Alerts behavior that maps backend policy decisions to allow, soft block, hard block, or prompt-user completion semantics.
-- [ ] P1/Outlook: Add tests or documented manual QA proving Outlook send checks call `/review` with body, subject, recipients, attachment metadata, and surface `outlook`.
+- [x] P1/Outlook: Add tests or documented manual QA proving Outlook send checks call `/review` with body, subject, recipients, attachment metadata, and surface `outlook`.
 - [ ] P1/Outlook: Add a failure-mode table for Outlook add-in unavailable, backend timeout, offline mode, malformed response, auth failure, and degraded document extraction.
 - [ ] P1/Outlook: Add configurable timeout budgets for the Outlook send hook and document why the timeout is lower than normal API calls.
 - [ ] P1/Outlook: Bundle event-based activation JavaScript into one supported runtime file and document the Office limitation against imports in event handlers.

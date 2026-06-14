@@ -102,10 +102,33 @@ class FrontendIntegrationTests(unittest.TestCase):
                 context: {
                   mailbox: {
                     item: {
+                      subject: {
+                        getAsync(callback) {
+                          callback({status: "succeeded", value: "Board draft"});
+                        }
+                      },
                       body: {
                         getAsync(format, options, callback) {
                           callback({status: "succeeded", value: "confidential draft"});
                         }
+                      },
+                      to: {
+                        getAsync(callback) {
+                          callback({status: "succeeded", value: [{emailAddress: "external@example.com"}]});
+                        }
+                      },
+                      cc: {
+                        getAsync(callback) {
+                          callback({status: "succeeded", value: [{emailAddress: "Legal@internal.test"}]});
+                        }
+                      },
+                      bcc: {
+                        getAsync(callback) {
+                          callback({status: "succeeded", value: []});
+                        }
+                      },
+                      getAttachmentsAsync(callback) {
+                        callback({status: "succeeded", value: [{name: "draft.docx", attachmentType: "file"}]});
                       }
                     }
                   }
@@ -132,6 +155,12 @@ class FrontendIntegrationTests(unittest.TestCase):
               assert.strictEqual(requests[0].body.degraded_policy, "block_send");
               assert.strictEqual(requests[0].body.surface, "outlook");
               assert.strictEqual(requests[0].body.workflow, "email_send");
+              assert.match(requests[0].body.text, /Subject: Board draft/);
+              assert.match(requests[0].body.text, /confidential draft/);
+              assert.deepStrictEqual(requests[0].body.recipient_domains, ["example.com", "internal.test"]);
+              assert.strictEqual(requests[0].body.recipient_count, 2);
+              assert.strictEqual(requests[0].body.attachment_count, 1);
+              assert.ok(!JSON.stringify(requests[0].body).includes("draft.docx"));
               assert.strictEqual(result.allowEvent, false);
               assert.match(result.errorMessage, /could not fully inspect/);
             })().catch((error) => {
