@@ -37,6 +37,7 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn('value="none"', html)
         self.assertIn('value="anonymize"', html)
         self.assertIn("interceptPaste", html)
+        self.assertIn("reviewBeforeSubmit", html)
         self.assertIn('id="startPairing"', html)
         self.assertIn('id="completePairing"', html)
         self.assertIn('id="checkConnection"', html)
@@ -55,6 +56,8 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("policy blocked", js)
         self.assertIn("interceptPaste: false", js)
         self.assertIn("interceptPaste.checked", js)
+        self.assertIn("reviewBeforeSubmit: false", js)
+        self.assertIn("reviewBeforeSubmit.checked", js)
 
     def test_content_script_intercepts_paste_only_when_enabled(self):
         text = (EXT / "content.js").read_text(encoding="utf-8")
@@ -62,6 +65,10 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("let currentSettings", text)
         self.assertIn("chrome.storage.onChanged.addListener", text)
         self.assertIn("promptTarget(event.target)", text)
+        self.assertIn("reviewBeforeSubmit", text)
+        self.assertIn("guardPromptSubmit", text)
+        self.assertIn("reviewOutcome", text)
+        self.assertIn("window.confirm", text)
         self.assertIn("KAYPOH_BROWSER_ADAPTERS", text)
         self.assertIn("if (!cfg.interceptPaste) return", text)
         self.assertIn('cfg.operation === "review"', text)
@@ -77,6 +84,8 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn('backendMode: "local_daemon"', text)
         self.assertIn('authMode: "local_token"', text)
         self.assertIn("headers.Authorization", text)
+        self.assertIn("callKaypoh(text, requestedOperation)", text)
+        self.assertIn("message.operation", text)
         self.assertIn('degraded_policy: "warn"', text)
         self.assertIn("result.pseudonymized_text", text)
         self.assertIn("result.anonymized_text", text)
@@ -97,6 +106,9 @@ class BrowserExtensionTests(unittest.TestCase):
             "rich-textarea textarea",
             'id: "generic"',
             "textarea",
+            "submitSelectors",
+            "findSubmitButton",
+            "resolveSubmitTarget",
             "resolvePromptTarget",
             "findPromptComposer",
         ):

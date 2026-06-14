@@ -2,9 +2,11 @@ const DEFAULTS = {
   endpoint: "http://127.0.0.1:8765",
   operation: "review",
   interceptPaste: false,
+  reviewBeforeSubmit: false,
   token: ""
 };
 let currentSettings = {...DEFAULTS};
+let bypassNextSubmit = false;
 
 chrome.storage.sync.get(DEFAULTS).then((cfg) => {
   currentSettings = cfg;
@@ -52,6 +54,73 @@ function promptTarget(element) {
   const adapter = globalThis.KAYPOH_BROWSER_ADAPTERS;
   const resolved = adapter?.resolvePromptTarget ? adapter.resolvePromptTarget(element, window.location) : element;
   return isEditable(resolved) ? resolved : null;
+}
+
+function submitTarget(element) {
+  const adapter = globalThis.KAYPOH_BROWSER_ADAPTERS;
+  return adapter?.resolveSubmitTarget ? adapter.resolveSubmitTarget(element, window.location) : null;
+}
+
+function findPromptTarget() {
+  const adapter = globalThis.KAYPOH_BROWSER_ADAPTERS;
+  const found = adapter?.findPromptComposer ? adapter.findPromptComposer(document, window.location) : null;
+  return isEditable(found) ? found : null;
+}
+
+function findSubmitButton() {
+  const adapter = globalThis.KAYPOH_BROWSER_ADAPTERS;
+  return adapter?.findSubmitButton ? adapter.findSubmitButton(document, window.location) : null;
+}
+
+function promptText(element) {
+  if (!element) return "";
+  if (typeof element.value === "string") return element.value;
+  return element.textContent || "";
+}
+
+function reviewOutcome(result) {
+  const policy = result?.policy_decision || {};
+  const recommended = Array.isArray(policy.recommended_actions) ? policy.recommended_actions : [];
+  const findings = Array.isArray(result?.findings) ? result.findings.length : 0;
+  const degraded = Array.isArray(result?.degraded_modes) ? result.degraded_modes.length : 0;
+  if (degraded > 0 || policy.send_allowed === false || result?.send_allowed === false) return "block";
+  if (policy.decision === "warn" || recommended.includes("proceed_with_warning")) return "warn";
+  if (policy.decision && policy.decision !== "allow") return "block";
+  if (findings > 0) return "warn";
+  return "allow";
+}
+
+async function reviewBeforeSubmit(target) {
+  const text = promptText(target).trim();
+  if (!text) return true;
+  showPanel("Kaypoh: reviewing prompt");
+  const response = await chrome.runtime.sendMessage({type: "kaypoh-process-text", text, operation: "review"});
+  if (!response?.ok) {
+    showPanel(`Kaypoh: ${response?.error || "review unavailable"}`);
+    return false;
+  }
+  const outcome = reviewOutcome(response.result);
+  if (outcome === "allow") return true;
+  if (outcome === "warn") {
+    return window.confirm("Kaypoh found review warnings. Submit anyway only if this matches policy.");
+  }
+  showPanel("Kaypoh: policy blocked this prompt. Review or rewrite before submitting.");
+  return false;
+}
+
+async function guardPromptSubmit(event, target, submitButton) {
+  const cfg = currentSettings;
+  if (!cfg.reviewBeforeSubmit || !target || !submitButton) return;
+  if (bypassNextSubmit) {
+    bypassNextSubmit = false;
+    return;
+  }
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  const allowed = await reviewBeforeSubmit(target);
+  if (!allowed) return;
+  bypassNextSubmit = true;
+  submitButton.click();
 }
 
 function captureInsertionPoint(element) {
@@ -118,3 +187,16 @@ document.addEventListener("paste", async (event) => {
   insertText(target, text, insertionPoint);
   showPanel(`Kaypoh: ${response?.error || "rewrite unavailable"}`);
 });
+
+document.addEventListener("click", (event) => {
+  const submitButton = submitTarget(event.target);
+  if (!submitButton) return;
+  return guardPromptSubmit(event, findPromptTarget(), submitButton);
+}, true);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" || event.shiftKey || event.metaKey || event.ctrlKey || event.altKey) return;
+  const target = promptTarget(event.target);
+  const submitButton = findSubmitButton();
+  return guardPromptSubmit(event, target, submitButton);
+}, true);

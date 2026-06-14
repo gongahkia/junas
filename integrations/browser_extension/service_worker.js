@@ -11,9 +11,10 @@ async function settings() {
   return chrome.storage.sync.get(DEFAULTS);
 }
 
-async function callKaypoh(text) {
+async function callKaypoh(text, requestedOperation) {
   const cfg = await settings();
-  const op = ["review", "pseudonymize", "anonymize", "redact"].includes(cfg.operation) ? cfg.operation : "review";
+  const selectedOperation = requestedOperation || cfg.operation;
+  const op = ["review", "pseudonymize", "anonymize", "redact"].includes(selectedOperation) ? selectedOperation : "review";
   const headers = {"Content-Type": "application/json"};
   if (cfg.token && cfg.authMode === "bearer_token") headers.Authorization = `Bearer ${cfg.token}`;
   else if (cfg.token && cfg.authMode !== "none") headers["X-Kaypoh-Local-Token"] = cfg.token;
@@ -54,7 +55,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type !== "kaypoh-process-text") return false;
-  callKaypoh(message.text || "")
+  callKaypoh(message.text || "", message.operation)
     .then((payload) => {
       if (sender.tab?.id) chrome.tabs.sendMessage(sender.tab.id, {type: "kaypoh-result", ...payload});
       sendResponse({ok: true, ...payload});

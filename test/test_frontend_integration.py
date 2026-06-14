@@ -105,6 +105,7 @@ class FrontendIntegrationTests(unittest.TestCase):
                   endpoint: "https://kaypoh.example",
                   backendMode: "hosted_server",
                   authMode: "bearer_token",
+                  operation: "redact",
                   token: "tenant-jwt"
                 })}},
                 runtime: {
@@ -122,7 +123,11 @@ class FrontendIntegrationTests(unittest.TestCase):
             vm.runInContext(source, context, {filename: "service_worker.js"});
             (async () => {
               await new Promise((resolve) => {
-                context.__messageListener({type: "kaypoh-process-text", text: "safe"}, {}, resolve);
+                context.__messageListener(
+                  {type: "kaypoh-process-text", text: "safe", operation: "review"},
+                  {},
+                  resolve
+                );
               });
               assert.strictEqual(requests[0].url, "https://kaypoh.example/review");
               assert.strictEqual(requests[0].options.headers.Authorization, "Bearer tenant-jwt");
@@ -149,6 +154,7 @@ class FrontendIntegrationTests(unittest.TestCase):
               token: {value: "local-token"},
               operation: {value: "review"},
               interceptPaste: {checked: false},
+              reviewBeforeSubmit: {checked: false},
               save: {addEventListener: (name, fn) => { listeners.save = fn; }},
               checkConnection: {addEventListener: (name, fn) => { listeners.checkConnection = fn; }},
               startPairing: {addEventListener: () => {}},
@@ -264,6 +270,123 @@ class FrontendIntegrationTests(unittest.TestCase):
             assert.ok(
               adapters.resolvePromptTarget(elementMatching("[data-testid='prompt-textarea']"), chatgptLocation)
             );
+            """
+        )
+
+    def test_browser_content_warns_before_prompt_submit_and_reclicks_on_confirmation(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const adaptersSource = fs.readFileSync("integrations/browser_extension/adapters.js", "utf8");
+            const contentSource = fs.readFileSync("integrations/browser_extension/content.js", "utf8");
+            const listeners = {};
+            const messages = [];
+            let clicked = 0;
+            let confirmed = "";
+            const prompt = {
+              tagName: "TEXTAREA",
+              value: "warn before submit",
+              matches(selector) {
+                return selector === "[data-testid='prompt-textarea']" || selector === "textarea";
+              },
+              closest() {
+                return null;
+              }
+            };
+            const submitButton = {
+              matches(selector) {
+                return selector === "[data-testid='send-button']";
+              },
+              closest() {
+                return null;
+              },
+              click() {
+                clicked += 1;
+              }
+            };
+            const context = {
+              setTimeout: () => 0,
+              window: {
+                location: {hostname: "chatgpt.com"},
+                confirm(message) {
+                  confirmed = message;
+                  return true;
+                }
+              },
+              document: {
+                addEventListener(name, fn) {
+                  listeners[name] = fn;
+                },
+                getElementById() {
+                  return null;
+                },
+                createElement() {
+                  return {style: {}, remove() {}};
+                },
+                documentElement: {appendChild() {}},
+                querySelector(selector) {
+                  if (selector === "[data-testid='prompt-textarea']") return prompt;
+                  if (selector === "[data-testid='send-button']") return submitButton;
+                  return null;
+                }
+              },
+              chrome: {
+                storage: {
+                  sync: {
+                    get: async (defaults) => ({...defaults, reviewBeforeSubmit: true}),
+                    set: async () => {}
+                  },
+                  onChanged: {addListener() {}}
+                },
+                runtime: {
+                  onMessage: {addListener() {}},
+                  sendMessage: async (message) => {
+                    messages.push(message);
+                    return {
+                      ok: true,
+                      result: {
+                        findings: [{rule: "email_address"}],
+                        degraded_modes: [],
+                        policy_decision: {
+                          decision: "warn",
+                          send_allowed: true,
+                          recommended_actions: ["proceed_with_warning"]
+                        }
+                      }
+                    };
+                  }
+                }
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(adaptersSource, context, {filename: "adapters.js"});
+            vm.runInContext(contentSource, context, {filename: "content.js"});
+
+            (async () => {
+              await Promise.resolve();
+              const event = {
+                target: submitButton,
+                preventDefault() {
+                  this.prevented = true;
+                },
+                stopImmediatePropagation() {
+                  this.stopped = true;
+                }
+              };
+              await listeners.click(event);
+              assert.strictEqual(event.prevented, true);
+              assert.strictEqual(event.stopped, true);
+              assert.strictEqual(messages[0].type, "kaypoh-process-text");
+              assert.strictEqual(messages[0].operation, "review");
+              assert.strictEqual(messages[0].text, "warn before submit");
+              assert.match(confirmed, /Submit anyway/);
+              assert.strictEqual(clicked, 1);
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
             """
         )
 

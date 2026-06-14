@@ -34,6 +34,7 @@ Current behavior:
 - Options include a connection-health check that reports `local daemon unavailable`, `auth failed`, `server healthy`, or `policy blocked`.
 - Supports `review` plus replacement flows selected in options.
 - Paste interception is opt-in through extension settings.
+- Prompt review before submit is opt-in through extension settings. For warn decisions, the content script blocks the submit event and asks the user to confirm before re-clicking the detected submit control.
 
 Security model:
 

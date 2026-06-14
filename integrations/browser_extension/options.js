@@ -4,7 +4,8 @@ const DEFAULTS = {
   authMode: "local_token",
   token: "",
   operation: "review",
-  interceptPaste: false
+  interceptPaste: false,
+  reviewBeforeSubmit: false
 };
 let pendingPairing = null;
 
@@ -16,6 +17,7 @@ async function load() {
   token.value = cfg.token;
   operation.value = cfg.operation;
   interceptPaste.checked = Boolean(cfg.interceptPaste);
+  reviewBeforeSubmit.checked = Boolean(cfg.reviewBeforeSubmit);
 }
 
 save.addEventListener("click", async () => {
@@ -25,7 +27,8 @@ save.addEventListener("click", async () => {
     authMode: authMode.value,
     token: token.value.trim(),
     operation: operation.value,
-    interceptPaste: interceptPaste.checked
+    interceptPaste: interceptPaste.checked,
+    reviewBeforeSubmit: reviewBeforeSubmit.checked
   });
 });
 
