@@ -128,7 +128,6 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 
 | Prompt | Tier | Notes |
 |---|---|---|
-| `COPILOT-1` Sessions + history persistence | 5 | SQLite + alembic + sidebar UI. Cost-safe. |
 | `COPILOT-2` Batch-analysis polish | 5 | Drag-drop + SSE + cancel + CSV. Cost-safe. |
 
 ### Fireable with explicit per-cell approval (Azure $$ gated)
@@ -150,7 +149,7 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | `Batch G G1` v0.2 multi-judge upgrade | 5 | v0.1 smoke can fire now with Azure; v0.2 upgrade waits |
 
 ### Total remaining
-- **2 fireable now**, **4 cost-gated**, **4 deferred**. 10 prompts total.
+- **1 fireable now**, **4 cost-gated**, **4 deferred**. 9 prompts total.
 
 ## Fire order
 
@@ -2468,7 +2467,7 @@ on, any spec-doc inconsistencies you noticed while writing.
 
 _Reference copilot polish + v0.2 task expansion._
 
-**TIER 5 — 13 OF (many) DONE ✅ (2026-06-06 to 2026-06-14, commit 20773c7 + PRs #124-126 + local G3/G4/F4/H1/SOLO-7/SOLO-11/COPILOT-4 work).**
+**TIER 5 — 14 OF (many) DONE ✅ (2026-06-06 to 2026-06-14, commit 20773c7 + PRs #124-126 + local G3/G4/F4/H1/SOLO-7/SOLO-11/COPILOT-4/COPILOT-1 work).**
 
 | Work unit | What | PR / commit |
 |---|---|---|
@@ -2485,8 +2484,9 @@ _Reference copilot polish + v0.2 task expansion._
 | `SOLO-11` SG contract templates | 6 markdown-backed Singapore templates added under `backend/data/templates/sg`; total library now 12; source URLs exposed through API/frontend; template tests cover IDs, sources, and rendering. | local work 2026-06-14 |
 | `Batch H H1` SGLB-10 Citation-Generation | 40-case synthetic smoke from the curated SG real-citation pool; top-1/top-3 strong evaluators, oracle task, prompt builder, spec, Makefile target, and harness tests. Marked benchmark-ineligible until CommonLII headnotes land. | local work 2026-06-14 |
 | `COPILOT-4` Keyboard shortcuts + power-user palette | Global 9-action keymap, keyboard help dialog, page-only palette mode, shortcut commands mirrored in palette, chat focus/copy handlers, DOCX export trigger, benchmark re-run shortcut, and static palette/help parity tests. | local work 2026-06-14 |
+| `COPILOT-1` Sessions + history persistence | Local SQLite-backed `/api/v1/sessions` CRUD, soft delete, Pydantic session models, Alembic schema, frontend API persistence with localStorage fallback, collapsible session sidebar with rename/delete, persisted DOCX session export, and router tests. | local work 2026-06-14 |
 
-**Still pending in Tier 5:** Batch G G1 (v0.2 multi-judge upgrade deferred for keys), Batch H H2/H3 (Azure-cost-gated synth-gen), COPILOT-1/2.
+**Still pending in Tier 5:** Batch G G1 (v0.2 multi-judge upgrade deferred for keys), Batch H H2/H3 (Azure-cost-gated synth-gen), COPILOT-2.
 
 # Batch G — v0.2 Task Wave 1 (#50, #54, #55, #57), 4 parallel agents
 
@@ -2861,6 +2861,9 @@ permanent metric in our own receipts.
 
 </details>
 
+<details>
+<summary><strong>COPILOT-1 — DONE ✅</strong> (local work 2026-06-14). Prompt body preserved for re-runs. Click to expand.</summary>
+
 ## COPILOT-1: Sessions + history persistence
 
 ```text
@@ -2905,6 +2908,8 @@ renders all sessions; tests pass.
 Report back: storage choice (SQLite vs IndexedDB vs LocalStorage) +
 rationale.
 ```
+
+</details>
 
 ## COPILOT-2: Batch-analysis polish for real workflows
 

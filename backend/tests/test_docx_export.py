@@ -1,8 +1,4 @@
-"""Tests for DOCX export service + /exports/* endpoints.
-
-Covers the receipt path against a real fixture from runs/baselines/. The
-session export path is exercised via inline payload (COPILOT-1 not landed).
-"""
+"""Tests for DOCX export service + /exports/* endpoints."""
 from __future__ import annotations
 import io
 import json
@@ -23,6 +19,7 @@ from api.services.docx_export import (
     session_filename,
     slugify,
 )
+from api.services.session_storage import SessionStorage
 
 
 AUTH_HEADERS = {"X-API-Key": "test-key"}
@@ -65,6 +62,7 @@ def client(tmp_path, monkeypatch) -> TestClient:
     monkeypatch.setattr(settings, "api_keys", ["test-key"])
     monkeypatch.setattr(settings, "require_auth", False)
     app = create_app()
+    app.state.session_storage = SessionStorage(tmp_path / "sessions.sqlite3")
     c = TestClient(app)
     c.headers.update(AUTH_HEADERS)
     return c
@@ -181,10 +179,27 @@ def test_export_receipt_unknown_run_404(client: TestClient) -> None:
     assert resp.status_code == 404
 
 
-def test_export_session_without_body_returns_501(client: TestClient) -> None:
+def test_export_session_without_body_uses_persisted_session(client: TestClient) -> None:
+    client.post(
+        "/api/v1/sessions",
+        json={
+            "id": "conv_1",
+            "node_map": {
+                "u1": {"id": "u1", "role": "user", "content": "hello", "childrenIds": ["a1"], "timestamp": 1},
+                "a1": {"id": "a1", "role": "assistant", "content": "hi there", "parentId": "u1", "childrenIds": [], "timestamp": 2},
+            },
+            "current_leaf_id": "a1",
+        },
+    )
     resp = client.post("/api/v1/exports/session/conv_1.docx")
-    assert resp.status_code == 501
-    assert "not yet wired" in resp.json()["detail"]
+    assert resp.status_code == 200
+    assert _is_valid_docx(resp.content)
+    assert "junas-session-conv-1-hello.docx" in resp.headers["content-disposition"]
+
+
+def test_export_session_without_body_missing_session_404(client: TestClient) -> None:
+    resp = client.post("/api/v1/exports/session/missing.docx")
+    assert resp.status_code == 404
 
 
 def test_export_session_with_payload_returns_docx(client: TestClient) -> None:

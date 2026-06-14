@@ -38,6 +38,7 @@ class Settings(BaseSettings):
     azure_openai_api_version: str = "2024-08-01-preview"
     azure_openai_deployment: str = ""
     allow_byok: bool = True
+    session_storage_path: str = "data/junas_sessions.sqlite3"
     require_auth: bool = False
     api_keys: Annotated[list[str], NoDecode] = Field(default_factory=list)
     rate_limit_enabled: bool = True

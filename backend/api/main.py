@@ -25,6 +25,7 @@ from api.routers import (
     ner_router,
     research_router,
     search_router,
+    sessions_router,
     statutes_router,
     templates_router,
 )
@@ -61,6 +62,7 @@ tags_metadata = [
     {"name": "glossary", "description": "Legal glossary lookup and comparison"},
     {"name": "statutes", "description": "Statute search and browsing"},
     {"name": "search", "description": "Case-law retrieval"},
+    {"name": "sessions", "description": "Local-only copilot chat session persistence"},
     {"name": "research", "description": "RAG-powered legal assistant"},
     {"name": "contracts", "description": "Contract and ToS analysis"},
     {"name": "clauses", "description": "Legal clause library with tone variants"},
@@ -221,6 +223,7 @@ def create_app() -> FastAPI:
     app.include_router(research_router, prefix="/api/v1", tags=["research"])
     app.include_router(ner_router, prefix="/api/v1", tags=["ner"])
     app.include_router(search_router, prefix="/api/v1", tags=["search"])
+    app.include_router(sessions_router, prefix="/api/v1", tags=["sessions"])
     app.include_router(contracts_router, prefix="/api/v1", tags=["contracts"])
     app.include_router(clauses_router, prefix="/api/v1", tags=["clauses"])
     app.include_router(templates_router, prefix="/api/v1", tags=["templates"])

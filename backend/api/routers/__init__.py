@@ -12,6 +12,7 @@ from api.routers.legal_sources import router as legal_sources_router
 from api.routers.ner import router as ner_router
 from api.routers.research import router as research_router
 from api.routers.search import router as search_router
+from api.routers.sessions import router as sessions_router
 from api.routers.statutes import router as statutes_router
 from api.routers.templates import router as templates_router
 
@@ -24,6 +25,7 @@ __all__ = [
     "ner_router",
     "research_router",
     "search_router",
+    "sessions_router",
     "contracts_router",
     "clauses_router",
     "templates_router",

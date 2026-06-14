@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { listConversations, deleteConversation, type ConversationMeta } from "../lib/conversation-store";
 import ThemeToggle from "./theme-toggle";
 import NotificationsPanel, { useUnreadCount } from "./notifications-panel";
+import SessionSidebar from "./SessionSidebar";
 
 const TOOL_LINKS = [
   { href: "/chat", label: "Copilot (Chat)" },
@@ -24,17 +24,8 @@ const TOOL_LINKS = [
   { href: "/documents", label: "Documents" },
 ];
 
-function formatDate(ts: number): string {
-  const now = Date.now();
-  const diff = now - ts;
-  if (diff < 86400000) return new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit" }).format(new Date(ts));
-  if (diff < 604800000) return new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(new Date(ts));
-  return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(new Date(ts));
-}
-
 export default function SideNav() {
   const pathname = usePathname();
-  const [conversations, setConversations] = useState<ConversationMeta[]>([]);
   const [toolsOpen, setToolsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeConvId, setActiveConvId] = useState("");
@@ -42,13 +33,9 @@ export default function SideNav() {
   const unreadCount = useUnreadCount();
 
   useEffect(() => {
-    setConversations(listConversations());
-    const refresh = () => setConversations(listConversations());
     const onActive = (e: Event) => setActiveConvId((e as CustomEvent).detail?.id || "");
-    window.addEventListener("junas:conversations-updated", refresh);
     window.addEventListener("junas:active-conversation", onActive);
     return () => {
-      window.removeEventListener("junas:conversations-updated", refresh);
       window.removeEventListener("junas:active-conversation", onActive);
     };
   }, []);
@@ -78,16 +65,6 @@ export default function SideNav() {
     setMobileOpen(false);
   };
 
-  const handleDeleteConversation = (id: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    deleteConversation(id);
-    setConversations(listConversations());
-    if (activeConvId === id) {
-      window.dispatchEvent(new CustomEvent("junas:new-chat"));
-      setActiveConvId("");
-    }
-  };
-
   return (
     <aside className={`sidebar ${mobileOpen ? "sidebar-open" : ""}`}>
       <div className="sidebar-header">
@@ -100,21 +77,14 @@ export default function SideNav() {
         </div>
       </div>
 
-      <div className="sidebar-section-title">Recent</div>
-      <div className="sidebar-conversations">
-        {conversations.length === 0 && (
-          <div style={{ padding: "0.75rem 0.6rem", color: "#A8A29E", fontSize: "0.78rem" }}>No conversations yet</div>
-        )}
-        {conversations.slice(0, 50).map(c => (
-          <div key={c.id} className={`sidebar-conv-item ${activeConvId === c.id ? "active" : ""}`} onClick={() => handleLoadConversation(c.id)}>
-            <span className="sidebar-conv-title">{c.title}</span>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span className="sidebar-conv-meta">{c.messageCount} msgs · {formatDate(c.updatedAt)}</span>
-              <button type="button" className="sidebar-conv-delete" onClick={(e) => handleDeleteConversation(c.id, e)} title="Delete">&times;</button>
-            </div>
-          </div>
-        ))}
-      </div>
+      <SessionSidebar
+        activeConversationId={activeConvId}
+        onLoadConversation={handleLoadConversation}
+        onDeletedActive={() => {
+          window.dispatchEvent(new CustomEvent("junas:new-chat"));
+          setActiveConvId("");
+        }}
+      />
 
       <div className="sidebar-tools">
         <button type="button" className="sidebar-tools-toggle" onClick={() => setToolsOpen(v => !v)}>

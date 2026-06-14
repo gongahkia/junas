@@ -13,6 +13,26 @@ const API_BASE = typeof window !== "undefined"
 export type ApiTransport = (path: string, init?: RequestInit) => Promise<Response>;
 export type ApiError = { error?: string };
 export type ChatMessage = { role: string; content: string };
+export type SessionMeta = {
+  id: string;
+  title: string;
+  created_at: string;
+  updated_at: string;
+  message_count: number;
+  deleted_at?: string | null;
+  user_id?: string | null;
+};
+export type SessionDetail = SessionMeta & {
+  node_map: Record<string, any>;
+  current_leaf_id: string;
+};
+export type SessionSavePayload = {
+  id?: string;
+  title?: string;
+  node_map?: Record<string, any>;
+  current_leaf_id?: string;
+  user_id?: string | null;
+};
 export type ChatStreamOptions = {
   provider: string;
   model?: string;
@@ -247,6 +267,42 @@ async function postJson<T extends ApiError>(
   }
 }
 
+async function putJson<T extends ApiError>(
+  transport: ApiTransport,
+  path: string,
+  body: unknown,
+): Promise<T> {
+  try {
+    const resp = await transport(path, {
+      method: "PUT",
+      headers: jsonHeaders(),
+      body: JSON.stringify(body),
+    });
+    if (!resp.ok) return { error: await errorMessage(resp) } as T;
+    return (await resp.json()) as T;
+  } catch (err) {
+    return { error: err instanceof Error ? err.message : "Network error" } as T;
+  }
+}
+
+async function patchJson<T extends ApiError>(
+  transport: ApiTransport,
+  path: string,
+  body: unknown,
+): Promise<T> {
+  try {
+    const resp = await transport(path, {
+      method: "PATCH",
+      headers: jsonHeaders(),
+      body: JSON.stringify(body),
+    });
+    if (!resp.ok) return { error: await errorMessage(resp) } as T;
+    return (await resp.json()) as T;
+  } catch (err) {
+    return { error: err instanceof Error ? err.message : "Network error" } as T;
+  }
+}
+
 export function createApiClient(transport: ApiTransport) {
   return {
     async *chatStream(opts: ChatStreamOptions): AsyncGenerator<string> {
@@ -311,6 +367,29 @@ export function createApiClient(transport: ApiTransport) {
     },
     listProviders(): Promise<ProviderInfo[]> {
       return requestJson<ProviderInfo[]>(transport, "/chat/providers", undefined, []);
+    },
+    listSessions(): Promise<SessionMeta[]> {
+      return requestJson<SessionMeta[]>(transport, "/sessions", undefined, []);
+    },
+    getSession(id: string): Promise<SessionDetail | null> {
+      return requestJson<SessionDetail | null>(transport, `/sessions/${encodeURIComponent(id)}`, undefined, null);
+    },
+    createSession(payload: SessionSavePayload): Promise<SessionDetail & ApiError> {
+      return postJson<SessionDetail & ApiError>(transport, "/sessions", payload);
+    },
+    saveSession(id: string, payload: SessionSavePayload): Promise<SessionDetail & ApiError> {
+      return putJson<SessionDetail & ApiError>(transport, `/sessions/${encodeURIComponent(id)}`, payload);
+    },
+    renameSession(id: string, title: string): Promise<SessionDetail & ApiError> {
+      return patchJson<SessionDetail & ApiError>(transport, `/sessions/${encodeURIComponent(id)}`, { title });
+    },
+    deleteSession(id: string): Promise<(Record<string, any> & ApiError)> {
+      return requestJson<Record<string, any> & ApiError>(
+        transport,
+        `/sessions/${encodeURIComponent(id)}`,
+        { method: "DELETE" },
+        { error: "Delete failed" },
+      );
     },
     listClauses(query = "", jurisdiction = "", category = ""): Promise<Clause[]> {
       const params = new URLSearchParams({ query });
@@ -586,6 +665,12 @@ export type JunasApi = ReturnType<typeof createApiClient>;
 export const {
   chatStream,
   chatSend,
+  listSessions,
+  getSession,
+  createSession,
+  saveSession,
+  renameSession,
+  deleteSession,
   listProviders,
   listClauses,
   getClause,

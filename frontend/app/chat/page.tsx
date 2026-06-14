@@ -4,7 +4,7 @@ import type { NodeMap, TreeMessage, MessageRole } from "../../lib/chat-tree";
 import { createId, getLinearHistory, getBranchSiblings, addChild, findLeaves } from "../../lib/chat-tree";
 import { chatStream, parseDocument } from "../../lib/api-client";
 import { handleCommand } from "../../lib/commands/command-handler";
-import { saveConversation, loadConversation, generateConversationId } from "../../lib/conversation-store";
+import { saveConversation, loadConversation, loadConversationRemote, generateConversationId } from "../../lib/conversation-store";
 import TokenCounter from "../../components/chat/TokenCounter";
 import CommandSuggestions, { COMMANDS } from "../../components/chat/CommandSuggestions";
 import { addNotification } from "../../lib/notification-store";
@@ -76,7 +76,7 @@ export default function HomePage() {
   useEffect(() => {
     const handleLoad = (e: Event) => {
       const id = (e as CustomEvent).detail?.id;
-      if (id) loadFromHistory(id);
+      if (id) void loadFromHistory(id);
     };
     const handleNew = () => newChat();
     const handleCommandEvent = (e: Event) => {
@@ -105,7 +105,7 @@ export default function HomePage() {
     const convId = params.get("c");
     const command = params.get("command") || localStorage.getItem("junas_pending_chat_command");
     if (convId) {
-      loadFromHistory(convId);
+      void loadFromHistory(convId);
       window.history.replaceState({}, "", "/chat"); // clean URL
     }
     if (command) {
@@ -247,8 +247,8 @@ export default function HomePage() {
     setCurrentLeafId(leaf); setActiveTab("chat");
   };
 
-  const loadFromHistory = (id: string) => {
-    const conv = loadConversation(id);
+  const loadFromHistory = async (id: string) => {
+    const conv = loadConversation(id) || await loadConversationRemote(id);
     if (!conv) return;
     setNodeMap(conv.nodeMap); setCurrentLeafId(conv.currentLeafId); setConversationId(id); setActiveTab("chat");
     notifyActiveConversation(id);
