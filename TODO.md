@@ -5,7 +5,7 @@
 - [x] P0/Product: Add `docs/product/positioning.md` with the canonical one-paragraph product description, non-goals, target users, and why Kaypoh is not a general DLP suite.
 - [x] P0/Product: Add `docs/product/workflows.md` mapping daily user workflows for Outlook send, GenAI browser paste, DMS upload, API gateway review, legal reviewer override, and auditor export.
 - [x] P0/Product: Add `docs/product/personas.md` describing end user, legal reviewer, compliance admin, security engineer, and platform integrator jobs-to-be-done.
-- [ ] P0/Product: Add `docs/product/non-goals.md` stating Kaypoh does not replace DLP, legal advice, eDiscovery, endpoint control, CASB, or IdP policy enforcement.
+- [x] P0/Product: Add `docs/product/non-goals.md` stating Kaypoh does not replace DLP, legal advice, eDiscovery, endpoint control, CASB, or IdP policy enforcement.
 - [ ] P0/Product: Add `docs/product/research-basis.md` summarizing external deployment research for Microsoft 365 add-in deployment, Outlook Smart Alerts, Chrome/Edge enterprise extensions, OWASP API risks, OWASP CSRF controls, Microsoft Purview DLP, Google Workspace DLP, and Slack DLP.
 - [ ] P0/Product: Update `docs/README.md` to include the new `docs/product/` documents and clarify that product docs are normative for roadmap decisions.
 - [ ] P0/Product: Add `docs/roadmap.md` with P0 backend policy contract, P1 Outlook Smart Alerts, P1/P2 browser extension, P2 desktop watcher, and explicit exit criteria for each phase.
