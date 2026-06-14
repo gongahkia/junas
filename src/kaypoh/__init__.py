@@ -16,8 +16,12 @@ from .backend.schemas import (
     ReadyResponse,
     RedactRequest,
     RedactResponse,
+    RequestApprovalRequest,
+    RequestApprovalResponse,
     ReviewRequest,
     ReviewResponse,
+    SafeRewriteRequest,
+    SafeRewriteResponse,
 )
 from .client import (
     DEFAULT_BASE_URL,
@@ -50,8 +54,12 @@ __all__ = [
     "ReadyResponse",
     "RedactRequest",
     "RedactResponse",
+    "RequestApprovalRequest",
+    "RequestApprovalResponse",
     "ReviewRequest",
     "ReviewResponse",
+    "SafeRewriteRequest",
+    "SafeRewriteResponse",
     "async_classify_text",
     "classify_text",
 ]

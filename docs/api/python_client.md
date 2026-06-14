@@ -96,6 +96,32 @@ python scripts/examples/async_client_example.py \
   --include-offending-spans
 ```
 
+Review then safe rewrite:
+
+```sh
+python scripts/examples/review_then_actions_sync.py \
+  --flow safe-rewrite \
+  "Send Dr Jane Tan S1234567D the confidential draft before announcement."
+
+python scripts/examples/review_then_actions_async.py \
+  --flow safe-rewrite \
+  "Send Dr Jane Tan S1234567D the confidential draft before announcement."
+```
+
+Review then request approval:
+
+The backend must already run with `KAYPOH_REVIEW_PERSIST=1` for approval requests.
+
+```sh
+python scripts/examples/review_then_actions_sync.py \
+  --flow request-approval \
+  "Send Dr Jane Tan S1234567D the confidential draft before announcement."
+
+python scripts/examples/review_then_actions_async.py \
+  --flow request-approval \
+  "Send Dr Jane Tan S1234567D the confidential draft before announcement."
+```
+
 Authenticated example:
 
 ```sh
@@ -263,6 +289,8 @@ except KaypohAPIError as exc:
 - `client.pseudonymize(...)` -> `POST /pseudonymize`
 - `client.anonymize(...)` -> irreversible `POST /anonymize`
 - `client.redact(...)` -> `POST /redact`
+- `client.safe_rewrite(...)` -> `POST /safe-rewrite`
+- `client.request_approval(...)` -> `POST /request-approval`
 
 The async client exposes the same method names and endpoint mapping, but each method is awaited:
 
@@ -277,3 +305,5 @@ The async client exposes the same method names and endpoint mapping, but each me
 - `await async_client.pseudonymize(...)`
 - `await async_client.anonymize(...)`
 - `await async_client.redact(...)`
+- `await async_client.safe_rewrite(...)`
+- `await async_client.request_approval(...)`

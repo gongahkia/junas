@@ -17,6 +17,8 @@ from kaypoh import (
     KaypohAPIError,
     KaypohClient,
     PolicyDecisionResponse,
+    RequestApprovalResponse,
+    SafeRewriteResponse,
     async_classify_text,
 )
 
@@ -218,6 +220,52 @@ def build_redact_payload(*, request_id: str, classification: str = "LOW_RISK") -
     return payload
 
 
+def build_safe_rewrite_payload(*, request_id: str, classification: str = "LOW_RISK") -> dict:
+    payload = build_review_payload(request_id=request_id, classification=classification)
+    payload.update(
+        {
+            "privacy_operation": "safe_rewrite",
+            "rewrite_policy": "deterministic_allowed_spans",
+            "rewritten_text": "Send [REDACTED PERSONAL DATA]",
+            "document_hash": "d" * 64,
+            "mapping_persisted": False,
+            "replacements": [
+                {
+                    "finding_id": "pii:email_address:10:28:0",
+                    "action": "redact_pii",
+                    "category": "PII",
+                    "rule": "email_address",
+                    "severity": "medium",
+                    "start_char": 10,
+                    "end_char": 26,
+                    "replacement_text": "[REDACTED PERSONAL DATA]",
+                    "original_text_hash": "e" * 64,
+                }
+            ],
+            "skipped_findings": [],
+        }
+    )
+    payload["timings_ms"] = {"extract": 0.1, "review": 0.4, "safe_rewrite": 0.1, "total": 0.6}
+    return payload
+
+
+def build_request_approval_payload(*, review_id: str) -> dict:
+    return {
+        "review_id": review_id,
+        "approval_status": "pending",
+        "requested_action": "request_approval",
+        "requested_finding_ids": ["pii:email_address:10:28:0"],
+        "required_reviewer_roles": ["maker", "checker", "admin"],
+        "required_policy_actor_roles": ["legal_reviewer", "compliance_admin"],
+        "reason_code": "rewrite_required",
+        "requester_id": "dev-reviewer",
+        "requester_identity_source": "dev_header",
+        "seq": 3,
+        "ts": "2026-06-14T09:30:00Z",
+        "hmac": "0" * 64,
+    }
+
+
 class KaypohClientTests(unittest.TestCase):
     def test_classify_sends_expected_payload_and_api_key(self):
         observed: dict[str, object] = {}
@@ -407,6 +455,71 @@ class KaypohClientTests(unittest.TestCase):
         self.assertEqual(result.redactions[0].marker, "[REDACTED_1]")
         self.assertFalse(hasattr(result.findings[0], "matched_text"))
         self.assertEqual(observed["path"], "/redact")
+
+    def test_safe_rewrite_sends_expected_payload_and_returns_typed_response(self):
+        observed: dict[str, object] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            observed["method"] = request.method
+            observed["path"] = request.url.path
+            observed["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(200, json=build_safe_rewrite_payload(request_id="rewrite-1"))
+
+        transport = httpx.MockTransport(handler)
+
+        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+            result = client.safe_rewrite(
+                text="Send to jane@example.com",
+                source_jurisdiction="SG",
+                destination_jurisdiction="US",
+                document_type="email",
+                allowed_actions=["safe_rewrite", "redact_pii"],
+                allowed_finding_ids=["pii:email_address:10:28:0"],
+            )
+
+        self.assertIsInstance(result, SafeRewriteResponse)
+        self.assertEqual(result.request_id, "rewrite-1")
+        self.assertEqual(result.privacy_operation, "safe_rewrite")
+        self.assertEqual(result.rewritten_text, "Send [REDACTED PERSONAL DATA]")
+        self.assertEqual(result.replacements[0].finding_id, "pii:email_address:10:28:0")
+        self.assertEqual(observed["method"], "POST")
+        self.assertEqual(observed["path"], "/safe-rewrite")
+        self.assertEqual(observed["body"]["requested_action"], "safe_rewrite")
+        self.assertEqual(observed["body"]["allowed_actions"], ["safe_rewrite", "redact_pii"])
+        self.assertEqual(observed["body"]["allowed_finding_ids"], ["pii:email_address:10:28:0"])
+
+    def test_request_approval_sends_expected_payload_and_returns_typed_response(self):
+        observed: dict[str, object] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            observed["method"] = request.method
+            observed["path"] = request.url.path
+            observed["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(200, json=build_request_approval_payload(review_id="review-1"))
+
+        transport = httpx.MockTransport(handler)
+
+        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+            result = client.request_approval(
+                review_id="review-1",
+                finding_ids=["pii:email_address:10:28:0"],
+                reason_code="rewrite_required",
+            )
+
+        self.assertIsInstance(result, RequestApprovalResponse)
+        self.assertEqual(result.review_id, "review-1")
+        self.assertEqual(result.approval_status, "pending")
+        self.assertEqual(result.required_reviewer_roles, ["maker", "checker", "admin"])
+        self.assertEqual(observed["method"], "POST")
+        self.assertEqual(observed["path"], "/request-approval")
+        self.assertEqual(
+            observed["body"],
+            {
+                "review_id": "review-1",
+                "finding_ids": ["pii:email_address:10:28:0"],
+                "reason_code": "rewrite_required",
+            },
+        )
 
     def test_classify_batch_and_runtime_methods_return_typed_models(self):
         def handler(request: httpx.Request) -> httpx.Response:
@@ -613,6 +726,10 @@ class KaypohClientTests(unittest.TestCase):
                 return httpx.Response(200, json=build_pseudonymize_payload(request_id="pseudo-async"))
             if request.url.path == "/redact":
                 return httpx.Response(200, json=build_redact_payload(request_id="redact-async"))
+            if request.url.path == "/safe-rewrite":
+                return httpx.Response(200, json=build_safe_rewrite_payload(request_id="rewrite-async"))
+            if request.url.path == "/request-approval":
+                return httpx.Response(200, json=build_request_approval_payload(review_id="review-async"))
             raise AssertionError(f"unexpected path: {request.url.path}")
 
         async def scenario() -> None:
@@ -626,13 +743,28 @@ class KaypohClientTests(unittest.TestCase):
                     text="Send to jane@example.com",
                     degraded_policy="allow",
                 )
+                rewritten = await client.safe_rewrite(
+                    text="Send to jane@example.com",
+                    allowed_actions=["safe_rewrite"],
+                    degraded_policy="block_send",
+                )
+                approval = await client.request_approval(
+                    review_id="review-async",
+                    finding_ids=["pii:email_address:10:28:0"],
+                    reason_code="rewrite_required",
+                )
                 self.assertEqual(pseudo.request_id, "pseudo-async")
                 self.assertEqual(redacted.request_id, "redact-async")
+                self.assertEqual(rewritten.request_id, "rewrite-async")
+                self.assertEqual(approval.review_id, "review-async")
 
         asyncio.run(scenario())
 
         self.assertEqual(observed["/pseudonymize"]["degraded_policy"], "block_send")
         self.assertEqual(observed["/redact"]["degraded_policy"], "allow")
+        self.assertEqual(observed["/safe-rewrite"]["degraded_policy"], "block_send")
+        self.assertEqual(observed["/safe-rewrite"]["allowed_actions"], ["safe_rewrite"])
+        self.assertEqual(observed["/request-approval"]["reason_code"], "rewrite_required")
 
     def test_async_convenience_function_returns_typed_response(self):
         def handler(request: httpx.Request) -> httpx.Response:

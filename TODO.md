@@ -53,7 +53,7 @@
 - [x] P0/UserActions: Add tests that rejected findings are excluded from downstream anonymization only after an authorized reviewer decision.
 - [x] P0/UserActions: Add docs explaining the difference between pseudonymize, anonymize, redact, safe rewrite, and reviewer approval in plain operational terms.
 - [x] P0/UserActions: Update Python client methods to expose policy decisions and action catalog without forcing callers to parse raw dicts.
-- [ ] P0/UserActions: Add sync and async Python client examples for "review then safe rewrite" and "review then request approval".
+- [x] P0/UserActions: Add sync and async Python client examples for "review then safe rewrite" and "review then request approval".
 - [ ] P0/UserActions: Add a CLI example script that reviews stdin, prints policy decision JSON, and exits nonzero when policy blocks send.
 - [ ] P0/UserActions: Add a regression test that safe rewrite never persists reversible mappings unless the caller explicitly uses pseudonymization.
 - [ ] P0/UserActions: Add redaction response tests proving opaque redaction responses do not contain original matched text outside ordinary review findings.

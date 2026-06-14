@@ -16,10 +16,10 @@ fi
 echo "Verifying Kaypoh sync and async Python clients..."
 "${PYTHON[@]}" -m py_compile \
     src/kaypoh/client.py \
-    api/client.py \
-    backend/client.py \
     scripts/examples/sync_client_example.py \
     scripts/examples/async_client_example.py \
+    scripts/examples/review_then_actions_sync.py \
+    scripts/examples/review_then_actions_async.py \
     scripts/examples/round_trip_example.py \
     scripts/examples/decision_flow_example.py
 "${PYTHON[@]}" -m unittest test.test_python_client

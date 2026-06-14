@@ -24,8 +24,12 @@ from .backend.schemas import (
     ReidentifyMappingEntry,
     ReidentifyRequest,
     ReidentifyResponse,
+    RequestApprovalRequest,
+    RequestApprovalResponse,
     ReviewRequest,
     ReviewResponse,
+    SafeRewriteRequest,
+    SafeRewriteResponse,
 )
 
 DEFAULT_BASE_URL = "http://localhost:8000"
@@ -283,6 +287,75 @@ def _coerce_redact_request(
         include_suggestions=include_suggestions,
         include_mnpi_scalars=include_mnpi_scalars,
         degraded_policy=degraded_policy,
+    )
+
+
+def _coerce_safe_rewrite_request(
+    *,
+    request: SafeRewriteRequest | Mapping[str, Any] | None,
+    text: str | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+    source_jurisdiction: str,
+    destination_jurisdiction: str,
+    document_type: str,
+    review_profile: str,
+    entity_id: str | None,
+    include_suggestions: bool,
+    degraded_policy: str,
+    allowed_actions: Sequence[str] | None,
+    allowed_finding_ids: Sequence[str] | None,
+) -> SafeRewriteRequest:
+    if request is not None:
+        if text is not None or document_base64 is not None:
+            raise ValueError("pass either request=... or text/document_base64=..., not both")
+        if isinstance(request, SafeRewriteRequest):
+            return request
+        return SafeRewriteRequest.model_validate(request)
+
+    payload: dict[str, Any] = {
+        "text": text,
+        "document_base64": document_base64,
+        "document_filename": document_filename,
+        "document_mime_type": document_mime_type,
+        "source_jurisdiction": source_jurisdiction,
+        "destination_jurisdiction": destination_jurisdiction,
+        "document_type": document_type,
+        "review_profile": review_profile,
+        "entity_id": entity_id,
+        "include_suggestions": include_suggestions,
+        "degraded_policy": degraded_policy,
+        "requested_action": "safe_rewrite",
+    }
+    if allowed_actions is not None:
+        payload["allowed_actions"] = list(allowed_actions)
+    if allowed_finding_ids is not None:
+        payload["allowed_finding_ids"] = list(allowed_finding_ids)
+    return SafeRewriteRequest.model_validate(payload)
+
+
+def _coerce_request_approval_request(
+    *,
+    request: RequestApprovalRequest | Mapping[str, Any] | None,
+    review_id: str | None,
+    finding_ids: Sequence[str] | None,
+    reason_code: str,
+) -> RequestApprovalRequest:
+    if request is not None:
+        if review_id is not None or finding_ids is not None:
+            raise ValueError("pass either request=... or review_id/finding_ids=..., not both")
+        if isinstance(request, RequestApprovalRequest):
+            return request
+        return RequestApprovalRequest.model_validate(request)
+
+    if review_id is None:
+        raise ValueError("review_id is required when request is not provided")
+
+    return RequestApprovalRequest(
+        review_id=review_id,
+        finding_ids=list(finding_ids) if finding_ids is not None else None,
+        reason_code=reason_code,
     )
 
 
@@ -615,6 +688,70 @@ class KaypohClient:
             )
         )
 
+    def safe_rewrite(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        degraded_policy: str = "warn",
+        allowed_actions: Sequence[str] | None = None,
+        allowed_finding_ids: Sequence[str] | None = None,
+        request: SafeRewriteRequest | Mapping[str, Any] | None = None,
+    ) -> SafeRewriteResponse:
+        payload = _coerce_safe_rewrite_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            degraded_policy=degraded_policy,
+            allowed_actions=allowed_actions,
+            allowed_finding_ids=allowed_finding_ids,
+        )
+        return SafeRewriteResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/safe-rewrite",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def request_approval(
+        self,
+        review_id: str | None = None,
+        *,
+        finding_ids: Sequence[str] | None = None,
+        reason_code: str = "policy_block",
+        request: RequestApprovalRequest | Mapping[str, Any] | None = None,
+    ) -> RequestApprovalResponse:
+        payload = _coerce_request_approval_request(
+            request=request,
+            review_id=review_id,
+            finding_ids=finding_ids,
+            reason_code=reason_code,
+        )
+        return RequestApprovalResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/request-approval",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
     def scrub_document(
         self,
         document_base64: str | None = None,
@@ -921,6 +1058,70 @@ class AsyncKaypohClient:
             await self._request_json(
                 "POST",
                 "/redact",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def safe_rewrite(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        degraded_policy: str = "warn",
+        allowed_actions: Sequence[str] | None = None,
+        allowed_finding_ids: Sequence[str] | None = None,
+        request: SafeRewriteRequest | Mapping[str, Any] | None = None,
+    ) -> SafeRewriteResponse:
+        payload = _coerce_safe_rewrite_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            degraded_policy=degraded_policy,
+            allowed_actions=allowed_actions,
+            allowed_finding_ids=allowed_finding_ids,
+        )
+        return SafeRewriteResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/safe-rewrite",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def request_approval(
+        self,
+        review_id: str | None = None,
+        *,
+        finding_ids: Sequence[str] | None = None,
+        reason_code: str = "policy_block",
+        request: RequestApprovalRequest | Mapping[str, Any] | None = None,
+    ) -> RequestApprovalResponse:
+        payload = _coerce_request_approval_request(
+            request=request,
+            review_id=review_id,
+            finding_ids=finding_ids,
+            reason_code=reason_code,
+        )
+        return RequestApprovalResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/request-approval",
                 json_body=payload.model_dump(mode="json", exclude_none=True),
             )
         )
