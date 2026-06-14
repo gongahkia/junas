@@ -8,6 +8,17 @@ cd "$ROOT"
 : "${KAYPOH_NOTARYTOOL_PROFILE:=}"
 : "${KAYPOH_PACKAGE_OUTPUT:=dist/kaypoh-local-macos.zip}"
 SPEC="$ROOT/packaging/kaypoh-local.spec"
+DESKTOP_SRC="${KAYPOH_DESKTOP_SRC:-$ROOT/integrations/desktop}"
+
+if [[ ! -f "$DESKTOP_SRC/watch.py" ]]; then
+  echo "missing desktop adapter source: $DESKTOP_SRC/watch.py" >&2
+  exit 64
+fi
+
+if [[ ! -f "$SPEC" ]]; then
+  echo "missing PyInstaller spec: $SPEC" >&2
+  exit 64
+fi
 
 uv run pyinstaller "$SPEC"
 

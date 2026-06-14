@@ -2,9 +2,14 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SRC="$ROOT/integrations/browser_extension"
+SRC="${KAYPOH_EXTENSION_SRC:-$ROOT/integrations/browser_extension}"
 OUT_DIR="${KAYPOH_EXTENSION_OUT_DIR:-$ROOT/dist/browser-extension}"
 ZIP_PATH="$OUT_DIR/kaypoh-local-review.zip"
+
+if [[ ! -f "$SRC/manifest.json" ]]; then
+  echo "missing browser extension source: $SRC/manifest.json" >&2
+  exit 64
+fi
 
 mkdir -p "$OUT_DIR"
 rm -f "$ZIP_PATH"
