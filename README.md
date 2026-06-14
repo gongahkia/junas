@@ -20,6 +20,7 @@ Kaypoh reviews text and documents before users paste prompts, send email, upload
 - [Quick Start](#quick-start)
 - [What Kaypoh Does](#what-kaypoh-does)
 - [Primary Product Spine](#primary-product-spine)
+- [Adapter Maturity](#adapter-maturity)
 - [API Surface](#api-surface)
 - [Examples](#examples)
 - [How It Works](#how-it-works)
@@ -107,6 +108,16 @@ Kaypoh is not a general DLP suite, legal-advice product, or model-training platf
 The FastAPI backend is the trust boundary for Kaypoh deployments. It owns review input validation, tenant/auth checks, deterministic findings, policy decisions, rewrite actions, audit events, and privacy-safe observability. Direct HTTP/OpenAPI clients can integrate with this boundary without installing a UI adapter.
 
 Adapters are workflow activation points. Outlook Smart Alerts, browser GenAI capture, Word taskpanes, desktop watching, DMS hooks, and future surfaces should collect workflow context, call the backend contract, display the decision, and avoid storing raw content outside their runtime unless a documented policy allows it.
+
+## Adapter Maturity
+
+| Surface | Maturity | Role |
+|---|---|---|
+| API/client | `core` | Baseline HTTP/OpenAPI integration path. |
+| Outlook Smart Alerts | `supported-target` | First-class pre-send email review target. |
+| Browser GenAI extension | `supported-target` | First-class prompt review target for managed browser pilots. |
+| Word taskpane | `experimental` | Document review surface, not send-time enforcement. |
+| Desktop watcher | `experimental-local-fallback` | Opt-in local fallback for demos, offline review, and power users. |
 
 ## API Surface
 
