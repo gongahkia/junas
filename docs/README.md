@@ -19,5 +19,6 @@ This folder contains operator, developer, and product documentation. Product doc
 - `product/personas.md`: jobs-to-be-done for end users, legal reviewers, compliance admins, security engineers, and platform integrators
 - `product/non-goals.md`: explicit control planes Kaypoh does not replace
 - `product/research-basis.md`: external deployment/security research basis for adapter and DLP claims
+- `product/glossary.md`: product vocabulary for review, rewrite, audit evidence, adapters, and surfaces
 - `api/`: generated Postman collection, cURL snippets, and Python client integration notes
 - `json/`: example training corpus batches
