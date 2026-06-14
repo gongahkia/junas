@@ -106,6 +106,8 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertIn("integrations/browser_extension", extension_packager)
         self.assertIn("--pack-extension", extension_packager)
         self.assertIn("RunAtLoad", launchd)
+        outlook_manifest = (ROOT / "integrations" / "outlook_addin" / "manifest.xml").read_text(encoding="utf-8")
+        self.assertIn("{{KAYPOH_OUTLOOK_ADDIN_ORIGIN}}", outlook_manifest)
         self.assertIn('Host Name="Document"', word_manifest)
         self.assertIn("/review", word_js)
         self.assertIn("X-Kaypoh-Local-Token", word_js)
@@ -197,6 +199,7 @@ class DeploymentDocsTests(unittest.TestCase):
             "surface=\"outlook\"",
             "workflow=\"email_send\"",
             "Admin Deployment",
+            "render_outlook_manifest.py",
             "Microsoft 365 admin-managed deployment",
             "Fallback Behavior",
             "not a fail-closed enforcement path",

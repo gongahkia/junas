@@ -39,6 +39,8 @@ class OfficeAddinTests(unittest.TestCase):
         xml = (OFFICE / "manifest.xml").read_text(encoding="utf-8")
         self.assertIn("Pre-send policy review and decision support", xml)
         self.assertNotIn("Pre-send review through the local Kaypoh daemon", xml)
+        self.assertIn("{{KAYPOH_OUTLOOK_ADDIN_ORIGIN}}/taskpane.html", xml)
+        self.assertNotIn("https://localhost:3000", xml)
         self.assertIn('DefaultMinVersion="1.15"', xml)
         self.assertIn('xsi:type="LaunchEvent"', xml)
         self.assertIn('Type="OnMessageSend"', xml)

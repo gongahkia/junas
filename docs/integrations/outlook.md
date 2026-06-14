@@ -18,9 +18,12 @@ Current files:
 Deploy:
 
 ```sh
-# dev or staging manifest host must serve HTTPS URLs referenced by manifest.xml
-integrations/outlook_addin/manifest.xml
+uv run python scripts/render_outlook_manifest.py --profile dev
+uv run python scripts/render_outlook_manifest.py --profile staging --origin https://outlook-addin.staging.example.com
+uv run python scripts/render_outlook_manifest.py --profile production --origin https://outlook-addin.example.com
 ```
+
+The source manifest is a template. Rendered manifests are written to `dist/outlook-addin/{profile}/manifest.xml` by default. Dev defaults to `https://localhost:3000`; staging and production require an explicit non-local HTTPS origin.
 
 ## Smart Alerts Flow
 
@@ -51,7 +54,7 @@ Kaypoh policy mapping:
 
 ## Admin Deployment
 
-- Replace every `https://localhost:3000` URL in `manifest.xml` with a deployer-controlled HTTPS origin.
+- Render `manifest.xml` at build time with `scripts/render_outlook_manifest.py`.
 - Deploy through Microsoft 365 admin-managed deployment for production pilots.
 - Assign to scoped pilot groups before tenant-wide rollout.
 - Configure backend auth or local pairing token; the taskpane stores endpoint and local token in Office runtime storage or localStorage fallback.
