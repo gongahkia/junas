@@ -128,7 +128,7 @@ Runtime:
 - `GET /diagnostics`
 - `GET /metrics`
 
-Review and rewrite:
+Review and rewrite endpoints:
 
 - `POST /review`
 - `POST /pseudonymize`
@@ -172,7 +172,7 @@ curl -X POST http://127.0.0.1:8000/review \
   }'
 ```
 
-Anonymize irreversibly:
+Review and rewrite with irreversible anonymization:
 
 ```bash
 curl -X POST http://127.0.0.1:8000/anonymize \
