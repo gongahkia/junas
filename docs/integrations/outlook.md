@@ -147,6 +147,10 @@ Event schema: `kaypoh.outlook.telemetry.v1`.
 
 Telemetry must not include raw body, subject, recipient addresses, attachment names, auth tokens, matched text, policy reasons, or endpoint URLs.
 
+## Privacy Check
+
+Outlook adapter tests prove the send runtime sends message text only inside the `/review` request body and does not write message body, subject, recipient addresses, attachment names, or auth tokens to browser local storage, Office runtime storage, telemetry payloads, or console logs. Taskpane storage remains limited to endpoint, local pairing token, and send-hook timeout settings.
+
 ## Send Hook Timeout
 
 The launch-event path uses a shorter timeout than normal API calls because Outlook Smart Alerts runs inside the user's send action. Long waits make the send flow feel broken and can trigger Outlook long-running add-in prompts. The default send-hook timeout is 4000 ms, clamped between 1000 ms and 8000 ms via `kaypoh.sendHookTimeoutMs`.

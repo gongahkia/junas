@@ -336,6 +336,98 @@ class FrontendIntegrationTests(unittest.TestCase):
             """
         )
 
+    def test_outlook_launch_event_does_not_store_or_log_message_body(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/outlook_addin/launchevent.js", "utf8");
+            const secret = "DO_NOT_STORE_BODY_S1234567D";
+            const storageWrites = [];
+            const logs = [];
+            const telemetry = [];
+            const requests = [];
+            const context = {
+              AbortController,
+              setTimeout,
+              clearTimeout,
+              kaypohTelemetrySink: (event) => telemetry.push(event),
+              console: {
+                log: (...args) => logs.push(args),
+                info: (...args) => logs.push(args),
+                warn: (...args) => logs.push(args),
+                error: (...args) => logs.push(args),
+                debug: (...args) => logs.push(args)
+              },
+              localStorage: {
+                getItem: () => "",
+                setItem: (key, value) => storageWrites.push({store: "localStorage", key, value})
+              },
+              OfficeRuntime: {
+                storage: {
+                  getItem: async () => "",
+                  setItem: async (key, value) => storageWrites.push({store: "OfficeRuntime", key, value})
+                }
+              },
+              Office: {
+                AsyncResultStatus: {Succeeded: "succeeded"},
+                actions: {associate(name, fn) { context.__handler = fn; }},
+                context: {
+                  mailbox: {
+                    item: {
+                      subject: {getAsync(callback) { callback({status: "succeeded", value: "Private subject"}); }},
+                      body: {
+                        getAsync(format, options, callback) {
+                          callback({status: "succeeded", value: secret});
+                        }
+                      },
+                      to: {
+                        getAsync(callback) {
+                          callback({status: "succeeded", value: [{emailAddress: "private@example.com"}]});
+                        }
+                      },
+                      cc: {getAsync(callback) { callback({status: "succeeded", value: []}); }},
+                      bcc: {getAsync(callback) { callback({status: "succeeded", value: []}); }},
+                      getAttachmentsAsync(callback) {
+                        callback({status: "succeeded", value: [{name: "private.docx"}]});
+                      }
+                    }
+                  }
+                }
+              },
+              fetch: async (url, options) => {
+                requests.push({url, body: JSON.parse(options.body)});
+                return {ok: true, json: async () => ({
+                  findings: [],
+                  pii_score: 0,
+                  mnpi_score: 0,
+                  degraded_modes: [],
+                  send_allowed: true,
+                  policy_decision: {decision: "allow", send_allowed: true}
+                })};
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "launchevent.js"});
+            (async () => {
+              const result = await new Promise((resolve) => context.__handler({completed: resolve}));
+              assert.strictEqual(result.allowEvent, true);
+              assert.ok(requests[0].body.text.includes(secret));
+              assert.strictEqual(storageWrites.length, 0);
+              assert.strictEqual(logs.length, 0);
+              const serializedTelemetry = JSON.stringify(telemetry);
+              assert.ok(!serializedTelemetry.includes(secret));
+              assert.ok(!serializedTelemetry.includes("Private subject"));
+              assert.ok(!serializedTelemetry.includes("private@example.com"));
+              assert.ok(!serializedTelemetry.includes("private.docx"));
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
     def test_outlook_completion_telemetry_maps_warning_approval_and_backend_failure(self):
         self.run_node(
             r"""

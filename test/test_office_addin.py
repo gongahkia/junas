@@ -76,6 +76,24 @@ class OfficeAddinTests(unittest.TestCase):
         self.assertNotRegex(js, re.compile(r"^\s*(import|export)\b", re.M))
         self.assertIn('<script src="launchevent.js"></script>', html)
 
+    def test_adapter_does_not_store_message_body_or_log_to_console(self):
+        sources = {
+            "launchevent.js": (OFFICE / "launchevent.js").read_text(encoding="utf-8"),
+            "taskpane.js": (OFFICE / "taskpane.js").read_text(encoding="utf-8"),
+        }
+        combined = "\n".join(sources.values())
+
+        self.assertNotIn("console.", combined)
+        storage_pattern = re.compile(
+            r"(localStorage|OfficeRuntime\.storage)\.setItem\([^)]*(body|text|subject)",
+            re.I,
+        )
+        self.assertNotRegex(combined, storage_pattern)
+        self.assertNotRegex(combined, re.compile(r"setStored\([^)]*(body|text|subject|recipient|attachment)", re.I))
+        self.assertNotIn("kaypohMessageContext(event).then((context) => setStored", sources["launchevent.js"])
+        self.assertIn("kaypohTelemetryDetails", sources["launchevent.js"])
+        self.assertIn("KAYPOH_TELEMETRY_KEYS", sources["launchevent.js"])
+
 
 if __name__ == "__main__":
     unittest.main()
