@@ -28,7 +28,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             const assert = require("assert");
             const fs = require("fs");
             const vm = require("vm");
-            const source = fs.readFileSync("packaging/browser_extension/service_worker.js", "utf8");
+            const source = fs.readFileSync("integrations/browser_extension/service_worker.js", "utf8");
             const requests = [];
             const messages = [];
             const context = {
@@ -88,7 +88,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             const assert = require("assert");
             const fs = require("fs");
             const vm = require("vm");
-            const source = fs.readFileSync("packaging/office_addin/launchevent.js", "utf8");
+            const source = fs.readFileSync("integrations/outlook_addin/launchevent.js", "utf8");
             const requests = [];
             const context = {
               localStorage: {getItem: () => ""},

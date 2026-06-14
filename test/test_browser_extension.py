@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-EXT = ROOT / "packaging" / "browser_extension"
+EXT = ROOT / "integrations" / "browser_extension"
 
 
 class BrowserExtensionTests(unittest.TestCase):

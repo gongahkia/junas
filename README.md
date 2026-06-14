@@ -527,9 +527,9 @@ Package browser extension:
 
 Package surfaces:
 
-- [`packaging/browser_extension/`](./packaging/browser_extension/): MV3 browser thin client.
-- [`packaging/office_addin/`](./packaging/office_addin/): Outlook taskpane and Smart Alerts pre-send hook.
-- [`packaging/word_addin/`](./packaging/word_addin/): Word taskpane review surface.
+- [`integrations/browser_extension/`](./integrations/browser_extension/): MV3 browser thin client.
+- [`integrations/outlook_addin/`](./integrations/outlook_addin/): Outlook taskpane and Smart Alerts pre-send hook.
+- [`integrations/word_addin/`](./integrations/word_addin/): Word taskpane review surface.
 - [`packaging/macos/`](./packaging/macos/): LaunchAgent install, update, uninstall scripts.
 - [`packaging/windows/`](./packaging/windows/): Windows packaging notes; Windows desktop packaging is not shipped by default.
 

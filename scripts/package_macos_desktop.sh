@@ -7,8 +7,9 @@ cd "$ROOT"
 : "${KAYPOH_CODESIGN_IDENTITY:=}"
 : "${KAYPOH_NOTARYTOOL_PROFILE:=}"
 : "${KAYPOH_PACKAGE_OUTPUT:=dist/kaypoh-local-macos.zip}"
+SPEC="$ROOT/packaging/kaypoh-local.spec"
 
-uv run pyinstaller packaging/kaypoh-local.spec
+uv run pyinstaller "$SPEC"
 
 if [[ -n "$KAYPOH_CODESIGN_IDENTITY" ]]; then
   /usr/bin/codesign --force --timestamp --options runtime --sign "$KAYPOH_CODESIGN_IDENTITY" dist/kaypoh-local/kaypoh-local

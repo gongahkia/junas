@@ -1,6 +1,6 @@
 # Integration Docs
 
-These pages mirror current adapter notes after ADR 0004. Adapter source lives under top-level `integrations/`; old packaging and `src/kaypoh/desktop` paths remain compatibility symlinks during migration.
+These pages mirror current adapter notes after ADR 0004. Adapter source lives under top-level `integrations/`; old packaging and `src/kaypoh/desktop` paths remain compatibility symlinks for existing local workflows.
 
 | Adapter | Source path | Mirror doc |
 |---|---|---|

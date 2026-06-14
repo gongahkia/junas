@@ -85,8 +85,11 @@ class DeploymentDocsTests(unittest.TestCase):
             ROOT / "packaging" / "macos" / "update.sh",
             ROOT / "packaging" / "macos" / "uninstall.sh",
             ROOT / "packaging" / "windows" / "README.md",
-            ROOT / "packaging" / "word_addin" / "manifest.xml",
-            ROOT / "packaging" / "word_addin" / "taskpane.js",
+            ROOT / "integrations" / "browser_extension" / "manifest.json",
+            ROOT / "integrations" / "outlook_addin" / "manifest.xml",
+            ROOT / "integrations" / "word_addin" / "manifest.xml",
+            ROOT / "integrations" / "word_addin" / "taskpane.js",
+            ROOT / "integrations" / "desktop" / "watch.py",
         ]
         for path in expected:
             self.assertTrue(path.exists(), f"missing {path}")
@@ -94,12 +97,13 @@ class DeploymentDocsTests(unittest.TestCase):
         macos_packager = (ROOT / "scripts" / "package_macos_desktop.sh").read_text(encoding="utf-8")
         extension_packager = (ROOT / "scripts" / "package_browser_extension.sh").read_text(encoding="utf-8")
         launchd = (ROOT / "packaging" / "macos" / "com.kaypoh.local.plist.template").read_text(encoding="utf-8")
-        word_manifest = (ROOT / "packaging" / "word_addin" / "manifest.xml").read_text(encoding="utf-8")
-        word_js = (ROOT / "packaging" / "word_addin" / "taskpane.js").read_text(encoding="utf-8")
+        word_manifest = (ROOT / "integrations" / "word_addin" / "manifest.xml").read_text(encoding="utf-8")
+        word_js = (ROOT / "integrations" / "word_addin" / "taskpane.js").read_text(encoding="utf-8")
 
         self.assertIn("codesign", macos_packager)
         self.assertIn("notarytool", macos_packager)
         self.assertIn("stapler", macos_packager)
+        self.assertIn("integrations/browser_extension", extension_packager)
         self.assertIn("--pack-extension", extension_packager)
         self.assertIn("RunAtLoad", launchd)
         self.assertIn('Host Name="Document"', word_manifest)

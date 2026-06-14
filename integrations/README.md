@@ -2,7 +2,7 @@
 
 Adapters are optional activation surfaces. The FastAPI backend remains the trust boundary for validation, tenant auth, deterministic review, policy decisions, rewrite actions, audit evidence, and SIEM-safe observability. Direct HTTP/OpenAPI integration is the baseline path and does not require any UI adapter.
 
-This directory contains adapter source after ADR 0004. Old `packaging/*_addin`, `packaging/browser_extension`, and `src/kaypoh/desktop` paths remain as compatibility symlinks until packaging scripts and docs finish moving to direct `integrations/` paths.
+This directory contains adapter source after ADR 0004. Old `packaging/*_addin`, `packaging/browser_extension`, and `src/kaypoh/desktop` paths remain as compatibility symlinks for existing local workflows.
 
 No `CODEOWNERS` file exists in this repo, so owner labels below are functional owners.
 

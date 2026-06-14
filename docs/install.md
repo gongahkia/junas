@@ -53,8 +53,8 @@ Chrome on macOS/Windows must use Chrome Web Store or enterprise policy for self-
 
 Manifests:
 
-- Outlook: `packaging/office_addin/manifest.xml`
-- Word: `packaging/word_addin/manifest.xml`
+- Outlook: `integrations/outlook_addin/manifest.xml`
+- Word: `integrations/word_addin/manifest.xml`
 
 Deploy with Microsoft 365 admin-managed deployment for production users. Outlook pre-send review uses Smart Alerts `OnMessageSend` with `SendMode="SoftBlock"` and requires clients that support Mailbox requirement set 1.12+; the manifest requests 1.15 for newer Smart Alerts behavior.
 

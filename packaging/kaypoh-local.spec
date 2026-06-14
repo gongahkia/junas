@@ -13,9 +13,14 @@
 
 # ruff: noqa
 # flake8: noqa
+from pathlib import Path
+
 from PyInstaller.utils.hooks import collect_all  # type: ignore[import-not-found]
 
 block_cipher = None
+ROOT = Path(globals().get("SPECPATH", Path.cwd() / "packaging")).parent
+SRC_DIR = ROOT / "src"
+ENTRYPOINT = ROOT / "packaging" / "kaypoh_local_entrypoint.py"
 
 # spaCy ships its model as an installed Python package after `spacy download`. collect_all
 # bundles the data files alongside the metadata.
@@ -62,8 +67,8 @@ excludes = [
 ]
 
 a = Analysis(
-    ["kaypoh_local_entrypoint.py"],
-    pathex=["../src"],
+    [str(ENTRYPOINT)],
+    pathex=[str(SRC_DIR)],
     binaries=spacy_binaries + presidio_binaries + presidio_anon_binaries,
     datas=spacy_datas + presidio_datas + presidio_anon_datas,
     hiddenimports=hidden_imports,

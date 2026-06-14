@@ -2,7 +2,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-OFFICE = ROOT / "packaging" / "office_addin"
+OFFICE = ROOT / "integrations" / "outlook_addin"
 
 
 class OfficeAddinTests(unittest.TestCase):
