@@ -23,6 +23,38 @@ jobs:
       - run: uv run python -m spacy download en_core_web_sm
       - run: uv run python -m unittest discover -s test -p "test_*.py"
 
+  docker-smoke:
+    name: Docker smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build runtime image
+        run: docker build -t kaypoh:ci .
+      - name: Start runtime container
+        run: |
+          docker run -d --name kaypoh-ci -p 8010:8000 kaypoh:ci
+      - name: Wait for readiness
+        run: |
+          for i in $(seq 1 90); do
+            if curl -fsS http://127.0.0.1:8010/ready | python -c 'import json,sys; raise SystemExit(0 if json.load(sys.stdin).get("ready") is True else 1)'; then
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs kaypoh-ci
+          exit 1
+      - name: Review smoke request
+        run: |
+          curl -fsS http://127.0.0.1:8010/review \
+            -H 'Content-Type: application/json' \
+            --data '{"text":"Email alice@example.com about Project Falcon draft terms.","source_jurisdiction":"SG","destination_jurisdiction":"SG","document_type":"email","review_profile":"strict"}' \
+            | python -c 'import json,sys; data=json.load(sys.stdin); assert "findings" in data and "pii_score" in data and "mnpi_score" in data'
+      - name: Stop runtime container
+        if: always()
+        run: |
+          docker logs kaypoh-ci || true
+          docker rm -f kaypoh-ci || true
+
   latency-slo:
     name: Latency SLO
     runs-on: ubuntu-latest

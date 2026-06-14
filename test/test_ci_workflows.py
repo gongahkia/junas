@@ -21,6 +21,16 @@ class CiWorkflowTests(unittest.TestCase):
         self.assertIn("--base-url http://127.0.0.1:8131", text)
         self.assertIn("test/fixtures/latency-corpus/5k.txt", text)
 
+    def test_docker_smoke_builds_and_hits_ready_and_review(self):
+        text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+
+        self.assertIn("Docker smoke", text)
+        self.assertIn("docker build -t kaypoh:ci .", text)
+        self.assertIn("docker run -d --name kaypoh-ci", text)
+        self.assertIn("http://127.0.0.1:8010/ready", text)
+        self.assertIn("http://127.0.0.1:8010/review", text)
+        self.assertIn("docker logs kaypoh-ci", text)
+
     def test_staging_latency_job_uses_secret_base_url_and_artifacts(self):
         text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
 
