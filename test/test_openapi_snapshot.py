@@ -62,6 +62,7 @@ class OpenApiSnapshotTests(unittest.TestCase):
                     "/ready",
                     "/diagnostics",
                     "/metrics",
+                    "/cite-public-source",
                     "/classify",
                     "/classify/batch",
                     "/hold-until-public",
@@ -149,6 +150,18 @@ class OpenApiSnapshotTests(unittest.TestCase):
                 },
                 "ReviewResponse": {
                     "properties": list(schemas["ReviewResponse"]["properties"].keys()),
+                },
+                "CitePublicSourceRequest": {
+                    "required": schemas["CitePublicSourceRequest"].get("required", []),
+                    "properties": list(schemas["CitePublicSourceRequest"]["properties"].keys()),
+                },
+                "CitePublicSourceResponse": {
+                    "required": schemas["CitePublicSourceResponse"].get("required", []),
+                    "properties": list(schemas["CitePublicSourceResponse"]["properties"].keys()),
+                },
+                "PublicSourceCitationResponse": {
+                    "required": schemas["PublicSourceCitationResponse"].get("required", []),
+                    "properties": list(schemas["PublicSourceCitationResponse"]["properties"].keys()),
                 },
                 "HoldUntilPublicRequest": {
                     "required": schemas["HoldUntilPublicRequest"].get("required", []),

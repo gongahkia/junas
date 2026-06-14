@@ -20,11 +20,12 @@ class OpenApiDocsTests(unittest.TestCase):
         with TestClient(main.app) as client:
             response = client.get("/openapi.json")
             self.assertEqual(response.status_code, 200)
-            payload = response.json()
+        payload = response.json()
 
         self.assertEqual(payload["info"]["title"], "Kaypoh Document Safety API")
         self.assertIn("pre-send safety engine", payload["info"]["description"])
 
+        cite_public_source_operation = payload["paths"]["/cite-public-source"]["post"]
         classify_operation = payload["paths"]["/classify"]["post"]
         batch_operation = payload["paths"]["/classify/batch"]["post"]
         hold_until_public_operation = payload["paths"]["/hold-until-public"]["post"]
@@ -36,6 +37,7 @@ class OpenApiDocsTests(unittest.TestCase):
         safe_rewrite_operation = payload["paths"]["/safe-rewrite"]["post"]
         scrub_operation = payload["paths"]["/documents/scrub"]["post"]
 
+        self.assertEqual(cite_public_source_operation["summary"], "Cite audit-grade public evidence")
         self.assertEqual(classify_operation["summary"], "Classify one document")
         self.assertEqual(batch_operation["summary"], "Classify multiple documents")
         self.assertEqual(hold_until_public_operation["summary"], "Hold high-risk MNPI until public")
@@ -46,6 +48,7 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertEqual(redact_pii_operation["summary"], "Redact PII only")
         self.assertEqual(safe_rewrite_operation["summary"], "Safely rewrite a document deterministically")
         self.assertEqual(scrub_operation["summary"], "Scrub document metadata")
+        self.assertIn("privacy-ledger entry", cite_public_source_operation["description"])
         self.assertIn("deterministic review engine", classify_operation["description"])
         self.assertIn("audit-ready rationale", hold_until_public_operation["description"])
         self.assertIn("strictest-wins", review_operation["description"])
@@ -58,12 +61,15 @@ class OpenApiDocsTests(unittest.TestCase):
         schemas = payload["components"]["schemas"]
         anonymize_request = schemas["AnonymizeRequest"]
         anonymize_response = schemas["AnonymizeResponse"]
+        cite_public_source_request = schemas["CitePublicSourceRequest"]
+        cite_public_source_response = schemas["CitePublicSourceResponse"]
         pseudonymize_request = schemas["PseudonymizeRequest"]
         pseudonymize_response = schemas["PseudonymizeResponse"]
         redact_response = schemas["RedactResponse"]
         hold_until_public_request = schemas["HoldUntilPublicRequest"]
         hold_until_public_response = schemas["HoldUntilPublicResponse"]
         hold_reason_response = schemas["HoldUntilPublicReasonResponse"]
+        public_source_citation_response = schemas["PublicSourceCitationResponse"]
         redact_pii_request = schemas["RedactPiiRequest"]
         redact_pii_response = schemas["RedactPiiResponse"]
         safe_rewrite_request = schemas["SafeRewriteRequest"]
@@ -89,6 +95,9 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertIn("anonymization_mode", anonymize_response["properties"])
         self.assertIn("replacements", anonymize_response["properties"])
         self.assertNotIn("mapping", anonymize_response["properties"])
+        self.assertIn("review_profile", cite_public_source_request["properties"])
+        self.assertIn("citations", cite_public_source_response["properties"])
+        self.assertIn("privacy_ledger_entry", public_source_citation_response["properties"])
         self.assertIn("pseudonymized_text", pseudonymize_response["properties"])
         self.assertIn("mapping", pseudonymize_response["properties"])
         self.assertIn("redacted_text", redact_response["properties"])

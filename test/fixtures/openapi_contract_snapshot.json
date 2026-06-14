@@ -15,6 +15,16 @@
         ]
       }
     },
+    "/cite-public-source": {
+      "post": {
+        "request_body_ref": "#/components/schemas/CitePublicSourceRequest",
+        "response_ref": "#/components/schemas/CitePublicSourceResponse",
+        "summary": "Cite audit-grade public evidence",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
     "/classify": {
       "post": {
         "request_body_ref": "#/components/schemas/ClassifyRequest",
@@ -223,6 +233,82 @@
       },
       "required": [
         "items"
+      ]
+    },
+    "CitePublicSourceRequest": {
+      "properties": [
+        "text",
+        "document_base64",
+        "document_filename",
+        "document_mime_type",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "document_type",
+        "review_profile",
+        "entity_id",
+        "include_suggestions",
+        "degraded_policy",
+        "surface",
+        "workflow",
+        "actor_role",
+        "recipient_domains",
+        "recipient_count",
+        "attachment_count",
+        "sensitivity_label",
+        "external_destination",
+        "requested_action",
+        "session_id",
+        "matter_id"
+      ],
+      "required": []
+    },
+    "CitePublicSourceResponse": {
+      "properties": [
+        "request_id",
+        "review_expires_at",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "degraded_policy",
+        "send_allowed",
+        "policy_decision",
+        "action_catalog",
+        "document",
+        "findings",
+        "lane_suppressed_count",
+        "lane_suppressed_findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms",
+        "privacy_operation",
+        "citation_policy",
+        "citations"
+      ],
+      "required": [
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "document"
       ]
     },
     "ClassifyRequest": {
@@ -480,6 +566,21 @@
         "replacements",
         "redacted_images",
         "redacted_document"
+      ]
+    },
+    "PublicSourceCitationResponse": {
+      "properties": [
+        "source_url",
+        "retrieval_timestamp",
+        "privacy_ledger_entry",
+        "finding_ids",
+        "audit_rationale"
+      ],
+      "required": [
+        "source_url",
+        "retrieval_timestamp",
+        "privacy_ledger_entry",
+        "audit_rationale"
       ]
     },
     "RedactPiiRequest": {

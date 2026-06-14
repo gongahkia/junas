@@ -7,6 +7,7 @@ MAX_CLASSIFY_TEXT_LENGTH = 100000
 SafeRewriteAction = Literal["safe_rewrite", "redact_pii", "hold_until_public"]
 RedactPiiAction = Literal["redact_pii"]
 HoldUntilPublicAction = Literal["hold_until_public"]
+CitePublicSourceAction = Literal["cite_public_source"]
 
 class Classification(str, Enum):
     SAFE = "SAFE"
@@ -429,7 +430,7 @@ class HoldUntilPublicRequest(SafeRewriteRequest):
     model_config = ConfigDict(
         json_schema_extra={
             "example": {
-                "text": "Acme Corp will acquire GlobalTech before announcement.",
+                "text": "Acme Corp announced its acquisition of GlobalTech in a public press release.",
                 "source_jurisdiction": "SG",
                 "destination_jurisdiction": "US",
                 "document_type": "email",
@@ -446,6 +447,33 @@ class HoldUntilPublicRequest(SafeRewriteRequest):
         min_length=1,
         max_length=1,
         description="Only `hold_until_public`; this action applies to high-severity MNPI findings.",
+    )
+
+
+class CitePublicSourceRequest(ReviewRequest):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "text": "Acme Corp will acquire GlobalTech before announcement.",
+                "entity_id": "Acme Corp",
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "document_type": "email",
+                "surface": "outlook",
+                "workflow": "email_send",
+                "review_profile": "audit_grade",
+                "requested_action": "cite_public_source",
+            }
+        }
+    )
+
+    review_profile: Literal["audit_grade"] = Field(
+        "audit_grade",
+        description="Cite-public-source requires audit_grade public evidence evaluation.",
+    )
+    requested_action: CitePublicSourceAction = Field(
+        "cite_public_source",
+        description="Action this endpoint performs.",
     )
 
 
@@ -1240,6 +1268,19 @@ class HoldUntilPublicReasonResponse(BaseModel):
     audit_rationale: str = Field(description="Audit-ready rationale using finding id, policy id/version, and action.")
 
 
+class PublicSourceCitationResponse(BaseModel):
+    source_url: str = Field(description="Public evidence URL supporting a public-source citation.")
+    retrieval_timestamp: str = Field(description="RFC 3339 UTC timestamp when Kaypoh created this citation.")
+    privacy_ledger_entry: PrivacyLedgerEntryResponse = Field(
+        description="Allowed privacy-ledger entry for the outbound public-evidence query."
+    )
+    finding_ids: list[str] = Field(
+        default_factory=list,
+        description="MNPI finding ids this public source can be used to cite.",
+    )
+    audit_rationale: str = Field(description="Audit-ready rationale tying source, findings, and policy id/version.")
+
+
 class RedactedFindingResponse(BaseModel):
     id: str = Field(description="Stable finding identifier for client-side reconciliation.")
     category: str = Field(description="Finding category: PII or MNPI.")
@@ -1487,11 +1528,11 @@ class HoldUntilPublicResponse(SafeRewriteResponse):
             "example": {
                 "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
                 "review_expires_at": "2026-06-14T09:35:00Z",
-                "overall_risk": "HIGH_RISK",
-                "classification": "HIGH_RISK",
-                "document_score": 91.0,
+                "overall_risk": "LOW_RISK",
+                "classification": "LOW_RISK",
+                "document_score": 55.0,
                 "pii_score": 0.0,
-                "mnpi_score": 91.0,
+                "mnpi_score": 55.0,
                 "source_jurisdiction": "SG",
                 "destination_jurisdiction": "US",
                 "jurisdictions_applied": ["SG", "US"],
@@ -1590,6 +1631,156 @@ class HoldUntilPublicResponse(SafeRewriteResponse):
     hold_reasons: list[HoldUntilPublicReasonResponse] = Field(
         default_factory=list,
         description="Display-safe and audit-ready reasons for each hold_until_public replacement.",
+    )
+
+
+class CitePublicSourceResponse(ReviewResponse):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "review_expires_at": "2026-06-14T09:35:00Z",
+                "overall_risk": "HIGH_RISK",
+                "classification": "HIGH_RISK",
+                "document_score": 91.0,
+                "pii_score": 0.0,
+                "mnpi_score": 91.0,
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "jurisdictions_applied": ["SG", "US"],
+                "jurisdiction_policy": "strictest_wins",
+                "document_type": "email",
+                "review_profile": "audit_grade",
+                "degraded_policy": "warn",
+                "send_allowed": True,
+                "policy_decision": {
+                    "decision": "warn",
+                    "send_allowed": True,
+                    "required_actions": [],
+                    "recommended_actions": ["cite_public_source", "proceed_with_warning"],
+                    "blocking_findings": [],
+                    "policy_id": "default",
+                    "policy_version": "2026-06-14",
+                    "policy_reasons": [
+                        "MNPI finding has public-source support; cite source before proceeding",
+                        "cross-border destination context should be shown to the user",
+                        "medium-risk finding should be shown to the user",
+                    ],
+                    "review_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                },
+                "action_catalog": [
+                    "redact_pii",
+                    "pseudonymize",
+                    "safe_rewrite",
+                    "cite_public_source",
+                    "request_approval",
+                    "hold_until_public",
+                    "proceed_with_warning",
+                ],
+                "document": {
+                    "filename": "inline.txt",
+                    "mime_type": "text/plain",
+                    "extraction_method": "inline_text",
+                    "page_count": None,
+                    "char_count": 76,
+                },
+                "findings": [
+                    {
+                        "id": "mnpi:material_event:0:76:0",
+                        "category": "MNPI",
+                        "rule": "material_event",
+                        "jurisdiction": "SG+US",
+                        "severity": "medium",
+                        "score": 55.0,
+                        "matched_text": "Acme Corp announced its acquisition of GlobalTech in a public press release.",
+                        "start_char": 0,
+                        "end_char": 76,
+                        "reason": "Material corporate or market event language",
+                        "legal_basis": (
+                            "SG_SFA_INSIDE_INFORMATION, SG_SFA_GENERALLY_AVAILABLE, "
+                            "US_MNPI_INSIDER_TRADING, US_REG_FD_PUBLIC_DISCLOSURE"
+                        ),
+                        "source_verification": "public_source_matched",
+                    }
+                ],
+                "suggestions": [],
+                "public_evidence": {
+                    "status": "queried",
+                    "provider": "exa",
+                    "detail": "retrieved 1 public sources",
+                    "queries": [
+                        {
+                            "query": "Acme Corp acquisition SEC filing news",
+                            "blocked": False,
+                            "reason": "sanitized query approved",
+                        }
+                    ],
+                    "sources": [
+                        {
+                            "title": "Acme announces acquisition",
+                            "url": "https://example.com/acme-acquisition",
+                            "published_date": "2026-01-02",
+                            "author": "",
+                            "highlights": ["Acme announced the transaction publicly."],
+                            "text": "Acme announced the transaction publicly.",
+                            "score": 0.9,
+                        }
+                    ],
+                    "privacy_ledger": [
+                        {
+                            "destination": "exa",
+                            "operation": "external_query",
+                            "allowed": True,
+                            "reason": "sanitized query approved",
+                            "query": "Acme Corp acquisition SEC filing news",
+                            "redactions": [],
+                        }
+                    ],
+                },
+                "privacy_ledger": [
+                    {
+                        "destination": "exa",
+                        "operation": "external_query",
+                        "allowed": True,
+                        "reason": "sanitized query approved",
+                        "query": "Acme Corp acquisition SEC filing news",
+                        "redactions": [],
+                    }
+                ],
+                "privacy_operation": "cite_public_source",
+                "citation_policy": "audit_grade_public_evidence",
+                "citations": [
+                    {
+                        "source_url": "https://example.com/acme-acquisition",
+                        "retrieval_timestamp": "2026-06-14T09:30:00Z",
+                        "privacy_ledger_entry": {
+                            "destination": "exa",
+                            "operation": "external_query",
+                            "allowed": True,
+                            "reason": "sanitized query approved",
+                            "query": "Acme Corp acquisition SEC filing news",
+                            "redactions": [],
+                        },
+                        "finding_ids": ["mnpi:material_event:0:76:0"],
+                        "audit_rationale": (
+                            "cite_public_source recorded https://example.com/acme-acquisition for "
+                            "1 MNPI findings under policy default@2026-06-14."
+                        ),
+                    }
+                ],
+                "timings_ms": {"extract": 0.1, "review": 0.4, "cite_public_source": 0.1, "total": 0.6},
+            }
+        }
+    )
+
+    privacy_operation: str = Field("cite_public_source", description="Privacy operation applied by this endpoint.")
+    citation_policy: str = Field(
+        "audit_grade_public_evidence",
+        description="Citation policy requiring a source URL, retrieval timestamp, and privacy-ledger entry.",
+    )
+    citations: list[PublicSourceCitationResponse] = Field(
+        default_factory=list,
+        description="Public-source citations generated from audit-grade public evidence.",
     )
 
 

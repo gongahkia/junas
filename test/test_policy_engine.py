@@ -106,6 +106,14 @@ class PolicyEngineTests(unittest.TestCase):
         self.assertEqual(decision.blocking_findings, ())
         self.assertIn("cite_public_source", decision.recommended_actions)
 
+    def test_public_evidence_recommends_citation_for_medium_mnpi(self):
+        decision = evaluate_policy(
+            findings=[finding("m1", "MNPI", "medium", source_verification="public_source_matched")]
+        )
+
+        self.assertEqual(decision.decision, "warn")
+        self.assertIn("cite_public_source", decision.recommended_actions)
+
 
 if __name__ == "__main__":
     unittest.main()

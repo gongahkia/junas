@@ -200,7 +200,10 @@ class TenantPolicy:
 
         if severity in {"low", "medium"}:
             draft.promote("warn")
-            if severity == "medium":
+            if category == "MNPI" and _has_public_evidence(finding):
+                draft.recommended_actions.update(self.profile.public_mnpi_recommended_actions)
+                draft.policy_reasons.add("MNPI finding has public-source support; cite source before proceeding")
+            elif severity == "medium":
                 draft.recommended_actions.update(self.profile.medium_risk_recommended_actions)
             else:
                 draft.recommended_actions.update(self.profile.low_risk_recommended_actions)

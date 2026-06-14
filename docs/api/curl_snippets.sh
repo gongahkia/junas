@@ -9,6 +9,11 @@ curl -sS -X POST "${BASE_URL}/anonymize" \
   -H "Content-Type: application/json" \
   -d '{"destination_jurisdiction":"US","document_type":"email","include_mnpi_scalars":true,"include_suggestions":true,"source_jurisdiction":"SG","text":"Send Dr Jane Tan S1234567D the confidential draft. Acme Corp expects a $2.5 billion acquisition before announcement."}'
 
+# POST /cite-public-source - Cite audit-grade public evidence
+curl -sS -X POST "${BASE_URL}/cite-public-source" \
+  -H "Content-Type: application/json" \
+  -d '{"destination_jurisdiction":"US","document_type":"email","entity_id":"Acme Corp","requested_action":"cite_public_source","review_profile":"audit_grade","source_jurisdiction":"SG","surface":"outlook","text":"Acme Corp will acquire GlobalTech before announcement.","workflow":"email_send"}'
+
 # POST /classify - Classify one document
 curl -sS -X POST "${BASE_URL}/classify" \
   -H "Content-Type: application/json" \
@@ -35,7 +40,7 @@ curl -sS -X GET "${BASE_URL}/health"
 # POST /hold-until-public - Hold high-risk MNPI until public
 curl -sS -X POST "${BASE_URL}/hold-until-public" \
   -H "Content-Type: application/json" \
-  -d '{"allowed_actions":["hold_until_public"],"destination_jurisdiction":"US","document_type":"email","requested_action":"hold_until_public","source_jurisdiction":"SG","surface":"outlook","text":"Acme Corp will acquire GlobalTech before announcement.","workflow":"email_send"}'
+  -d '{"allowed_actions":["hold_until_public"],"destination_jurisdiction":"US","document_type":"email","requested_action":"hold_until_public","source_jurisdiction":"SG","surface":"outlook","text":"Acme Corp announced its acquisition of GlobalTech in a public press release.","workflow":"email_send"}'
 
 # POST /local/pairing/approve - Approve local daemon pairing
 curl -sS -X POST "${BASE_URL}/local/pairing/approve" \

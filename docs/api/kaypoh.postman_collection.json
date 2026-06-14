@@ -92,6 +92,78 @@
       "description": "Anonymize a document irreversibly"
     },
     {
+      "name": "POST /cite-public-source",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/cite-public-source",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cite-public-source"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"entity_id\": \"Acme Corp\",\n  \"requested_action\": \"cite_public_source\",\n  \"review_profile\": \"audit_grade\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/cite-public-source",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cite-public-source"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"entity_id\": \"Acme Corp\",\n  \"requested_action\": \"cite_public_source\",\n  \"review_profile\": \"audit_grade\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"citation_policy\": \"audit_grade_public_evidence\",\n  \"citations\": [\n    {\n      \"audit_rationale\": \"cite_public_source recorded https://example.com/acme-acquisition for 1 MNPI findings under policy default@2026-06-14.\",\n      \"finding_ids\": [\n        \"mnpi:material_event:0:76:0\"\n      ],\n      \"privacy_ledger_entry\": {\n        \"allowed\": true,\n        \"destination\": \"exa\",\n        \"operation\": \"external_query\",\n        \"query\": \"Acme Corp acquisition SEC filing news\",\n        \"reason\": \"sanitized query approved\",\n        \"redactions\": []\n      },\n      \"retrieval_timestamp\": \"2026-06-14T09:30:00Z\",\n      \"source_url\": \"https://example.com/acme-acquisition\"\n    }\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 76,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_score\": 91.0,\n  \"document_type\": \"email\",\n  \"findings\": [\n    {\n      \"category\": \"MNPI\",\n      \"end_char\": 76,\n      \"id\": \"mnpi:material_event:0:76:0\",\n      \"jurisdiction\": \"SG+US\",\n      \"legal_basis\": \"SG_SFA_INSIDE_INFORMATION, SG_SFA_GENERALLY_AVAILABLE, US_MNPI_INSIDER_TRADING, US_REG_FD_PUBLIC_DISCLOSURE\",\n      \"matched_text\": \"Acme Corp announced its acquisition of GlobalTech in a public press release.\",\n      \"reason\": \"Material corporate or market event language\",\n      \"rule\": \"material_event\",\n      \"score\": 55.0,\n      \"severity\": \"medium\",\n      \"source_verification\": \"public_source_matched\",\n      \"start_char\": 0\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 0.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [],\n    \"decision\": \"warn\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"MNPI finding has public-source support; cite source before proceeding\",\n      \"cross-border destination context should be shown to the user\",\n      \"medium-risk finding should be shown to the user\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [\n      \"cite_public_source\",\n      \"proceed_with_warning\"\n    ],\n    \"required_actions\": [],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": true\n  },\n  \"privacy_ledger\": [\n    {\n      \"allowed\": true,\n      \"destination\": \"exa\",\n      \"operation\": \"external_query\",\n      \"query\": \"Acme Corp acquisition SEC filing news\",\n      \"reason\": \"sanitized query approved\",\n      \"redactions\": []\n    }\n  ],\n  \"privacy_operation\": \"cite_public_source\",\n  \"public_evidence\": {\n    \"detail\": \"retrieved 1 public sources\",\n    \"privacy_ledger\": [\n      {\n        \"allowed\": true,\n        \"destination\": \"exa\",\n        \"operation\": \"external_query\",\n        \"query\": \"Acme Corp acquisition SEC filing news\",\n        \"reason\": \"sanitized query approved\",\n        \"redactions\": []\n      }\n    ],\n    \"provider\": \"exa\",\n    \"queries\": [\n      {\n        \"blocked\": false,\n        \"query\": \"Acme Corp acquisition SEC filing news\",\n        \"reason\": \"sanitized query approved\"\n      }\n    ],\n    \"sources\": [\n      {\n        \"author\": \"\",\n        \"highlights\": [\n          \"Acme announced the transaction publicly.\"\n        ],\n        \"published_date\": \"2026-01-02\",\n        \"score\": 0.9,\n        \"text\": \"Acme announced the transaction publicly.\",\n        \"title\": \"Acme announces acquisition\",\n        \"url\": \"https://example.com/acme-acquisition\"\n      }\n    ],\n    \"status\": \"queried\"\n  },\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"audit_grade\",\n  \"send_allowed\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [],\n  \"timings_ms\": {\n    \"cite_public_source\": 0.1,\n    \"extract\": 0.1,\n    \"review\": 0.4,\n    \"total\": 0.6\n  }\n}"
+        }
+      ],
+      "description": "Cite audit-grade public evidence"
+    },
+    {
       "name": "POST /classify",
       "request": {
         "method": "POST",
@@ -436,7 +508,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"allowed_actions\": [\n    \"hold_until_public\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"hold_until_public\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+          "raw": "{\n  \"allowed_actions\": [\n    \"hold_until_public\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"hold_until_public\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Acme Corp announced its acquisition of GlobalTech in a public press release.\",\n  \"workflow\": \"email_send\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -466,7 +538,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"allowed_actions\": [\n    \"hold_until_public\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"hold_until_public\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+              "raw": "{\n  \"allowed_actions\": [\n    \"hold_until_public\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"hold_until_public\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Acme Corp announced its acquisition of GlobalTech in a public press release.\",\n  \"workflow\": \"email_send\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -482,7 +554,7 @@
               "value": "application/json"
             }
           ],
-          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 54,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_hash\": \"4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f\",\n  \"document_score\": 91.0,\n  \"document_type\": \"email\",\n  \"findings\": [\n    {\n      \"category\": \"MNPI\",\n      \"end_char\": 54,\n      \"id\": \"mnpi:material_event:0:54:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"inside_information_review\",\n      \"matched_text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n      \"reason\": \"Material non-public transaction or announcement signal.\",\n      \"rule\": \"material_event\",\n      \"score\": 91.0,\n      \"severity\": \"high\",\n      \"start_char\": 0\n    }\n  ],\n  \"hold_reasons\": [\n    {\n      \"audit_rationale\": \"hold_until_public applied to finding mnpi:material_event:0:54:0 under policy default@2026-06-14; sharing remains blocked until public evidence or reviewer approval is recorded.\",\n      \"finding_id\": \"mnpi:material_event:0:54:0\",\n      \"user_reason\": \"This passage appears to contain high-severity MNPI. Wait for public disclosure or reviewer approval before sharing.\"\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mapping_persisted\": false,\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 0.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"mnpi:material_event:0:54:0\"\n    ],\n    \"decision\": \"block\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk MNPI requires public evidence or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"hold_until_public\",\n      \"request_approval\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"privacy_operation\": \"hold_until_public\",\n  \"replacements\": [\n    {\n      \"action\": \"hold_until_public\",\n      \"category\": \"MNPI\",\n      \"end_char\": 54,\n      \"finding_id\": \"mnpi:material_event:0:54:0\",\n      \"original_text_hash\": \"8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a\",\n      \"replacement_text\": \"[HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]\",\n      \"rule\": \"material_event\",\n      \"severity\": \"high\",\n      \"start_char\": 0\n    }\n  ],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"rewrite_policy\": \"mnpi_hold_allowed_spans\",\n  \"rewritten_text\": \"[HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]\",\n  \"send_allowed\": false,\n  \"skipped_findings\": [],\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [],\n  \"timings_ms\": {\n    \"extract\": 0.1,\n    \"hold_until_public\": 0.1,\n    \"review\": 0.4,\n    \"total\": 0.6\n  }\n}"
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"LOW_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 54,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_hash\": \"4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f\",\n  \"document_score\": 55.0,\n  \"document_type\": \"email\",\n  \"findings\": [\n    {\n      \"category\": \"MNPI\",\n      \"end_char\": 54,\n      \"id\": \"mnpi:material_event:0:54:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"inside_information_review\",\n      \"matched_text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n      \"reason\": \"Material non-public transaction or announcement signal.\",\n      \"rule\": \"material_event\",\n      \"score\": 91.0,\n      \"severity\": \"high\",\n      \"start_char\": 0\n    }\n  ],\n  \"hold_reasons\": [\n    {\n      \"audit_rationale\": \"hold_until_public applied to finding mnpi:material_event:0:54:0 under policy default@2026-06-14; sharing remains blocked until public evidence or reviewer approval is recorded.\",\n      \"finding_id\": \"mnpi:material_event:0:54:0\",\n      \"user_reason\": \"This passage appears to contain high-severity MNPI. Wait for public disclosure or reviewer approval before sharing.\"\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mapping_persisted\": false,\n  \"mnpi_score\": 55.0,\n  \"overall_risk\": \"LOW_RISK\",\n  \"pii_score\": 0.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"mnpi:material_event:0:54:0\"\n    ],\n    \"decision\": \"block\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk MNPI requires public evidence or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"hold_until_public\",\n      \"request_approval\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"privacy_operation\": \"hold_until_public\",\n  \"replacements\": [\n    {\n      \"action\": \"hold_until_public\",\n      \"category\": \"MNPI\",\n      \"end_char\": 54,\n      \"finding_id\": \"mnpi:material_event:0:54:0\",\n      \"original_text_hash\": \"8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a\",\n      \"replacement_text\": \"[HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]\",\n      \"rule\": \"material_event\",\n      \"severity\": \"high\",\n      \"start_char\": 0\n    }\n  ],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"rewrite_policy\": \"mnpi_hold_allowed_spans\",\n  \"rewritten_text\": \"[HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]\",\n  \"send_allowed\": false,\n  \"skipped_findings\": [],\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [],\n  \"timings_ms\": {\n    \"extract\": 0.1,\n    \"hold_until_public\": 0.1,\n    \"review\": 0.4,\n    \"total\": 0.6\n  }\n}"
         }
       ],
       "description": "Hold high-risk MNPI until public"

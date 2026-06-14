@@ -74,6 +74,8 @@ from kaypoh.backend.schemas import (
     AnonymizeResponse,
     BatchClassifyRequest,
     BatchClassifyResponse,
+    CitePublicSourceRequest,
+    CitePublicSourceResponse,
     Classification,
     ClassifyRequest,
     ClassifyResponse,
@@ -100,6 +102,7 @@ from kaypoh.backend.schemas import (
     PseudonymizeRequest,
     PseudonymizeResponse,
     PublicEvidenceResponse,
+    PublicSourceCitationResponse,
     ReadyResponse,
     RedactPiiRequest,
     RedactPiiResponse,
@@ -172,6 +175,7 @@ LOCAL_DAEMON_PROTECTED_PATHS = {
     "/anonymize",
     "/classify",
     "/classify/batch",
+    "/cite-public-source",
     "/documents/scrub",
     "/hold-until-public",
     "/pseudonymize",
@@ -215,6 +219,8 @@ Key behaviors:
   MNPI passages visible and flagged in findings.
 - `POST /hold-until-public` returns deterministic high-severity MNPI hold text
   with display-safe and audit-ready reasons.
+- `POST /cite-public-source` returns audit-grade public-source citations with
+  source URL, retrieval timestamp, and privacy-ledger evidence.
 - `POST /safe-rewrite` returns deterministic policy-approved span replacements
   without calling an LLM or persisting a reidentification mapping.
 - `POST /review` runs the same evidence-first pre-send review without rewriting
@@ -1258,6 +1264,10 @@ def _degraded_send_allowed(req: ReviewRequest, degraded_modes: list[dict[str, An
     return not (req.degraded_policy == "block_send" and bool(degraded_modes))
 
 
+def _utc_now_rfc3339() -> str:
+    return datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
 def _review_expires_at() -> str:
     expires_at = datetime.now(UTC) + timedelta(seconds=REVIEW_DECISION_VALIDITY_SECONDS)
     return expires_at.isoformat(timespec="seconds").replace("+00:00", "Z")
@@ -1662,7 +1672,14 @@ def _apply_surfacing_lanes_to_result(result: Any, tenant: TenantContext) -> Any:
         raise HTTPException(status_code=503, detail=detail) from exc
 
 
-def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantContext) -> ReviewResponse:
+def _run_review_sync(
+    req: ReviewRequest,
+    request_id: str | None,
+    tenant: TenantContext,
+    *,
+    endpoint: str = "/review",
+    log_event: str = "review_summary",
+) -> ReviewResponse:
     timings_ms: dict[str, float] = {}
     t_total_start = time.perf_counter()
     t_extract_start = time.perf_counter()
@@ -1769,7 +1786,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
     observability = get_observability()
     if observability is not None:
         observability.observe_classification(
-            endpoint="/review",
+            endpoint=endpoint,
             classification=result.overall_risk.value,
             cache_status="disabled",
             degraded=bool(degraded_modes),
@@ -1778,7 +1795,7 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
 
     log_backend_event(
         logging.INFO,
-        event="review_summary",
+        event=log_event,
         request_id=request_id,
         classification=result.overall_risk.value,
         pii_score=result.pii_score,
@@ -1790,10 +1807,95 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
     emit_privacy_ledger_events(
         result.privacy_ledger,
         request_id=request_id,
-        endpoint="/review",
+        endpoint=endpoint,
         settings=current_runtime_settings().siem,
     )
     return response
+
+
+def _public_source_citations(
+    response: ReviewResponse,
+    retrieval_timestamp: str,
+) -> list[PublicSourceCitationResponse]:
+    public_evidence = response.public_evidence
+    if public_evidence is None:
+        return []
+    ledger_entries = list(public_evidence.privacy_ledger) + list(response.privacy_ledger)
+    privacy_ledger_entry = next(
+        (
+            entry
+            for entry in ledger_entries
+            if entry.allowed and entry.operation == "external_query"
+        ),
+        None,
+    )
+    if privacy_ledger_entry is None:
+        return []
+    finding_ids = [
+        finding.id
+        for finding in response.findings
+        if finding.category == "MNPI" and finding.source_verification == "public_source_matched"
+    ]
+    if not finding_ids:
+        return []
+    if response.policy_decision is None:
+        policy_ref = "unknown@unknown"
+    else:
+        policy_ref = f"{response.policy_decision.policy_id}@{response.policy_decision.policy_version}"
+    citations: list[PublicSourceCitationResponse] = []
+    for source in public_evidence.sources:
+        source_url = source.url.strip()
+        if not source_url:
+            continue
+        citations.append(
+            PublicSourceCitationResponse(
+                source_url=source_url,
+                retrieval_timestamp=retrieval_timestamp,
+                privacy_ledger_entry=privacy_ledger_entry,
+                finding_ids=finding_ids,
+                audit_rationale=(
+                    f"cite_public_source recorded {source_url} for {len(finding_ids)} MNPI findings "
+                    f"under policy {policy_ref}."
+                ),
+            )
+        )
+    return citations
+
+
+def _run_cite_public_source_sync(
+    req: CitePublicSourceRequest,
+    request_id: str | None,
+    tenant: TenantContext,
+) -> CitePublicSourceResponse:
+    t_cite_start = time.perf_counter()
+    review_response = _run_review_sync(
+        req,
+        request_id,
+        tenant,
+        endpoint="/cite-public-source",
+        log_event="cite_public_source_review_summary",
+    )
+    retrieval_timestamp = _utc_now_rfc3339()
+    citations = _public_source_citations(review_response, retrieval_timestamp)
+    if not citations:
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                "cite_public_source requires audit_grade public evidence with source URL "
+                "and allowed privacy-ledger entry"
+            ),
+        )
+    timings_ms = dict(review_response.timings_ms)
+    timings_ms["cite_public_source"] = round((time.perf_counter() - t_cite_start) * 1000.0, 3)
+    timings_ms["total"] = round(timings_ms.get("total", 0.0) + timings_ms["cite_public_source"], 3)
+    base_response = review_response.model_dump(mode="python")
+    base_response["timings_ms"] = timings_ms
+    return CitePublicSourceResponse(
+        **base_response,
+        privacy_operation="cite_public_source",
+        citation_policy="audit_grade_public_evidence",
+        citations=citations,
+    )
 
 
 def _run_safe_rewrite_sync(
@@ -3013,6 +3115,26 @@ async def classify_batch(request: Request, req: BatchClassifyRequest):
 async def review_document(request: Request, req: ReviewRequest):
     return await run_in_threadpool(
         _run_review_sync,
+        req,
+        getattr(request.state, "request_id", None),
+        tenant_context_from_request(request),
+    )
+
+
+@app.post(
+    "/cite-public-source",
+    response_model=CitePublicSourceResponse,
+    dependencies=[Depends(require_review_access)],
+    tags=["Anonymization"],
+    summary="Cite audit-grade public evidence",
+    description=(
+        "Run audit-grade review and return public-source citations. Each citation requires a source URL, "
+        "server retrieval timestamp, and allowed privacy-ledger entry for the outbound evidence query."
+    ),
+)
+async def cite_public_source_document(request: Request, req: CitePublicSourceRequest):
+    return await run_in_threadpool(
+        _run_cite_public_source_sync,
         req,
         getattr(request.state, "request_id", None),
         tenant_context_from_request(request),
