@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-pdpc-guidelines ingest-sso ingest-mom ingest-commonlii-sg build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 build-sglb-10 build-sglb-14 build-sglb-16 download-data setup eval eval-list synth-gen mcp
+.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-pdpc-guidelines ingest-sso ingest-mom ingest-commonlii-sg build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 build-sglb-09 build-sglb-10 build-sglb-14 build-sglb-16 download-data setup eval eval-list synth-gen mcp
 
 # === primary ===
 up:
@@ -148,6 +148,10 @@ build-sglb-06:
 # Requires the SG case ingester (#34) to have run first.
 build-sglb-07:
 	cd backend && python -m benchmark.dataset_builders.sglb_07
+
+# SGLB-09: build Summary-Faithfulness local scaffold from SGLB-01 PDPC rows.
+build-sglb-09:
+	cd backend && python3 -m benchmark.dataset_builders.sglb_09
 
 # SGLB-10: build Citation-Generation smoke dataset from curated SG case pool.
 build-sglb-10:

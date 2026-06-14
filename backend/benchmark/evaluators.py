@@ -441,6 +441,97 @@ class CitationGenerationTop3(CitationGenerationTop1):
         )
 
 
+class AtomicFactScore(Evaluator):
+    """SGLB-09 precision over facts marked supported by the model."""
+
+    name = "atomic_fact_score"
+    strength = EvaluatorStrength.STRONG
+
+    @staticmethod
+    def _normalise(value: str) -> str:
+        return re.sub(r"\s+", " ", value).strip().lower()
+
+    @staticmethod
+    def _coerce_supported(value: Any) -> bool:
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            return value.strip().lower() in {"true", "yes", "supported", "1"}
+        return bool(value)
+
+    @classmethod
+    def _parse_atomic_facts(cls, output: str) -> list[dict[str, Any]]:
+        import json
+
+        text = (output or "").strip()
+        if not text:
+            return []
+        try:
+            parsed = json.loads(text)
+        except json.JSONDecodeError:
+            return []
+        if isinstance(parsed, dict):
+            raw = parsed.get("atomic_facts")
+        else:
+            raw = parsed
+        if not isinstance(raw, list):
+            return []
+        facts: list[dict[str, Any]] = []
+        for item in raw:
+            if not isinstance(item, dict):
+                continue
+            fact = str(item.get("fact") or "").strip()
+            if not fact:
+                continue
+            facts.append({"fact": fact, "supported": cls._coerce_supported(item.get("supported", False))})
+        return facts
+
+    @classmethod
+    def _expected_supported_count(cls, expected_output: dict[str, Any] | None) -> int:
+        raw = (expected_output or {}).get("atomic_facts")
+        if not isinstance(raw, list):
+            return 0
+        return sum(
+            1
+            for item in raw
+            if isinstance(item, dict) and cls._coerce_supported(item.get("supported", False))
+        )
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        source = self._normalise(str(ctx.inputs.get("source_text") or ""))
+        facts = self._parse_atomic_facts(ctx.output)
+        predicted_supported = [fact for fact in facts if fact["supported"]]
+        if not predicted_supported:
+            expected_supported = self._expected_supported_count(ctx.expected_output)
+            return EvaluationResult(
+                score=1.0 if expected_supported == 0 else 0.0,
+                detail={
+                    "predicted_supported_count": 0,
+                    "source_supported_count": 0,
+                    "expected_supported_count": expected_supported,
+                    "unsupported_supported_facts": [],
+                },
+            )
+
+        unsupported_supported_facts: list[str] = []
+        supported_count = 0
+        for item in predicted_supported:
+            fact = self._normalise(str(item["fact"]))
+            if fact and fact in source:
+                supported_count += 1
+            else:
+                unsupported_supported_facts.append(str(item["fact"]))
+        return EvaluationResult(
+            score=supported_count / len(predicted_supported),
+            detail={
+                "predicted_supported_count": len(predicted_supported),
+                "source_supported_count": supported_count,
+                "expected_supported_count": self._expected_supported_count(ctx.expected_output),
+                "unsupported_supported_facts": unsupported_supported_facts,
+            },
+        )
+
+
 # --- SGLB-06 ROC-2021 ---
 
 
@@ -990,6 +1081,7 @@ EVALUATORS: dict[str, Evaluator] = {
     CitationHallucinationF1.name: CitationHallucinationF1(),
     CitationGenerationTop1.name: CitationGenerationTop1(),
     CitationGenerationTop3.name: CitationGenerationTop3(),
+    AtomicFactScore.name: AtomicFactScore(),
     Sglb01ObligationsF1.name: Sglb01ObligationsF1(),
     PenaltyBandMae.name: PenaltyBandMae(),
     Sglb02CitationMatch.name: Sglb02CitationMatch(),

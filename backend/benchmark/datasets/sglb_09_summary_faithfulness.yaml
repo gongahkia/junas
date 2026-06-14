@@ -1,0 +1,614 @@
+extraction_rules:
+  pdpc_summary_faithfulness_scaffold: a9edcf61737f
+cases:
+- name: sglb_09_e851afc2e530
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: A warning was issued to Singapore Computer Society for failing to put in place reasonable security measures
+      to prevent the accidental disclosure of the personal data of 214 registrants of an event via email.
+    summary: A warning was issued to Singapore Computer Society for failing to put in place reasonable security measures to
+      prevent the accidental disclosure of the personal data of 214 registrants of an event via email.
+  expected_output:
+    atomic_facts:
+    - fact: A warning was issued to Singapore Computer Society for failing to put in place reasonable security measures to
+        prevent the accidental disclosure of the personal data of 214 registrants of an event via email.
+      supported: true
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_207d7d515c2d
+    source_split: train
+    source_case_name: Re Singapore Computer Society
+    source_citation: '[2016] SGPDPC 9'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/04/breach-of-protection-obligation-by-singapore-computer-society
+    variant: faithful
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_f1436d5af2ab
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on K Box Entertainment Group
+      (K Box) and its data intermediary, Finantech Holdings, for failing to implement proper and adequate protective measures
+      to secure its IT system, resulting in unauthorised disclosure of the personal data of 317,000 K Box members. K Box was
+      also issued directions and penalised for the absence of a Data Protection Officer.
+    summary: enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on K Box Entertainment Group (K Box)
+      and its data intermediary, Finantech Holdings, for failing to implement proper and adequate protective measures to secure
+      its IT system, resulting in unauthorised disclosure of the personal data of 317,000 K Box members. The organisation
+      received a criminal sentence of imprisonment.
+  expected_output:
+    atomic_facts:
+    - fact: enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on K Box Entertainment Group (K Box)
+        and its data intermediary, Finantech Holdings, for failing to implement proper and adequate protective measures to
+        secure its IT system, resulting in unauthorised disclosure of the personal data of 317,000 K Box members.
+      supported: true
+    - fact: The organisation received a criminal sentence of imprisonment.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_57e1b200c377
+    source_split: train
+    source_case_name: Re K Box Entertainment Group and Finantech Holdings
+    source_citation: '[2016] SGPDPC 1'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/04/breach-of-protection-and-openness-obligations-by-k-box-entertainment-group-and-finantech-holdings
+    variant: mild_hallucination
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_b953826d18e0
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: "A warning was issued to Metro for failing to make reasonable security arrangements to prevent unauthorised\
+      \ access to personal data held in Metro\u2019s IT systems."
+    summary: Re Metro was prosecuted in the criminal courts and its directors were imprisoned.
+  expected_output:
+    atomic_facts:
+    - fact: Re Metro was prosecuted in the criminal courts and its directors were imprisoned.
+      supported: false
+    - fact: The regulator found that no personal data was involved.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_685844ace3c3
+    source_split: train
+    source_case_name: Re Metro
+    source_citation: '[2016] SGPDPC 7'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/04/breach-of-protection-obligation-by-metro
+    variant: wholesale_fabrication
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_78be18c1a0cf
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: A enforcement outcome of [AMOUNT_REDACTED] was imposed and directions issued to the Institution of Engineers,
+      Singapore for failing to implement proper and adequate protective measures to secure its IT system, resulting in unauthorised
+      disclosure of the personal data of more than 4,000 members.
+    summary: A enforcement outcome of [AMOUNT_REDACTED] was imposed and directions issued to the Institution of Engineers,
+      Singapore for failing to implement proper and adequate protective measures to secure its IT system, resulting in unauthorised
+      disclosure of the personal data of more than 4,000 members.
+  expected_output:
+    atomic_facts:
+    - fact: A enforcement outcome of [AMOUNT_REDACTED] was imposed and directions issued to the Institution of Engineers,
+        Singapore for failing to implement proper and adequate protective measures to secure its IT system, resulting in unauthorised
+        disclosure of the personal data of more than 4,000 members.
+      supported: true
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_68c8a97cfc32
+    source_split: train
+    source_case_name: Re Institution of Engineers, Singapore
+    source_citation: '[2016] SGPDPC 2'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/04/breach-of-protection-obligation-by-institution-of-engineers--singapore
+    variant: faithful
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_2d1e0297a362
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: A warning was issued to Full House Communications for failing to make reasonable security arrangements to
+      prevent unauthorised disclosure of personal data on its computers at a furniture fair, which collected the data for
+      a lucky draw.
+    summary: A warning was issued to Full House Communications for failing to make reasonable security arrangements to prevent
+      unauthorised disclosure of personal data on its computers at a furniture fair, which collected the data for a lucky
+      draw. The organisation's directors were personally fined by the court.
+  expected_output:
+    atomic_facts:
+    - fact: A warning was issued to Full House Communications for failing to make reasonable security arrangements to prevent
+        unauthorised disclosure of personal data on its computers at a furniture fair, which collected the data for a lucky
+        draw.
+      supported: true
+    - fact: The organisation's directors were personally fined by the court.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_6d32eecde46c
+    source_split: train
+    source_case_name: Re Full House Communications
+    source_citation: '[2016] SGPDPC 8'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/04/breach-of-protection-obligation-by-full-house-communications
+    variant: mild_hallucination
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_336e45797671
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: "An enforcement outcome resulted for Toh-Shi Printing Singapore for failing to implement proper and adequate\
+      \ verification while processing personal data on behalf of the CDP, resulting in unauthorised disclosure of 195 individuals\u2019\
+      \ sensitive personal data."
+    summary: Re Toh-Shi Printing Singapore was prosecuted in the criminal courts and its directors were imprisoned.
+  expected_output:
+    atomic_facts:
+    - fact: Re Toh-Shi Printing Singapore was prosecuted in the criminal courts and its directors were imprisoned.
+      supported: false
+    - fact: The organisation received a criminal sentence of imprisonment.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_e7ce13eb62ed
+    source_split: train
+    source_case_name: Re Toh-Shi Printing Singapore
+    source_citation: '[2016] SGPDPC 11'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/07/breach-of-protection-obligation-by-toh-shi-printing-singapore-jul
+    variant: wholesale_fabrication
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_d3b9512f4a3b
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: A warning was issued to Spear Security Force for failing to put in place any arrangement to prevent unauthorised
+      access to personal data in the visitor log book managed for a condominium. [Updated on 30 July 2016]
+    summary: A warning was issued to Spear Security Force for failing to put in place any arrangement to prevent unauthorised
+      access to personal data in the visitor log book managed for a condominium.
+  expected_output:
+    atomic_facts:
+    - fact: A warning was issued to Spear Security Force for failing to put in place any arrangement to prevent unauthorised
+        access to personal data in the visitor log book managed for a condominium.
+      supported: true
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_573167a84ba7
+    source_split: train
+    source_case_name: Re Spear Security Force
+    source_citation: '[2016] SGPDPC 12'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/07/breach-of-protection-obligation-by-spear-security-force
+    variant: faithful
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_80bf02a7b9b5
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: "A enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on Fu Kwee Kitchen Catering\
+      \ Services and its data intermediary, Pixart, respectively, for failing to implement proper and adequate protective\
+      \ measures to prevent unauthorised access of its customers\u2019 personal data, whereby users could access other customers\u2019\
+      \ personal data by altering the URL of its order preview webpage. Fu Kwee was also issued directions to send employees\
+      \ for training, appoint a Data Protection Officer and conduct a security audit of its website."
+    summary: "A enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on Fu Kwee Kitchen Catering Services\
+      \ and its data intermediary, Pixart, respectively, for failing to implement proper and adequate protective measures\
+      \ to prevent unauthorised access of its customers\u2019 personal data, whereby users could access other customers\u2019\
+      \ personal data by altering the URL of its order preview webpage. The matter was resolved by the Singapore International\
+      \ Arbitration Centre."
+  expected_output:
+    atomic_facts:
+    - fact: "A enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on Fu Kwee Kitchen Catering Services\
+        \ and its data intermediary, Pixart, respectively, for failing to implement proper and adequate protective measures\
+        \ to prevent unauthorised access of its customers\u2019 personal data, whereby users could access other customers\u2019\
+        \ personal data by altering the URL of its order preview webpage."
+      supported: true
+    - fact: The matter was resolved by the Singapore International Arbitration Centre.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_0005280c4b23
+    source_split: train
+    source_case_name: Re Fu Kwee Kitchen Catering Services and Pixart
+    source_citation: '[2016] SGPDPC 14'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/09/breach-of-data-protection-and-other-obligations-by-fu-kwee-kitchen-catering-services-and-pixart
+    variant: mild_hallucination
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_c427feda1a9d
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: An enforcement outcome resulted for Toh-Shi Printing Singapore for failing to implement proper and adequate
+      procedural checks while processing personal data for Aviva, resulting in an unauthorised disclosure of personal data
+      of more than 8,000 individuals.
+    summary: Re Toh-Shi Printing Singapore was prosecuted in the criminal courts and its directors were imprisoned.
+  expected_output:
+    atomic_facts:
+    - fact: Re Toh-Shi Printing Singapore was prosecuted in the criminal courts and its directors were imprisoned.
+      supported: false
+    - fact: The organisation's directors were personally fined by the court.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: dev
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_96a9a942b53e
+    source_split: train
+    source_case_name: Re Toh-Shi Printing Singapore
+    source_citation: '[2016] SGPDPC 15'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/09/breach-of-protection-obligation-by-toh-shi-printing-singapore-sep
+    variant: wholesale_fabrication
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_1d0f063936c9
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: "A warning was issued to ABR Holdings for failing to make reasonable security arrangements to prevent unauthorised\
+      \ disclosure of personal data of members on Swensen\u2019s Kids Club website."
+    summary: "A warning was issued to ABR Holdings for failing to make reasonable security arrangements to prevent unauthorised\
+      \ disclosure of personal data of members on Swensen\u2019s Kids Club website."
+  expected_output:
+    atomic_facts:
+    - fact: "A warning was issued to ABR Holdings for failing to make reasonable security arrangements to prevent unauthorised\
+        \ disclosure of personal data of members on Swensen\u2019s Kids Club website."
+      supported: true
+  metadata:
+    task: SGLB-09
+    split: test
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_d89d5075b516
+    source_split: train
+    source_case_name: Re ABR Holdings
+    source_citation: '[2016] SGPDPC 16'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/09/breach-of-data-protection-obligation-by-abr-holdings
+    variant: faithful
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_6ce01f424d10
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: An enforcement outcome resulted for GMM Technoworld for failing to implement proper and adequate security
+      measures on its official website, resulting in an unauthorised public disclosure of approximately 190 of its customers'
+      personal data.
+    summary: An enforcement outcome resulted for GMM Technoworld for failing to implement proper and adequate security measures
+      on its official website, resulting in an unauthorised public disclosure of approximately 190 of its customers' personal
+      data. The PDPC awarded damages to affected individuals.
+  expected_output:
+    atomic_facts:
+    - fact: An enforcement outcome resulted for GMM Technoworld for failing to implement proper and adequate security measures
+        on its official website, resulting in an unauthorised public disclosure of approximately 190 of its customers' personal
+        data.
+      supported: true
+    - fact: The PDPC awarded damages to affected individuals.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_5798ec9b6349
+    source_split: train
+    source_case_name: Re GMM Technoworld
+    source_citation: '[2016] SGPDPC 18'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/10/breach-of-protection-obligation-by-gmm-technoworld
+    variant: mild_hallucination
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_a2da23d5c6bf
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: A warning was issued to My Digital Lock for failing to make reasonable security arrangements to protect the
+      personal data of a customer during its transfer.
+    summary: Re My Digital Lock was prosecuted in the criminal courts and its directors were imprisoned.
+  expected_output:
+    atomic_facts:
+    - fact: Re My Digital Lock was prosecuted in the criminal courts and its directors were imprisoned.
+      supported: false
+    - fact: The matter was resolved by the Singapore International Arbitration Centre.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_45d87358f93b
+    source_split: train
+    source_case_name: Re My Digital Lock
+    source_citation: '[2016] SGPDPC 20'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/11/breach-of-protection-obligation-by-my-digital-lock
+    variant: wholesale_fabrication
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_769ccfc0235f
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: "An enforcement outcome resulted for Smiling Orchid for failing to make reasonable security arrangements\
+      \ to prevent unauthorised access of its customers\u2019 personal data on its website, whereby users could access other\
+      \ customers\u2019 personal data by altering the URL of its order preview webpage. Smiling Orchid was also issued directions\
+      \ to conduct a security audit and to patch all identified vulnerabilities on its website."
+    summary: "An enforcement outcome resulted for Smiling Orchid for failing to make reasonable security arrangements to prevent\
+      \ unauthorised access of its customers\u2019 personal data on its website, whereby users could access other customers\u2019\
+      \ personal data by altering the URL of its order preview webpage."
+  expected_output:
+    atomic_facts:
+    - fact: "An enforcement outcome resulted for Smiling Orchid for failing to make reasonable security arrangements to prevent\
+        \ unauthorised access of its customers\u2019 personal data on its website, whereby users could access other customers\u2019\
+        \ personal data by altering the URL of its order preview webpage."
+      supported: true
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_6172837ec6b4
+    source_split: train
+    source_case_name: Re Smiling Orchid
+    source_citation: '[2016] SGPDPC 19'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/11/breach-of-protection-obligation-by-smiling-orchid
+    variant: faithful
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_31c20dadbd26
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: "enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on The Cellar Door and its data\
+      \ intermediary, Global Interactive Works, for failing to make reasonable security arrangements to prevent unauthorised\
+      \ access of its customers\u2019 personal data. The Cellar Door was also issued directions to conduct a security audit\
+      \ and to patch all identified vulnerabilities on its website."
+    summary: "enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on The Cellar Door and its data\
+      \ intermediary, Global Interactive Works, for failing to make reasonable security arrangements to prevent unauthorised\
+      \ access of its customers\u2019 personal data. The regulator found that no personal data was involved."
+  expected_output:
+    atomic_facts:
+    - fact: "enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on The Cellar Door and its data intermediary,\
+        \ Global Interactive Works, for failing to make reasonable security arrangements to prevent unauthorised access of\
+        \ its customers\u2019 personal data."
+      supported: true
+    - fact: The regulator found that no personal data was involved.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_ec02b38ae315
+    source_split: train
+    source_case_name: Re The Cellar Door and Global Interactive Works
+    source_citation: '[2016] SGPDPC 22'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/12/breach-of-protection-obligation-by-the-cellar-door-and-global-interactive-works
+    variant: mild_hallucination
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_f227d3afb589
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: "An enforcement outcome resulted for Propnex Realty for failing to make reasonable security arrangements\
+      \ to prevent unauthorised access of individuals\u2019 personal data stored online. Propnex was also directed to cease\
+      \ the storage of documents containing personal data via its system until a security scan had been conducted."
+    summary: Re Propnex Realty was prosecuted in the criminal courts and its directors were imprisoned.
+  expected_output:
+    atomic_facts:
+    - fact: Re Propnex Realty was prosecuted in the criminal courts and its directors were imprisoned.
+      supported: false
+    - fact: The PDPC awarded damages to affected individuals.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_2db41e9aae2c
+    source_split: train
+    source_case_name: Re Propnex Realty
+    source_citation: '[2017] SGPDPC 1'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/01/breach-of-protection-obligation-by-propnex-realty
+    variant: wholesale_fabrication
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_735cc4569d7c
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: "An enforcement outcome resulted for JP Pepperdine for failing to make reasonable security arrangements to\
+      \ prevent unauthorised access of individuals\u2019 personal data through its membership portal."
+    summary: "An enforcement outcome resulted for JP Pepperdine for failing to make reasonable security arrangements to prevent\
+      \ unauthorised access of individuals\u2019 personal data through its membership portal."
+  expected_output:
+    atomic_facts:
+    - fact: "An enforcement outcome resulted for JP Pepperdine for failing to make reasonable security arrangements to prevent\
+        \ unauthorised access of individuals\u2019 personal data through its membership portal."
+      supported: true
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_c098c389dd1c
+    source_split: train
+    source_case_name: Re JP Pepperdine
+    source_citation: '[2017] SGPDPC 2'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/01/breach-of-protection-obligation-by-jp-pepperdine
+    variant: faithful
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_169c31b65c13
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: An enforcement outcome resulted for Tech Mahindra (Singapore), as a data intermediary, for failing to make
+      reasonable security arrangement to prevent unauthorised access and unauthorised modification of Singapore Telecommunications
+      Limited customers' personal data via MyBill (mybill.singtel.com) and MyAccount (myaccount.singtel.com) webpages.
+    summary: An enforcement outcome resulted for Tech Mahindra (Singapore), as a data intermediary, for failing to make reasonable
+      security arrangement to prevent unauthorised access and unauthorised modification of Singapore Telecommunications Limited
+      customers' personal data via MyBill (mybill.singtel.com) and MyAccount (myaccount.singtel.com) webpages. The organisation
+      received a criminal sentence of imprisonment.
+  expected_output:
+    atomic_facts:
+    - fact: An enforcement outcome resulted for Tech Mahindra (Singapore), as a data intermediary, for failing to make reasonable
+        security arrangement to prevent unauthorised access and unauthorised modification of Singapore Telecommunications
+        Limited customers' personal data via MyBill (mybill.singtel.com) and MyAccount (myaccount.singtel.com) webpages.
+      supported: true
+    - fact: The organisation received a criminal sentence of imprisonment.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_88599f7248f7
+    source_split: train
+    source_case_name: Re Tech Mahindra (Singapore)
+    source_citation: '[2017] SGPDPC 4'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/04/breach-of-protection-obligation-by-tech-mahindra-(singapore)
+    variant: mild_hallucination
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_2b2b494cb430
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: regulatory action was taken to the National University of Singapore for failing to make reasonable security
+      arrangements to prevent the disclosure of the personal data of some of its students.
+    summary: Re the National University of Singapore was prosecuted in the criminal courts and its directors were imprisoned.
+  expected_output:
+    atomic_facts:
+    - fact: Re the National University of Singapore was prosecuted in the criminal courts and its directors were imprisoned.
+      supported: false
+    - fact: The regulator found that no personal data was involved.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: train
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_e759da11f06e
+    source_split: train
+    source_case_name: Re the National University of Singapore
+    source_citation: '[2017] SGPDPC 5'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/04/breach-of-protection-obligation-by-the-national-university-of-singapore
+    variant: wholesale_fabrication
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_91aad57f3a06
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: regulatory action was taken to Asia-Pacific Star, as a data intermediary, for failing to make reasonable
+      security arrangements to prevent the disclosure of the personal data of Tiger Airways Singapore's passengers.
+    summary: regulatory action was taken to Asia-Pacific Star, as a data intermediary, for failing to make reasonable security
+      arrangements to prevent the disclosure of the personal data of Tiger Airways Singapore's passengers.
+  expected_output:
+    atomic_facts:
+    - fact: regulatory action was taken to Asia-Pacific Star, as a data intermediary, for failing to make reasonable security
+        arrangements to prevent the disclosure of the personal data of Tiger Airways Singapore's passengers.
+      supported: true
+  metadata:
+    task: SGLB-09
+    split: dev
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_75553359e23d
+    source_split: train
+    source_case_name: Re Asia-Pacific Star
+    source_citation: '[2017] SGPDPC 6'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/05/breach-of-protection-obligation-by-asia-pacific-star
+    variant: faithful
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending
+- name: sglb_09_c68b0fe7bd91
+  extraction_rule_sha: a9edcf61737f
+  inputs:
+    source_text: regulatory action was taken to Furnituremart for failing to make reasonable security arrangements to prevent
+      the disclosure of the personal data of a customer.
+    summary: regulatory action was taken to Furnituremart for failing to make reasonable security arrangements to prevent
+      the disclosure of the personal data of a customer. The organisation's directors were personally fined by the court.
+  expected_output:
+    atomic_facts:
+    - fact: regulatory action was taken to Furnituremart for failing to make reasonable security arrangements to prevent the
+        disclosure of the personal data of a customer.
+      supported: true
+    - fact: The organisation's directors were personally fined by the court.
+      supported: false
+  metadata:
+    task: SGLB-09
+    split: test
+    jurisdiction: SG
+    data_tier: synthetic
+    dataset_version: sglb-09-v0.1-local-scaffold
+    source_task: SGLB-01
+    source_case_id: sglb_01_b5404c1a2281
+    source_split: train
+    source_case_name: Re Furnituremart
+    source_citation: '[2017] SGPDPC 7'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/05/breach-of-protection-obligation-by-furnituremart
+    variant: mild_hallucination
+    benchmark_eligible: false
+    label_provenance: deterministic-smoke-from-sglb-01-pdpc-fact-summary
+    quality_note: local scaffold only; Azure single-judge labels and kappa are pending

@@ -343,6 +343,30 @@ def sglb_10_prompt_builder(case: Case) -> list[dict[str, str]]:
     ]
 
 
+SGLB_09_PROMPT_VERSION = "sglb-09-v1"
+
+
+def sglb_09_prompt_builder(case: Case) -> list[dict[str, str]]:
+    """SGLB-09: decompose a candidate summary into atomic facts and mark
+    whether each fact is supported by the source text. Output contract:
+    ``{"atomic_facts": [{"fact": str, "supported": bool}]}``."""
+    source_text = str(case.inputs.get("source_text", "")).strip()
+    summary = str(case.inputs.get("summary", "")).strip()
+    return [
+        _system_message(
+            "You are evaluating Singapore legal-summary faithfulness. "
+            "Given a source text and a candidate summary, decompose the "
+            "summary into atomic factual claims. For each claim, mark "
+            "supported true only if the claim is directly supported by "
+            "the source text; otherwise mark supported false. Reply only "
+            "with JSON in this exact shape: "
+            "{\"atomic_facts\": [{\"fact\": \"...\", \"supported\": true}]}. "
+            "Do not include prose."
+        ),
+        _user_message(f"Source text:\n{source_text}\n\nCandidate summary:\n{summary}"),
+    ]
+
+
 SGLB_08_PROMPT_VERSION = "sglb-08-v1"
 
 
@@ -476,6 +500,7 @@ PROMPT_BUILDERS: dict[str, tuple[PromptBuilder, str]] = {
     "sglb_05": (sglb_05_prompt_builder, SGLB_05_PROMPT_VERSION),
     "sglb_06": (sglb_06_prompt_builder, SGLB_06_PROMPT_VERSION),
     "sglb_07": (sglb_07_prompt_builder, SGLB_07_PROMPT_VERSION),
+    "sglb_09": (sglb_09_prompt_builder, SGLB_09_PROMPT_VERSION),
     "sglb_10": (sglb_10_prompt_builder, SGLB_10_PROMPT_VERSION),
     "sglb_11": (sglb_11_prompt_builder, SGLB_11_PROMPT_VERSION),
     "sglb_08": (sglb_08_prompt_builder, SGLB_08_PROMPT_VERSION),

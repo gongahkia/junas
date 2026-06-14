@@ -133,7 +133,7 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 
 | Prompt | Tier | Cost class |
 |---|---|---|
-| `Batch G G1` SGLB-09 v0.1 smoke | 5 | Azure single-judge ~$1-2. v0.2 multi-judge upgrade deferred (needs Anthropic + Gemini keys). |
+| `Batch G G1` SGLB-09 v0.1 smoke | 5 | Local scaffold committed 2026-06-14; Azure single-judge ~$1-2 still pending. v0.2 multi-judge upgrade deferred (needs Anthropic + Gemini keys). |
 | `Batch H H2` SGLB-12 synth-gen | 5 | Azure gpt-5 synth ~$10-20 — approval gate documented inline. |
 | `Batch H H3` SGLB-15 synth-gen | 5 | Same as H2. |
 | `NEW-BATCH-D` Azure + Ollama cells against {SGLB-01, -02, -04} | 1 | Azure ~$2-50/cell. Ollama free (needs `ollama serve` running). Anthropic + Gemini cells stay deferred. |
@@ -2510,7 +2510,7 @@ post-launch and held to higher standard.
 
 ## G1: SGLB-09 Summary-Faithfulness
 
-> **Partial deferral (2026-06-05):** v0.1 smoke (single-judge, Azure) **can** fire with current keys. The v0.2 expansion to a ≥3-judge ensemble (Anthropic + Gemini + Azure with pairwise + Fleiss' κ) is **deferred** pending `ANTHROPIC_API_KEY` + `GEMINI_API_KEY`. The prompt body below documents both paths; pick the v0.1-smoke variant if you fire this now.
+> **Partial deferral (2026-06-14):** local deterministic scaffold is committed and benchmark-ineligible. The v0.1 smoke (single-judge, Azure) remains cost/key gated. The v0.2 expansion to a ≥3-judge ensemble (Anthropic + Gemini + Azure with pairwise + Fleiss' κ) is **deferred** pending `ANTHROPIC_API_KEY` + `GEMINI_API_KEY`.
 
 
 ```text

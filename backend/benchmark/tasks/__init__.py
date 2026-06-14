@@ -11,6 +11,7 @@ from benchmark.tasks import sglb_05  # noqa: F401  (registration side-effect)
 from benchmark.tasks import sglb_06  # noqa: F401  (registration side-effect)
 from benchmark.tasks import sglb_07  # noqa: F401  (registration side-effect)
 from benchmark.tasks import sglb_08  # noqa: F401  (registration side-effect)
+from benchmark.tasks import sglb_09  # noqa: F401  (registration side-effect)
 from benchmark.tasks import sglb_10  # noqa: F401  (registration side-effect)
 from benchmark.tasks import sglb_11  # noqa: F401  (registration side-effect)
 from benchmark.tasks import sglb_12  # noqa: F401  (registration side-effect)
@@ -19,4 +20,4 @@ from benchmark.tasks import sglb_14  # noqa: F401  (registration side-effect)
 from benchmark.tasks import sglb_15  # noqa: F401  (registration side-effect)
 from benchmark.tasks import sglb_16  # noqa: F401  (registration side-effect)
 
-__all__ = ["sglb_01", "sglb_02", "sglb_04", "sglb_05", "sglb_06", "sglb_07", "sglb_08", "sglb_10", "sglb_11", "sglb_12", "sglb_13", "sglb_14", "sglb_15", "sglb_16"]
+__all__ = ["sglb_01", "sglb_02", "sglb_04", "sglb_05", "sglb_06", "sglb_07", "sglb_08", "sglb_09", "sglb_10", "sglb_11", "sglb_12", "sglb_13", "sglb_14", "sglb_15", "sglb_16"]

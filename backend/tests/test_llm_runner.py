@@ -189,6 +189,7 @@ def test_prompt_builders_registry_complete():
         "sglb_06",
         "sglb_07",
         "sglb_08",
+        "sglb_09",
         "sglb_10",
         "sglb_11",
         "sglb_12",

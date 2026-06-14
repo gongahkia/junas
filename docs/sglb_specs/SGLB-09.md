@@ -1,12 +1,24 @@
 # SGLB-09 Summary-Faithfulness
 
-Version: 0.1-draft. Tracking issue: [#50](https://github.com/gongahkia/junas/issues/50).
+Version: 0.1-local-scaffold. Tracking issue: [#50](https://github.com/gongahkia/junas/issues/50).
+
+## Status
+
+Implemented locally as a deterministic smoke scaffold:
+
+- builder: `backend/benchmark/dataset_builders/sglb_09.py`
+- task runner: `backend/benchmark/tasks/sglb_09.py`
+- evaluator: `atomic_fact_score`
+- dataset: `backend/benchmark/datasets/sglb_09_summary_faithfulness.yaml`
+
+This is benchmark-ineligible. The PROMPTS-TO-RUN.md Azure single-judge
+v0.1 smoke and v0.2 multi-judge kappa run are still pending.
 
 ## Capability
 
-**C8 — Faithful summarisation.** Given a SG legal document and a
-prompt-type-conditioned summary produced by the model, score whether
-the summary introduces claims not supported by the source.
+**C8 - Faithful summarisation.** Given a Singapore legal source text and
+a candidate summary, identify atomic factual claims in the summary and
+mark whether each claim is supported by the source.
 
 ## Literature anchor
 
@@ -18,48 +30,52 @@ the summary introduces claims not supported by the source.
 
 ```python
 case.inputs = {
-  "source_document": str,   # SG judgment / PDPC decision / MOM advisory
-  "prompt_type": str,       # summary | principles | themes | sentencing |
-                            # legislative_timeline | policy_timeline
+  "source_text": str,  # PDPC fact summary in the local scaffold
+  "summary": str,      # candidate summary to evaluate
 }
 ```
 
 ## Output contract
 
-Model output is the free-form summary text (≤ 800 tokens).
+```json
+{
+  "atomic_facts": [
+    {"fact": "A warning was issued to Acme.", "supported": true}
+  ]
+}
+```
 
 ## Scoring
 
-The output is decomposed into atomic factual claims by an LLM extractor
-(fixed prompt). For each claim, an ensemble of ≥3 judge models votes
-on `supported / contradicted / unsupported` against the source.
+`atomic_fact_score` parses the JSON output, selects facts with
+`supported == true`, and computes deterministic precision:
 
-- **Score = supported / (supported + unsupported + contradicted)** —
-  the FActScore atomic-precision metric.
-- Leaderboard also reports `unsupported / total` (hallucination rate),
-  `contradicted / total` (contradiction rate), and inter-judge κ on a
-  200-claim spot-check subset.
+```text
+score = supported_true_facts_present_in_source_text / predicted_supported_true_facts
+```
 
-## Source provenance
+Containment is exact after whitespace collapse and case folding. If the
+model predicts no supported facts, the score is `1.0` only when the gold
+scaffold also has no supported facts; otherwise it is `0.0`.
 
-- Adapters: `ElitigationAdapter` (judgments), `PdpcAdapter` (decisions),
-  `MomAdapter` (advisories).
-- Required fields: full `body` text + provenance URL.
-- Sources are NOT modified; the model receives the document verbatim.
+## Local data provenance
 
-## Limitations
+The scaffold reuses existing SGLB-01 PDPC JSONL rows. It builds 20
+synthetic summary-faithfulness cases by cycling three variants:
 
-- Judges may favour verbose, hedged summaries; we score precision, not
-  recall.
-- Inter-judge variance dominates with κ < 0.4; the task is dropped if
-  this is sustained (coverage matrix §8).
-- Source documents may leak in training data; held-out post-2026-Q1
-  subset reports the contamination delta.
-- Atomic-claim extraction itself can hallucinate; a 5% sample is
-  hand-checked per release.
+- `faithful`
+- `mild_hallucination`
+- `wholesale_fabrication`
 
-## v0.1 / v0.2 stratification
+Labels are deterministic and mechanically derived from the generated
+summary text. Metadata records `data_tier: synthetic`,
+`benchmark_eligible: false`, source SGLB-01 identifiers, and the source
+PDPC citation/URL where present.
 
-- v0.1: ~160 source documents × 6 prompt types = 960 generation slots.
-- v0.2 held-out: ~40 sources × 6 prompt types post-2026-Q1.
-- Per-prompt-type leaderboard breakdown.
+## Pending publication gates
+
+- Azure single-judge v0.1 smoke from PROMPTS-TO-RUN.md.
+- v0.2 judge ensemble across Azure, Anthropic, and Gemini.
+- Pairwise kappa and Fleiss' kappa.
+- 20-case human-validated holdout.
+- Scale path to N=200 after kappa passes the coverage-matrix threshold.
