@@ -21,7 +21,7 @@
 - [x] P0/API: Design a `PolicyDecisionResponse` schema with `decision`, `send_allowed`, `required_actions`, `recommended_actions`, `blocking_findings`, `policy_id`, `policy_version`, `policy_reasons`, and `review_id`.
 - [x] P0/API: Extend `ReviewRequest` with optional `surface`, `workflow`, `actor_role`, `recipient_domains`, `recipient_count`, `attachment_count`, `sensitivity_label`, `external_destination`, and `requested_action` fields.
 - [x] P0/API: Add validation tests for the new `ReviewRequest` workflow-context fields, including max lengths, allowed enums, empty-list behavior, and backward compatibility.
-- [ ] P0/API: Implement a tenant policy module under `src/kaypoh/policy/` that evaluates findings plus workflow context into allow, warn, block, approval_required, or rewrite_required.
+- [x] P0/API: Implement a tenant policy module under `src/kaypoh/policy/` that evaluates findings plus workflow context into allow, warn, block, approval_required, or rewrite_required.
 - [ ] P0/API: Add a default policy profile that blocks degraded `block_send`, warns on low-risk findings, requires rewrite or approval on high-risk PII, and blocks high-risk MNPI unless public evidence or reviewer approval exists.
 - [ ] P0/API: Add policy config loading from TOML with tenant override support, schema validation, explicit policy versioning, and fail-fast startup errors for invalid production policy.
 - [ ] P0/API: Add policy unit tests covering PII high, MNPI high, mixed PII/MNPI, cross-border recipient, external domain, degraded coverage, reviewer role override, and missing workflow context.
