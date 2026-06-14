@@ -21,6 +21,7 @@ Kaypoh reviews text and documents before users paste prompts, send email, upload
 - [What Kaypoh Does](#what-kaypoh-does)
 - [Primary Product Spine](#primary-product-spine)
 - [Adapter Maturity](#adapter-maturity)
+- [Experimental Local Fallback](#experimental-local-fallback)
 - [API Surface](#api-surface)
 - [Examples](#examples)
 - [How It Works](#how-it-works)
@@ -125,6 +126,18 @@ Adapters are workflow activation points. Outlook Smart Alerts, browser GenAI cap
 | Browser GenAI extension | `supported-target` | First-class prompt review target for managed browser pilots. |
 | Word taskpane | `experimental` | Document review surface, not send-time enforcement. |
 | Desktop watcher | `experimental-local-fallback` | Opt-in local fallback for demos, offline review, and power users. |
+
+## Experimental Local Fallback
+
+The desktop watcher is intentionally outside the primary Quick Start. Use it only for opt-in local fallback workflows where a user explicitly chooses file or clipboard review against a local daemon.
+
+```bash
+uv run kaypoh-watch ./draft.txt --base-url http://127.0.0.1:8765
+uv run kaypoh-watch --watch-folder ./drop --once --base-url http://127.0.0.1:8765
+uv run kaypoh-watch --clipboard --once --base-url http://127.0.0.1:8765
+```
+
+See [`docs/integrations/desktop-watcher.md`](./docs/integrations/desktop-watcher.md) for the security model and limitations.
 
 ## API Surface
 

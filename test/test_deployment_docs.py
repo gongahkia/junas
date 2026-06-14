@@ -113,6 +113,18 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertIn("degraded_modes", word_js)
         self.assertIn("send_allowed", word_js)
 
+    def test_desktop_watcher_is_not_in_readme_quick_start(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        quick_start = re.search(r"## Quick Start(?P<body>.*?)## What Kaypoh Does", readme, re.S)
+        fallback = re.search(r"## Experimental Local Fallback(?P<body>.*?)## API Surface", readme, re.S)
+
+        self.assertIsNotNone(quick_start)
+        self.assertIsNotNone(fallback)
+        self.assertNotIn("kaypoh-watch", quick_start.group("body"))
+        self.assertNotIn("--clipboard", quick_start.group("body"))
+        self.assertIn("kaypoh-watch", fallback.group("body"))
+        self.assertIn("desktop-watcher.md", fallback.group("body"))
+
 
 if __name__ == "__main__":
     unittest.main()
