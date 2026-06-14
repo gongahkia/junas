@@ -1,0 +1,228 @@
+- [x] P0/Product: Rewrite the README opening to position Kaypoh as "pre-send review, safe rewrite, and audit evidence for GenAI, email, and document sharing" instead of leading with anonymization or redaction.
+- [ ] P0/Product: Change the README Quick Start primary example from `/pseudonymize` to `/review`, then show `/pseudonymize`, `/redact`, and `/documents/scrub` as follow-on actions.
+- [ ] P0/Product: Add a README "Primary Product Spine" section explaining that the FastAPI backend is the trust boundary and adapters are workflow activation points.
+- [ ] P0/Product: Add a README "Adapter Maturity" table listing API/client as `core`, Outlook Smart Alerts as `supported-target`, browser GenAI extension as `supported-target`, Word taskpane as `experimental`, and desktop watcher as `experimental-local-fallback`.
+- [ ] P0/Product: Add `docs/product/positioning.md` with the canonical one-paragraph product description, non-goals, target users, and why Kaypoh is not a general DLP suite.
+- [ ] P0/Product: Add `docs/product/workflows.md` mapping daily user workflows for Outlook send, GenAI browser paste, DMS upload, API gateway review, legal reviewer override, and auditor export.
+- [ ] P0/Product: Add `docs/product/personas.md` describing end user, legal reviewer, compliance admin, security engineer, and platform integrator jobs-to-be-done.
+- [ ] P0/Product: Add `docs/product/non-goals.md` stating Kaypoh does not replace DLP, legal advice, eDiscovery, endpoint control, CASB, or IdP policy enforcement.
+- [ ] P0/Product: Add `docs/product/research-basis.md` summarizing external deployment research for Microsoft 365 add-in deployment, Outlook Smart Alerts, Chrome/Edge enterprise extensions, OWASP API risks, OWASP CSRF controls, Microsoft Purview DLP, Google Workspace DLP, and Slack DLP.
+- [ ] P0/Product: Update `docs/README.md` to include the new `docs/product/` documents and clarify that product docs are normative for roadmap decisions.
+- [ ] P0/Product: Add `docs/roadmap.md` with P0 backend policy contract, P1 Outlook Smart Alerts, P1/P2 browser extension, P2 desktop watcher, and explicit exit criteria for each phase.
+- [ ] P0/Product: Add `docs/adr/0001-backend-first-adapters-second.md` recording the decision to keep adapters but make backend API and policy decisions the deployment core.
+- [ ] P0/Product: Add `docs/adr/0002-primary-adapter-outlook-first.md` recording whether Outlook Smart Alerts or browser GenAI extension is the first supported adapter, with evidence and tradeoffs.
+- [ ] P0/Product: Add a README note that adapters are not required to integrate Kaypoh because direct HTTP/OpenAPI integration remains the baseline path.
+- [ ] P0/Product: Rename README "Anonymization" API tag language in prose to "Review and rewrite" while preserving endpoint names for compatibility.
+- [ ] P0/Product: Add a "Kill Criteria" subsection to `docs/roadmap.md` requiring adapter promotion to show measurable workflow value, not just technical feasibility.
+- [ ] P0/Product: Add `docs/product/value-metrics.md` defining activation rate, reviewed-send rate, accepted-finding rate, false-positive override rate, safe-rewrite usage, blocked-send rate, and audit-pack export rate.
+- [ ] P0/Product: Add a product glossary covering PII, personal data, MNPI, pre-send review, safe rewrite, redaction, pseudonymization, anonymization, audit evidence, adapter, and surface.
+- [ ] P0/Product: Update `docs/known-limitations.md` to state that standalone manual redaction has lower expected adoption than in-workflow pre-send capture.
+- [ ] P0/Product: Add examples that show Kaypoh reviewing a GenAI prompt, an external email, a legal memo, a DMS upload, and a Slack-style message using the same backend contract.
+- [ ] P0/API: Design a `PolicyDecisionResponse` schema with `decision`, `send_allowed`, `required_actions`, `recommended_actions`, `blocking_findings`, `policy_id`, `policy_version`, `policy_reasons`, and `review_id`.
+- [ ] P0/API: Extend `ReviewRequest` with optional `surface`, `workflow`, `actor_role`, `recipient_domains`, `recipient_count`, `attachment_count`, `sensitivity_label`, `external_destination`, and `requested_action` fields.
+- [ ] P0/API: Add validation tests for the new `ReviewRequest` workflow-context fields, including max lengths, allowed enums, empty-list behavior, and backward compatibility.
+- [ ] P0/API: Implement a tenant policy module under `src/kaypoh/policy/` that evaluates findings plus workflow context into allow, warn, block, approval_required, or rewrite_required.
+- [ ] P0/API: Add a default policy profile that blocks degraded `block_send`, warns on low-risk findings, requires rewrite or approval on high-risk PII, and blocks high-risk MNPI unless public evidence or reviewer approval exists.
+- [ ] P0/API: Add policy config loading from TOML with tenant override support, schema validation, explicit policy versioning, and fail-fast startup errors for invalid production policy.
+- [ ] P0/API: Add policy unit tests covering PII high, MNPI high, mixed PII/MNPI, cross-border recipient, external domain, degraded coverage, reviewer role override, and missing workflow context.
+- [ ] P0/API: Add policy evaluation into `/review`, `/pseudonymize`, `/anonymize`, and `/redact` responses without breaking existing clients that only read `send_allowed`.
+- [ ] P0/API: Add an `action_catalog` response field listing available next actions such as redact_pii, pseudonymize, safe_rewrite, cite_public_source, request_approval, hold_until_public, and proceed_with_warning.
+- [ ] P0/API: Add an API compatibility test proving existing fixtures still deserialize when the policy decision fields are absent or ignored.
+- [ ] P0/API: Add `docs/policy/schema.md` documenting policy config fields, decision precedence, severity thresholds, recipient-domain rules, role rules, and failure modes.
+- [ ] P0/API: Add `docs/policy/examples.md` with sample policies for law firm strict, enterprise soft-warning, offline local-only, audit-grade MNPI, and GenAI prompt review.
+- [ ] P0/API: Add `docs/policy/decision-contract.md` documenting the exact adapter behavior expected for allow, warn, block, approval_required, and rewrite_required.
+- [ ] P0/API: Add OpenAPI examples for policy decisions to `scripts/export_openapi_examples.py` and regenerate `docs/api/` artifacts.
+- [ ] P0/API: Add `tests/test_policy_decision_contract.py` asserting stable decision shape, sorted required actions, deterministic policy reasons, and no raw document text in policy metadata.
+- [ ] P0/API: Add a `policy_decision_ms` timing bucket to review observability and surface it in response timings and metrics.
+- [ ] P0/API: Add audit journal events for policy decisions using hashes and counts only, with policy id and version included.
+- [ ] P0/API: Add SIEM export coverage for policy decisions, ensuring sensitive text and matched spans are not emitted.
+- [ ] P0/API: Add a migration note in `docs/schema.md` explaining that `send_allowed` is now derived from policy plus degraded coverage, not only `degraded_policy`.
+- [ ] P0/API: Add `docs/api/versioning.md` defining `/v1` compatibility rules, deprecation policy for `/classify`, and how adapter clients should pin schema versions.
+- [ ] P0/API: Decide whether to add `/v1/review` aliases or keep root endpoints for v0.1, and record the decision in an ADR before implementing.
+- [ ] P0/API: Add request id and idempotency guidance for adapters so repeated Outlook/browser send checks do not create confusing duplicate review sessions.
+- [ ] P0/API: Add a response field or documented header for `review_expires_at` so adapters know when a user must re-review edited content.
+- [ ] P0/API: Add tests that policy decisions are deterministic for identical text, context, policy config, and tenant.
+- [ ] P0/UserActions: Design a `SafeRewriteRequest` and `SafeRewriteResponse` contract that can rewrite only allowed spans while preserving audit evidence and original finding ids.
+- [ ] P0/UserActions: Implement a first deterministic `safe_rewrite` path that applies policy-approved replacements without calling an LLM.
+- [ ] P0/UserActions: Add safe-rewrite tests for PII-only redaction, MNPI hold text, mixed findings, overlapping spans, and no-op safe documents.
+- [ ] P0/UserActions: Add a "redact PII only" action that removes or replaces PII findings while leaving MNPI passages visible but flagged.
+- [ ] P0/UserActions: Add a "hold until public" action for high-severity MNPI that returns a user-facing reason and audit-ready rationale.
+- [ ] P0/UserActions: Add a "cite public source" action path for audit-grade public evidence that requires source URL, retrieval timestamp, and privacy-ledger entry.
+- [ ] P0/UserActions: Add a "request approval" action that records pending approval in the review journal and returns reviewer-role requirements.
+- [ ] P0/UserActions: Extend review decision actions beyond accept, reject, and rewrite only after documenting backward-compatible journal replay behavior.
+- [ ] P0/UserActions: Add tests that rejected findings are excluded from downstream anonymization only after an authorized reviewer decision.
+- [ ] P0/UserActions: Add docs explaining the difference between pseudonymize, anonymize, redact, safe rewrite, and reviewer approval in plain operational terms.
+- [ ] P0/UserActions: Update Python client methods to expose policy decisions and action catalog without forcing callers to parse raw dicts.
+- [ ] P0/UserActions: Add sync and async Python client examples for "review then safe rewrite" and "review then request approval".
+- [ ] P0/UserActions: Add a CLI example script that reviews stdin, prints policy decision JSON, and exits nonzero when policy blocks send.
+- [ ] P0/UserActions: Add a regression test that safe rewrite never persists reversible mappings unless the caller explicitly uses pseudonymization.
+- [ ] P0/UserActions: Add redaction response tests proving opaque redaction responses do not contain original matched text outside ordinary review findings.
+- [ ] P0/RepoLayout: Create `integrations/README.md` describing adapters as optional activation surfaces and listing maturity status, owner, runtime target, and security model.
+- [ ] P0/RepoLayout: Move or mirror adapter docs from `packaging/browser_extension`, `packaging/office_addin`, `packaging/word_addin`, and `src/kaypoh/desktop` into `docs/integrations/` before moving code.
+- [ ] P0/RepoLayout: Add `docs/integrations/maturity-matrix.md` defining `core`, `supported-target`, `experimental`, `demo-only`, and `archived` criteria.
+- [ ] P0/RepoLayout: Add an ADR deciding whether adapter source should remain under `packaging/` or move to top-level `integrations/` with packaging scripts updated.
+- [ ] P0/RepoLayout: If the ADR approves moving code, relocate browser, Office, Word, and desktop adapter source under `integrations/` and leave compatibility paths or docs for old locations.
+- [ ] P0/RepoLayout: Update `scripts/package_browser_extension.sh`, `scripts/package_macos_desktop.sh`, PyInstaller specs, tests, and README links after any integration directory move.
+- [ ] P0/RepoLayout: Add tests that packaging scripts fail clearly when adapter paths are missing after the layout change.
+- [ ] P0/RepoLayout: Remove desktop watcher from primary README Quick Start and move it to an explicit "experimental local fallback" section.
+- [ ] P0/RepoLayout: Add a root-level `INTEGRATIONS.md` pointing to Outlook, browser, Word, desktop, DMS, direct API, and future Slack/Google Workspace notes.
+- [ ] P0/RepoLayout: Add `docs/integrations/direct-api.md` as the baseline integration guide for customers that do not want any UI adapter.
+- [ ] P0/RepoLayout: Add `docs/integrations/dms.md` documenting DMS upload/check-in review flow, required metadata, failure behavior, and audit fields.
+- [ ] P0/RepoLayout: Add `docs/integrations/genai-browser.md` documenting ChatGPT, Claude, Gemini, and generic textarea capture assumptions without promising coverage on every UI change.
+- [ ] P0/RepoLayout: Add `docs/integrations/outlook.md` documenting Smart Alerts flow, SendMode behavior, admin deployment, fallback behavior, and known client limitations.
+- [ ] P0/RepoLayout: Add `docs/integrations/word.md` documenting Word taskpane as document review, not true send-time enforcement.
+- [ ] P0/RepoLayout: Add `docs/integrations/desktop-watcher.md` documenting clipboard/folder watch as opt-in local fallback with no enterprise enforcement claim.
+- [ ] P1/Outlook: Update the Outlook add-in manifest description to point at pre-send review and policy decisions rather than only local daemon review.
+- [ ] P1/Outlook: Replace hard-coded `https://localhost:3000` manifest URLs with a documented build-time manifest templating flow for dev, staging, and production.
+- [ ] P1/Outlook: Add a manifest validation script that verifies Mailbox requirement set, `OnMessageSend`, SendMode, runtime URL, taskpane URL, and production HTTPS host.
+- [ ] P1/Outlook: Implement Smart Alerts behavior that maps backend policy decisions to allow, soft block, hard block, or prompt-user completion semantics.
+- [ ] P1/Outlook: Add tests or documented manual QA proving Outlook send checks call `/review` with body, subject, recipients, attachment metadata, and surface `outlook`.
+- [ ] P1/Outlook: Add a failure-mode table for Outlook add-in unavailable, backend timeout, offline mode, malformed response, auth failure, and degraded document extraction.
+- [ ] P1/Outlook: Add configurable timeout budgets for the Outlook send hook and document why the timeout is lower than normal API calls.
+- [ ] P1/Outlook: Bundle event-based activation JavaScript into one supported runtime file and document the Office limitation against imports in event handlers.
+- [ ] P1/Outlook: Add an Outlook add-in CORS and well-known URI checklist per Microsoft event-based activation requirements.
+- [ ] P1/Outlook: Add screenshots or test fixtures showing the Smart Alert message text for allow, warn, block, and approval-required states.
+- [ ] P1/Outlook: Add a tenant deployment guide for Microsoft 365 admin center centralized deployment, including required admin roles and group assignment.
+- [ ] P1/Outlook: Add compatibility notes for Outlook web, new Outlook Windows, classic Outlook Windows, Outlook Mac, and mobile where support differs.
+- [ ] P1/Outlook: Add a QA checklist that tests external recipient, internal recipient, attachment, no attachment, PII body, MNPI body, timeout, and backend unavailable.
+- [ ] P1/Outlook: Add telemetry events for Outlook review started, policy decision received, user proceeded after warning, user blocked, user requested approval, and backend failure.
+- [ ] P1/Outlook: Add a privacy check proving Outlook adapter does not store message body in browser local storage, extension storage, or console logs.
+- [ ] P1/Browser: Update browser extension copy to "pre-send review for GenAI prompts" and avoid claiming universal DLP coverage.
+- [ ] P1/Browser: Add adapter modules per target surface for ChatGPT, Claude, Gemini, and a generic textarea fallback, each with explicit DOM selector tests.
+- [ ] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
+- [ ] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
+- [ ] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
+- [ ] P1/Browser: Add failure behavior for dynamic page changes where selectors fail, including no silent send-blocking unless policy was actually evaluated.
+- [ ] P1/Browser: Add privacy tests proving prompts are not saved in extension storage and are not logged by content scripts or service worker.
+- [ ] P1/Browser: Add enterprise deployment docs for Chrome ExtensionInstallForcelist and Edge ExtensionInstallForcelist with update URL requirements.
+- [ ] P1/Browser: Add manifest permission review that minimizes host permissions and documents why each permission is necessary.
+- [ ] P1/Browser: Add MV3 service worker lifecycle tests or manual QA notes to avoid assuming persistent background state.
+- [ ] P1/Browser: Add Playwright-based browser adapter smoke tests against a local fixture page that simulates GenAI prompt composer DOM changes.
+- [ ] P1/Browser: Add telemetry events for prompt review started, decision received, user canceled, user rewrote, user proceeded after warning, selector failure, and backend timeout.
+- [ ] P1/Browser: Add an adapter policy that lets tenants choose which domains the extension may inspect and which domains are blocked from inspection.
+- [ ] P1/Browser: Add docs explaining that browser extensions are an activation layer and cannot guarantee coverage for mobile apps, native apps, or unrecognized web UIs.
+- [ ] P1/Browser: Add a manual QA matrix for Chrome, Edge, managed profile, unmanaged profile, local daemon mode, hosted server mode, and offline mode.
+- [ ] P2/Desktop: Mark `kaypoh-watch` as experimental in `pyproject.toml` docs and README without removing the console script.
+- [ ] P2/Desktop: Add a desktop watcher threat-model subsection covering clipboard sensitivity, local token use, notifications, watched-folder scope, and accidental large-file scans.
+- [ ] P2/Desktop: Add a desktop watcher config sample that disables clipboard polling by default and requires explicit user opt-in.
+- [ ] P2/Desktop: Add tests that desktop watcher never writes anonymized output outside the configured output directory.
+- [ ] P2/Desktop: Add tests that desktop watcher handles local daemon auth failure without printing sensitive clipboard content.
+- [ ] P2/Desktop: Add docs explaining desktop watcher is for offline local fallback, demos, and power users, not enterprise enforcement.
+- [ ] P2/Desktop: Add a packaging note that macOS LaunchAgent install should be optional and admin-controlled, not a default developer quickstart path.
+- [ ] P1/AdminUI: Add `docs/admin-console/requirements.md` defining admin console scope: review sessions, decisions, policy config, audit exports, false-positive triage, and tenant health.
+- [ ] P1/AdminUI: Add an ADR choosing whether the admin console should be separate frontend, server-rendered FastAPI templates, or docs-only until customer validation.
+- [ ] P1/AdminUI: Add read-only review-session list endpoint requirements with pagination, tenant isolation, role checks, and no raw body exposure by default.
+- [ ] P1/AdminUI: Add policy configuration UI requirements with draft, validate, publish, rollback, and audit journal events.
+- [ ] P1/AdminUI: Add reviewer queue requirements for approval_required decisions, including assignment, rationale, SLA, and immutable audit trail.
+- [ ] P1/AdminUI: Add false-positive triage requirements linking reviewer rejects to fixture generation and detector issue categories.
+- [ ] P1/AdminUI: Add audit export UI requirements using existing audit-pack export and journal verification scripts.
+- [ ] P1/AdminUI: Add admin console auth requirements using existing tenant roles and refusing local-dev-only headers in production.
+- [ ] P1/AdminUI: Add admin console telemetry requirements for policy changes, approval decisions, export events, and failed access attempts.
+- [ ] P1/AdminUI: Add a no-build prototype or wireframe document before adding any frontend framework dependency.
+- [ ] P1/AdminUI: Add tests for any new admin endpoints proving auditor can read, reviewer cannot read audit-only data, and cross-tenant review ids are denied.
+- [ ] P0/FeedbackLoop: Document the existing journal-to-corpus scripts and define the canonical path from reviewer decision to candidate fixture to promoted recall lock.
+- [ ] P0/FeedbackLoop: Add a decision taxonomy for false_positive, false_negative, acceptable_risk, public_source_confirmed, stale_information, and policy_exception.
+- [ ] P0/FeedbackLoop: Extend review decision payloads to optionally capture decision taxonomy, reviewer confidence, and detector feedback without requiring raw text.
+- [ ] P0/FeedbackLoop: Add tests that feedback taxonomy persists in the journal and replays correctly in `get_session_state`.
+- [ ] P0/FeedbackLoop: Add a script that exports reviewer-rejected findings into a false-positive review queue with hashed document ids and fixture sidecar templates.
+- [ ] P0/FeedbackLoop: Add a script that exports reviewer-added or approval-required unresolved items into a false-negative candidate queue.
+- [ ] P0/FeedbackLoop: Add corpus promotion docs requiring human review, fixture labels, recall gate, precision report, and docs/accuracy update before claiming improved detection.
+- [ ] P0/FeedbackLoop: Add CI checks that promoted fixture locks are updated when reviewed corpus labels change.
+- [ ] P0/FeedbackLoop: Add detector-level dashboard JSON generation from eval reports so admins can see which rules cause most overrides.
+- [ ] P0/FeedbackLoop: Add docs showing how adapter telemetry, policy outcomes, and reviewer decisions connect without storing raw prompts or emails.
+- [ ] P0/FeedbackLoop: Add a "do not train on customer text by default" invariant to LLM governance and feedback-loop docs.
+- [ ] P0/FeedbackLoop: Add a retention policy for feedback artifacts, including hashes, labels, sidecars, raw samples, legal hold, and subject erasure behavior.
+- [ ] P0/FeedbackLoop: Add an eval gate that fails if a policy or rewrite change increases false-negative risk on locked legal corpora.
+- [ ] P0/FeedbackLoop: Add a precision gate that flags noisy detector changes before they reach Outlook/browser adapters.
+- [ ] P0/IntegrationContracts: Add `docs/integrations/adapter-protocol.md` defining request fields, response fields, auth headers, retry semantics, timeouts, idempotency keys, and telemetry events.
+- [ ] P0/IntegrationContracts: Add `docs/integrations/failure-semantics.md` defining adapter behavior for allow-on-failure, soft-block-on-failure, hard-block-on-failure, and admin-configured degradation.
+- [ ] P0/IntegrationContracts: Add `docs/integrations/auth.md` documenting API key, JWT, local daemon pairing, tenant context, and why caller-supplied tenant ids are ignored.
+- [ ] P0/IntegrationContracts: Add `docs/integrations/privacy.md` documenting what adapters may collect, what they must not store, and how raw text leaves or stays on device.
+- [ ] P0/IntegrationContracts: Add `docs/integrations/telemetry.md` defining adapter event names, allowed fields, prohibited fields, and SIEM mapping.
+- [ ] P0/IntegrationContracts: Add `docs/integrations/recipient-context.md` documenting how email, browser, DMS, and direct API surfaces should pass destination context.
+- [ ] P0/IntegrationContracts: Add `docs/integrations/document-context.md` documenting document filename, MIME type, attachment count, DMS matter id, session id, and matter id behavior.
+- [ ] P0/IntegrationContracts: Add OpenAPI examples for each adapter surface using `surface=outlook`, `surface=browser_genai`, `surface=dms`, `surface=desktop`, and `surface=api`.
+- [ ] P0/IntegrationContracts: Add contract tests that every adapter example in docs is accepted by Pydantic schemas.
+- [ ] P0/IntegrationContracts: Add a compatibility matrix stating which adapters support inline text, DOCX, PDF, images, attachments, metadata scrub, reidentify, and approvals.
+- [ ] P0/IntegrationContracts: Add DMS-specific docs for iManage/NetDocuments-style matter ids without hardcoding vendor SDK dependencies.
+- [ ] P0/IntegrationContracts: Add future Slack/Google Workspace integration notes based on official DLP/admin surfaces, marked research-only until implemented.
+- [ ] P0/IntegrationContracts: Add an adapter certification checklist with install, auth, review, policy decision, rewrite, approval, telemetry, privacy, failure, and uninstall steps.
+- [ ] P0/IntegrationContracts: Add "no single pathway" docs explicitly recommending direct API plus at least one workflow adapter for production pilots.
+- [ ] P0/Security: Add OWASP API Top 10 mapping to `docs/threat-model.md`, covering object-level authorization, authentication, object-property authorization, resource consumption, function authorization, SSRF, security misconfiguration, inventory, and unsafe API consumption.
+- [ ] P0/Security: Add object-level authorization tests for every endpoint taking `review_id`, `document_hash`, mapping id, tenant-scoped session id, matter id, or subject erasure target.
+- [ ] P0/Security: Add tests that tenant A cannot read, reidentify, approve, export, erase, or list tenant B artifacts even with guessed ids.
+- [ ] P0/Security: Add rate-limit design docs and implementation for review, batch classify, reidentify, local pairing, and admin decision endpoints.
+- [ ] P0/Security: Add request body size tests proving oversized JSON and base64 documents fail before expensive schema or extraction work.
+- [ ] P0/Security: Add local daemon CSRF tests covering missing `Origin`, disallowed `Origin`, missing custom token header, invalid token, expired token, and preflight CORS behavior.
+- [ ] P0/Security: Add docs stating that browser-origin requests to the local daemon require origin allowlist plus `X-Kaypoh-Local-Token`, aligned with OWASP custom-header CSRF guidance.
+- [ ] P0/Security: Add security tests proving protected local daemon endpoints reject simple HTML form posts that cannot set the required custom token header.
+- [ ] P0/Security: Add CORS configuration tests for hosted server mode and local daemon mode, including credentials-disabled behavior where applicable.
+- [ ] P0/Security: Add SSRF-focused tests for public evidence providers and any URL-taking future endpoint, ensuring user-supplied URLs cannot reach localhost, link-local, metadata, private, or reserved ranges.
+- [ ] P0/Security: Add log regression tests proving request bodies, matched text, prompt text, email body, mappings, and authorization headers are not written to backend logs.
+- [ ] P0/Security: Add SIEM regression tests proving emitted events contain hashes/counts/rule ids but not raw text or reversible mapping values.
+- [ ] P0/Security: Add API inventory docs listing every route, auth requirement, role requirement, tenant-scope behavior, rate limit, and payload cap.
+- [ ] P0/Security: Add production preflight checks for policy config, tenant auth, journal keys, mapping keys when persistence is enabled, CORS origins, body caps, and optional external providers.
+- [ ] P0/Security: Add `docs/security/local-daemon.md` with local pairing, token TTL, origin rules, Unix socket option, loopback risks, and uninstall behavior.
+- [ ] P0/Security: Add `docs/security/adapter-threat-model.md` covering Outlook, browser extension, Word taskpane, desktop watcher, DMS, and direct API threat boundaries.
+- [ ] P0/Security: Add tests that reidentify fails closed when persistence is disabled, mapping missing, tenant mismatch, corrupt mapping, or invalid encryption key.
+- [ ] P0/Security: Add dependency/security scanning documentation for Python packages, extension JS, Office assets, and PyInstaller output.
+- [ ] P0/Security: Add software bill of materials generation for server and local desktop package artifacts.
+- [ ] P0/Security: Add a release checklist requiring OpenAPI snapshot, auth tests, tenant isolation tests, no-body-logs tests, local daemon CSRF tests, and adapter privacy tests.
+- [ ] P0/Security: Add a data retention matrix for journals, mappings, subject index, sessions, matter terms, adapter telemetry, SIEM, audit packs, fixtures, and reports.
+- [ ] P0/Security: Add subject-erasure docs that explain which artifacts are deleted, tombstoned, retained, or delegated to operator backups/legal hold.
+- [ ] P0/Security: Add config docs explaining remote LLM raw-text opt-in, structured-token default, tenant consent, and privacy ledger expectations.
+- [ ] P0/Security: Add tests proving deterministic-high findings cannot be suppressed by public evidence, LLM adjudication, adapter UI, or policy softening.
+- [ ] P0/Docs: Update `docs/running.md` so standard launch path is backend-only, with adapter launch commands split into integration-specific docs.
+- [ ] P0/Docs: Update `docs/install.md` to separate server install, local offline desktop install, Outlook add-in deployment, browser extension deployment, and Word taskpane deployment.
+- [ ] P0/Docs: Update `docs/deployment-hardening.md` with backend-first deployment reference architecture: reverse proxy/TLS, auth, policy config, logs, SIEM, persistence, backup, and optional adapters.
+- [ ] P0/Docs: Update `docs/architecture.md` diagram so adapters feed the API but are not part of the core deterministic engine.
+- [ ] P0/Docs: Add a sequence diagram for Outlook Smart Alerts calling `/review`, receiving policy decision, and completing send behavior.
+- [ ] P0/Docs: Add a sequence diagram for browser GenAI extension calling `/review`, prompting the user, and applying safe rewrite.
+- [ ] P0/Docs: Add a sequence diagram for DMS upload/check-in calling `/review` and storing audit evidence.
+- [ ] P0/Docs: Add a sequence diagram for reviewer approval from policy block to journal decision to adapter retry.
+- [ ] P0/Docs: Add a deployment comparison table for hosted server, customer-managed Docker, offline local daemon, and hybrid local-plus-server.
+- [ ] P0/Docs: Add limitations that Office/browser adapters are subject to vendor platform limitations and must not be described as guaranteed universal capture.
+- [ ] P0/Docs: Add a procurement-facing FAQ that avoids unverified accuracy claims and links only to promoted corpus/eval evidence.
+- [ ] P0/Docs: Add an operator FAQ for why Kaypoh complements DLP rather than replacing Microsoft Purview, Google Workspace DLP, Slack DLP, or endpoint controls.
+- [ ] P0/Docs: Add a developer FAQ for when to use `/review`, `/pseudonymize`, `/anonymize`, `/redact`, `/reidentify`, `/documents/scrub`, and `/classify`.
+- [ ] P0/Docs: Add a migration guide from current "redactor" framing to "review and policy decision" framing for users of existing examples.
+- [ ] P0/Testing: Add an end-to-end test fixture that reviews a high-risk external email and returns block plus required approval.
+- [ ] P0/Testing: Add an end-to-end test fixture that reviews a GenAI prompt with PII and returns safe rewrite action.
+- [ ] P0/Testing: Add an end-to-end test fixture that reviews a DMS document with MNPI and returns hold_until_public.
+- [ ] P0/Testing: Add an end-to-end test fixture that reviews internal-only low-risk content and returns warn or allow per default policy.
+- [ ] P0/Testing: Add snapshot tests for OpenAPI examples after policy decision fields are introduced.
+- [ ] P0/Testing: Add contract tests that all docs examples under `docs/api/` execute against the test app or schema parser.
+- [ ] P0/Testing: Add test coverage for adapter maturity metadata so unsupported adapters cannot be accidentally marketed as supported in README.
+- [ ] P0/Testing: Add test coverage for policy config examples in docs so stale policy examples fail CI.
+- [ ] P0/Testing: Add test coverage that every new docs page linked from README exists and has no dead local links.
+- [ ] P0/Testing: Add latency benchmark coverage for policy evaluation overhead and set an explicit SLO budget.
+- [ ] P0/Testing: Add benchmark corpus cases for Outlook-style short emails, browser prompts, legal memos, and DMS upload-size documents.
+- [ ] P0/Testing: Add adapter smoke tests that can run without external SaaS credentials using local fixture pages and manifest validation.
+- [ ] P0/Testing: Add CI job separation for core backend tests, policy tests, adapter smoke tests, packaging tests, docs link tests, and benchmark gates.
+- [ ] P0/Testing: Add a failing test first for any README claim that references adapter support unless an adapter smoke test backs it.
+- [ ] P0/Observability: Add metrics for review surface, policy decision, required action, adapter timeout, degraded mode, approval requested, approval completed, and safe rewrite applied.
+- [ ] P0/Observability: Add privacy-safe aggregation docs showing how to measure product value without storing raw content.
+- [ ] P0/Observability: Add dashboards or JSON report generation for reviewed documents by surface, block rate, warn rate, rewrite rate, approval rate, and override rate.
+- [ ] P0/Observability: Add alerts for high backend error rate, policy config validation failure, external helper failure, adapter auth failure, and local daemon pairing anomalies.
+- [ ] P0/Observability: Add a `scripts/trace_policy_decision.sh` helper that shows request id, policy id, decision, timings, and SIEM event status without content.
+- [ ] P0/Observability: Add docs explaining which metrics are safe for SIEM and which must remain local-only or disabled.
+- [ ] P1/Deployment: Add Docker production example that enables tenant auth, policy config, journal keys, no body logs, and readiness checks.
+- [ ] P1/Deployment: Add Kubernetes reference manifests or documented non-goal for Kubernetes if not ready.
+- [ ] P1/Deployment: Add reverse proxy examples for TLS, request size limits, route allowlist, timeouts, and body logging disabled.
+- [ ] P1/Deployment: Add managed-LLM deployment docs that clearly separate deterministic-only default from opt-in public evidence and LLM adjudication.
+- [ ] P1/Deployment: Add customer-managed deployment docs that require customer-held secrets for mappings, journal HMAC, and subject index.
+- [ ] P1/Deployment: Add local-only deployment docs that explain what functionality is unavailable without server-side optional layers.
+- [ ] P1/Deployment: Add packaging docs for browser and Office adapters that are separate from backend deployment docs.
+- [ ] P1/Deployment: Add uninstall/rollback docs for server, local daemon, Outlook add-in, browser extension, and Word add-in.
+- [ ] P1/Deployment: Add pilot rollout checklist covering tenant auth, policy profile, one adapter, audit exports, telemetry, support path, rollback, and success metrics.
+- [ ] P1/Deployment: Add a "do not deploy all adapters at once" note recommending one supported adapter plus direct API for first pilot.
+- [ ] P1/MarketValidation: Interview at least five target users across legal, compliance, and security, then update `docs/product/personas.md` with validated workflows and pain points.
+- [ ] P1/MarketValidation: Run a manual task study comparing standalone copy-paste redaction versus Outlook/browser in-workflow review and record adoption friction in `docs/product/value-metrics.md`.
+- [ ] P1/MarketValidation: Create a pilot success rubric requiring measurable avoided sends, accepted rewrites, reviewer decisions, and low false-positive fatigue.
+- [ ] P1/MarketValidation: Add a backlog section for integrations requested by users and mark each as direct API, Outlook, browser, DMS, Slack, Google Workspace, or unsupported.
+- [ ] P1/MarketValidation: Add documentation for buyer objections: accuracy proof, legal liability, data residency, admin deployment, user friction, false positives, and interoperability with existing DLP.
+- [ ] P1/MarketValidation: Add a claim-review checklist requiring every marketing/security claim to cite docs, tests, eval reports, or external vendor docs.
+- [ ] P1/MarketValidation: Add procurement demo scripts for backend API only, Outlook pre-send, browser GenAI prompt, DMS upload, and audit export.
+- [ ] P1/MarketValidation: Add a "manual redactor is not enough" evidence note after validation, or remove the claim if validation does not support it.
+- [ ] P1/MarketValidation: Add a support triage template for detector miss, false positive, adapter failure, auth failure, policy dispute, and audit export issue.
+- [ ] P1/MarketValidation: Add a customer-facing changelog format that separates detector accuracy changes, policy behavior changes, adapter behavior changes, and security fixes.

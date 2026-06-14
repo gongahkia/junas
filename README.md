@@ -11,9 +11,9 @@
   <img alt="runtime" src="https://img.shields.io/badge/runtime-offline--default-lightgrey?style=flat-square">
 </p>
 
-API-first pre-send safety for PII anonymization and MNPI review.
+Pre-send review, safe rewrite, and audit evidence for GenAI, email, and document sharing.
 
-Kaypoh reviews text and documents before they are sent to GenAI tools, email, browser surfaces, Office add-ins, or external counterparties. The deterministic review engine is the runtime source of truth: it detects personal data and material non-public information, returns statute-cited findings, and can pseudonymize, anonymize, redact, or later reidentify approved reversible mappings.
+Kaypoh reviews text and documents before users paste prompts, send email, upload matter files, or share drafts externally. The deterministic review engine is the runtime source of truth: it detects personal data and material non-public information, returns statute-cited findings, records audit-ready evidence, and routes users toward safe rewrite, redaction, pseudonymization, approval, or hold actions.
 
 ## Table of Contents
 
