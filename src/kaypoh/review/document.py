@@ -104,7 +104,7 @@ def _decode_base64(raw: str) -> bytes:
 
 
 def _fail_closed(ingest_settings: Any | None) -> bool:
-    return bool(getattr(ingest_settings, "fail_closed", True))
+    return bool(getattr(ingest_settings, "fail_closed", False))
 
 
 def _fail_open_warning(reason: str) -> str:
@@ -201,7 +201,7 @@ def _extract_pdf(
     page_count = len(reader.pages)
     extracted = "\n\n".join(page.strip() for page in pages if page.strip())
     cleaned = _clean_text(extracted)
-    if not bool(getattr(ingest_settings, "fail_closed", True)):
+    if not _fail_closed(ingest_settings):
         return extracted, page_count, "accepted", []
 
     min_text_chars = int(getattr(ingest_settings, "min_pdf_text_chars", 20) or 0)

@@ -218,7 +218,7 @@ class PreSendReviewApiTests(unittest.TestCase):
         self.assertEqual(payload["jurisdictions_applied"], ["SG", "SEA"])
         self.assertTrue(any(finding["rule"] == "passport_number" for finding in payload["findings"]))
 
-    def test_review_rejects_unsupported_document_type(self):
+    def test_review_fails_open_for_unsupported_document_type(self):
         encoded = base64.b64encode(b"raw bytes").decode("ascii")
 
         with TestClient(main.app) as client:
@@ -231,8 +231,10 @@ class PreSendReviewApiTests(unittest.TestCase):
                 },
             )
 
-        self.assertEqual(response.status_code, 422)
-        self.assertIn("unsupported document_mime_type", response.json()["detail"])
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertEqual(payload["document"]["extraction_quality"], "degraded")
+        self.assertTrue(any(mode["status"] == "failed_open" for mode in payload["degraded_modes"]))
 
     def test_review_reuses_optional_public_evidence_and_local_llm(self):
         public_evidence = DummyPublicEvidence()

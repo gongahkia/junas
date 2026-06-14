@@ -333,6 +333,18 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         self.assertEqual(settings.document_ingest.max_empty_pdf_page_ratio, 0.5)
         self.assertFalse(settings.document_ingest.reject_image_only_pdf)
 
+    def test_document_ingest_defaults_fail_open(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = []
+            """
+        )
+
+        settings = runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertFalse(settings.document_ingest.fail_closed)
+
     def test_image_scan_settings_load_from_config(self):
         config_path = self._write_config(
             """

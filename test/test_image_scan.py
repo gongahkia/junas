@@ -104,7 +104,7 @@ class ImageScanTests(unittest.TestCase):
         self.assertEqual(candidate.mime_type, "image/png")
         self.assertEqual(candidate.locator.container_path, "word/media/image1.png")
 
-    def test_standalone_image_requires_provider(self):
+    def test_standalone_image_fails_open_without_provider(self):
         encoded = base64.b64encode(_png_bytes()).decode("ascii")
         with TestClient(main.app) as client:
             response = client.post(
@@ -115,8 +115,10 @@ class ImageScanTests(unittest.TestCase):
                 },
             )
 
-        self.assertEqual(response.status_code, 422)
-        self.assertIn("unsupported document_mime_type", response.json()["detail"])
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertEqual(payload["document"]["extraction_quality"], "degraded")
+        self.assertTrue(any(mode["status"] == "failed_open" for mode in payload["degraded_modes"]))
 
     def test_image_ocr_findings_carry_source_and_locator(self):
         scanner = FakeImageScanner()
@@ -144,7 +146,7 @@ class ImageScanTests(unittest.TestCase):
         self.assertGreater(finding["image_ocr_regions"][0]["bounding_box"]["x"], 0.05)
         self.assertEqual(scanner.last_candidate.mime_type, "image/png")
 
-    def test_image_ocr_failure_fails_closed(self):
+    def test_image_ocr_failure_fails_open(self):
         main._state["models"] = {"image_scanner": FakeImageScanner(fail=True)}
         encoded = base64.b64encode(_png_bytes()).decode("ascii")
         with mock.patch.dict(os.environ, {"KAYPOH_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
@@ -154,10 +156,9 @@ class ImageScanTests(unittest.TestCase):
                     json={"document_base64": encoded, "document_filename": "scan.png"},
                 )
 
-        self.assertEqual(response.status_code, 422)
-        detail = response.json()["detail"]
-        self.assertEqual(detail["message"], "fake OCR unavailable")
-        self.assertEqual(detail["degraded_modes"][0]["status"], "failed_closed")
+        self.assertEqual(response.status_code, 200, response.text)
+        modes = response.json()["degraded_modes"]
+        self.assertTrue(any(mode["mode"] == "image_ocr" and mode["status"] == "failed_open" for mode in modes))
 
     def test_cloud_image_ocr_privacy_ledger_is_returned(self):
         ledger = [

@@ -1,10 +1,12 @@
 import base64
 import email
+import os
 import unittest
 import zipfile
 from contextlib import asynccontextmanager
 from email.message import EmailMessage
 from io import BytesIO
+from unittest import mock
 
 from fastapi.testclient import TestClient
 
@@ -356,6 +358,20 @@ class DocumentHardeningTests(unittest.TestCase):
         payload = response.json()
         self.assertEqual(payload["document"]["extraction_quality"], "degraded")
         self.assertTrue(any(mode["status"] == "failed_open" for mode in payload["degraded_modes"]))
+
+    def test_pdf_without_text_layer_can_fail_closed_by_env(self):
+        with mock.patch.dict(os.environ, {"KAYPOH_DOCUMENT_FAIL_CLOSED": "1"}, clear=False):
+            with TestClient(main.app) as client:
+                response = client.post(
+                    "/review",
+                    json={
+                        "document_base64": _blank_pdf_base64(),
+                        "document_filename": "scan.pdf",
+                    },
+                )
+
+        self.assertEqual(response.status_code, 422)
+        self.assertIn("failed closed", response.json()["detail"])
 
     def test_pdf_with_text_layer_passes_quality_gate(self):
         with TestClient(main.app) as client:
