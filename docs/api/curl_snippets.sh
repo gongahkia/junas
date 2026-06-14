@@ -75,7 +75,7 @@ curl -sS -X POST "${BASE_URL}/reidentify" \
 # POST /review - Review a document before sending
 curl -sS -X POST "${BASE_URL}/review" \
   -H "Content-Type: application/json" \
-  -d '{"destination_jurisdiction":"SG","document_type":"research_note","entity_id":"Acme Corp","include_suggestions":true,"source_jurisdiction":"SG","text":"Please send the draft deck to Tan S1234567D. Acme Corp has confidential Q1 guidance."}'
+  -d '{"actor_role":"end_user","attachment_count":1,"destination_jurisdiction":"SG","document_type":"research_note","entity_id":"Acme Corp","external_destination":true,"include_suggestions":true,"recipient_count":1,"recipient_domains":["example.com"],"requested_action":"send","sensitivity_label":"confidential","source_jurisdiction":"SG","surface":"outlook","text":"Please send the draft deck to Tan S1234567D. Acme Corp has confidential Q1 guidance.","workflow":"email_send"}'
 
 # GET /review/{review_id} - Inspect review session state
 curl -sS -X GET "${BASE_URL}/review/{review_id}"

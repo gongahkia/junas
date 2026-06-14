@@ -127,6 +127,26 @@ def build_request_body(operation: dict[str, Any], components: dict[str, Any]) ->
     return body
 
 
+def build_response_example(operation: dict[str, Any], components: dict[str, Any]) -> dict[str, Any] | None:
+    responses = operation.get("responses", {})
+    if not isinstance(responses, dict):
+        return None
+    ok_response = responses.get("200")
+    if not isinstance(ok_response, dict):
+        return None
+    content = ok_response.get("content", {})
+    if not isinstance(content, dict):
+        return None
+    app_json = content.get("application/json", {})
+    if not isinstance(app_json, dict):
+        return None
+    schema = app_json.get("schema", {})
+    if not isinstance(schema, dict):
+        return None
+    example = example_for_schema(schema, components)
+    return example if isinstance(example, dict) else None
+
+
 def build_postman_item(
     *,
     base_url_var: str,
@@ -136,6 +156,7 @@ def build_postman_item(
     components: dict[str, Any],
 ) -> dict[str, Any]:
     body_payload = build_request_body(operation, components)
+    response_example = build_response_example(operation, components)
 
     headers: list[dict[str, str]] = []
     if body_payload is not None:
@@ -164,12 +185,24 @@ def build_postman_item(
             "options": {"raw": {"language": "json"}},
         }
 
-    return {
+    item = {
         "name": f"{method.upper()} {path}",
         "request": request_payload,
         "response": [],
         "description": operation.get("summary", ""),
     }
+    if response_example is not None:
+        item["response"] = [
+            {
+                "name": "Example 200 response",
+                "originalRequest": request_payload,
+                "status": "OK",
+                "code": 200,
+                "header": [{"key": "Content-Type", "value": "application/json"}],
+                "body": json.dumps(response_example, indent=2),
+            }
+        ]
+    return item
 
 
 def build_curl_block(

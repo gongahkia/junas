@@ -31,7 +31,7 @@
 - [x] P0/API: Add `docs/policy/schema.md` documenting policy config fields, decision precedence, severity thresholds, recipient-domain rules, role rules, and failure modes.
 - [x] P0/API: Add `docs/policy/examples.md` with sample policies for law firm strict, enterprise soft-warning, offline local-only, audit-grade MNPI, and GenAI prompt review.
 - [x] P0/API: Add `docs/policy/decision-contract.md` documenting the exact adapter behavior expected for allow, warn, block, approval_required, and rewrite_required.
-- [ ] P0/API: Add OpenAPI examples for policy decisions to `scripts/export_openapi_examples.py` and regenerate `docs/api/` artifacts.
+- [x] P0/API: Add OpenAPI examples for policy decisions to `scripts/export_openapi_examples.py` and regenerate `docs/api/` artifacts.
 - [ ] P0/API: Add `tests/test_policy_decision_contract.py` asserting stable decision shape, sorted required actions, deterministic policy reasons, and no raw document text in policy metadata.
 - [ ] P0/API: Add a `policy_decision_ms` timing bucket to review observability and surface it in response timings and metrics.
 - [ ] P0/API: Add audit journal events for policy decisions using hashes and counts only, with policy id and version included.
