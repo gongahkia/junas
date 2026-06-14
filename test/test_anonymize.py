@@ -1,4 +1,5 @@
 import base64
+import json
 import os
 import tempfile
 import unittest
@@ -15,9 +16,6 @@ import kaypoh.backend.main as main
 @asynccontextmanager
 async def _noop_lifespan(app):
     yield
-
-
-main.app.router.lifespan_context = _noop_lifespan
 
 
 def _docx_base64(paragraphs: list[str]) -> str:
@@ -39,8 +37,13 @@ def _docx_base64(paragraphs: list[str]) -> str:
 
 class AnonymizeApiTests(unittest.TestCase):
     def setUp(self):
+        self._old_lifespan = main.app.router.lifespan_context
+        main.app.router.lifespan_context = _noop_lifespan
         main._state.clear()
         main.app.openapi_schema = None
+
+    def tearDown(self):
+        main.app.router.lifespan_context = self._old_lifespan
 
     def test_pseudonymize_returns_deterministic_placeholders_and_mapping(self):
         text = (
@@ -309,6 +312,43 @@ class AnonymizeApiTests(unittest.TestCase):
         self.assertTrue(payload["findings"])
         self.assertFalse(any("matched_text" in finding for finding in payload["findings"]))
         self.assertFalse(any("original_text" in item or "entity_type" in item for item in payload["redactions"]))
+
+    def test_redact_response_does_not_leak_original_text_outside_findings(self):
+        text = "Send Dr Jane Tan S1234567D at jane@example.com."
+        sensitive_values = ("Dr Jane Tan", "S1234567D", "jane@example.com")
+
+        with TestClient(main.app) as client:
+            review = client.post(
+                "/review",
+                json={
+                    "text": text,
+                    "source_jurisdiction": "SG",
+                    "destination_jurisdiction": "SG",
+                    "document_type": "email",
+                },
+            )
+            redacted = client.post(
+                "/redact",
+                json={
+                    "text": text,
+                    "source_jurisdiction": "SG",
+                    "destination_jurisdiction": "SG",
+                    "document_type": "email",
+                },
+            )
+
+        self.assertEqual(review.status_code, 200, review.text)
+        review_matches = {finding.get("matched_text") for finding in review.json()["findings"]}
+        self.assertTrue(set(sensitive_values) & review_matches)
+
+        self.assertEqual(redacted.status_code, 200, redacted.text)
+        payload = redacted.json()
+        non_finding_payload = dict(payload)
+        non_finding_payload.pop("findings", None)
+        non_finding_json = json.dumps(non_finding_payload, sort_keys=True)
+        for value in sensitive_values:
+            self.assertNotIn(value, non_finding_json)
+        self.assertFalse(any("matched_text" in finding for finding in payload["findings"]))
 
     def test_anonymize_and_redact_do_not_persist_mapping_or_subject_index(self):
         original_persist = os.environ.get("KAYPOH_REVIEW_PERSIST")
