@@ -99,6 +99,20 @@ Group assignment:
 - Maintain separate pilot, production, and break-glass exclusion groups so rollback does not require manifest changes.
 - To change access after deployment, use `Settings > Integrated apps`, select the add-in, open `Users`, update assigned users/groups, then re-test propagation.
 
+## Client Compatibility Notes
+
+Smart Alerts `OnMessageSend` support starts at Mailbox requirement set 1.12, but client behavior is not uniform.
+
+| Client | Kaypoh status | Notes |
+|---|---|---|
+| Outlook on the web | Supported target | Microsoft lists web browser modern UI as supported with Exchange Online. Validate hosted origin, CORS, and well-known URI before pilot. |
+| new Outlook on Windows | Supported target | Microsoft lists new Outlook on Windows as supported with Exchange Online. It uses the Outlook web add-in model; COM/VSTO add-ins are not supported. Add-ins are unavailable when the client is offline. |
+| classic Outlook on Windows | Supported target with version gate | Smart Alerts requires Version 2206 (Build 15330.20196) or later. It can support Exchange Online, Exchange Server Subscription Edition, Exchange 2019 CU12+, and Exchange 2016 CU22+. Simple MAPI send coverage requires Version 2301 (Build 17126.20004) or later plus the `Running Outlook for Simple MAPI Mail Sending` Group Policy. |
+| Outlook on Mac | Supported target with version gate | Smart Alerts requires Version 16.65 (22082700) or later with Exchange Online. If the user navigates away after Send, Outlook on Mac can continue processing in the background and then show the Smart Alerts dialog if needed. |
+| Outlook mobile for iOS/Android | Not an enforcement target | Microsoft lists Android and iOS as not applicable for Smart Alerts `OnMessageSend`. Mobile event-based activation supports selected compose events, but not this send-time enforcement path. |
+
+Do not claim tenant-wide send enforcement until QA covers every client family assigned in Microsoft 365 admin center groups.
+
 ## Send Hook Timeout
 
 The launch-event path uses a shorter timeout than normal API calls because Outlook Smart Alerts runs inside the user's send action. Long waits make the send flow feel broken and can trigger Outlook long-running add-in prompts. The default send-hook timeout is 4000 ms, clamped between 1000 ms and 8000 ms via `kaypoh.sendHookTimeoutMs`.
@@ -180,3 +194,6 @@ References:
 - Microsoft centralized deployment requirements: <https://learn.microsoft.com/en-us/microsoft-365/admin/manage/centralized-deployment-of-add-ins>
 - Microsoft 365 admin center add-in deployment: <https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-deployment-of-add-ins>
 - Microsoft centralized deployment FAQ: <https://learn.microsoft.com/en-us/microsoft-365/admin/manage/centralized-deployment-faq>
+- Microsoft Outlook add-ins overview: <https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/outlook-add-ins-overview>
+- Microsoft Outlook mobile event-based activation: <https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/mobile-event-based>
+- Microsoft new Outlook on Windows add-ins: <https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/one-outlook>

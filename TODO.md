@@ -83,7 +83,7 @@
 - [x] P1/Outlook: Add an Outlook add-in CORS and well-known URI checklist per Microsoft event-based activation requirements.
 - [x] P1/Outlook: Add screenshots or test fixtures showing the Smart Alert message text for allow, warn, block, and approval-required states.
 - [x] P1/Outlook: Add a tenant deployment guide for Microsoft 365 admin center centralized deployment, including required admin roles and group assignment.
-- [ ] P1/Outlook: Add compatibility notes for Outlook web, new Outlook Windows, classic Outlook Windows, Outlook Mac, and mobile where support differs.
+- [x] P1/Outlook: Add compatibility notes for Outlook web, new Outlook Windows, classic Outlook Windows, Outlook Mac, and mobile where support differs.
 - [ ] P1/Outlook: Add a QA checklist that tests external recipient, internal recipient, attachment, no attachment, PII body, MNPI body, timeout, and backend unavailable.
 - [ ] P1/Outlook: Add telemetry events for Outlook review started, policy decision received, user proceeded after warning, user blocked, user requested approval, and backend failure.
 - [ ] P1/Outlook: Add a privacy check proving Outlook adapter does not store message body in browser local storage, extension storage, or console logs.
