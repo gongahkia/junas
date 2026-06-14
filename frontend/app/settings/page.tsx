@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { getMetrics, getReady, listJurisdictions } from "../../lib/api-client";
+import { getMetrics, getReady } from "../../lib/api-client";
 import { LOCAL_MODELS } from "../../lib/ml/model-registry";
 import { getAllModelStatus, downloadModel, deleteModel, deleteAllModels, clearAllSiteData, type ModelMeta } from "../../lib/ml/model-cache";
 import { addNotification } from "../../lib/notification-store";
@@ -15,7 +15,6 @@ const PROVIDER_INFO: Record<string, { label: string; hint: string; local?: boole
   lmstudio: { label: "LM Studio", hint: "Local — no key required", local: true },
 };
 
-type Jurisdiction = { id: string; name: string; short_name: string; system_prompt_addition: string };
 type Tab = "providers" | "server" | "local" | "display";
 type ServerStatus = { services: Record<string, boolean> } | null;
 type ServerMetrics = { uptime_seconds: number; models_loaded: string[]; benchmark_runs: number; conversations: number } | null;
@@ -26,8 +25,6 @@ export default function SettingsPage() {
   const [tab, setTab] = useState<Tab>("providers");
   // providers
   const [keys, setKeys] = useState<Record<string, string>>({});
-  const [jurisdictions, setJurisdictions] = useState<Jurisdiction[]>([]);
-  const [selectedJurisdiction, setSelectedJurisdiction] = useState("");
   // server
   const [serverStatus, setServerStatus] = useState<ServerStatus>(null);
   const [serverMetrics, setServerMetrics] = useState<ServerMetrics>(null);
@@ -42,8 +39,6 @@ export default function SettingsPage() {
     const loaded: Record<string, string> = {};
     PROVIDERS.forEach(p => { loaded[p] = localStorage.getItem(`junas_apikey_${p}`) || ""; });
     setKeys(loaded);
-    setSelectedJurisdiction(localStorage.getItem("junas_jurisdiction") || "");
-    listJurisdictions().then(d => setJurisdictions(Array.isArray(d) ? d : [])).catch(() => {});
   }, []);
 
   // init local models
@@ -72,16 +67,9 @@ export default function SettingsPage() {
   // save providers
   const saveProviders = () => {
     PROVIDERS.forEach(p => { if (keys[p]) localStorage.setItem(`junas_apikey_${p}`, keys[p]); else localStorage.removeItem(`junas_apikey_${p}`); });
-    if (selectedJurisdiction) {
-      localStorage.setItem("junas_jurisdiction", selectedJurisdiction);
-      const j = jurisdictions.find(x => x.id === selectedJurisdiction);
-      if (j?.system_prompt_addition) localStorage.setItem("junas_jurisdiction_prompt", j.system_prompt_addition);
-      else localStorage.removeItem("junas_jurisdiction_prompt");
-    } else {
-      localStorage.removeItem("junas_jurisdiction");
-      localStorage.removeItem("junas_jurisdiction_prompt");
-    }
-    addNotification("success", "Settings Saved", "API keys and jurisdiction updated.");
+    localStorage.removeItem("junas_jurisdiction");
+    localStorage.removeItem("junas_jurisdiction_prompt");
+    addNotification("success", "Settings Saved", "API keys updated.");
   };
 
   // model download
@@ -201,17 +189,9 @@ export default function SettingsPage() {
             ))}
           </div>
 
-          <div style={{ borderTop: "1px solid #E7E5E4", paddingTop: "1rem", marginBottom: "1rem" }}>
-            <label style={{ fontSize: "0.82rem", fontWeight: 600, display: "block", marginBottom: "0.2rem" }}>Default Jurisdiction</label>
-            <select value={selectedJurisdiction} onChange={e => setSelectedJurisdiction(e.target.value)} style={{
-              width: "100%", padding: "0.5rem 0.6rem", borderRadius: "0.5rem",
-              border: "1px solid #D6D3D1", fontFamily: "inherit", fontSize: "0.85rem", outline: "none",
-            }}>
-              <option value="">None (general)</option>
-              {jurisdictions.map(j => <option key={j.id} value={j.id}>{j.name} ({j.short_name})</option>)}
-            </select>
-            <p style={{ fontSize: "0.72rem", color: "#A8A29E", marginTop: "0.25rem" }}>Sets a jurisdiction-specific system prompt for AI chat responses.</p>
-          </div>
+          <p style={{ fontSize: "0.78rem", color: "#78716C", marginBottom: "1rem" }}>
+            The reference copilot is scoped to Singapore legal retrieval, citation, compliance, clauses, templates, and documents.
+          </p>
 
           <button type="button" onClick={saveProviders} style={{
             padding: "0.55rem 1.25rem", borderRadius: "0.5rem", border: "none",

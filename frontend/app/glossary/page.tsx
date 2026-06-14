@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import type { FormEvent } from "react";
-import { useEffect, useState } from "react";
-import { listGlossaryJurisdictions, searchGlossary, suggestGlossary } from "../../lib/api-client";
+import { useState } from "react";
+import { searchGlossary, suggestGlossary } from "../../lib/api-client";
 
 type SearchResult = {
   phrase: string;
@@ -22,9 +22,6 @@ type SearchResponse = {
   results: SearchResult[];
   aggregations: { jurisdictions: Record<string, number>; domains: Record<string, number> };
 };
-type JurisdictionsResponse = {
-  jurisdictions: Array<{ code: string; name: string; count: number; domains: string[] }>;
-};
 type SuggestResponse = { suggestions: string[] };
 
 const emptySearch: SearchResponse = {
@@ -36,10 +33,6 @@ const emptySearch: SearchResponse = {
 };
 const chipButtonStyle = { appearance: "none" as const, cursor: "pointer", fontFamily: "inherit" };
 
-function isJurisdictionsResponse(data: unknown): data is JurisdictionsResponse {
-  return typeof data === "object" && data !== null && Array.isArray((data as JurisdictionsResponse).jurisdictions);
-}
-
 function apiError(data: unknown): string | null {
   if (typeof data !== "object" || data === null || !("error" in data)) return null;
   const error = (data as { error?: unknown }).error;
@@ -48,32 +41,13 @@ function apiError(data: unknown): string | null {
 
 export default function GlossaryPage() {
   const [q, setQ] = useState("");
-  const [jurisdiction, setJurisdiction] = useState("");
   const [domain, setDomain] = useState("");
   const [search, setSearch] = useState<SearchResponse>(emptySearch);
-  const [jurisdictions, setJurisdictions] = useState<JurisdictionsResponse>({ jurisdictions: [] });
   const [suggestions, setSuggestions] = useState<SuggestResponse>({ suggestions: [] });
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const activeJurisdiction = jurisdiction.toUpperCase();
 
-  useEffect(() => {
-    let isActive = true;
-    (async () => {
-      try {
-        const data = await listGlossaryJurisdictions();
-        if (!isActive || !isJurisdictionsResponse(data)) return;
-        setJurisdictions(data);
-      } catch {
-        if (isActive) setJurisdictions({ jurisdictions: [] });
-      }
-    })();
-    return () => {
-      isActive = false;
-    };
-  }, []);
-
-  const runSearch = async (nextQ: string, nextJurisdiction = jurisdiction, nextDomain = domain) => {
+  const runSearch = async (nextQ: string, nextDomain = domain) => {
     const query = nextQ.trim();
     setError(null);
 
@@ -86,7 +60,7 @@ export default function GlossaryPage() {
     setIsLoading(true);
     try {
       const [searchData, suggestionData] = await Promise.all([
-        searchGlossary(query, nextJurisdiction.trim(), nextDomain.trim(), 1, 20),
+        searchGlossary(query, "SG", nextDomain.trim(), 1, 20),
         suggestGlossary(query, 8),
       ]);
 
@@ -117,11 +91,6 @@ export default function GlossaryPage() {
     await runSearch(q);
   };
 
-  const onJurisdictionClick = async (nextJurisdiction: string) => {
-    setJurisdiction(nextJurisdiction);
-    await runSearch(q, nextJurisdiction, domain);
-  };
-
   const onSuggestionClick = async (term: string) => {
     setQ(term);
     await runSearch(term);
@@ -129,40 +98,22 @@ export default function GlossaryPage() {
 
   const onDomainClick = async (nextDomain: string) => {
     setDomain(nextDomain);
-    await runSearch(q, jurisdiction, nextDomain);
+    await runSearch(q, nextDomain);
   };
 
   return (
     <section>
       <h2 style={{ marginBottom: "0.25rem" }}>Legal Glossary</h2>
       <p className="meta-line" style={{ marginBottom: "1.25rem" }}>
-        Search legal definitions across {jurisdictions.jurisdictions.length || 6} jurisdictions.
+        Search Singapore legal definitions.
       </p>
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginBottom: "1rem" }}>
-        <button
-          type="button"
-          className={`chip ${!jurisdiction ? "chip-active" : ""}`}
-          style={chipButtonStyle}
-          onClick={() => onJurisdictionClick("")}
-        >
-          All
-        </button>
-        {jurisdictions.jurisdictions.map((item) => (
-          <button
-            key={item.code}
-            type="button"
-            className={`chip ${activeJurisdiction === item.code.toUpperCase() ? "chip-active" : ""}`}
-            style={chipButtonStyle}
-            onClick={() => onJurisdictionClick(item.code)}
-          >
-            {item.name}
-          </button>
-        ))}
+        <span className="chip chip-active">Singapore</span>
       </div>
 
       <form method="post" onSubmit={onSubmit} style={{ display: "flex", gap: "0.5rem", marginBottom: "1.25rem" }}>
-        <input name="jurisdiction" type="hidden" value={jurisdiction} readOnly />
+        <input name="jurisdiction" type="hidden" value="SG" readOnly />
         <input name="domain" type="hidden" value={domain} readOnly />
         <input
           name="q"

@@ -6,7 +6,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Junas",
-  description: "Legal AI platform — multi-jurisdiction retrieval, AI chat, contract analysis, and more.",
+  description: "Singapore legal AI benchmark infrastructure plus a reference copilot.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

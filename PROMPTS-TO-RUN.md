@@ -129,7 +129,6 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | Prompt | Tier | Notes |
 |---|---|---|
 | `Batch H H1` SGLB-10 Citation-Generation | 5 | Uses SAL grammar already on main. Cost-safe. |
-| `SOLO-7` Reference copilot scope cleanup | 5 | Audit + cuts non-SG surfaces. Cost-safe. |
 | `SOLO-11` Port SG contract templates | 5 | Gated on `SOLO-7` landing first. Cost-safe. |
 | `SOLO-8` arXiv preprint §§1-3 draft | 4 | §§4-5 (Results/Limitations) gated on Wave 2 baselines. Docs only. |
 | `COPILOT-1` Sessions + history persistence | 5 | SQLite + alembic + sidebar UI. Cost-safe. |
@@ -155,7 +154,7 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | `Batch G G1` v0.2 multi-judge upgrade | 5 | v0.1 smoke can fire now with Azure; v0.2 upgrade waits |
 
 ### Total remaining
-- **7 fireable now**, **4 cost-gated**, **4 deferred**. 15 prompts total.
+- **6 fireable now**, **4 cost-gated**, **4 deferred**. 14 prompts total.
 
 ## Fire order
 
@@ -2462,7 +2461,7 @@ on, any spec-doc inconsistencies you noticed while writing.
 
 _Reference copilot polish + v0.2 task expansion._
 
-**TIER 5 — 9 OF (many) DONE ✅ (2026-06-06 to 2026-06-14, commit 20773c7 + PRs #124-126 + local G3/G4/F4 work).**
+**TIER 5 — 10 OF (many) DONE ✅ (2026-06-06 to 2026-06-14, commit 20773c7 + PRs #124-126 + local G3/G4/F4/SOLO-7 work).**
 
 | Work unit | What | PR / commit |
 |---|---|---|
@@ -2475,8 +2474,9 @@ _Reference copilot polish + v0.2 task expansion._
 | `Batch F F2` MCP tool implementations | Five wrappers for benchmark, citation, statute, case retrieval, and compliance tools. | local work 2026-06-14 |
 | `Batch F F3` MCP setup docs | Claude Desktop setup, example prompts, and troubleshooting docs. | local work 2026-06-14 |
 | `Batch F F4` MCP tests + integration | Tool/server tests; verified 10/10 pass in temp env with `mcp>=1.27`; fixed repo-root server import path. | local work 2026-06-14 |
+| `SOLO-7` Reference copilot scope cleanup | Verified legacy `predictions/`, `rome-statute/`, and `compare-jurisdictions/` routes are absent; cut visible non-SG posture from statutes, glossary, settings, and app metadata. | local work 2026-06-14 |
 
-**Still pending in Tier 5:** Batch G G1 (v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), SOLO-7, SOLO-11, COPILOT-1/2/4.
+**Still pending in Tier 5:** Batch G G1 (v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), SOLO-11, COPILOT-1/2/4.
 
 # Batch G — v0.2 Task Wave 1 (#50, #54, #55, #57), 4 parallel agents
 
@@ -2853,41 +2853,6 @@ Report back: MCP SDK version pinned; transport latency observations.
 
 
 </details>
-
-## SOLO-7: Reference copilot scope cleanup (#35)
-
-```text
-You are addressing issue #35 in the junas repo: keep only SG
-retrieval, citation, and compliance surfaces in the reference
-copilot. Read AGENT-RUNBOOK.md and the pivot history in git.
-
-Audit which frontend routes and backend routers are still
-non-SG-relevant. The audit doc lists what should have been removed
-(predictions/, rome-statute/, compare-jurisdictions/). Verify those
-are gone; flag any that aren't.
-
-This is an audit-then-fix task. Step 1: list every page + router +
-service that doesn't fit the minimal copilot scope (BYOK chat, SG
-retrieval, citation verifier, PDPA+EA compliance, SG clauses +
-templates, document parsing). Step 2: produce a PR that removes
-them or marks them as out-of-scope-but-kept.
-
-Don't be over-eager. The chat surface, batch-analysis, contracts,
-ner pages are arguably in scope. Apply the pivot-doc §5 "minimal
-scope" test: does this surface demonstrate the benchmark? If not,
-flag it.
-
-Branch: refactor/copilot-scope.
-Commit: `refactor(copilot): keep only SG retrieval/citation/
-compliance surfaces (closes #35)`.
-
-Acceptance: the user can ship a smaller copilot landing without
-dead links.
-
-Report back: a numbered audit list (this is the deliverable) +
-the actual cuts you made. If you want the user to make a
-keep-vs-cut call, surface the question.
-```
 
 ## SOLO-11: Port SG-applicable contract templates (#42)
 

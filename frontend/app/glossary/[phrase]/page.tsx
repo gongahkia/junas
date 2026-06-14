@@ -32,7 +32,7 @@ async function fetchTerm(phrase: string): Promise<TermResponse> {
 }
 
 async function fetchComparison(phrase: string): Promise<CompareResponse> {
-  const data = await compareGlossaryTerm(phrase);
+  const data = await compareGlossaryTerm(phrase, ["SG"]);
   return { term: phrase, comparisons: [], available_in: [], not_found_in: [], ...data } as CompareResponse;
 }
 
@@ -46,7 +46,7 @@ export default async function GlossaryTermPage({ params }: { params: { phrase: s
         <Link href="/glossary">Glossary</Link> / {term.phrase}
       </p>
       <h2>{term.phrase}</h2>
-      <p>Definitions across jurisdictions with side-by-side comparison.</p>
+      <p>Singapore legal definitions and source references.</p>
 
       {term.definitions.length === 0 ? <p>No definitions found for this term.</p> : null}
 
@@ -78,7 +78,7 @@ export default async function GlossaryTermPage({ params }: { params: { phrase: s
         })}
       </div>
 
-      <h3>Comparison View</h3>
+      <h3>Singapore View</h3>
       <table className="comparison-table">
         <thead>
           <tr>
@@ -98,8 +98,7 @@ export default async function GlossaryTermPage({ params }: { params: { phrase: s
         </tbody>
       </table>
 
-      <p>Available in: {comparison.available_in.join(", ") || "none"}</p>
-      <p>Not found in: {comparison.not_found_in.join(", ") || "none"}</p>
+      <p>Available in Singapore: {comparison.available_in.includes("SG") ? "yes" : "no"}</p>
     </section>
   );
 }
