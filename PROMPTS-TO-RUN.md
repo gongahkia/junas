@@ -128,7 +128,6 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 
 | Prompt | Tier | Notes |
 |---|---|---|
-| `SOLO-8` arXiv preprint §§1-3 draft | 4 | §§4-5 (Results/Limitations) gated on Wave 2 baselines. Docs only. |
 | `COPILOT-1` Sessions + history persistence | 5 | SQLite + alembic + sidebar UI. Cost-safe. |
 | `COPILOT-2` Batch-analysis polish | 5 | Drag-drop + SSE + cancel + CSV. Cost-safe. |
 | `COPILOT-4` Keyboard shortcuts + cheat-sheet | 5 | Mostly independent; minor dep on Batch C C2 (landed). Cost-safe. |
@@ -152,7 +151,7 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | `Batch G G1` v0.2 multi-judge upgrade | 5 | v0.1 smoke can fire now with Azure; v0.2 upgrade waits |
 
 ### Total remaining
-- **4 fireable now**, **4 cost-gated**, **4 deferred**. 12 prompts total.
+- **3 fireable now**, **4 cost-gated**, **4 deferred**. 11 prompts total.
 
 ## Fire order
 
@@ -161,7 +160,7 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | **Tier 1 — Methodology fundamentals** | Defensibility floor; gates every public number | `SOLO-17`, `SOLO-18`, `SOLO-10`, `SOLO-9`, `NEW-CI-RECEIPT`, `NEW-CONTAM`, `NEW-SAL-VALIDATION`, `NEW-EXTRACT-VERSION`, `NEW-HONEST-LEADERBOARD`, `NEW-NORM-SPEC`, `NEW-DISPUTE-PROCESS`, `NEW-VERIFY-BASELINES`, `NEW-BATCH-D`, `NEW-08-REFRAME-IF-LOW-KAPPA` (conditional) |
 | **Tier 2 — Data hardening** | Closes empty tasks + scales N | Batch A, Batch B, `NEW-SSO-EXPAND`, `NEW-SGLB-04-PROD` |
 | **Tier 3 — Vendor-facing infra** | Closes "use us for your evals" workflow | `NEW-VENDOR-GUIDE`, `NEW-LIB-PACKAGING`, `NEW-INDEPENDENT-REPRO`, Batch C, `SOLO-1`, `SOLO-2`, `SOLO-3`, `SOLO-4`, `SOLO-5`, `SOLO-6` |
-| **Tier 4 — Launch** | arXiv + launch assets | `SOLO-8`, Batch E |
+| **Tier 4 — Launch** | arXiv done; launch assets removed as out-of-scope | closed |
 | **Tier 5 — Copilot + v0.2** | Post-launch | Batch G, Batch H, Batch F, `SOLO-7`, `SOLO-11`, `SOLO-12`, COPILOT-1..4 |
 
 ## Hard dependencies (do not violate)
@@ -269,10 +268,10 @@ Can start once `NEW-CI-RECEIPT` + `NEW-CONTAM` + `NEW-NORM-SPEC` + `NEW-DISPUTE-
 22. Batch C (C1–C4 parallel-safe; non-overlapping files) — frontend audit fixes.
 23. `SOLO-1` through `SOLO-6` — all mutually independent; parallel-safe.
 
-### Tier 4 — Launch
+### Tier 4 — Launch (closed)
 
-24. `SOLO-8` — arXiv preprint draft (§§1-3 free now; §§4-5 gated on `NEW-BATCH-D` numbers).
-25. Batch E (E1–E4 parallel-safe) — launch assets.
+24. `SOLO-8` — DONE; arXiv preprint draft §§1-3 landed, §§4-5 remain gated on `NEW-BATCH-D` numbers.
+25. Batch E (E1–E4) — removed as out-of-scope external comms assets.
 
 ### Tier 5 — Copilot + v0.2
 
@@ -2407,6 +2406,15 @@ _arXiv preprint. Tier 3 closed (PRs #107-121); Tier 1 mostly closed (SOLO-17 κ 
 
 **Note (2026-06-06):** the original Batch E (HN post, Twitter thread, LinkedIn post + outreach DMs, press kit + journalist pitches) was removed from this doc as out-of-scope. Those launch-marketing assets aren't project documentation — they're external comms drafts. If needed later, recover from git history (PRs #95-106 era; or reopen with a fresh prompt). Repo-internal documentation (`SOLO-8` arXiv preprint, MCP setup docs under Tier 5 Batch F F3, spec docs) is preserved.
 
+**TIER 4 — DONE ✅ (2026-06-14, local SOLO-8 work).**
+
+| Work unit | What | PR / commit |
+|---|---|---|
+| `SOLO-8` arXiv preprint §§1-3 draft | Markdown preprint outline plus Introduction, Methodology, and Task Suite sections; §§4-5 left TODO-gated on baseline receipts. | local work 2026-06-14 |
+
+<details>
+<summary><strong>SOLO-8 — DONE ✅</strong> (local work 2026-06-14). Prompt body preserved for re-runs. Click to expand.</summary>
+
 ## SOLO-8: arXiv preprint draft (#37)
 
 ```text
@@ -2452,6 +2460,8 @@ Report back: which sections you couldn't draft yet (it should be
 just §§4-5), any prior-work claims you'd like a second pair of eyes
 on, any spec-doc inconsistencies you noticed while writing.
 ```
+
+</details>
 
 ---
 
