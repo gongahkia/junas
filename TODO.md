@@ -28,7 +28,7 @@
 - [x] P0/API: Add policy evaluation into `/review`, `/pseudonymize`, `/anonymize`, and `/redact` responses without breaking existing clients that only read `send_allowed`.
 - [x] P0/API: Add an `action_catalog` response field listing available next actions such as redact_pii, pseudonymize, safe_rewrite, cite_public_source, request_approval, hold_until_public, and proceed_with_warning.
 - [x] P0/API: Add an API compatibility test proving existing fixtures still deserialize when the policy decision fields are absent or ignored.
-- [ ] P0/API: Add `docs/policy/schema.md` documenting policy config fields, decision precedence, severity thresholds, recipient-domain rules, role rules, and failure modes.
+- [x] P0/API: Add `docs/policy/schema.md` documenting policy config fields, decision precedence, severity thresholds, recipient-domain rules, role rules, and failure modes.
 - [ ] P0/API: Add `docs/policy/examples.md` with sample policies for law firm strict, enterprise soft-warning, offline local-only, audit-grade MNPI, and GenAI prompt review.
 - [ ] P0/API: Add `docs/policy/decision-contract.md` documenting the exact adapter behavior expected for allow, warn, block, approval_required, and rewrite_required.
 - [ ] P0/API: Add OpenAPI examples for policy decisions to `scripts/export_openapi_examples.py` and regenerate `docs/api/` artifacts.
