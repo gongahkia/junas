@@ -1,6 +1,6 @@
 # Docs Folder
 
-This folder contains operator and developer documentation.
+This folder contains operator, developer, and product documentation. Product docs under `product/` are normative for roadmap decisions: roadmap, adapter maturity, and integration claims should match those documents before implementation starts.
 
 - `running.md`: launch and operational commands
 - `install.md`: local, extension, Office, and server install flow
@@ -14,5 +14,10 @@ This folder contains operator and developer documentation.
 - `deployment-hardening.md`: production filesystem, transport, secrets, Kubernetes, and SIEM guidance
 - `mapping-store-hardening.md`: encryption, retention, subject erasure, and deployment controls for persisted mappings
 - `assumption.md`: implementation assumptions and invariants
+- `product/positioning.md`: canonical product positioning, target users, non-goals, and DLP boundary
+- `product/workflows.md`: daily workflow maps for Outlook, GenAI browser, DMS, API, reviewer, and auditor paths
+- `product/personas.md`: jobs-to-be-done for end users, legal reviewers, compliance admins, security engineers, and platform integrators
+- `product/non-goals.md`: explicit control planes Kaypoh does not replace
+- `product/research-basis.md`: external deployment/security research basis for adapter and DLP claims
 - `api/`: generated Postman collection, cURL snippets, and Python client integration notes
 - `json/`: example training corpus batches
