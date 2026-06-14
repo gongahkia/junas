@@ -125,6 +125,21 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertIn("kaypoh-watch", fallback.group("body"))
         self.assertIn("desktop-watcher.md", fallback.group("body"))
 
+    def test_root_integrations_index_names_supported_and_future_surfaces(self):
+        text = (ROOT / "INTEGRATIONS.md").read_text(encoding="utf-8")
+        for token in (
+            "Direct API",
+            "Outlook Smart Alerts",
+            "Browser GenAI extension",
+            "Word taskpane",
+            "Desktop watcher",
+            "DMS hooks",
+            "Future Slack",
+            "Future Google Workspace",
+            "docs/integrations/maturity-matrix.md",
+        ):
+            self.assertIn(token, text)
+
 
 if __name__ == "__main__":
     unittest.main()

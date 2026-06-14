@@ -65,7 +65,7 @@
 - [x] P0/RepoLayout: Update `scripts/package_browser_extension.sh`, `scripts/package_macos_desktop.sh`, PyInstaller specs, tests, and README links after any integration directory move.
 - [x] P0/RepoLayout: Add tests that packaging scripts fail clearly when adapter paths are missing after the layout change.
 - [x] P0/RepoLayout: Remove desktop watcher from primary README Quick Start and move it to an explicit "experimental local fallback" section.
-- [ ] P0/RepoLayout: Add a root-level `INTEGRATIONS.md` pointing to Outlook, browser, Word, desktop, DMS, direct API, and future Slack/Google Workspace notes.
+- [x] P0/RepoLayout: Add a root-level `INTEGRATIONS.md` pointing to Outlook, browser, Word, desktop, DMS, direct API, and future Slack/Google Workspace notes.
 - [ ] P0/RepoLayout: Add `docs/integrations/direct-api.md` as the baseline integration guide for customers that do not want any UI adapter.
 - [ ] P0/RepoLayout: Add `docs/integrations/dms.md` documenting DMS upload/check-in review flow, required metadata, failure behavior, and audit fields.
 - [ ] P0/RepoLayout: Add `docs/integrations/genai-browser.md` documenting ChatGPT, Claude, Gemini, and generic textarea capture assumptions without promising coverage on every UI change.
