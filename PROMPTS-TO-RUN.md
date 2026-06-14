@@ -129,7 +129,6 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | Prompt | Tier | Notes |
 |---|---|---|
 | `Batch H H1` SGLB-10 Citation-Generation | 5 | Uses SAL grammar already on main. Cost-safe. |
-| `SOLO-11` Port SG contract templates | 5 | Gated on `SOLO-7` landing first. Cost-safe. |
 | `SOLO-8` arXiv preprint §§1-3 draft | 4 | §§4-5 (Results/Limitations) gated on Wave 2 baselines. Docs only. |
 | `COPILOT-1` Sessions + history persistence | 5 | SQLite + alembic + sidebar UI. Cost-safe. |
 | `COPILOT-2` Batch-analysis polish | 5 | Drag-drop + SSE + cancel + CSV. Cost-safe. |
@@ -154,7 +153,7 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | `Batch G G1` v0.2 multi-judge upgrade | 5 | v0.1 smoke can fire now with Azure; v0.2 upgrade waits |
 
 ### Total remaining
-- **6 fireable now**, **4 cost-gated**, **4 deferred**. 14 prompts total.
+- **5 fireable now**, **4 cost-gated**, **4 deferred**. 13 prompts total.
 
 ## Fire order
 
@@ -2461,7 +2460,7 @@ on, any spec-doc inconsistencies you noticed while writing.
 
 _Reference copilot polish + v0.2 task expansion._
 
-**TIER 5 — 10 OF (many) DONE ✅ (2026-06-06 to 2026-06-14, commit 20773c7 + PRs #124-126 + local G3/G4/F4/SOLO-7 work).**
+**TIER 5 — 11 OF (many) DONE ✅ (2026-06-06 to 2026-06-14, commit 20773c7 + PRs #124-126 + local G3/G4/F4/SOLO-7/SOLO-11 work).**
 
 | Work unit | What | PR / commit |
 |---|---|---|
@@ -2475,8 +2474,9 @@ _Reference copilot polish + v0.2 task expansion._
 | `Batch F F3` MCP setup docs | Claude Desktop setup, example prompts, and troubleshooting docs. | local work 2026-06-14 |
 | `Batch F F4` MCP tests + integration | Tool/server tests; verified 10/10 pass in temp env with `mcp>=1.27`; fixed repo-root server import path. | local work 2026-06-14 |
 | `SOLO-7` Reference copilot scope cleanup | Verified legacy `predictions/`, `rome-statute/`, and `compare-jurisdictions/` routes are absent; cut visible non-SG posture from statutes, glossary, settings, and app metadata. | local work 2026-06-14 |
+| `SOLO-11` SG contract templates | 6 markdown-backed Singapore templates added under `backend/data/templates/sg`; total library now 12; source URLs exposed through API/frontend; template tests cover IDs, sources, and rendering. | local work 2026-06-14 |
 
-**Still pending in Tier 5:** Batch G G1 (v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), SOLO-11, COPILOT-1/2/4.
+**Still pending in Tier 5:** Batch G G1 (v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), COPILOT-1/2/4.
 
 # Batch G — v0.2 Task Wave 1 (#50, #54, #55, #57), 4 parallel agents
 
@@ -2853,54 +2853,6 @@ Report back: MCP SDK version pinned; transport latency observations.
 
 
 </details>
-
-## SOLO-11: Port SG-applicable contract templates (#42)
-
-```text
-You are working on issue #42 in the junas repo.
-
-This task is GATED on SOLO-7 (#35 copilot scope cleanup). If scope
-is still in flux, write the audit list of templates you'd port and
-stop. Otherwise proceed to implementation.
-
-Read AGENT-RUNBOOK.md, backend/api/services/template_service.py (the
-existing 6 SG seed), CONTRIBUTING.md.
-
-Files in scope (if implementing):
-- backend/api/services/template_service.py (extend)
-- backend/data/templates/sg/ (new — markdown templates)
-- backend/tests/test_template_service.py (extend)
-- frontend/app/templates/page.tsx (verify it renders the additions)
-
-Templates to add (target 10-12 total; the existing 6 are already in):
-1. Confidentiality / NDA (mutual)
-2. Employment contract (SG Employment Act compliant)
-3. Service agreement (B2B SG)
-4. Data processing agreement (PDPA compliant)
-5. Independent contractor agreement
-6. Non-compete + restraint of trade (per Smile Inc Dental Surgeons
-   v Lui Andrew Stewart [2012] 4 SLR 308)
-7. Shareholder agreement (basic)
-8. SaaS terms of service
-9. Loan agreement (basic, SG governing law)
-10. Power of attorney (general)
-
-Constraints:
-- All templates derivable from publicly-available SG drafting-guide
-  sources (cite each in template frontmatter).
-- No proprietary forms.
-- Each template carries a limitation disclaimer block referencing the
-  README §"Legal Disclaimer".
-
-Branch: feat/sg-contract-templates.
-Commit: `feat(templates): port SG-applicable contract templates
-(closes #42)`.
-
-Acceptance: 10-12 templates total; the /templates frontend route
-lists them; tests pass.
-Report back: any template where SG-source publicly-available
-drafting was thin.
-```
 
 <details>
 <summary><strong>SOLO-12 — DONE ✅</strong> (PR #124). Prompt body preserved for re-runs. Click to expand.</summary>

@@ -2,6 +2,9 @@
 from __future__ import annotations
 import re
 from dataclasses import dataclass, field
+from pathlib import Path
+
+import yaml
 
 @dataclass
 class TemplateVariable:
@@ -19,6 +22,7 @@ class LegalTemplate:
     description: str
     variables: list[TemplateVariable]
     content: str
+    source_urls: list[str] = field(default_factory=list)
 
 def render_template(template: LegalTemplate, values: dict[str, str]) -> str:
     rendered = template.content
@@ -26,6 +30,40 @@ def render_template(template: LegalTemplate, values: dict[str, str]) -> str:
         val = values.get(v.name) or f"[{v.label}]"
         rendered = rendered.replace(f"{{{{{v.name}}}}}", val)
     return rendered
+
+def _load_markdown_templates() -> list[LegalTemplate]:
+    root = Path(__file__).resolve().parents[2] / "data" / "templates" / "sg"
+    if not root.exists():
+        return []
+    templates: list[LegalTemplate] = []
+    for path in sorted(root.glob("*.md")):
+        raw = path.read_text(encoding="utf-8")
+        if not raw.startswith("---\n"):
+            raise ValueError(f"template missing frontmatter: {path}")
+        _, frontmatter, content = raw.split("---", 2)
+        meta = yaml.safe_load(frontmatter) or {}
+        variables = [
+            TemplateVariable(
+                name=str(row["name"]),
+                label=str(row["label"]),
+                placeholder=str(row.get("placeholder", "")),
+                var_type=str(row.get("type", "text")),
+            )
+            for row in meta.get("variables", [])
+        ]
+        templates.append(
+            LegalTemplate(
+                id=str(meta["id"]),
+                title=str(meta["title"]),
+                category=str(meta["category"]),
+                jurisdiction=str(meta.get("jurisdiction", "Singapore")),
+                description=str(meta["description"]),
+                variables=variables,
+                content=content.strip(),
+                source_urls=[str(url) for url in meta.get("source_urls", [])],
+            )
+        )
+    return templates
 
 TEMPLATES: list[LegalTemplate] = [
     LegalTemplate(
@@ -269,7 +307,7 @@ This transfer is subject to stamp duty under the Stamp Duties Act 1929 (2020 Rev
 **Transferee:** ___________________ Name: {{transferee}}
 **Witness:** ___________________ Name:""",
     ),
-]
+] + _load_markdown_templates()
 
 _TEMPLATE_INDEX: dict[str, LegalTemplate] = {t.id: t for t in TEMPLATES}
 

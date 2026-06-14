@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { listTemplates, renderTemplate } from "../../lib/api-client";
 
 type Variable = { name: string; label: string; placeholder: string; type: string };
-type Template = { id: string; title: string; category: string; jurisdiction: string; description: string; variables: Variable[]; content: string };
+type Template = { id: string; title: string; category: string; jurisdiction: string; description: string; variables: Variable[]; content: string; source_urls?: string[] };
 
 export default function TemplatesPage() {
   const [templates, setTemplates] = useState<Template[]>([]);
@@ -48,6 +48,13 @@ export default function TemplatesPage() {
           {selected ? (
             <div className="result-card">
               <h3 style={{ margin: "0 0 0.5rem" }}>{selected.title}</h3>
+              {selected.source_urls?.length ? (
+                <div className="meta-line" style={{ margin: "0 0 0.75rem" }}>
+                  Sources: {selected.source_urls.map((url, i) => (
+                    <span key={url}>{i > 0 ? ", " : ""}<a href={url} target="_blank" rel="noreferrer">{new URL(url).hostname}</a></span>
+                  ))}
+                </div>
+              ) : null}
               <div style={{ display: "grid", gap: "0.4rem", marginBottom: "0.75rem" }}>
                 {selected.variables.map((v) => (
                   <div key={v.name}>

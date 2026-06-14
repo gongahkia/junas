@@ -56,6 +56,7 @@ export type Template = {
   description: string;
   variables: TemplateVariable[];
   content: string;
+  source_urls?: string[];
 };
 export type RenderTemplateResponse = { template_id?: string; rendered?: string } & ApiError;
 export type ComplianceRule = {

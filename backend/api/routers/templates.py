@@ -10,7 +10,7 @@ router = APIRouter(prefix="/templates")
 def _template_to_dict(t) -> dict[str, Any]:
     return {"id": t.id, "title": t.title, "category": t.category, "jurisdiction": t.jurisdiction, "description": t.description,
             "variables": [{"name": v.name, "label": v.label, "placeholder": v.placeholder, "type": v.var_type} for v in t.variables],
-            "content": t.content}
+            "content": t.content, "source_urls": t.source_urls}
 
 @router.get("")
 async def list_all_templates(jurisdiction: str = "", category: str = "") -> list[dict[str, Any]]:
