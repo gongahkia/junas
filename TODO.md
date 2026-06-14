@@ -82,7 +82,7 @@
 - [x] P1/Outlook: Bundle event-based activation JavaScript into one supported runtime file and document the Office limitation against imports in event handlers.
 - [x] P1/Outlook: Add an Outlook add-in CORS and well-known URI checklist per Microsoft event-based activation requirements.
 - [x] P1/Outlook: Add screenshots or test fixtures showing the Smart Alert message text for allow, warn, block, and approval-required states.
-- [ ] P1/Outlook: Add a tenant deployment guide for Microsoft 365 admin center centralized deployment, including required admin roles and group assignment.
+- [x] P1/Outlook: Add a tenant deployment guide for Microsoft 365 admin center centralized deployment, including required admin roles and group assignment.
 - [ ] P1/Outlook: Add compatibility notes for Outlook web, new Outlook Windows, classic Outlook Windows, Outlook Mac, and mobile where support differs.
 - [ ] P1/Outlook: Add a QA checklist that tests external recipient, internal recipient, attachment, no attachment, PII body, MNPI body, timeout, and backend unavailable.
 - [ ] P1/Outlook: Add telemetry events for Outlook review started, policy decision received, user proceeded after warning, user blocked, user requested approval, and backend failure.

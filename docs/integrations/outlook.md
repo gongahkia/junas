@@ -64,6 +64,41 @@ Kaypoh policy mapping:
 - Configure send-hook timeout in the taskpane. The default is 4000 ms and allowed range is 1000-8000 ms.
 - Keep add-in runtime pages and backend routes on origins allowed by tenant security policy.
 
+## Tenant Deployment Guide
+
+Use Microsoft 365 centralized deployment for hosted Outlook pilots.
+
+Required admin access:
+
+- Exchange admin in the tenant is the documented role required for centralized deployment.
+- If upload or app registration is blocked, grant the deploying Exchange admin the Application Administrator role or enable app registrations in Microsoft Entra ID.
+- Global Administrator has full add-in lifecycle access, but treat it as break-glass or setup-only because it is highly privileged.
+
+Tenant prerequisites:
+
+- Users must have Exchange Online and active Exchange Online mailboxes.
+- The subscription directory must be in Microsoft Entra ID or federated to it.
+- Centralized deployment does not cover on-premises Exchange mailboxes.
+- `AppsForOfficeEnabled` must not be false for the organization.
+
+Deployment steps:
+
+1. Render and validate the target manifest with the production add-in origin.
+2. Sign in to the Microsoft 365 admin center.
+3. Go to `Settings > Integrated apps`, select `Add-ins`, then select `Deploy Add-in`.
+4. Upload the rendered manifest or provide its URL.
+5. Start with `Just me` for admin smoke testing.
+6. Move to `Specific users/groups` for pilot rollout, then broaden only after Smart Alerts QA passes.
+7. Use `Deploy`, ask testers to restart Outlook, and allow up to 24 hours for new deployment visibility and up to 72 hours for updates.
+
+Group assignment:
+
+- Prefer top-level Microsoft Entra groups over individual users for pilot and production rollout.
+- Supported group targets include Microsoft 365 Groups, distribution lists, dynamic groups, and security groups.
+- Do not rely on nested group membership for access; centralized deployment targets users in top-level groups.
+- Maintain separate pilot, production, and break-glass exclusion groups so rollback does not require manifest changes.
+- To change access after deployment, use `Settings > Integrated apps`, select the add-in, open `Users`, update assigned users/groups, then re-test propagation.
+
 ## Send Hook Timeout
 
 The launch-event path uses a shorter timeout than normal API calls because Outlook Smart Alerts runs inside the user's send action. Long waits make the send flow feel broken and can trigger Outlook long-running add-in prompts. The default send-hook timeout is 4000 ms, clamped between 1000 ms and 8000 ms via `kaypoh.sendHookTimeoutMs`.
@@ -142,3 +177,6 @@ References:
 
 - Microsoft Smart Alerts `OnMessageSend` docs: <https://learn.microsoft.com/en-us/office/dev/add-ins/outlook/onmessagesend-onappointmentsend-events>
 - Microsoft event-based activation docs: <https://learn.microsoft.com/en-us/office/dev/add-ins/develop/event-based-activation>
+- Microsoft centralized deployment requirements: <https://learn.microsoft.com/en-us/microsoft-365/admin/manage/centralized-deployment-of-add-ins>
+- Microsoft 365 admin center add-in deployment: <https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-deployment-of-add-ins>
+- Microsoft centralized deployment FAQ: <https://learn.microsoft.com/en-us/microsoft-365/admin/manage/centralized-deployment-faq>
