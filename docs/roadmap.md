@@ -1,0 +1,68 @@
+# Roadmap
+
+This roadmap follows the product docs in `docs/product/`. A phase is not promoted by implementation alone; it needs exit evidence.
+
+## P0 Backend Policy Contract
+
+Scope:
+
+- Add workflow context to review requests.
+- Return a stable policy decision contract on `/review`, `/pseudonymize`, `/anonymize`, and `/redact`.
+- Provide deterministic required/recommended actions, policy reasons, action catalog, timings, audit journal events, and SIEM-safe exports.
+- Document policy schema, decision contract, versioning, idempotency, and review expiry.
+
+Exit criteria:
+
+- Policy unit tests cover PII high, MNPI high, mixed findings, recipient/domain context, degraded coverage, reviewer override, and missing context.
+- Contract tests prove old clients can still read `send_allowed` and ignore new fields.
+- OpenAPI examples include policy decisions and adapter surfaces.
+- Audit/SIEM tests prove no raw document text, matched spans, prompts, mappings, or auth headers are emitted.
+- `docs/policy/` and API versioning docs are complete enough for adapter implementation.
+
+## P1 Outlook Smart Alerts
+
+Scope:
+
+- Treat Outlook Smart Alerts as the first supported email adapter target.
+- Template manifests for dev, staging, and production.
+- Map backend decisions to allow, warning, block, approval, and rewrite behavior.
+- Document admin deployment, SendMode behavior, CORS/well-known requirements, client compatibility, timeout budgets, privacy checks, telemetry, and QA.
+
+Exit criteria:
+
+- Manifest validation script checks Mailbox requirement set, `OnMessageSend`, SendMode, runtime URL, taskpane URL, and HTTPS production host.
+- Manual or automated QA proves send checks call `/review` with subject, body, recipients, attachment metadata, and surface `outlook`.
+- Fixture screenshots or text snapshots cover allow, warn, block, and approval-required Smart Alert messages.
+- Privacy check proves the adapter does not store message body in browser local storage, extension storage, or console logs.
+- Tenant deployment guide is usable by a Microsoft 365 admin.
+
+## P1/P2 Browser Extension
+
+Scope:
+
+- P1: support managed prompt review for selected GenAI browser surfaces with explicit selector tests and user confirmation for warn decisions.
+- P1: provide backend URL/auth/local-pairing options, connection health, privacy tests, telemetry, enterprise deployment docs, and local fixture smoke tests.
+- P2: broaden surface coverage only after adapter policy, selector failure behavior, MV3 lifecycle QA, and manual Chrome/Edge matrices are stable.
+
+Exit criteria:
+
+- ChatGPT, Claude, Gemini, and generic textarea modules have DOM selector tests against local fixture pages.
+- Prompt review calls `/review` with surface `browser_genai` and no prompt text is persisted in extension storage or logs.
+- Failure behavior is documented and tested so selector drift does not silently block sends without a policy decision.
+- Chrome/Edge deployment docs include force-install policy, update URL, permission rationale, and hosted/local daemon modes.
+- Browser adapter smoke tests run without external SaaS credentials.
+
+## P2 Desktop Watcher
+
+Scope:
+
+- Keep `kaypoh-watch` as an experimental local fallback for offline review, demos, and power users.
+- Document clipboard/folder threat model, explicit clipboard opt-in, local token use, output-directory scope, LaunchAgent packaging, and auth failure behavior.
+
+Exit criteria:
+
+- README and `pyproject.toml` docs mark the watcher experimental without removing the console script.
+- Config sample disables clipboard polling by default.
+- Tests prove output stays under the configured output directory.
+- Tests prove auth failures do not print sensitive clipboard content.
+- Packaging docs state LaunchAgent install is optional and admin-controlled.
