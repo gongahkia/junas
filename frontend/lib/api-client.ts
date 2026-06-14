@@ -33,6 +33,29 @@ export type SessionSavePayload = {
   current_leaf_id?: string;
   user_id?: string | null;
 };
+export type BatchDocumentPayload = { id: string; file_name: string; text: string };
+export type BatchResult = {
+  document_id: string;
+  file_name: string;
+  status: "pending" | "running" | "done" | "error" | "cancelled";
+  summary: string;
+  clauses: Array<Record<string, any>>;
+  flagged_clauses: Array<Record<string, any>>;
+  reasoning: string;
+  error?: string | null;
+  started_at?: string | null;
+  finished_at?: string | null;
+};
+export type BatchJob = {
+  id: string;
+  status: "queued" | "running" | "completed" | "cancelled" | "error";
+  total: number;
+  completed: number;
+  cancelled: boolean;
+  created_at: string;
+  updated_at: string;
+  results: BatchResult[];
+} & ApiError;
 export type ChatStreamOptions = {
   provider: string;
   model?: string;
@@ -194,6 +217,10 @@ export type BenchmarkRunResponse = Record<string, any> & ApiError;
 
 export function apiUrl(path: string): string {
   return `${API_BASE}/api/v1${path}`;
+}
+
+export function contractBatchEventsUrl(batchId: string): string {
+  return apiUrl(`/contracts/batch/${encodeURIComponent(batchId)}/events`);
 }
 
 function getStoredApiKey(provider: string): string {
@@ -590,6 +617,15 @@ export function createApiClient(transport: ApiTransport) {
     scanToS(text: string, threshold = 0.5): Promise<ContractClassifyResponse> {
       return postJson<ContractClassifyResponse>(transport, "/contracts/scan-tos", { text, threshold });
     },
+    createContractBatch(documents: BatchDocumentPayload[], threshold = 0.5, topKTypes = 3): Promise<BatchJob> {
+      return postJson<BatchJob>(transport, "/contracts/batch", { documents, threshold, top_k_types: topKTypes });
+    },
+    getContractBatch(batchId: string): Promise<BatchJob | null> {
+      return requestJson<BatchJob | null>(transport, `/contracts/batch/${encodeURIComponent(batchId)}`, undefined, null);
+    },
+    cancelContractBatch(batchId: string): Promise<BatchJob> {
+      return postJson<BatchJob>(transport, `/contracts/batch/${encodeURIComponent(batchId)}/cancel`, {});
+    },
     askResearch(question: string, sources?: string[], topK = 8, conversationId?: string): Promise<ResearchResponse> {
       return postJson<ResearchResponse>(
         transport,
@@ -702,6 +738,9 @@ export const {
   listEntityTypes,
   classifyContract,
   scanToS,
+  createContractBatch,
+  getContractBatch,
+  cancelContractBatch,
   askResearch,
   getResearchConversation,
   deleteResearchConversation,
