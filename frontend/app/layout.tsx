@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import KeyboardHelpDialog from "../components/KeyboardHelpDialog";
 import SideNav from "../components/side-nav";
 import ToastContainer from "../components/toast-container";
 import { ThemeProvider } from "../lib/theme-provider";
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <SideNav />
             <main className="content">{children}</main>
           </div>
+          <KeyboardHelpDialog />
           <ToastContainer />
         </ThemeProvider>
       </body>

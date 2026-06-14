@@ -43,7 +43,7 @@ function commandDefinitions() {
 
   return definitions.map((definition) => {
     const id = definition.match(/id:\s*"([^"]+)"/)?.[1];
-    const action = definition.match(/action:\s*\{\s*kind:\s*"([^"]+)"(?:,\s*commandId:\s*"([^"]+)")?(?:,\s*href:\s*"([^"]+)")?/s);
+    const action = definition.match(/action:\s*\{\s*kind:\s*"([^"]+)"(?:,\s*commandId:\s*"([^"]+)")?(?:,\s*href:\s*"([^"]+)")?(?:,\s*shortcutId:\s*"([^"]+)")?/s);
     assert.ok(id, `definition is missing id: ${definition}`);
     assert.ok(action, `definition ${id} is missing action`);
     return {
@@ -51,7 +51,46 @@ function commandDefinitions() {
       actionKind: action[1],
       commandId: action[2],
       href: action[3],
+      shortcutId: action[4],
     };
+  });
+}
+
+function keyboardShortcutIds() {
+  const source = read("lib/keyboard.ts");
+  const arrayStart = source.indexOf("export const KEYBOARD_SHORTCUTS");
+  assert.notEqual(arrayStart, -1, "KEYBOARD_SHORTCUTS export is missing");
+
+  const assignment = source.indexOf("=", arrayStart);
+  assert.notEqual(assignment, -1, "KEYBOARD_SHORTCUTS assignment is missing");
+
+  const openBracket = source.indexOf("[", assignment);
+  assert.notEqual(openBracket, -1, "KEYBOARD_SHORTCUTS array is missing");
+
+  const definitions = [];
+  let depth = 0;
+  let definitionStart = -1;
+
+  for (let index = openBracket + 1; index < source.length; index += 1) {
+    const char = source[index];
+    if (char === "{") {
+      if (depth === 0) definitionStart = index;
+      depth += 1;
+    } else if (char === "}") {
+      depth -= 1;
+      if (depth === 0 && definitionStart !== -1) {
+        definitions.push(source.slice(definitionStart, index + 1));
+        definitionStart = -1;
+      }
+    } else if (char === "]" && depth === 0) {
+      break;
+    }
+  }
+
+  return definitions.map((definition) => {
+    const id = definition.match(/id:\s*"([^"]+)"/)?.[1];
+    assert.ok(id, `shortcut is missing id: ${definition}`);
+    return id;
   });
 }
 
@@ -83,4 +122,14 @@ test("command palette navigation commands target existing app routes", () => {
 
   assert.equal(navigationCommands.find((definition) => definition.id === "home")?.href, "/");
   assert.deepEqual(brokenRoutes, []);
+});
+
+test("keyboard help shortcuts and palette shortcut commands match 1:1", () => {
+  const shortcutIds = keyboardShortcutIds();
+  const paletteShortcutIds = commandDefinitions()
+    .filter((definition) => definition.actionKind === "shortcut")
+    .map((definition) => definition.shortcutId);
+
+  assert.equal(shortcutIds.length, 9);
+  assert.deepEqual(new Set(paletteShortcutIds), new Set(shortcutIds));
 });

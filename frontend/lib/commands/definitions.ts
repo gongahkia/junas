@@ -2,32 +2,39 @@ import type { LucideIcon } from "lucide-react";
 import {
   BookOpenText,
   ChartColumnIncreasing,
+  Copy,
   ClipboardList,
   Download,
   FileSearch,
   FileText,
   Fingerprint,
   GitCompareArrows,
+  HelpCircle,
   History,
   Home,
+  Keyboard,
   LayoutTemplate,
   MessageSquarePlus,
+  PanelLeft,
   PenLine,
+  Play,
   Search,
   Settings,
   ShieldCheck,
   Share2,
   LayoutGrid,
 } from "lucide-react";
+import type { KeyboardActionId } from "../keyboard";
 
-export type CommandCategory = "research" | "analysis" | "drafting" | "tools" | "system";
+export type CommandCategory = "shortcuts" | "research" | "analysis" | "drafting" | "tools" | "system";
 
 export type CommandAction =
   | { kind: "command"; commandId: string }
   | { kind: "navigate"; href: string }
   | { kind: "new-chat" }
   | { kind: "click-by-text"; text: string }
-  | { kind: "share" };
+  | { kind: "share" }
+  | { kind: "shortcut"; shortcutId: KeyboardActionId };
 
 export interface CommandDefinition {
   id: string;
@@ -44,9 +51,10 @@ export interface CommandSection {
   commands: CommandDefinition[];
 }
 
-const CATEGORY_ORDER: readonly CommandCategory[] = ["research", "analysis", "drafting", "tools", "system"];
+const CATEGORY_ORDER: readonly CommandCategory[] = ["shortcuts", "research", "analysis", "drafting", "tools", "system"];
 
 const CATEGORY_LABELS: Record<CommandCategory, string> = {
+  shortcuts: "Shortcuts",
   research: "Research",
   analysis: "Analysis",
   drafting: "Drafting",
@@ -55,6 +63,70 @@ const CATEGORY_LABELS: Record<CommandCategory, string> = {
 };
 
 export const COMMAND_DEFINITIONS: readonly CommandDefinition[] = [
+  {
+    id: "open-command-palette",
+    label: "Open Command Palette",
+    description: "Search commands and app pages",
+    category: "shortcuts",
+    icon: Keyboard,
+    action: { kind: "shortcut", shortcutId: "open-command-palette" },
+  },
+  {
+    id: "open-keyboard-help",
+    label: "Open Keyboard Help",
+    description: "Show every keyboard shortcut",
+    category: "shortcuts",
+    icon: HelpCircle,
+    action: { kind: "shortcut", shortcutId: "open-keyboard-help" },
+  },
+  {
+    id: "focus-chat-input",
+    label: "Focus Chat Input",
+    description: "Jump to the chat composer",
+    category: "shortcuts",
+    icon: MessageSquarePlus,
+    action: { kind: "shortcut", shortcutId: "focus-chat-input" },
+  },
+  {
+    id: "toggle-session-sidebar",
+    label: "Toggle Session Sidebar",
+    description: "Show or hide the sidebar",
+    category: "shortcuts",
+    icon: PanelLeft,
+    action: { kind: "shortcut", shortcutId: "toggle-session-sidebar" },
+  },
+  {
+    id: "export-current-view-docx",
+    label: "Export Current View to DOCX",
+    description: "Download the active exportable view",
+    category: "shortcuts",
+    icon: Download,
+    action: { kind: "shortcut", shortcutId: "export-current-view-docx" },
+  },
+  {
+    id: "copy-last-assistant-response",
+    label: "Copy Last Assistant Response",
+    description: "Copy the newest Junas response",
+    category: "shortcuts",
+    icon: Copy,
+    action: { kind: "shortcut", shortcutId: "copy-last-assistant-response" },
+  },
+  {
+    id: "jump-to-page-palette",
+    label: "Jump to Page",
+    description: "Open page-only palette",
+    category: "shortcuts",
+    icon: Search,
+    action: { kind: "shortcut", shortcutId: "jump-to-page-palette" },
+  },
+  {
+    id: "rerun-last-benchmark",
+    label: "Re-run Last Benchmark",
+    description: "Repeat the latest leaderboard run",
+    category: "shortcuts",
+    icon: Play,
+    action: { kind: "shortcut", shortcutId: "rerun-last-benchmark" },
+  },
   {
     id: "search-case-law",
     label: "Search Case Law",
@@ -149,7 +221,7 @@ export const COMMAND_DEFINITIONS: readonly CommandDefinition[] = [
     description: "Start a fresh conversation",
     category: "system",
     icon: MessageSquarePlus,
-    action: { kind: "new-chat" },
+    action: { kind: "shortcut", shortcutId: "new-chat" },
   },
   {
     id: "home",
@@ -197,7 +269,7 @@ export const COMMAND_DEFINITIONS: readonly CommandDefinition[] = [
     description: "Open saved conversations",
     category: "system",
     icon: History,
-    action: { kind: "click-by-text", text: "History" },
+    action: { kind: "navigate", href: "/chat" },
   },
   {
     id: "export",
@@ -205,7 +277,7 @@ export const COMMAND_DEFINITIONS: readonly CommandDefinition[] = [
     description: "Download the current chat as Markdown",
     category: "system",
     icon: Download,
-    action: { kind: "click-by-text", text: "Export" },
+    action: { kind: "click-by-text", text: "Export .md" },
   },
   {
     id: "share",

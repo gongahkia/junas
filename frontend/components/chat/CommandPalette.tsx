@@ -7,12 +7,14 @@ import {
   getCommandSections,
   matchesCommandQuery,
 } from "../../lib/commands/definitions";
+import { SHORTCUT_BY_ID } from "../../lib/keyboard";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   onSelectCommand: (cmdId: string) => void;
   onNewChat: () => void;
+  filterMode?: "all" | "pages";
 }
 
 function clickButtonByText(text: string): void {
@@ -32,11 +34,15 @@ async function shareCurrentPage(): Promise<void> {
   }
 }
 
-export default function CommandPalette({ isOpen, onClose, onSelectCommand, onNewChat }: Props) {
+export default function CommandPalette({ isOpen, onClose, onSelectCommand, onNewChat, filterMode = "all" }: Props) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(0);
 
-  const filteredCommands = useMemo(() => COMMAND_DEFINITIONS.filter((definition) => matchesCommandQuery(definition, query)), [query]);
+  const baseCommands = useMemo(
+    () => COMMAND_DEFINITIONS.filter((definition) => filterMode === "all" || definition.action.kind === "navigate"),
+    [filterMode],
+  );
+  const filteredCommands = useMemo(() => baseCommands.filter((definition) => matchesCommandQuery(definition, query)), [baseCommands, query]);
   const sections = useMemo(() => getCommandSections(filteredCommands), [filteredCommands]);
   const flatCommands = useMemo(() => sections.flatMap((section) => section.commands), [sections]);
   const indexById = useMemo(() => new Map(flatCommands.map((command, index) => [command.id, index])), [flatCommands]);
@@ -62,6 +68,9 @@ export default function CommandPalette({ isOpen, onClose, onSelectCommand, onNew
         case "share":
           void shareCurrentPage().catch(() => undefined);
           return;
+        case "shortcut":
+          window.dispatchEvent(new CustomEvent("junas:keyboard-action", { detail: { id: command.action.shortcutId } }));
+          return;
       }
     },
     [onClose, onNewChat, onSelectCommand],
@@ -72,7 +81,7 @@ export default function CommandPalette({ isOpen, onClose, onSelectCommand, onNew
       setQuery("");
       setSelected(0);
     }
-  }, [isOpen]);
+  }, [filterMode, isOpen]);
 
   useEffect(() => {
     if (flatCommands.length === 0) {
@@ -211,6 +220,11 @@ export default function CommandPalette({ isOpen, onClose, onSelectCommand, onNew
                           </span>
                           <span style={{ display: "block", fontSize: "0.8rem", color: "#64748b" }}>{command.description}</span>
                         </span>
+                        {command.action.kind === "shortcut" && (
+                          <span style={{ fontSize: "0.65rem", color: "#64748b", fontWeight: 700, fontFamily: "monospace", whiteSpace: "nowrap" }}>
+                            {SHORTCUT_BY_ID.get(command.action.shortcutId)?.mac}
+                          </span>
+                        )}
                         {command.action.kind === "command" && (
                           <span style={{ fontSize: "0.65rem", color: "#94a3b8", fontWeight: 600, fontFamily: "monospace" }}>
                             /{command.id}

@@ -4,8 +4,7 @@ import type { NodeMap, TreeMessage, MessageRole } from "../../lib/chat-tree";
 import { createId, getLinearHistory, getBranchSiblings, addChild, findLeaves } from "../../lib/chat-tree";
 import { chatStream, parseDocument } from "../../lib/api-client";
 import { handleCommand } from "../../lib/commands/command-handler";
-import { saveConversation, loadConversation, generateConversationId, listConversations } from "../../lib/conversation-store";
-import { useKeyboardShortcuts } from "../../lib/use-keyboard-shortcuts";
+import { saveConversation, loadConversation, generateConversationId } from "../../lib/conversation-store";
 import TokenCounter from "../../components/chat/TokenCounter";
 import CommandSuggestions, { COMMANDS } from "../../components/chat/CommandSuggestions";
 import { addNotification } from "../../lib/notification-store";
@@ -15,7 +14,6 @@ import ExportButton from "../../components/ExportButton";
 
 const LegalMarkdownRenderer = lazy(() => import("../../components/chat/LegalMarkdownRenderer"));
 const ForceGraph = lazy(() => import("../../components/chat/ForceGraph"));
-const CommandPalette = lazy(() => import("../../components/chat/CommandPalette"));
 
 type Tab = "chat" | "tree";
 
@@ -38,13 +36,13 @@ export default function HomePage() {
   const [cmdOpen, setCmdOpen] = useState(false);
   const [cmdQuery, setCmdQuery] = useState("");
   const [cmdIndex, setCmdIndex] = useState(0);
-  const [paletteOpen, setPaletteOpen] = useState(false);
   // file upload
   const [pendingFile, setPendingFile] = useState<{ name: string; text: string } | null>(null);
   // artifacts
   const [artifactsContent, setArtifactsContent] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   // refs
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef<AbortController | null>(null);
   const startTimeRef = useRef(0);
@@ -74,12 +72,6 @@ export default function HomePage() {
     }, 500);
   }, [nodeMap, currentLeafId, conversationId]);
 
-  // keyboard shortcuts
-  useKeyboardShortcuts({
-    onCommandPalette: () => setPaletteOpen(true),
-    onNewChat: () => newChat(),
-  });
-
   // sidebar events
   useEffect(() => {
     const handleLoad = (e: Event) => {
@@ -87,11 +79,23 @@ export default function HomePage() {
       if (id) loadFromHistory(id);
     };
     const handleNew = () => newChat();
+    const handleCommandEvent = (e: Event) => {
+      const id = (e as CustomEvent).detail?.id;
+      if (id) onCommandSelect(id);
+    };
+    const handleFocusInput = () => {
+      setActiveTab("chat");
+      requestAnimationFrame(() => inputRef.current?.focus());
+    };
     window.addEventListener("junas:load-conversation", handleLoad);
     window.addEventListener("junas:new-chat", handleNew);
+    window.addEventListener("junas:chat-command", handleCommandEvent);
+    window.addEventListener("junas:focus-chat-input", handleFocusInput);
     return () => {
       window.removeEventListener("junas:load-conversation", handleLoad);
       window.removeEventListener("junas:new-chat", handleNew);
+      window.removeEventListener("junas:chat-command", handleCommandEvent);
+      window.removeEventListener("junas:focus-chat-input", handleFocusInput);
     };
   }, []);
 
@@ -99,9 +103,19 @@ export default function HomePage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const convId = params.get("c");
+    const command = params.get("command") || localStorage.getItem("junas_pending_chat_command");
     if (convId) {
       loadFromHistory(convId);
       window.history.replaceState({}, "", "/chat"); // clean URL
+    }
+    if (command) {
+      localStorage.removeItem("junas_pending_chat_command");
+      onCommandSelect(command);
+      window.history.replaceState({}, "", "/chat");
+    }
+    if (params.get("focus") === "1") {
+      requestAnimationFrame(() => inputRef.current?.focus());
+      window.history.replaceState({}, "", "/chat");
     }
   }, []);
 
@@ -148,6 +162,20 @@ export default function HomePage() {
   const stopGeneration = () => { abortRef.current?.abort(); };
   const newChat = () => { setNodeMap({}); setCurrentLeafId(""); setConversationId(""); setActiveTab("chat"); };
   const notifyActiveConversation = (id: string) => { window.dispatchEvent(new CustomEvent("junas:active-conversation", { detail: { id } })); };
+
+  useEffect(() => {
+    const handleCopyLastAssistant = async () => {
+      const lastAssistant = [...messages].reverse().find((message) => message.role === "assistant" && message.content.trim());
+      if (!lastAssistant) {
+        addNotification("info", "Nothing to copy", "No assistant response in this chat.");
+        return;
+      }
+      await navigator.clipboard.writeText(lastAssistant.content);
+      addNotification("success", "Copied", "Last assistant response copied.");
+    };
+    window.addEventListener("junas:copy-last-assistant-response", handleCopyLastAssistant);
+    return () => window.removeEventListener("junas:copy-last-assistant-response", handleCopyLastAssistant);
+  }, [messages]);
 
   const startEdit = (msgId: string) => { const msg = nodeMap[msgId]; if (msg?.role === "user") { setEditingId(msgId); setEditContent(msg.content); } };
   const saveEdit = () => {
@@ -258,7 +286,7 @@ export default function HomePage() {
     setInput(val);
     if (val.startsWith("/") && !val.includes(" ")) { setCmdOpen(true); setCmdQuery(val.slice(1)); setCmdIndex(0); } else { setCmdOpen(false); }
   };
-  const onCommandSelect = (cmdId: string) => { setInput(`/${cmdId} `); setCmdOpen(false); setPaletteOpen(false); };
+  const onCommandSelect = (cmdId: string) => { setInput(`/${cmdId} `); setCmdOpen(false); };
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (cmdOpen) {
       if (e.key === "ArrowDown") { e.preventDefault(); setCmdIndex(i => i + 1); }
@@ -277,6 +305,7 @@ export default function HomePage() {
   const renderInputBar = (isHome: boolean) => (
     <div className={isHome ? "chat-input-home" : "chat-input-home"} style={!isHome ? { borderRadius: "0.75rem" } : undefined}>
       <textarea
+        ref={inputRef}
         value={input}
         onChange={e => onInputChange(e.target.value)}
         onKeyDown={onKeyDown}
@@ -443,9 +472,6 @@ export default function HomePage() {
       )}
 
       {/* modals */}
-      <Suspense fallback={null}>
-        <CommandPalette isOpen={paletteOpen} onClose={() => setPaletteOpen(false)} onSelectCommand={onCommandSelect} onNewChat={newChat} />
-      </Suspense>
       <ArtifactsPanel isOpen={!!artifactsContent} onClose={() => setArtifactsContent("")} content={artifactsContent} />
     </div>
   );
