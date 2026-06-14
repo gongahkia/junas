@@ -37,6 +37,8 @@ class OfficeAddinTests(unittest.TestCase):
 
     def test_manifest_declares_on_message_send_launch_event(self):
         xml = (OFFICE / "manifest.xml").read_text(encoding="utf-8")
+        self.assertIn("Pre-send policy review and decision support", xml)
+        self.assertNotIn("Pre-send review through the local Kaypoh daemon", xml)
         self.assertIn('DefaultMinVersion="1.15"', xml)
         self.assertIn('xsi:type="LaunchEvent"', xml)
         self.assertIn('Type="OnMessageSend"', xml)

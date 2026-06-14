@@ -72,7 +72,7 @@
 - [x] P0/RepoLayout: Add `docs/integrations/outlook.md` documenting Smart Alerts flow, SendMode behavior, admin deployment, fallback behavior, and known client limitations.
 - [x] P0/RepoLayout: Add `docs/integrations/word.md` documenting Word taskpane as document review, not true send-time enforcement.
 - [x] P0/RepoLayout: Add `docs/integrations/desktop-watcher.md` documenting clipboard/folder watch as opt-in local fallback with no enterprise enforcement claim.
-- [ ] P1/Outlook: Update the Outlook add-in manifest description to point at pre-send review and policy decisions rather than only local daemon review.
+- [x] P1/Outlook: Update the Outlook add-in manifest description to point at pre-send review and policy decisions rather than only local daemon review.
 - [ ] P1/Outlook: Replace hard-coded `https://localhost:3000` manifest URLs with a documented build-time manifest templating flow for dev, staging, and production.
 - [ ] P1/Outlook: Add a manifest validation script that verifies Mailbox requirement set, `OnMessageSend`, SendMode, runtime URL, taskpane URL, and production HTTPS host.
 - [ ] P1/Outlook: Implement Smart Alerts behavior that maps backend policy decisions to allow, soft block, hard block, or prompt-user completion semantics.
