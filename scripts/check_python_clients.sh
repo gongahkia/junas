@@ -20,6 +20,7 @@ echo "Verifying Kaypoh sync and async Python clients..."
     scripts/examples/async_client_example.py \
     scripts/examples/review_then_actions_sync.py \
     scripts/examples/review_then_actions_async.py \
+    scripts/examples/review_stdin_policy.py \
     scripts/examples/round_trip_example.py \
     scripts/examples/decision_flow_example.py
 "${PYTHON[@]}" -m unittest test.test_python_client

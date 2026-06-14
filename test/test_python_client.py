@@ -1,8 +1,12 @@
 import asyncio
+import importlib.util
+import io
 import json
 import sys
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 import httpx
 
@@ -886,6 +890,52 @@ class KaypohClientTests(unittest.TestCase):
             self.assertEqual(ctx.exception.detail, "invalid or missing API key")
 
         asyncio.run(scenario())
+
+    def test_stdin_policy_example_exits_nonzero_when_policy_blocks(self):
+        script_path = ROOT / "scripts" / "examples" / "review_stdin_policy.py"
+        spec = importlib.util.spec_from_file_location("review_stdin_policy_example", script_path)
+        assert spec is not None and spec.loader is not None
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        testcase = self
+
+        class FakePolicy:
+            def model_dump_json(self, *, indent: int) -> str:
+                testcase.assertEqual(indent, 2)
+                return '{\n  "decision": "block",\n  "send_allowed": false\n}'
+
+        class FakeReview:
+            policy_decision = FakePolicy()
+            policy_send_allowed = False
+
+        class FakeClient:
+            def __init__(self, *args, **kwargs) -> None:
+                pass
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb) -> None:
+                pass
+
+            def review(self, **kwargs):
+                testcase.assertEqual(kwargs["text"], "restricted memo")
+                return FakeReview()
+
+        stdout = io.StringIO()
+        stderr = io.StringIO()
+        with (
+            mock.patch.object(module, "KaypohClient", FakeClient),
+            mock.patch.object(sys, "argv", ["review_stdin_policy.py"]),
+            mock.patch("sys.stdin", io.StringIO("restricted memo")),
+            redirect_stdout(stdout),
+            redirect_stderr(stderr),
+        ):
+            exit_code = module.main()
+
+        self.assertEqual(exit_code, 1)
+        self.assertIn('"decision": "block"', stdout.getvalue())
+        self.assertEqual(stderr.getvalue(), "")
 
 
 if __name__ == "__main__":

@@ -122,6 +122,13 @@ python scripts/examples/review_then_actions_async.py \
   "Send Dr Jane Tan S1234567D the confidential draft before announcement."
 ```
 
+Review stdin and exit nonzero when policy blocks send:
+
+```sh
+printf '%s\n' 'Send Dr Jane Tan S1234567D externally.' | \
+  python scripts/examples/review_stdin_policy.py --document-type email
+```
+
 Authenticated example:
 
 ```sh
