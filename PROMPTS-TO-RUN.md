@@ -129,9 +129,6 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | Prompt | Tier | Notes |
 |---|---|---|
 | `Batch H H1` SGLB-10 Citation-Generation | 5 | Uses SAL grammar already on main. Cost-safe. |
-| `Batch F F2` MCP tools (5 wrappers) | 5 | F1 landed (PR #125). Cost-safe. |
-| `Batch F F3` MCP setup docs + example prompts + troubleshooting | 5 | Docs only. Cost-safe. |
-| `Batch F F4` MCP tests | 5 | Needs F1 + F2 landed. Cost-safe. |
 | `SOLO-7` Reference copilot scope cleanup | 5 | Audit + cuts non-SG surfaces. Cost-safe. |
 | `SOLO-11` Port SG contract templates | 5 | Gated on `SOLO-7` landing first. Cost-safe. |
 | `SOLO-8` arXiv preprint §§1-3 draft | 4 | §§4-5 (Results/Limitations) gated on Wave 2 baselines. Docs only. |
@@ -158,7 +155,7 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | `Batch G G1` v0.2 multi-judge upgrade | 5 | v0.1 smoke can fire now with Azure; v0.2 upgrade waits |
 
 ### Total remaining
-- **10 fireable now**, **4 cost-gated**, **4 deferred**. 18 prompts total.
+- **7 fireable now**, **4 cost-gated**, **4 deferred**. 15 prompts total.
 
 ## Fire order
 
@@ -2465,7 +2462,7 @@ on, any spec-doc inconsistencies you noticed while writing.
 
 _Reference copilot polish + v0.2 task expansion._
 
-**TIER 5 — 6 OF (many) DONE ✅ (2026-06-06 to 2026-06-14, commit 20773c7 + PRs #124-126 + local G3/G4 work).**
+**TIER 5 — 9 OF (many) DONE ✅ (2026-06-06 to 2026-06-14, commit 20773c7 + PRs #124-126 + local G3/G4/F4 work).**
 
 | Work unit | What | PR / commit |
 |---|---|---|
@@ -2475,8 +2472,11 @@ _Reference copilot polish + v0.2 task expansion._
 | `SOLO-12` Logfire observability | Opt-in telemetry (default off); 5 no-op contract tests | #124 |
 | `COPILOT-3` DOCX export | python-docx-based export for receipts + chat sessions; 14 tests; <3s for 200-msg session | #126 |
 | `Batch G G4` SGLB-16 Review-Redflag-Recall | 30-case deterministic smoke dataset; span-localised red-flag task, prompt builder, strong evaluator, tests, and harness smoke. Fixed final-text span anchoring for planted governing-law defects. | local work 2026-06-14 |
+| `Batch F F2` MCP tool implementations | Five wrappers for benchmark, citation, statute, case retrieval, and compliance tools. | local work 2026-06-14 |
+| `Batch F F3` MCP setup docs | Claude Desktop setup, example prompts, and troubleshooting docs. | local work 2026-06-14 |
+| `Batch F F4` MCP tests + integration | Tool/server tests; verified 10/10 pass in temp env with `mcp>=1.27`; fixed repo-root server import path. | local work 2026-06-14 |
 
-**Still pending in Tier 5:** Batch G G1 (v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), Batch F F2/F3/F4, SOLO-7, SOLO-11, COPILOT-1/2/4.
+**Still pending in Tier 5:** Batch G G1 (v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), SOLO-7, SOLO-11, COPILOT-1/2/4.
 
 # Batch G — v0.2 Task Wave 1 (#50, #54, #55, #57), 4 parallel agents
 
@@ -2853,124 +2853,6 @@ Report back: MCP SDK version pinned; transport latency observations.
 
 
 </details>
-
-## F2: Tool implementations
-
-```text
-You are working on issue #48 in the junas repo. WAIT until F1 has
-landed feat/mcp-server. Read AGENT-RUNBOOK.md, F1's server.py,
-backend/api/services/sal_citation.py, statute_lookup.py,
-case_retrieval.py, compliance_service.py.
-
-Goal: implement 5 MCP tools that delegate to existing copilot services.
-
-Files you own:
-- backend/mcp/tools/__init__.py
-- backend/mcp/tools/run_benchmark.py
-- backend/mcp/tools/verify_citation.py
-- backend/mcp/tools/lookup_statute.py
-- backend/mcp/tools/retrieve_cases.py
-- backend/mcp/tools/check_compliance.py
-
-Files you must NOT touch:
-- backend/mcp/server.py (F1)
-- backend/api/services/* (consumer code only)
-- docs/mcp/* (F3)
-- backend/tests/test_mcp_*.py (F4)
-
-Tools:
-1. `run_benchmark(task: str, model: str) -> dict` — invokes
-   `benchmark.cli` against `task`; validates `task` in TASKS; model
-   in {azure, anthropic, gemini, ollama}; returns receipt summary.
-2. `verify_citation(citation: str) -> dict` — wraps
-   `api.services.sal_citation.validate_citation`.
-3. `lookup_statute(query: str) -> dict` — wraps statute_lookup.
-4. `retrieve_cases(query: str, k: int = 5) -> dict` — wraps
-   case_retrieval.
-5. `check_compliance(text: str, regime: str) -> dict` — regime ∈
-   {pdpa, employment_act, roc_2021}.
-
-Each tool: declare JSON input schema; return JSON-serializable dict;
-surface errors via an `error` field (do not raise).
-
-Branch: feat/mcp-server.
-Commit: `feat(mcp): 5 tools delegating to copilot services (advances
-#48)`.
-
-Acceptance: F1's `list_tools` returns 5 tools after import; each
-callable via the MCP test client.
-
-Report back: any service that lacked a clean entry point.
-```
-
-## F3: Claude Desktop config + setup docs
-
-```text
-You are working on issue #48 in the junas repo. WAIT until F1 has
-landed. Read AGENT-RUNBOOK.md.
-
-Goal: end-user setup so a Claude Desktop user can install + use
-junas-mcp in <5 min.
-
-Files you own:
-- docs/mcp/setup.md
-- docs/mcp/example-prompts.md (10 prompts exercising each tool)
-- docs/mcp/troubleshooting.md
-
-Files you must NOT touch:
-- backend/mcp/* (F1/F2)
-- backend/tests/test_mcp_*.py (F4)
-
-Setup doc:
-- Cover macOS / Linux / Windows.
-- Exact JSON snippet for `~/Library/Application Support/Claude/
-  claude_desktop_config.json` (macOS path; equivalent paths for the
-  other two OSes).
-- BYOK env-var-setting step (Azure or Anthropic).
-- Verification: ask Claude Desktop to call the `health` tool.
-
-Example prompts: 10 covering each tool individually + 2 chained
-workflows.
-
-Branch: feat/mcp-server.
-Commit: `docs(mcp): setup + example prompts + troubleshooting
-(advances #48)`.
-
-Acceptance: a fresh user can install + use junas-mcp within 5 min.
-
-Report back: brittle setup steps; OS-specific gotchas.
-```
-
-## F4: MCP tests + integration
-
-```text
-You are working on issue #48 in the junas repo. WAIT until F1+F2
-have landed. Read AGENT-RUNBOOK.md, F1's server, F2's tools.
-
-Goal: tests for the MCP server + tools.
-
-Files you own:
-- backend/tests/test_mcp_server.py
-- backend/tests/test_mcp_tools.py
-
-Files you must NOT touch:
-- backend/mcp/* (F1/F2)
-- docs/mcp/* (F3)
-
-Requirements:
-- Mock the underlying api.services calls; do NOT make real LLM calls.
-- For run_benchmark, use the existing MockLLMClient pattern.
-- Test the JSON-schema validation per tool input.
-- One integration test: spawn the server in a subprocess, send a
-  `list_tools` request, assert 5 tools enumerated.
-
-Branch: feat/mcp-server.
-Commit: `test(mcp): server + tool tests (advances #48)`.
-
-Acceptance: pytest passes; no network calls in test mode.
-
-Report back: any tool hard to test deterministically.
-```
 
 ## SOLO-7: Reference copilot scope cleanup (#35)
 

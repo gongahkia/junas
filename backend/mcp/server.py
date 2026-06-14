@@ -9,6 +9,10 @@ from importlib import metadata as _metadata
 from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 
+BACKEND_ROOT = Path(__file__).resolve().parents[1]
+if str(BACKEND_ROOT) not in sys.path:
+    sys.path.append(str(BACKEND_ROOT))
+
 from .tools import register_tools
 
 SERVER_NAME = "junas-mcp"
