@@ -113,6 +113,23 @@ Smart Alerts `OnMessageSend` support starts at Mailbox requirement set 1.12, but
 
 Do not claim tenant-wide send enforcement until QA covers every client family assigned in Microsoft 365 admin center groups.
 
+## QA Checklist
+
+Run this checklist before expanding a Microsoft 365 assignment group. Capture client, version, mailbox type, manifest profile, backend commit, policy id/version, and final Smart Alert result for each case.
+
+| Case | Setup | Expected result |
+|---|---|---|
+| Internal recipient | Send a benign message to only internal domains configured in tenant policy. | `/review` receives `recipient_domains` and `recipient_count`; no external-recipient warning should appear unless another rule fires. |
+| External recipient | Send a benign message to at least one non-internal domain. | `/review` receives the external domain; policy decision should be `warn` or stricter when tenant policy defines internal domains. |
+| No attachment | Send a benign message without files. | `/review` receives `attachment_count=0`; no attachment metadata or filenames are stored. |
+| Attachment present | Send a benign message with one or more files. | `/review` receives `attachment_count>0`; filenames and attachment contents are not sent by the current adapter. |
+| PII body | Send body text containing a deterministic PII fixture such as an SG NRIC/FIN test value. | Strict policy must not allow silent send; expect rewrite, approval, block, or prompt-user handling per active policy. |
+| MNPI body | Send body text containing non-public transaction or earnings language covered by MNPI detectors. | Strict policy must not allow silent send; expect hold-until-public, approval, block, or prompt-user handling per active policy. |
+| Timeout | Point the add-in to a backend endpoint that delays longer than the configured send-hook timeout. | Smart Alert completes with "Kaypoh local review is unavailable" and blocks the current send attempt. |
+| Backend unavailable | Stop the local daemon or hosted `/review` route, then send a benign message. | Smart Alert completes with "Kaypoh local review is unavailable" and blocks the current send attempt. |
+
+Repeat the checklist on Outlook on the web, new Outlook on Windows, classic Outlook on Windows, and Outlook on Mac before broad rollout. Outlook mobile is not a send-time enforcement target for this adapter.
+
 ## Send Hook Timeout
 
 The launch-event path uses a shorter timeout than normal API calls because Outlook Smart Alerts runs inside the user's send action. Long waits make the send flow feel broken and can trigger Outlook long-running add-in prompts. The default send-hook timeout is 4000 ms, clamped between 1000 ms and 8000 ms via `kaypoh.sendHookTimeoutMs`.
