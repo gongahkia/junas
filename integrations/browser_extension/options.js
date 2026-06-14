@@ -29,6 +29,56 @@ save.addEventListener("click", async () => {
   });
 });
 
+function authHeaders() {
+  const headers = {"Content-Type": "application/json"};
+  const value = token.value.trim();
+  if (value && authMode.value === "bearer_token") headers.Authorization = `Bearer ${value}`;
+  else if (value && authMode.value !== "none") headers["X-Kaypoh-Local-Token"] = value;
+  return headers;
+}
+
+function healthLabel(kind, detail) {
+  return detail ? `${kind}: ${detail}` : kind;
+}
+
+async function checkConnectionHealth() {
+  const base = endpoint.value.trim() || DEFAULTS.endpoint;
+  const headers = authHeaders();
+  try {
+    const ready = await fetch(`${base}/ready`, {headers});
+    if (ready.status === 401 || ready.status === 403) return healthLabel("auth failed", `${ready.status}`);
+    if (!ready.ok) throw new Error(`ready ${ready.status}`);
+    const review = await fetch(`${base}/review`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        text: "Kaypoh browser extension connection check.",
+        source_jurisdiction: "SG",
+        destination_jurisdiction: "SG",
+        document_type: "generic",
+        review_profile: "strict",
+        degraded_policy: "warn",
+        surface: "browser_genai",
+        workflow: "connection_check"
+      })
+    });
+    if (review.status === 401 || review.status === 403) return healthLabel("auth failed", `${review.status}`);
+    if (!review.ok) throw new Error(`review ${review.status}`);
+    const payload = await review.json();
+    const policy = payload.policy_decision || {};
+    if (policy.send_allowed === false || payload.send_allowed === false) return "policy blocked";
+    return "server healthy";
+  } catch (error) {
+    if (backendMode.value === "local_daemon") return "local daemon unavailable";
+    return healthLabel("server unavailable", String(error.message || error));
+  }
+}
+
+checkConnection.addEventListener("click", async () => {
+  healthStatus.textContent = "checking";
+  healthStatus.textContent = await checkConnectionHealth();
+});
+
 async function pair(path, body) {
   const response = await fetch(`${endpoint.value.trim() || DEFAULTS.endpoint}${path}`, {
     method: "POST",

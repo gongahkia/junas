@@ -31,6 +31,7 @@ Current behavior:
 - Backend mode can be `local_daemon` or `hosted_server`.
 - Tenant auth mode can be `local_token`, `bearer_token`, or `none`.
 - Local daemon token pairing stores the returned token as a `local_token`; hosted server mode sends configured tokens as `Authorization: Bearer ...`.
+- Options include a connection-health check that reports `local daemon unavailable`, `auth failed`, `server healthy`, or `policy blocked`.
 - Supports `review` plus replacement flows selected in options.
 - Paste interception is opt-in through extension settings.
 

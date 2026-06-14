@@ -134,6 +134,71 @@ class FrontendIntegrationTests(unittest.TestCase):
             """
         )
 
+    def test_browser_options_connection_health_classifies_states(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/browser_extension/options.js", "utf8");
+            const listeners = {};
+            const context = {
+              endpoint: {value: "http://127.0.0.1:8765"},
+              backendMode: {value: "local_daemon"},
+              authMode: {value: "local_token"},
+              token: {value: "local-token"},
+              operation: {value: "review"},
+              interceptPaste: {checked: false},
+              save: {addEventListener: (name, fn) => { listeners.save = fn; }},
+              checkConnection: {addEventListener: (name, fn) => { listeners.checkConnection = fn; }},
+              startPairing: {addEventListener: () => {}},
+              completePairing: {addEventListener: () => {}},
+              healthStatus: {textContent: ""},
+              pairingStatus: {textContent: ""},
+              chrome: {
+                storage: {
+                  sync: {
+                    get: async (defaults) => defaults,
+                    set: async () => {}
+                  }
+                }
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "options.js"});
+
+            (async () => {
+              context.fetch = async () => {
+                throw new Error("connect ECONNREFUSED");
+              };
+              assert.strictEqual(await context.checkConnectionHealth(), "local daemon unavailable");
+
+              context.fetch = async () => ({status: 403, ok: false});
+              assert.strictEqual(await context.checkConnectionHealth(), "auth failed: 403");
+
+              context.fetch = async (url) => {
+                if (url.endsWith("/ready")) return {status: 200, ok: true};
+                return {status: 200, ok: true, json: async () => ({send_allowed: false})};
+              };
+              assert.strictEqual(await context.checkConnectionHealth(), "policy blocked");
+
+              context.fetch = async (url) => {
+                if (url.endsWith("/ready")) return {status: 200, ok: true};
+                return {
+                  status: 200,
+                  ok: true,
+                  json: async () => ({send_allowed: true, policy_decision: {send_allowed: true}})
+                };
+              };
+              await listeners.checkConnection();
+              assert.strictEqual(context.healthStatus.textContent, "server healthy");
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
     def test_browser_target_adapters_resolve_known_prompt_selectors(self):
         self.run_node(
             r"""
