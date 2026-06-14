@@ -2,6 +2,12 @@
 
 This roadmap follows the product docs in `docs/product/`. A phase is not promoted by implementation alone; it needs exit evidence.
 
+## Kill Criteria
+
+Adapter promotion requires measurable workflow value, not just technical feasibility. A candidate adapter should stay experimental, be paused, or be archived when it cannot show a useful activation rate, reviewed-send or reviewed-submit rate, accepted-finding rate, safe-rewrite usage, blocked-risk outcome, or audit-pack export path for its target workflow.
+
+Technical completion is insufficient when the adapter creates high false-positive override rates, stores or logs raw content outside policy, lacks admin deployment evidence, cannot survive ordinary surface changes, or duplicates a workflow that direct API integration already handles with less user friction.
+
 ## P0 Backend Policy Contract
 
 Scope:

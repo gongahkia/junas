@@ -13,7 +13,7 @@
 - [x] P0/Product: Add `docs/adr/0002-primary-adapter-outlook-first.md` recording whether Outlook Smart Alerts or browser GenAI extension is the first supported adapter, with evidence and tradeoffs.
 - [x] P0/Product: Add a README note that adapters are not required to integrate Kaypoh because direct HTTP/OpenAPI integration remains the baseline path.
 - [x] P0/Product: Rename README "Anonymization" API tag language in prose to "Review and rewrite" while preserving endpoint names for compatibility.
-- [ ] P0/Product: Add a "Kill Criteria" subsection to `docs/roadmap.md` requiring adapter promotion to show measurable workflow value, not just technical feasibility.
+- [x] P0/Product: Add a "Kill Criteria" subsection to `docs/roadmap.md` requiring adapter promotion to show measurable workflow value, not just technical feasibility.
 - [ ] P0/Product: Add `docs/product/value-metrics.md` defining activation rate, reviewed-send rate, accepted-finding rate, false-positive override rate, safe-rewrite usage, blocked-send rate, and audit-pack export rate.
 - [ ] P0/Product: Add a product glossary covering PII, personal data, MNPI, pre-send review, safe rewrite, redaction, pseudonymization, anonymization, audit evidence, adapter, and surface.
 - [ ] P0/Product: Update `docs/known-limitations.md` to state that standalone manual redaction has lower expected adoption than in-workflow pre-send capture.
