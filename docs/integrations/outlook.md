@@ -73,6 +73,17 @@ Kaypoh policy mapping:
 - Add-in unavailable before Outlook can run it: `SoftBlock` follows Outlook platform behavior, so this is not a fail-closed enforcement path.
 - Taskpane review uses `degraded_policy="warn"` and is user-triggered; Smart Alerts send handling is the enforcement path.
 
+## Failure-Mode Table
+
+| Failure | Current handling | Operator note |
+|---|---|---|
+| Add-in unavailable before event runs | Outlook applies `SoftBlock` platform behavior. | Not fail-closed; validate client support and monitor add-in health. |
+| Backend timeout or unavailable | Handler catch path blocks current send attempt. | Keep timeout lower than normal API calls and route user to taskpane/pairing check. |
+| Offline mode / Work Offline | Event or backend call may not complete. | Treat as unsupported for controlled send enforcement unless tenant accepts soft-block fallback. |
+| Malformed response | Mapping falls back to soft-block unless a valid allow decision is present. | Add telemetry once Outlook adapter telemetry exists. |
+| Auth failure | Non-2xx `/review` response enters backend-unavailable catch path and blocks current send. | User should re-pair local token or fix tenant API/JWT auth. |
+| Degraded document extraction | `degraded_policy="block_send"` plus degraded modes hard-block current send. | User should open Kaypoh Review or retry after extraction issue is resolved. |
+
 ## Known Client Limitations
 
 - Manifest version overrides request Mailbox requirement set 1.15; Smart Alerts minimum support starts at Mailbox 1.12 in Microsoft docs.
