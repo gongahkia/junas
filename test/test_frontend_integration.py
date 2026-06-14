@@ -243,6 +243,34 @@ class FrontendIntegrationTests(unittest.TestCase):
             """
         )
 
+    def test_outlook_smart_alert_message_fixtures_match_runtime(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/outlook_addin/launchevent.js", "utf8");
+            const fixtures = JSON.parse(fs.readFileSync("test/fixtures/outlook_smart_alert_messages.json", "utf8"));
+            const context = {
+              localStorage: {getItem: () => ""},
+              OfficeRuntime: {storage: {getItem: async () => ""}},
+              Office: {
+                MailboxEnums: {SendModeOverride: {PromptUser: "promptUser"}},
+                actions: {associate() {}}
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "launchevent.js"});
+            for (const [name, fixture] of Object.entries(fixtures)) {
+              const completion = context.kaypohSmartAlertCompletion(fixture.input);
+              assert.strictEqual(completion.mode, fixture.mode, name);
+              assert.strictEqual(completion.options.allowEvent, fixture.allowEvent, name);
+              assert.strictEqual(completion.options.errorMessage || "", fixture.errorMessage || "", name);
+              assert.strictEqual(completion.options.sendModeOverride || "", fixture.sendModeOverride || "", name);
+            }
+            """
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

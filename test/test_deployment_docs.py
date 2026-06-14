@@ -90,6 +90,7 @@ class DeploymentDocsTests(unittest.TestCase):
             ROOT / "integrations" / "word_addin" / "manifest.xml",
             ROOT / "integrations" / "word_addin" / "taskpane.js",
             ROOT / "integrations" / "desktop" / "watch.py",
+            ROOT / "test" / "fixtures" / "outlook_smart_alert_messages.json",
         ]
         for path in expected:
             self.assertTrue(path.exists(), f"missing {path}")

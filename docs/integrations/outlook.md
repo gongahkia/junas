@@ -108,6 +108,8 @@ Microsoft requires extra configuration when event-based activation code uses COR
 - Add-in unavailable before Outlook can run it: `SoftBlock` follows Outlook platform behavior, so this is not a fail-closed enforcement path.
 - Taskpane review uses `degraded_policy="warn"` and is user-triggered; Smart Alerts send handling is the enforcement path.
 
+Smart Alert message fixtures for allow, warn, block, and approval-required states live in `test/fixtures/outlook_smart_alert_messages.json`.
+
 ## Failure-Mode Table
 
 | Failure | Current handling | Operator note |
