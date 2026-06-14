@@ -1382,6 +1382,48 @@ def _persist_coverage_warnings(
         )
 
 
+def _hash_policy_values(values: list[str]) -> list[str]:
+    return sorted(hashlib.sha256(value.encode("utf-8")).hexdigest() for value in values)
+
+
+def _persist_policy_decision_event(
+    *,
+    request_id: str | None,
+    document_text: str,
+    policy_decision: PolicyDecisionResponse | None,
+    finding_count: int,
+    degraded_modes: list[dict[str, Any]],
+    tenant_id: str | None = None,
+) -> None:
+    if not _review_persistence_enabled() or not request_id or policy_decision is None:
+        return
+    from kaypoh.review.decisions import EVENT_POLICY_DECISION_RECORDED
+    from kaypoh.review.journal import append_event
+
+    append_event(
+        event_type=EVENT_POLICY_DECISION_RECORDED,
+        review_id=request_id,
+        payload={
+            "document_hash": hashlib.sha256(document_text.encode("utf-8")).hexdigest(),
+            "decision": policy_decision.decision,
+            "send_allowed": policy_decision.send_allowed,
+            "policy_id": policy_decision.policy_id,
+            "policy_version": policy_decision.policy_version,
+            "finding_count": int(finding_count),
+            "degraded_mode_count": len(degraded_modes),
+            "blocking_finding_count": len(policy_decision.blocking_findings),
+            "blocking_finding_hashes": _hash_policy_values(policy_decision.blocking_findings),
+            "required_action_count": len(policy_decision.required_actions),
+            "required_action_hashes": _hash_policy_values(policy_decision.required_actions),
+            "recommended_action_count": len(policy_decision.recommended_actions),
+            "recommended_action_hashes": _hash_policy_values(policy_decision.recommended_actions),
+            "policy_reason_count": len(policy_decision.policy_reasons),
+            "policy_reason_hashes": _hash_policy_values(policy_decision.policy_reasons),
+        },
+        tenant_id=tenant_id,
+    )
+
+
 def _persist_review_session(
     *,
     request_id: str | None,
@@ -1533,6 +1575,14 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
         ),
         lane_suppressed_count=lane_result.suppressed_count,
     )
+    _persist_policy_decision_event(
+        request_id=request_id,
+        document_text=document.text,
+        policy_decision=response.policy_decision,
+        finding_count=len(result.findings),
+        degraded_modes=degraded_modes,
+        tenant_id=tenant.storage_tenant_id,
+    )
 
     observability = get_observability()
     if observability is not None:
@@ -1666,6 +1716,14 @@ def _run_placeholder_review_sync(
             lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []
         ),
         lane_suppressed_count=lane_result.suppressed_count,
+    )
+    _persist_policy_decision_event(
+        request_id=request_id,
+        document_text=document.text,
+        policy_decision=review_response.policy_decision,
+        finding_count=len(result.findings),
+        degraded_modes=degraded_modes,
+        tenant_id=tenant.storage_tenant_id,
     )
     return {
         "document": document,

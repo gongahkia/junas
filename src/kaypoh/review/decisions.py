@@ -19,6 +19,7 @@ EVENT_DECISION_RECORDED = "decision_recorded"
 EVENT_ANONYMIZE_APPLIED = "anonymize_applied"
 EVENT_AUDIT_EXPORTED = "audit_exported"
 EVENT_COVERAGE_WARNING = "coverage_warning"  # advisory output from the LLM inverse audit
+EVENT_POLICY_DECISION_RECORDED = "policy_decision_recorded"
 EVENT_SUBJECT_ERASURE_RECORDED = "subject_erasure_recorded"
 
 
@@ -129,6 +130,7 @@ def get_session_state(*, review_id: str, tenant_id: str | None = None) -> dict[s
     decisions: dict[str, dict[str, Any]] = {}
     audit_exports: list[dict[str, Any]] = []
     anonymize_events: list[dict[str, Any]] = []
+    policy_decision_events: list[dict[str, Any]] = []
     for entry in entries[1:]:
         if entry.event_type == EVENT_DECISION_RECORDED:
             decisions[entry.payload["finding_id"]] = {**entry.payload, "seq": entry.seq, "ts": entry.ts}
@@ -136,6 +138,8 @@ def get_session_state(*, review_id: str, tenant_id: str | None = None) -> dict[s
             anonymize_events.append({**entry.payload, "seq": entry.seq, "ts": entry.ts})
         elif entry.event_type == EVENT_AUDIT_EXPORTED:
             audit_exports.append({**entry.payload, "seq": entry.seq, "ts": entry.ts})
+        elif entry.event_type == EVENT_POLICY_DECISION_RECORDED:
+            policy_decision_events.append({**entry.payload, "seq": entry.seq, "ts": entry.ts})
     return {
         "review_id": review_id,
         "text_hash": init.get("text_hash"),
@@ -146,6 +150,7 @@ def get_session_state(*, review_id: str, tenant_id: str | None = None) -> dict[s
         "decisions": list(decisions.values()),
         "anonymize_events": anonymize_events,
         "audit_exports": audit_exports,
+        "policy_decisions": policy_decision_events,
     }
 
 
