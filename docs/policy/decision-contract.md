@@ -5,6 +5,7 @@ Adapters must treat `policy_decision` as the source of truth and keep `send_allo
 ## Common Rules
 
 - Always preserve `review_id` for retry, approval, audit, and user-support flows.
+- Use `docs/api/idempotency.md` for adapter-local retry grouping before issuing duplicate review requests.
 - Display `policy_reasons` without adding raw prompt, email, document, or matched-span text to logs.
 - Offer only actions present in `action_catalog`, then prioritize `required_actions` over `recommended_actions`.
 - Treat `blocking_findings` as identifiers only; fetch or render finding details from the review response according to adapter privacy rules.
