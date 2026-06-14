@@ -2,7 +2,7 @@
 
 Adapters are optional activation surfaces. The FastAPI backend remains the trust boundary for validation, tenant auth, deterministic review, policy decisions, rewrite actions, audit evidence, and SIEM-safe observability. Direct HTTP/OpenAPI integration is the baseline path and does not require any UI adapter.
 
-This directory is an integration index only. Current adapter source still lives in `packaging/`, `src/kaypoh/desktop/`, and `src/kaypoh/integrations/` until a layout ADR approves a move.
+This directory is an integration index until the ADR 0004 follow-up move lands. Current adapter source still lives in `packaging/`, `src/kaypoh/desktop/`, and `src/kaypoh/integrations/`.
 
 No `CODEOWNERS` file exists in this repo, so owner labels below are functional owners.
 
