@@ -65,6 +65,21 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
 
         self.assertEqual(settings.pipeline.layers, ("llm_adjudicator",))
 
+    def test_api_request_body_limit_loads_from_config(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = []
+
+            [api]
+            max_request_bytes = 4096
+            """
+        )
+
+        settings = runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertEqual(settings.api.max_request_bytes, 4096)
+
     def test_llm_helper_layers_are_valid_and_enable_matching_helpers(self):
         config_path = self._write_config(
             """

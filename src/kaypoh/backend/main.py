@@ -1232,6 +1232,10 @@ def _document_degraded_modes(document: Any) -> list[dict[str, Any]]:
     return modes
 
 
+def _degraded_send_allowed(req: ReviewRequest, degraded_modes: list[dict[str, Any]]) -> bool:
+    return not (req.degraded_policy == "block_send" and bool(degraded_modes))
+
+
 def _finding_response(finding: Any) -> ReviewFindingResponse:
     return ReviewFindingResponse(
         id=finding.id,
@@ -1269,6 +1273,7 @@ def _build_review_response(
     response_findings = list(result.findings if visible_findings is None else visible_findings)
     suppressed_findings = list(lane_suppressed_findings or [])
     visible_ids = {finding.id for finding in response_findings}
+    modes = list(degraded_modes or [])
     return ReviewResponse(
         request_id=request_id,
         overall_risk=result.overall_risk,
@@ -1282,6 +1287,8 @@ def _build_review_response(
         jurisdiction_policy=result.jurisdiction_policy,
         document_type=req.document_type,
         review_profile=req.review_profile,
+        degraded_policy=req.degraded_policy,
+        send_allowed=_degraded_send_allowed(req, modes),
         document=ReviewDocumentMetadataResponse(
             filename=document.filename,
             mime_type=document.mime_type,
@@ -1310,7 +1317,7 @@ def _build_review_response(
         llm_adjudication=LLMAdjudicationResponse(**result.llm_adjudication) if result.llm_adjudication else None,
         privacy_ledger=[PrivacyLedgerEntryResponse(**entry) for entry in result.privacy_ledger],
         coverage_warnings=list(result.coverage_warnings),
-        degraded_modes=list(degraded_modes or []),
+        degraded_modes=modes,
         timings_ms=timings_ms,
     )
 
@@ -2058,6 +2065,35 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def api_request_guard_middleware(request: Request, call_next):
+    if request.method.upper() in {"POST", "PUT", "PATCH"}:
+        max_bytes = current_runtime_settings().api.max_request_bytes
+        raw_length = request.headers.get("content-length", "").strip()
+        if raw_length:
+            try:
+                content_length = int(raw_length)
+            except ValueError:
+                return PrettyJSONResponse(status_code=400, content={"detail": "invalid Content-Length header"})
+            if content_length > max_bytes:
+                return PrettyJSONResponse(
+                    status_code=413,
+                    content={"detail": f"request body exceeds configured limit of {max_bytes} bytes"},
+                )
+        body = await request.body()
+        if len(body) > max_bytes:
+            return PrettyJSONResponse(
+                status_code=413,
+                content={"detail": f"request body exceeds configured limit of {max_bytes} bytes"},
+            )
+
+        async def receive() -> dict[str, Any]:
+            return {"type": "http.request", "body": body, "more_body": False}
+
+        request._receive = receive
+    return await call_next(request)
 
 
 @app.middleware("http")

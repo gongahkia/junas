@@ -19,7 +19,8 @@ async function callKaypoh(text) {
     source_jurisdiction: "SG",
     destination_jurisdiction: "SG",
     document_type: "generic",
-    review_profile: "strict"
+    review_profile: "strict",
+    degraded_policy: "warn"
   };
   const response = await fetch(`${cfg.endpoint}/${op}`, {method: "POST", headers, body: JSON.stringify(body)});
   if (!response.ok) throw new Error(`kaypoh ${response.status}`);

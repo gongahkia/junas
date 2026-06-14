@@ -25,6 +25,9 @@ class OfficeAddinTests(unittest.TestCase):
         self.assertIn("/local/pairing/start", js)
         self.assertIn("/local/pairing/claim", js)
         self.assertIn("client_token", js)
+        self.assertIn('degraded_policy: "warn"', js)
+        self.assertIn("degraded_modes", js)
+        self.assertIn("send_allowed", js)
 
     def test_taskpane_can_check_pairing_status(self):
         js = (OFFICE / "taskpane.js").read_text(encoding="utf-8")
@@ -49,6 +52,9 @@ class OfficeAddinTests(unittest.TestCase):
         self.assertIn("/review", js)
         self.assertIn("allowEvent: false", js)
         self.assertIn("X-Kaypoh-Local-Token", js)
+        self.assertIn('degraded_policy: "block_send"', js)
+        self.assertIn("result.send_allowed === false", js)
+        self.assertIn("could not fully inspect", js)
         self.assertIn("launchevent.js", html)
 
 

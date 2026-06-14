@@ -46,6 +46,15 @@ class ResponseFormattingTests(unittest.TestCase):
         self.assertIn('\n  "detail": "invalid or missing API key"\n', response.text)
         self.assertEqual(json.loads(response.text)["detail"], "invalid or missing API key")
 
+    def test_request_body_limit_returns_pretty_413_before_validation(self):
+        with patch.dict(os.environ, {"KAYPOH_MAX_REQUEST_BYTES": "1024"}, clear=False):
+            with TestClient(test_app.app) as client:
+                response = client.post("/classify", json={"text": "x" * 2000})
+
+        self.assertEqual(response.status_code, 413)
+        self.assertTrue(response.text.startswith("{\n"))
+        self.assertIn("request body exceeds configured limit", response.json()["detail"])
+
 
 if __name__ == "__main__":
     unittest.main()

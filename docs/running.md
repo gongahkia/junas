@@ -12,7 +12,9 @@ uv run python scripts/preflight.py --strict
 
 The default runtime is deterministic-only. `PIPELINE_LAYERS` should normally be empty. Optional server layers are `public_evidence`, `llm_adjudicator`, `llm_defined_term_extractor`, and `llm_coverage_auditor`.
 
-Document ingest defaults to fail-open: unsupported or partially unreadable payloads return a degraded best-effort response instead of HTTP 422. Set `KAYPOH_DOCUMENT_FAIL_CLOSED=1` to reject those payloads.
+Document ingest defaults to fail-open: unsupported or partially unreadable payloads return a degraded best-effort response instead of HTTP 422. Set `KAYPOH_DOCUMENT_FAIL_CLOSED=1` to reject those payloads. Review and rewrite calls also accept `degraded_policy=allow|warn|block_send`; `block_send` returns `send_allowed=false` when degraded coverage is present.
+
+Request bodies are capped by `api.max_request_bytes` / `KAYPOH_MAX_REQUEST_BYTES` (default `10485760`) before schema validation.
 
 ## Launch
 

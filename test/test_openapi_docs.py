@@ -60,10 +60,12 @@ class OpenApiDocsTests(unittest.TestCase):
 
         self.assertIn("include_offending_spans", classify_request["properties"])
         self.assertIn("document_base64", review_request["properties"])
+        self.assertIn("degraded_policy", review_request["properties"])
         self.assertIn("include_mnpi_scalars", anonymize_request["properties"])
         self.assertIn("persist_mapping", pseudonymize_request["properties"])
         self.assertIn("pii_score", review_response["properties"])
         self.assertIn("mnpi_score", review_response["properties"])
+        self.assertIn("send_allowed", review_response["properties"])
         self.assertIn("document_base64", scrub_request["properties"])
         self.assertIn("metadata_findings", scrub_response["properties"])
         self.assertIn("anonymized_text", anonymize_response["properties"])

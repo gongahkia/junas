@@ -82,10 +82,13 @@ chrome.runtime.onMessage.addListener((message) => {
   }
   if (message.type !== "kaypoh-result") return;
   const findings = Array.isArray(message.result.findings) ? message.result.findings.length : 0;
+  const degraded = Array.isArray(message.result.degraded_modes) ? message.result.degraded_modes.length : 0;
   const pii = message.result.pii_score ?? 0;
   const mnpi = message.result.mnpi_score ?? 0;
   const action = message.replacementText ? `${message.operation} applied` : "review complete";
-  showPanel(`Kaypoh: ${action}; ${findings} findings; PII ${pii}; MNPI ${mnpi}`);
+  const send = message.result.send_allowed === false ? "; send blocked" : "";
+  const coverage = degraded ? `; ${degraded} degraded${send}` : send;
+  showPanel(`Kaypoh: ${action}; ${findings} findings; PII ${pii}; MNPI ${mnpi}${coverage}`);
 });
 
 document.addEventListener("paste", async (event) => {

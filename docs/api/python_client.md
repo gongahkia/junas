@@ -159,7 +159,7 @@ with KaypohClient("http://localhost:8000") as client:
     print(result.suggestions)
 ```
 
-For file inputs, pass `document_base64`, `document_filename`, and optionally `document_mime_type`. Supported v1 extraction paths are plain text, DOCX, and PDF when `pypdf` is installed. PDF review returns degraded fail-open responses when the text layer is absent or too sparse unless `KAYPOH_DOCUMENT_FAIL_CLOSED=1` is set, and metadata leakage findings are returned under `result.document.metadata_findings`.
+For file inputs, pass `document_base64`, `document_filename`, and optionally `document_mime_type`. Supported v1 extraction paths are plain text, DOCX, and PDF when `pypdf` is installed. PDF review returns degraded fail-open responses when the text layer is absent or too sparse unless `KAYPOH_DOCUMENT_FAIL_CLOSED=1` is set, and metadata leakage findings are returned under `result.document.metadata_findings`. Use `degraded_policy="block_send"` when clients should treat degraded coverage as non-sendable; responses expose `send_allowed`.
 
 To scrub supported container metadata before sharing a file:
 

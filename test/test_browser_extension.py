@@ -40,10 +40,13 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("captureInsertionPoint(target)", text)
         self.assertIn("event.preventDefault()", text)
         self.assertIn("insertText(target, text, insertionPoint)", text)
+        self.assertIn("degraded_modes", text)
+        self.assertIn("send_allowed", text)
 
     def test_worker_routes_all_privacy_operations(self):
         text = (EXT / "service_worker.js").read_text(encoding="utf-8")
         self.assertIn('["review", "pseudonymize", "anonymize", "redact"]', text)
+        self.assertIn('degraded_policy: "warn"', text)
         self.assertIn("result.pseudonymized_text", text)
         self.assertIn("result.anonymized_text", text)
         self.assertIn("result.redacted_text", text)

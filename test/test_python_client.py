@@ -68,6 +68,8 @@ def build_review_payload(*, request_id: str, classification: str = "LOW_RISK") -
         "jurisdiction_policy": "strictest_wins",
         "document_type": "generic",
         "review_profile": "strict",
+        "degraded_policy": "warn",
+        "send_allowed": True,
         "document": {
             "filename": "inline.txt",
             "mime_type": "text/plain",
@@ -257,8 +259,23 @@ class KaypohClientTests(unittest.TestCase):
                 "document_type": "email",
                 "review_profile": "strict",
                 "include_suggestions": True,
+                "degraded_policy": "warn",
             },
         )
+
+    def test_review_can_set_degraded_policy(self):
+        observed: dict[str, object] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            observed["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(200, json=build_review_payload(request_id="review-policy"))
+
+        transport = httpx.MockTransport(handler)
+
+        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+            client.review(text="Send to jane@example.com", degraded_policy="block_send")
+
+        self.assertEqual(observed["body"]["degraded_policy"], "block_send")
 
     def test_anonymize_sends_expected_payload_and_returns_typed_response(self):
         observed: dict[str, object] = {}
@@ -299,6 +316,7 @@ class KaypohClientTests(unittest.TestCase):
                 "review_profile": "strict",
                 "include_suggestions": True,
                 "include_mnpi_scalars": False,
+                "degraded_policy": "warn",
             },
         )
 
@@ -499,6 +517,7 @@ class KaypohClientTests(unittest.TestCase):
                 "document_type": "generic",
                 "review_profile": "strict",
                 "include_suggestions": True,
+                "degraded_policy": "warn",
             },
         )
 
@@ -546,6 +565,7 @@ class KaypohClientTests(unittest.TestCase):
                 "review_profile": "strict",
                 "include_suggestions": True,
                 "include_mnpi_scalars": True,
+                "degraded_policy": "warn",
             },
         )
 

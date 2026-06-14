@@ -69,7 +69,8 @@ async function kaypohReview(text) {
       source_jurisdiction: "SG",
       destination_jurisdiction: "SG",
       document_type: "word_document",
-      review_profile: "strict"
+      review_profile: "strict",
+      degraded_policy: "warn"
     })
   });
   if (!response.ok) throw new Error(`kaypoh ${response.status}`);
@@ -86,7 +87,9 @@ async function run(source) {
     output.textContent = JSON.stringify({
       pii_score: result.pii_score,
       mnpi_score: result.mnpi_score,
-      findings: Array.isArray(result.findings) ? result.findings.length : 0
+      findings: Array.isArray(result.findings) ? result.findings.length : 0,
+      degraded_modes: Array.isArray(result.degraded_modes) ? result.degraded_modes.length : 0,
+      send_allowed: result.send_allowed !== false
     }, null, 2);
   } catch (error) {
     output.textContent = String(error);

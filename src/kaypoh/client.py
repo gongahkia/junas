@@ -143,6 +143,7 @@ def _coerce_review_request(
     review_profile: str,
     entity_id: str | None,
     include_suggestions: bool,
+    degraded_policy: str,
 ) -> ReviewRequest:
     if request is not None:
         if text is not None or document_base64 is not None:
@@ -162,6 +163,7 @@ def _coerce_review_request(
         review_profile=review_profile,
         entity_id=entity_id,
         include_suggestions=include_suggestions,
+        degraded_policy=degraded_policy,
     )
 
 
@@ -179,6 +181,7 @@ def _coerce_anonymize_request(
     entity_id: str | None,
     include_suggestions: bool,
     include_mnpi_scalars: bool,
+    degraded_policy: str,
 ) -> AnonymizeRequest:
     if request is not None:
         if text is not None or document_base64 is not None:
@@ -199,6 +202,7 @@ def _coerce_anonymize_request(
         entity_id=entity_id,
         include_suggestions=include_suggestions,
         include_mnpi_scalars=include_mnpi_scalars,
+        degraded_policy=degraded_policy,
     )
 
 
@@ -217,6 +221,7 @@ def _coerce_pseudonymize_request(
     include_suggestions: bool,
     include_mnpi_scalars: bool,
     persist_mapping: bool,
+    degraded_policy: str,
 ) -> PseudonymizeRequest:
     if request is not None:
         if text is not None or document_base64 is not None:
@@ -238,6 +243,7 @@ def _coerce_pseudonymize_request(
         include_suggestions=include_suggestions,
         include_mnpi_scalars=include_mnpi_scalars,
         persist_mapping=persist_mapping,
+        degraded_policy=degraded_policy,
     )
 
 
@@ -255,6 +261,7 @@ def _coerce_redact_request(
     entity_id: str | None,
     include_suggestions: bool,
     include_mnpi_scalars: bool,
+    degraded_policy: str,
 ) -> RedactRequest:
     if request is not None:
         if text is not None or document_base64 is not None:
@@ -275,6 +282,7 @@ def _coerce_redact_request(
         entity_id=entity_id,
         include_suggestions=include_suggestions,
         include_mnpi_scalars=include_mnpi_scalars,
+        degraded_policy=degraded_policy,
     )
 
 
@@ -460,6 +468,7 @@ class KaypohClient:
         review_profile: str = "strict",
         entity_id: str | None = None,
         include_suggestions: bool = True,
+        degraded_policy: str = "warn",
         request: ReviewRequest | Mapping[str, Any] | None = None,
     ) -> ReviewResponse:
         payload = _coerce_review_request(
@@ -474,6 +483,7 @@ class KaypohClient:
             review_profile=review_profile,
             entity_id=entity_id,
             include_suggestions=include_suggestions,
+            degraded_policy=degraded_policy,
         )
         return ReviewResponse.model_validate(
             self._request_json(
@@ -497,6 +507,7 @@ class KaypohClient:
         entity_id: str | None = None,
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
+        degraded_policy: str = "warn",
         request: AnonymizeRequest | Mapping[str, Any] | None = None,
     ) -> AnonymizeResponse:
         payload = _coerce_anonymize_request(
@@ -512,6 +523,7 @@ class KaypohClient:
             entity_id=entity_id,
             include_suggestions=include_suggestions,
             include_mnpi_scalars=include_mnpi_scalars,
+            degraded_policy=degraded_policy,
         )
         return AnonymizeResponse.model_validate(
             self._request_json(
@@ -536,6 +548,7 @@ class KaypohClient:
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
         persist_mapping: bool = True,
+        degraded_policy: str = "warn",
         request: PseudonymizeRequest | Mapping[str, Any] | None = None,
     ) -> PseudonymizeResponse:
         payload = _coerce_pseudonymize_request(
@@ -552,6 +565,7 @@ class KaypohClient:
             include_suggestions=include_suggestions,
             include_mnpi_scalars=include_mnpi_scalars,
             persist_mapping=persist_mapping,
+            degraded_policy=degraded_policy,
         )
         return PseudonymizeResponse.model_validate(
             self._request_json(
@@ -575,6 +589,7 @@ class KaypohClient:
         entity_id: str | None = None,
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
+        degraded_policy: str = "warn",
         request: RedactRequest | Mapping[str, Any] | None = None,
     ) -> RedactResponse:
         payload = _coerce_redact_request(
@@ -590,6 +605,7 @@ class KaypohClient:
             entity_id=entity_id,
             include_suggestions=include_suggestions,
             include_mnpi_scalars=include_mnpi_scalars,
+            degraded_policy=degraded_policy,
         )
         return RedactResponse.model_validate(
             self._request_json(
@@ -762,6 +778,7 @@ class AsyncKaypohClient:
         review_profile: str = "strict",
         entity_id: str | None = None,
         include_suggestions: bool = True,
+        degraded_policy: str = "warn",
         request: ReviewRequest | Mapping[str, Any] | None = None,
     ) -> ReviewResponse:
         payload = _coerce_review_request(
@@ -776,6 +793,7 @@ class AsyncKaypohClient:
             review_profile=review_profile,
             entity_id=entity_id,
             include_suggestions=include_suggestions,
+            degraded_policy=degraded_policy,
         )
         return ReviewResponse.model_validate(
             await self._request_json(
@@ -799,6 +817,7 @@ class AsyncKaypohClient:
         entity_id: str | None = None,
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
+        degraded_policy: str = "warn",
         request: AnonymizeRequest | Mapping[str, Any] | None = None,
     ) -> AnonymizeResponse:
         payload = _coerce_anonymize_request(
@@ -814,6 +833,7 @@ class AsyncKaypohClient:
             entity_id=entity_id,
             include_suggestions=include_suggestions,
             include_mnpi_scalars=include_mnpi_scalars,
+            degraded_policy=degraded_policy,
         )
         return AnonymizeResponse.model_validate(
             await self._request_json(
@@ -838,6 +858,7 @@ class AsyncKaypohClient:
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
         persist_mapping: bool = True,
+        degraded_policy: str = "warn",
         request: PseudonymizeRequest | Mapping[str, Any] | None = None,
     ) -> PseudonymizeResponse:
         payload = _coerce_pseudonymize_request(
@@ -854,6 +875,7 @@ class AsyncKaypohClient:
             include_suggestions=include_suggestions,
             include_mnpi_scalars=include_mnpi_scalars,
             persist_mapping=persist_mapping,
+            degraded_policy=degraded_policy,
         )
         return PseudonymizeResponse.model_validate(
             await self._request_json(
@@ -877,6 +899,7 @@ class AsyncKaypohClient:
         entity_id: str | None = None,
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
+        degraded_policy: str = "warn",
         request: RedactRequest | Mapping[str, Any] | None = None,
     ) -> RedactResponse:
         payload = _coerce_redact_request(
@@ -892,6 +915,7 @@ class AsyncKaypohClient:
             entity_id=entity_id,
             include_suggestions=include_suggestions,
             include_mnpi_scalars=include_mnpi_scalars,
+            degraded_policy=degraded_policy,
         )
         return RedactResponse.model_validate(
             await self._request_json(

@@ -53,7 +53,7 @@ SIEM_FACILITIES = frozenset(
 )
 
 KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
-    "api": frozenset({"allowed_origins"}),
+    "api": frozenset({"allowed_origins", "max_request_bytes"}),
     "local_daemon": frozenset({"acl_enabled", "allowed_origins", "token", "token_file", "socket_path"}),
     "document_ingest": frozenset(
         {
@@ -161,6 +161,7 @@ class PipelineSettings:
 class ApiSettings:
     allowed_origins: tuple[str, ...]
     api_key: str = ""
+    max_request_bytes: int = 10 * 1024 * 1024
 
 
 @dataclass(frozen=True)
@@ -617,6 +618,18 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         label="api.allowed_origins",
     ) or ("http://localhost", "http://127.0.0.1")
     api_key = _parse_str(os.environ.get("KAYPOH_API_KEY", ""), label="KAYPOH_API_KEY")
+    max_request_bytes = _parse_int(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="api",
+            key="max_request_bytes",
+            env_vars=("KAYPOH_MAX_REQUEST_BYTES",),
+            default=10 * 1024 * 1024,
+        ),
+        label="api.max_request_bytes",
+        minimum=1024,
+    )
 
     local_daemon_allowed_origins = _parse_list(
         _resolve_raw_value(
@@ -1607,7 +1620,11 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         config_path=config_path,
         raw_config=raw_config,
         pipeline=PipelineSettings(layers=tuple(pipeline_layers), optional_layers=tuple(optional_layers)),
-        api=ApiSettings(allowed_origins=tuple(dict.fromkeys(allowed_origins)), api_key=api_key),
+        api=ApiSettings(
+            allowed_origins=tuple(dict.fromkeys(allowed_origins)),
+            api_key=api_key,
+            max_request_bytes=max_request_bytes,
+        ),
         local_daemon=local_daemon,
         document_ingest=document_ingest,
         tenancy=tenancy,

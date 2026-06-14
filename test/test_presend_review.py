@@ -236,6 +236,25 @@ class PreSendReviewApiTests(unittest.TestCase):
         self.assertEqual(payload["document"]["extraction_quality"], "degraded")
         self.assertTrue(any(mode["status"] == "failed_open" for mode in payload["degraded_modes"]))
 
+    def test_degraded_policy_block_send_marks_response_not_sendable(self):
+        encoded = base64.b64encode(b"raw bytes").decode("ascii")
+
+        with TestClient(main.app) as client:
+            response = client.post(
+                "/review",
+                json={
+                    "document_base64": encoded,
+                    "document_filename": "memo.bin",
+                    "document_mime_type": "application/octet-stream",
+                    "degraded_policy": "block_send",
+                },
+            )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertEqual(payload["degraded_policy"], "block_send")
+        self.assertFalse(payload["send_allowed"])
+
     def test_review_reuses_optional_public_evidence_and_local_llm(self):
         public_evidence = DummyPublicEvidence()
         llm = DummyLLMAdjudicator()

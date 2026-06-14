@@ -61,7 +61,8 @@ async function kaypoh(path, text) {
       source_jurisdiction: "SG",
       destination_jurisdiction: "SG",
       document_type: "email",
-      review_profile: "strict"
+      review_profile: "strict",
+      degraded_policy: "warn"
     })
   });
   if (!response.ok) throw new Error(`kaypoh ${response.status}`);
@@ -140,6 +141,8 @@ async function run(path) {
       pii_score: result.pii_score,
       mnpi_score: result.mnpi_score,
       findings: Array.isArray(result.findings) ? result.findings.length : 0,
+      degraded_modes: Array.isArray(result.degraded_modes) ? result.degraded_modes.length : 0,
+      send_allowed: result.send_allowed !== false,
       privacy_operation: result.privacy_operation || ""
     }, null, 2);
   } catch (error) {

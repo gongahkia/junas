@@ -33,7 +33,8 @@ function kaypohReview(endpoint, token, text) {
       source_jurisdiction: "SG",
       destination_jurisdiction: "SG",
       document_type: "email",
-      review_profile: "strict"
+      review_profile: "strict",
+      degraded_policy: "block_send"
     })
   }).then((response) => {
     if (!response.ok) throw new Error(`kaypoh ${response.status}`);
@@ -57,8 +58,13 @@ function onMessageSendHandler(event) {
     .then(([endpoint, token]) => kaypohBodyText(event).then((text) => kaypohReview(endpoint || KAYPOH_DEFAULT_ENDPOINT, token, text)))
     .then((result) => {
       const findings = Array.isArray(result.findings) ? result.findings.length : 0;
+      const degraded = Array.isArray(result.degraded_modes) ? result.degraded_modes.length : 0;
       const pii = Number(result.pii_score || 0);
       const mnpi = Number(result.mnpi_score || 0);
+      if (result.send_allowed === false || degraded > 0) {
+        kaypohComplete(event, false, "Kaypoh could not fully inspect this message. Open Kaypoh Review before sending.");
+        return;
+      }
       if (findings > 0 || pii >= 0.5 || mnpi >= 0.5) {
         kaypohComplete(event, false, "Kaypoh found possible PII/MNPI. Open Kaypoh Review to redact or approve before sending.");
       } else {

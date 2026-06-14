@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -166,6 +166,14 @@ class ReviewRequest(BaseModel):
     include_suggestions: bool = Field(
         True,
         description="Include redaction or rewrite suggestions for each finding.",
+    )
+    degraded_policy: Literal["allow", "warn", "block_send"] = Field(
+        "warn",
+        description=(
+            "Caller policy for degraded review coverage. `allow` accepts degraded best-effort responses, "
+            "`warn` surfaces degraded_modes while allowing send, and `block_send` sets send_allowed=false "
+            "when degraded_modes are present."
+        ),
     )
     session_id: Optional[str] = Field(
         None,
@@ -607,6 +615,14 @@ class ReviewResponse(BaseModel):
     jurisdiction_policy: str = Field(description="Jurisdiction aggregation policy; v1 uses strictest_wins.")
     document_type: str = Field(description="Customer-supplied document type reviewed by the endpoint.")
     review_profile: str = Field(description="Review profile used by the endpoint.")
+    degraded_policy: Literal["allow", "warn", "block_send"] = Field(
+        "warn",
+        description="Caller policy applied to degraded review coverage.",
+    )
+    send_allowed: bool = Field(
+        True,
+        description="False when degraded_policy=block_send and degraded coverage was observed.",
+    )
     document: ReviewDocumentMetadataResponse = Field(description="Extracted document metadata.")
     findings: list[ReviewFindingResponse] = Field(default_factory=list, description="Localized PII and MNPI findings.")
     lane_suppressed_count: int = Field(

@@ -105,6 +105,9 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertIn('Host Name="Document"', word_manifest)
         self.assertIn("/review", word_js)
         self.assertIn("X-Kaypoh-Local-Token", word_js)
+        self.assertIn('degraded_policy: "warn"', word_js)
+        self.assertIn("degraded_modes", word_js)
+        self.assertIn("send_allowed", word_js)
 
 
 if __name__ == "__main__":
