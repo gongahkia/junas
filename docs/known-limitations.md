@@ -10,5 +10,6 @@
 - SAML is not parsed directly. Use an identity-aware proxy or IdP bridge that emits signed JWTs.
 - Windows desktop packaging is not shipped by default in this repo.
 - Local browser/Office pairing requires the desktop process or an admin flow to approve the first-connect code.
+- Standalone manual redaction has lower expected adoption than in-workflow pre-send capture because users must leave the send/share workflow and remember to run a separate tool.
 - Subject erasure deletes reversible mappings and writes journal tombstones; immutable logs, SIEM, backups, and legal-hold archives require separate operator controls.
 - Accuracy docs are internal benchmark disclosures unless explicitly promoted with human-reviewed corpus locks.

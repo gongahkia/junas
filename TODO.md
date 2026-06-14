@@ -16,7 +16,7 @@
 - [x] P0/Product: Add a "Kill Criteria" subsection to `docs/roadmap.md` requiring adapter promotion to show measurable workflow value, not just technical feasibility.
 - [x] P0/Product: Add `docs/product/value-metrics.md` defining activation rate, reviewed-send rate, accepted-finding rate, false-positive override rate, safe-rewrite usage, blocked-send rate, and audit-pack export rate.
 - [x] P0/Product: Add a product glossary covering PII, personal data, MNPI, pre-send review, safe rewrite, redaction, pseudonymization, anonymization, audit evidence, adapter, and surface.
-- [ ] P0/Product: Update `docs/known-limitations.md` to state that standalone manual redaction has lower expected adoption than in-workflow pre-send capture.
+- [x] P0/Product: Update `docs/known-limitations.md` to state that standalone manual redaction has lower expected adoption than in-workflow pre-send capture.
 - [ ] P0/Product: Add examples that show Kaypoh reviewing a GenAI prompt, an external email, a legal memo, a DMS upload, and a Slack-style message using the same backend contract.
 - [ ] P0/API: Design a `PolicyDecisionResponse` schema with `decision`, `send_allowed`, `required_actions`, `recommended_actions`, `blocking_findings`, `policy_id`, `policy_version`, `policy_reasons`, and `review_id`.
 - [ ] P0/API: Extend `ReviewRequest` with optional `surface`, `workflow`, `actor_role`, `recipient_domains`, `recipient_count`, `attachment_count`, `sensitivity_label`, `external_destination`, and `requested_action` fields.
