@@ -76,6 +76,28 @@ Normal backend and batch workflows may use longer API timeouts because they are 
 
 Shared Outlook taskpane code can live in `taskpane.js`, but `launchevent.js` must remain self-contained for send-hook activation.
 
+## CORS And Well-Known URI Checklist
+
+Microsoft requires extra configuration when event-based activation code uses CORS or SSO from the event runtime. Before a hosted Outlook pilot:
+
+- Serve taskpane, commands page, and `launchevent.js` from the same HTTPS add-in origin used in the rendered manifest.
+- Serve `https://<add-in-origin>/.well-known/microsoft-officeaddins-allowed.json` without auth or redirects.
+- Include the exact rendered `JSRuntime.Url` in the well-known JSON:
+
+```json
+{
+  "allowed": [
+    "https://outlook-addin.example.com/launchevent.js"
+  ]
+}
+```
+
+- Keep the well-known file `Content-Type` as `application/json`.
+- Configure backend CORS to allow the add-in origin and the headers used by the event runtime: `Content-Type`, `X-Kaypoh-Local-Token`, and `Authorization` when tenant auth is enabled.
+- Support `OPTIONS` preflight for `/review` and local pairing routes used by Outlook.
+- Confirm the rendered manifest `JSRuntime.Url`, CORS allowlist, and well-known `allowed` entry match exactly after staging/production templating.
+- Do not allow wildcard origins for production tenant deployments.
+
 ## Fallback Behavior
 
 - Backend unavailable: current handler blocks the send attempt with "Kaypoh local review is unavailable" when the handler runs.
