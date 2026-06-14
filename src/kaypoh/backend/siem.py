@@ -26,7 +26,9 @@ SENSITIVE_HASH_KEYS = {
     "context_after",
     "context_before",
     "document_text",
+    "error",
     "matched_text",
+    "message",
     "original_text",
     "query",
     "reason",
@@ -36,7 +38,17 @@ SENSITIVE_HASH_KEYS = {
     "reviewer_id",
     "text",
 }
-SENSITIVE_DROP_KEYS = {"api_key", "ciphertext", "content", "mapping", "secret"}
+SENSITIVE_HASH_SUFFIXES = (
+    "_matched_text",
+    "_original_text",
+    "_query",
+    "_reason",
+    "_replacement_text",
+    "_reviewer_id",
+    "_text",
+)
+SENSITIVE_DROP_KEYS = {"api_key", "authorization", "ciphertext", "content", "mapping", "secret", "token"}
+SENSITIVE_DROP_SUFFIXES = ("_api_key", "_authorization", "_ciphertext", "_mapping", "_secret", "_token")
 
 
 def _now_iso() -> str:
@@ -59,9 +71,9 @@ def _hash_field_name(key: str) -> str:
 
 def _sanitize_value(key: str, value: Any) -> Any:
     normalized_key = key.lower()
-    if normalized_key in SENSITIVE_DROP_KEYS:
+    if normalized_key in SENSITIVE_DROP_KEYS or normalized_key.endswith(SENSITIVE_DROP_SUFFIXES):
         return "[redacted]"
-    if normalized_key in SENSITIVE_HASH_KEYS:
+    if normalized_key in SENSITIVE_HASH_KEYS or normalized_key.endswith(SENSITIVE_HASH_SUFFIXES):
         text = str(value or "")
         return {
             _hash_field_name(normalized_key): _sha256_text(text),

@@ -92,6 +92,33 @@ class SIEMExportTests(unittest.TestCase):
         self.assertEqual(payload["schema_version"], siem.SCHEMA_VERSION)
         self.assertEqual(payload["category"], "security")
 
+    def test_security_details_hash_or_drop_nested_sensitive_values(self):
+        event = siem.build_security_siem_event(
+            action="document_review",
+            outcome="failed",
+            details={
+                "error": "OCR parser saw jane.doe@example.com and S1234567D",
+                "client_token": "client-token-secret",
+                "nested": {
+                    "user_api_key": "api-key-secret",
+                    "decision_reason": "contains passport E1234567",
+                    "reviewer_id": "alice@example.com",
+                },
+            },
+        )
+        serialized = json.dumps(event, sort_keys=True)
+
+        self.assertIn("error_sha256", event["details"]["error"])
+        self.assertEqual(event["details"]["client_token"], "[redacted]")
+        self.assertEqual(event["details"]["nested"]["user_api_key"], "[redacted]")
+        self.assertIn("decision_reason_sha256", event["details"]["nested"]["decision_reason"])
+        self.assertIn("reviewer_id_sha256", event["details"]["nested"]["reviewer_id"])
+        self.assertNotIn("jane.doe@example.com", serialized)
+        self.assertNotIn("S1234567D", serialized)
+        self.assertNotIn("client-token-secret", serialized)
+        self.assertNotIn("api-key-secret", serialized)
+        self.assertNotIn("E1234567", serialized)
+
     def test_journal_append_invokes_siem_without_raw_payload(self):
         with tempfile.TemporaryDirectory() as tmp:
             with mock.patch.dict(

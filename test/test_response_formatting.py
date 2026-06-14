@@ -55,6 +55,29 @@ class ResponseFormattingTests(unittest.TestCase):
         self.assertTrue(response.text.startswith("{\n"))
         self.assertIn("request body exceeds configured limit", response.json()["detail"])
 
+    def test_invalid_content_length_returns_pretty_400_before_validation(self):
+        with TestClient(test_app.app) as client:
+            response = client.post(
+                "/classify",
+                content=b'{"text":"public update"}',
+                headers={"Content-Length": "bogus", "Content-Type": "application/json"},
+            )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertTrue(response.text.startswith("{\n"))
+        self.assertEqual(response.json()["detail"], "invalid Content-Length header")
+
+    def test_invalid_degraded_policy_returns_pretty_422_contract_error(self):
+        with TestClient(test_app.app) as client:
+            response = client.post(
+                "/review",
+                json={"text": "public update", "degraded_policy": "fail_closed"},
+            )
+
+        self.assertEqual(response.status_code, 422)
+        self.assertTrue(response.text.startswith("{\n"))
+        self.assertIn("degraded_policy", response.text)
+
 
 if __name__ == "__main__":
     unittest.main()

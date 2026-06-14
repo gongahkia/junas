@@ -569,6 +569,36 @@ class KaypohClientTests(unittest.TestCase):
             },
         )
 
+    def test_async_privacy_operations_propagate_degraded_policy(self):
+        observed: dict[str, dict] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            observed[request.url.path] = json.loads(request.content.decode("utf-8"))
+            if request.url.path == "/pseudonymize":
+                return httpx.Response(200, json=build_pseudonymize_payload(request_id="pseudo-async"))
+            if request.url.path == "/redact":
+                return httpx.Response(200, json=build_redact_payload(request_id="redact-async"))
+            raise AssertionError(f"unexpected path: {request.url.path}")
+
+        async def scenario() -> None:
+            transport = httpx.MockTransport(handler)
+            async with AsyncKaypohClient("http://kaypoh.test", transport=transport) as client:
+                pseudo = await client.pseudonymize(
+                    text="Send to jane@example.com",
+                    degraded_policy="block_send",
+                )
+                redacted = await client.redact(
+                    text="Send to jane@example.com",
+                    degraded_policy="allow",
+                )
+                self.assertEqual(pseudo.request_id, "pseudo-async")
+                self.assertEqual(redacted.request_id, "redact-async")
+
+        asyncio.run(scenario())
+
+        self.assertEqual(observed["/pseudonymize"]["degraded_policy"], "block_send")
+        self.assertEqual(observed["/redact"]["degraded_policy"], "allow")
+
     def test_async_convenience_function_returns_typed_response(self):
         def handler(request: httpx.Request) -> httpx.Response:
             return httpx.Response(200, json=build_classify_payload(request_id="req-async-fn"))

@@ -167,6 +167,13 @@ class TenantIsolationTests(unittest.TestCase):
             )
             self.assertEqual(response.status_code, 403)
 
+    def test_reviewer_role_cannot_read_audit_state(self):
+        with TestClient(self.main.app) as client:
+            review_id = self._start_review(client, "tenant-a-key")
+            response = client.get(f"/review/{review_id}", headers={"X-API-Key": "reviewer-only-key"})
+
+        self.assertEqual(response.status_code, 403)
+
 
 class TenantJWTAuthTests(unittest.TestCase):
     def setUp(self):
@@ -274,6 +281,31 @@ class TenantJWTAuthTests(unittest.TestCase):
             )
 
         self.assertEqual(response.status_code, 401)
+
+    def test_jwt_expired_token_is_rejected(self):
+        token = self._token(exp=int(time.time()) - 1)
+        with TestClient(self.main.app) as client:
+            response = client.post(
+                "/review",
+                headers={"Authorization": f"Bearer {token}"},
+                json={"text": "Send Dr Jane Tan to jane@example.com."},
+            )
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()["detail"], "bearer token expired")
+
+    def test_jwt_signature_tampering_is_rejected(self):
+        token = self._token()
+        token = token[:-1] + ("A" if token[-1] != "A" else "B")
+        with TestClient(self.main.app) as client:
+            response = client.post(
+                "/review",
+                headers={"Authorization": f"Bearer {token}"},
+                json={"text": "Send Dr Jane Tan to jane@example.com."},
+            )
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()["detail"], "invalid bearer token signature")
 
 
 if __name__ == "__main__":
