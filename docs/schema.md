@@ -27,6 +27,12 @@ uv run python scripts/export_openapi_examples.py
 - `coverage_warnings`
 - `observability`
 
+## Migration Note: `send_allowed`
+
+`send_allowed` remains in review and rewrite responses for compatibility, but it is now derived from `policy_decision.send_allowed`. Older clients may continue reading the boolean. New adapter clients should read `policy_decision` first because the outcome combines policy evaluation, findings, workflow context, and degraded coverage.
+
+Before policy decisions, `send_allowed=false` only meant degraded coverage was present while `degraded_policy=block_send`. That condition still blocks send, but it is now one input to policy evaluation. High-risk PII, high-risk MNPI, reviewer approval state, public evidence, external destination, cross-border context, and configured tenant policy can also affect the final value.
+
 ## Runtime Status
 
 - `/ready` exposes configured optional layers and readiness.
