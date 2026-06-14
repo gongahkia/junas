@@ -172,6 +172,23 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_genai_browser_doc_covers_target_assumptions_without_universal_claim(self):
+        text = (ROOT / "docs" / "integrations" / "genai-browser.md").read_text(encoding="utf-8")
+        for token in (
+            "chatgpt.com",
+            "claude.ai",
+            "gemini.google.com",
+            "Generic textarea",
+            "textarea",
+            "contenteditable",
+            "not universal browser DLP",
+            "do not guarantee",
+            "Target DOM mismatch",
+            'surface="browser_genai"',
+            'workflow="prompt_submit"',
+        ):
+            self.assertIn(token, text)
+
 
 if __name__ == "__main__":
     unittest.main()
