@@ -55,7 +55,7 @@
 - [x] P0/UserActions: Update Python client methods to expose policy decisions and action catalog without forcing callers to parse raw dicts.
 - [x] P0/UserActions: Add sync and async Python client examples for "review then safe rewrite" and "review then request approval".
 - [x] P0/UserActions: Add a CLI example script that reviews stdin, prints policy decision JSON, and exits nonzero when policy blocks send.
-- [ ] P0/UserActions: Add a regression test that safe rewrite never persists reversible mappings unless the caller explicitly uses pseudonymization.
+- [x] P0/UserActions: Add a regression test that safe rewrite never persists reversible mappings unless the caller explicitly uses pseudonymization.
 - [ ] P0/UserActions: Add redaction response tests proving opaque redaction responses do not contain original matched text outside ordinary review findings.
 - [ ] P0/RepoLayout: Create `integrations/README.md` describing adapters as optional activation surfaces and listing maturity status, owner, runtime target, and security model.
 - [ ] P0/RepoLayout: Move or mirror adapter docs from `packaging/browser_extension`, `packaging/office_addin`, `packaging/word_addin`, and `src/kaypoh/desktop` into `docs/integrations/` before moving code.

@@ -94,6 +94,49 @@ class MappingStorePersistTests(unittest.TestCase):
             self.assertEqual(restored.status_code, 200, restored.text)
             self.assertEqual(restored.json()["text"], text)
 
+    def test_safe_rewrite_does_not_persist_mapping_when_persistence_enabled(self):
+        text = "Send Dr Jane Tan S1234567D the draft."
+
+        with TestClient(self.main.app) as client:
+            rewritten = client.post(
+                "/safe-rewrite",
+                json={
+                    "text": text,
+                    "source_jurisdiction": "SG",
+                    "destination_jurisdiction": "SG",
+                    "document_type": "email",
+                },
+            )
+            self.assertEqual(rewritten.status_code, 200, rewritten.text)
+            rewritten_payload = rewritten.json()
+            self.assertEqual(rewritten_payload["privacy_operation"], "safe_rewrite")
+            self.assertFalse(rewritten_payload["mapping_persisted"])
+            self.assertFalse((self.tmpdir / "mappings" / f"{rewritten_payload['document_hash']}.json").exists())
+
+            restored = client.post(
+                "/reidentify",
+                json={
+                    "anonymized_text": rewritten_payload["rewritten_text"],
+                    "document_hash": rewritten_payload["document_hash"],
+                },
+            )
+            self.assertEqual(restored.status_code, 404)
+
+            pseudo = client.post(
+                "/pseudonymize",
+                json={
+                    "text": text,
+                    "source_jurisdiction": "SG",
+                    "destination_jurisdiction": "SG",
+                    "document_type": "email",
+                    "persist_mapping": True,
+                },
+            )
+            self.assertEqual(pseudo.status_code, 200, pseudo.text)
+            pseudo_payload = pseudo.json()
+            self.assertTrue(pseudo_payload["mapping_persisted"])
+            self.assertTrue((self.tmpdir / "mappings" / f"{pseudo_payload['document_hash']}.json").exists())
+
     def test_pseudonymize_mapping_store_failure_fails_closed(self):
         with mock.patch.object(self.main, "_save_persisted_mapping", side_effect=OSError("disk full")):
             with TestClient(self.main.app) as client:
