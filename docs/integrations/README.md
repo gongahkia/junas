@@ -4,6 +4,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 
 | Adapter | Source path | Mirror doc |
 |---|---|---|
+| Direct API and Python client | `src/kaypoh/backend/`, `src/kaypoh/client.py`, `docs/api/` | `direct-api.md` |
 | Browser GenAI extension | `integrations/browser_extension/` | `browser-extension.md` |
 | Outlook Smart Alerts add-in | `integrations/outlook_addin/` | `outlook.md` |
 | Word taskpane | `integrations/word_addin/` | `word.md` |

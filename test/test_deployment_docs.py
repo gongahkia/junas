@@ -140,6 +140,21 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_direct_api_integration_doc_covers_baseline_contract(self):
+        text = (ROOT / "docs" / "integrations" / "direct-api.md").read_text(encoding="utf-8")
+        for token in (
+            "Maturity: `core`",
+            "POST /review",
+            '"surface": "api"',
+            '"workflow": "api_review"',
+            "policy_decision",
+            "Idempotency-Key",
+            "/safe-rewrite",
+            "/request-approval",
+            "docs/policy/decision-contract.md",
+        ):
+            self.assertIn(token, text)
+
 
 if __name__ == "__main__":
     unittest.main()
