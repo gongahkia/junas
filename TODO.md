@@ -38,7 +38,7 @@
 - [x] P0/API: Add SIEM export coverage for policy decisions, ensuring sensitive text and matched spans are not emitted.
 - [x] P0/API: Add a migration note in `docs/schema.md` explaining that `send_allowed` is now derived from policy plus degraded coverage, not only `degraded_policy`.
 - [x] P0/API: Add `docs/api/versioning.md` defining `/v1` compatibility rules, deprecation policy for `/classify`, and how adapter clients should pin schema versions.
-- [ ] P0/API: Decide whether to add `/v1/review` aliases or keep root endpoints for v0.1, and record the decision in an ADR before implementing.
+- [x] P0/API: Decide whether to add `/v1/review` aliases or keep root endpoints for v0.1, and record the decision in an ADR before implementing.
 - [ ] P0/API: Add request id and idempotency guidance for adapters so repeated Outlook/browser send checks do not create confusing duplicate review sessions.
 - [ ] P0/API: Add a response field or documented header for `review_expires_at` so adapters know when a user must re-review edited content.
 - [ ] P0/API: Add tests that policy decisions are deterministic for identical text, context, policy config, and tenant.
