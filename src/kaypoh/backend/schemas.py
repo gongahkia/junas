@@ -107,6 +107,15 @@ class ReviewRequest(BaseModel):
                 "destination_jurisdiction": "SG",
                 "document_type": "research_note",
                 "entity_id": "Acme Corp",
+                "surface": "outlook",
+                "workflow": "email_send",
+                "actor_role": "end_user",
+                "recipient_domains": ["example.com"],
+                "recipient_count": 1,
+                "attachment_count": 1,
+                "sensitivity_label": "confidential",
+                "external_destination": True,
+                "requested_action": "send",
                 "include_suggestions": True,
             }
         }
@@ -175,6 +184,78 @@ class ReviewRequest(BaseModel):
             "when degraded_modes are present."
         ),
     )
+    surface: Optional[
+        Literal["api", "outlook", "browser_genai", "dms", "desktop", "word", "slack", "google_workspace", "other"]
+    ] = Field(None, description="Surface where the review was triggered.")
+    workflow: Optional[
+        Literal[
+            "api_review",
+            "email_send",
+            "prompt_submit",
+            "document_upload",
+            "document_review",
+            "desktop_watch",
+            "reviewer_override",
+            "auditor_export",
+            "collaboration_message",
+            "other",
+        ]
+    ] = Field(None, description="Workflow being reviewed within the triggering surface.")
+    actor_role: Optional[
+        Literal[
+            "end_user",
+            "legal_reviewer",
+            "compliance_admin",
+            "security_engineer",
+            "platform_integrator",
+            "auditor",
+            "service_account",
+            "other",
+        ]
+    ] = Field(None, description="Role of the actor requesting review.")
+    recipient_domains: Optional[list[str]] = Field(
+        None,
+        max_length=100,
+        description="Destination domains known to the adapter or API caller. Empty lists are allowed.",
+    )
+    recipient_count: Optional[int] = Field(
+        None,
+        ge=0,
+        le=10000,
+        description="Number of intended recipients when known.",
+    )
+    attachment_count: Optional[int] = Field(
+        None,
+        ge=0,
+        le=1000,
+        description="Number of attachments or uploaded files associated with the workflow.",
+    )
+    sensitivity_label: Optional[str] = Field(
+        None,
+        max_length=128,
+        description="Caller-supplied sensitivity label, such as confidential or restricted.",
+    )
+    external_destination: Optional[bool] = Field(
+        None,
+        description="Whether the destination leaves the caller's trusted internal boundary.",
+    )
+    requested_action: Optional[
+        Literal[
+            "review",
+            "send",
+            "submit",
+            "upload",
+            "safe_rewrite",
+            "redact_pii",
+            "pseudonymize",
+            "anonymize",
+            "request_approval",
+            "hold_until_public",
+            "cite_public_source",
+            "proceed_with_warning",
+            "other",
+        ]
+    ] = Field(None, description="Action the caller wants to complete after review.")
     session_id: Optional[str] = Field(
         None,
         max_length=128,
@@ -217,6 +298,32 @@ class ReviewRequest(BaseModel):
     @classmethod
     def sanitize_review_entity_id(cls, value: Optional[str]) -> Optional[str]:
         return ClassifyRequest.sanitize_entity_id(value)
+
+    @field_validator("recipient_domains")
+    @classmethod
+    def sanitize_recipient_domains(cls, value: Optional[list[str]]) -> Optional[list[str]]:
+        if value is None:
+            return None
+        cleaned: list[str] = []
+        for domain in value:
+            normalized = domain.replace("\x00", "").strip().lower().rstrip(".")
+            if not normalized:
+                continue
+            if len(normalized) > 253:
+                raise ValueError("recipient domain exceeds maximum length 253")
+            if any(ch.isspace() for ch in normalized):
+                raise ValueError("recipient domain cannot contain whitespace")
+            cleaned.append(normalized)
+        return cleaned
+
+    @field_validator("sensitivity_label")
+    @classmethod
+    def sanitize_sensitivity_label(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return None
+        cleaned = value.replace("\x00", "").strip()
+        cleaned = "".join(ch for ch in cleaned if ch.isprintable())
+        return cleaned or None
 
     @model_validator(mode="after")
     def require_text_or_document(self):
