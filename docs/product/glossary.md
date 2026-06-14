@@ -13,3 +13,15 @@
 | Audit evidence | Privacy-safe evidence about a review, such as hashes, counts, finding ids, policy id/version, decisions, actions, timestamps, and reviewer rationale. |
 | Adapter | Optional workflow surface that collects context, calls the backend review contract, and displays or applies policy decisions, such as Outlook, browser, Word, desktop, or DMS integrations. |
 | Surface | The user or system environment where review is triggered, such as `outlook`, `browser_genai`, `dms`, `desktop`, `word`, or `api`. |
+
+## Operational Differences
+
+| Action | Use when | Output | Reidentification | Operational note |
+|---|---|---|---|---|
+| Pseudonymize | The caller needs stable placeholders and may need to restore original values later. | Text with deterministic typed placeholders plus mapping entries. | Reversible when the caller has the mapping or persisted document hash. | Does not approve sending by itself; policy decision still controls workflow. |
+| Anonymize | The caller needs an irreversible working copy and does not need restoration. | Text with typed placeholders and no original values in the mapping response. | Not reversible through Kaypoh v2 output. | Reduces downstream exposure after accepted findings are transformed. |
+| Redact | The caller needs opaque suppression and should not reveal entity classes in output text. | Text with opaque markers and redaction records without original matched text. | Not reversible. | Best for minimized sharing, not later reconstruction. |
+| Safe rewrite | The user needs policy-approved wording before send, paste, upload, or share. | Rewritten text plus span-level replacement audit for allowed findings. | Not reversible unless the caller separately uses pseudonymization. | Applies only allowed actions and keeps skipped findings visible for review. |
+| Reviewer approval | Risk needs authenticated human authorization instead of immediate transformation. | Journal event, pending approval state, reviewer role requirements, and later decision. | No content transformation. | Lets adapters retry or complete only after an authorized decision is recorded. |
+
+Quick choice: use pseudonymize for reversible placeholders, anonymize for irreversible typed placeholders, redact for opaque removal, safe rewrite for sendable replacement wording, and reviewer approval for human signoff.

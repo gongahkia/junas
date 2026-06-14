@@ -51,7 +51,7 @@
 - [x] P0/UserActions: Add a "request approval" action that records pending approval in the review journal and returns reviewer-role requirements.
 - [x] P0/UserActions: Extend review decision actions beyond accept, reject, and rewrite only after documenting backward-compatible journal replay behavior.
 - [x] P0/UserActions: Add tests that rejected findings are excluded from downstream anonymization only after an authorized reviewer decision.
-- [ ] P0/UserActions: Add docs explaining the difference between pseudonymize, anonymize, redact, safe rewrite, and reviewer approval in plain operational terms.
+- [x] P0/UserActions: Add docs explaining the difference between pseudonymize, anonymize, redact, safe rewrite, and reviewer approval in plain operational terms.
 - [ ] P0/UserActions: Update Python client methods to expose policy decisions and action catalog without forcing callers to parse raw dicts.
 - [ ] P0/UserActions: Add sync and async Python client examples for "review then safe rewrite" and "review then request approval".
 - [ ] P0/UserActions: Add a CLI example script that reviews stdin, prints policy decision JSON, and exits nonzero when policy blocks send.
