@@ -1,0 +1,33 @@
+# Review Decision Journal Replay
+
+The review journal is append-only. `review_started` records the initial findings and each `decision_recorded` event records one reviewer action for one finding. Replay uses the latest decision per `finding_id`.
+
+## Action Compatibility
+
+Legacy actions remain valid:
+
+- `accept`: finding is accepted as valid.
+- `reject`: finding is rejected and excluded by downstream `findings_after_decisions`.
+- `rewrite`: finding is valid and needs replacement text.
+
+Extended actions are additive:
+
+- `approve`: reviewer approves proceeding with the finding present.
+- `policy_exception`: reviewer approves a documented exception.
+- `accept_risk`: reviewer accepts the risk for this finding.
+- `request_changes`: reviewer requires content changes before completion.
+- `hold`: reviewer requires holding the content.
+
+## Replay Rules
+
+- Old journal entries replay unchanged; missing extended actions need no migration.
+- New actions are stored in the same `decision_recorded.payload.action` string field.
+- `reject` is the only action that removes a finding from downstream anonymization input.
+- All other known actions keep the finding visible for audit, export, and later review.
+- Unknown future actions must be preserved as strings and treated as non-reject for replay unless a later version documents stricter behavior.
+- Audit exports preserve raw action strings in `decisions.json` and count all known action names instead of collapsing them to the legacy three-action set.
+- Feedback exports preserve the raw action string for emitted rows; unknown future actions should be skipped until explicitly mapped.
+
+## API Compatibility
+
+`POST /review/{review_id}/decision` keeps the same request and response shape. The only contract change is that `action` accepts the extended action strings above. Existing clients that send `accept`, `reject`, or `rewrite` continue to work without request changes.

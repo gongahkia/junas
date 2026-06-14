@@ -98,6 +98,8 @@ class AuditPackTests(unittest.TestCase):
                  "matched_text": "Mr John Lim", "start_char": 12, "end_char": 23},
                 {"id": "f3", "category": "MNPI", "rule": "transaction_codename", "severity": "high",
                  "matched_text": "Project Atlas", "start_char": 24, "end_char": 37},
+                {"id": "f4", "category": "MNPI", "rule": "transaction_codename", "severity": "high",
+                 "matched_text": "Project Zenith", "start_char": 38, "end_char": 52},
             ],
         )
         self.decisions.record_decision(
@@ -112,6 +114,10 @@ class AuditPackTests(unittest.TestCase):
             review_id="rev-rollup",
             decision=self.decisions.Decision(finding_id="f3", action="rewrite", reviewer_id="bob"),
         )
+        self.decisions.record_decision(
+            review_id="rev-rollup",
+            decision=self.decisions.Decision(finding_id="f4", action="approve", reviewer_id="carol"),
+        )
         output = self.tmpdir / "rollup.zip"
         result = self._run("export_audit_pack.py", "rev-rollup", "--output", str(output))
         self.assertEqual(result.returncode, 0, msg=result.stderr)
@@ -119,8 +125,15 @@ class AuditPackTests(unittest.TestCase):
         with zipfile.ZipFile(output) as archive:
             manifest = json.loads(archive.read("manifest.json"))
         rollup = manifest["reviewer_rollup"]
-        self.assertEqual(rollup["alice"], {"accept": 1, "reject": 1, "rewrite": 0})
-        self.assertEqual(rollup["bob"], {"accept": 0, "reject": 0, "rewrite": 1})
+        expected_alice = {action: 0 for action in self.decisions.DECISION_ACTIONS}
+        expected_alice.update({"accept": 1, "reject": 1})
+        expected_bob = {action: 0 for action in self.decisions.DECISION_ACTIONS}
+        expected_bob["rewrite"] = 1
+        expected_carol = {action: 0 for action in self.decisions.DECISION_ACTIONS}
+        expected_carol["approve"] = 1
+        self.assertEqual(rollup["alice"], expected_alice)
+        self.assertEqual(rollup["bob"], expected_bob)
+        self.assertEqual(rollup["carol"], expected_carol)
 
     def test_export_with_defensibility_bundles_reports_and_sanitized_manifest(self):
         self.decisions.start_review_session(

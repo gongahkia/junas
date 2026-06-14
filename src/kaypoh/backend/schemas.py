@@ -3,6 +3,8 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from kaypoh.review.decisions import DECISION_ACTIONS
+
 MAX_CLASSIFY_TEXT_LENGTH = 100000
 SafeRewriteAction = Literal["safe_rewrite", "redact_pii", "hold_until_public"]
 RedactPiiAction = Literal["redact_pii"]
@@ -1225,7 +1227,7 @@ class ReviewDecisionRequest(BaseModel):
         max_length=256,
         description="Finding identifier from a prior /review response.",
     )
-    action: str = Field(..., description="One of: accept, reject, rewrite.")
+    action: str = Field(..., description=f"One of: {', '.join(DECISION_ACTIONS)}.")
     replacement_text: str = Field("", max_length=4096, description="Rewrite text when action=rewrite.")
     rationale: str = Field("", max_length=2048, description="Reviewer note recorded in the journal.")
     reviewer_id: str = Field(
@@ -1242,15 +1244,15 @@ class ReviewDecisionRequest(BaseModel):
     @classmethod
     def normalize_action(cls, value: str) -> str:
         normalized = value.strip().lower()
-        if normalized not in {"accept", "reject", "rewrite"}:
-            raise ValueError("action must be one of: accept, reject, rewrite")
+        if normalized not in DECISION_ACTIONS:
+            raise ValueError(f"action must be one of: {', '.join(DECISION_ACTIONS)}")
         return normalized
 
 
 class ReviewDecisionResponse(BaseModel):
     review_id: str = Field(description="Review session identifier.")
     finding_id: str = Field(description="Finding identifier whose decision was recorded.")
-    action: str = Field(description="Recorded action: accept, reject, or rewrite.")
+    action: str = Field(description=f"Recorded action: {', '.join(DECISION_ACTIONS)}.")
     reviewer_id: str = Field("", description="Reviewer identifier persisted alongside the decision.")
     reviewer_identity_source: str = Field(
         "none",
@@ -1291,7 +1293,7 @@ class ReviewSessionFindingState(BaseModel):
     metadata: dict[str, Any] = Field(default_factory=dict, description="Persisted detector metadata.")
     decision: Optional[str] = Field(
         None,
-        description="Current decision: accept, reject, or rewrite. None when undecided.",
+        description=f"Current decision: {', '.join(DECISION_ACTIONS)}. None when undecided.",
     )
     decision_seq: Optional[int] = Field(None, description="Journal seq for the most recent decision on this finding.")
     decision_ts: Optional[str] = Field(None, description="Timestamp of the most recent decision.")

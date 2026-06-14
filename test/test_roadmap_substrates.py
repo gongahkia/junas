@@ -80,14 +80,28 @@ class RoadmapSubstrateTests(unittest.TestCase):
                         "reviewer_identity_source": "api_key",
                     },
                 },
+                {
+                    "event_type": "decision_recorded",
+                    "review_id": "r1",
+                    "payload": {
+                        "finding_id": "finding:1",
+                        "action": "policy_exception",
+                        "rationale": "approved exception for a@example.com",
+                        "reviewer_identity_source": "api_key",
+                    },
+                },
             ]
             journal.write_text("\n".join(json.dumps(entry) for entry in entries), encoding="utf-8")
             rows = export_preferences(journal)
             self.assertEqual(rows[0]["rationale"], "confirm [REDACTED]")
+            self.assertEqual(rows[1]["chosen"], "accept")
+            self.assertEqual(rows[1]["rationale"], "approved exception for [REDACTED]")
             model = train(rows, min_rows=1)
             self.assertEqual(model["cells"]["email_address|SG|high"]["recommendation"], "keep_or_tighten")
             queue = build_queue(journal)
             self.assertEqual(queue[0]["queue"], "positive_candidate")
+            self.assertEqual(queue[1]["action"], "policy_exception")
+            self.assertEqual(queue[1]["queue"], "positive_candidate")
 
     def test_dms_manifest_scanner(self):
         with tempfile.TemporaryDirectory() as td:

@@ -3555,7 +3555,8 @@ def _serialize_session_state(
     tags=["Anonymization"],
     summary="Record a per-finding decision",
     description=(
-        "Append an accept | reject | rewrite decision for a finding from a prior /review response. "
+        "Append a reviewer decision for a finding from a prior /review response. "
+        "Accepted actions are documented in docs/policy/journal-replay.md. "
         "Decisions are persisted to the append-only HMAC-chained journal under KAYPOH_JOURNAL_DIR. "
         "Reviewer identity is resolved from the authenticated JWT/API-key principal. "
         "X-Reviewer-ID is accepted only when KAYPOH_DEV_AUTH=1 for local development; "

@@ -12,7 +12,29 @@ from typing import Any
 
 from kaypoh.review.journal import JournalEntry, append_event, read_journal
 
-ALLOWED_ACTIONS = frozenset({"accept", "reject", "rewrite"})
+DECISION_ACTIONS = (
+    "accept",
+    "reject",
+    "rewrite",
+    "approve",
+    "policy_exception",
+    "accept_risk",
+    "request_changes",
+    "hold",
+)
+ALLOWED_ACTIONS = frozenset(DECISION_ACTIONS)
+REJECT_ACTIONS = frozenset({"reject"})
+POSITIVE_CORPUS_ACTIONS = frozenset(
+    {
+        "accept",
+        "rewrite",
+        "approve",
+        "policy_exception",
+        "accept_risk",
+        "request_changes",
+        "hold",
+    }
+)
 
 EVENT_REVIEW_STARTED = "review_started"
 EVENT_DECISION_RECORDED = "decision_recorded"
@@ -31,7 +53,7 @@ class ReviewSessionError(ValueError):
 @dataclass(frozen=True)
 class Decision:
     finding_id: str
-    action: str  # accept | reject | rewrite
+    action: str
     replacement_text: str = ""
     rationale: str = ""
     reviewer_id: str = ""  # who recorded this decision; auth principal for new production entries
@@ -226,7 +248,7 @@ def get_session_state(*, review_id: str, tenant_id: str | None = None) -> dict[s
 
 
 def findings_after_decisions(state: dict[str, Any]) -> list[dict[str, Any]]:
-    """Return only findings the user has accepted (or rewritten); reject removes the finding."""
+    """Return findings retained after reviewer decisions; only reject removes the finding."""
     decisions_by_id = {d["finding_id"]: d for d in state.get("decisions", [])}
     kept: list[dict[str, Any]] = []
     for finding in state.get("findings", []):
@@ -235,7 +257,7 @@ def findings_after_decisions(state: dict[str, Any]) -> list[dict[str, Any]]:
             # un-decided findings default to accepted so anonymisation is safe by default
             kept.append(finding)
             continue
-        if decision["action"] == "reject":
+        if decision["action"] in REJECT_ACTIONS:
             continue
         kept.append(finding)
     return kept

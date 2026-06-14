@@ -54,6 +54,10 @@ Review and rewrite responses include `review_expires_at`, an RFC 3339 UTC timest
 
 `RequestApprovalRequest` takes a prior `review_id`, optional `finding_ids`, and a structured `reason_code`. `RequestApprovalResponse` records `approval_status=pending` in the HMAC journal and returns authenticated reviewer roles plus policy actor roles required for downstream approval.
 
+## Review Decision Journal
+
+`POST /review/{review_id}/decision` records `decision_recorded` events. Legacy actions `accept`, `reject`, and `rewrite` remain valid. Additive reviewer actions are `approve`, `policy_exception`, `accept_risk`, `request_changes`, and `hold`. Replay compatibility is defined in `docs/policy/journal-replay.md`: old journals need no migration, latest decision per finding wins, and only `reject` removes a finding from downstream anonymization input.
+
 ## Runtime Status
 
 - `/ready` exposes configured optional layers and readiness.

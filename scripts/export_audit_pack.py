@@ -36,6 +36,8 @@ if str(SRC_PATH) not in sys.path:
 
 from kaypoh.review import jurisdictions  # noqa: E402
 from kaypoh.review.decisions import (  # noqa: E402
+    ALLOWED_ACTIONS,
+    DECISION_ACTIONS,
     EVENT_ANONYMIZE_APPLIED,
     EVENT_AUDIT_EXPORTED,
     EVENT_DECISION_RECORDED,
@@ -72,21 +74,21 @@ def _parse_iso(ts: str) -> float:
 def _build_reviewer_rollup(decisions: list[dict]) -> dict[str, dict[str, int]]:
     """Per-reviewer action counts. Surfaces maker-checker violations: when one reviewer's
     counts dominate accept-only decisions, an auditor can spot self-approval at a glance."""
-    rollup: dict[str, dict[str, int]] = defaultdict(lambda: {"accept": 0, "reject": 0, "rewrite": 0})
+    rollup: dict[str, dict[str, int]] = defaultdict(lambda: {action: 0 for action in DECISION_ACTIONS})
     for decision in decisions:
         reviewer = decision.get("reviewer_id") or "unattributed"
         action = decision.get("action")
-        if action in ("accept", "reject", "rewrite"):
+        if action in ALLOWED_ACTIONS:
             rollup[reviewer][action] += 1
     return {k: dict(v) for k, v in rollup.items()}
 
 
 def _build_action_rates_by_rule(findings: list[dict], decisions: list[dict]) -> dict[str, dict[str, float | int]]:
     finding_rule = {str(finding.get("id") or ""): str(finding.get("rule") or "unknown") for finding in findings}
-    counts: dict[str, dict[str, int]] = defaultdict(lambda: {"accept": 0, "reject": 0, "rewrite": 0, "total": 0})
+    counts: dict[str, dict[str, int]] = defaultdict(lambda: {**{action: 0 for action in DECISION_ACTIONS}, "total": 0})
     for decision in decisions:
         action = str(decision.get("action") or "")
-        if action not in ("accept", "reject", "rewrite"):
+        if action not in ALLOWED_ACTIONS:
             continue
         rule = finding_rule.get(str(decision.get("finding_id") or ""), "unknown")
         counts[rule][action] += 1
@@ -94,15 +96,9 @@ def _build_action_rates_by_rule(findings: list[dict], decisions: list[dict]) -> 
     rates: dict[str, dict[str, float | int]] = {}
     for rule, rule_counts in sorted(counts.items()):
         total = rule_counts["total"] or 1
-        rates[rule] = {
-            "accept": rule_counts["accept"],
-            "reject": rule_counts["reject"],
-            "rewrite": rule_counts["rewrite"],
-            "total": rule_counts["total"],
-            "accept_rate": round(rule_counts["accept"] / total, 4),
-            "reject_rate": round(rule_counts["reject"] / total, 4),
-            "rewrite_rate": round(rule_counts["rewrite"] / total, 4),
-        }
+        rates[rule] = {action: rule_counts[action] for action in DECISION_ACTIONS}
+        rates[rule]["total"] = rule_counts["total"]
+        rates[rule].update({f"{action}_rate": round(rule_counts[action] / total, 4) for action in DECISION_ACTIONS})
     return rates
 
 

@@ -170,6 +170,30 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
             )
             self.assertEqual(response.status_code, 422)
 
+    def test_extended_review_decision_actions_replay_latest(self):
+        with TestClient(self.main.app) as client:
+            review_id = self._start_session(client)
+            target = client.get(f"/review/{review_id}").json()["findings"][0]
+
+            approve = client.post(
+                f"/review/{review_id}/decision",
+                json={"finding_id": target["id"], "action": "approve"},
+            )
+            self.assertEqual(approve.status_code, 200, approve.text)
+            self.assertEqual(approve.json()["action"], "approve")
+
+            exception = client.post(
+                f"/review/{review_id}/decision",
+                json={"finding_id": target["id"], "action": "policy_exception"},
+            )
+            self.assertEqual(exception.status_code, 200, exception.text)
+            self.assertEqual(exception.json()["action"], "policy_exception")
+
+            updated = client.get(f"/review/{review_id}").json()
+            updated_finding = next(f for f in updated["findings"] if f["id"] == target["id"])
+            self.assertEqual(updated_finding["decision"], "policy_exception")
+            self.assertEqual(updated["decisions_recorded"], 1)
+
     def test_request_approval_records_pending_state_and_role_requirements(self):
         with TestClient(self.main.app) as client:
             review_id = self._start_session(client)

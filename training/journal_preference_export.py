@@ -10,8 +10,16 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
 from typing import Any
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+SRC_PATH = REPO_ROOT / "src"
+if str(SRC_PATH) not in sys.path:
+    sys.path.insert(0, str(SRC_PATH))
+
+from kaypoh.review.decisions import POSITIVE_CORPUS_ACTIONS, REJECT_ACTIONS  # noqa: E402
 
 SENSITIVE_RE = re.compile(
     r"(?i)([A-Z]\d{7,9}[A-Z]?|\b\d{3}-?\d{2}-?\d{4}\b|"
@@ -55,14 +63,14 @@ def export_preferences(journal_path: Path) -> list[dict[str, Any]]:
         if not finding:
             continue
         action = str(payload.get("action") or "")
-        if action not in {"accept", "reject", "rewrite"}:
+        if action not in POSITIVE_CORPUS_ACTIONS and action not in REJECT_ACTIONS:
             continue
         rows.append(
             {
                 "review_id": review_id,
                 "finding_id": str(payload.get("finding_id") or ""),
-                "chosen": "accept" if action in {"accept", "rewrite"} else "reject",
-                "rejected": "reject" if action in {"accept", "rewrite"} else "accept",
+                "chosen": "accept" if action in POSITIVE_CORPUS_ACTIONS else "reject",
+                "rejected": "reject" if action in POSITIVE_CORPUS_ACTIONS else "accept",
                 "rule": str(finding.get("rule") or ""),
                 "category": str(finding.get("category") or ""),
                 "severity": str(finding.get("severity") or ""),

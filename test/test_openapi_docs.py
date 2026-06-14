@@ -119,6 +119,7 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertIn("allowed_actions", safe_rewrite_request["properties"])
         self.assertIn("rewritten_text", safe_rewrite_response["properties"])
         self.assertIn("skipped_findings", safe_rewrite_response["properties"])
+        self.assertIn("policy_exception", schemas["ReviewDecisionRequest"]["properties"]["action"]["description"])
         include_spans_description = classify_request["properties"]["include_offending_spans"]["description"]
         self.assertIn("Deprecated compatibility flag", include_spans_description)
         classify_response = schemas["ClassifyResponse"]

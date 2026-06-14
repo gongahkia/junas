@@ -33,6 +33,13 @@ class PolicyEngineTests(unittest.TestCase):
         self.assertEqual(decision.blocking_findings, ("m1",))
         self.assertIn("hold_until_public", decision.required_actions)
 
+    def test_extended_approval_decision_warns_for_high_mnpi(self):
+        decision = evaluate_policy(findings=[finding("m1", "MNPI", "high", decision="approve")])
+
+        self.assertEqual(decision.decision, "warn")
+        self.assertTrue(decision.send_allowed)
+        self.assertIn("high-risk MNPI has reviewer approval", decision.policy_reasons)
+
     def test_mixed_pii_mnpi_uses_block_precedence(self):
         decision = evaluate_policy(
             findings=[
