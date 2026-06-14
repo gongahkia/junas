@@ -89,7 +89,7 @@
 - [x] P1/Outlook: Add a privacy check proving Outlook adapter does not store message body in browser local storage, extension storage, or console logs.
 - [x] P1/Browser: Update browser extension copy to "pre-send review for GenAI prompts" and avoid claiming universal DLP coverage.
 - [x] P1/Browser: Add adapter modules per target surface for ChatGPT, Claude, Gemini, and a generic textarea fallback, each with explicit DOM selector tests.
-- [ ] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
+- [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [ ] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [ ] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
 - [ ] P1/Browser: Add failure behavior for dynamic page changes where selectors fail, including no silent send-blocking unless policy was actually evaluated.

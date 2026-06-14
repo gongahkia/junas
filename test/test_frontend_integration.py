@@ -82,6 +82,58 @@ class FrontendIntegrationTests(unittest.TestCase):
             """
         )
 
+    def test_browser_worker_uses_bearer_header_for_hosted_auth_mode(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/browser_extension/service_worker.js", "utf8");
+            const requests = [];
+            const context = {
+              fetch: async (url, options) => {
+                requests.push({url, options, body: JSON.parse(options.body)});
+                return {ok: true, json: async () => ({
+                  findings: [],
+                  degraded_modes: [],
+                  send_allowed: true
+                })};
+              },
+              chrome: {
+                storage: {sync: {get: async (defaults) => ({
+                  ...defaults,
+                  endpoint: "https://kaypoh.example",
+                  backendMode: "hosted_server",
+                  authMode: "bearer_token",
+                  token: "tenant-jwt"
+                })}},
+                runtime: {
+                  onInstalled: {addListener() {}},
+                  onMessage: {addListener(fn) { context.__messageListener = fn; }}
+                },
+                contextMenus: {
+                  create() {},
+                  onClicked: {addListener() {}}
+                },
+                tabs: {sendMessage: async () => {}}
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "service_worker.js"});
+            (async () => {
+              await new Promise((resolve) => {
+                context.__messageListener({type: "kaypoh-process-text", text: "safe"}, {}, resolve);
+              });
+              assert.strictEqual(requests[0].url, "https://kaypoh.example/review");
+              assert.strictEqual(requests[0].options.headers.Authorization, "Bearer tenant-jwt");
+              assert.ok(!requests[0].options.headers["X-Kaypoh-Local-Token"]);
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
     def test_browser_target_adapters_resolve_known_prompt_selectors(self):
         self.run_node(
             r"""

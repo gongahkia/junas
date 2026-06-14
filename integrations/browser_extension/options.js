@@ -1,9 +1,18 @@
-const DEFAULTS = {endpoint: "http://127.0.0.1:8765", token: "", operation: "review", interceptPaste: false};
+const DEFAULTS = {
+  endpoint: "http://127.0.0.1:8765",
+  backendMode: "local_daemon",
+  authMode: "local_token",
+  token: "",
+  operation: "review",
+  interceptPaste: false
+};
 let pendingPairing = null;
 
 async function load() {
   const cfg = await chrome.storage.sync.get(DEFAULTS);
   endpoint.value = cfg.endpoint;
+  backendMode.value = cfg.backendMode;
+  authMode.value = cfg.authMode;
   token.value = cfg.token;
   operation.value = cfg.operation;
   interceptPaste.checked = Boolean(cfg.interceptPaste);
@@ -12,6 +21,8 @@ async function load() {
 save.addEventListener("click", async () => {
   await chrome.storage.sync.set({
     endpoint: endpoint.value.trim() || DEFAULTS.endpoint,
+    backendMode: backendMode.value,
+    authMode: authMode.value,
     token: token.value.trim(),
     operation: operation.value,
     interceptPaste: interceptPaste.checked
@@ -53,7 +64,13 @@ completePairing.addEventListener("click", async () => {
       return;
     }
     token.value = result.client_token;
-    await chrome.storage.sync.set({token: result.client_token});
+    backendMode.value = "local_daemon";
+    authMode.value = "local_token";
+    await chrome.storage.sync.set({
+      backendMode: "local_daemon",
+      authMode: "local_token",
+      token: result.client_token
+    });
     pendingPairing = null;
     pairingStatus.textContent = `Paired until ${new Date(result.expires_at * 1000).toISOString()}`;
   } catch (error) {

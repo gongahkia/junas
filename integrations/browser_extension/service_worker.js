@@ -1,5 +1,7 @@
 const DEFAULTS = {
   endpoint: "http://127.0.0.1:8765",
+  backendMode: "local_daemon",
+  authMode: "local_token",
   operation: "review",
   interceptPaste: false,
   token: ""
@@ -13,7 +15,8 @@ async function callKaypoh(text) {
   const cfg = await settings();
   const op = ["review", "pseudonymize", "anonymize", "redact"].includes(cfg.operation) ? cfg.operation : "review";
   const headers = {"Content-Type": "application/json"};
-  if (cfg.token) headers["X-Kaypoh-Local-Token"] = cfg.token;
+  if (cfg.token && cfg.authMode === "bearer_token") headers.Authorization = `Bearer ${cfg.token}`;
+  else if (cfg.token && cfg.authMode !== "none") headers["X-Kaypoh-Local-Token"] = cfg.token;
   const body = {
     text,
     source_jurisdiction: "SG",

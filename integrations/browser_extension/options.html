@@ -1,7 +1,20 @@
 <!doctype html>
 <meta charset="utf-8">
 <title>Kaypoh GenAI Prompt Review</title>
-<label>Endpoint <input id="endpoint" size="40"></label>
+<label>Backend URL <input id="endpoint" size="40"></label>
+<label>Backend mode
+  <select id="backendMode">
+    <option value="local_daemon">local daemon</option>
+    <option value="hosted_server">hosted server</option>
+  </select>
+</label>
+<label>Tenant auth mode
+  <select id="authMode">
+    <option value="local_token">local daemon pairing token</option>
+    <option value="bearer_token">hosted tenant bearer token</option>
+    <option value="none">none / dev only</option>
+  </select>
+</label>
 <label>Token <input id="token" size="40" type="password"></label>
 <label>Operation
   <select id="operation">
