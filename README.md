@@ -19,6 +19,7 @@ Kaypoh reviews text and documents before users paste prompts, send email, upload
 
 - [Quick Start](#quick-start)
 - [What Kaypoh Does](#what-kaypoh-does)
+- [Primary Product Spine](#primary-product-spine)
 - [API Surface](#api-surface)
 - [Examples](#examples)
 - [How It Works](#how-it-works)
@@ -100,6 +101,12 @@ Run the standard verification gate:
 - Keeps optional public evidence and LLM helper layers disabled unless explicitly enabled by deployer and tenant gates.
 
 Kaypoh is not a general DLP suite, legal-advice product, or model-training platform. It is a pre-send safety layer intended to integrate with DLP, DMS, Office/browser surfaces, and identity gateways.
+
+## Primary Product Spine
+
+The FastAPI backend is the trust boundary for Kaypoh deployments. It owns review input validation, tenant/auth checks, deterministic findings, policy decisions, rewrite actions, audit events, and privacy-safe observability. Direct HTTP/OpenAPI clients can integrate with this boundary without installing a UI adapter.
+
+Adapters are workflow activation points. Outlook Smart Alerts, browser GenAI capture, Word taskpanes, desktop watching, DMS hooks, and future surfaces should collect workflow context, call the backend contract, display the decision, and avoid storing raw content outside their runtime unless a documented policy allows it.
 
 ## API Surface
 
