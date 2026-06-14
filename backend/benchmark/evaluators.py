@@ -376,6 +376,71 @@ class CitationHallucinationF1(Evaluator):
         )
 
 
+class CitationGenerationTop1(Evaluator):
+    """SGLB-10 top-1 exact-match citation accuracy."""
+
+    name = "citation_generation_top1"
+    strength = EvaluatorStrength.STRONG
+
+    @staticmethod
+    def _normalise(value: str) -> str:
+        return " ".join(value.split()).rstrip(".").lower()
+
+    @classmethod
+    def _parse_ordered(cls, output: str) -> list[str]:
+        import json
+
+        text = (output or "").strip()
+        if not text:
+            return []
+        try:
+            parsed = json.loads(text)
+            if isinstance(parsed, list):
+                raw = [str(item) for item in parsed if str(item).strip()]
+            else:
+                raw = [text]
+        except json.JSONDecodeError:
+            raw = [part.strip() for part in text.split(",") if part.strip()]
+        seen: list[str] = []
+        for item in raw:
+            norm = cls._normalise(item)
+            if norm and norm not in seen:
+                seen.append(norm)
+        return seen
+
+    @classmethod
+    def _gold(cls, expected_output: dict[str, Any] | None) -> set[str]:
+        expected = expected_output or {}
+        values = expected.get("citations")
+        if not isinstance(values, list):
+            values = [expected.get("citation")] if expected.get("citation") else []
+        return {cls._normalise(str(item)) for item in values if str(item).strip()}
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        gold = self._gold(ctx.expected_output)
+        predicted = self._parse_ordered(ctx.output)
+        hit = bool(predicted and predicted[0] in gold)
+        return EvaluationResult(
+            score=1.0 if hit else 0.0,
+            detail={"gold_count": len(gold), "top1": predicted[0] if predicted else ""},
+        )
+
+
+class CitationGenerationTop3(CitationGenerationTop1):
+    """SGLB-10 top-3 exact-match citation accuracy."""
+
+    name = "citation_generation_top3"
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        gold = self._gold(ctx.expected_output)
+        predicted = self._parse_ordered(ctx.output)[:3]
+        hits = [item for item in predicted if item in gold]
+        return EvaluationResult(
+            score=1.0 if hits else 0.0,
+            detail={"gold_count": len(gold), "top3": predicted, "hits": len(hits)},
+        )
+
+
 # --- SGLB-06 ROC-2021 ---
 
 
@@ -923,6 +988,8 @@ EVALUATORS: dict[str, Evaluator] = {
     UsesSalStyle.name: UsesSalStyle(),
     CompliancePresent.name: CompliancePresent(),
     CitationHallucinationF1.name: CitationHallucinationF1(),
+    CitationGenerationTop1.name: CitationGenerationTop1(),
+    CitationGenerationTop3.name: CitationGenerationTop3(),
     Sglb01ObligationsF1.name: Sglb01ObligationsF1(),
     PenaltyBandMae.name: PenaltyBandMae(),
     Sglb02CitationMatch.name: Sglb02CitationMatch(),

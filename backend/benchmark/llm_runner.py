@@ -322,6 +322,27 @@ def sglb_11_prompt_builder(case: Case) -> list[dict[str, str]]:
     ]
 
 
+SGLB_10_PROMPT_VERSION = "sglb-10-v1"
+
+
+def sglb_10_prompt_builder(case: Case) -> list[dict[str, str]]:
+    """SGLB-10: given an SG legal scenario, emit up to 3 relevant case
+    citations ordered by relevance. Output contract: a JSON array of
+    citation strings."""
+    fact_pattern = str(case.inputs.get("fact_pattern", "")).strip()
+    return [
+        _system_message(
+            "You are a Singapore legal-citation assistant. Given a legal "
+            "scenario, return up to three Singapore case citations ordered "
+            "by relevance, most relevant first. Reply with a JSON array of "
+            "citation strings only, e.g. [\"Spandeck Engineering (S) Pte Ltd "
+            "v Defence Science & Technology Agency [2007] 4 SLR(R) 100\"]. "
+            "Do not include prose."
+        ),
+        _user_message(fact_pattern),
+    ]
+
+
 SGLB_08_PROMPT_VERSION = "sglb-08-v1"
 
 
@@ -455,6 +476,7 @@ PROMPT_BUILDERS: dict[str, tuple[PromptBuilder, str]] = {
     "sglb_05": (sglb_05_prompt_builder, SGLB_05_PROMPT_VERSION),
     "sglb_06": (sglb_06_prompt_builder, SGLB_06_PROMPT_VERSION),
     "sglb_07": (sglb_07_prompt_builder, SGLB_07_PROMPT_VERSION),
+    "sglb_10": (sglb_10_prompt_builder, SGLB_10_PROMPT_VERSION),
     "sglb_11": (sglb_11_prompt_builder, SGLB_11_PROMPT_VERSION),
     "sglb_08": (sglb_08_prompt_builder, SGLB_08_PROMPT_VERSION),
     "sglb_12": (sglb_12_prompt_builder, SGLB_12_PROMPT_VERSION),

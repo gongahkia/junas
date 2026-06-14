@@ -128,7 +128,6 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 
 | Prompt | Tier | Notes |
 |---|---|---|
-| `Batch H H1` SGLB-10 Citation-Generation | 5 | Uses SAL grammar already on main. Cost-safe. |
 | `SOLO-8` arXiv preprint §§1-3 draft | 4 | §§4-5 (Results/Limitations) gated on Wave 2 baselines. Docs only. |
 | `COPILOT-1` Sessions + history persistence | 5 | SQLite + alembic + sidebar UI. Cost-safe. |
 | `COPILOT-2` Batch-analysis polish | 5 | Drag-drop + SSE + cancel + CSV. Cost-safe. |
@@ -153,7 +152,7 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | `Batch G G1` v0.2 multi-judge upgrade | 5 | v0.1 smoke can fire now with Azure; v0.2 upgrade waits |
 
 ### Total remaining
-- **5 fireable now**, **4 cost-gated**, **4 deferred**. 13 prompts total.
+- **4 fireable now**, **4 cost-gated**, **4 deferred**. 12 prompts total.
 
 ## Fire order
 
@@ -2460,7 +2459,7 @@ on, any spec-doc inconsistencies you noticed while writing.
 
 _Reference copilot polish + v0.2 task expansion._
 
-**TIER 5 — 11 OF (many) DONE ✅ (2026-06-06 to 2026-06-14, commit 20773c7 + PRs #124-126 + local G3/G4/F4/SOLO-7/SOLO-11 work).**
+**TIER 5 — 12 OF (many) DONE ✅ (2026-06-06 to 2026-06-14, commit 20773c7 + PRs #124-126 + local G3/G4/F4/H1/SOLO-7/SOLO-11 work).**
 
 | Work unit | What | PR / commit |
 |---|---|---|
@@ -2475,8 +2474,9 @@ _Reference copilot polish + v0.2 task expansion._
 | `Batch F F4` MCP tests + integration | Tool/server tests; verified 10/10 pass in temp env with `mcp>=1.27`; fixed repo-root server import path. | local work 2026-06-14 |
 | `SOLO-7` Reference copilot scope cleanup | Verified legacy `predictions/`, `rome-statute/`, and `compare-jurisdictions/` routes are absent; cut visible non-SG posture from statutes, glossary, settings, and app metadata. | local work 2026-06-14 |
 | `SOLO-11` SG contract templates | 6 markdown-backed Singapore templates added under `backend/data/templates/sg`; total library now 12; source URLs exposed through API/frontend; template tests cover IDs, sources, and rendering. | local work 2026-06-14 |
+| `Batch H H1` SGLB-10 Citation-Generation | 40-case synthetic smoke from the curated SG real-citation pool; top-1/top-3 strong evaluators, oracle task, prompt builder, spec, Makefile target, and harness tests. Marked benchmark-ineligible until CommonLII headnotes land. | local work 2026-06-14 |
 
-**Still pending in Tier 5:** Batch G G1 (v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), COPILOT-1/2/4.
+**Still pending in Tier 5:** Batch G G1 (v0.2 multi-judge upgrade deferred for keys), Batch H H2/H3 (Azure-cost-gated synth-gen), COPILOT-1/2/4.
 
 # Batch G — v0.2 Task Wave 1 (#50, #54, #55, #57), 4 parallel agents
 
@@ -2670,51 +2670,6 @@ Guidelines.
 
 **Synth-gen cost warning:** H2 and H3 need synthetic candidates.
 Get explicit user approval before kicking off new synth jobs.
-
-## H1: SGLB-10 Citation-Generation
-
-```text
-You are working on issue #51 (SGLB-10 Citation-Generation).
-
-Depends on the SAL citation grammar (backend/api/services/sal_citation.py)
-and ideally the CommonLII SG corpus (Batch B). If Batch B has landed,
-use real citations; otherwise generate from grammar + a curated SG
-case list.
-
-Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-10.md.
-
-Files you own:
-- backend/benchmark/dataset_builders/sglb_10.py
-- backend/benchmark/tasks/sglb_10.py
-- backend/benchmark/llm_runner.py (+ prompt builder)
-- backend/benchmark/tasks/__init__.py (+ register)
-- docs/sglb_specs/SGLB-10.md (bump)
-- backend/tests/test_sglb_10_task.py
-- Makefile: + build-sglb-10
-
-Files you must NOT touch:
-- H2/H3's sglb_NN files.
-
-Task contract:
-- Input: `{"fact_pattern": str}` — a SG legal scenario.
-- Output: JSON array of citation strings ordered by relevance.
-- Score: exact-match top-1 + top-3 accuracy.
-
-Mechanical extraction: gold citation derived from cases where the
-published headnote matches the input fact pattern. Headnotes come
-from CommonLII; if Batch B has not landed, use a hand-curated set of
-~30 well-known SG cases (e.g. Spandeck Engineering, RBC Properties,
-Tan Cheng Bock) and synthesise fact patterns matching them — but the
-synthesis prompt is documented and the case-to-fact mapping is
-mechanical.
-
-Branch: feat/sglb-v0.2-wave-2.
-Commit: `feat(sglb-10): Citation-Generation (closes #51)`.
-
-Acceptance: 30-50 case smoke; tests pass.
-Report back: dependence on Batch B; quality concerns with curated
-case set.
-```
 
 ## H2: SGLB-12 Multi-Issue-Spotting (complete existing stub)
 

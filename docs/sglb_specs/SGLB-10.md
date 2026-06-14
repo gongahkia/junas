@@ -1,6 +1,6 @@
 # SGLB-10 Citation-Generation
 
-Version: 0.1-draft. Tracking issue: [#51](https://github.com/gongahkia/junas/issues/51).
+Version: 0.1-smoke. Tracking issue: [#51](https://github.com/gongahkia/junas/issues/51).
 
 ## Capability
 
@@ -19,8 +19,7 @@ predict the controlling SG authority (a case citation).
 
 ```python
 case.inputs = {
-  "fact_pattern": str,   # 200–400-token SG fact pattern
-  "domain": str,         # contract | tort | equity | statutory | procedure
+  "fact_pattern": str,   # SG legal scenario
 }
 ```
 
@@ -37,6 +36,7 @@ by the model's confidence:
 
 - **Top-1 hit rate:** gold citation appears in position 1.
 - **Top-3 hit rate:** gold citation appears in positions 1–3.
+- Evaluator names: `citation_generation_top1`, `citation_generation_top3`.
 - **Citation grammar validity:** delegated to SGLB-04 scorer
   (`validate_citation`). Models that emit invalid grammar are
   penalised on grammar-validity even if the case is real.
@@ -44,15 +44,24 @@ by the model's confidence:
 
 ## Source provenance
 
-- Adapter: `ElitigationAdapter` (TOS-gated; #34).
-- Required `extra_schema` fields: `citation`, `body`, `categories`.
-- Dataset construction: judgments where the court explicitly identifies
-  the controlling authority ("this question is governed by *X v Y*
-  [YYYY] SGCA NN at [m]"). Mechanical regex extraction; 10% hand-audit.
+- v0.1 smoke source: `backend/benchmark/datasets/sglb_11_real_pool.yaml`,
+  the existing curated SG real-citation pool used for SGLB-11.
+- Dataset construction: deterministic domain round-robin over named cases
+  in that pool. The gold label is copied mechanically from the curated
+  citation field. Fact patterns are synthetic lookup prompts keyed to the
+  case name and domain.
+- Provenance fields: `source_pool`, `source_pool_sha`, `domain`,
+  `case_name`, `label_provenance`.
+- Production target: CommonLII SG / eLitigation public corpus rows with
+  headnotes or catchwords mapped mechanically to citation labels. That
+  corpus is not present in this repo state.
 
 ## Limitations
 
-- A fact pattern may have a citation set rather than a single citation;
+- The shipped v0.1 smoke is `data_tier=synthetic` and benchmark-ineligible.
+  It validates task/evaluator/harness wiring, not substantive legal
+  retrieval.
+- A production fact pattern may have a citation set rather than a single citation;
   the scorer accepts any member of the set in top-1.
 - Models that pattern-match common cases (e.g. *Gay Choon Ing v Loh Sze
   Ti Terence Peter*) for every contract question would inflate scores;
@@ -62,6 +71,20 @@ by the model's confidence:
 
 ## v0.1 / v0.2 stratification
 
-- v0.1: ~250 fact patterns.
-- v0.2 held-out: ~50 patterns from post-2026-Q1 judgments.
+- v0.1: 40 synthetic smoke fact patterns.
+- v0.2: CommonLII/eLitigation-derived fact patterns with post-2026-Q1
+  held-out judgments.
 - Per-domain leaderboard breakdown.
+
+## Synthetic v0.1 prompt template
+
+The builder uses the following deterministic template family:
+
+```text
+A <domain> dispute asks for the Singapore authority on <domain-specific
+issue> involving the parties named in <case name>. Return the most
+relevant Singapore case citation.
+```
+
+This keeps the case-to-citation mapping mechanical while the real
+headnote-derived dataset is unavailable.
