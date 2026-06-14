@@ -152,11 +152,11 @@ def test_dry_run_reports_missing_env_keys(tmp_path: Path, capsys) -> None:
 
 def test_build_local_ollama_specs_accepts_comma_separated_models() -> None:
     specs = build_local_ollama_judge_specs(
-        models=["qwen2.5vl:7b,llama3.1:8b"],
+        models=["qwen2.5:3b,llama3.1:8b"],
         base_url="http://127.0.0.1:11434",
         seed=7,
     )
 
     assert [spec.provider for spec in specs] == ["ollama", "ollama"]
-    assert [spec.model for spec in specs] == ["qwen2.5vl:7b", "llama3.1:8b"]
-    assert specs[0].label == "ollama:qwen2.5vl:7b"
+    assert [spec.model for spec in specs] == ["qwen2.5:3b", "llama3.1:8b"]
+    assert specs[0].label == "ollama:qwen2.5:3b"

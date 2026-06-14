@@ -117,6 +117,14 @@ Every gap-closure prompt carries its GAP ID inline in this file.
      smoke single-judge is acceptable per its own prompt).
    These items are explicitly NOT removed — when keys are acquired,
    re-fire the relevant prompts to complete the deferred work.
+9. **Local no-cash SGLB-08 surrogate completed (2026-06-14).** Ollama
+   `qwen2.5:3b` + `llama3.1:8b` produced
+   `backend/benchmark/datasets/sglb_08_clause_tone_reviewed/judges.local.jsonl`
+   and `judges.local.summary.json` with 800/800 valid local labels.
+   Result: Fleiss' κ = 0.1247; pairwise κ = 0.0360 / 0.3862 / 0.0969.
+   This is audit evidence only; official `SOLO-17`,
+   `NEW-08-REFRAME-IF-LOW-KAPPA`, and `NEW-BATCH-D` remain blocked on
+   Anthropic + Gemini keys as documented below.
 
 ---
 
@@ -142,7 +150,7 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 
 | Prompt | Tier | Unblock action |
 |---|---|---|
-| `SOLO-17` κ run | 1 | `python -m benchmark.synthetic.multi_judge --dataset backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml` (~$2.40) |
+| `SOLO-17` official κ run | 1 | `python -m benchmark.synthetic.multi_judge --dataset backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml` (~$2.40; local Ollama surrogate already written to `judges.local.*`) |
 | `NEW-08-REFRAME-IF-LOW-KAPPA` | 1 | Conditional on SOLO-17 κ values |
 | `NEW-BATCH-D` Anthropic + Gemini cells | 1 | Run alongside the Azure + Ollama cells above |
 | `Batch G G1` v0.2 multi-judge upgrade | 5 | v0.1 smoke can fire now with Azure; v0.2 upgrade waits |
@@ -644,7 +652,7 @@ rerunning. This output feeds directly into NEW-BATCH-D's task list.
 
 **Deferred items (pending Anthropic + Gemini API keys; maintainer plans to acquire later):**
 
-1. **`SOLO-17` κ run.** Code is on `main` (PR #94). When keys are available, fire `python -m benchmark.synthetic.multi_judge --dataset backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml` (~$2.40, 5 min). Produces `judges.jsonl` + `judges.summary.json` next to the dataset; update `docs/sglb_specs/SGLB-08.md` with the κ values.
+1. **`SOLO-17` official κ run.** Code is on `main` (PR #94). A no-cash local Ollama surrogate was written on 2026-06-14 to `judges.local.jsonl` + `judges.local.summary.json` (Fleiss' κ = 0.1247; 800/800 valid labels), but it is not a substitute for Anthropic + Gemini. When keys are available, fire `python -m benchmark.synthetic.multi_judge --dataset backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml` (~$2.40, 5 min). Produces `judges.jsonl` + `judges.summary.json` next to the dataset; update `docs/sglb_specs/SGLB-08.md` with the official κ values.
 2. **`NEW-08-REFRAME-IF-LOW-KAPPA`** (CONDITIONAL block below). Cannot be evaluated without κ values from `SOLO-17`. Stays gated.
 3. **`NEW-BATCH-D` Anthropic + Gemini cells** (WAVE 2 block below). The coordinator can still fire **Azure + Ollama** cells against the v0.1-eligible tasks (SGLB-01, -02, -04, -08). Anthropic + Gemini cells stay deferred. Ollama requires `ollama serve` running locally before firing those cells.
 4. **Tier 5 Batch G G1 SGLB-09 v0.2 multi-judge upgrade.** v0.1 smoke uses Azure single-judge per its own prompt; v0.2 expansion to ≥3-judge ensemble is deferred.

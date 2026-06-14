@@ -1,12 +1,14 @@
 # SGLB-08 Clause-Tone
 
-Version: 0.1-shipped (single-judge provisional; multi-judge κ pending Anthropic + Gemini API keys). Tracking issue: [#33](https://github.com/gongahkia/junas/issues/33).
+Version: 0.1-shipped (single-judge provisional; official multi-judge κ pending Anthropic + Gemini API keys). Tracking issue: [#33](https://github.com/gongahkia/junas/issues/33).
 
-## Multi-judge κ status (2026-06-05)
+## Multi-judge κ status (2026-06-14)
 
 The multi-judge ensemble code (Anthropic + Gemini votes + pairwise + Fleiss' κ computation) is shipped in `backend/benchmark/synthetic/multi_judge.py` and `agreement.py`, with mocked unit tests passing.
 
 **Pending:** the actual κ run requires `ANTHROPIC_API_KEY` and `GEMINI_API_KEY` in `.env`. Cost when fired: ~$2.40 (400 Anthropic + 400 Gemini calls).
+
+**Local no-cash surrogate:** on 2026-06-14, `python -m benchmark.synthetic.multi_judge --local-ollama --max-concurrency 2 --force` ran `qwen2.5:3b` + `llama3.1:8b` against all 400 cases. Outputs are `judges.local.jsonl` and `judges.local.summary.json`. All 800 local labels parsed valid. Result: Fleiss' κ = 0.1247; pairwise κ = 0.0360 (Azure vs qwen2.5:3b), 0.3862 (Azure vs llama3.1:8b), 0.0969 (qwen2.5:3b vs llama3.1:8b). This is not the official `SOLO-17` run and does not by itself trigger `NEW-08-REFRAME-IF-LOW-KAPPA`.
 
 To complete:
 
@@ -19,7 +21,7 @@ python -m benchmark.synthetic.multi_judge \
 # 4. Update this section with the κ values; if any pair < 0.4, fire NEW-08-REFRAME-IF-LOW-KAPPA
 ```
 
-Until the run lands: the leaderboard cannot publish "κ = X.XX (n=400, 3 judges)" and `NEW-08-REFRAME-IF-LOW-KAPPA` remains conditionally gated. SGLB-08 remains single-judge provisional.
+Until the official run lands: the leaderboard cannot publish official "κ = X.XX (n=400, 3 judges)" and `NEW-08-REFRAME-IF-LOW-KAPPA` remains conditionally gated. SGLB-08 remains single-judge provisional.
 
 ## Capability
 
@@ -121,8 +123,10 @@ mandates a ≥3-judge ensemble + disclosed κ + human-spot-checked
 held-out subset for any task where labels are not mechanically
 extracted. The current ship state has:
 
-- **Single judge** (Azure gpt-5 acted as both generator and implicit
-  labeller-by-construction). κ is therefore undefined.
+- **Single official judge** (Azure gpt-5 acted as both generator and
+  implicit labeller-by-construction). Official κ is therefore undefined.
+  A local Ollama surrogate exists, but does not satisfy the official
+  Anthropic + Gemini follow-up.
 - **Human spot-check held-out pending decisions**. A stratified 40-case
   checklist exists, but the offline human `agree / disagree / unclear`
   pass has not yet been returned.

@@ -46,8 +46,14 @@ DEFAULT_GEMINI_MODEL = "gemini-2.0-flash"
 AGREEMENT_FLOOR = 0.4
 MAX_TOKENS = 64
 AGREEMENT_LABELS = (*REQUIRED_TONES, INVALID_LABEL)
-DEFAULT_LOCAL_OLLAMA_MODELS = ("qwen2.5vl:7b", "llama3.1:8b")
+DEFAULT_LOCAL_OLLAMA_MODELS = ("qwen2.5:3b", "llama3.1:8b")
 DEFAULT_OLLAMA_URL = "http://127.0.0.1:11434"
+OLLAMA_TONE_LABEL_SCHEMA = {
+    "type": "array",
+    "minItems": 1,
+    "maxItems": 1,
+    "items": {"type": "string", "enum": list(REQUIRED_TONES)},
+}
 
 
 class LLMLike(Protocol):
@@ -77,7 +83,7 @@ class OllamaJudgeClient:
             "model": self.model,
             "messages": messages,
             "stream": False,
-            "format": "json",
+            "format": OLLAMA_TONE_LABEL_SCHEMA,
             "options": {
                 "temperature": 0,
                 "seed": self.seed,
@@ -277,7 +283,7 @@ def build_summary(
                     "label": spec.label,
                     "provider": spec.provider,
                     "model": spec.model,
-                    "source": "judges.jsonl",
+                    "source": votes_path.name,
                 }
                 for spec in judge_specs
             ],
