@@ -24,6 +24,7 @@ Package:
 Current behavior:
 
 - Targets `https://chatgpt.com/*`, `https://claude.ai/*`, and `https://gemini.google.com/*`.
+- Product copy must describe this adapter as pre-send review for GenAI prompts on managed browser surfaces.
 - Calls the local Kaypoh daemon at `http://127.0.0.1:8765` by default.
 - Supports `review` plus replacement flows selected in options.
 - Paste interception is opt-in through extension settings.
@@ -34,3 +35,4 @@ Security model:
 - Local daemon calls require the configured endpoint plus local token when ACLs are enabled.
 - Prompt text must not be persisted in extension storage or console logs.
 - DOM capture is best-effort and target-specific; this adapter is not universal browser DLP.
+- Do not describe this adapter as universal DLP, full-browser DLP, or coverage for arbitrary web apps.

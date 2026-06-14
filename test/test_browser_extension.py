@@ -10,6 +10,8 @@ class BrowserExtensionTests(unittest.TestCase):
     def test_manifest_targets_supported_genai_hosts(self):
         manifest = json.loads((EXT / "manifest.json").read_text(encoding="utf-8"))
         scripts = manifest["content_scripts"][0]
+        self.assertEqual(manifest["description"], "Pre-send review for GenAI prompts on managed browser surfaces.")
+        self.assertNotIn("DLP", manifest["description"])
         self.assertEqual(
             scripts["matches"],
             ["https://chatgpt.com/*", "https://claude.ai/*", "https://gemini.google.com/*"],
@@ -20,6 +22,9 @@ class BrowserExtensionTests(unittest.TestCase):
     def test_options_expose_opt_in_paste_and_irreversible_modes(self):
         html = (EXT / "options.html").read_text(encoding="utf-8")
         js = (EXT / "options.js").read_text(encoding="utf-8")
+        self.assertIn("Kaypoh GenAI Prompt Review", html)
+        self.assertIn("Review pasted GenAI prompts", html)
+        self.assertNotIn("universal dlp", html.lower())
         self.assertIn('value="anonymize"', html)
         self.assertIn("interceptPaste", html)
         self.assertIn('id="startPairing"', html)
@@ -51,6 +56,12 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("result.anonymized_text", text)
         self.assertIn("result.redacted_text", text)
         self.assertIn('"kaypoh-process-text"', text)
+
+    def test_browser_extension_docs_avoid_universal_dlp_claims(self):
+        text = (ROOT / "docs" / "integrations" / "browser-extension.md").read_text(encoding="utf-8")
+        self.assertIn("pre-send review for GenAI prompts", text)
+        self.assertIn("not universal browser DLP", text)
+        self.assertIn("Do not describe this adapter as universal DLP", text)
 
 
 if __name__ == "__main__":
