@@ -70,6 +70,50 @@ class SIEMExportTests(unittest.TestCase):
         self.assertNotIn("S1234567D", serialized)
         self.assertNotIn("matched_text", serialized)
 
+    def test_policy_decision_journal_event_exports_counts_without_sensitive_payload(self):
+        entry = SimpleNamespace(
+            seq=8,
+            ts="2026-05-25T00:00:00Z",
+            event_type="policy_decision_recorded",
+            review_id="review-1",
+            key_version="v2",
+            payload={
+                "document_hash": "a" * 64,
+                "decision": "rewrite_required",
+                "send_allowed": False,
+                "policy_id": "default",
+                "policy_version": "2026-06-14",
+                "finding_count": 2,
+                "degraded_mode_count": 0,
+                "blocking_finding_count": 1,
+                "blocking_finding_hashes": ["b" * 64],
+                "required_action_count": 3,
+                "required_action_hashes": ["c" * 64],
+                "recommended_action_count": 0,
+                "recommended_action_hashes": [],
+                "policy_reason_count": 1,
+                "policy_reason_hashes": ["d" * 64],
+                "matched_text": "S1234567D",
+                "start_char": 10,
+                "end_char": 19,
+            },
+        )
+
+        event = siem.build_journal_siem_event(entry)
+        serialized = json.dumps(event, sort_keys=True)
+
+        self.assertEqual(event["details"]["journal_event_type"], "policy_decision_recorded")
+        self.assertEqual(event["details"]["decision"], "rewrite_required")
+        self.assertEqual(event["details"]["policy_id"], "default")
+        self.assertEqual(event["details"]["policy_version"], "2026-06-14")
+        self.assertEqual(event["details"]["finding_count"], 2)
+        self.assertEqual(event["details"]["blocking_finding_count"], 1)
+        self.assertIn("payload_sha256", event["details"])
+        self.assertNotIn("S1234567D", serialized)
+        self.assertNotIn("matched_text", serialized)
+        self.assertNotIn("start_char", serialized)
+        self.assertNotIn("end_char", serialized)
+
     def test_emit_siem_event_serializes_json_when_enabled(self):
         messages: list[str] = []
         settings = SimpleNamespace(

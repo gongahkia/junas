@@ -69,6 +69,17 @@ def _hash_field_name(key: str) -> str:
     return f"{key}_sha256"
 
 
+def _is_sensitive_key_name(key: str) -> bool:
+    normalized_key = key.lower()
+    return (
+        normalized_key in SENSITIVE_HASH_KEYS
+        or normalized_key.endswith(SENSITIVE_HASH_SUFFIXES)
+        or normalized_key in SENSITIVE_DROP_KEYS
+        or normalized_key.endswith(SENSITIVE_DROP_SUFFIXES)
+        or normalized_key in {"start_char", "end_char"}
+    )
+
+
 def _sanitize_value(key: str, value: Any) -> Any:
     normalized_key = key.lower()
     if normalized_key in SENSITIVE_DROP_KEYS or normalized_key.endswith(SENSITIVE_DROP_SUFFIXES):
@@ -168,12 +179,27 @@ def build_journal_siem_event(entry: Any) -> dict[str, Any]:
         "journal_event_type": str(getattr(entry, "event_type", "") or ""),
         "seq": int(getattr(entry, "seq", 0) or 0),
         "key_version": str(getattr(entry, "key_version", "") or ""),
-        "payload_keys": sorted(str(key) for key in payload),
+        "payload_keys": sorted(str(key) for key in payload if not _is_sensitive_key_name(str(key))),
         "payload_sha256": _sha256_text(json.dumps(payload, sort_keys=True, default=str)),
     }
     findings = payload.get("findings")
     if isinstance(findings, list):
         details["finding_count"] = len(findings)
+    if str(getattr(entry, "event_type", "") or "") == "policy_decision_recorded":
+        details.update(
+            {
+                "decision": str(payload.get("decision", "") or ""),
+                "send_allowed": bool(payload.get("send_allowed", False)),
+                "policy_id": str(payload.get("policy_id", "") or ""),
+                "policy_version": str(payload.get("policy_version", "") or ""),
+                "finding_count": int(payload.get("finding_count", 0) or 0),
+                "blocking_finding_count": int(payload.get("blocking_finding_count", 0) or 0),
+                "required_action_count": int(payload.get("required_action_count", 0) or 0),
+                "recommended_action_count": int(payload.get("recommended_action_count", 0) or 0),
+                "policy_reason_count": int(payload.get("policy_reason_count", 0) or 0),
+                "degraded_mode_count": int(payload.get("degraded_mode_count", 0) or 0),
+            }
+        )
     return build_siem_event(
         event_type="journal_event",
         category="audit",
