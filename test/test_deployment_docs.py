@@ -189,6 +189,23 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_outlook_doc_covers_smart_alerts_deployment_fallback_and_limits(self):
+        text = (ROOT / "docs" / "integrations" / "outlook.md").read_text(encoding="utf-8")
+        for token in (
+            "Smart Alerts Flow",
+            "SendMode=\"SoftBlock\"",
+            "surface=\"outlook\"",
+            "workflow=\"email_send\"",
+            "Admin Deployment",
+            "Microsoft 365 admin-managed deployment",
+            "Fallback Behavior",
+            "not a fail-closed enforcement path",
+            "Known Client Limitations",
+            "Mailbox requirement set 1.15",
+            "Simple MAPI",
+        ):
+            self.assertIn(token, text)
+
 
 if __name__ == "__main__":
     unittest.main()

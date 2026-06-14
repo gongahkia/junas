@@ -69,7 +69,7 @@
 - [x] P0/RepoLayout: Add `docs/integrations/direct-api.md` as the baseline integration guide for customers that do not want any UI adapter.
 - [x] P0/RepoLayout: Add `docs/integrations/dms.md` documenting DMS upload/check-in review flow, required metadata, failure behavior, and audit fields.
 - [x] P0/RepoLayout: Add `docs/integrations/genai-browser.md` documenting ChatGPT, Claude, Gemini, and generic textarea capture assumptions without promising coverage on every UI change.
-- [ ] P0/RepoLayout: Add `docs/integrations/outlook.md` documenting Smart Alerts flow, SendMode behavior, admin deployment, fallback behavior, and known client limitations.
+- [x] P0/RepoLayout: Add `docs/integrations/outlook.md` documenting Smart Alerts flow, SendMode behavior, admin deployment, fallback behavior, and known client limitations.
 - [ ] P0/RepoLayout: Add `docs/integrations/word.md` documenting Word taskpane as document review, not true send-time enforcement.
 - [ ] P0/RepoLayout: Add `docs/integrations/desktop-watcher.md` documenting clipboard/folder watch as opt-in local fallback with no enterprise enforcement claim.
 - [ ] P1/Outlook: Update the Outlook add-in manifest description to point at pre-send review and policy decisions rather than only local daemon review.
