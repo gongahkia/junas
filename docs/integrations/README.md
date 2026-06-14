@@ -10,3 +10,5 @@ These pages mirror the current adapter notes before any source layout move. Adap
 | Desktop watcher/local daemon | `src/kaypoh/desktop/`, `packaging/` | `desktop-watcher.md` |
 
 Adapters are optional activation surfaces. They collect workflow context, call the backend contract, display policy decisions, and must not become alternate trust boundaries.
+
+Use `maturity-matrix.md` for the definitions of `core`, `supported-target`, `experimental`, `demo-only`, and `archived`.

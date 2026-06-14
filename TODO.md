@@ -59,7 +59,7 @@
 - [x] P0/UserActions: Add redaction response tests proving opaque redaction responses do not contain original matched text outside ordinary review findings.
 - [x] P0/RepoLayout: Create `integrations/README.md` describing adapters as optional activation surfaces and listing maturity status, owner, runtime target, and security model.
 - [x] P0/RepoLayout: Move or mirror adapter docs from `packaging/browser_extension`, `packaging/office_addin`, `packaging/word_addin`, and `src/kaypoh/desktop` into `docs/integrations/` before moving code.
-- [ ] P0/RepoLayout: Add `docs/integrations/maturity-matrix.md` defining `core`, `supported-target`, `experimental`, `demo-only`, and `archived` criteria.
+- [x] P0/RepoLayout: Add `docs/integrations/maturity-matrix.md` defining `core`, `supported-target`, `experimental`, `demo-only`, and `archived` criteria.
 - [ ] P0/RepoLayout: Add an ADR deciding whether adapter source should remain under `packaging/` or move to top-level `integrations/` with packaging scripts updated.
 - [ ] P0/RepoLayout: If the ADR approves moving code, relocate browser, Office, Word, and desktop adapter source under `integrations/` and leave compatibility paths or docs for old locations.
 - [ ] P0/RepoLayout: Update `scripts/package_browser_extension.sh`, `scripts/package_macos_desktop.sh`, PyInstaller specs, tests, and README links after any integration directory move.
