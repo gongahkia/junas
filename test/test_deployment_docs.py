@@ -206,6 +206,22 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_word_doc_marks_taskpane_as_review_not_enforcement(self):
+        text = (ROOT / "docs" / "integrations" / "word.md").read_text(encoding="utf-8")
+        for token in (
+            "Document Review Flow",
+            "review selection",
+            "review body",
+            'document_type="word_document"',
+            'degraded_policy="warn"',
+            "Enforcement Boundary",
+            "not true send-time enforcement",
+            "does not block Word save",
+            "DMS upload",
+            "Failure Behavior",
+        ):
+            self.assertIn(token, text)
+
 
 if __name__ == "__main__":
     unittest.main()
