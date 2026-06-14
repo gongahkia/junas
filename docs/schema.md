@@ -37,6 +37,10 @@ Before policy decisions, `send_allowed=false` only meant degraded coverage was p
 
 Review and rewrite responses include `review_expires_at`, an RFC 3339 UTC timestamp. Adapters must require a fresh `/review` when the timestamp has passed or when the user changes reviewed text, recipients, attachments, destination context, or tenant policy context before send/share completion.
 
+## Safe Rewrite Contract
+
+`SafeRewriteRequest` extends `ReviewRequest` with `allowed_actions` and optional `allowed_finding_ids`. `SafeRewriteResponse` extends `ReviewResponse` with `rewritten_text`, `document_hash`, `rewrite_policy`, `replacements`, and `skipped_findings`. Each replacement preserves the original `finding_id`, span offsets, applied policy action, replacement text, and SHA-256 hash of the replaced substring.
+
 ## Runtime Status
 
 - `/ready` exposes configured optional layers and readiness.

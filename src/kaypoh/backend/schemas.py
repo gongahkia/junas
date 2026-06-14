@@ -4,6 +4,7 @@ from typing import Any, Literal, Optional
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 MAX_CLASSIFY_TEXT_LENGTH = 100000
+SafeRewriteAction = Literal["safe_rewrite", "redact_pii", "hold_until_public"]
 
 class Classification(str, Enum):
     SAFE = "SAFE"
@@ -340,6 +341,59 @@ class PlaceholderOperationRequest(ReviewRequest):
             "Broad MNPI material-event passages remain review findings rather than automatic replacements."
         ),
     )
+
+
+class SafeRewriteRequest(ReviewRequest):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "text": "Send Dr Jane Tan S1234567D the confidential draft before announcement.",
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "document_type": "email",
+                "surface": "outlook",
+                "workflow": "email_send",
+                "requested_action": "safe_rewrite",
+                "allowed_actions": ["safe_rewrite", "redact_pii", "hold_until_public"],
+                "allowed_finding_ids": ["pii:sg_nric_fin:25:34:0"],
+            }
+        }
+    )
+
+    allowed_actions: list[SafeRewriteAction] = Field(
+        default_factory=lambda: ["safe_rewrite", "redact_pii", "hold_until_public"],
+        min_length=1,
+        max_length=8,
+        description="Policy actions the caller permits this safe rewrite to apply.",
+    )
+    allowed_finding_ids: Optional[list[str]] = Field(
+        None,
+        max_length=10000,
+        description="Optional allowlist of original review finding ids eligible for rewrite.",
+    )
+
+    @field_validator("allowed_actions")
+    @classmethod
+    def dedupe_allowed_actions(cls, value: list[SafeRewriteAction]) -> list[SafeRewriteAction]:
+        return list(dict.fromkeys(value))
+
+    @field_validator("allowed_finding_ids")
+    @classmethod
+    def sanitize_allowed_finding_ids(cls, value: Optional[list[str]]) -> Optional[list[str]]:
+        if value is None:
+            return None
+        cleaned: list[str] = []
+        seen: set[str] = set()
+        for finding_id in value:
+            item = str(finding_id).replace("\x00", "").strip()
+            if not item:
+                continue
+            if len(item) > 256:
+                raise ValueError("allowed_finding_ids entries must be <= 256 characters")
+            if item not in seen:
+                cleaned.append(item)
+                seen.add(item)
+        return cleaned
 
 
 class PseudonymizeRequest(PlaceholderOperationRequest):
@@ -1106,6 +1160,27 @@ class OpaqueRedactionResponse(BaseModel):
     end_char: int = Field(description="Zero-based exclusive ending character offset in the extracted text.")
 
 
+class SafeRewriteReplacementResponse(BaseModel):
+    finding_id: str = Field(description="Original review finding id that drove this replacement.")
+    action: SafeRewriteAction = Field(description="Policy-approved action applied to this span.")
+    category: str = Field(description="Original finding category, such as PII or MNPI.")
+    rule: str = Field(description="Original detector rule.")
+    severity: str = Field(description="Original finding severity.")
+    start_char: int = Field(description="Zero-based inclusive starting character offset in the extracted text.")
+    end_char: int = Field(description="Zero-based exclusive ending character offset in the extracted text.")
+    replacement_text: str = Field(max_length=4096, description="Text inserted into rewritten_text.")
+    original_text_hash: str = Field(
+        min_length=64,
+        max_length=64,
+        description="SHA-256 hash of the exact replaced substring for audit reconciliation.",
+    )
+
+
+class SafeRewriteSkippedFindingResponse(BaseModel):
+    finding_id: str = Field(description="Original review finding id that was left unchanged.")
+    reason: str = Field(description="Why this finding was not rewritten.")
+
+
 class RedactedFindingResponse(BaseModel):
     id: str = Field(description="Stable finding identifier for client-side reconciliation.")
     category: str = Field(description="Finding category: PII or MNPI.")
@@ -1143,6 +1218,30 @@ class RedactedDocumentResponse(BaseModel):
     warnings: list[str] = Field(
         default_factory=list,
         description="Warnings about fidelity changes in the rewritten document, such as PDF flattening.",
+    )
+
+
+class SafeRewriteResponse(ReviewResponse):
+    privacy_operation: str = Field("safe_rewrite", description="Privacy operation applied by this endpoint.")
+    rewrite_policy: str = Field(
+        "deterministic_allowed_spans",
+        description="Deterministic rewrite policy used to decide eligible spans.",
+    )
+    rewritten_text: str = Field(
+        description="Extracted document text after applying allowed deterministic replacements."
+    )
+    document_hash: str = Field(description="SHA-256 of the extracted source text before rewrite.")
+    mapping_persisted: bool = Field(
+        False,
+        description="Always false; safe rewrite does not persist reidentification maps.",
+    )
+    replacements: list[SafeRewriteReplacementResponse] = Field(
+        default_factory=list,
+        description="Span-level replacements with original finding ids and audit hashes.",
+    )
+    skipped_findings: list[SafeRewriteSkippedFindingResponse] = Field(
+        default_factory=list,
+        description="Findings left unchanged because policy or caller allowlists did not permit rewrite.",
     )
 
 

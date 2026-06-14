@@ -42,7 +42,7 @@
 - [x] P0/API: Add request id and idempotency guidance for adapters so repeated Outlook/browser send checks do not create confusing duplicate review sessions.
 - [x] P0/API: Add a response field or documented header for `review_expires_at` so adapters know when a user must re-review edited content.
 - [x] P0/API: Add tests that policy decisions are deterministic for identical text, context, policy config, and tenant.
-- [ ] P0/UserActions: Design a `SafeRewriteRequest` and `SafeRewriteResponse` contract that can rewrite only allowed spans while preserving audit evidence and original finding ids.
+- [x] P0/UserActions: Design a `SafeRewriteRequest` and `SafeRewriteResponse` contract that can rewrite only allowed spans while preserving audit evidence and original finding ids.
 - [ ] P0/UserActions: Implement a first deterministic `safe_rewrite` path that applies policy-approved replacements without calling an LLM.
 - [ ] P0/UserActions: Add safe-rewrite tests for PII-only redaction, MNPI hold text, mixed findings, overlapping spans, and no-op safe documents.
 - [ ] P0/UserActions: Add a "redact PII only" action that removes or replaces PII findings while leaving MNPI passages visible but flagged.
