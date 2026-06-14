@@ -9,6 +9,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 | Outlook Smart Alerts add-in | `integrations/outlook_addin/` | `outlook.md` |
 | Word taskpane | `integrations/word_addin/` | `word.md` |
 | Desktop watcher/local daemon | `integrations/desktop/`, `packaging/` | `desktop-watcher.md` |
+| DMS manifest scanner | `src/kaypoh/integrations/dms.py`, `scripts/scan_dms_manifest.py` | `dms.md` |
 
 Adapters are optional activation surfaces. They collect workflow context, call the backend contract, display policy decisions, and must not become alternate trust boundaries.
 

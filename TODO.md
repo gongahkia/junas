@@ -67,7 +67,7 @@
 - [x] P0/RepoLayout: Remove desktop watcher from primary README Quick Start and move it to an explicit "experimental local fallback" section.
 - [x] P0/RepoLayout: Add a root-level `INTEGRATIONS.md` pointing to Outlook, browser, Word, desktop, DMS, direct API, and future Slack/Google Workspace notes.
 - [x] P0/RepoLayout: Add `docs/integrations/direct-api.md` as the baseline integration guide for customers that do not want any UI adapter.
-- [ ] P0/RepoLayout: Add `docs/integrations/dms.md` documenting DMS upload/check-in review flow, required metadata, failure behavior, and audit fields.
+- [x] P0/RepoLayout: Add `docs/integrations/dms.md` documenting DMS upload/check-in review flow, required metadata, failure behavior, and audit fields.
 - [ ] P0/RepoLayout: Add `docs/integrations/genai-browser.md` documenting ChatGPT, Claude, Gemini, and generic textarea capture assumptions without promising coverage on every UI change.
 - [ ] P0/RepoLayout: Add `docs/integrations/outlook.md` documenting Smart Alerts flow, SendMode behavior, admin deployment, fallback behavior, and known client limitations.
 - [ ] P0/RepoLayout: Add `docs/integrations/word.md` documenting Word taskpane as document review, not true send-time enforcement.

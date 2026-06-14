@@ -155,6 +155,23 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_dms_integration_doc_covers_upload_metadata_failure_and_audit_fields(self):
+        text = (ROOT / "docs" / "integrations" / "dms.md").read_text(encoding="utf-8")
+        for token in (
+            "Maturity: `experimental`",
+            'surface="dms"',
+            'workflow="document_upload"',
+            "Required Metadata",
+            "Failure Behavior",
+            "Audit Fields To Store",
+            "matter_id",
+            "document_id",
+            "Idempotency-Key",
+            "policy_decision.decision",
+            "text_hash",
+        ):
+            self.assertIn(token, text)
+
 
 if __name__ == "__main__":
     unittest.main()
