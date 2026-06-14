@@ -10,6 +10,7 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from kaypoh.backend import main
+from kaypoh.policy import ACTION_CATALOG
 
 
 class PolicyEndpointIntegrationTests(unittest.TestCase):
@@ -21,6 +22,7 @@ class PolicyEndpointIntegrationTests(unittest.TestCase):
         payload = response.json()
         self.assertIn("send_allowed", payload)
         self.assertIn("policy_decision", payload)
+        self.assertEqual(payload["action_catalog"], list(ACTION_CATALOG))
         self.assertEqual(payload["policy_decision"]["decision"], "allow")
         self.assertEqual(payload["send_allowed"], payload["policy_decision"]["send_allowed"])
 
@@ -34,6 +36,7 @@ class PolicyEndpointIntegrationTests(unittest.TestCase):
                 payload = response.json()
                 self.assertIn("send_allowed", payload)
                 self.assertIn("policy_decision", payload)
+                self.assertEqual(payload["action_catalog"], list(ACTION_CATALOG))
                 self.assertEqual(payload["policy_decision"]["decision"], "allow")
                 self.assertEqual(payload["send_allowed"], payload["policy_decision"]["send_allowed"])
 

@@ -4,6 +4,15 @@ from dataclasses import dataclass, field
 from typing import Any, Literal
 
 PolicyDecisionName = Literal["allow", "warn", "block", "approval_required", "rewrite_required"]
+ACTION_CATALOG: tuple[str, ...] = (
+    "redact_pii",
+    "pseudonymize",
+    "safe_rewrite",
+    "cite_public_source",
+    "request_approval",
+    "hold_until_public",
+    "proceed_with_warning",
+)
 
 _DECISION_RANK: dict[PolicyDecisionName, int] = {
     "allow": 0,

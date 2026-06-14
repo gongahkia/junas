@@ -726,6 +726,15 @@ class ReviewResponse(BaseModel):
                     "policy_reasons": ["high-risk PII requires safe rewrite or reviewer approval before send"],
                     "review_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
                 },
+                "action_catalog": [
+                    "redact_pii",
+                    "pseudonymize",
+                    "safe_rewrite",
+                    "cite_public_source",
+                    "request_approval",
+                    "hold_until_public",
+                    "proceed_with_warning",
+                ],
                 "document": {
                     "filename": "inline.txt",
                     "mime_type": "text/plain",
@@ -790,6 +799,10 @@ class ReviewResponse(BaseModel):
     policy_decision: Optional[PolicyDecisionResponse] = Field(
         None,
         description="Policy decision derived from findings, workflow context, and degraded coverage.",
+    )
+    action_catalog: list[str] = Field(
+        default_factory=list,
+        description="Available next actions adapters may offer after review.",
     )
     document: ReviewDocumentMetadataResponse = Field(description="Extracted document metadata.")
     findings: list[ReviewFindingResponse] = Field(default_factory=list, description="Localized PII and MNPI findings.")

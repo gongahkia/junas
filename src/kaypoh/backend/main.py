@@ -115,7 +115,7 @@ from kaypoh.backend.siem import emit_privacy_ledger_events, emit_security_event
 from kaypoh.configs.runtime import RuntimeSettings, get_runtime_settings
 from kaypoh.external.privacy_guard import PrivacyGuard
 from kaypoh.helper.determinism import configure_determinism
-from kaypoh.policy import WorkflowContext, evaluate_policy
+from kaypoh.policy import ACTION_CATALOG, WorkflowContext, evaluate_policy
 from kaypoh.review.decisions import (
     Decision,
     ReviewSessionError,
@@ -1315,6 +1315,7 @@ def _build_review_response(
         degraded_policy=req.degraded_policy,
         send_allowed=policy_decision.send_allowed,
         policy_decision=policy_decision,
+        action_catalog=list(ACTION_CATALOG),
         document=ReviewDocumentMetadataResponse(
             filename=document.filename,
             mime_type=document.mime_type,
