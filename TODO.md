@@ -79,7 +79,7 @@
 - [x] P1/Outlook: Add tests or documented manual QA proving Outlook send checks call `/review` with body, subject, recipients, attachment metadata, and surface `outlook`.
 - [x] P1/Outlook: Add a failure-mode table for Outlook add-in unavailable, backend timeout, offline mode, malformed response, auth failure, and degraded document extraction.
 - [x] P1/Outlook: Add configurable timeout budgets for the Outlook send hook and document why the timeout is lower than normal API calls.
-- [ ] P1/Outlook: Bundle event-based activation JavaScript into one supported runtime file and document the Office limitation against imports in event handlers.
+- [x] P1/Outlook: Bundle event-based activation JavaScript into one supported runtime file and document the Office limitation against imports in event handlers.
 - [ ] P1/Outlook: Add an Outlook add-in CORS and well-known URI checklist per Microsoft event-based activation requirements.
 - [ ] P1/Outlook: Add screenshots or test fixtures showing the Smart Alert message text for allow, warn, block, and approval-required states.
 - [ ] P1/Outlook: Add a tenant deployment guide for Microsoft 365 admin center centralized deployment, including required admin roles and group assignment.

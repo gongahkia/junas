@@ -70,6 +70,12 @@ The launch-event path uses a shorter timeout than normal API calls because Outlo
 
 Normal backend and batch workflows may use longer API timeouts because they are not blocking a compose-window send event.
 
+## Event Runtime Bundle
+
+`commands.html` loads Office.js and one event runtime file: `launchevent.js`. Keep Smart Alerts code bundled in that single file. Do not add ES module `import` or `export` statements to the event handler runtime; event-based activation must run in the Office event runtime without a separate module graph.
+
+Shared Outlook taskpane code can live in `taskpane.js`, but `launchevent.js` must remain self-contained for send-hook activation.
+
 ## Fallback Behavior
 
 - Backend unavailable: current handler blocks the send attempt with "Kaypoh local review is unavailable" when the handler runs.

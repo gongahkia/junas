@@ -1,3 +1,4 @@
+import re
 import unittest
 from pathlib import Path
 
@@ -72,6 +73,8 @@ class OfficeAddinTests(unittest.TestCase):
         self.assertIn("policy_decision", js)
         self.assertIn("could not fully inspect", js)
         self.assertIn("launchevent.js", html)
+        self.assertNotRegex(js, re.compile(r"^\s*(import|export)\b", re.M))
+        self.assertIn('<script src="launchevent.js"></script>', html)
 
 
 if __name__ == "__main__":
