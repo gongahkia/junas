@@ -1083,6 +1083,26 @@ class ReviewResponse(BaseModel):
             "as coverage_warning events."
         ),
     )
+
+    @property
+    def policy_decision_name(self) -> str | None:
+        return self.policy_decision.decision if self.policy_decision is not None else None
+
+    @property
+    def policy_send_allowed(self) -> bool:
+        return self.policy_decision.send_allowed if self.policy_decision is not None else self.send_allowed
+
+    @property
+    def policy_required_actions(self) -> list[str]:
+        return list(self.policy_decision.required_actions) if self.policy_decision is not None else []
+
+    @property
+    def policy_recommended_actions(self) -> list[str]:
+        return list(self.policy_decision.recommended_actions) if self.policy_decision is not None else []
+
+    @property
+    def available_actions(self) -> list[str]:
+        return list(self.action_catalog)
     degraded_modes: list[DegradedModeResponse] = Field(
         default_factory=list,
         description="Explicit fail-open, fail-closed, or best-effort coverage limitations surfaced for this response.",

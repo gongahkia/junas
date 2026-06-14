@@ -11,7 +11,14 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh import AsyncKaypohClient, Classification, KaypohAPIError, KaypohClient, async_classify_text
+from kaypoh import (
+    AsyncKaypohClient,
+    Classification,
+    KaypohAPIError,
+    KaypohClient,
+    PolicyDecisionResponse,
+    async_classify_text,
+)
 
 
 def build_classify_payload(*, request_id: str, classification: str = "SAFE") -> dict:
@@ -70,6 +77,26 @@ def build_review_payload(*, request_id: str, classification: str = "LOW_RISK") -
         "review_profile": "strict",
         "degraded_policy": "warn",
         "send_allowed": True,
+        "policy_decision": {
+            "decision": "warn",
+            "send_allowed": True,
+            "required_actions": [],
+            "recommended_actions": ["proceed_with_warning"],
+            "blocking_findings": [],
+            "policy_id": "default",
+            "policy_version": "2026-06-14",
+            "policy_reasons": ["medium-risk PII can proceed with warning"],
+            "review_id": request_id,
+        },
+        "action_catalog": [
+            "redact_pii",
+            "pseudonymize",
+            "safe_rewrite",
+            "cite_public_source",
+            "request_approval",
+            "hold_until_public",
+            "proceed_with_warning",
+        ],
         "document": {
             "filename": "inline.txt",
             "mime_type": "text/plain",
@@ -248,6 +275,12 @@ class KaypohClientTests(unittest.TestCase):
 
         self.assertEqual(result.classification, Classification.LOW_RISK)
         self.assertEqual(result.request_id, "review-1")
+        self.assertIsInstance(result.policy_decision, PolicyDecisionResponse)
+        self.assertEqual(result.policy_decision_name, "warn")
+        self.assertTrue(result.policy_send_allowed)
+        self.assertEqual(result.policy_required_actions, [])
+        self.assertEqual(result.policy_recommended_actions, ["proceed_with_warning"])
+        self.assertIn("safe_rewrite", result.available_actions)
         self.assertEqual(observed["method"], "POST")
         self.assertEqual(observed["path"], "/review")
         self.assertEqual(
@@ -345,6 +378,8 @@ class KaypohClientTests(unittest.TestCase):
         self.assertEqual(result.privacy_operation, "pseudonymize")
         self.assertEqual(result.pseudonymized_text, "Send [EMAIL_1]")
         self.assertEqual(result.mapping[0].original_text, "jane@example.com")
+        self.assertEqual(result.policy_decision_name, "warn")
+        self.assertIn("request_approval", result.available_actions)
         self.assertEqual(observed["path"], "/pseudonymize")
         self.assertEqual(observed["body"]["persist_mapping"], False)
 

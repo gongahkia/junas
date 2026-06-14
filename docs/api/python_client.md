@@ -155,11 +155,17 @@ with KaypohClient("http://localhost:8000") as client:
 
     print(result.overall_risk)
     print(result.pii_score, result.mnpi_score)
+    print(result.policy_decision_name)
+    print(result.policy_required_actions)
+    print(result.policy_recommended_actions)
+    print(result.available_actions)
     print(result.findings)
     print(result.suggestions)
 ```
 
 For file inputs, pass `document_base64`, `document_filename`, and optionally `document_mime_type`. Supported v1 extraction paths are plain text, DOCX, and PDF when `pypdf` is installed. PDF review returns degraded fail-open responses when the text layer is absent or too sparse unless `KAYPOH_DOCUMENT_FAIL_CLOSED=1` is set, and metadata leakage findings are returned under `result.document.metadata_findings`. Use `degraded_policy="block_send"` when clients should treat degraded coverage as non-sendable; responses expose `send_allowed`.
+
+Python client review and rewrite responses expose policy fields as typed attributes: `result.policy_decision` is a `PolicyDecisionResponse`, while `result.policy_decision_name`, `result.policy_send_allowed`, `result.policy_required_actions`, `result.policy_recommended_actions`, and `result.available_actions` avoid parsing `model_dump()` output for common adapter routing.
 
 To scrub supported container metadata before sharing a file:
 
