@@ -6,6 +6,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 MAX_CLASSIFY_TEXT_LENGTH = 100000
 SafeRewriteAction = Literal["safe_rewrite", "redact_pii", "hold_until_public"]
 RedactPiiAction = Literal["redact_pii"]
+HoldUntilPublicAction = Literal["hold_until_public"]
 
 class Classification(str, Enum):
     SAFE = "SAFE"
@@ -421,6 +422,30 @@ class RedactPiiRequest(SafeRewriteRequest):
         min_length=1,
         max_length=1,
         description="Only `redact_pii`; this action leaves MNPI text visible and flagged.",
+    )
+
+
+class HoldUntilPublicRequest(SafeRewriteRequest):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "text": "Acme Corp will acquire GlobalTech before announcement.",
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "document_type": "email",
+                "surface": "outlook",
+                "workflow": "email_send",
+                "requested_action": "hold_until_public",
+                "allowed_actions": ["hold_until_public"],
+            }
+        }
+    )
+
+    allowed_actions: list[HoldUntilPublicAction] = Field(
+        default_factory=lambda: ["hold_until_public"],
+        min_length=1,
+        max_length=1,
+        description="Only `hold_until_public`; this action applies to high-severity MNPI findings.",
     )
 
 
@@ -1209,6 +1234,12 @@ class SafeRewriteSkippedFindingResponse(BaseModel):
     reason: str = Field(description="Why this finding was not rewritten.")
 
 
+class HoldUntilPublicReasonResponse(BaseModel):
+    finding_id: str = Field(description="High-severity MNPI finding that triggered the hold action.")
+    user_reason: str = Field(description="User-facing reason adapters can display without raw matched text.")
+    audit_rationale: str = Field(description="Audit-ready rationale using finding id, policy id/version, and action.")
+
+
 class RedactedFindingResponse(BaseModel):
     id: str = Field(description="Stable finding identifier for client-side reconciliation.")
     category: str = Field(description="Finding category: PII or MNPI.")
@@ -1447,6 +1478,118 @@ class RedactPiiResponse(SafeRewriteResponse):
     rewrite_policy: str = Field(
         "pii_only_allowed_spans",
         description="PII-only deterministic replacement policy; MNPI passages remain visible and flagged.",
+    )
+
+
+class HoldUntilPublicResponse(SafeRewriteResponse):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "review_expires_at": "2026-06-14T09:35:00Z",
+                "overall_risk": "HIGH_RISK",
+                "classification": "HIGH_RISK",
+                "document_score": 91.0,
+                "pii_score": 0.0,
+                "mnpi_score": 91.0,
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "jurisdictions_applied": ["SG", "US"],
+                "jurisdiction_policy": "strictest_wins",
+                "document_type": "email",
+                "review_profile": "strict",
+                "degraded_policy": "warn",
+                "send_allowed": False,
+                "policy_decision": {
+                    "decision": "block",
+                    "send_allowed": False,
+                    "required_actions": ["hold_until_public", "request_approval"],
+                    "recommended_actions": [],
+                    "blocking_findings": ["mnpi:material_event:0:54:0"],
+                    "policy_id": "default",
+                    "policy_version": "2026-06-14",
+                    "policy_reasons": ["high-risk MNPI requires public evidence or reviewer approval before send"],
+                    "review_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                },
+                "action_catalog": [
+                    "redact_pii",
+                    "pseudonymize",
+                    "safe_rewrite",
+                    "cite_public_source",
+                    "request_approval",
+                    "hold_until_public",
+                    "proceed_with_warning",
+                ],
+                "document": {
+                    "filename": "inline.txt",
+                    "mime_type": "text/plain",
+                    "extraction_method": "inline_text",
+                    "page_count": None,
+                    "char_count": 54,
+                },
+                "findings": [
+                    {
+                        "id": "mnpi:material_event:0:54:0",
+                        "category": "MNPI",
+                        "rule": "material_event",
+                        "jurisdiction": "SG",
+                        "severity": "high",
+                        "score": 91.0,
+                        "matched_text": "Acme Corp will acquire GlobalTech before announcement.",
+                        "start_char": 0,
+                        "end_char": 54,
+                        "reason": "Material non-public transaction or announcement signal.",
+                        "legal_basis": "inside_information_review",
+                    }
+                ],
+                "suggestions": [],
+                "privacy_operation": "hold_until_public",
+                "rewrite_policy": "mnpi_hold_allowed_spans",
+                "rewritten_text": "[HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]",
+                "document_hash": "4f" * 32,
+                "mapping_persisted": False,
+                "replacements": [
+                    {
+                        "finding_id": "mnpi:material_event:0:54:0",
+                        "action": "hold_until_public",
+                        "category": "MNPI",
+                        "rule": "material_event",
+                        "severity": "high",
+                        "start_char": 0,
+                        "end_char": 54,
+                        "replacement_text": "[HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]",
+                        "original_text_hash": "8a" * 32,
+                    }
+                ],
+                "skipped_findings": [],
+                "hold_reasons": [
+                    {
+                        "finding_id": "mnpi:material_event:0:54:0",
+                        "user_reason": (
+                            "This passage appears to contain high-severity MNPI. Wait for public "
+                            "disclosure or reviewer approval before sharing."
+                        ),
+                        "audit_rationale": (
+                            "hold_until_public applied to finding mnpi:material_event:0:54:0 under "
+                            "policy default@2026-06-14; sharing remains blocked until public evidence "
+                            "or reviewer approval is recorded."
+                        ),
+                    }
+                ],
+                "privacy_ledger": [],
+                "timings_ms": {"extract": 0.1, "review": 0.4, "hold_until_public": 0.1, "total": 0.6},
+            }
+        }
+    )
+
+    privacy_operation: str = Field("hold_until_public", description="Privacy operation applied by this endpoint.")
+    rewrite_policy: str = Field(
+        "mnpi_hold_allowed_spans",
+        description="High-severity MNPI hold policy; eligible spans are replaced with hold text.",
+    )
+    hold_reasons: list[HoldUntilPublicReasonResponse] = Field(
+        default_factory=list,
+        description="Display-safe and audit-ready reasons for each hold_until_public replacement.",
     )
 
 

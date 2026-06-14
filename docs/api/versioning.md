@@ -1,6 +1,6 @@
 # API Versioning
 
-Kaypoh v0.1 exposes root endpoints such as `/review`, `/pseudonymize`, `/anonymize`, `/redact`, `/redact-pii`, `/reidentify`, `/documents/scrub`, and `/classify`. The OpenAPI schema is the contract source for generated clients.
+Kaypoh v0.1 exposes root endpoints such as `/review`, `/pseudonymize`, `/anonymize`, `/redact`, `/redact-pii`, `/hold-until-public`, `/reidentify`, `/documents/scrub`, and `/classify`. The OpenAPI schema is the contract source for generated clients.
 
 ## `/v1` Compatibility Rules
 

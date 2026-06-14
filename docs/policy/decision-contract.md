@@ -29,7 +29,7 @@ Adapters must treat `policy_decision` as the source of truth and keep `send_allo
 | `redact_pii` | Offer `/redact-pii` for irreversible PII replacement while leaving MNPI visible and flagged. |
 | `safe_rewrite` | Offer deterministic safe rewrite when the API supports it. |
 | `request_approval` | Create or link to reviewer workflow using `review_id`. |
-| `hold_until_public` | Explain that high-severity MNPI must wait for public disclosure or approval. |
+| `hold_until_public` | Offer `/hold-until-public` so high-severity MNPI receives hold text, a user reason, and audit rationale. |
 | `cite_public_source` | Collect or display public evidence source data where audit-grade review supports it. |
 | `proceed_with_warning` | Allow proceed only for `warn` decisions or tenant-approved warning flows. |
 

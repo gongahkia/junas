@@ -64,6 +64,7 @@ class OpenApiSnapshotTests(unittest.TestCase):
                     "/metrics",
                     "/classify",
                     "/classify/batch",
+                    "/hold-until-public",
                     "/review",
                     "/redact-pii",
                     "/safe-rewrite",
@@ -148,6 +149,18 @@ class OpenApiSnapshotTests(unittest.TestCase):
                 },
                 "ReviewResponse": {
                     "properties": list(schemas["ReviewResponse"]["properties"].keys()),
+                },
+                "HoldUntilPublicRequest": {
+                    "required": schemas["HoldUntilPublicRequest"].get("required", []),
+                    "properties": list(schemas["HoldUntilPublicRequest"]["properties"].keys()),
+                },
+                "HoldUntilPublicResponse": {
+                    "required": schemas["HoldUntilPublicResponse"].get("required", []),
+                    "properties": list(schemas["HoldUntilPublicResponse"]["properties"].keys()),
+                },
+                "HoldUntilPublicReasonResponse": {
+                    "required": schemas["HoldUntilPublicReasonResponse"].get("required", []),
+                    "properties": list(schemas["HoldUntilPublicReasonResponse"]["properties"].keys()),
                 },
                 "RedactPiiRequest": {
                     "required": schemas["RedactPiiRequest"].get("required", []),

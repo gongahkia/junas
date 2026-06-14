@@ -27,6 +27,7 @@ class OpenApiDocsTests(unittest.TestCase):
 
         classify_operation = payload["paths"]["/classify"]["post"]
         batch_operation = payload["paths"]["/classify/batch"]["post"]
+        hold_until_public_operation = payload["paths"]["/hold-until-public"]["post"]
         review_operation = payload["paths"]["/review"]["post"]
         pseudonymize_operation = payload["paths"]["/pseudonymize"]["post"]
         anonymize_operation = payload["paths"]["/anonymize"]["post"]
@@ -37,6 +38,7 @@ class OpenApiDocsTests(unittest.TestCase):
 
         self.assertEqual(classify_operation["summary"], "Classify one document")
         self.assertEqual(batch_operation["summary"], "Classify multiple documents")
+        self.assertEqual(hold_until_public_operation["summary"], "Hold high-risk MNPI until public")
         self.assertEqual(review_operation["summary"], "Review a document before sending")
         self.assertEqual(pseudonymize_operation["summary"], "Pseudonymize a document before sending")
         self.assertEqual(anonymize_operation["summary"], "Anonymize a document irreversibly")
@@ -45,6 +47,7 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertEqual(safe_rewrite_operation["summary"], "Safely rewrite a document deterministically")
         self.assertEqual(scrub_operation["summary"], "Scrub document metadata")
         self.assertIn("deterministic review engine", classify_operation["description"])
+        self.assertIn("audit-ready rationale", hold_until_public_operation["description"])
         self.assertIn("strictest-wins", review_operation["description"])
         self.assertIn("deterministic reversible placeholders", pseudonymize_operation["description"])
         self.assertIn("without returning or persisting a mapping", anonymize_operation["description"])
@@ -58,6 +61,9 @@ class OpenApiDocsTests(unittest.TestCase):
         pseudonymize_request = schemas["PseudonymizeRequest"]
         pseudonymize_response = schemas["PseudonymizeResponse"]
         redact_response = schemas["RedactResponse"]
+        hold_until_public_request = schemas["HoldUntilPublicRequest"]
+        hold_until_public_response = schemas["HoldUntilPublicResponse"]
+        hold_reason_response = schemas["HoldUntilPublicReasonResponse"]
         redact_pii_request = schemas["RedactPiiRequest"]
         redact_pii_response = schemas["RedactPiiResponse"]
         safe_rewrite_request = schemas["SafeRewriteRequest"]
@@ -87,6 +93,9 @@ class OpenApiDocsTests(unittest.TestCase):
         self.assertIn("mapping", pseudonymize_response["properties"])
         self.assertIn("redacted_text", redact_response["properties"])
         self.assertIn("redactions", redact_response["properties"])
+        self.assertIn("allowed_actions", hold_until_public_request["properties"])
+        self.assertIn("hold_reasons", hold_until_public_response["properties"])
+        self.assertIn("audit_rationale", hold_reason_response["properties"])
         self.assertIn("allowed_actions", redact_pii_request["properties"])
         self.assertIn("rewritten_text", redact_pii_response["properties"])
         self.assertIn("skipped_findings", redact_pii_response["properties"])

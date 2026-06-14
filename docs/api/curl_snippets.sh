@@ -32,6 +32,11 @@ curl -sS -X POST "${BASE_URL}/documents/scrub" \
 # GET /health - Get runtime health
 curl -sS -X GET "${BASE_URL}/health"
 
+# POST /hold-until-public - Hold high-risk MNPI until public
+curl -sS -X POST "${BASE_URL}/hold-until-public" \
+  -H "Content-Type: application/json" \
+  -d '{"allowed_actions":["hold_until_public"],"destination_jurisdiction":"US","document_type":"email","requested_action":"hold_until_public","source_jurisdiction":"SG","surface":"outlook","text":"Acme Corp will acquire GlobalTech before announcement.","workflow":"email_send"}'
+
 # POST /local/pairing/approve - Approve local daemon pairing
 curl -sS -X POST "${BASE_URL}/local/pairing/approve" \
   -H "Content-Type: application/json" \

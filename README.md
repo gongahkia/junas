@@ -77,6 +77,7 @@ Use follow-on actions when the review result requires content changes:
 ```bash
 curl -X POST http://127.0.0.1:8000/pseudonymize -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft."}'
 curl -X POST http://127.0.0.1:8000/redact-pii -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft."}'
+curl -X POST http://127.0.0.1:8000/hold-until-public -H "Content-Type: application/json" -d '{"text":"Acme Corp will acquire GlobalTech before announcement."}'
 curl -X POST http://127.0.0.1:8000/redact -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft."}'
 DOC_B64="$(base64 -i draft.docx | tr -d '\n')"
 curl -X POST http://127.0.0.1:8000/documents/scrub -H "Content-Type: application/json" -d "{\"document_base64\":\"${DOC_B64}\",\"document_filename\":\"draft.docx\"}"
@@ -99,6 +100,7 @@ Run the standard verification gate:
   - `/anonymize`: irreversible placeholder-only output with no retained mapping.
   - `/redact`: opaque markers without original matched text in the redaction response.
   - `/redact-pii`: deterministic PII-only replacement while MNPI remains visible and flagged.
+  - `/hold-until-public`: high-severity MNPI hold text with display-safe and audit-ready reasons.
 - Restores reversible pseudonymized text through `/reidentify` when the caller supplies a mapping or a persisted document hash.
 - Scrubs supported document metadata leakage through `/documents/scrub`.
 - Keeps optional public evidence and LLM helper layers disabled unless explicitly enabled by deployer and tenant gates.
@@ -137,6 +139,7 @@ Review and rewrite endpoints:
 - `POST /anonymize`
 - `POST /redact`
 - `POST /redact-pii`
+- `POST /hold-until-public`
 - `POST /safe-rewrite`
 - `POST /reidentify`
 - `POST /documents/scrub`

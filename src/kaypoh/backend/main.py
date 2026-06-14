@@ -83,6 +83,9 @@ from kaypoh.backend.schemas import (
     DocumentScrubRequest,
     DocumentScrubResponse,
     HealthResponse,
+    HoldUntilPublicReasonResponse,
+    HoldUntilPublicRequest,
+    HoldUntilPublicResponse,
     LLMAdjudicationResponse,
     LocalPairingApproveResponse,
     LocalPairingClaimResponse,
@@ -170,6 +173,7 @@ LOCAL_DAEMON_PROTECTED_PATHS = {
     "/classify",
     "/classify/batch",
     "/documents/scrub",
+    "/hold-until-public",
     "/pseudonymize",
     "/redact",
     "/redact-pii",
@@ -209,6 +213,8 @@ Key behaviors:
   in redaction findings.
 - `POST /redact-pii` returns deterministic PII-only replacements while leaving
   MNPI passages visible and flagged in findings.
+- `POST /hold-until-public` returns deterministic high-severity MNPI hold text
+  with display-safe and audit-ready reasons.
 - `POST /safe-rewrite` returns deterministic policy-approved span replacements
   without calling an LLM or persisting a reidentification mapping.
 - `POST /review` runs the same evidence-first pre-send review without rewriting
@@ -1976,6 +1982,64 @@ def _run_redact_pii_sync(req: RedactPiiRequest, request_id: str | None, tenant: 
     )
 
 
+def _hold_until_public_reasons(
+    replacements: list[SafeRewriteReplacementResponse],
+    policy_decision: PolicyDecisionResponse | None,
+) -> list[HoldUntilPublicReasonResponse]:
+    if policy_decision is None:
+        policy_ref = "unknown@unknown"
+    else:
+        policy_ref = f"{policy_decision.policy_id}@{policy_decision.policy_version}"
+    reasons: list[HoldUntilPublicReasonResponse] = []
+    for replacement in replacements:
+        if replacement.action != "hold_until_public":
+            continue
+        reasons.append(
+            HoldUntilPublicReasonResponse(
+                finding_id=replacement.finding_id,
+                user_reason=(
+                    "This passage appears to contain high-severity MNPI. Wait for public disclosure "
+                    "or reviewer approval before sharing."
+                ),
+                audit_rationale=(
+                    f"hold_until_public applied to finding {replacement.finding_id} "
+                    f"({replacement.rule}, {replacement.severity} MNPI) under policy {policy_ref}; "
+                    "sharing remains blocked until public evidence or reviewer approval is recorded."
+                ),
+            )
+        )
+    return reasons
+
+
+def _run_hold_until_public_sync(
+    req: HoldUntilPublicRequest,
+    request_id: str | None,
+    tenant: TenantContext,
+) -> HoldUntilPublicResponse:
+    hold_req = req.model_copy(
+        update={"requested_action": "hold_until_public", "allowed_actions": ["hold_until_public"]}
+    )
+    response = cast(
+        HoldUntilPublicResponse,
+        _run_safe_rewrite_sync(
+            hold_req,
+            request_id,
+            tenant,
+            endpoint="/hold-until-public",
+            privacy_operation="hold_until_public",
+            rewrite_policy="mnpi_hold_allowed_spans",
+            timing_key="hold_until_public",
+            response_type=HoldUntilPublicResponse,
+        ),
+    )
+    return cast(
+        HoldUntilPublicResponse,
+        response.model_copy(
+            update={"hold_reasons": _hold_until_public_reasons(response.replacements, response.policy_decision)}
+        ),
+    )
+
+
 def _run_placeholder_review_sync(
     req: Any,
     request_id: str | None,
@@ -2970,6 +3034,27 @@ async def review_document(request: Request, req: ReviewRequest):
 async def redact_pii_document(request: Request, req: RedactPiiRequest):
     return await run_in_threadpool(
         _run_redact_pii_sync,
+        req,
+        getattr(request.state, "request_id", None),
+        tenant_context_from_request(request),
+    )
+
+
+@app.post(
+    "/hold-until-public",
+    response_model=HoldUntilPublicResponse,
+    dependencies=[Depends(require_review_access)],
+    tags=["Anonymization"],
+    summary="Hold high-risk MNPI until public",
+    description=(
+        "Run the pre-send PII/MNPI review and return hold text for high-severity MNPI spans, plus "
+        "display-safe user reasons and audit-ready rationale. This endpoint does not call an LLM or "
+        "persist a reidentification mapping."
+    ),
+)
+async def hold_until_public_document(request: Request, req: HoldUntilPublicRequest):
+    return await run_in_threadpool(
+        _run_hold_until_public_sync,
         req,
         getattr(request.state, "request_id", None),
         tenant_context_from_request(request),
