@@ -57,7 +57,7 @@
 - [x] P0/UserActions: Add a CLI example script that reviews stdin, prints policy decision JSON, and exits nonzero when policy blocks send.
 - [x] P0/UserActions: Add a regression test that safe rewrite never persists reversible mappings unless the caller explicitly uses pseudonymization.
 - [x] P0/UserActions: Add redaction response tests proving opaque redaction responses do not contain original matched text outside ordinary review findings.
-- [ ] P0/RepoLayout: Create `integrations/README.md` describing adapters as optional activation surfaces and listing maturity status, owner, runtime target, and security model.
+- [x] P0/RepoLayout: Create `integrations/README.md` describing adapters as optional activation surfaces and listing maturity status, owner, runtime target, and security model.
 - [ ] P0/RepoLayout: Move or mirror adapter docs from `packaging/browser_extension`, `packaging/office_addin`, `packaging/word_addin`, and `src/kaypoh/desktop` into `docs/integrations/` before moving code.
 - [ ] P0/RepoLayout: Add `docs/integrations/maturity-matrix.md` defining `core`, `supported-target`, `experimental`, `demo-only`, and `archived` criteria.
 - [ ] P0/RepoLayout: Add an ADR deciding whether adapter source should remain under `packaging/` or move to top-level `integrations/` with packaging scripts updated.
