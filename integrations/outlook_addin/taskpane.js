@@ -1,10 +1,12 @@
 const DEFAULTS = {
   endpoint: "http://127.0.0.1:8765",
-  token: ""
+  token: "",
+  sendHookTimeoutMs: "4000"
 };
 const STORAGE_KEYS = {
   endpoint: "kaypoh.endpoint",
-  token: "kaypoh.localToken"
+  token: "kaypoh.localToken",
+  sendHookTimeoutMs: "kaypoh.sendHookTimeoutMs"
 };
 let currentConfig = {...DEFAULTS};
 let pendingPairing = null;
@@ -25,19 +27,25 @@ async function setStored(key, value) {
 async function loadConfig() {
   currentConfig = {
     endpoint: (await getStored(STORAGE_KEYS.endpoint)) || DEFAULTS.endpoint,
-    token: (await getStored(STORAGE_KEYS.token)) || ""
+    token: (await getStored(STORAGE_KEYS.token)) || "",
+    sendHookTimeoutMs: (await getStored(STORAGE_KEYS.sendHookTimeoutMs)) || DEFAULTS.sendHookTimeoutMs
   };
   endpoint.value = currentConfig.endpoint;
   token.value = currentConfig.token;
+  sendHookTimeoutMs.value = currentConfig.sendHookTimeoutMs;
 }
 
 async function saveConfig() {
+  const timeoutMs = Number.parseInt(sendHookTimeoutMs.value, 10);
   currentConfig = {
     endpoint: endpoint.value.trim() || DEFAULTS.endpoint,
-    token: token.value.trim()
+    token: token.value.trim(),
+    sendHookTimeoutMs: String(Math.min(8000, Math.max(1000, Number.isFinite(timeoutMs) ? timeoutMs : 4000)))
   };
   await setStored(STORAGE_KEYS.endpoint, currentConfig.endpoint);
   await setStored(STORAGE_KEYS.token, currentConfig.token);
+  await setStored(STORAGE_KEYS.sendHookTimeoutMs, currentConfig.sendHookTimeoutMs);
+  sendHookTimeoutMs.value = currentConfig.sendHookTimeoutMs;
   output.textContent = "settings saved";
 }
 

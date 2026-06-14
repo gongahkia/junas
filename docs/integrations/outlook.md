@@ -61,7 +61,14 @@ Kaypoh policy mapping:
 - Deploy through Microsoft 365 admin-managed deployment for production pilots.
 - Assign to scoped pilot groups before tenant-wide rollout.
 - Configure backend auth or local pairing token; the taskpane stores endpoint and local token in Office runtime storage or localStorage fallback.
+- Configure send-hook timeout in the taskpane. The default is 4000 ms and allowed range is 1000-8000 ms.
 - Keep add-in runtime pages and backend routes on origins allowed by tenant security policy.
+
+## Send Hook Timeout
+
+The launch-event path uses a shorter timeout than normal API calls because Outlook Smart Alerts runs inside the user's send action. Long waits make the send flow feel broken and can trigger Outlook long-running add-in prompts. The default send-hook timeout is 4000 ms, clamped between 1000 ms and 8000 ms via `kaypoh.sendHookTimeoutMs`.
+
+Normal backend and batch workflows may use longer API timeouts because they are not blocking a compose-window send event.
 
 ## Fallback Behavior
 
@@ -78,7 +85,7 @@ Kaypoh policy mapping:
 | Failure | Current handling | Operator note |
 |---|---|---|
 | Add-in unavailable before event runs | Outlook applies `SoftBlock` platform behavior. | Not fail-closed; validate client support and monitor add-in health. |
-| Backend timeout or unavailable | Handler catch path blocks current send attempt. | Keep timeout lower than normal API calls and route user to taskpane/pairing check. |
+| Backend timeout or unavailable | Handler catch path blocks current send attempt. | Default send-hook timeout is 4000 ms; route user to taskpane/pairing check. |
 | Offline mode / Work Offline | Event or backend call may not complete. | Treat as unsupported for controlled send enforcement unless tenant accepts soft-block fallback. |
 | Malformed response | Mapping falls back to soft-block unless a valid allow decision is present. | Add telemetry once Outlook adapter telemetry exists. |
 | Auth failure | Non-2xx `/review` response enters backend-unavailable catch path and blocks current send. | User should re-pair local token or fix tenant API/JWT auth. |

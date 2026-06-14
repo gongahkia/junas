@@ -91,10 +91,14 @@ class FrontendIntegrationTests(unittest.TestCase):
             const source = fs.readFileSync("integrations/outlook_addin/launchevent.js", "utf8");
             const requests = [];
             const context = {
+              AbortController,
+              setTimeout,
+              clearTimeout,
               localStorage: {getItem: () => ""},
               OfficeRuntime: {storage: {getItem: async (key) => ({
                 "kaypoh.endpoint": "http://kaypoh.local",
-                "kaypoh.localToken": "client-token"
+                "kaypoh.localToken": "client-token",
+                "kaypoh.sendHookTimeoutMs": "2500"
               }[key] || "")}},
               Office: {
                 AsyncResultStatus: {Succeeded: "succeeded"},
@@ -151,6 +155,8 @@ class FrontendIntegrationTests(unittest.TestCase):
               const completed = new Promise((resolve) => context.__handler({completed: resolve}));
               const result = await completed;
               assert.strictEqual(requests[0].url, "http://kaypoh.local/review");
+              assert.ok(requests[0].options.signal);
+              assert.strictEqual(typeof requests[0].options.signal.aborted, "boolean");
               assert.strictEqual(requests[0].options.headers["X-Kaypoh-Local-Token"], "client-token");
               assert.strictEqual(requests[0].body.degraded_policy, "block_send");
               assert.strictEqual(requests[0].body.surface, "outlook");

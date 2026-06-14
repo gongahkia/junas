@@ -1,6 +1,8 @@
 const KAYPOH_DEFAULT_ENDPOINT = "http://127.0.0.1:8765";
+const KAYPOH_DEFAULT_SEND_TIMEOUT_MS = 4000;
 const KAYPOH_ENDPOINT_KEY = "kaypoh.endpoint";
 const KAYPOH_TOKEN_KEY = "kaypoh.localToken";
+const KAYPOH_SEND_TIMEOUT_KEY = "kaypoh.sendHookTimeoutMs";
 
 function kaypohStored(key) {
   if (globalThis.OfficeRuntime && OfficeRuntime.storage) {
@@ -11,6 +13,14 @@ function kaypohStored(key) {
   } catch (error) {
     return Promise.resolve("");
   }
+}
+
+function kaypohStoredTimeout() {
+  return kaypohStored(KAYPOH_SEND_TIMEOUT_KEY).then((value) => {
+    const parsed = Number.parseInt(value, 10);
+    if (!Number.isFinite(parsed)) return KAYPOH_DEFAULT_SEND_TIMEOUT_MS;
+    return Math.min(8000, Math.max(1000, parsed));
+  });
 }
 
 function kaypohBodyText(event) {
@@ -55,7 +65,7 @@ function kaypohAllRecipients() {
     kaypohGetAsync(item.to, []),
     kaypohGetAsync(item.cc, []),
     kaypohGetAsync(item.bcc, [])
-  ]).then((groups) => groups.flat().filter(Boolean));
+  ]).then((groups) => [].concat(...groups).filter(Boolean));
 }
 
 function kaypohAttachments() {
@@ -86,12 +96,19 @@ function kaypohReviewText(context) {
   return subject ? `Subject: ${subject}\n\n${body}` : body;
 }
 
-function kaypohReview(endpoint, token, context) {
+function kaypohFetchWithTimeout(url, options, timeoutMs) {
+  if (!globalThis.AbortController) return fetch(url, options);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, {...options, signal: controller.signal}).finally(() => clearTimeout(timer));
+}
+
+function kaypohReview(endpoint, token, context, timeoutMs) {
   const headers = {"Content-Type": "application/json"};
   if (token) headers["X-Kaypoh-Local-Token"] = token;
   const recipients = Array.isArray(context.recipients) ? context.recipients : [];
   const attachments = Array.isArray(context.attachments) ? context.attachments : [];
-  return fetch(`${endpoint}/review`, {
+  return kaypohFetchWithTimeout(`${endpoint}/review`, {
     method: "POST",
     headers,
     body: JSON.stringify({
@@ -108,7 +125,7 @@ function kaypohReview(endpoint, token, context) {
       recipient_count: recipients.length,
       attachment_count: attachments.length
     })
-  }).then((response) => {
+  }, timeoutMs).then((response) => {
     if (!response.ok) throw new Error(`kaypoh ${response.status}`);
     return response.json();
   });
@@ -163,9 +180,11 @@ function kaypohComplete(event, completion) {
 }
 
 function onMessageSendHandler(event) {
-  Promise.all([kaypohStored(KAYPOH_ENDPOINT_KEY), kaypohStored(KAYPOH_TOKEN_KEY)])
-    .then(([endpoint, token]) =>
-      kaypohMessageContext(event).then((context) => kaypohReview(endpoint || KAYPOH_DEFAULT_ENDPOINT, token, context))
+  Promise.all([kaypohStored(KAYPOH_ENDPOINT_KEY), kaypohStored(KAYPOH_TOKEN_KEY), kaypohStoredTimeout()])
+    .then(([endpoint, token, timeoutMs]) =>
+      kaypohMessageContext(event).then((context) =>
+        kaypohReview(endpoint || KAYPOH_DEFAULT_ENDPOINT, token, context, timeoutMs)
+      )
     )
     .then((result) => {
       kaypohComplete(event, kaypohSmartAlertCompletion(result));
