@@ -12,6 +12,8 @@ uv run python scripts/preflight.py --strict
 
 The default runtime is deterministic-only. `PIPELINE_LAYERS` should normally be empty. Optional server layers are `public_evidence`, `llm_adjudicator`, `llm_defined_term_extractor`, and `llm_coverage_auditor`.
 
+Document ingest defaults to fail-open: unsupported or partially unreadable payloads return a degraded best-effort response instead of HTTP 422. Set `KAYPOH_DOCUMENT_FAIL_CLOSED=1` to reject those payloads.
+
 ## Launch
 
 ```sh

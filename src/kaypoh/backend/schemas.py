@@ -645,7 +645,7 @@ class ReviewResponse(BaseModel):
     )
     degraded_modes: list[DegradedModeResponse] = Field(
         default_factory=list,
-        description="Explicit fail-closed or best-effort coverage limitations surfaced for this response.",
+        description="Explicit fail-open, fail-closed, or best-effort coverage limitations surfaced for this response.",
     )
     timings_ms: dict[str, float] = Field(
         default_factory=dict,
@@ -1323,7 +1323,7 @@ class ClassifyResponse(BaseModel):
     )
     degraded_modes: list[DegradedModeResponse] = Field(
         default_factory=list,
-        description="Explicit fail-closed or best-effort coverage limitations surfaced for this response.",
+        description="Explicit fail-open, fail-closed, or best-effort coverage limitations surfaced for this response.",
     )
 
 

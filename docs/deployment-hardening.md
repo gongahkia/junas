@@ -266,9 +266,9 @@ KAYPOH_RETENTION_MANIFEST=/etc/kaypoh/retention_manifest.json uv run python scri
 
 ## Document Ingest And Metadata
 
-PDF review fails closed by default when the extracted text layer is missing, too sparse,
-or image-only. Do not enable best-effort OCR in the server path; convert scanned files to
-DOCX or submit a PDF with a reliable text layer.
+PDF review fails open by default when the extracted text layer is missing, too sparse,
+or image-only. Set `KAYPOH_DOCUMENT_FAIL_CLOSED=1` or `document_ingest.fail_closed=true`
+to reject these payloads instead of returning degraded best-effort responses.
 
 `/review`, `/pseudonymize`, `/anonymize`, and `/redact` report DOCX/PDF/image container metadata under
 `document.metadata_findings`. `/documents/scrub` removes supported DOCX properties,

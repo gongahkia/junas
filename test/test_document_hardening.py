@@ -342,7 +342,7 @@ class DocumentHardeningTests(unittest.TestCase):
         self.assertNotIn("Priya Raman", document_xml)
         self.assertNotIn("2026-05-25T01:02:03Z", document_xml)
 
-    def test_pdf_without_text_layer_fails_closed(self):
+    def test_pdf_without_text_layer_fails_open(self):
         with TestClient(main.app) as client:
             response = client.post(
                 "/review",
@@ -352,8 +352,10 @@ class DocumentHardeningTests(unittest.TestCase):
                 },
             )
 
-        self.assertEqual(response.status_code, 422)
-        self.assertIn("failed closed", response.json()["detail"])
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertEqual(payload["document"]["extraction_quality"], "degraded")
+        self.assertTrue(any(mode["status"] == "failed_open" for mode in payload["degraded_modes"]))
 
     def test_pdf_with_text_layer_passes_quality_gate(self):
         with TestClient(main.app) as client:
@@ -575,7 +577,7 @@ class DocumentHardeningTests(unittest.TestCase):
         sources = {finding["source"] for finding in payload["document"]["metadata_findings"]}
         self.assertIn("eml_forwarded_message", sources)
 
-    def test_zip_path_traversal_fails_closed(self):
+    def test_zip_path_traversal_fails_open(self):
         encoded = base64.b64encode(_zip_bytes("../secret.txt", b"S1234567D")).decode("ascii")
         with TestClient(main.app) as client:
             response = client.post(
@@ -583,8 +585,10 @@ class DocumentHardeningTests(unittest.TestCase):
                 json={"document_base64": encoded, "document_filename": "archive.zip"},
             )
 
-        self.assertEqual(response.status_code, 422)
-        self.assertIn("container scan failed closed", response.json()["detail"])
+        self.assertEqual(response.status_code, 200, response.text)
+        payload = response.json()
+        self.assertEqual(payload["document"]["extraction_quality"], "degraded")
+        self.assertTrue(any(mode["mode"] == "document_ingest" for mode in payload["degraded_modes"]))
 
     def test_html_svg_markdown_and_rtf_hidden_content_are_reviewed(self):
         cases = [
@@ -602,7 +606,7 @@ class DocumentHardeningTests(unittest.TestCase):
                 self.assertEqual(response.status_code, 200, response.text)
                 self.assertTrue(any(finding["rule"] == "sg_nric_fin" for finding in response.json()["findings"]))
 
-    def test_msg_7z_and_macro_enabled_containers_fail_closed(self):
+    def test_msg_7z_and_macro_enabled_containers_fail_open(self):
         msg_response_payload = base64.b64encode(b"not really msg").decode("ascii")
         with TestClient(main.app) as client:
             msg_response = client.post(
@@ -622,9 +626,9 @@ class DocumentHardeningTests(unittest.TestCase):
                 },
             )
 
-        self.assertEqual(msg_response.status_code, 422)
-        self.assertEqual(seven_z_response.status_code, 422)
-        self.assertEqual(docm_response.status_code, 422)
+        for response in (msg_response, seven_z_response, docm_response):
+            self.assertEqual(response.status_code, 200, response.text)
+            self.assertTrue(any(mode["status"] == "failed_open" for mode in response.json()["degraded_modes"]))
 
 
 if __name__ == "__main__":

@@ -695,7 +695,7 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
                 section="document_ingest",
                 key="fail_closed",
                 env_vars=("KAYPOH_DOCUMENT_FAIL_CLOSED",),
-                default=True,
+                default=False,
             ),
             label="document_ingest.fail_closed",
         ),

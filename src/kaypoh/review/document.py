@@ -22,6 +22,7 @@ from kaypoh.review.container_scan import (
     XLSX_MIME,
     ZIP_MIMES,
     ContainerScanError,
+    ContainerScanResult,
     is_container_mime,
     scan_container,
 )
@@ -100,6 +101,14 @@ def _decode_base64(raw: str) -> bytes:
         return base64.b64decode(raw, validate=True)
     except Exception as exc:
         raise ValueError("document_base64 must be valid base64") from exc
+
+
+def _fail_closed(ingest_settings: Any | None) -> bool:
+    return bool(getattr(ingest_settings, "fail_closed", True))
+
+
+def _fail_open_warning(reason: str) -> str:
+    return f"fail-open: {reason}"
 
 
 def _extract_docx(data: bytes) -> str:
@@ -279,19 +288,25 @@ def extract_review_document(
         raise ValueError("either text or document_base64 is required")
 
     data = _decode_base64(str(raw_base64))
+    fail_closed = _fail_closed(ingest_settings)
+    fail_open_warnings: list[str] = []
     try:
         metadata_findings = [
             finding.to_dict()
             for finding in inspect_metadata(data, filename=filename, mime_type=mime_type)
         ]
     except Exception as exc:
-        raise ValueError(f"metadata inspection failed closed: {exc}") from exc
+        if fail_closed:
+            raise ValueError(f"metadata inspection failed closed: {exc}") from exc
+        metadata_findings = []
+        fail_open_warnings.append(_fail_open_warning(f"metadata inspection skipped: {exc}"))
     container_text = ""
     document_structure: DocumentStructure | None = None
     container_findings: list[dict[str, str]] = []
     container_warnings: list[str] = []
     container_image_candidates: list[ImageCandidate] = []
     if is_container_mime(mime_type):
+        container_scan: ContainerScanResult | None = None
         try:
             container_scan = scan_container(
                 data,
@@ -300,12 +315,16 @@ def extract_review_document(
                 image_scan_enabled=image_scan_enabled,
             )
         except ContainerScanError as exc:
-            raise ValueError(f"container scan failed closed: {exc}") from exc
-        container_text = container_scan.text
-        container_findings = [finding.to_dict() for finding in container_scan.findings]
-        container_warnings = list(container_scan.warnings)
-        container_image_candidates = list(container_scan.image_candidates)
-        metadata_findings.extend(container_findings)
+            if fail_closed:
+                raise ValueError(f"container scan failed closed: {exc}") from exc
+            container_warnings.append(_fail_open_warning(f"container scan skipped: {exc}"))
+        if container_scan is not None:
+            container_text = container_scan.text
+            container_findings = [finding.to_dict() for finding in container_scan.findings]
+            container_warnings = list(container_scan.warnings)
+            container_image_candidates = list(container_scan.image_candidates)
+            metadata_findings.extend(container_findings)
+    container_warnings.extend(fail_open_warnings)
 
     if mime_type in SUPPORTED_TEXT_MIMES:
         extracted = data.decode("utf-8", errors="replace")
@@ -398,19 +417,44 @@ def extract_review_document(
         or image_mime_from_name(filename, data) in SUPPORTED_IMAGE_REVIEW_MIMES
     ):
         if not image_scan_enabled:
+            if fail_closed:
+                raise ValueError(f"unsupported document_mime_type: {mime_type}")
+            extracted = ""
+            method = "unsupported_image"
+            page_count = None
+            extraction_quality = "degraded"
+            extraction_warnings = container_warnings + [
+                _fail_open_warning(f"image review skipped because OCR is disabled for {mime_type}")
+            ]
+            image_candidates = []
+        else:
+            extracted = ""
+            method = "image_ocr"
+            page_count = None
+            extraction_quality = "ocr_pending"
+            extraction_warnings = ["standalone image payload requires configured image OCR"]
+            image_candidates = [standalone_image_candidate(data, filename=filename, mime_type=mime_type)]
+    else:
+        if fail_closed:
             raise ValueError(f"unsupported document_mime_type: {mime_type}")
         extracted = ""
-        method = "image_ocr"
+        method = "unsupported_document"
         page_count = None
-        extraction_quality = "ocr_pending"
-        extraction_warnings = ["standalone image payload requires configured image OCR"]
-        image_candidates = [standalone_image_candidate(data, filename=filename, mime_type=mime_type)]
-    else:
-        raise ValueError(f"unsupported document_mime_type: {mime_type}")
+        extraction_quality = "degraded"
+        extraction_warnings = container_warnings + [
+            _fail_open_warning(f"unsupported document_mime_type: {mime_type}")
+        ]
+        image_candidates = []
 
     cleaned = _clean_text(extracted)
     if not cleaned and not image_candidates:
-        raise ValueError("document extraction produced no text")
+        if fail_closed:
+            raise ValueError("document extraction produced no text")
+        extraction_quality = "degraded"
+        extraction_warnings = list(extraction_warnings)
+        extraction_warnings.append(
+            _fail_open_warning("document extraction produced no text; review continued with empty text")
+        )
     if document_structure is not None and document_structure.text != cleaned:
         document_structure = parse_document_structure(cleaned)
     return ExtractedDocument(

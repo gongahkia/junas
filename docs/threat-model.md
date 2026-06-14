@@ -29,8 +29,8 @@ This threat model is an operator-facing summary, not a substitute for a formal s
 | Tenant cross-read | Tenant context comes from validated credential/JWT only; storage path is tenant-scoped |
 | Mapping compromise | Optional Fernet encryption; service-account permissions; subject-index HMAC |
 | Journal tampering | HMAC chain, key versions, `verify_journal.py`, rotation sentinel |
-| Unsafe document container | ZIP/TAR caps, path traversal refusal, macro refusal, `.msg`/`.7z` fail-closed |
-| PDF hidden semantics missed | AcroForm, XFA, signatures, annotations, embedded files, URI actions are surfaced or fail closed |
+| Unsafe document container | ZIP/TAR caps, path traversal detection, macro/`.msg`/`.7z` degraded fail-open by default; `KAYPOH_DOCUMENT_FAIL_CLOSED=1` rejects |
+| PDF hidden semantics missed | AcroForm, XFA, signatures, annotations, embedded files, URI actions are surfaced or degraded fail-open |
 | External provider leakage | Disabled by default; PrivacyGuard sanitization; tenant and deployer opt-ins |
 | Model over-suppression | Deterministic-high findings cannot be removed by LLM adjudication |
 | Lost KMS/customer key | Encrypted mappings are unrecoverable; recovery requires retained key material |

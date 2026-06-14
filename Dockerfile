@@ -14,8 +14,6 @@ RUN apt-get update \
 
 COPY pyproject.toml uv.lock README.md ./
 COPY config.toml ./
-COPY backend ./backend
-COPY configs ./configs
 COPY src ./src
 COPY scripts/preflight.py ./scripts/preflight.py
 
@@ -28,4 +26,4 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
     CMD curl -fsS http://127.0.0.1:8000/ready >/dev/null || exit 1
 
-CMD ["uv", "run", "uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uv", "run", "uvicorn", "kaypoh.backend.main:app", "--host", "0.0.0.0", "--port", "8000"]

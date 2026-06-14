@@ -1223,6 +1223,8 @@ def _detector_error_detail(exc: Exception) -> dict[str, Any]:
 def _document_degraded_modes(document: Any) -> list[dict[str, Any]]:
     modes: list[dict[str, Any]] = []
     for warning in list(getattr(document, "extraction_warnings", []) or []):
+        if "fail-open:" in warning:
+            modes.append(_degraded_mode("document_ingest", "failed_open", warning))
         if "reviewed text layer only" in warning:
             modes.append(_degraded_mode("image_ocr", "skipped", warning))
         if "page(s) for configured image OCR" in warning:
@@ -1418,7 +1420,10 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
             tenant_id=tenant.tenant_id if tenant.enabled else None,
         )
     except ImageScanError as exc:
-        raise HTTPException(status_code=422, detail=_image_scan_error_detail(exc)) from exc
+        if current_runtime_settings().document_ingest.fail_closed:
+            raise HTTPException(status_code=422, detail=_image_scan_error_detail(exc)) from exc
+        image_privacy_ledger = []
+        degraded_modes.append(_degraded_mode("image_ocr", "failed_open", str(exc)))
     if image_privacy_ledger:
         timings_ms["image_ocr"] = round((time.perf_counter() - t_image_scan_start) * 1000.0, 3)
 
@@ -1547,7 +1552,10 @@ def _run_placeholder_review_sync(
             tenant_id=tenant.tenant_id if tenant.enabled else None,
         )
     except ImageScanError as exc:
-        raise HTTPException(status_code=422, detail=_image_scan_error_detail(exc)) from exc
+        if current_runtime_settings().document_ingest.fail_closed:
+            raise HTTPException(status_code=422, detail=_image_scan_error_detail(exc)) from exc
+        image_privacy_ledger = []
+        degraded_modes.append(_degraded_mode("image_ocr", "failed_open", str(exc)))
     if image_privacy_ledger:
         timings_ms["image_ocr"] = round((time.perf_counter() - t_image_scan_start) * 1000.0, 3)
 
