@@ -1244,7 +1244,8 @@ def _policy_decision_response(
     request_id: str | None,
     findings: list[Any],
     degraded_modes: list[dict[str, Any]],
-) -> PolicyDecisionResponse:
+) -> tuple[PolicyDecisionResponse, float]:
+    t_policy_start = time.perf_counter()
     decision = evaluate_policy(
         findings=findings,
         context=WorkflowContext.from_request(req),
@@ -1252,7 +1253,12 @@ def _policy_decision_response(
         degraded_modes=degraded_modes,
         review_id=request_id or "",
     )
-    return PolicyDecisionResponse.model_validate(decision.as_dict())
+    response = PolicyDecisionResponse.model_validate(decision.as_dict())
+    policy_decision_ms = round((time.perf_counter() - t_policy_start) * 1000.0, 3)
+    observability = get_observability()
+    if observability is not None:
+        observability.observe_policy_decision(response.decision, policy_decision_ms / 1000.0)
+    return response, policy_decision_ms
 
 
 def _finding_response(finding: Any) -> ReviewFindingResponse:
@@ -1293,12 +1299,14 @@ def _build_review_response(
     suppressed_findings = list(lane_suppressed_findings or [])
     visible_ids = {finding.id for finding in response_findings}
     modes = list(degraded_modes or [])
-    policy_decision = _policy_decision_response(
+    policy_decision, policy_decision_ms = _policy_decision_response(
         req=req,
         request_id=request_id,
         findings=list(result.findings),
         degraded_modes=modes,
     )
+    timings_ms["policy_decision_ms"] = policy_decision_ms
+    timings_ms["total"] = round(timings_ms.get("total", 0.0) + policy_decision_ms, 3)
     return ReviewResponse(
         request_id=request_id,
         overall_risk=result.overall_risk,

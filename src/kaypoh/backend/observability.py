@@ -62,6 +62,12 @@ class ObservabilityManager:
             labelnames=("endpoint", "classification", "cache_status", "degraded"),
             registry=self.registry,
         )
+        self.policy_decision_duration_seconds = Histogram(
+            "kaypoh_policy_decision_duration_seconds",
+            "Policy decision evaluation duration in seconds.",
+            labelnames=("decision",),
+            registry=self.registry,
+        )
         self.layer_execution_total = Counter(
             "kaypoh_layer_execution_total",
             "Layer execution attempts grouped by outcome.",
@@ -152,6 +158,9 @@ class ObservabilityManager:
             cache_status=cache_status,
             degraded=degraded_label,
         ).observe(max(0.0, duration_seconds))
+
+    def observe_policy_decision(self, decision: str, duration_seconds: float) -> None:
+        self.policy_decision_duration_seconds.labels(decision=decision).observe(max(0.0, duration_seconds))
 
     def observe_layer_execution(self, layer: str, outcome: str, duration_seconds: float) -> None:
         self.layer_execution_total.labels(layer=layer, outcome=outcome).inc()
