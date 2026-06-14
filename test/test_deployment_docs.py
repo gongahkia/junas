@@ -222,6 +222,22 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_desktop_watcher_doc_marks_opt_in_local_fallback_not_enforcement(self):
+        text = (ROOT / "docs" / "integrations" / "desktop-watcher.md").read_text(encoding="utf-8")
+        for token in (
+            "Opt-In Local Fallback Flow",
+            "kaypoh-watch --watch-folder",
+            "kaypoh-watch --clipboard",
+            "Clipboard polling is never enabled by default",
+            "Folder Watch",
+            "Clipboard Watch",
+            "not enterprise endpoint enforcement",
+            "does not block paste",
+            "cannot prove that every local file",
+            "KAYPOH_LOCAL_DAEMON_TOKEN",
+        ):
+            self.assertIn(token, text)
+
 
 if __name__ == "__main__":
     unittest.main()
