@@ -25,7 +25,7 @@
 - [x] P0/API: Add a default policy profile that blocks degraded `block_send`, warns on low-risk findings, requires rewrite or approval on high-risk PII, and blocks high-risk MNPI unless public evidence or reviewer approval exists.
 - [x] P0/API: Add policy config loading from TOML with tenant override support, schema validation, explicit policy versioning, and fail-fast startup errors for invalid production policy.
 - [x] P0/API: Add policy unit tests covering PII high, MNPI high, mixed PII/MNPI, cross-border recipient, external domain, degraded coverage, reviewer role override, and missing workflow context.
-- [ ] P0/API: Add policy evaluation into `/review`, `/pseudonymize`, `/anonymize`, and `/redact` responses without breaking existing clients that only read `send_allowed`.
+- [x] P0/API: Add policy evaluation into `/review`, `/pseudonymize`, `/anonymize`, and `/redact` responses without breaking existing clients that only read `send_allowed`.
 - [ ] P0/API: Add an `action_catalog` response field listing available next actions such as redact_pii, pseudonymize, safe_rewrite, cite_public_source, request_approval, hold_until_public, and proceed_with_warning.
 - [ ] P0/API: Add an API compatibility test proving existing fixtures still deserialize when the policy decision fields are absent or ignored.
 - [ ] P0/API: Add `docs/policy/schema.md` documenting policy config fields, decision precedence, severity thresholds, recipient-domain rules, role rules, and failure modes.

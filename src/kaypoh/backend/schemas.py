@@ -713,6 +713,19 @@ class ReviewResponse(BaseModel):
                 "jurisdiction_policy": "strictest_wins",
                 "document_type": "research_note",
                 "review_profile": "strict",
+                "degraded_policy": "warn",
+                "send_allowed": False,
+                "policy_decision": {
+                    "decision": "rewrite_required",
+                    "send_allowed": False,
+                    "required_actions": ["redact_pii", "request_approval", "safe_rewrite"],
+                    "recommended_actions": [],
+                    "blocking_findings": ["pii:sg_nric_fin:25:34:0"],
+                    "policy_id": "default",
+                    "policy_version": "2026-06-14",
+                    "policy_reasons": ["high-risk PII requires safe rewrite or reviewer approval before send"],
+                    "review_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                },
                 "document": {
                     "filename": "inline.txt",
                     "mime_type": "text/plain",
@@ -772,7 +785,11 @@ class ReviewResponse(BaseModel):
     )
     send_allowed: bool = Field(
         True,
-        description="False when degraded_policy=block_send and degraded coverage was observed.",
+        description="Compatibility field derived from policy_decision.send_allowed.",
+    )
+    policy_decision: Optional[PolicyDecisionResponse] = Field(
+        None,
+        description="Policy decision derived from findings, workflow context, and degraded coverage.",
     )
     document: ReviewDocumentMetadataResponse = Field(description="Extracted document metadata.")
     findings: list[ReviewFindingResponse] = Field(default_factory=list, description="Localized PII and MNPI findings.")

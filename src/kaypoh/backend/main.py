@@ -91,6 +91,7 @@ from kaypoh.backend.schemas import (
     ObservabilityResponse,
     OpaqueRedactionResponse,
     PlaceholderReplacementResponse,
+    PolicyDecisionResponse,
     PrivacyLedgerEntryResponse,
     PseudonymizeRequest,
     PseudonymizeResponse,
@@ -114,6 +115,7 @@ from kaypoh.backend.siem import emit_privacy_ledger_events, emit_security_event
 from kaypoh.configs.runtime import RuntimeSettings, get_runtime_settings
 from kaypoh.external.privacy_guard import PrivacyGuard
 from kaypoh.helper.determinism import configure_determinism
+from kaypoh.policy import WorkflowContext, evaluate_policy
 from kaypoh.review.decisions import (
     Decision,
     ReviewSessionError,
@@ -1236,6 +1238,23 @@ def _degraded_send_allowed(req: ReviewRequest, degraded_modes: list[dict[str, An
     return not (req.degraded_policy == "block_send" and bool(degraded_modes))
 
 
+def _policy_decision_response(
+    *,
+    req: ReviewRequest,
+    request_id: str | None,
+    findings: list[Any],
+    degraded_modes: list[dict[str, Any]],
+) -> PolicyDecisionResponse:
+    decision = evaluate_policy(
+        findings=findings,
+        context=WorkflowContext.from_request(req),
+        degraded_policy=req.degraded_policy,
+        degraded_modes=degraded_modes,
+        review_id=request_id or "",
+    )
+    return PolicyDecisionResponse.model_validate(decision.as_dict())
+
+
 def _finding_response(finding: Any) -> ReviewFindingResponse:
     return ReviewFindingResponse(
         id=finding.id,
@@ -1274,6 +1293,12 @@ def _build_review_response(
     suppressed_findings = list(lane_suppressed_findings or [])
     visible_ids = {finding.id for finding in response_findings}
     modes = list(degraded_modes or [])
+    policy_decision = _policy_decision_response(
+        req=req,
+        request_id=request_id,
+        findings=list(result.findings),
+        degraded_modes=modes,
+    )
     return ReviewResponse(
         request_id=request_id,
         overall_risk=result.overall_risk,
@@ -1288,7 +1313,8 @@ def _build_review_response(
         document_type=req.document_type,
         review_profile=req.review_profile,
         degraded_policy=req.degraded_policy,
-        send_allowed=_degraded_send_allowed(req, modes),
+        send_allowed=policy_decision.send_allowed,
+        policy_decision=policy_decision,
         document=ReviewDocumentMetadataResponse(
             filename=document.filename,
             mime_type=document.mime_type,
