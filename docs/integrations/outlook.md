@@ -130,6 +130,23 @@ Run this checklist before expanding a Microsoft 365 assignment group. Capture cl
 
 Repeat the checklist on Outlook on the web, new Outlook on Windows, classic Outlook on Windows, and Outlook on Mac before broad rollout. Outlook mobile is not a send-time enforcement target for this adapter.
 
+## Telemetry Events
+
+`launchevent.js` emits sanitized Outlook adapter telemetry to an optional `globalThis.kaypohTelemetrySink(event)` hook and a `kaypoh:telemetry` DOM event when the runtime supports it. There is no backend transport endpoint in this repo yet, so hosted deployments must wire that sink before treating these events as collected telemetry.
+
+Event schema: `kaypoh.outlook.telemetry.v1`.
+
+| Event | Emitted when | Payload boundary |
+|---|---|---|
+| `outlook_review_started` | Message context is collected and `/review` is about to run. | Counts only: recipient count, recipient-domain count, attachment count, timeout. |
+| `outlook_policy_decision_received` | `/review` returns a parseable policy response. | Decision, send flag, review/request ids, policy id/version, finding count, degraded count, action names. |
+| `outlook_user_proceeded_after_warning` | The runtime returns Office prompt-user completion for a warn decision. | Does not prove the final Outlook click; current event runtime has no callback for that user action. |
+| `outlook_user_blocked` | The runtime completes with `allowEvent=false` without prompt-user override. | Completion mode plus policy summary. |
+| `outlook_user_requested_approval` | The policy decision requires reviewer approval. | Approval route summary; does not prove the user opened the taskpane or submitted approval. |
+| `outlook_backend_failure` | Context collection, timeout, fetch, non-2xx response, or JSON handling enters the catch path. | Error type and generic backend status only. |
+
+Telemetry must not include raw body, subject, recipient addresses, attachment names, auth tokens, matched text, policy reasons, or endpoint URLs.
+
 ## Send Hook Timeout
 
 The launch-event path uses a shorter timeout than normal API calls because Outlook Smart Alerts runs inside the user's send action. Long waits make the send flow feel broken and can trigger Outlook long-running add-in prompts. The default send-hook timeout is 4000 ms, clamped between 1000 ms and 8000 ms via `kaypoh.sendHookTimeoutMs`.

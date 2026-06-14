@@ -85,7 +85,7 @@
 - [x] P1/Outlook: Add a tenant deployment guide for Microsoft 365 admin center centralized deployment, including required admin roles and group assignment.
 - [x] P1/Outlook: Add compatibility notes for Outlook web, new Outlook Windows, classic Outlook Windows, Outlook Mac, and mobile where support differs.
 - [x] P1/Outlook: Add a QA checklist that tests external recipient, internal recipient, attachment, no attachment, PII body, MNPI body, timeout, and backend unavailable.
-- [ ] P1/Outlook: Add telemetry events for Outlook review started, policy decision received, user proceeded after warning, user blocked, user requested approval, and backend failure.
+- [x] P1/Outlook: Add telemetry events for Outlook review started, policy decision received, user proceeded after warning, user blocked, user requested approval, and backend failure.
 - [ ] P1/Outlook: Add a privacy check proving Outlook adapter does not store message body in browser local storage, extension storage, or console logs.
 - [ ] P1/Browser: Update browser extension copy to "pre-send review for GenAI prompts" and avoid claiming universal DLP coverage.
 - [ ] P1/Browser: Add adapter modules per target surface for ChatGPT, Claude, Gemini, and a generic textarea fallback, each with explicit DOM selector tests.

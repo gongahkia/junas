@@ -90,10 +90,12 @@ class FrontendIntegrationTests(unittest.TestCase):
             const vm = require("vm");
             const source = fs.readFileSync("integrations/outlook_addin/launchevent.js", "utf8");
             const requests = [];
+            const telemetry = [];
             const context = {
               AbortController,
               setTimeout,
               clearTimeout,
+              kaypohTelemetrySink: (event) => telemetry.push(event),
               localStorage: {getItem: () => ""},
               OfficeRuntime: {storage: {getItem: async (key) => ({
                 "kaypoh.endpoint": "http://kaypoh.local",
@@ -169,6 +171,25 @@ class FrontendIntegrationTests(unittest.TestCase):
               assert.ok(!JSON.stringify(requests[0].body).includes("draft.docx"));
               assert.strictEqual(result.allowEvent, false);
               assert.match(result.errorMessage, /could not fully inspect/);
+              assert.deepStrictEqual(telemetry.map((event) => event.event_name), [
+                "outlook_review_started",
+                "outlook_policy_decision_received",
+                "outlook_user_blocked"
+              ]);
+              assert.strictEqual(telemetry[0].schema_version, "kaypoh.outlook.telemetry.v1");
+              assert.strictEqual(telemetry[0].details.timeout_ms, 2500);
+              assert.strictEqual(telemetry[0].details.recipient_count, 2);
+              assert.strictEqual(telemetry[0].details.recipient_domain_count, 2);
+              assert.strictEqual(telemetry[0].details.attachment_count, 1);
+              assert.strictEqual(telemetry[1].details.degraded_count, 1);
+              assert.strictEqual(telemetry[2].details.mode, "hard_block");
+              const serializedTelemetry = JSON.stringify(telemetry);
+              assert.ok(!serializedTelemetry.includes("Board draft"));
+              assert.ok(!serializedTelemetry.includes("confidential draft"));
+              assert.ok(!serializedTelemetry.includes("external@example.com"));
+              assert.ok(!serializedTelemetry.includes("Legal@internal.test"));
+              assert.ok(!serializedTelemetry.includes("draft.docx"));
+              assert.ok(!serializedTelemetry.includes("client-token"));
             })().catch((error) => {
               console.error(error);
               process.exit(1);
@@ -240,6 +261,148 @@ class FrontendIntegrationTests(unittest.TestCase):
             assert.strictEqual(block.mode, "hard_block");
             assert.strictEqual(block.options.allowEvent, false);
             assert.ok(!block.options.sendModeOverride);
+            """
+        )
+
+    def test_outlook_launch_event_emits_backend_failure_and_block_telemetry(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/outlook_addin/launchevent.js", "utf8");
+            const telemetry = [];
+            const context = {
+              AbortController,
+              setTimeout,
+              clearTimeout,
+              kaypohTelemetrySink: (event) => telemetry.push(event),
+              localStorage: {getItem: () => ""},
+              OfficeRuntime: {storage: {getItem: async (key) => ({
+                "kaypoh.endpoint": "http://kaypoh.local",
+                "kaypoh.sendHookTimeoutMs": "1000"
+              }[key] || "")}},
+              Office: {
+                AsyncResultStatus: {Succeeded: "succeeded"},
+                actions: {associate(name, fn) { context.__handler = fn; }},
+                context: {
+                  mailbox: {
+                    item: {
+                      subject: {getAsync(callback) { callback({status: "succeeded", value: "Secret subject"}); }},
+                      body: {
+                        getAsync(format, options, callback) {
+                          callback({status: "succeeded", value: "Secret body"});
+                        }
+                      },
+                      to: {
+                        getAsync(callback) {
+                          callback({status: "succeeded", value: [{emailAddress: "person@example.com"}]});
+                        }
+                      },
+                      cc: {getAsync(callback) { callback({status: "succeeded", value: []}); }},
+                      bcc: {getAsync(callback) { callback({status: "succeeded", value: []}); }},
+                      getAttachmentsAsync(callback) {
+                        callback({status: "succeeded", value: []});
+                      }
+                    }
+                  }
+                }
+              },
+              fetch: async () => {
+                throw new TypeError("network down");
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "launchevent.js"});
+            (async () => {
+              const result = await new Promise((resolve) => context.__handler({completed: resolve}));
+              assert.strictEqual(result.allowEvent, false);
+              assert.match(result.errorMessage, /local review is unavailable/);
+              assert.deepStrictEqual(telemetry.map((event) => event.event_name), [
+                "outlook_review_started",
+                "outlook_backend_failure",
+                "outlook_user_blocked"
+              ]);
+              assert.strictEqual(telemetry[1].details.error_type, "TypeError");
+              assert.strictEqual(telemetry[2].details.mode, "hard_block");
+              const serializedTelemetry = JSON.stringify(telemetry);
+              assert.ok(!serializedTelemetry.includes("Secret subject"));
+              assert.ok(!serializedTelemetry.includes("Secret body"));
+              assert.ok(!serializedTelemetry.includes("person@example.com"));
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
+    def test_outlook_completion_telemetry_maps_warning_approval_and_backend_failure(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/outlook_addin/launchevent.js", "utf8");
+            const telemetry = [];
+            const context = {
+              localStorage: {getItem: () => ""},
+              OfficeRuntime: {storage: {getItem: async () => ""}},
+              kaypohTelemetrySink: (event) => telemetry.push(event),
+              Office: {
+                MailboxEnums: {SendModeOverride: {PromptUser: "promptUser"}},
+                actions: {associate() {}}
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "launchevent.js"});
+
+            const warnResult = {
+              findings: [{rule: "email_address", matched_text: "alice@example.com"}],
+              degraded_modes: [],
+              request_id: "req-warn",
+              policy_decision: {
+                decision: "warn",
+                send_allowed: true,
+                policy_id: "default",
+                policy_version: "2026-06-14",
+                recommended_actions: ["proceed_with_warning"]
+              }
+            };
+            context.kaypohCompletionTelemetry(warnResult, context.kaypohSmartAlertCompletion(warnResult));
+
+            const approvalResult = {
+              findings: [{rule: "sg_nric_fin", matched_text: "S1234567D"}],
+              degraded_modes: [],
+              request_id: "req-approval",
+              policy_decision: {
+                decision: "approval_required",
+                send_allowed: false,
+                required_actions: ["request_approval"]
+              }
+            };
+            context.kaypohCompletionTelemetry(approvalResult, context.kaypohSmartAlertCompletion(approvalResult));
+            context.kaypohTelemetry("outlook_backend_failure", {
+              backend_status: "unavailable_or_context_error",
+              error_type: "TypeError",
+              text: "confidential raw body"
+            });
+
+            assert.deepStrictEqual(telemetry.map((event) => event.event_name), [
+              "outlook_user_proceeded_after_warning",
+              "outlook_user_requested_approval",
+              "outlook_user_blocked",
+              "outlook_backend_failure"
+            ]);
+            assert.strictEqual(telemetry[0].details.decision, "warn");
+            assert.strictEqual(telemetry[0].details.observed_user_action, false);
+            assert.strictEqual(telemetry[1].details.decision, "approval_required");
+            assert.strictEqual(telemetry[1].details.observed_user_action, false);
+            assert.strictEqual(telemetry[2].details.mode, "soft_block");
+            assert.strictEqual(telemetry[3].details.backend_status, "unavailable_or_context_error");
+            const serializedTelemetry = JSON.stringify(telemetry);
+            assert.ok(!serializedTelemetry.includes("alice@example.com"));
+            assert.ok(!serializedTelemetry.includes("S1234567D"));
+            assert.ok(!serializedTelemetry.includes("confidential raw body"));
             """
         )
 
