@@ -57,7 +57,11 @@ class OfficeAddinTests(unittest.TestCase):
         self.assertIn("allowEvent: false", js)
         self.assertIn("X-Kaypoh-Local-Token", js)
         self.assertIn('degraded_policy: "block_send"', js)
-        self.assertIn("result.send_allowed === false", js)
+        self.assertIn('surface: "outlook"', js)
+        self.assertIn('workflow: "email_send"', js)
+        self.assertIn("kaypohSmartAlertCompletion", js)
+        self.assertIn("sendModeOverride", js)
+        self.assertIn("policy_decision", js)
         self.assertIn("could not fully inspect", js)
         self.assertIn("launchevent.js", html)
 

@@ -50,8 +50,9 @@ The current manifest declares:
 Kaypoh policy mapping:
 
 - `allow`: call `allowEvent: true`.
-- `warn`: show warning/taskpane path, then allow only under tenant-approved warning behavior.
-- `block`, `approval_required`, `rewrite_required`, degraded coverage, or backend error: call `allowEvent: false` when the event handler is running.
+- `warn`: call `allowEvent: false` with `sendModeOverride=promptUser` when available.
+- `approval_required` or `rewrite_required`: soft-block the send attempt and route to the taskpane.
+- `block`, degraded coverage, malformed response, or backend error: hard-block the current send attempt when the event handler is running.
 
 ## Admin Deployment
 
@@ -66,7 +67,9 @@ Kaypoh policy mapping:
 
 - Backend unavailable: current handler blocks the send attempt with "Kaypoh local review is unavailable" when the handler runs.
 - Degraded review: current handler blocks because launch-event review uses `degraded_policy="block_send"`.
-- Findings or high scores: current handler blocks and asks the user to open Kaypoh Review.
+- Warn decisions: current handler uses `sendModeOverride=promptUser` where Office supports runtime overrides.
+- Rewrite or approval-required decisions: current handler soft-blocks and asks the user to open Kaypoh Review.
+- Block decisions: current handler hard-blocks the current send attempt.
 - Add-in unavailable before Outlook can run it: `SoftBlock` follows Outlook platform behavior, so this is not a fail-closed enforcement path.
 - Taskpane review uses `degraded_policy="warn"` and is user-triggered; Smart Alerts send handling is the enforcement path.
 

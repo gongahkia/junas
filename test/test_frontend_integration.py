@@ -130,12 +130,81 @@ class FrontendIntegrationTests(unittest.TestCase):
               assert.strictEqual(requests[0].url, "http://kaypoh.local/review");
               assert.strictEqual(requests[0].options.headers["X-Kaypoh-Local-Token"], "client-token");
               assert.strictEqual(requests[0].body.degraded_policy, "block_send");
+              assert.strictEqual(requests[0].body.surface, "outlook");
+              assert.strictEqual(requests[0].body.workflow, "email_send");
               assert.strictEqual(result.allowEvent, false);
               assert.match(result.errorMessage, /could not fully inspect/);
             })().catch((error) => {
               console.error(error);
               process.exit(1);
             });
+            """
+        )
+
+    def test_outlook_policy_decisions_map_to_smart_alert_completion_modes(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/outlook_addin/launchevent.js", "utf8");
+            const context = {
+              localStorage: {getItem: () => ""},
+              OfficeRuntime: {storage: {getItem: async () => ""}},
+              Office: {
+                MailboxEnums: {SendModeOverride: {PromptUser: "promptUser"}},
+                actions: {associate() {}}
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "launchevent.js"});
+
+            const allow = context.kaypohSmartAlertCompletion({
+              findings: [],
+              pii_score: 0,
+              mnpi_score: 0,
+              degraded_modes: [],
+              send_allowed: true,
+              policy_decision: {decision: "allow", send_allowed: true}
+            });
+            assert.strictEqual(allow.mode, "allow");
+            assert.strictEqual(allow.options.allowEvent, true);
+            assert.deepStrictEqual(Object.keys(allow.options), ["allowEvent"]);
+
+            const warn = context.kaypohSmartAlertCompletion({
+              findings: [{rule: "email_address"}],
+              degraded_modes: [],
+              policy_decision: {
+                decision: "warn",
+                send_allowed: true,
+                recommended_actions: ["proceed_with_warning"]
+              }
+            });
+            assert.strictEqual(warn.mode, "prompt_user");
+            assert.strictEqual(warn.options.allowEvent, false);
+            assert.strictEqual(warn.options.sendModeOverride, "promptUser");
+
+            const approval = context.kaypohSmartAlertCompletion({
+              findings: [{rule: "sg_nric_fin"}],
+              degraded_modes: [],
+              policy_decision: {
+                decision: "approval_required",
+                send_allowed: false,
+                required_actions: ["request_approval"]
+              }
+            });
+            assert.strictEqual(approval.mode, "soft_block");
+            assert.strictEqual(approval.options.allowEvent, false);
+            assert.ok(!approval.options.sendModeOverride);
+
+            const block = context.kaypohSmartAlertCompletion({
+              findings: [{rule: "sg_nric_fin"}],
+              degraded_modes: [],
+              policy_decision: {decision: "block", send_allowed: false}
+            });
+            assert.strictEqual(block.mode, "hard_block");
+            assert.strictEqual(block.options.allowEvent, false);
+            assert.ok(!block.options.sendModeOverride);
             """
         )
 
