@@ -39,7 +39,7 @@ class CalibrationCLITests(unittest.TestCase):
         self.assertEqual(report["iterations"], 10)
 
     def test_missing_corpus_returns_1(self):
-        result = self._run("--corpus", "/tmp/no-such-corpus-dir-kaypoh", "--iterations", "5")
+        result = self._run("--corpus", "/tmp/no-such-corpus-dir-junas", "--iterations", "5")
         self.assertEqual(result.returncode, 1)
         self.assertIn("no .txt fixtures", result.stderr)
 
@@ -79,7 +79,7 @@ class CalibrationGlobalRestorationTests(unittest.TestCase):
     """The script monkey-patches engine.LLM_TIER_MNPI_{LOWER,UPPER}; restoration must hold."""
 
     def test_engine_globals_restored_after_calibration_run(self):
-        from kaypoh.review import engine
+        from junas.review import engine
 
         before_lower = engine.LLM_TIER_MNPI_LOWER
         before_upper = engine.LLM_TIER_MNPI_UPPER
@@ -93,7 +93,7 @@ class CalibrationGlobalRestorationTests(unittest.TestCase):
         )
 
         # importing engine again must still see the shipped defaults
-        from kaypoh.review import engine as engine_reimport
+        from junas.review import engine as engine_reimport
 
         self.assertEqual(engine_reimport.LLM_TIER_MNPI_LOWER, before_lower)
         self.assertEqual(engine_reimport.LLM_TIER_MNPI_UPPER, before_upper)

@@ -20,8 +20,8 @@ def load_latency_slo_module():
 
 
 @unittest.skipUnless(
-    os.environ.get("KAYPOH_RUN_LATENCY_SLO") == "1",
-    "set KAYPOH_RUN_LATENCY_SLO=1 to run the opt-in latency SLO gate",
+    os.environ.get("JUNAS_RUN_LATENCY_SLO") == "1",
+    "set JUNAS_RUN_LATENCY_SLO=1 to run the opt-in latency SLO gate",
 )
 class LatencySloBenchmarkTests(unittest.TestCase):
     @classmethod
@@ -30,10 +30,10 @@ class LatencySloBenchmarkTests(unittest.TestCase):
 
     def test_item56_p95_latency_budgets(self):
         config = self.mod.load_budget_config(self.mod.DEFAULT_BUDGET_FILE)
-        fixture = self.mod.resolve_fixture(config, os.environ.get("KAYPOH_LATENCY_SLO_FIXTURE"))
-        warmups = int(os.environ.get("KAYPOH_LATENCY_SLO_WARMUPS", config.get("default_warmups", 1)))
+        fixture = self.mod.resolve_fixture(config, os.environ.get("JUNAS_LATENCY_SLO_FIXTURE"))
+        warmups = int(os.environ.get("JUNAS_LATENCY_SLO_WARMUPS", config.get("default_warmups", 1)))
         repetitions = int(
-            os.environ.get("KAYPOH_LATENCY_SLO_REPETITIONS", config.get("default_repetitions", 5))
+            os.environ.get("JUNAS_LATENCY_SLO_REPETITIONS", config.get("default_repetitions", 5))
         )
         cases = self.mod.build_cases(
             config=config,

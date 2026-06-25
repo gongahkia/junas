@@ -17,7 +17,7 @@ if str(REPO_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review.engine import PreSendReviewEngine  # noqa: E402
+from junas.review.engine import PreSendReviewEngine  # noqa: E402
 from scripts.candidate_review import (  # noqa: E402
     collect_review_status_violations,
     labels_path_for,

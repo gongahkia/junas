@@ -74,7 +74,7 @@ def _fmt_score(value: float | None) -> str:
 
 def render_accuracy_doc() -> str:
     lines: list[str] = [
-        "# Kaypoh Detector Accuracy",
+        "# Junas Detector Accuracy",
         "",
         "This file is generated from committed recall and precision locks. Do not edit it by hand.",
         "",

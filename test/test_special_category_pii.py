@@ -3,13 +3,13 @@
 Strict context anchors keep precision survivable. False-positive corpus covers proper-name
 colliders ("Christian Dior", "Hindu Kush"), place-name colliders ("Trade Union Square",
 "Union Pacific"), and legal/court usage ("the opposition argued", "ruling party of the
-contract"). Per-category opt-out via KAYPOH_SPECIAL_CATEGORY_DISABLE.
+contract"). Per-category opt-out via JUNAS_SPECIAL_CATEGORY_DISABLE.
 """
 
 import os
 import unittest
 
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.engine import PreSendReviewEngine
 
 
 class _BaseSpecialCategoryTests(unittest.TestCase):
@@ -408,98 +408,98 @@ class SexLifeReferenceTests(_BaseSpecialCategoryTests):
 
 class OptOutTests(_BaseSpecialCategoryTests):
     def tearDown(self):
-        os.environ.pop("KAYPOH_SPECIAL_CATEGORY_DISABLE", None)
+        os.environ.pop("JUNAS_SPECIAL_CATEGORY_DISABLE", None)
 
     def test_disable_religion(self):
-        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "religion"
+        os.environ["JUNAS_SPECIAL_CATEGORY_DISABLE"] = "religion"
         self.assertEqual(len(self._findings_for("Dr Jane Tan is a devout Muslim.", "religious_belief")), 0)
 
     def test_disable_union(self):
-        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "union"
+        os.environ["JUNAS_SPECIAL_CATEGORY_DISABLE"] = "union"
         self.assertEqual(len(self._findings_for("Mr Tan joined the NTUC.", "trade_union_membership")), 0)
 
     def test_disable_political(self):
-        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "political"
+        os.environ["JUNAS_SPECIAL_CATEGORY_DISABLE"] = "political"
         self.assertEqual(len(self._findings_for("Ms Lee is a member of the PAP.", "political_opinion")), 0)
 
     def test_disable_multiple(self):
-        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "religion,union,political"
+        os.environ["JUNAS_SPECIAL_CATEGORY_DISABLE"] = "religion,union,political"
         text = "Dr Tan is a devout Muslim, joined the NTUC, and is a member of the PAP."
         for rule in ("religious_belief", "trade_union_membership", "political_opinion"):
             self.assertEqual(len(self._findings_for(text, rule)), 0, f"expected {rule} disabled")
 
     def test_disable_health(self):
-        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "health"
+        os.environ["JUNAS_SPECIAL_CATEGORY_DISABLE"] = "health"
         text = "Ms Lee was diagnosed with type 2 diabetes. Medication: metformin."
         for rule in ("health_condition", "medical_treatment"):
             self.assertEqual(len(self._findings_for(text, rule)), 0, f"expected {rule} disabled")
 
     def test_disable_biometric_and_genetic(self):
-        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "biometric,genetic"
+        os.environ["JUNAS_SPECIAL_CATEGORY_DISABLE"] = "biometric,genetic"
         text = "Biometric template: fingerprint hash. Genetic test result: BRCA1 positive."
         for rule in ("biometric_identifier", "genetic_data"):
             self.assertEqual(len(self._findings_for(text, rule)), 0, f"expected {rule} disabled")
 
     def test_disable_sexual_categories(self):
-        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "sexual"
+        os.environ["JUNAS_SPECIAL_CATEGORY_DISABLE"] = "sexual"
         text = "Sexual orientation: bisexual. Sexual history: disclosed to clinic intake nurse."
         for rule in ("sexual_orientation", "sex_life_reference"):
             self.assertEqual(len(self._findings_for(text, rule)), 0, f"expected {rule} disabled")
 
     def test_disable_racial_ethnic_origin(self):
-        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "ethnicity"
+        os.environ["JUNAS_SPECIAL_CATEGORY_DISABLE"] = "ethnicity"
         self.assertEqual(len(self._findings_for("Ethnicity: Han Chinese.", "racial_ethnic_origin")), 0)
 
 
 class CitationsTests(_BaseSpecialCategoryTests):
     def test_religion_citation_includes_gdpr_art_9(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="religious_belief", jurisdiction="EU", matched_text="Muslim")
         self.assertIn("Art 9", rationale)
 
     def test_union_citation_includes_pipa_art_23(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="trade_union_membership", jurisdiction="KR", matched_text="NTUC")
         self.assertIn("PIPA Korea Art 23", rationale)
 
     def test_political_citation_includes_lgpd(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="political_opinion", jurisdiction="EU", matched_text="PAP")
         self.assertIn("LGPD", rationale)
 
     def test_racial_ethnic_citation_includes_gdpr_art_9(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="racial_ethnic_origin", jurisdiction="EU", matched_text="Han Chinese")
         self.assertIn("GDPR Art 9", rationale)
 
     def test_health_citation_includes_gdpr_and_hipaa(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="health_condition", jurisdiction="EU", matched_text="diabetes")
         self.assertIn("GDPR Art 9", rationale)
         self.assertIn("HIPAA", rationale)
 
     def test_treatment_citation_includes_pdpc_healthcare(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="medical_treatment", jurisdiction="SG", matched_text="metformin")
         self.assertIn("Healthcare Sector Advisory", rationale)
 
     def test_biometric_citation_includes_recital_51(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="biometric_identifier", jurisdiction="EU", matched_text="fingerprint hash")
         self.assertIn("Recital 51", rationale)
 
     def test_genetic_citation_includes_gdpr_art_9(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="genetic_data", jurisdiction="EU", matched_text="BRCA1 positive")
         self.assertIn("GDPR Art 9", rationale)
 
     def test_orientation_citation_includes_gdpr_art_9(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="sexual_orientation", jurisdiction="EU", matched_text="bisexual")
         self.assertIn("GDPR Art 9", rationale)
 
     def test_sex_life_citation_includes_gdpr_art_9(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="sex_life_reference", jurisdiction="EU", matched_text="Sexual history")
         self.assertIn("GDPR Art 9", rationale)
 

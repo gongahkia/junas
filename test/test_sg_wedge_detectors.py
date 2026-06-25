@@ -1,6 +1,6 @@
 """SG wedge detector slice (item 100 follow-up).
 
-Three new SG-specific detectors in `src/kaypoh/review/jurisdictions_data/SG.toml`:
+Three new SG-specific detectors in `src/junas/review/jurisdictions_data/SG.toml`:
     sg_paynow       — PayNow identifier (UEN / NRIC / mobile), anchored on PayNow context
     sg_mas_licence  — MAS-issued CMS / FA licence number, anchored on MAS / licence context
     sg_sgx_counter  — SGX counter / cashtag, anchored on SGX context, case-sensitive capture
@@ -13,7 +13,7 @@ Held to recall=1.0 + precision=1.0 on the inline corpus — same posture as sg_c
 
 import unittest
 
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.engine import PreSendReviewEngine
 
 
 class _SgWedgeBase(unittest.TestCase):
@@ -210,7 +210,7 @@ class SgWedgeCitationTests(unittest.TestCase):
     """Citation rationales must carry the SG statute anchor for each new rule."""
 
     def setUp(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         self.pii = pii_rationale
 
     def test_paynow_citation_carries_pdpa_and_psa(self):

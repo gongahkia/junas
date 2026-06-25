@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CURL_BIN="${CURL_BIN:-curl}"
-HOST="${KAYPOH_VERIFY_HOST:-127.0.0.1}"
+HOST="${JUNAS_VERIFY_HOST:-127.0.0.1}"
 export UV_PROJECT_ENVIRONMENT="${UV_PROJECT_ENVIRONMENT:-${ROOT}/.venv-uv}"
 export UV_PYTHON="${UV_PYTHON:-3.12}"
 
@@ -149,10 +149,10 @@ start_server() {
   (
     cd "$ROOT"
     export KMP_DUPLICATE_LIB_OK=TRUE
-    export KAYPOH_FAIL_ON_LAYER_LOAD_ERROR=1
-    export KAYPOH_PRETTY_LOGS=0
+    export JUNAS_FAIL_ON_LAYER_LOAD_ERROR=1
+    export JUNAS_PRETTY_LOGS=0
     export PIPELINE_LAYERS=
-    exec "${UVICORN_CMD[@]}" kaypoh.backend.main:app --host "$HOST" --port "$port" --log-level warning
+    exec "${UVICORN_CMD[@]}" junas.backend.main:app --host "$HOST" --port "$port" --log-level warning
   ) >"$SERVER_LOG" 2>&1 &
   SERVER_PID=$!
 
@@ -178,7 +178,7 @@ smoke_runtime() {
 
   request GET "http://${HOST}:${port}/metrics"
   assert_status 200
-  assert_contains "$HTTP_BODY" 'kaypoh_http_requests_total' "/metrics should expose Kaypoh Prometheus counters"
+  assert_contains "$HTTP_BODY" 'junas_http_requests_total' "/metrics should expose Junas Prometheus counters"
 
   request POST "http://${HOST}:${port}/review" \
     '{"text":"Send Dr Jane Tan S1234567D the confidential SPA before announcement.","source_jurisdiction":"SG","destination_jurisdiction":"SG","document_type":"email"}'
@@ -225,10 +225,10 @@ main() {
   (
     cd "$ROOT"
     "${RUFF_CMD[@]}" check \
-      src/kaypoh/backend/main.py \
-      src/kaypoh/backend/schemas.py \
-      src/kaypoh/configs/runtime.py \
-      src/kaypoh/external/public_evidence/inference.py \
+      src/junas/backend/main.py \
+      src/junas/backend/schemas.py \
+      src/junas/configs/runtime.py \
+      src/junas/external/public_evidence/inference.py \
       scripts/preflight.py \
       test/test_runtime_settings_validation.py \
       test/test_backend_only_layout.py \

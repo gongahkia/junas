@@ -8,9 +8,9 @@ inputs, statute suffixes must be present in rationales.
 
 import unittest
 
-from kaypoh.review import jurisdictions
-from kaypoh.review.citations import pii_rationale
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review import jurisdictions
+from junas.review.citations import pii_rationale
+from junas.review.engine import PreSendReviewEngine
 
 
 class UsUkPackLoadTests(unittest.TestCase):

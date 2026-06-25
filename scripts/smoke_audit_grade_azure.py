@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """One-document Azure audit-grade smoke test.
 
-Runs Kaypoh's actual `azure_openai` adapter through `PreSendReviewEngine.review()`
+Runs Junas's actual `azure_openai` adapter through `PreSendReviewEngine.review()`
 against one existing score-band candidate fixture. This spends at most one LLM
 request and does not write reports or recall locks.
 """
@@ -28,18 +28,18 @@ DEFAULT_FIXTURE = (
 
 def _export_azure_mini_aliases() -> None:
     mappings = {
-        "KAYPOH_LLM_ENABLED": "1",
-        "KAYPOH_LLM_PROVIDER": "azure_openai",
-        "KAYPOH_LLM_BASE_URL": os.environ.get("GPT5_MINI_ENDPOINT", ""),
-        "KAYPOH_LLM_MODEL": os.environ.get("GPT5_MINI_DEPLOYMENT", ""),
-        "KAYPOH_LLM_AZURE_API_VERSION": os.environ.get("GPT5_MINI_API_VERSION", ""),
-        "KAYPOH_LLM_API_KEY": (
-            os.environ.get("GPT5_MINI_API_KEY", "") or os.environ.get("KAYPOH_LLM_API_KEY", "")
+        "JUNAS_LLM_ENABLED": "1",
+        "JUNAS_LLM_PROVIDER": "azure_openai",
+        "JUNAS_LLM_BASE_URL": os.environ.get("GPT5_MINI_ENDPOINT", ""),
+        "JUNAS_LLM_MODEL": os.environ.get("GPT5_MINI_DEPLOYMENT", ""),
+        "JUNAS_LLM_AZURE_API_VERSION": os.environ.get("GPT5_MINI_API_VERSION", ""),
+        "JUNAS_LLM_API_KEY": (
+            os.environ.get("GPT5_MINI_API_KEY", "") or os.environ.get("JUNAS_LLM_API_KEY", "")
         ),
-        "KAYPOH_LLM_TENANT_OPT_IN_AZURE_OPENAI": "1",
-        "KAYPOH_LLM_ALLOW_REMOTE_BASE_URL": "1",
-        "KAYPOH_LLM_INPUT_MODE": "structured_tokens",
-        "KAYPOH_LLM_TIMEOUT_SECONDS": os.environ.get("KAYPOH_LLM_TIMEOUT_SECONDS", "60"),
+        "JUNAS_LLM_TENANT_OPT_IN_AZURE_OPENAI": "1",
+        "JUNAS_LLM_ALLOW_REMOTE_BASE_URL": "1",
+        "JUNAS_LLM_INPUT_MODE": "structured_tokens",
+        "JUNAS_LLM_TIMEOUT_SECONDS": os.environ.get("JUNAS_LLM_TIMEOUT_SECONDS", "60"),
     }
     for key, value in mappings.items():
         if value:
@@ -55,9 +55,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.use_gpt5_mini_env:
         _export_azure_mini_aliases()
 
-    from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
-    from kaypoh.configs.runtime import get_runtime_settings
-    from kaypoh.review.engine import PreSendReviewEngine
+    from junas.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
+    from junas.configs.runtime import get_runtime_settings
+    from junas.review.engine import PreSendReviewEngine
 
     fixture = args.fixture if args.fixture.is_absolute() else REPO_ROOT / args.fixture
     labels = json.loads(fixture.with_suffix(".labels.json").read_text(encoding="utf-8"))

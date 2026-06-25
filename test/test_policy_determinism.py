@@ -15,7 +15,7 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh.policy import WorkflowContext, evaluate_policy, load_policy_profile
+from junas.policy import WorkflowContext, evaluate_policy, load_policy_profile
 
 
 @asynccontextmanager
@@ -93,14 +93,14 @@ class PolicyDeterminismTests(unittest.TestCase):
             }
         }
         env = {
-            "KAYPOH_TENANCY_ENABLED": "1",
-            "KAYPOH_TENANCY_AUTH_MODES": "api_key",
-            "KAYPOH_TENANT_CREDENTIALS_JSON": json.dumps(credentials),
+            "JUNAS_TENANCY_ENABLED": "1",
+            "JUNAS_TENANCY_AUTH_MODES": "api_key",
+            "JUNAS_TENANT_CREDENTIALS_JSON": json.dumps(credentials),
         }
         old_env = {key: os.environ.get(key) for key in env}
         os.environ.update(env)
         try:
-            import kaypoh.backend.main as main_mod
+            import junas.backend.main as main_mod
 
             importlib.reload(main_mod)
             main_mod.app.router.lifespan_context = _noop_lifespan
@@ -131,7 +131,7 @@ class PolicyDeterminismTests(unittest.TestCase):
                     os.environ.pop(key, None)
                 else:
                     os.environ[key] = old_value
-            import kaypoh.backend.main as main_mod
+            import junas.backend.main as main_mod
 
             importlib.reload(main_mod)
 

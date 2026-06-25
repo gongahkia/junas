@@ -33,7 +33,7 @@ The source manifest is a template. Rendered manifests are written to `dist/outlo
 3. `launchevent.js` reads the message body, subject, recipients, and attachment count.
 4. The handler calls `/review` with `document_type="email"`, `review_profile="strict"`, `degraded_policy="block_send"`, `surface="outlook"`, and `workflow="email_send"`.
 5. The handler calls `event.completed({allowEvent: true})` only when review completes without degraded coverage, blocking outcome, or findings above the current threshold.
-6. When blocked, the user opens the Kaypoh taskpane to review or redact before retrying send.
+6. When blocked, the user opens the Junas taskpane to review or redact before retrying send.
 
 The reviewed text prepends `Subject: ...` to the body so subject text is scanned. Recipient metadata is reduced to domain list and count. Attachment metadata is reduced to count; filenames are not sent.
 
@@ -47,7 +47,7 @@ The current manifest declares:
 
 `SoftBlock` is the supported target mode for this repo today. Microsoft documents three Smart Alerts send modes: prompt user, soft block, and block. With soft block, Outlook alerts the user when the item does not meet add-in conditions, but if the add-in is unavailable the item can be sent. `Block` is stricter when the add-in fails or cannot connect, but deployment and marketplace rules differ.
 
-Kaypoh policy mapping:
+Junas policy mapping:
 
 - `allow`: call `allowEvent: true`.
 - `warn`: call `allowEvent: false` with `sendModeOverride=promptUser` when available.
@@ -103,7 +103,7 @@ Group assignment:
 
 Smart Alerts `OnMessageSend` support starts at Mailbox requirement set 1.12, but client behavior is not uniform.
 
-| Client | Kaypoh status | Notes |
+| Client | Junas status | Notes |
 |---|---|---|
 | Outlook on the web | Supported target | Microsoft lists web browser modern UI as supported with Exchange Online. Validate hosted origin, CORS, and well-known URI before pilot. |
 | new Outlook on Windows | Supported target | Microsoft lists new Outlook on Windows as supported with Exchange Online. It uses the Outlook web add-in model; COM/VSTO add-ins are not supported. Add-ins are unavailable when the client is offline. |
@@ -125,16 +125,16 @@ Run this checklist before expanding a Microsoft 365 assignment group. Capture cl
 | Attachment present | Send a benign message with one or more files. | `/review` receives `attachment_count>0`; filenames and attachment contents are not sent by the current adapter. |
 | PII body | Send body text containing a deterministic PII fixture such as an SG NRIC/FIN test value. | Strict policy must not allow silent send; expect rewrite, approval, block, or prompt-user handling per active policy. |
 | MNPI body | Send body text containing non-public transaction or earnings language covered by MNPI detectors. | Strict policy must not allow silent send; expect hold-until-public, approval, block, or prompt-user handling per active policy. |
-| Timeout | Point the add-in to a backend endpoint that delays longer than the configured send-hook timeout. | Smart Alert completes with "Kaypoh local review is unavailable" and blocks the current send attempt. |
-| Backend unavailable | Stop the local daemon or hosted `/review` route, then send a benign message. | Smart Alert completes with "Kaypoh local review is unavailable" and blocks the current send attempt. |
+| Timeout | Point the add-in to a backend endpoint that delays longer than the configured send-hook timeout. | Smart Alert completes with "Junas local review is unavailable" and blocks the current send attempt. |
+| Backend unavailable | Stop the local daemon or hosted `/review` route, then send a benign message. | Smart Alert completes with "Junas local review is unavailable" and blocks the current send attempt. |
 
 Repeat the checklist on Outlook on the web, new Outlook on Windows, classic Outlook on Windows, and Outlook on Mac before broad rollout. Outlook mobile is not a send-time enforcement target for this adapter.
 
 ## Telemetry Events
 
-`launchevent.js` emits sanitized Outlook adapter telemetry to an optional `globalThis.kaypohTelemetrySink(event)` hook and a `kaypoh:telemetry` DOM event when the runtime supports it. There is no backend transport endpoint in this repo yet, so hosted deployments must wire that sink before treating these events as collected telemetry.
+`launchevent.js` emits sanitized Outlook adapter telemetry to an optional `globalThis.junasTelemetrySink(event)` hook and a `junas:telemetry` DOM event when the runtime supports it. There is no backend transport endpoint in this repo yet, so hosted deployments must wire that sink before treating these events as collected telemetry.
 
-Event schema: `kaypoh.outlook.telemetry.v1`.
+Event schema: `junas.outlook.telemetry.v1`.
 
 | Event | Emitted when | Payload boundary |
 |---|---|---|
@@ -153,7 +153,7 @@ Outlook adapter tests prove the send runtime sends message text only inside the 
 
 ## Send Hook Timeout
 
-The launch-event path uses a shorter timeout than normal API calls because Outlook Smart Alerts runs inside the user's send action. Long waits make the send flow feel broken and can trigger Outlook long-running add-in prompts. The default send-hook timeout is 4000 ms, clamped between 1000 ms and 8000 ms via `kaypoh.sendHookTimeoutMs`.
+The launch-event path uses a shorter timeout than normal API calls because Outlook Smart Alerts runs inside the user's send action. Long waits make the send flow feel broken and can trigger Outlook long-running add-in prompts. The default send-hook timeout is 4000 ms, clamped between 1000 ms and 8000 ms via `junas.sendHookTimeoutMs`.
 
 Normal backend and batch workflows may use longer API timeouts because they are not blocking a compose-window send event.
 
@@ -180,17 +180,17 @@ Microsoft requires extra configuration when event-based activation code uses COR
 ```
 
 - Keep the well-known file `Content-Type` as `application/json`.
-- Configure backend CORS to allow the add-in origin and the headers used by the event runtime: `Content-Type`, `X-Kaypoh-Local-Token`, and `Authorization` when tenant auth is enabled.
+- Configure backend CORS to allow the add-in origin and the headers used by the event runtime: `Content-Type`, `X-Junas-Local-Token`, and `Authorization` when tenant auth is enabled.
 - Support `OPTIONS` preflight for `/review` and local pairing routes used by Outlook.
 - Confirm the rendered manifest `JSRuntime.Url`, CORS allowlist, and well-known `allowed` entry match exactly after staging/production templating.
 - Do not allow wildcard origins for production tenant deployments.
 
 ## Fallback Behavior
 
-- Backend unavailable: current handler blocks the send attempt with "Kaypoh local review is unavailable" when the handler runs.
+- Backend unavailable: current handler blocks the send attempt with "Junas local review is unavailable" when the handler runs.
 - Degraded review: current handler blocks because launch-event review uses `degraded_policy="block_send"`.
 - Warn decisions: current handler uses `sendModeOverride=promptUser` where Office supports runtime overrides.
-- Rewrite or approval-required decisions: current handler soft-blocks and asks the user to open Kaypoh Review.
+- Rewrite or approval-required decisions: current handler soft-blocks and asks the user to open Junas Review.
 - Block decisions: current handler hard-blocks the current send attempt.
 - Add-in unavailable before Outlook can run it: `SoftBlock` follows Outlook platform behavior, so this is not a fail-closed enforcement path.
 - Taskpane review uses `degraded_policy="warn"` and is user-triggered; Smart Alerts send handling is the enforcement path.
@@ -206,7 +206,7 @@ Smart Alert message fixtures for allow, warn, block, and approval-required state
 | Offline mode / Work Offline | Event or backend call may not complete. | Treat as unsupported for controlled send enforcement unless tenant accepts soft-block fallback. |
 | Malformed response | Mapping falls back to soft-block unless a valid allow decision is present. | Add telemetry once Outlook adapter telemetry exists. |
 | Auth failure | Non-2xx `/review` response enters backend-unavailable catch path and blocks current send. | User should re-pair local token or fix tenant API/JWT auth. |
-| Degraded document extraction | `degraded_policy="block_send"` plus degraded modes hard-block current send. | User should open Kaypoh Review or retry after extraction issue is resolved. |
+| Degraded document extraction | `degraded_policy="block_send"` plus degraded modes hard-block current send. | User should open Junas Review or retry after extraction issue is resolved. |
 
 ## Known Client Limitations
 

@@ -18,14 +18,14 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
         self.tmpdir = Path(self._tmpdir.name)
-        os.environ["KAYPOH_JOURNAL_DIR"] = str(self.tmpdir)
-        os.environ["KAYPOH_JOURNAL_KEY"] = "test-key"
-        os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
-        os.environ["KAYPOH_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
+        os.environ["JUNAS_JOURNAL_DIR"] = str(self.tmpdir)
+        os.environ["JUNAS_JOURNAL_KEY"] = "test-key"
+        os.environ["JUNAS_REVIEW_PERSIST"] = "1"
+        os.environ["JUNAS_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
-        import kaypoh.backend.main as main_mod
-        import kaypoh.review.decisions as decisions_mod
-        import kaypoh.review.journal as journal_mod
+        import junas.backend.main as main_mod
+        import junas.review.decisions as decisions_mod
+        import junas.review.journal as journal_mod
 
         importlib.reload(journal_mod)
         importlib.reload(decisions_mod)
@@ -40,14 +40,14 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
     def tearDown(self):
         self._tmpdir.cleanup()
         for var in (
-            "KAYPOH_JOURNAL_DIR",
-            "KAYPOH_JOURNAL_KEY",
-            "KAYPOH_REVIEW_PERSIST",
-            "KAYPOH_SUBJECT_INDEX_KEY",
-            "KAYPOH_DEV_AUTH",
+            "JUNAS_JOURNAL_DIR",
+            "JUNAS_JOURNAL_KEY",
+            "JUNAS_REVIEW_PERSIST",
+            "JUNAS_SUBJECT_INDEX_KEY",
+            "JUNAS_DEV_AUTH",
         ):
             os.environ.pop(var, None)
-        import kaypoh.backend.main as main_mod
+        import junas.backend.main as main_mod
         importlib.reload(main_mod)
 
     def _start_session(self, client: TestClient) -> str:
@@ -126,7 +126,7 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
             self.assertEqual(resp.json()["reviewer_identity_source"], "none")
 
     def test_reviewer_id_header_is_dev_only_and_overrides_body(self):
-        os.environ["KAYPOH_DEV_AUTH"] = "1"
+        os.environ["JUNAS_DEV_AUTH"] = "1"
         with TestClient(self.main.app) as client:
             review_id = self._start_session(client)
             target = client.get(f"/review/{review_id}").json()["findings"][0]
@@ -224,8 +224,8 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
             self.assertEqual(pending["finding_ids"], [target["id"]])
             self.assertEqual(pending["required_reviewer_roles"], ["maker", "checker", "admin"])
 
-        import kaypoh.review.decisions as decisions_mod
-        import kaypoh.review.journal as journal_mod
+        import junas.review.decisions as decisions_mod
+        import junas.review.journal as journal_mod
 
         approval_events = [
             entry for entry in journal_mod.read_journal(review_id=review_id)
@@ -247,8 +247,8 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
 
 class ReviewSessionPersistenceDisabledTests(unittest.TestCase):
     def setUp(self):
-        os.environ.pop("KAYPOH_REVIEW_PERSIST", None)
-        import kaypoh.backend.main as main_mod
+        os.environ.pop("JUNAS_REVIEW_PERSIST", None)
+        import junas.backend.main as main_mod
         importlib.reload(main_mod)
         self.main = main_mod
         self.main._state.clear()
@@ -256,7 +256,7 @@ class ReviewSessionPersistenceDisabledTests(unittest.TestCase):
         self.main.app.router.lifespan_context = _noop_lifespan
 
     def tearDown(self):
-        import kaypoh.backend.main as main_mod
+        import junas.backend.main as main_mod
         importlib.reload(main_mod)
 
     def test_decision_endpoint_returns_409_when_persistence_disabled(self):

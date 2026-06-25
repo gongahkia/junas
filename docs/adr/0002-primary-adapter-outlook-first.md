@@ -6,7 +6,7 @@ Date: 2026-06-14
 
 ## Context
 
-Kaypoh needs one primary workflow adapter for the first production pilot while keeping direct HTTP/OpenAPI integration as the baseline. The candidate adapters are Outlook Smart Alerts and the browser GenAI extension. Both target high-value pre-send moments, but they differ in deployment control, capture reliability, user intent, and QA shape.
+Junas needs one primary workflow adapter for the first production pilot while keeping direct HTTP/OpenAPI integration as the baseline. The candidate adapters are Outlook Smart Alerts and the browser GenAI extension. Both target high-value pre-send moments, but they differ in deployment control, capture reliability, user intent, and QA shape.
 
 ## Decision
 
@@ -14,9 +14,9 @@ Outlook Smart Alerts is the first primary supported adapter target. The browser 
 
 ## Evidence
 
-- Outlook Smart Alerts gives Kaypoh a vendor-defined send-time hook through `OnMessageSend`, aligning directly with pre-send review.
+- Outlook Smart Alerts gives Junas a vendor-defined send-time hook through `OnMessageSend`, aligning directly with pre-send review.
 - Microsoft 365 centralized deployment gives admins a documented rollout path, group assignment model, and custom manifest upload flow.
-- Event-based activation docs distinguish prompt-user, soft-block, and hard-block send modes, which maps cleanly to Kaypoh allow/warn/block/approval decisions.
+- Event-based activation docs distinguish prompt-user, soft-block, and hard-block send modes, which maps cleanly to Junas allow/warn/block/approval decisions.
 - Email send has explicit recipient, subject, body, attachment, and external-domain context needed by the policy contract.
 - Browser GenAI prompt review is important, but target DOMs change, unmanaged profiles are outside enterprise control, and mobile/native GenAI clients are out of browser-extension reach.
 

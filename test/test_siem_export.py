@@ -6,7 +6,7 @@ import unittest
 from types import SimpleNamespace
 from unittest import mock
 
-from kaypoh.backend import siem
+from junas.backend import siem
 
 
 class SIEMExportTests(unittest.TestCase):
@@ -121,7 +121,7 @@ class SIEMExportTests(unittest.TestCase):
             sink="stdout",
             syslog_address="/var/run/syslog",
             facility="local4",
-            app_name="kaypoh-test",
+            app_name="junas-test",
         )
 
         emitted = siem.emit_siem_event(
@@ -132,7 +132,7 @@ class SIEMExportTests(unittest.TestCase):
 
         self.assertTrue(emitted)
         payload = json.loads(messages[0])
-        self.assertEqual(payload["app"], "kaypoh-test")
+        self.assertEqual(payload["app"], "junas-test")
         self.assertEqual(payload["schema_version"], siem.SCHEMA_VERSION)
         self.assertEqual(payload["category"], "security")
 
@@ -168,12 +168,12 @@ class SIEMExportTests(unittest.TestCase):
             with mock.patch.dict(
                 os.environ,
                 {
-                    "KAYPOH_JOURNAL_DIR": tmp,
-                    "KAYPOH_JOURNAL_KEY": "siem-test-key",
+                    "JUNAS_JOURNAL_DIR": tmp,
+                    "JUNAS_JOURNAL_KEY": "siem-test-key",
                 },
                 clear=False,
             ):
-                import kaypoh.review.journal as journal_mod
+                import junas.review.journal as journal_mod
 
                 journal_mod = importlib.reload(journal_mod)
                 captured: list[dict] = []
@@ -182,7 +182,7 @@ class SIEMExportTests(unittest.TestCase):
                     captured.append(dict(event))
                     return True
 
-                with mock.patch("kaypoh.backend.siem.emit_siem_event", side_effect=capture):
+                with mock.patch("junas.backend.siem.emit_siem_event", side_effect=capture):
                     journal_mod.append_event(
                         event_type="review_started",
                         review_id="review-1",

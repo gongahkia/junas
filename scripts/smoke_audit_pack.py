@@ -21,7 +21,7 @@ if str(SRC) not in sys.path:
 
 
 def _seed_review(review_id: str) -> None:
-    from kaypoh.review import decisions, journal
+    from junas.review import decisions, journal
 
     importlib.reload(journal)
     importlib.reload(decisions)
@@ -55,7 +55,7 @@ def _seed_review(review_id: str) -> None:
 
 
 def run_smoke(output_dir: Path | None = None) -> tuple[bool, dict]:
-    with tempfile.TemporaryDirectory(prefix="kaypoh-audit-smoke-") as tmp:
+    with tempfile.TemporaryDirectory(prefix="junas-audit-smoke-") as tmp:
         work = output_dir or Path(tmp)
         work.mkdir(parents=True, exist_ok=True)
         journal_dir = work / "journal"
@@ -64,9 +64,9 @@ def run_smoke(output_dir: Path | None = None) -> tuple[bool, dict]:
         env = {
             **os.environ,
             "PYTHONPATH": str(SRC),
-            "KAYPOH_JOURNAL_DIR": str(journal_dir),
-            "KAYPOH_JOURNAL_KEY": "audit-smoke-key",
-            "KAYPOH_AUDIT_MIN_WAIT_SECONDS": "",
+            "JUNAS_JOURNAL_DIR": str(journal_dir),
+            "JUNAS_JOURNAL_KEY": "audit-smoke-key",
+            "JUNAS_AUDIT_MIN_WAIT_SECONDS": "",
         }
         with patch.dict(os.environ, env, clear=False):
             _seed_review(review_id)

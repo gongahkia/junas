@@ -15,11 +15,11 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh import (
-    AsyncKaypohClient,
+from junas import (
+    AsyncJunasClient,
     Classification,
-    KaypohAPIError,
-    KaypohClient,
+    JunasAPIError,
+    JunasClient,
     PolicyDecisionResponse,
     RequestApprovalResponse,
     SafeRewriteResponse,
@@ -270,7 +270,7 @@ def build_request_approval_payload(*, review_id: str) -> dict:
     }
 
 
-class KaypohClientTests(unittest.TestCase):
+class JunasClientTests(unittest.TestCase):
     def test_classify_sends_expected_payload_and_api_key(self):
         observed: dict[str, object] = {}
 
@@ -283,7 +283,7 @@ class KaypohClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with KaypohClient("http://kaypoh.test", api_key="dev-secret", transport=transport) as client:
+        with JunasClient("http://junas.test", api_key="dev-secret", transport=transport) as client:
             result = client.classify(
                 text="Acme Corp is acquiring GlobalTech next quarter.",
                 entity_id="acme-corp",
@@ -316,7 +316,7 @@ class KaypohClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+        with JunasClient("http://junas.test", transport=transport) as client:
             result = client.review(
                 text="Send to jane@example.com",
                 source_jurisdiction="SG",
@@ -357,7 +357,7 @@ class KaypohClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+        with JunasClient("http://junas.test", transport=transport) as client:
             client.review(text="Send to jane@example.com", degraded_policy="block_send")
 
         self.assertEqual(observed["body"]["degraded_policy"], "block_send")
@@ -373,7 +373,7 @@ class KaypohClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+        with JunasClient("http://junas.test", transport=transport) as client:
             result = client.anonymize(
                 text="Send to jane@example.com",
                 source_jurisdiction="SG",
@@ -416,7 +416,7 @@ class KaypohClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+        with JunasClient("http://junas.test", transport=transport) as client:
             result = client.pseudonymize(
                 text="Send to jane@example.com",
                 source_jurisdiction="SG",
@@ -446,7 +446,7 @@ class KaypohClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+        with JunasClient("http://junas.test", transport=transport) as client:
             result = client.redact(
                 text="Send to jane@example.com",
                 source_jurisdiction="SG",
@@ -471,7 +471,7 @@ class KaypohClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+        with JunasClient("http://junas.test", transport=transport) as client:
             result = client.safe_rewrite(
                 text="Send to jane@example.com",
                 source_jurisdiction="SG",
@@ -503,7 +503,7 @@ class KaypohClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+        with JunasClient("http://junas.test", transport=transport) as client:
             result = client.request_approval(
                 review_id="review-1",
                 finding_ids=["pii:email_address:10:28:0"],
@@ -571,7 +571,7 @@ class KaypohClientTests(unittest.TestCase):
 
         transport = httpx.MockTransport(handler)
 
-        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+        with JunasClient("http://junas.test", transport=transport) as client:
             ready = client.ready()
             diagnostics = client.diagnostics()
             results = client.classify_many(
@@ -585,14 +585,14 @@ class KaypohClientTests(unittest.TestCase):
         self.assertEqual(diagnostics.loaded_layers, ["lexicon", "model1"])
         self.assertEqual([result.request_id for result in results], ["req-2", "req-3"])
 
-    def test_http_errors_raise_kaypoh_api_error(self):
+    def test_http_errors_raise_junas_api_error(self):
         def handler(request: httpx.Request) -> httpx.Response:
             return httpx.Response(401, json={"detail": "invalid or missing API key"})
 
         transport = httpx.MockTransport(handler)
 
-        with self.assertRaises(KaypohAPIError) as ctx:
-            with KaypohClient("http://kaypoh.test", api_key="wrong-key", transport=transport) as client:
+        with self.assertRaises(JunasAPIError) as ctx:
+            with JunasClient("http://junas.test", api_key="wrong-key", transport=transport) as client:
                 client.classify(text="Public update")
 
         self.assertEqual(ctx.exception.status_code, 401)
@@ -609,7 +609,7 @@ class KaypohClientTests(unittest.TestCase):
 
         async def scenario() -> None:
             transport = httpx.MockTransport(handler)
-            async with AsyncKaypohClient("http://kaypoh.test", transport=transport) as client:
+            async with AsyncJunasClient("http://junas.test", transport=transport) as client:
                 result = await client.classify(
                     text="Restricted board draft",
                     entity_id="acme-board",
@@ -643,7 +643,7 @@ class KaypohClientTests(unittest.TestCase):
 
         async def scenario() -> None:
             transport = httpx.MockTransport(handler)
-            async with AsyncKaypohClient("http://kaypoh.test", transport=transport) as client:
+            async with AsyncJunasClient("http://junas.test", transport=transport) as client:
                 result = await client.review(
                     document_base64="U2VuZCB0byBqYW5lQGV4YW1wbGUuY29t",
                     document_filename="memo.txt",
@@ -687,7 +687,7 @@ class KaypohClientTests(unittest.TestCase):
 
         async def scenario() -> None:
             transport = httpx.MockTransport(handler)
-            async with AsyncKaypohClient("http://kaypoh.test", transport=transport) as client:
+            async with AsyncJunasClient("http://junas.test", transport=transport) as client:
                 result = await client.anonymize(
                     document_base64="U2VuZCB0byBqYW5lQGV4YW1wbGUuY29t",
                     document_filename="memo.txt",
@@ -738,7 +738,7 @@ class KaypohClientTests(unittest.TestCase):
 
         async def scenario() -> None:
             transport = httpx.MockTransport(handler)
-            async with AsyncKaypohClient("http://kaypoh.test", transport=transport) as client:
+            async with AsyncJunasClient("http://junas.test", transport=transport) as client:
                 pseudo = await client.pseudonymize(
                     text="Send to jane@example.com",
                     degraded_policy="block_send",
@@ -778,7 +778,7 @@ class KaypohClientTests(unittest.TestCase):
             transport = httpx.MockTransport(handler)
             result = await async_classify_text(
                 "Public update",
-                base_url="http://kaypoh.test",
+                base_url="http://junas.test",
                 transport=transport,
             )
             self.assertEqual(result.classification, Classification.SAFE)
@@ -832,7 +832,7 @@ class KaypohClientTests(unittest.TestCase):
                         },
                     )
                 if request.url.path == "/metrics":
-                    return httpx.Response(200, text="kaypoh_requests_total 1\n")
+                    return httpx.Response(200, text="junas_requests_total 1\n")
                 if request.url.path == "/classify/batch":
                     body = json.loads(request.content.decode("utf-8"))
                     self.assertEqual(len(body["items"]), 2)
@@ -848,7 +848,7 @@ class KaypohClientTests(unittest.TestCase):
                 raise AssertionError(f"unexpected path: {request.url.path}")
 
             transport = httpx.MockTransport(handler)
-            async with AsyncKaypohClient("http://kaypoh.test", transport=transport) as client:
+            async with AsyncJunasClient("http://junas.test", transport=transport) as client:
                 health = await client.health()
                 ready = await client.ready()
                 diagnostics = await client.diagnostics()
@@ -869,21 +869,21 @@ class KaypohClientTests(unittest.TestCase):
             self.assertTrue(health.lexicon_loaded)
             self.assertTrue(ready.ready)
             self.assertEqual(diagnostics.loaded_layers, ["lexicon", "model1"])
-            self.assertIn("kaypoh_requests_total", metrics)
+            self.assertIn("junas_requests_total", metrics)
             self.assertEqual([result.request_id for result in batch.results], ["req-async-2", "req-async-3"])
             self.assertEqual([result.classification for result in many], [Classification.SAFE, Classification.LOW_RISK])
 
         asyncio.run(scenario())
 
-    def test_async_http_errors_raise_kaypoh_api_error(self):
+    def test_async_http_errors_raise_junas_api_error(self):
         async def scenario() -> None:
             def handler(request: httpx.Request) -> httpx.Response:
                 return httpx.Response(401, json={"detail": "invalid or missing API key"})
 
             transport = httpx.MockTransport(handler)
 
-            with self.assertRaises(KaypohAPIError) as ctx:
-                async with AsyncKaypohClient("http://kaypoh.test", api_key="wrong-key", transport=transport) as client:
+            with self.assertRaises(JunasAPIError) as ctx:
+                async with AsyncJunasClient("http://junas.test", api_key="wrong-key", transport=transport) as client:
                     await client.classify(text="Public update")
 
             self.assertEqual(ctx.exception.status_code, 401)
@@ -925,7 +925,7 @@ class KaypohClientTests(unittest.TestCase):
         stdout = io.StringIO()
         stderr = io.StringIO()
         with (
-            mock.patch.object(module, "KaypohClient", FakeClient),
+            mock.patch.object(module, "JunasClient", FakeClient),
             mock.patch.object(sys, "argv", ["review_stdin_policy.py"]),
             mock.patch("sys.stdin", io.StringIO("restricted memo")),
             redirect_stdout(stdout),

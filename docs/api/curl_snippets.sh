@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Generated from kaypoh.backend.main:app OpenAPI contract.
+# Generated from junas.backend.main:app OpenAPI contract.
 BASE_URL="${BASE_URL:-http://localhost:8000}"
 
 # POST /anonymize - Anonymize a document irreversibly
@@ -17,13 +17,13 @@ curl -sS -X POST "${BASE_URL}/cite-public-source" \
 # POST /classify - Classify one document
 curl -sS -X POST "${BASE_URL}/classify" \
   -H "Content-Type: application/json" \
-  -H "X-API-Key: ${KAYPOH_API_KEY:-dev-secret}" \
+  -H "X-API-Key: ${JUNAS_API_KEY:-dev-secret}" \
   -d '{"debug":false,"entity_id":"Acme Corp","include_offending_spans":true,"text":"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter."}'
 
 # POST /classify/batch - Classify multiple documents
 curl -sS -X POST "${BASE_URL}/classify/batch" \
   -H "Content-Type: application/json" \
-  -H "X-API-Key: ${KAYPOH_API_KEY:-dev-secret}" \
+  -H "X-API-Key: ${JUNAS_API_KEY:-dev-secret}" \
   -d '{"items":[{"include_offending_spans":true,"text":"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter."},{"debug":false,"text":"Public press release for next week's earnings call."}]}'
 
 # GET /diagnostics - Get runtime diagnostics
@@ -45,7 +45,7 @@ curl -sS -X POST "${BASE_URL}/hold-until-public" \
 # POST /local/pairing/approve - Approve local daemon pairing
 curl -sS -X POST "${BASE_URL}/local/pairing/approve" \
   -H "Content-Type: application/json" \
-  -H "X-Kaypoh-Local-Token: ${KAYPOH_LOCAL_DAEMON_TOKEN}" \
+  -H "X-Junas-Local-Token: ${JUNAS_LOCAL_DAEMON_TOKEN}" \
   -d '{"pairing_id":"sample-id","pairing_code":"string"}'
 
 # POST /local/pairing/claim - Claim approved local daemon pairing

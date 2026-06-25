@@ -14,7 +14,7 @@ Known-valid test vectors sourced from public statute / wiki references.
 
 import unittest
 
-from kaypoh.review.jurisdictions import _VALIDATORS
+from junas.review.jurisdictions import _VALIDATORS
 
 
 class InAadhaarValidatorTests(unittest.TestCase):

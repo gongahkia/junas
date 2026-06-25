@@ -43,7 +43,7 @@ class FrontendIntegrationTests(unittest.TestCase):
               chrome: {
                 storage: {sync: {get: async (defaults) => ({
                   ...defaults,
-                  endpoint: "http://kaypoh.local",
+                  endpoint: "http://junas.local",
                   operation: "redact",
                   token: "client-token"
                 })}},
@@ -63,14 +63,14 @@ class FrontendIntegrationTests(unittest.TestCase):
             (async () => {
               const response = await new Promise((resolve) => {
                 const keepAlive = context.__messageListener(
-                  {type: "kaypoh-process-text", text: "alice@example.com"},
+                  {type: "junas-process-text", text: "alice@example.com"},
                   {tab: {id: 7}},
                   resolve
                 );
                 assert.strictEqual(keepAlive, true);
               });
-              assert.strictEqual(requests[0].url, "http://kaypoh.local/redact");
-              assert.strictEqual(requests[0].options.headers["X-Kaypoh-Local-Token"], "client-token");
+              assert.strictEqual(requests[0].url, "http://junas.local/redact");
+              assert.strictEqual(requests[0].options.headers["X-Junas-Local-Token"], "client-token");
               assert.strictEqual(requests[0].body.degraded_policy, "warn");
               assert.strictEqual(response.ok, true);
               assert.strictEqual(response.replacementText, "[redacted]");
@@ -102,7 +102,7 @@ class FrontendIntegrationTests(unittest.TestCase):
               chrome: {
                 storage: {sync: {get: async (defaults) => ({
                   ...defaults,
-                  endpoint: "https://kaypoh.example",
+                  endpoint: "https://junas.example",
                   backendMode: "hosted_server",
                   authMode: "bearer_token",
                   operation: "redact",
@@ -124,14 +124,14 @@ class FrontendIntegrationTests(unittest.TestCase):
             (async () => {
               await new Promise((resolve) => {
                 context.__messageListener(
-                  {type: "kaypoh-process-text", text: "safe", operation: "review"},
+                  {type: "junas-process-text", text: "safe", operation: "review"},
                   {},
                   resolve
                 );
               });
-              assert.strictEqual(requests[0].url, "https://kaypoh.example/review");
+              assert.strictEqual(requests[0].url, "https://junas.example/review");
               assert.strictEqual(requests[0].options.headers.Authorization, "Bearer tenant-jwt");
-              assert.ok(!requests[0].options.headers["X-Kaypoh-Local-Token"]);
+              assert.ok(!requests[0].options.headers["X-Junas-Local-Token"]);
             })().catch((error) => {
               console.error(error);
               process.exit(1);
@@ -215,7 +215,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             const context = {};
             vm.createContext(context);
             vm.runInContext(source, context, {filename: "adapters.js"});
-            const adapters = context.KAYPOH_BROWSER_ADAPTERS;
+            const adapters = context.JUNAS_BROWSER_ADAPTERS;
 
             function rootReturning(expectedSelector) {
               return {
@@ -378,7 +378,7 @@ class FrontendIntegrationTests(unittest.TestCase):
               await listeners.click(event);
               assert.strictEqual(event.prevented, true);
               assert.strictEqual(event.stopped, true);
-              assert.strictEqual(messages[0].type, "kaypoh-process-text");
+              assert.strictEqual(messages[0].type, "junas-process-text");
               assert.strictEqual(messages[0].operation, "review");
               assert.strictEqual(messages[0].text, "warn before submit");
               assert.match(confirmed, /Submit anyway/);
@@ -403,12 +403,12 @@ class FrontendIntegrationTests(unittest.TestCase):
               AbortController,
               setTimeout,
               clearTimeout,
-              kaypohTelemetrySink: (event) => telemetry.push(event),
+              junasTelemetrySink: (event) => telemetry.push(event),
               localStorage: {getItem: () => ""},
               OfficeRuntime: {storage: {getItem: async (key) => ({
-                "kaypoh.endpoint": "http://kaypoh.local",
-                "kaypoh.localToken": "client-token",
-                "kaypoh.sendHookTimeoutMs": "2500"
+                "junas.endpoint": "http://junas.local",
+                "junas.localToken": "client-token",
+                "junas.sendHookTimeoutMs": "2500"
               }[key] || "")}},
               Office: {
                 AsyncResultStatus: {Succeeded: "succeeded"},
@@ -464,10 +464,10 @@ class FrontendIntegrationTests(unittest.TestCase):
             (async () => {
               const completed = new Promise((resolve) => context.__handler({completed: resolve}));
               const result = await completed;
-              assert.strictEqual(requests[0].url, "http://kaypoh.local/review");
+              assert.strictEqual(requests[0].url, "http://junas.local/review");
               assert.ok(requests[0].options.signal);
               assert.strictEqual(typeof requests[0].options.signal.aborted, "boolean");
-              assert.strictEqual(requests[0].options.headers["X-Kaypoh-Local-Token"], "client-token");
+              assert.strictEqual(requests[0].options.headers["X-Junas-Local-Token"], "client-token");
               assert.strictEqual(requests[0].body.degraded_policy, "block_send");
               assert.strictEqual(requests[0].body.surface, "outlook");
               assert.strictEqual(requests[0].body.workflow, "email_send");
@@ -484,7 +484,7 @@ class FrontendIntegrationTests(unittest.TestCase):
                 "outlook_policy_decision_received",
                 "outlook_user_blocked"
               ]);
-              assert.strictEqual(telemetry[0].schema_version, "kaypoh.outlook.telemetry.v1");
+              assert.strictEqual(telemetry[0].schema_version, "junas.outlook.telemetry.v1");
               assert.strictEqual(telemetry[0].details.timeout_ms, 2500);
               assert.strictEqual(telemetry[0].details.recipient_count, 2);
               assert.strictEqual(telemetry[0].details.recipient_domain_count, 2);
@@ -523,7 +523,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             vm.createContext(context);
             vm.runInContext(source, context, {filename: "launchevent.js"});
 
-            const allow = context.kaypohSmartAlertCompletion({
+            const allow = context.junasSmartAlertCompletion({
               findings: [],
               pii_score: 0,
               mnpi_score: 0,
@@ -535,7 +535,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             assert.strictEqual(allow.options.allowEvent, true);
             assert.deepStrictEqual(Object.keys(allow.options), ["allowEvent"]);
 
-            const warn = context.kaypohSmartAlertCompletion({
+            const warn = context.junasSmartAlertCompletion({
               findings: [{rule: "email_address"}],
               degraded_modes: [],
               policy_decision: {
@@ -548,7 +548,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             assert.strictEqual(warn.options.allowEvent, false);
             assert.strictEqual(warn.options.sendModeOverride, "promptUser");
 
-            const approval = context.kaypohSmartAlertCompletion({
+            const approval = context.junasSmartAlertCompletion({
               findings: [{rule: "sg_nric_fin"}],
               degraded_modes: [],
               policy_decision: {
@@ -561,7 +561,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             assert.strictEqual(approval.options.allowEvent, false);
             assert.ok(!approval.options.sendModeOverride);
 
-            const block = context.kaypohSmartAlertCompletion({
+            const block = context.junasSmartAlertCompletion({
               findings: [{rule: "sg_nric_fin"}],
               degraded_modes: [],
               policy_decision: {decision: "block", send_allowed: false}
@@ -584,11 +584,11 @@ class FrontendIntegrationTests(unittest.TestCase):
               AbortController,
               setTimeout,
               clearTimeout,
-              kaypohTelemetrySink: (event) => telemetry.push(event),
+              junasTelemetrySink: (event) => telemetry.push(event),
               localStorage: {getItem: () => ""},
               OfficeRuntime: {storage: {getItem: async (key) => ({
-                "kaypoh.endpoint": "http://kaypoh.local",
-                "kaypoh.sendHookTimeoutMs": "1000"
+                "junas.endpoint": "http://junas.local",
+                "junas.sendHookTimeoutMs": "1000"
               }[key] || "")}},
               Office: {
                 AsyncResultStatus: {Succeeded: "succeeded"},
@@ -660,7 +660,7 @@ class FrontendIntegrationTests(unittest.TestCase):
               AbortController,
               setTimeout,
               clearTimeout,
-              kaypohTelemetrySink: (event) => telemetry.push(event),
+              junasTelemetrySink: (event) => telemetry.push(event),
               console: {
                 log: (...args) => logs.push(args),
                 info: (...args) => logs.push(args),
@@ -747,7 +747,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             const context = {
               localStorage: {getItem: () => ""},
               OfficeRuntime: {storage: {getItem: async () => ""}},
-              kaypohTelemetrySink: (event) => telemetry.push(event),
+              junasTelemetrySink: (event) => telemetry.push(event),
               Office: {
                 MailboxEnums: {SendModeOverride: {PromptUser: "promptUser"}},
                 actions: {associate() {}}
@@ -768,7 +768,7 @@ class FrontendIntegrationTests(unittest.TestCase):
                 recommended_actions: ["proceed_with_warning"]
               }
             };
-            context.kaypohCompletionTelemetry(warnResult, context.kaypohSmartAlertCompletion(warnResult));
+            context.junasCompletionTelemetry(warnResult, context.junasSmartAlertCompletion(warnResult));
 
             const approvalResult = {
               findings: [{rule: "sg_nric_fin", matched_text: "S1234567D"}],
@@ -780,8 +780,8 @@ class FrontendIntegrationTests(unittest.TestCase):
                 required_actions: ["request_approval"]
               }
             };
-            context.kaypohCompletionTelemetry(approvalResult, context.kaypohSmartAlertCompletion(approvalResult));
-            context.kaypohTelemetry("outlook_backend_failure", {
+            context.junasCompletionTelemetry(approvalResult, context.junasSmartAlertCompletion(approvalResult));
+            context.junasTelemetry("outlook_backend_failure", {
               backend_status: "unavailable_or_context_error",
               error_type: "TypeError",
               text: "confidential raw body"
@@ -825,7 +825,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             vm.createContext(context);
             vm.runInContext(source, context, {filename: "launchevent.js"});
             for (const [name, fixture] of Object.entries(fixtures)) {
-              const completion = context.kaypohSmartAlertCompletion(fixture.input);
+              const completion = context.junasSmartAlertCompletion(fixture.input);
               assert.strictEqual(completion.mode, fixture.mode, name);
               assert.strictEqual(completion.options.allowEvent, fixture.allowEvent, name);
               assert.strictEqual(completion.options.errorMessage || "", fixture.errorMessage || "", name);

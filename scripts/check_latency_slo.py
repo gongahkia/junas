@@ -123,7 +123,7 @@ def quiet_latency_logs(enabled: bool):
     if not enabled:
         yield
         return
-    names = ("kaypoh.backend", "kaypoh.siem", "httpx")
+    names = ("junas.backend", "junas.siem", "httpx")
     previous = []
     for name in names:
         logger = logging.getLogger(name)
@@ -220,7 +220,7 @@ def run_gate(
 
     from fastapi.testclient import TestClient
 
-    from kaypoh.backend import main as backend_main
+    from junas.backend import main as backend_main
 
     backend_main._state.clear()
     with quiet_latency_logs(quiet_logs):
@@ -361,7 +361,7 @@ def write_report(results: list[dict[str, Any]], report_dir: Path) -> Path:
     path.write_text(
         json.dumps(
             {
-                "schema_version": "kaypoh.latency_slo.v1",
+                "schema_version": "junas.latency_slo.v1",
                 "generated_at": timestamp,
                 "results": results,
             },
@@ -373,7 +373,7 @@ def write_report(results: list[dict[str, Any]], report_dir: Path) -> Path:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run the opt-in Kaypoh p95 latency SLO gate")
+    parser = argparse.ArgumentParser(description="Run the opt-in Junas p95 latency SLO gate")
     parser.add_argument("--budget-file", type=Path, default=DEFAULT_BUDGET_FILE)
     parser.add_argument("--fixture", help="override fixture path; default comes from budget file")
     parser.add_argument("--surface", choices=VALID_SURFACES, action="append", dest="surfaces")
@@ -386,19 +386,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--api-key",
         default=None,
-        help="X-API-Key for live HTTP mode; falls back to KAYPOH_LATENCY_SLO_API_KEY or KAYPOH_API_KEY",
+        help="X-API-Key for live HTTP mode; falls back to JUNAS_LATENCY_SLO_API_KEY or JUNAS_API_KEY",
     )
     parser.add_argument(
         "--bearer-token",
         default=None,
-        help="bearer token for live HTTP mode; falls back to KAYPOH_LATENCY_SLO_BEARER_TOKEN",
+        help="bearer token for live HTTP mode; falls back to JUNAS_LATENCY_SLO_BEARER_TOKEN",
     )
     parser.add_argument("--verbose-logs", action="store_true", help="show backend request logs during the run")
     return parser.parse_args()
 
 
 def resolve_live_base_url(arg_base_url: str | None) -> str:
-    return (arg_base_url or os.environ.get("KAYPOH_LATENCY_SLO_BASE_URL", "")).strip()
+    return (arg_base_url or os.environ.get("JUNAS_LATENCY_SLO_BASE_URL", "")).strip()
 
 
 def main() -> int:
@@ -423,12 +423,12 @@ def main() -> int:
         api_key = (
             args.api_key
             if args.api_key is not None
-            else os.environ.get("KAYPOH_LATENCY_SLO_API_KEY", os.environ.get("KAYPOH_API_KEY", ""))
+            else os.environ.get("JUNAS_LATENCY_SLO_API_KEY", os.environ.get("JUNAS_API_KEY", ""))
         )
         bearer_token = (
             args.bearer_token
             if args.bearer_token is not None
-            else os.environ.get("KAYPOH_LATENCY_SLO_BEARER_TOKEN", "")
+            else os.environ.get("JUNAS_LATENCY_SLO_BEARER_TOKEN", "")
         )
         results = run_live_http_gate(
             cases=cases,

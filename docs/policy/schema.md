@@ -1,6 +1,6 @@
 # Policy Schema
 
-Policy config is TOML loaded through `kaypoh.policy.load_policy_profile`. The default profile is used when no file is supplied.
+Policy config is TOML loaded through `junas.policy.load_policy_profile`. The default profile is used when no file is supplied.
 
 ## TOML Shape
 

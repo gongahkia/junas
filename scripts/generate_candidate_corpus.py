@@ -153,7 +153,7 @@ def _manifest_dir(raw: Path | None) -> Path:
     if raw:
         return raw if raw.is_absolute() else REPO_ROOT / raw
     stamp = time.strftime("%Y%m%d-%H%M%S", time.gmtime())
-    return Path(f"/tmp/kaypoh-candidate-run-{stamp}")
+    return Path(f"/tmp/junas-candidate-run-{stamp}")
 
 
 def _append_jsonl(path: Path, payload: dict) -> None:
@@ -209,21 +209,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--provider",
         choices=("openai", "azure"),
-        default=os.environ.get("KAYPOH_FIXTURE_PROVIDER", "openai"),
+        default=os.environ.get("JUNAS_FIXTURE_PROVIDER", "openai"),
         help="Model provider for fixture generation",
     )
-    parser.add_argument("--model", default=os.environ.get("KAYPOH_FIXTURE_MODEL", "gpt-4o"))
+    parser.add_argument("--model", default=os.environ.get("JUNAS_FIXTURE_MODEL", "gpt-4o"))
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT)
     parser.add_argument(
         "--max-failures",
         type=int,
-        default=int(os.environ.get("KAYPOH_CANDIDATE_MAX_FAILURES", "3")),
+        default=int(os.environ.get("JUNAS_CANDIDATE_MAX_FAILURES", "3")),
         help="stop after this many generation failures (0 = keep going)",
     )
     parser.add_argument(
         "--manifest-dir",
         type=Path,
-        help="write generation JSONL manifests here (default for real runs: /tmp/kaypoh-candidate-run-*)",
+        help="write generation JSONL manifests here (default for real runs: /tmp/junas-candidate-run-*)",
     )
     parser.add_argument("--dry-run", action="store_true", help="print planned generation calls only")
     args = parser.parse_args(argv)

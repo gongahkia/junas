@@ -8,8 +8,8 @@ adversarial precision cases so generic business/property prose does not fire.
 
 import unittest
 
-from kaypoh.review.citations import pii_rationale
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.citations import pii_rationale
+from junas.review.engine import PreSendReviewEngine
 
 
 class _SgWedgeSecondSliceBase(unittest.TestCase):

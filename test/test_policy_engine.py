@@ -7,7 +7,7 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh.policy import TenantPolicyProfile, WorkflowContext, evaluate_policy
+from junas.policy import TenantPolicyProfile, WorkflowContext, evaluate_policy
 
 
 def finding(finding_id: str, category: str, severity: str, **extra):

@@ -4,7 +4,7 @@ The statutory-coverage doc is the procurement-facing artefact mapping every dete
 the statute it implements. This test asserts that every:
 
   (a) jurisdiction in citations.py:_MNPI_JURISDICTION_SUFFIX and _PII_JURISDICTION_SUFFIX,
-  (b) detector rule_name in src/kaypoh/review/jurisdictions_data/*.toml,
+  (b) detector rule_name in src/junas/review/jurisdictions_data/*.toml,
   (c) PII / MNPI rationale key in citations.py:_PII_DEFAULT_RATIONALE / _MNPI_DEFAULT_RATIONALE,
   (d) universal PII rule registered in engine.py:_pii_findings,
   (e) universal MNPI rule registered in engine.py:_mnpi_findings,
@@ -24,8 +24,8 @@ from pathlib import Path
 
 import tomllib
 
-from kaypoh.review import jurisdictions
-from kaypoh.review.citations import (
+from junas.review import jurisdictions
+from junas.review.citations import (
     _MNPI_DEFAULT_RATIONALE,
     _MNPI_JURISDICTION_SUFFIX,
     _PII_DEFAULT_RATIONALE,
@@ -34,7 +34,7 @@ from kaypoh.review.citations import (
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DOC_PATH = REPO_ROOT / "docs" / "statutory-coverage.md"
-PACKS_DIR = REPO_ROOT / "src" / "kaypoh" / "review" / "jurisdictions_data"
+PACKS_DIR = REPO_ROOT / "src" / "junas" / "review" / "jurisdictions_data"
 
 # Universal PII rule names registered directly in engine.py:_pii_findings (not via TOML).
 # Keep in sync with the universal-PII pattern list in engine.py.
@@ -228,7 +228,7 @@ class StaleStatusGuard(unittest.TestCase):
     def test_blackout_ticker_lookup_is_not_marked_deferred(self):
         self.assertNotIn("next-earnings-date lookup deferred", self.doc_text)
         self.assertNotIn("earnings-date lookup; deferred v2", self.doc_text)
-        self.assertIn("KAYPOH_EARNINGS_CALENDAR_CSV", self.doc_text)
+        self.assertIn("JUNAS_EARNINGS_CALENDAR_CSV", self.doc_text)
 
     def test_hk_market_known_threshold_is_not_marked_pending(self):
         self.assertNotIn("HK-specific stricter threshold pending", self.doc_text)
@@ -236,8 +236,8 @@ class StaleStatusGuard(unittest.TestCase):
         self.assertIn("hk_public_status=available_but_not_generally_known", self.doc_text)
 
     def test_issuer_size_env_providers_are_documented(self):
-        self.assertIn("KAYPOH_ENTITY_SIZE_CSV", self.doc_text)
-        self.assertIn("KAYPOH_ENTITY_SIZE_JSON", self.doc_text)
+        self.assertIn("JUNAS_ENTITY_SIZE_CSV", self.doc_text)
+        self.assertIn("JUNAS_ENTITY_SIZE_JSON", self.doc_text)
 
 
 class JurisdictionPackRegistryParityTests(unittest.TestCase):

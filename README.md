@@ -1,11 +1,11 @@
 # Junas
 
 <p align="center">
-  <img src="./asset/logo/junas-logo-3d.png" width="50%" alt="Kaypoh">
+  <img src="./asset/logo/junas-logo.png" width="50%" alt="Junas">
 </p>
 
 <p align="center">
-  <a href="https://github.com/gongahkia/kaypoh/actions/workflows/ci.yml"><img alt="ci" src="https://img.shields.io/github/actions/workflow/status/gongahkia/kaypoh/ci.yml?branch=main&style=flat-square"></a>
+  <a href="https://github.com/gongahkia/junas/actions/workflows/ci.yml"><img alt="ci" src="https://img.shields.io/github/actions/workflow/status/gongahkia/junas/ci.yml?branch=main&style=flat-square"></a>
   <img alt="python" src="https://img.shields.io/badge/python-3.10%2B-blue?style=flat-square">
   <img alt="api" src="https://img.shields.io/badge/API-FastAPI-009688?style=flat-square">
   <img alt="runtime" src="https://img.shields.io/badge/runtime-offline--default-lightgrey?style=flat-square">
@@ -13,12 +13,12 @@
 
 Pre-send review, safe rewrite, and audit evidence for GenAI, email, and document sharing.
 
-Kaypoh reviews text and documents before users paste prompts, send email, upload matter files, or share drafts externally. The deterministic review engine is the runtime source of truth: it detects personal data and material non-public information, returns statute-cited findings, records audit-ready evidence, and routes users toward safe rewrite, redaction, pseudonymization, approval, or hold actions.
+Junas reviews text and documents before users paste prompts, send email, upload matter files, or share drafts externally. The deterministic review engine is the runtime source of truth: it detects personal data and material non-public information, returns statute-cited findings, records audit-ready evidence, and routes users toward safe rewrite, redaction, pseudonymization, approval, or hold actions.
 
 ## Table of Contents
 
 - [Quick Start](#quick-start)
-- [What Kaypoh Does](#what-kaypoh-does)
+- [What Junas Does](#what-junas-does)
 - [Primary Product Spine](#primary-product-spine)
 - [Adapter Maturity](#adapter-maturity)
 - [Experimental Local Fallback](#experimental-local-fallback)
@@ -91,7 +91,7 @@ Run the standard verification gate:
 ./scripts/verify_runtime.sh
 ```
 
-## What Kaypoh Does
+## What Junas Does
 
 - Detects PII and personal data across universal identifiers, jurisdiction-specific IDs, special-category data, quasi-identifiers, and privacy-handling events.
 - Detects MNPI and inside-information signals such as material events, non-public markers, deal codenames, tipping language, selective disclosure risk, blackout windows, ESG/cyber/crypto pre-disclosure, sector MNPI, and conjunctive MNPI evidence.
@@ -109,11 +109,11 @@ Run the standard verification gate:
 - Scrubs supported document metadata leakage through `/documents/scrub`.
 - Keeps optional public evidence and LLM helper layers disabled unless explicitly enabled by deployer and tenant gates.
 
-Kaypoh is not a general DLP suite, legal-advice product, or model-training platform. It is a pre-send safety layer intended to integrate with DLP, DMS, Office/browser surfaces, and identity gateways.
+Junas is not a general DLP suite, legal-advice product, or model-training platform. It is a pre-send safety layer intended to integrate with DLP, DMS, Office/browser surfaces, and identity gateways.
 
 ## Primary Product Spine
 
-The FastAPI backend is the trust boundary for Kaypoh deployments. It owns review input validation, tenant/auth checks, deterministic findings, policy decisions, rewrite actions, audit events, and privacy-safe observability. Adapters are not required to integrate Kaypoh: direct HTTP/OpenAPI clients remain the baseline path and can integrate with this boundary without installing a UI adapter.
+The FastAPI backend is the trust boundary for Junas deployments. It owns review input validation, tenant/auth checks, deterministic findings, policy decisions, rewrite actions, audit events, and privacy-safe observability. Adapters are not required to integrate Junas: direct HTTP/OpenAPI clients remain the baseline path and can integrate with this boundary without installing a UI adapter.
 
 Adapters are workflow activation points. Outlook Smart Alerts, browser GenAI capture, Word taskpanes, desktop watching, DMS hooks, and future surfaces should collect workflow context, call the backend contract, display the decision, and avoid storing raw content outside their runtime unless a documented policy allows it.
 
@@ -132,9 +132,9 @@ Adapters are workflow activation points. Outlook Smart Alerts, browser GenAI cap
 The desktop watcher is intentionally outside the primary Quick Start. Use it only for opt-in local fallback workflows where a user explicitly chooses file or clipboard review against a local daemon.
 
 ```bash
-uv run kaypoh-watch ./draft.txt --base-url http://127.0.0.1:8765
-uv run kaypoh-watch --watch-folder ./drop --once --base-url http://127.0.0.1:8765
-uv run kaypoh-watch --clipboard --once --base-url http://127.0.0.1:8765
+uv run junas-watch ./draft.txt --base-url http://127.0.0.1:8765
+uv run junas-watch --watch-folder ./drop --once --base-url http://127.0.0.1:8765
+uv run junas-watch --clipboard --once --base-url http://127.0.0.1:8765
 ```
 
 See [`docs/integrations/desktop-watcher.md`](./docs/integrations/desktop-watcher.md) for the security model and limitations.
@@ -178,7 +178,7 @@ Review-session and local desktop support:
 
 Generated integration artifacts live in [`docs/api/`](./docs/api/):
 
-- [`kaypoh.postman_collection.json`](./docs/api/kaypoh.postman_collection.json)
+- [`junas.postman_collection.json`](./docs/api/junas.postman_collection.json)
 - [`curl_snippets.sh`](./docs/api/curl_snippets.sh)
 - [`python_client.md`](./docs/api/python_client.md)
 
@@ -212,9 +212,9 @@ curl -X POST http://127.0.0.1:8000/anonymize \
 Use the Python client:
 
 ```python
-from kaypoh import KaypohClient
+from junas import JunasClient
 
-with KaypohClient("http://127.0.0.1:8000") as client:
+with JunasClient("http://127.0.0.1:8000") as client:
     result = client.classify(
         text="Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.",
         entity_id="acme-corp",
@@ -244,13 +244,13 @@ python3 scripts/export_openapi_examples.py
 
 ## How It Works
 
-Kaypoh has five main runtime pieces:
+Junas has five main runtime pieces:
 
-1. The FastAPI backend in [`src/kaypoh/backend/`](./src/kaypoh/backend/) exposes review, rewrite, document, auth, local pairing, observability, and audit endpoints.
-2. The deterministic review engine in [`src/kaypoh/review/`](./src/kaypoh/review/) runs universal recognizers, jurisdiction TOML packs, MNPI evidence rules, citations, defined terms, document structure, and strictest-wins scoring.
-3. The rewrite layer in [`src/kaypoh/anonymize/`](./src/kaypoh/anonymize/) builds deterministic placeholders, reversible mappings, opaque redactions, and reidentification.
-4. Privacy-gated external helpers in [`src/kaypoh/external/`](./src/kaypoh/external/) sanitize outbound queries and optionally fetch public evidence.
-5. Advisory helpers in [`src/kaypoh/advisory/`](./src/kaypoh/advisory/) provide optional LLM adjudication, defined-term extraction, and coverage audit paths. These layers are advisory unless explicitly documented otherwise and cannot suppress deterministic-high findings.
+1. The FastAPI backend in [`src/junas/backend/`](./src/junas/backend/) exposes review, rewrite, document, auth, local pairing, observability, and audit endpoints.
+2. The deterministic review engine in [`src/junas/review/`](./src/junas/review/) runs universal recognizers, jurisdiction TOML packs, MNPI evidence rules, citations, defined terms, document structure, and strictest-wins scoring.
+3. The rewrite layer in [`src/junas/anonymize/`](./src/junas/anonymize/) builds deterministic placeholders, reversible mappings, opaque redactions, and reidentification.
+4. Privacy-gated external helpers in [`src/junas/external/`](./src/junas/external/) sanitize outbound queries and optionally fetch public evidence.
+5. Advisory helpers in [`src/junas/advisory/`](./src/junas/advisory/) provide optional LLM adjudication, defined-term extraction, and coverage audit paths. These layers are advisory unless explicitly documented otherwise and cannot suppress deterministic-high findings.
 
 Core flow:
 
@@ -272,11 +272,11 @@ flowchart TD
 
 ## Jurisdiction Coverage
 
-Kaypoh ships curated jurisdiction packs for:
+Junas ships curated jurisdiction packs for:
 
 🇸🇬 SG, 🇲🇾 MY, 🇮🇩 ID, 🇹🇭 TH, 🇵🇭 PH, 🇻🇳 VN, 🇭🇰 HK, 🇦🇺 AU, 🇯🇵 JP, 🇰🇷 KR, 🇺🇸 US, 🇬🇧 UK, 🇪🇺 EU, 🌏 SEA, 🇮🇳 IN, 🇨🇳 CN, 🇦🇪 AE, 🇸🇦 SA
 
-Each pack lives under [`src/kaypoh/review/jurisdictions_data/`](./src/kaypoh/review/jurisdictions_data/) and is mapped to statutory coverage in [`docs/statutory-coverage.md`](./docs/statutory-coverage.md).
+Each pack lives under [`src/junas/review/jurisdictions_data/`](./src/junas/review/jurisdictions_data/) and is mapped to statutory coverage in [`docs/statutory-coverage.md`](./docs/statutory-coverage.md).
 
 ### Statutory Anchors
 
@@ -356,7 +356,7 @@ Each pack lives under [`src/kaypoh/review/jurisdictions_data/`](./src/kaypoh/rev
 | Coverage family | Applies to | Examples |
 |---|---|---|
 | Universal PII | All jurisdiction modes | Email, phone, passport, bank account, DOB, age, postal address, IP address, MAC address, IMEI, named person, linkable internal ID, quasi-identifier cluster, special-category PII, minor data |
-| Jurisdiction-specific PII | Curated TOML packs in `src/kaypoh/review/jurisdictions_data/` | National IDs, tax IDs, company IDs, address formats, financial/account references, local legal references, registry references |
+| Jurisdiction-specific PII | Curated TOML packs in `src/junas/review/jurisdictions_data/` | National IDs, tax IDs, company IDs, address formats, financial/account references, local legal references, registry references |
 | Privacy events | Jurisdiction-resolved citation path | Cross-border transfer, consent withdrawal, data minimisation, safeguards, breach notification |
 | Universal MNPI | All jurisdiction modes | Deal events, non-public markers, financial scalars, contingent language, tipping/selective disclosure, insider-list markers, information barriers, blackout windows, conjunctive MNPI |
 | Sector/event MNPI | Evidence rules across supported packs | Cybersecurity incidents, ESG/climate events, digital-asset listing or protocol events, pharma events, financial-services events, energy/mining events, legal proceedings |
@@ -375,7 +375,7 @@ Accuracy and corpus notes:
 
 ### Local SKU
 
-`kaypoh-local` is offline-default. It includes the deterministic engine, Presidio, spaCy, FastAPI, document extraction, local mappings, and packaging.
+`junas-local` is offline-default. It includes the deterministic engine, Presidio, spaCy, FastAPI, document extraction, local mappings, and packaging.
 
 It must not require:
 
@@ -388,42 +388,42 @@ Build the desktop package:
 ```bash
 uv sync --extra local --extra packaging
 uv run python -m spacy download en_core_web_sm
-uv run pyinstaller packaging/kaypoh-local.spec
-./dist/kaypoh-local/kaypoh-local
+uv run pyinstaller packaging/junas-local.spec
+./dist/junas-local/junas-local
 ```
 
 ### Server SKU
 
-`kaypoh-server` enables optional public evidence and LLM helper paths for approved tenants.
+`junas-server` enables optional public evidence and LLM helper paths for approved tenants.
 
 Public evidence:
 
 ```bash
-KAYPOH_PUBLIC_EVIDENCE_ENABLED=1 \
-KAYPOH_PUBLIC_EVIDENCE_PROVIDER=serper \
+JUNAS_PUBLIC_EVIDENCE_ENABLED=1 \
+JUNAS_PUBLIC_EVIDENCE_PROVIDER=serper \
 SERPER_API_KEY=... \
 PIPELINE_LAYERS=public_evidence \
-uv run uvicorn kaypoh.backend.main:app --host 0.0.0.0 --port 8000
+uv run uvicorn junas.backend.main:app --host 0.0.0.0 --port 8000
 ```
 
 LLM adjudication with remote structured tokens:
 
 ```bash
-KAYPOH_LLM_ENABLED=1 \
-KAYPOH_LLM_PROVIDER=openai \
-KAYPOH_LLM_API_KEY=... \
-KAYPOH_LLM_BASE_URL=https://api.openai.com/v1 \
-KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=1 \
-KAYPOH_LLM_TENANT_OPT_IN_OPENAI=1 \
-KAYPOH_LLM_INPUT_MODE=structured_tokens \
+JUNAS_LLM_ENABLED=1 \
+JUNAS_LLM_PROVIDER=openai \
+JUNAS_LLM_API_KEY=... \
+JUNAS_LLM_BASE_URL=https://api.openai.com/v1 \
+JUNAS_LLM_ALLOW_REMOTE_BASE_URL=1 \
+JUNAS_LLM_TENANT_OPT_IN_OPENAI=1 \
+JUNAS_LLM_INPUT_MODE=structured_tokens \
 PIPELINE_LAYERS=llm_adjudicator \
-uv run uvicorn kaypoh.backend.main:app --host 0.0.0.0 --port 8000
+uv run uvicorn junas.backend.main:app --host 0.0.0.0 --port 8000
 ```
 
 Remote raw text requires an additional explicit opt-in:
 
 ```text
-KAYPOH_LLM_ALLOW_REMOTE_RAW_TEXT=1
+JUNAS_LLM_ALLOW_REMOTE_RAW_TEXT=1
 ```
 
 `review_profile=strict` never invokes LLM helper layers.
@@ -438,8 +438,8 @@ curl http://localhost:8000/ready
 Managed LLM deployment:
 
 ```bash
-KAYPOH_LLM_API_KEY=... \
-KAYPOH_LLM_TENANT_OPT_IN_OPENAI=1 \
+JUNAS_LLM_API_KEY=... \
+JUNAS_LLM_TENANT_OPT_IN_OPENAI=1 \
 SERPER_API_KEY=... \
 docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --build
 ```
@@ -520,8 +520,8 @@ uv run python -m spacy download en_core_web_sm
 Optional release signing:
 
 ```bash
-KAYPOH_CODESIGN_IDENTITY="Developer ID Application: Example Pte Ltd (TEAMID)" \
-KAYPOH_NOTARYTOOL_PROFILE=kaypoh-notary \
+JUNAS_CODESIGN_IDENTITY="Developer ID Application: Example Pte Ltd (TEAMID)" \
+JUNAS_NOTARYTOOL_PROFILE=junas-notary \
 ./scripts/package_macos_desktop.sh
 ```
 
@@ -553,7 +553,7 @@ No screenshot assets are currently tracked for README embedding beyond the logo.
 
 Useful screenshots to add under `asset/screenshots/`:
 
-- FastAPI `/docs` showing the active Kaypoh API surface.
+- FastAPI `/docs` showing the active Junas API surface.
 - Example `/review` or `/pseudonymize` response with sensitive values redacted.
 - macOS local daemon or tray/terminal run state.
 - Browser extension pre-send review surface.

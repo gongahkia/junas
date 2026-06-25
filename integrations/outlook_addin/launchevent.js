@@ -1,10 +1,10 @@
-const KAYPOH_DEFAULT_ENDPOINT = "http://127.0.0.1:8765";
-const KAYPOH_DEFAULT_SEND_TIMEOUT_MS = 4000;
-const KAYPOH_ENDPOINT_KEY = "kaypoh.endpoint";
-const KAYPOH_TOKEN_KEY = "kaypoh.localToken";
-const KAYPOH_SEND_TIMEOUT_KEY = "kaypoh.sendHookTimeoutMs";
-const KAYPOH_TELEMETRY_SCHEMA = "kaypoh.outlook.telemetry.v1";
-const KAYPOH_TELEMETRY_KEYS = new Set([
+const JUNAS_DEFAULT_ENDPOINT = "http://127.0.0.1:8765";
+const JUNAS_DEFAULT_SEND_TIMEOUT_MS = 4000;
+const JUNAS_ENDPOINT_KEY = "junas.endpoint";
+const JUNAS_TOKEN_KEY = "junas.localToken";
+const JUNAS_SEND_TIMEOUT_KEY = "junas.sendHookTimeoutMs";
+const JUNAS_TELEMETRY_SCHEMA = "junas.outlook.telemetry.v1";
+const JUNAS_TELEMETRY_KEYS = new Set([
   "attachment_count",
   "backend_status",
   "decision",
@@ -25,7 +25,7 @@ const KAYPOH_TELEMETRY_KEYS = new Set([
   "timeout_ms"
 ]);
 
-function kaypohStored(key) {
+function junasStored(key) {
   if (globalThis.OfficeRuntime && OfficeRuntime.storage) {
     return OfficeRuntime.storage.getItem(key).then((value) => value || "");
   }
@@ -36,17 +36,17 @@ function kaypohStored(key) {
   }
 }
 
-function kaypohStoredTimeout() {
-  return kaypohStored(KAYPOH_SEND_TIMEOUT_KEY).then((value) => {
+function junasStoredTimeout() {
+  return junasStored(JUNAS_SEND_TIMEOUT_KEY).then((value) => {
     const parsed = Number.parseInt(value, 10);
-    if (!Number.isFinite(parsed)) return KAYPOH_DEFAULT_SEND_TIMEOUT_MS;
+    if (!Number.isFinite(parsed)) return JUNAS_DEFAULT_SEND_TIMEOUT_MS;
     return Math.min(8000, Math.max(1000, parsed));
   });
 }
 
-function kaypohTelemetryDetails(details) {
+function junasTelemetryDetails(details) {
   const sanitized = {};
-  for (const key of KAYPOH_TELEMETRY_KEYS) {
+  for (const key of JUNAS_TELEMETRY_KEYS) {
     if (!Object.prototype.hasOwnProperty.call(details, key)) continue;
     const value = details[key];
     if (Array.isArray(value)) sanitized[key] = value.map((item) => String(item).slice(0, 80)).sort();
@@ -56,29 +56,29 @@ function kaypohTelemetryDetails(details) {
   return sanitized;
 }
 
-function kaypohTelemetry(eventName, details) {
+function junasTelemetry(eventName, details) {
   const event = {
-    schema_version: KAYPOH_TELEMETRY_SCHEMA,
+    schema_version: JUNAS_TELEMETRY_SCHEMA,
     event_name: eventName,
     surface: "outlook",
     workflow: "email_send",
     timestamp: new Date().toISOString(),
-    details: kaypohTelemetryDetails(details || {})
+    details: junasTelemetryDetails(details || {})
   };
-  if (typeof globalThis.kaypohTelemetrySink === "function") {
+  if (typeof globalThis.junasTelemetrySink === "function") {
     try {
-      globalThis.kaypohTelemetrySink(event);
+      globalThis.junasTelemetrySink(event);
     } catch (error) {}
   }
   if (typeof globalThis.dispatchEvent === "function" && typeof globalThis.CustomEvent === "function") {
     try {
-      globalThis.dispatchEvent(new CustomEvent("kaypoh:telemetry", {detail: event}));
+      globalThis.dispatchEvent(new CustomEvent("junas:telemetry", {detail: event}));
     } catch (error) {}
   }
   return event;
 }
 
-function kaypohBodyText(event) {
+function junasBodyText(event) {
   return new Promise((resolve, reject) => {
     Office.context.mailbox.item.body.getAsync("text", {asyncContext: event}, (result) => {
       if (result.status !== Office.AsyncResultStatus.Succeeded) reject(result.error);
@@ -87,7 +87,7 @@ function kaypohBodyText(event) {
   });
 }
 
-function kaypohGetAsync(accessor, fallback) {
+function junasGetAsync(accessor, fallback) {
   return new Promise((resolve) => {
     if (!accessor || typeof accessor.getAsync !== "function") {
       resolve(fallback);
@@ -100,11 +100,11 @@ function kaypohGetAsync(accessor, fallback) {
   });
 }
 
-function kaypohSubjectText() {
-  return kaypohGetAsync(Office.context.mailbox.item.subject, "");
+function junasSubjectText() {
+  return junasGetAsync(Office.context.mailbox.item.subject, "");
 }
 
-function kaypohRecipientDomains(recipients) {
+function junasRecipientDomains(recipients) {
   const domains = [];
   for (const recipient of recipients) {
     const email = String(recipient?.emailAddress || recipient?.email || "").trim().toLowerCase();
@@ -114,7 +114,7 @@ function kaypohRecipientDomains(recipients) {
   return [...new Set(domains)].sort();
 }
 
-function kaypohTelemetryFromResult(result) {
+function junasTelemetryFromResult(result) {
   const policy = result.policy_decision || {};
   const required = Array.isArray(policy.required_actions) ? policy.required_actions : [];
   const recommended = Array.isArray(policy.recommended_actions) ? policy.recommended_actions : [];
@@ -132,16 +132,16 @@ function kaypohTelemetryFromResult(result) {
   };
 }
 
-function kaypohAllRecipients() {
+function junasAllRecipients() {
   const item = Office.context.mailbox.item;
   return Promise.all([
-    kaypohGetAsync(item.to, []),
-    kaypohGetAsync(item.cc, []),
-    kaypohGetAsync(item.bcc, [])
+    junasGetAsync(item.to, []),
+    junasGetAsync(item.cc, []),
+    junasGetAsync(item.bcc, [])
   ]).then((groups) => [].concat(...groups).filter(Boolean));
 }
 
-function kaypohAttachments() {
+function junasAttachments() {
   const item = Office.context.mailbox.item;
   if (!item.getAttachmentsAsync) return Promise.resolve([]);
   return new Promise((resolve) => {
@@ -152,8 +152,8 @@ function kaypohAttachments() {
   });
 }
 
-function kaypohMessageContext(event) {
-  return Promise.all([kaypohBodyText(event), kaypohSubjectText(), kaypohAllRecipients(), kaypohAttachments()]).then(
+function junasMessageContext(event) {
+  return Promise.all([junasBodyText(event), junasSubjectText(), junasAllRecipients(), junasAttachments()]).then(
     ([body, subject, recipients, attachments]) => ({
       body,
       subject,
@@ -163,29 +163,29 @@ function kaypohMessageContext(event) {
   );
 }
 
-function kaypohReviewText(context) {
+function junasReviewText(context) {
   const subject = String(context.subject || "").trim();
   const body = String(context.body || "").trim();
   return subject ? `Subject: ${subject}\n\n${body}` : body;
 }
 
-function kaypohFetchWithTimeout(url, options, timeoutMs) {
+function junasFetchWithTimeout(url, options, timeoutMs) {
   if (!globalThis.AbortController) return fetch(url, options);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   return fetch(url, {...options, signal: controller.signal}).finally(() => clearTimeout(timer));
 }
 
-function kaypohReview(endpoint, token, context, timeoutMs) {
+function junasReview(endpoint, token, context, timeoutMs) {
   const headers = {"Content-Type": "application/json"};
-  if (token) headers["X-Kaypoh-Local-Token"] = token;
+  if (token) headers["X-Junas-Local-Token"] = token;
   const recipients = Array.isArray(context.recipients) ? context.recipients : [];
   const attachments = Array.isArray(context.attachments) ? context.attachments : [];
-  return kaypohFetchWithTimeout(`${endpoint}/review`, {
+  return junasFetchWithTimeout(`${endpoint}/review`, {
     method: "POST",
     headers,
     body: JSON.stringify({
-      text: kaypohReviewText(context),
+      text: junasReviewText(context),
       source_jurisdiction: "SG",
       destination_jurisdiction: "SG",
       document_type: "email",
@@ -194,31 +194,31 @@ function kaypohReview(endpoint, token, context, timeoutMs) {
       surface: "outlook",
       workflow: "email_send",
       requested_action: "send",
-      recipient_domains: kaypohRecipientDomains(recipients),
+      recipient_domains: junasRecipientDomains(recipients),
       recipient_count: recipients.length,
       attachment_count: attachments.length
     })
   }, timeoutMs).then((response) => {
-    if (!response.ok) throw new Error(`kaypoh ${response.status}`);
+    if (!response.ok) throw new Error(`junas ${response.status}`);
     return response.json();
   });
 }
 
-function kaypohPromptUserOverride() {
+function junasPromptUserOverride() {
   return globalThis.Office?.MailboxEnums?.SendModeOverride?.PromptUser || "promptUser";
 }
 
-function kaypohCompletion(mode, message) {
+function junasCompletion(mode, message) {
   if (mode === "allow") return {mode, options: {allowEvent: true}};
   const options = {
     allowEvent: false,
-    errorMessage: message || "Kaypoh review blocked this send. Open Kaypoh Review before sending."
+    errorMessage: message || "Junas review blocked this send. Open Junas Review before sending."
   };
-  if (mode === "prompt_user") options.sendModeOverride = kaypohPromptUserOverride();
+  if (mode === "prompt_user") options.sendModeOverride = junasPromptUserOverride();
   return {mode, options};
 }
 
-function kaypohSmartAlertCompletion(result) {
+function junasSmartAlertCompletion(result) {
   const policy = result.policy_decision || {};
   const decision = policy.decision || "";
   const required = Array.isArray(policy.required_actions) ? policy.required_actions : [];
@@ -228,79 +228,79 @@ function kaypohSmartAlertCompletion(result) {
   const pii = Number(result.pii_score || 0);
   const mnpi = Number(result.mnpi_score || 0);
   if (degraded > 0) {
-    return kaypohCompletion("hard_block", "Kaypoh could not fully inspect this message. Open Kaypoh Review before sending.");
+    return junasCompletion("hard_block", "Junas could not fully inspect this message. Open Junas Review before sending.");
   }
   if (decision === "allow" || (!decision && result.send_allowed !== false && findings === 0 && pii < 0.5 && mnpi < 0.5)) {
-    return kaypohCompletion("allow");
+    return junasCompletion("allow");
   }
   if (decision === "warn" || recommended.includes("proceed_with_warning")) {
-    return kaypohCompletion("prompt_user", "Kaypoh found review warnings. Send anyway only if this matches policy.");
+    return junasCompletion("prompt_user", "Junas found review warnings. Send anyway only if this matches policy.");
   }
   if (decision === "approval_required" || required.includes("request_approval")) {
-    return kaypohCompletion("soft_block", "Kaypoh requires reviewer approval before sending. Open Kaypoh Review.");
+    return junasCompletion("soft_block", "Junas requires reviewer approval before sending. Open Junas Review.");
   }
   if (decision === "rewrite_required" || required.includes("safe_rewrite") || required.includes("redact_pii")) {
-    return kaypohCompletion("soft_block", "Kaypoh requires safe rewrite or redaction before sending. Open Kaypoh Review.");
+    return junasCompletion("soft_block", "Junas requires safe rewrite or redaction before sending. Open Junas Review.");
   }
   if (decision === "block" || policy.send_allowed === false || result.send_allowed === false) {
-    return kaypohCompletion("hard_block", "Kaypoh policy blocked this send. Open Kaypoh Review.");
+    return junasCompletion("hard_block", "Junas policy blocked this send. Open Junas Review.");
   }
-  return kaypohCompletion("soft_block", "Kaypoh found possible PII/MNPI. Open Kaypoh Review before sending.");
+  return junasCompletion("soft_block", "Junas found possible PII/MNPI. Open Junas Review before sending.");
 }
 
-function kaypohCompletionTelemetry(result, completion) {
-  const summary = {...kaypohTelemetryFromResult(result), mode: completion.mode};
+function junasCompletionTelemetry(result, completion) {
+  const summary = {...junasTelemetryFromResult(result), mode: completion.mode};
   const policy = result.policy_decision || {};
   const required = Array.isArray(policy.required_actions) ? policy.required_actions : [];
   if (completion.mode === "prompt_user") {
-    kaypohTelemetry("outlook_user_proceeded_after_warning", {...summary, observed_user_action: false});
+    junasTelemetry("outlook_user_proceeded_after_warning", {...summary, observed_user_action: false});
     return;
   }
   if (policy.decision === "approval_required" || required.includes("request_approval")) {
-    kaypohTelemetry("outlook_user_requested_approval", {...summary, observed_user_action: false});
+    junasTelemetry("outlook_user_requested_approval", {...summary, observed_user_action: false});
   }
   if (completion.options && completion.options.allowEvent === false) {
-    kaypohTelemetry("outlook_user_blocked", summary);
+    junasTelemetry("outlook_user_blocked", summary);
   }
 }
 
-function kaypohComplete(event, completion) {
+function junasComplete(event, completion) {
   event.completed(completion.options);
 }
 
 function onMessageSendHandler(event) {
-  Promise.all([kaypohStored(KAYPOH_ENDPOINT_KEY), kaypohStored(KAYPOH_TOKEN_KEY), kaypohStoredTimeout()])
+  Promise.all([junasStored(JUNAS_ENDPOINT_KEY), junasStored(JUNAS_TOKEN_KEY), junasStoredTimeout()])
     .then(([endpoint, token, timeoutMs]) => {
-      const targetEndpoint = endpoint || KAYPOH_DEFAULT_ENDPOINT;
-      return kaypohMessageContext(event).then((context) => {
+      const targetEndpoint = endpoint || JUNAS_DEFAULT_ENDPOINT;
+      return junasMessageContext(event).then((context) => {
         const recipients = Array.isArray(context.recipients) ? context.recipients : [];
         const attachments = Array.isArray(context.attachments) ? context.attachments : [];
-        kaypohTelemetry("outlook_review_started", {
+        junasTelemetry("outlook_review_started", {
           attachment_count: attachments.length,
           recipient_count: recipients.length,
-          recipient_domain_count: kaypohRecipientDomains(recipients).length,
+          recipient_domain_count: junasRecipientDomains(recipients).length,
           timeout_ms: timeoutMs
         });
-        return kaypohReview(targetEndpoint, token, context, timeoutMs);
+        return junasReview(targetEndpoint, token, context, timeoutMs);
       });
     })
     .then((result) => {
-      kaypohTelemetry("outlook_policy_decision_received", kaypohTelemetryFromResult(result));
-      const completion = kaypohSmartAlertCompletion(result);
-      kaypohCompletionTelemetry(result, completion);
-      kaypohComplete(event, completion);
+      junasTelemetry("outlook_policy_decision_received", junasTelemetryFromResult(result));
+      const completion = junasSmartAlertCompletion(result);
+      junasCompletionTelemetry(result, completion);
+      junasComplete(event, completion);
     })
     .catch((error) => {
-      kaypohTelemetry("outlook_backend_failure", {
+      junasTelemetry("outlook_backend_failure", {
         backend_status: "unavailable_or_context_error",
         error_type: error && error.name ? error.name : "Error"
       });
-      const completion = kaypohCompletion("hard_block", "Kaypoh local review is unavailable. Check pairing before sending.");
-      kaypohTelemetry("outlook_user_blocked", {
+      const completion = junasCompletion("hard_block", "Junas local review is unavailable. Check pairing before sending.");
+      junasTelemetry("outlook_user_blocked", {
         backend_status: "unavailable_or_context_error",
         mode: completion.mode
       });
-      kaypohComplete(event, completion);
+      junasComplete(event, completion);
     });
 }
 

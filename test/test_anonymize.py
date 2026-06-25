@@ -10,7 +10,7 @@ from io import BytesIO
 
 from fastapi.testclient import TestClient
 
-import kaypoh.backend.main as main
+import junas.backend.main as main
 
 
 @asynccontextmanager
@@ -251,11 +251,11 @@ class AnonymizeApiTests(unittest.TestCase):
         self.assertIn("reidentify", restored_payload["timings_ms"])
 
     def test_reidentify_by_anonymize_hash_returns_404(self):
-        original_journal_dir = os.environ.get("KAYPOH_JOURNAL_DIR")
-        original_persist = os.environ.get("KAYPOH_REVIEW_PERSIST")
+        original_journal_dir = os.environ.get("JUNAS_JOURNAL_DIR")
+        original_persist = os.environ.get("JUNAS_REVIEW_PERSIST")
         with tempfile.TemporaryDirectory() as tmp:
-            os.environ["KAYPOH_JOURNAL_DIR"] = tmp
-            os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
+            os.environ["JUNAS_JOURNAL_DIR"] = tmp
+            os.environ["JUNAS_REVIEW_PERSIST"] = "1"
             text = f"Send Dr Jane Tan S1234567D. {uuid.uuid4()}"
 
             with TestClient(main.app) as client:
@@ -279,13 +279,13 @@ class AnonymizeApiTests(unittest.TestCase):
 
             self.assertEqual(restored.status_code, 404)
         if original_journal_dir is None:
-            os.environ.pop("KAYPOH_JOURNAL_DIR", None)
+            os.environ.pop("JUNAS_JOURNAL_DIR", None)
         else:
-            os.environ["KAYPOH_JOURNAL_DIR"] = original_journal_dir
+            os.environ["JUNAS_JOURNAL_DIR"] = original_journal_dir
         if original_persist is None:
-            os.environ.pop("KAYPOH_REVIEW_PERSIST", None)
+            os.environ.pop("JUNAS_REVIEW_PERSIST", None)
         else:
-            os.environ["KAYPOH_REVIEW_PERSIST"] = original_persist
+            os.environ["JUNAS_REVIEW_PERSIST"] = original_persist
 
     def test_redact_uses_opaque_markers_without_original_text(self):
         text = "Send Dr Jane Tan S1234567D at jane@example.com."
@@ -351,8 +351,8 @@ class AnonymizeApiTests(unittest.TestCase):
         self.assertFalse(any("matched_text" in finding for finding in payload["findings"]))
 
     def test_anonymize_and_redact_do_not_persist_mapping_or_subject_index(self):
-        original_persist = os.environ.get("KAYPOH_REVIEW_PERSIST")
-        os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
+        original_persist = os.environ.get("JUNAS_REVIEW_PERSIST")
+        os.environ["JUNAS_REVIEW_PERSIST"] = "1"
         original_save = main._save_persisted_mapping
         original_index = main.index_review_findings
 
@@ -381,9 +381,9 @@ class AnonymizeApiTests(unittest.TestCase):
             main._save_persisted_mapping = original_save
             main.index_review_findings = original_index
             if original_persist is None:
-                os.environ.pop("KAYPOH_REVIEW_PERSIST", None)
+                os.environ.pop("JUNAS_REVIEW_PERSIST", None)
             else:
-                os.environ["KAYPOH_REVIEW_PERSIST"] = original_persist
+                os.environ["JUNAS_REVIEW_PERSIST"] = original_persist
 
     def test_reidentify_handles_placeholder_prefix_collision(self):
         # PERSON_1 must not be replaced first when PERSON_10 also exists. longest-placeholder-first

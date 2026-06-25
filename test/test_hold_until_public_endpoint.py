@@ -10,7 +10,7 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-import kaypoh.backend.main as main
+import junas.backend.main as main
 
 
 @asynccontextmanager

@@ -20,13 +20,13 @@ Dataset row shape:
 
 Re-runs are idempotent: rows already present in the output JSONL keyed by text_hash are
 skipped unless `--force` is set. Every cloud call is recorded in the privacy ledger
-under `${KAYPOH_JOURNAL_DIR}/training_ledger.jsonl` so the auditor can reconstruct
+under `${JUNAS_JOURNAL_DIR}/training_ledger.jsonl` so the auditor can reconstruct
 exactly which documents were sent to the teacher and when.
 
 Usage:
     OPENAI_API_KEY=sk-... \\
-    KAYPOH_LLM_TENANT_OPT_IN_OPENAI=true \\
-    KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=true \\
+    JUNAS_LLM_TENANT_OPT_IN_OPENAI=true \\
+    JUNAS_LLM_ALLOW_REMOTE_BASE_URL=true \\
     python3 training/distillation/teacher_collector.py \\
         --corpus test/fixtures/legal-corpus \\
         --corpus test/fixtures/legal-corpus-adversarial \\
@@ -57,7 +57,7 @@ SRC_PATH = REPO_ROOT / "src"
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review.engine import PreSendReviewEngine  # noqa: E402
+from junas.review.engine import PreSendReviewEngine  # noqa: E402
 
 DEFAULT_LEDGER_NAME = "training_ledger.jsonl"
 
@@ -141,7 +141,7 @@ def _load_existing_hashes(output: Path) -> set[str]:
 
 
 def _ledger_path() -> Path:
-    journal_dir = Path(os.environ.get("KAYPOH_JOURNAL_DIR", "./kaypoh-journal"))
+    journal_dir = Path(os.environ.get("JUNAS_JOURNAL_DIR", "./junas-journal"))
     return journal_dir / DEFAULT_LEDGER_NAME
 
 
@@ -210,8 +210,8 @@ def _resolve_adjudicator(provider_arg: str) -> TeacherAdjudicator:
                 }
         return TeacherAdjudicator(_Mock())
 
-    from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
-    from kaypoh.configs.runtime import get_runtime_settings
+    from junas.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
+    from junas.configs.runtime import get_runtime_settings
 
     settings = get_runtime_settings()
     return TeacherAdjudicator(LocalLLMAdjudicator(settings.llm))
@@ -230,7 +230,7 @@ def _build_user_content_for_row(*, input_mode: str, text: str, classification: s
     if input_mode == "raw_text":
         return build_user_content_raw_text(text=text, current_classification=classification)
     if input_mode == "structured_tokens":
-        from kaypoh.advisory.llm_adjudicator.structured_query import (
+        from junas.advisory.llm_adjudicator.structured_query import (
             build_structured_query,
         )
         query = build_structured_query(
@@ -350,7 +350,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--provider", default="runtime",
-        help="`runtime` (default) reads kaypoh.configs.runtime for the adjudicator; "
+        help="`runtime` (default) reads junas.configs.runtime for the adjudicator; "
         "`mock` returns canned verdicts (tests).",
     )
     parser.add_argument(

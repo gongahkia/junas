@@ -1,7 +1,7 @@
 import unittest
 
-from kaypoh.review.citations import mnpi_rationale, pii_rationale
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.citations import mnpi_rationale, pii_rationale
+from junas.review.engine import PreSendReviewEngine
 
 
 class SgWedgeRemainderTests(unittest.TestCase):

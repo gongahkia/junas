@@ -1,6 +1,6 @@
 # LLM Governance
 
-Kaypoh treats LLM paths as optional advisory layers. The default runtime remains
+Junas treats LLM paths as optional advisory layers. The default runtime remains
 deterministic-only. Remote LLM use requires tenant opt-in, provider opt-in, and
 privacy-ledger evidence.
 
@@ -42,7 +42,7 @@ accepted as local-adapter promotion evidence. Required privacy checks are:
 
 PDPC opened public consultation on proposed advisory guidelines for use of
 personal data in Generative AI on 2026-06-02. Until final guidance lands,
-Kaypoh treats GenAI personal-data use as opt-in, ledgered, and structured-token
+Junas treats GenAI personal-data use as opt-in, ledgered, and structured-token
 by default; promotion evidence must include the
 `pdpc_genai_personal_data_review` check.
 

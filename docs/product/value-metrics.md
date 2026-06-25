@@ -4,8 +4,8 @@ Metrics must be computed from privacy-safe events, hashes, counts, policy ids, s
 
 | Metric | Definition | Numerator | Denominator |
 |---|---|---|---|
-| Activation rate | Share of eligible users or tenants that trigger at least one Kaypoh review in the measurement window. | Unique active users or tenants with one or more review events. | Eligible assigned users or onboarded tenants. |
-| Reviewed-send rate | Share of eligible send/share/submit attempts that receive a Kaypoh review before completion. | Attempts with completed `/review` decision before send/share/submit. | Eligible attempts observed by the adapter or direct integration. |
+| Activation rate | Share of eligible users or tenants that trigger at least one Junas review in the measurement window. | Unique active users or tenants with one or more review events. | Eligible assigned users or onboarded tenants. |
+| Reviewed-send rate | Share of eligible send/share/submit attempts that receive a Junas review before completion. | Attempts with completed `/review` decision before send/share/submit. | Eligible attempts observed by the adapter or direct integration. |
 | Accepted-finding rate | Share of findings that users or reviewers accept without rejecting as false positive or policy exception. | Findings accepted, left unchallenged after decision completion, or acted on through rewrite/redaction/approval. | Findings returned to users or reviewers. |
 | False-positive override rate | Share of findings overridden as false positive by an authorized reviewer or approved taxonomy path. | Findings with reviewer decision taxonomy `false_positive`. | Findings that reached reviewer/user decision. |
 | Safe-rewrite usage | Share of reviewed workflows that use a safe rewrite, redaction, pseudonymization, hold text, or approved replacement action. | Review sessions with a completed safe-rewrite or rewrite-equivalent action. | Review sessions where rewrite action was offered or required. |

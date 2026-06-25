@@ -83,7 +83,7 @@ def _generate_pass(
 def main() -> int:
     parser = argparse.ArgumentParser(description="Batch fixture generator")
     parser.add_argument("--count-per-type", type=int, default=4, help="N per doc type per variant pass")
-    parser.add_argument("--model", default=os.environ.get("KAYPOH_FIXTURE_MODEL", "gpt-4o"))
+    parser.add_argument("--model", default=os.environ.get("JUNAS_FIXTURE_MODEL", "gpt-4o"))
     parser.add_argument("--skip-default", action="store_true")
     parser.add_argument("--skip-adversarial", action="store_true")
     args = parser.parse_args()

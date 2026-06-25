@@ -5,10 +5,10 @@ from unittest import mock
 
 from fastapi.testclient import TestClient
 
-import kaypoh.backend.main as main
-from kaypoh.external.privacy_guard import PrivacyGuard
-from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
-from kaypoh.review.engine import Classification, ReviewResult
+import junas.backend.main as main
+from junas.external.privacy_guard import PrivacyGuard
+from junas.external.public_evidence.inference import PublicEvidenceRetriever
+from junas.review.engine import Classification, ReviewResult
 from test import observability_test_app as test_app
 
 
@@ -140,7 +140,7 @@ class PublicEvidenceLLMApiTests(unittest.TestCase):
             },
         )
 
-        with mock.patch("kaypoh.backend.main.emit_privacy_ledger_events") as emit_privacy_events:
+        with mock.patch("junas.backend.main.emit_privacy_ledger_events") as emit_privacy_events:
             with TestClient(test_app.app) as client:
                 response = client.post("/classify", json={"text": text, "entity_id": "Acme Corp"})
 
@@ -178,7 +178,7 @@ class PublicEvidenceLLMApiTests(unittest.TestCase):
                     ],
                 )
 
-        with mock.patch("kaypoh.backend.main._build_review_engine", return_value=DegradedEngine()):
+        with mock.patch("junas.backend.main._build_review_engine", return_value=DegradedEngine()):
             response = main._classify_core(
                 main.ClassifyRequest(text="Acme Corp revenue threshold check", entity_id="Acme Corp"),
                 "req-1",

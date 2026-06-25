@@ -1,6 +1,6 @@
 # India (IN) Defensibility Report
 
-> Generated 2026-06-06 from `src/kaypoh/review/jurisdictions_data/IN.toml`. Internal benchmarking and procurement-support artifact only; not legal advice.
+> Generated 2026-06-06 from `src/junas/review/jurisdictions_data/IN.toml`. Internal benchmarking and procurement-support artifact only; not legal advice.
 
 ## Statutory Coverage
 

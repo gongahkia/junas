@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 
 from fastapi.testclient import TestClient
 
-import kaypoh.backend.main as main
+import junas.backend.main as main
 
 
 @asynccontextmanager
@@ -22,7 +22,7 @@ class OpenApiDocsTests(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
         payload = response.json()
 
-        self.assertEqual(payload["info"]["title"], "Kaypoh Document Safety API")
+        self.assertEqual(payload["info"]["title"], "Junas Document Safety API")
         self.assertIn("pre-send safety engine", payload["info"]["description"])
 
         cite_public_source_operation = payload["paths"]["/cite-public-source"]["post"]

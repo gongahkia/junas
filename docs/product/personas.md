@@ -18,7 +18,7 @@ Job-to-be-done: when a user requests approval or challenges a finding, I need en
 
 ## Compliance Admin
 
-Job-to-be-done: I need to configure tenant policy, monitor adoption and exceptions, export audit evidence, and prove controls are operating without turning Kaypoh into the only DLP control.
+Job-to-be-done: I need to configure tenant policy, monitor adoption and exceptions, export audit evidence, and prove controls are operating without turning Junas into the only DLP control.
 
 - Needs: policy profiles, value metrics, false-positive trends, audit exports, retention settings, SIEM mapping, deployment boundaries.
 - Risks: adapter support is overstated, policy drift is invisible, metrics require raw content, rollout tries too many surfaces at once.
@@ -26,7 +26,7 @@ Job-to-be-done: I need to configure tenant policy, monitor adoption and exceptio
 
 ## Security Engineer
 
-Job-to-be-done: I need Kaypoh integrations to preserve tenant boundaries, avoid sensitive logs, enforce auth, and emit privacy-safe telemetry that fits existing security architecture.
+Job-to-be-done: I need Junas integrations to preserve tenant boundaries, avoid sensitive logs, enforce auth, and emit privacy-safe telemetry that fits existing security architecture.
 
 - Needs: stable API contract, auth model, tenant isolation, body-size caps, CORS/CSRF controls, no-body-log tests, SIEM-safe fields.
 - Risks: adapters store prompts locally, caller-supplied tenant ids are trusted, public URL fetches create SSRF exposure, logs leak content.
@@ -34,7 +34,7 @@ Job-to-be-done: I need Kaypoh integrations to preserve tenant boundaries, avoid 
 
 ## Platform Integrator
 
-Job-to-be-done: I need to connect Kaypoh to DMS, API gateways, browser/email surfaces, or workflow tools using predictable schemas and failure semantics.
+Job-to-be-done: I need to connect Junas to DMS, API gateways, browser/email surfaces, or workflow tools using predictable schemas and failure semantics.
 
 - Needs: OpenAPI examples, idempotency guidance, response decision contract, timeout/retry behavior, compatibility matrix, adapter certification checklist.
 - Risks: schema changes break clients, duplicate reviews confuse users, unsupported surfaces are treated as production-ready.

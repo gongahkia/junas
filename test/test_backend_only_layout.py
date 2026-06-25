@@ -4,7 +4,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-import kaypoh.backend.main as main
+import junas.backend.main as main
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -48,10 +48,10 @@ class BackendOnlyLayoutTests(unittest.TestCase):
 
     def test_runtime_layout_is_in_canonical_package(self):
         expected_paths = [
-            ROOT / "src" / "kaypoh" / "ingest" / "parser_tools" / "parse_docs.py",
-            ROOT / "src" / "kaypoh" / "external" / "public_evidence" / "inference.py",
-            ROOT / "src" / "kaypoh" / "advisory" / "llm_adjudicator" / "inference.py",
-            ROOT / "src" / "kaypoh" / "external" / "privacy_guard.py",
+            ROOT / "src" / "junas" / "ingest" / "parser_tools" / "parse_docs.py",
+            ROOT / "src" / "junas" / "external" / "public_evidence" / "inference.py",
+            ROOT / "src" / "junas" / "advisory" / "llm_adjudicator" / "inference.py",
+            ROOT / "src" / "junas" / "external" / "privacy_guard.py",
         ]
         for path in expected_paths:
             self.assertTrue(path.exists(), f"missing runtime file: {path}")
@@ -69,13 +69,13 @@ class BackendOnlyLayoutTests(unittest.TestCase):
             ROOT / "model-1",
             ROOT / "model-2",
             ROOT / "scripts" / "train_dev.sh",
-            ROOT / "src" / "kaypoh" / "workflow",
-            ROOT / "src" / "kaypoh" / "workflow" / "layer1_lexicon",
-            ROOT / "src" / "kaypoh" / "workflow" / "layer2_embeddings",
-            ROOT / "src" / "kaypoh" / "workflow" / "layer3_clustering",
-            ROOT / "src" / "kaypoh" / "workflow" / "layer4_classification",
-            ROOT / "src" / "kaypoh" / "workflow" / "layer5_mosaic",
-            ROOT / "src" / "kaypoh" / "workflow" / "layer6_regression",
+            ROOT / "src" / "junas" / "workflow",
+            ROOT / "src" / "junas" / "workflow" / "layer1_lexicon",
+            ROOT / "src" / "junas" / "workflow" / "layer2_embeddings",
+            ROOT / "src" / "junas" / "workflow" / "layer3_clustering",
+            ROOT / "src" / "junas" / "workflow" / "layer4_classification",
+            ROOT / "src" / "junas" / "workflow" / "layer5_mosaic",
+            ROOT / "src" / "junas" / "workflow" / "layer6_regression",
         ]
         for path in removed_paths:
             self.assertFalse(path.exists(), f"duplicate shim should be removed: {path}")
@@ -88,11 +88,11 @@ class BackendOnlyLayoutTests(unittest.TestCase):
             ROOT / "reports" / "README.md",
             ROOT / "scripts" / "README.md",
             ROOT / "scripts" / "launch" / "README.md",
-            ROOT / "src" / "kaypoh" / "backend" / "README.md",
-            ROOT / "src" / "kaypoh" / "configs" / "README.md",
-            ROOT / "src" / "kaypoh" / "external" / "README.md",
-            ROOT / "src" / "kaypoh" / "helper" / "README.md",
-            ROOT / "src" / "kaypoh" / "ingest" / "parser_tools" / "README.md",
+            ROOT / "src" / "junas" / "backend" / "README.md",
+            ROOT / "src" / "junas" / "configs" / "README.md",
+            ROOT / "src" / "junas" / "external" / "README.md",
+            ROOT / "src" / "junas" / "helper" / "README.md",
+            ROOT / "src" / "junas" / "ingest" / "parser_tools" / "README.md",
             ROOT / "test" / "README.md",
             ROOT / "training" / "README.md",
         ]

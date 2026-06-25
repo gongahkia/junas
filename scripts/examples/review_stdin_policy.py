@@ -4,7 +4,7 @@ import argparse
 import json
 import sys
 
-from kaypoh import KaypohClient
+from junas import JunasClient
 
 
 def parse_args() -> argparse.Namespace:
@@ -25,7 +25,7 @@ def main() -> int:
         sys.stderr.write("stdin is empty\n")
         return 2
 
-    with KaypohClient(args.base_url, api_key=args.api_key) as client:
+    with JunasClient(args.base_url, api_key=args.api_key) as client:
         review = client.review(
             text=text,
             source_jurisdiction=args.source,

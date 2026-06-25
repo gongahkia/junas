@@ -12,7 +12,7 @@ import tempfile
 import unittest
 from unittest import mock
 
-from kaypoh.review.engine import EntitySizeLookup, JSONEntitySizeLookup, PreSendReviewEngine
+from junas.review.engine import EntitySizeLookup, JSONEntitySizeLookup, PreSendReviewEngine
 
 
 class _Lookup(EntitySizeLookup):
@@ -164,7 +164,7 @@ class MaterialityScalerTests(unittest.TestCase):
             handle.write("AcmeUS,US,1000000000,5000000000,false,ACME\n")
             path = handle.name
         self.addCleanup(lambda: os.path.exists(path) and os.unlink(path))
-        env = {"KAYPOH_ENTITY_SIZE_CSV": path, "KAYPOH_ENTITY_SIZE_JSON": ""}
+        env = {"JUNAS_ENTITY_SIZE_CSV": path, "JUNAS_ENTITY_SIZE_JSON": ""}
         with mock.patch.dict(os.environ, env, clear=False):
             engine = PreSendReviewEngine()
             r = engine.review(

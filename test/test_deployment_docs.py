@@ -40,7 +40,7 @@ class DeploymentDocsTests(unittest.TestCase):
         controls = set(example["controls"])
 
         self.assertEqual(controls, set(checker.REQUIRED_CONTROLS))
-        self.assertEqual(example["schema_version"], "kaypoh.retention_manifest.v1")
+        self.assertEqual(example["schema_version"], "junas.retention_manifest.v1")
         for control in controls:
             result = checker._evaluate_control(control, example["controls"][control])
             self.assertEqual(result["status"], "configured", msg=f"{control}: {result}")
@@ -80,7 +80,7 @@ class DeploymentDocsTests(unittest.TestCase):
         expected = [
             ROOT / "scripts" / "package_macos_desktop.sh",
             ROOT / "scripts" / "package_browser_extension.sh",
-            ROOT / "packaging" / "macos" / "com.kaypoh.local.plist.template",
+            ROOT / "packaging" / "macos" / "com.junas.local.plist.template",
             ROOT / "packaging" / "macos" / "install.sh",
             ROOT / "packaging" / "macos" / "update.sh",
             ROOT / "packaging" / "macos" / "uninstall.sh",
@@ -97,7 +97,7 @@ class DeploymentDocsTests(unittest.TestCase):
 
         macos_packager = (ROOT / "scripts" / "package_macos_desktop.sh").read_text(encoding="utf-8")
         extension_packager = (ROOT / "scripts" / "package_browser_extension.sh").read_text(encoding="utf-8")
-        launchd = (ROOT / "packaging" / "macos" / "com.kaypoh.local.plist.template").read_text(encoding="utf-8")
+        launchd = (ROOT / "packaging" / "macos" / "com.junas.local.plist.template").read_text(encoding="utf-8")
         word_manifest = (ROOT / "integrations" / "word_addin" / "manifest.xml").read_text(encoding="utf-8")
         word_js = (ROOT / "integrations" / "word_addin" / "taskpane.js").read_text(encoding="utf-8")
 
@@ -108,24 +108,24 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertIn("--pack-extension", extension_packager)
         self.assertIn("RunAtLoad", launchd)
         outlook_manifest = (ROOT / "integrations" / "outlook_addin" / "manifest.xml").read_text(encoding="utf-8")
-        self.assertIn("{{KAYPOH_OUTLOOK_ADDIN_ORIGIN}}", outlook_manifest)
+        self.assertIn("{{JUNAS_OUTLOOK_ADDIN_ORIGIN}}", outlook_manifest)
         self.assertIn('Host Name="Document"', word_manifest)
         self.assertIn("/review", word_js)
-        self.assertIn("X-Kaypoh-Local-Token", word_js)
+        self.assertIn("X-Junas-Local-Token", word_js)
         self.assertIn('degraded_policy: "warn"', word_js)
         self.assertIn("degraded_modes", word_js)
         self.assertIn("send_allowed", word_js)
 
     def test_desktop_watcher_is_not_in_readme_quick_start(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        quick_start = re.search(r"## Quick Start(?P<body>.*?)## What Kaypoh Does", readme, re.S)
+        quick_start = re.search(r"## Quick Start(?P<body>.*?)## What Junas Does", readme, re.S)
         fallback = re.search(r"## Experimental Local Fallback(?P<body>.*?)## API Surface", readme, re.S)
 
         self.assertIsNotNone(quick_start)
         self.assertIsNotNone(fallback)
-        self.assertNotIn("kaypoh-watch", quick_start.group("body"))
+        self.assertNotIn("junas-watch", quick_start.group("body"))
         self.assertNotIn("--clipboard", quick_start.group("body"))
-        self.assertIn("kaypoh-watch", fallback.group("body"))
+        self.assertIn("junas-watch", fallback.group("body"))
         self.assertIn("desktop-watcher.md", fallback.group("body"))
 
     def test_root_integrations_index_names_supported_and_future_surfaces(self):
@@ -235,16 +235,16 @@ class DeploymentDocsTests(unittest.TestCase):
             "Backend unavailable",
             "attachment_count=0",
             "attachment_count>0",
-            "Kaypoh local review is unavailable",
+            "Junas local review is unavailable",
             "Telemetry Events",
-            "kaypoh.outlook.telemetry.v1",
+            "junas.outlook.telemetry.v1",
             "outlook_review_started",
             "outlook_policy_decision_received",
             "outlook_user_proceeded_after_warning",
             "outlook_user_blocked",
             "outlook_user_requested_approval",
             "outlook_backend_failure",
-            "globalThis.kaypohTelemetrySink(event)",
+            "globalThis.junasTelemetrySink(event)",
             "There is no backend transport endpoint",
             "must not include raw body",
             "Privacy Check",
@@ -261,7 +261,7 @@ class DeploymentDocsTests(unittest.TestCase):
             ".well-known/microsoft-officeaddins-allowed.json",
             "JSRuntime.Url",
             "OPTIONS",
-            "X-Kaypoh-Local-Token",
+            "X-Junas-Local-Token",
             "Microsoft 365 admin-managed deployment",
             "Fallback Behavior",
             "Failure-Mode Table",
@@ -298,15 +298,15 @@ class DeploymentDocsTests(unittest.TestCase):
         text = (ROOT / "docs" / "integrations" / "desktop-watcher.md").read_text(encoding="utf-8")
         for token in (
             "Opt-In Local Fallback Flow",
-            "kaypoh-watch --watch-folder",
-            "kaypoh-watch --clipboard",
+            "junas-watch --watch-folder",
+            "junas-watch --clipboard",
             "Clipboard polling is never enabled by default",
             "Folder Watch",
             "Clipboard Watch",
             "not enterprise endpoint enforcement",
             "does not block paste",
             "cannot prove that every local file",
-            "KAYPOH_LOCAL_DAEMON_TOKEN",
+            "JUNAS_LOCAL_DAEMON_TOKEN",
         ):
             self.assertIn(token, text)
 

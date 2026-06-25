@@ -11,13 +11,13 @@ async function settings() {
   return chrome.storage.sync.get(DEFAULTS);
 }
 
-async function callKaypoh(text, requestedOperation) {
+async function callJunas(text, requestedOperation) {
   const cfg = await settings();
   const selectedOperation = requestedOperation || cfg.operation;
   const op = ["review", "pseudonymize", "anonymize", "redact"].includes(selectedOperation) ? selectedOperation : "review";
   const headers = {"Content-Type": "application/json"};
   if (cfg.token && cfg.authMode === "bearer_token") headers.Authorization = `Bearer ${cfg.token}`;
-  else if (cfg.token && cfg.authMode !== "none") headers["X-Kaypoh-Local-Token"] = cfg.token;
+  else if (cfg.token && cfg.authMode !== "none") headers["X-Junas-Local-Token"] = cfg.token;
   const body = {
     text,
     source_jurisdiction: "SG",
@@ -27,7 +27,7 @@ async function callKaypoh(text, requestedOperation) {
     degraded_policy: "warn"
   };
   const response = await fetch(`${cfg.endpoint}/${op}`, {method: "POST", headers, body: JSON.stringify(body)});
-  if (!response.ok) throw new Error(`kaypoh ${response.status}`);
+  if (!response.ok) throw new Error(`junas ${response.status}`);
   const result = await response.json();
   return {operation: op, result, replacementText: replacementText(op, result)};
 }
@@ -41,27 +41,27 @@ function replacementText(operation, result) {
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
-    id: "kaypoh-review-selection",
-    title: "Review selection with Kaypoh",
+    id: "junas-review-selection",
+    title: "Review selection with Junas",
     contexts: ["selection"]
   });
 });
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
-  if (info.menuItemId !== "kaypoh-review-selection" || !info.selectionText || !tab?.id) return;
-  const payload = await callKaypoh(info.selectionText);
-  await chrome.tabs.sendMessage(tab.id, {type: "kaypoh-result", ...payload});
+  if (info.menuItemId !== "junas-review-selection" || !info.selectionText || !tab?.id) return;
+  const payload = await callJunas(info.selectionText);
+  await chrome.tabs.sendMessage(tab.id, {type: "junas-result", ...payload});
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type !== "kaypoh-process-text") return false;
-  callKaypoh(message.text || "", message.operation)
+  if (message.type !== "junas-process-text") return false;
+  callJunas(message.text || "", message.operation)
     .then((payload) => {
-      if (sender.tab?.id) chrome.tabs.sendMessage(sender.tab.id, {type: "kaypoh-result", ...payload});
+      if (sender.tab?.id) chrome.tabs.sendMessage(sender.tab.id, {type: "junas-result", ...payload});
       sendResponse({ok: true, ...payload});
     })
     .catch((error) => {
-      if (sender.tab?.id) chrome.tabs.sendMessage(sender.tab.id, {type: "kaypoh-error", error: String(error.message || error)});
+      if (sender.tab?.id) chrome.tabs.sendMessage(sender.tab.id, {type: "junas-error", error: String(error.message || error)});
       sendResponse({ok: false, error: String(error.message || error)});
     });
   return true;

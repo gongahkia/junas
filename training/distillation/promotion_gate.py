@@ -14,7 +14,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-SCHEMA_VERSION = "kaypoh.distillation_promotion.v1"
+SCHEMA_VERSION = "junas.distillation_promotion.v1"
 MODEL_CARD_HEADINGS = (
     "## Promotion Status",
     "## Intended Use",
@@ -23,7 +23,7 @@ MODEL_CARD_HEADINGS = (
     "## Privacy",
     "## Invariants",
 )
-PRIVACY_SCHEMA_VERSION = "kaypoh.llm_privacy_eval.v1"
+PRIVACY_SCHEMA_VERSION = "junas.llm_privacy_eval.v1"
 REQUIRED_PRIVACY_CHECKS = {
     "structured_tokens_default",
     "remote_raw_text_blocked",

@@ -4,8 +4,8 @@ import zipfile
 from io import BytesIO
 from types import SimpleNamespace
 
-from kaypoh.review.document import SUPPORTED_XLSX_MIME, extract_review_document
-from kaypoh.review.document_structure import (
+from junas.review.document import SUPPORTED_XLSX_MIME, extract_review_document
+from junas.review.document_structure import (
     parse_document_structure,
     parse_docx_structure,
     parse_eml_structure,

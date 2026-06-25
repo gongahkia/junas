@@ -3,12 +3,12 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "kaypoh"
+name = "junas"
 version = "0.1.0"
-description = "Pre-send PII anonymisation and MNPI review runtime. Ships as kaypoh-local (offline desktop SKU) and kaypoh-server (deterministic review plus opt-in retrieval/LLM adjudication)."
+description = "Pre-send PII anonymisation and MNPI review runtime. Ships as junas-local (offline desktop SKU) and junas-server (deterministic review plus opt-in retrieval/LLM adjudication)."
 readme = "README.md"
 requires-python = ">=3.10"
-# base = kaypoh-local. Deterministic engine + Presidio + spaCy + FastAPI + extractors.
+# base = junas-local. Deterministic engine + Presidio + spaCy + FastAPI + extractors.
 # No torch, transformers, sentence-transformers, redis, xgboost, scikit-learn, pandas, or accelerate.
 # httpx stays because it is also the Python client transport.
 dependencies = [
@@ -28,14 +28,14 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-# install kaypoh[local] for the desktop SKU. Equivalent to the base install but documents intent.
+# install junas[local] for the desktop SKU. Equivalent to the base install but documents intent.
 local = []
-# install kaypoh[ocr] to enable local Tesseract image OCR.
+# install junas[ocr] to enable local Tesseract image OCR.
 ocr = [
   "pytesseract>=0.3.10",
   "pypdfium2>=4.30.0",
 ]
-# install kaypoh[server] for opt-in public evidence + LLM adjudication surfaces.
+# install junas[server] for opt-in public evidence + LLM adjudication surfaces.
 # The archived classifier stack is intentionally not a dependency of this extra.
 server = [
   "boto3>=1.34.0",
@@ -52,24 +52,24 @@ packaging = [
 ]
 
 [project.scripts]
-kaypoh-watch = "kaypoh.desktop.watch:main"
+junas-watch = "junas.desktop.watch:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["kaypoh*"]
+include = ["junas*"]
 
 [tool.setuptools.package-dir]
 "" = "src"
 
 [tool.setuptools.package-data]
-"kaypoh.review" = ["jurisdictions_data/*.toml"]
-"kaypoh.data.frequency" = ["MANIFEST.toml"]
-"kaypoh.data.frequency.SG" = ["*.csv"]
-"kaypoh.data.frequency.UK" = ["*.csv"]
-"kaypoh.data.frequency.AU" = ["*.csv"]
-"kaypoh.data.frequency.JP" = ["*.csv"]
-"kaypoh.data.frequency.KR" = ["*.csv"]
-"kaypoh.data.frequency.US" = ["*.csv"]
+"junas.review" = ["jurisdictions_data/*.toml"]
+"junas.data.frequency" = ["MANIFEST.toml"]
+"junas.data.frequency.SG" = ["*.csv"]
+"junas.data.frequency.UK" = ["*.csv"]
+"junas.data.frequency.AU" = ["*.csv"]
+"junas.data.frequency.JP" = ["*.csv"]
+"junas.data.frequency.KR" = ["*.csv"]
+"junas.data.frequency.US" = ["*.csv"]
 
 [tool.ruff]
 line-length = 120
@@ -101,10 +101,10 @@ exclude = [
 
 [[tool.mypy.overrides]]
 module = [
-  "kaypoh.backend.main",
-  "kaypoh.backend.cache",
-  "kaypoh.backend.observability",
-  "kaypoh.backend.schemas",
-  "kaypoh.configs.runtime",
+  "junas.backend.main",
+  "junas.backend.cache",
+  "junas.backend.observability",
+  "junas.backend.schemas",
+  "junas.configs.runtime",
 ]
 disallow_untyped_defs = true

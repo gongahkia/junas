@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from kaypoh.configs import runtime
+from junas.configs import runtime
 
 
 class RuntimeSettingsValidationTests(unittest.TestCase):
@@ -246,7 +246,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
             sink = "stdout"
             syslog_address = "udp://127.0.0.1:5514"
             facility = "local5"
-            app_name = "kaypoh-test"
+            app_name = "junas-test"
             """
         )
 
@@ -256,7 +256,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
         self.assertEqual(settings.siem.sink, "stdout")
         self.assertEqual(settings.siem.syslog_address, "udp://127.0.0.1:5514")
         self.assertEqual(settings.siem.facility, "local5")
-        self.assertEqual(settings.siem.app_name, "kaypoh-test")
+        self.assertEqual(settings.siem.app_name, "junas-test")
 
     def test_invalid_siem_sink_raises_config_error(self):
         config_path = self._write_config(

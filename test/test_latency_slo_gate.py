@@ -172,7 +172,7 @@ class LatencySloGateTests(unittest.TestCase):
         self.assertEqual(Handler.authorizations, ["Bearer bearer-test", "Bearer bearer-test"])
 
     def test_live_base_url_can_come_from_environment(self):
-        with mock.patch.dict(os.environ, {"KAYPOH_LATENCY_SLO_BASE_URL": "https://staging.example"}, clear=False):
+        with mock.patch.dict(os.environ, {"JUNAS_LATENCY_SLO_BASE_URL": "https://staging.example"}, clear=False):
             self.assertEqual(self.mod.resolve_live_base_url(None), "https://staging.example")
 
         self.assertEqual(self.mod.resolve_live_base_url("http://127.0.0.1:8131"), "http://127.0.0.1:8131")

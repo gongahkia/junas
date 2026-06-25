@@ -220,7 +220,7 @@ def _probe_url(url: str, timeout: float) -> dict[str, object]:
             request = urllib.request.Request(
                 target,
                 method=method,
-                headers={"User-Agent": "kaypoh-frequency-source-verifier/1.0"},
+                headers={"User-Agent": "junas-frequency-source-verifier/1.0"},
             )
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 if method == "GET":

@@ -6,8 +6,8 @@ for canonical forms and precision for malformed or under-specified identifiers.
 
 import unittest
 
-from kaypoh.review.citations import pii_rationale
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.citations import pii_rationale
+from junas.review.engine import PreSendReviewEngine
 
 US_DRIVER_LICENSE_SAMPLES = {
     "AL": "1234567",

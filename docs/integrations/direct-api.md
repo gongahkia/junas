@@ -1,10 +1,10 @@
 # Direct API Integration
 
-Source: `src/kaypoh/backend/`, `src/kaypoh/client.py`, `docs/api/`
+Source: `src/junas/backend/`, `src/junas/client.py`, `docs/api/`
 
 Maturity: `core`
 
-Direct HTTP/OpenAPI integration is the baseline path for customers that do not want a UI adapter. The caller owns its workflow UI or service logic; Kaypoh owns review validation, policy decisions, deterministic findings, rewrite actions, approval journaling, and audit-safe response metadata.
+Direct HTTP/OpenAPI integration is the baseline path for customers that do not want a UI adapter. The caller owns its workflow UI or service logic; Junas owns review validation, policy decisions, deterministic findings, rewrite actions, approval journaling, and audit-safe response metadata.
 
 ## When To Use
 
@@ -62,7 +62,7 @@ Treat `policy_decision` as the source of truth:
 
 ## Idempotency And Retry
 
-Use an adapter-defined `Idempotency-Key` for retries. Kaypoh v0.1 returns `request_id` and `X-Request-ID`, but repeated `POST /review` calls are not deduplicated server-side. Build keys without raw content; use a keyed content HMAC plus surface, workflow, destination, attachment fingerprint, and attempt epoch. See [`docs/api/idempotency.md`](../api/idempotency.md).
+Use an adapter-defined `Idempotency-Key` for retries. Junas v0.1 returns `request_id` and `X-Request-ID`, but repeated `POST /review` calls are not deduplicated server-side. Build keys without raw content; use a keyed content HMAC plus surface, workflow, destination, attachment fingerprint, and attempt epoch. See [`docs/api/idempotency.md`](../api/idempotency.md).
 
 Retry transport timeouts only when user intent and content are unchanged. Do not automatically retry validation, auth, or policy-version failures.
 

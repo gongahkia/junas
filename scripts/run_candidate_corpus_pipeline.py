@@ -15,25 +15,25 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CANDIDATE_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
 AZURE_ENV_GROUPS = (
     (
-        "KAYPOH_AUTOLABEL_AZURE_API_KEY",
+        "JUNAS_AUTOLABEL_AZURE_API_KEY",
         "GPT5_MINI_API_KEY",
         "GPT5_PRO_API_KEY",
         "AZURE_OPENAI_API_KEY",
     ),
     (
-        "KAYPOH_AUTOLABEL_AZURE_ENDPOINT",
+        "JUNAS_AUTOLABEL_AZURE_ENDPOINT",
         "GPT5_MINI_ENDPOINT",
         "GPT5_PRO_ENDPOINT",
     ),
     (
-        "KAYPOH_AUTOLABEL_AZURE_DEPLOYMENT",
+        "JUNAS_AUTOLABEL_AZURE_DEPLOYMENT",
         "GPT5_MINI_DEPLOYMENT",
         "GPT5_PRO_DEPLOYMENT",
         "AZURE_OPENAI_DEPLOYMENT",
         "AZURE_DEPLOYMENT",
     ),
     (
-        "KAYPOH_AUTOLABEL_AZURE_API_VERSION",
+        "JUNAS_AUTOLABEL_AZURE_API_VERSION",
         "GPT5_MINI_API_VERSION",
         "GPT5_PRO_API_VERSION",
         "AZURE_OPENAI_API_VERSION",
@@ -41,26 +41,26 @@ AZURE_ENV_GROUPS = (
 )
 AZURE_FIXTURE_ENV_GROUPS = (
     (
-        "KAYPOH_FIXTURE_AZURE_API_KEY",
+        "JUNAS_FIXTURE_AZURE_API_KEY",
         "GPT5_MINI_API_KEY",
         "GPT5_PRO_API_KEY",
         "AZURE_OPENAI_API_KEY",
     ),
     (
-        "KAYPOH_FIXTURE_AZURE_ENDPOINT",
+        "JUNAS_FIXTURE_AZURE_ENDPOINT",
         "GPT5_MINI_ENDPOINT",
         "GPT5_PRO_ENDPOINT",
         "AZURE_ENDPOINT",
     ),
     (
-        "KAYPOH_FIXTURE_AZURE_DEPLOYMENT",
+        "JUNAS_FIXTURE_AZURE_DEPLOYMENT",
         "GPT5_MINI_DEPLOYMENT",
         "GPT5_PRO_DEPLOYMENT",
         "AZURE_OPENAI_DEPLOYMENT",
         "AZURE_DEPLOYMENT",
     ),
     (
-        "KAYPOH_FIXTURE_AZURE_API_VERSION",
+        "JUNAS_FIXTURE_AZURE_API_VERSION",
         "GPT5_MINI_API_VERSION",
         "GPT5_PRO_API_VERSION",
         "API_VERSION",
@@ -71,7 +71,7 @@ AZURE_FIXTURE_ENV_GROUPS = (
 
 def _default_run_dir() -> Path:
     stamp = time.strftime("%Y%m%d-%H%M%S", time.gmtime())
-    return Path(f"/tmp/kaypoh-candidate-run-{stamp}")
+    return Path(f"/tmp/junas-candidate-run-{stamp}")
 
 
 def _resolve(path: Path) -> Path:
@@ -177,21 +177,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--generation-provider",
         choices=("openai", "azure"),
-        default=os.environ.get("KAYPOH_FIXTURE_PROVIDER", "azure"),
+        default=os.environ.get("JUNAS_FIXTURE_PROVIDER", "azure"),
     )
-    parser.add_argument("--generation-model", default=os.environ.get("KAYPOH_FIXTURE_MODEL", "gpt-4o"))
+    parser.add_argument("--generation-model", default=os.environ.get("JUNAS_FIXTURE_MODEL", "gpt-4o"))
     parser.add_argument(
         "--generation-max-failures",
         type=int,
-        default=int(os.environ.get("KAYPOH_CANDIDATE_MAX_FAILURES", "1")),
+        default=int(os.environ.get("JUNAS_CANDIDATE_MAX_FAILURES", "1")),
     )
-    parser.add_argument("--autolabel-model", default=os.environ.get("KAYPOH_AUTOLABEL_MODEL", "o1"))
+    parser.add_argument("--autolabel-model", default=os.environ.get("JUNAS_AUTOLABEL_MODEL", "o1"))
     parser.add_argument(
         "--autolabel-provider",
         choices=("openai", "azure"),
-        default=os.environ.get("KAYPOH_AUTOLABEL_PROVIDER", "azure"),
+        default=os.environ.get("JUNAS_AUTOLABEL_PROVIDER", "azure"),
     )
-    parser.add_argument("--workers", type=int, default=int(os.environ.get("KAYPOH_AUTOLABEL_WORKERS", "1")))
+    parser.add_argument("--workers", type=int, default=int(os.environ.get("JUNAS_AUTOLABEL_WORKERS", "1")))
     parser.add_argument("--env-file", type=Path, default=REPO_ROOT / ".env")
     parser.add_argument("--no-env-file", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
@@ -214,9 +214,9 @@ def main(argv: list[str] | None = None) -> int:
         print("choose at most one of --generate-only, --label-only, --evaluate-only", file=sys.stderr)
         return 2
     if args.generation_provider == "azure" and args.generation_model == "gpt-4o":
-        args.generation_model = os.environ.get("KAYPOH_FIXTURE_MODEL", "azure-deployment")
+        args.generation_model = os.environ.get("JUNAS_FIXTURE_MODEL", "azure-deployment")
     if args.autolabel_provider == "azure" and args.autolabel_model == "o1":
-        args.autolabel_model = os.environ.get("KAYPOH_AUTOLABEL_MODEL", "azure-deployment")
+        args.autolabel_model = os.environ.get("JUNAS_AUTOLABEL_MODEL", "azure-deployment")
 
     if not args.dry_run:
         missing: list[str] = []

@@ -7,9 +7,9 @@ End-to-end pipeline for distilling a cloud LLM (the *teacher*) into a small loca
 The runtime `LocalLLMAdjudicator` supports `provider=openai` for tenants who opt in. That gets you cloud-grade adjudication accuracy but with two downsides:
 
 1. Per-call latency + cost.
-2. The desktop SKU (`kaypoh-local`) cannot use it — by design, the desktop SKU is offline-default.
+2. The desktop SKU (`junas-local`) cannot use it — by design, the desktop SKU is offline-default.
 
-A LoRA-tuned student model (Qwen-1.5B / Phi-3-mini / Gemma-2B class) can recover most of the teacher's accuracy locally, ship inside `kaypoh-local`, and serve `audit_grade` requests with no cloud round-trip.
+A LoRA-tuned student model (Qwen-1.5B / Phi-3-mini / Gemma-2B class) can recover most of the teacher's accuracy locally, ship inside `junas-local`, and serve `audit_grade` requests with no cloud round-trip.
 
 ## Components
 
@@ -25,10 +25,10 @@ A LoRA-tuned student model (Qwen-1.5B / Phi-3-mini / Gemma-2B class) can recover
 ## Runtime activation
 
 ```
-KAYPOH_LLM_PROVIDER=local_distilled \
-KAYPOH_LLM_DISTILLED_ADAPTER_PATH=training/distillation/student-lora-v1 \
-KAYPOH_LLM_DISTILLED_BASE_MODEL=Qwen/Qwen2.5-1.5B-Instruct \
-uvicorn kaypoh.backend.main:app
+JUNAS_LLM_PROVIDER=local_distilled \
+JUNAS_LLM_DISTILLED_ADAPTER_PATH=training/distillation/student-lora-v1 \
+JUNAS_LLM_DISTILLED_BASE_MODEL=Qwen/Qwen2.5-1.5B-Instruct \
+uvicorn junas.backend.main:app
 ```
 
 The `LocalLLMAdjudicator.adjudicate()` routing branch in `inference.py` delegates to the student backend lazily on first call.
@@ -38,11 +38,11 @@ The `LocalLLMAdjudicator.adjudicate()` routing branch in `inference.py` delegate
 ```bash
 # 1) collect teacher verdicts (cloud LLM). requires the two-gate opt-in for OpenAI.
 OPENAI_API_KEY=sk-... \
-KAYPOH_LLM_TENANT_OPT_IN_OPENAI=true \
-KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=true \
-KAYPOH_LLM_PROVIDER=openai \
-KAYPOH_LLM_BASE_URL=https://api.openai.com/v1 \
-KAYPOH_LLM_MODEL=gpt-4o-mini \
+JUNAS_LLM_TENANT_OPT_IN_OPENAI=true \
+JUNAS_LLM_ALLOW_REMOTE_BASE_URL=true \
+JUNAS_LLM_PROVIDER=openai \
+JUNAS_LLM_BASE_URL=https://api.openai.com/v1 \
+JUNAS_LLM_MODEL=gpt-4o-mini \
 python3 training/distillation/teacher_collector.py \
     --corpus test/fixtures/legal-corpus \
     --corpus test/fixtures/legal-corpus-adversarial \
@@ -85,7 +85,7 @@ python3 training/distillation/promotion_gate.py \
 
 ## Privacy posture
 
-- Teacher collection writes a per-call **training ledger** to `${KAYPOH_JOURNAL_DIR}/training_ledger.jsonl` so the auditor can reconstruct exactly which documents went to the teacher.
+- Teacher collection writes a per-call **training ledger** to `${JUNAS_JOURNAL_DIR}/training_ledger.jsonl` so the auditor can reconstruct exactly which documents went to the teacher.
 - `structured_tokens` mode lets you distill on hashes-only data — the trained student never has the chance to memorise raw document text.
 - The student inference path is fully local: no outbound network calls.
 - Promotion requires `privacy_eval.json` to pass `structured_tokens_default`,

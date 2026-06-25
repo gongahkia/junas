@@ -1,6 +1,6 @@
-# Kaypoh Architecture
+# Junas Architecture
 
-Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI review. This file is the architecture overview.
+Junas is an API-first pre-send safety engine for PII anonymization and MNPI review. This file is the architecture overview.
 
 ## Active API Surface
 

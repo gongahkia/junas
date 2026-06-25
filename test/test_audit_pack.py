@@ -15,11 +15,11 @@ class AuditPackTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
         self.tmpdir = Path(self._tmpdir.name)
-        os.environ["KAYPOH_JOURNAL_DIR"] = str(self.tmpdir)
-        os.environ["KAYPOH_JOURNAL_KEY"] = "audit-test-key"
+        os.environ["JUNAS_JOURNAL_DIR"] = str(self.tmpdir)
+        os.environ["JUNAS_JOURNAL_KEY"] = "audit-test-key"
 
-        import kaypoh.review.decisions as decisions_mod
-        import kaypoh.review.journal as journal_mod
+        import junas.review.decisions as decisions_mod
+        import junas.review.journal as journal_mod
 
         importlib.reload(journal_mod)
         importlib.reload(decisions_mod)
@@ -28,7 +28,7 @@ class AuditPackTests(unittest.TestCase):
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        for var in ("KAYPOH_JOURNAL_DIR", "KAYPOH_JOURNAL_KEY"):
+        for var in ("JUNAS_JOURNAL_DIR", "JUNAS_JOURNAL_KEY"):
             os.environ.pop(var, None)
         importlib.reload(self.journal)
         importlib.reload(self.decisions)
@@ -206,7 +206,7 @@ class AuditPackTests(unittest.TestCase):
         self._seed()
         output = self.tmpdir / "wait.zip"
         env = dict(os.environ)
-        env["KAYPOH_AUDIT_MIN_WAIT_SECONDS"] = "60"
+        env["JUNAS_AUDIT_MIN_WAIT_SECONDS"] = "60"
         env["PYTHONPATH"] = str(REPO_ROOT / "src")
         result = subprocess.run(
             [sys.executable, str(REPO_ROOT / "scripts" / "export_audit_pack.py"),

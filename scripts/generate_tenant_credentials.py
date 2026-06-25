@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate tenant API-key registry entries for Kaypoh server deployments."""
+"""Generate tenant API-key registry entries for Junas server deployments."""
 
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ def generate_entry(*, tenant_id: str, subject: str, roles: list[str]) -> dict[st
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Generate KAYPOH_TENANCY_CREDENTIALS_JSON entries")
+    parser = argparse.ArgumentParser(description="Generate JUNAS_TENANCY_CREDENTIALS_JSON entries")
     parser.add_argument("--tenant-id", required=True)
     parser.add_argument("--subject", default="")
     parser.add_argument("--roles", default="reviewer", help="comma-separated roles")

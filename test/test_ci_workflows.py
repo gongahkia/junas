@@ -9,7 +9,7 @@ class CiWorkflowTests(unittest.TestCase):
         workflow = ROOT / ".github" / "workflows" / "ci.yml"
         text = workflow.read_text(encoding="utf-8")
 
-        self.assertIn("KAYPOH_RUN_LATENCY_SLO", text)
+        self.assertIn("JUNAS_RUN_LATENCY_SLO", text)
         self.assertIn("test.benchmarks.test_latency_slo", text)
         self.assertIn("scripts/check_latency_slo.py --write-report", text)
         self.assertIn("actions/upload-artifact", text)
@@ -17,7 +17,7 @@ class CiWorkflowTests(unittest.TestCase):
     def test_live_latency_job_uses_http_mode(self):
         text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
 
-        self.assertIn("uvicorn kaypoh.backend.main:app", text)
+        self.assertIn("uvicorn junas.backend.main:app", text)
         self.assertIn("--base-url http://127.0.0.1:8131", text)
         self.assertIn("test/fixtures/latency-corpus/5k.txt", text)
 
@@ -25,18 +25,18 @@ class CiWorkflowTests(unittest.TestCase):
         text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
 
         self.assertIn("Docker smoke", text)
-        self.assertIn("docker build -t kaypoh:ci .", text)
-        self.assertIn("docker run -d --name kaypoh-ci", text)
+        self.assertIn("docker build -t junas:ci .", text)
+        self.assertIn("docker run -d --name junas-ci", text)
         self.assertIn("http://127.0.0.1:8010/ready", text)
         self.assertIn("http://127.0.0.1:8010/review", text)
-        self.assertIn("docker logs kaypoh-ci", text)
+        self.assertIn("docker logs junas-ci", text)
 
     def test_staging_latency_job_uses_secret_base_url_and_artifacts(self):
         text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
 
         self.assertIn("Staging deployment latency", text)
-        self.assertIn("secrets.KAYPOH_LATENCY_SLO_BASE_URL", text)
-        self.assertIn("KAYPOH_LATENCY_SLO_BEARER_TOKEN", text)
+        self.assertIn("secrets.JUNAS_LATENCY_SLO_BASE_URL", text)
+        self.assertIn("JUNAS_LATENCY_SLO_BEARER_TOKEN", text)
         self.assertIn("staging-latency-reports", text)
 
 

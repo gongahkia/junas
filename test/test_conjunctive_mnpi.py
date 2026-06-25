@@ -6,9 +6,9 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-import kaypoh.backend.main as main
-from kaypoh.review import citations
-from kaypoh.review.engine import EntitySizeLookup, PreSendReviewEngine
+import junas.backend.main as main
+from junas.review import citations
+from junas.review.engine import EntitySizeLookup, PreSendReviewEngine
 
 
 @asynccontextmanager
@@ -29,14 +29,14 @@ class ConjunctiveMNPITests(unittest.TestCase):
         self.engine = PreSendReviewEngine()
         main._state.clear()
         main.app.openapi_schema = None
-        self._orig_override = os.environ.get("KAYPOH_CITATIONS_OVERRIDE")
+        self._orig_override = os.environ.get("JUNAS_CITATIONS_OVERRIDE")
         citations._CITATIONS_OVERRIDE_CACHE.clear()
 
     def tearDown(self):
         if self._orig_override is None:
-            os.environ.pop("KAYPOH_CITATIONS_OVERRIDE", None)
+            os.environ.pop("JUNAS_CITATIONS_OVERRIDE", None)
         else:
-            os.environ["KAYPOH_CITATIONS_OVERRIDE"] = self._orig_override
+            os.environ["JUNAS_CITATIONS_OVERRIDE"] = self._orig_override
         citations._CITATIONS_OVERRIDE_CACHE.clear()
 
     def _conjunctive(self, text, *, engine=None, entity_id=None, include_suggestions=False):
@@ -116,7 +116,7 @@ class ConjunctiveMNPITests(unittest.TestCase):
                 'default = "Internal Trading Policy §12 — conjunctive MNPI review"\n',
                 encoding="utf-8",
             )
-            os.environ["KAYPOH_CITATIONS_OVERRIDE"] = str(path)
+            os.environ["JUNAS_CITATIONS_OVERRIDE"] = str(path)
             finding, result = self._conjunctive(
                 "Confidential Acme Corp acquisition before announcement.",
                 include_suggestions=True,

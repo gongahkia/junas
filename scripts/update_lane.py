@@ -22,8 +22,8 @@ if str(REPO_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review.journal import append_event  # noqa: E402
-from kaypoh.review.surfacing_lane import (  # noqa: E402
+from junas.review.journal import append_event  # noqa: E402
+from junas.review.surfacing_lane import (  # noqa: E402
     CONFIG_ENV,
     EVENT_LANE_CONFIG_UPDATED,
     VALID_ROUTES,

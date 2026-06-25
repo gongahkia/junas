@@ -9,7 +9,7 @@ The pack is a ZIP with:
     privacy_ledger.json (if present) -- empty placeholder; future hook for outbound calls
 
 The export is itself recorded as an `audit_exported` event in the journal so the chain
-captures it. `pack_hmac` is HMAC-SHA256(KAYPOH_JOURNAL_KEY, canonical-manifest-without-hmac).
+captures it. `pack_hmac` is HMAC-SHA256(JUNAS_JOURNAL_KEY, canonical-manifest-without-hmac).
 
 Usage:
     python3 scripts/export_audit_pack.py <review_id>
@@ -34,8 +34,8 @@ SRC_PATH = REPO_ROOT / "src"
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review import jurisdictions  # noqa: E402
-from kaypoh.review.decisions import (  # noqa: E402
+from junas.review import jurisdictions  # noqa: E402
+from junas.review.decisions import (  # noqa: E402
     ALLOWED_ACTIONS,
     DECISION_ACTIONS,
     EVENT_ANONYMIZE_APPLIED,
@@ -43,7 +43,7 @@ from kaypoh.review.decisions import (  # noqa: E402
     EVENT_DECISION_RECORDED,
     EVENT_REVIEW_STARTED,
 )
-from kaypoh.review.journal import (  # noqa: E402
+from junas.review.journal import (  # noqa: E402
     JournalEntry,
     _journal_key,
     append_event,
@@ -160,10 +160,10 @@ def _build_defensibility_manifest(
 
 
 def _check_min_wait(entries: list[JournalEntry]) -> tuple[bool, str | None]:
-    """Optional gate: if KAYPOH_AUDIT_MIN_WAIT_SECONDS is set, require the elapsed time
+    """Optional gate: if JUNAS_AUDIT_MIN_WAIT_SECONDS is set, require the elapsed time
     between session start and the earliest decision_recorded to exceed that bound. Surfaces
     batch-approval red flags where a reviewer rubber-stamps every finding in seconds."""
-    bound_raw = os.environ.get("KAYPOH_AUDIT_MIN_WAIT_SECONDS", "").strip()
+    bound_raw = os.environ.get("JUNAS_AUDIT_MIN_WAIT_SECONDS", "").strip()
     if not bound_raw:
         return True, None
     try:
@@ -188,7 +188,7 @@ def _check_min_wait(entries: list[JournalEntry]) -> tuple[bool, str | None]:
     if elapsed < bound:
         return False, (
             f"min-wait violation: first decision recorded {elapsed:.0f}s after review start; "
-            f"KAYPOH_AUDIT_MIN_WAIT_SECONDS={bound:g}"
+            f"JUNAS_AUDIT_MIN_WAIT_SECONDS={bound:g}"
         )
     return True, None
 
@@ -280,13 +280,13 @@ def build_pack(review_id: str, output_path: Path, *, include_defensibility: bool
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Export a Kaypoh review audit pack")
+    parser = argparse.ArgumentParser(description="Export a Junas review audit pack")
     parser.add_argument("review_id", help="Review session ID (the request_id from the original /review call)")
     parser.add_argument(
         "--output",
         type=Path,
         default=None,
-        help="Output path. Defaults to ./kaypoh-journal/audit_pack_<review_id>.zip",
+        help="Output path. Defaults to ./junas-journal/audit_pack_<review_id>.zip",
     )
     parser.add_argument(
         "--include-defensibility",
@@ -297,7 +297,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.output is None:
         # default location lives beside the journal so audit artefacts stay grouped
-        from kaypoh.review.journal import journal_dir
+        from junas.review.journal import journal_dir
 
         args.output = journal_dir() / f"audit_pack_{args.review_id}.zip"
 

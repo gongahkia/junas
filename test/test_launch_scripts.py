@@ -42,15 +42,15 @@ class LaunchScriptSmokeTests(unittest.TestCase):
         backend_port = reserve_port()
         env = {
             **os.environ,
-            "KAYPOH_HOST": "127.0.0.1",
-            "KAYPOH_PORT": str(backend_port),
-            "KAYPOH_UVICORN_WORKERS": "1",
+            "JUNAS_HOST": "127.0.0.1",
+            "JUNAS_PORT": str(backend_port),
+            "JUNAS_UVICORN_WORKERS": "1",
             "PIPELINE_LAYERS": "",
             "KMP_DUPLICATE_LIB_OK": "TRUE",
         }
         tmp_dir = None
         if script_name == "run_prod.sh":
-            tmp_dir = tempfile.mkdtemp(prefix="kaypoh-launch-")
+            tmp_dir = tempfile.mkdtemp(prefix="junas-launch-")
             manifest = Path(tmp_dir) / "retention_manifest.json"
             manifest.write_text(
                 """
@@ -64,8 +64,8 @@ class LaunchScriptSmokeTests(unittest.TestCase):
 """.strip(),
                 encoding="utf-8",
             )
-            env["KAYPOH_API_KEY"] = "launch-test-api-key"
-            env["KAYPOH_RETENTION_MANIFEST"] = str(manifest)
+            env["JUNAS_API_KEY"] = "launch-test-api-key"
+            env["JUNAS_RETENTION_MANIFEST"] = str(manifest)
         proc = subprocess.Popen(
             ["bash", str(ROOT / "scripts" / "launch" / script_name)],
             cwd=str(ROOT),
@@ -74,7 +74,7 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             stderr=subprocess.STDOUT,
             text=True,
         )
-        proc._kaypoh_tmp_dir = tmp_dir  # type: ignore[attr-defined]
+        proc._junas_tmp_dir = tmp_dir  # type: ignore[attr-defined]
         return proc, backend_port
 
     def _stop_script(self, proc: subprocess.Popen) -> None:
@@ -85,7 +85,7 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             proc.kill()
             proc.wait(timeout=10)
         finally:
-            tmp_dir = getattr(proc, "_kaypoh_tmp_dir", None)
+            tmp_dir = getattr(proc, "_junas_tmp_dir", None)
             if tmp_dir:
                 shutil.rmtree(tmp_dir, ignore_errors=True)
             if proc.stdout is not None:

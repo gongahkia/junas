@@ -162,9 +162,9 @@ def build_postman_item(
     if body_payload is not None:
         headers.append({"key": "Content-Type", "value": "application/json"})
     if path.startswith("/classify"):
-        headers.append({"key": "X-API-Key", "value": "{{kaypohApiKey}}"})
+        headers.append({"key": "X-API-Key", "value": "{{junasApiKey}}"})
     if path == "/local/pairing/approve":
-        headers.append({"key": "X-Kaypoh-Local-Token", "value": "{{kaypohLocalToken}}"})
+        headers.append({"key": "X-Junas-Local-Token", "value": "{{junasLocalToken}}"})
 
     path_parts = [part for part in path.split("/") if part]
     url = {
@@ -230,9 +230,9 @@ def build_curl_block(
     if body_payload is not None:
         lines.append('  -H "Content-Type: application/json" \\')
     if path.startswith("/classify"):
-        lines.append('  -H "X-API-Key: ${KAYPOH_API_KEY:-dev-secret}" \\')
+        lines.append('  -H "X-API-Key: ${JUNAS_API_KEY:-dev-secret}" \\')
     if path == "/local/pairing/approve":
-        lines.append('  -H "X-Kaypoh-Local-Token: ${KAYPOH_LOCAL_DAEMON_TOKEN}" \\')
+        lines.append('  -H "X-Junas-Local-Token: ${JUNAS_LOCAL_DAEMON_TOKEN}" \\')
     if body_payload is not None:
         compact = json.dumps(body_payload, separators=(",", ":"))
         lines.append(f"  -d '{compact}'")
@@ -243,7 +243,7 @@ def build_curl_block(
 
 
 def main() -> int:
-    import kaypoh.backend.main as backend_main
+    import junas.backend.main as backend_main
 
     parser = argparse.ArgumentParser(description="Export Postman collection and curl snippets from OpenAPI")
     parser.add_argument(
@@ -278,14 +278,14 @@ def main() -> int:
 
     collection = {
         "info": {
-            "name": "Kaypoh API (Generated from OpenAPI)",
-            "description": "Generated from kaypoh.backend.main:app OpenAPI contract.",
+            "name": "Junas API (Generated from OpenAPI)",
+            "description": "Generated from junas.backend.main:app OpenAPI contract.",
             "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
         },
         "variable": [
             {"key": "baseUrl", "value": args.base_url},
-            {"key": "kaypohApiKey", "value": "dev-secret"},
-            {"key": "kaypohLocalToken", "value": ""},
+            {"key": "junasApiKey", "value": "dev-secret"},
+            {"key": "junasLocalToken", "value": ""},
         ],
         "item": [
             build_postman_item(
@@ -299,14 +299,14 @@ def main() -> int:
         ],
     }
 
-    postman_path = output_dir / "kaypoh.postman_collection.json"
+    postman_path = output_dir / "junas.postman_collection.json"
     postman_path.write_text(json.dumps(collection, indent=2) + "\n", encoding="utf-8")
 
     curl_lines = [
         "#!/bin/bash",
         "set -euo pipefail",
         "",
-        "# Generated from kaypoh.backend.main:app OpenAPI contract.",
+        "# Generated from junas.backend.main:app OpenAPI contract.",
         'BASE_URL="${BASE_URL:-http://localhost:8000}"',
         "",
     ]

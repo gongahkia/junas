@@ -16,18 +16,18 @@ import os
 import tempfile
 import unittest
 
-from kaypoh.review import matter_store
-from kaypoh.review.engine import PreSendReviewEngine, ReviewLayerError
+from junas.review import matter_store
+from junas.review.engine import PreSendReviewEngine, ReviewLayerError
 
 
 class MatterStoreTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
-        os.environ["KAYPOH_JOURNAL_DIR"] = self._tmpdir.name
+        os.environ["JUNAS_JOURNAL_DIR"] = self._tmpdir.name
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        os.environ.pop("KAYPOH_JOURNAL_DIR", None)
+        os.environ.pop("JUNAS_JOURNAL_DIR", None)
 
     def test_round_trip_load_after_add(self):
         merged = matter_store.add_defined_terms("matter-1", {"Purchaser", "Vendor"})
@@ -74,13 +74,13 @@ class MatterStoreTests(unittest.TestCase):
 class EngineMatterInheritanceTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
-        os.environ["KAYPOH_JOURNAL_DIR"] = self._tmpdir.name
+        os.environ["JUNAS_JOURNAL_DIR"] = self._tmpdir.name
         importlib.reload(matter_store)
         self.engine = PreSendReviewEngine()
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        os.environ.pop("KAYPOH_JOURNAL_DIR", None)
+        os.environ.pop("JUNAS_JOURNAL_DIR", None)
 
     def test_matter_inheritance_across_sessions(self):
         # doc A: matter M1 / session S1 — defines "Purchaser"

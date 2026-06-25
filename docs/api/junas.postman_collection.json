@@ -1,0 +1,1507 @@
+{
+  "info": {
+    "name": "Junas API (Generated from OpenAPI)",
+    "description": "Generated from junas.backend.main:app OpenAPI contract.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "junasApiKey",
+      "value": "dev-secret"
+    },
+    {
+      "key": "junasLocalToken",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "POST /anonymize",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/anonymize",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "anonymize"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"include_mnpi_scalars\": true,\n  \"include_suggestions\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft. Acme Corp expects a $2.5 billion acquisition before announcement.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/anonymize",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "anonymize"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"include_mnpi_scalars\": true,\n  \"include_suggestions\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft. Acme Corp expects a $2.5 billion acquisition before announcement.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"anonymization_mode\": \"placeholder_only\",\n  \"anonymized_text\": \"Send [PERSON_1] [NRIC_FIN_1] the confidential draft.\",\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document_hash\": \"4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f\",\n  \"document_score\": 91.0,\n  \"document_type\": \"email\",\n  \"findings\": [],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mapping_persisted\": false,\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 88.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"mnpi:transaction_codename:42:55:0\"\n    ],\n    \"decision\": \"block\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk MNPI requires public evidence or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"hold_until_public\",\n      \"request_approval\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_operation\": \"anonymize\",\n  \"replacements\": [\n    {\n      \"end_char\": 16,\n      \"entity_type\": \"PERSON\",\n      \"finding_id\": \"pii:named_person:5:16:0\",\n      \"placeholder\": \"[PERSON_1]\",\n      \"start_char\": 5\n    }\n  ],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"send_allowed\": false,\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [],\n  \"timings_ms\": {\n    \"anonymize\": 0.2,\n    \"extract\": 0.1,\n    \"review\": 0.4,\n    \"total\": 0.7\n  }\n}"
+        }
+      ],
+      "description": "Anonymize a document irreversibly"
+    },
+    {
+      "name": "POST /cite-public-source",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/cite-public-source",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "cite-public-source"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"entity_id\": \"Acme Corp\",\n  \"requested_action\": \"cite_public_source\",\n  \"review_profile\": \"audit_grade\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/cite-public-source",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cite-public-source"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"entity_id\": \"Acme Corp\",\n  \"requested_action\": \"cite_public_source\",\n  \"review_profile\": \"audit_grade\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"citation_policy\": \"audit_grade_public_evidence\",\n  \"citations\": [\n    {\n      \"audit_rationale\": \"cite_public_source recorded https://example.com/acme-acquisition for 1 MNPI findings under policy default@2026-06-14.\",\n      \"finding_ids\": [\n        \"mnpi:material_event:0:76:0\"\n      ],\n      \"privacy_ledger_entry\": {\n        \"allowed\": true,\n        \"destination\": \"exa\",\n        \"operation\": \"external_query\",\n        \"query\": \"Acme Corp acquisition SEC filing news\",\n        \"reason\": \"sanitized query approved\",\n        \"redactions\": []\n      },\n      \"retrieval_timestamp\": \"2026-06-14T09:30:00Z\",\n      \"source_url\": \"https://example.com/acme-acquisition\"\n    }\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 76,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_score\": 91.0,\n  \"document_type\": \"email\",\n  \"findings\": [\n    {\n      \"category\": \"MNPI\",\n      \"end_char\": 76,\n      \"id\": \"mnpi:material_event:0:76:0\",\n      \"jurisdiction\": \"SG+US\",\n      \"legal_basis\": \"SG_SFA_INSIDE_INFORMATION, SG_SFA_GENERALLY_AVAILABLE, US_MNPI_INSIDER_TRADING, US_REG_FD_PUBLIC_DISCLOSURE\",\n      \"matched_text\": \"Acme Corp announced its acquisition of GlobalTech in a public press release.\",\n      \"reason\": \"Material corporate or market event language\",\n      \"rule\": \"material_event\",\n      \"score\": 55.0,\n      \"severity\": \"medium\",\n      \"source_verification\": \"public_source_matched\",\n      \"start_char\": 0\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 0.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [],\n    \"decision\": \"warn\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"MNPI finding has public-source support; cite source before proceeding\",\n      \"cross-border destination context should be shown to the user\",\n      \"medium-risk finding should be shown to the user\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [\n      \"cite_public_source\",\n      \"proceed_with_warning\"\n    ],\n    \"required_actions\": [],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": true\n  },\n  \"privacy_ledger\": [\n    {\n      \"allowed\": true,\n      \"destination\": \"exa\",\n      \"operation\": \"external_query\",\n      \"query\": \"Acme Corp acquisition SEC filing news\",\n      \"reason\": \"sanitized query approved\",\n      \"redactions\": []\n    }\n  ],\n  \"privacy_operation\": \"cite_public_source\",\n  \"public_evidence\": {\n    \"detail\": \"retrieved 1 public sources\",\n    \"privacy_ledger\": [\n      {\n        \"allowed\": true,\n        \"destination\": \"exa\",\n        \"operation\": \"external_query\",\n        \"query\": \"Acme Corp acquisition SEC filing news\",\n        \"reason\": \"sanitized query approved\",\n        \"redactions\": []\n      }\n    ],\n    \"provider\": \"exa\",\n    \"queries\": [\n      {\n        \"blocked\": false,\n        \"query\": \"Acme Corp acquisition SEC filing news\",\n        \"reason\": \"sanitized query approved\"\n      }\n    ],\n    \"sources\": [\n      {\n        \"author\": \"\",\n        \"highlights\": [\n          \"Acme announced the transaction publicly.\"\n        ],\n        \"published_date\": \"2026-01-02\",\n        \"score\": 0.9,\n        \"text\": \"Acme announced the transaction publicly.\",\n        \"title\": \"Acme announces acquisition\",\n        \"url\": \"https://example.com/acme-acquisition\"\n      }\n    ],\n    \"status\": \"queried\"\n  },\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"audit_grade\",\n  \"send_allowed\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [],\n  \"timings_ms\": {\n    \"cite_public_source\": 0.1,\n    \"extract\": 0.1,\n    \"review\": 0.4,\n    \"total\": 0.6\n  }\n}"
+        }
+      ],
+      "description": "Cite audit-grade public evidence"
+    },
+    {
+      "name": "POST /classify",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-API-Key",
+            "value": "{{junasApiKey}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/classify",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "classify"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"debug\": false,\n  \"entity_id\": \"Acme Corp\",\n  \"include_offending_spans\": true,\n  \"text\": \"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-Key",
+                "value": "{{junasApiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/classify",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classify"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"debug\": false,\n  \"entity_id\": \"Acme Corp\",\n  \"include_offending_spans\": true,\n  \"text\": \"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"classification\": \"HIGH_RISK\",\n  \"coverage_warnings\": [],\n  \"findings\": [\n    {\n      \"category\": \"MNPI\",\n      \"end_char\": 56,\n      \"id\": \"mnpi:material_event:0:56:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"SG_SFA_MARKET_MISCONDUCT\",\n      \"matched_text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n      \"reason\": \"Material corporate event before public disclosure\",\n      \"rule\": \"material_event\",\n      \"score\": 91.0,\n      \"severity\": \"high\",\n      \"source_verification\": \"not_checked\",\n      \"start_char\": 0\n    }\n  ],\n  \"mnpi_score\": 91.0,\n  \"observability\": {\n    \"active_pipeline\": [\n      \"engine.review\"\n    ],\n    \"cache_status\": \"disabled\",\n    \"degraded\": false,\n    \"executed_layers\": [\n      \"engine.review\"\n    ],\n    \"layer_errors\": [],\n    \"skipped_layers\": []\n  },\n  \"pii_score\": 0.0,\n  \"privacy_ledger\": [],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"timings_ms\": {\n    \"total\": 4.2\n  }\n}"
+        }
+      ],
+      "description": "Classify one document"
+    },
+    {
+      "name": "POST /classify/batch",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-API-Key",
+            "value": "{{junasApiKey}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/classify/batch",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "classify",
+            "batch"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"items\": [\n    {\n      \"include_offending_spans\": true,\n      \"text\": \"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.\"\n    },\n    {\n      \"debug\": false,\n      \"text\": \"Public press release for next week's earnings call.\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-API-Key",
+                "value": "{{junasApiKey}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/classify/batch",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classify",
+                "batch"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"include_offending_spans\": true,\n      \"text\": \"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.\"\n    },\n    {\n      \"debug\": false,\n      \"text\": \"Public press release for next week's earnings call.\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{}"
+        }
+      ],
+      "description": "Classify multiple documents"
+    },
+    {
+      "name": "GET /diagnostics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/diagnostics",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "diagnostics"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/diagnostics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "diagnostics"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"status\": \"string\"\n}"
+        }
+      ],
+      "description": "Get runtime diagnostics"
+    },
+    {
+      "name": "POST /documents/scrub",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/documents/scrub",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "documents",
+            "scrub"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"document_base64\": \"string\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/documents/scrub",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "documents",
+                "scrub"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_base64\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"document_base64\": \"string\",\n  \"document_filename\": \"string\",\n  \"document_mime_type\": \"string\",\n  \"scrubbed\": false\n}"
+        }
+      ],
+      "description": "Scrub document metadata"
+    },
+    {
+      "name": "GET /health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"status\": \"string\"\n}"
+        }
+      ],
+      "description": "Get runtime health"
+    },
+    {
+      "name": "POST /hold-until-public",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/hold-until-public",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "hold-until-public"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"allowed_actions\": [\n    \"hold_until_public\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"hold_until_public\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Acme Corp announced its acquisition of GlobalTech in a public press release.\",\n  \"workflow\": \"email_send\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/hold-until-public",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "hold-until-public"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allowed_actions\": [\n    \"hold_until_public\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"hold_until_public\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Acme Corp announced its acquisition of GlobalTech in a public press release.\",\n  \"workflow\": \"email_send\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"LOW_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 54,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_hash\": \"4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f\",\n  \"document_score\": 55.0,\n  \"document_type\": \"email\",\n  \"findings\": [\n    {\n      \"category\": \"MNPI\",\n      \"end_char\": 54,\n      \"id\": \"mnpi:material_event:0:54:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"inside_information_review\",\n      \"matched_text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n      \"reason\": \"Material non-public transaction or announcement signal.\",\n      \"rule\": \"material_event\",\n      \"score\": 91.0,\n      \"severity\": \"high\",\n      \"start_char\": 0\n    }\n  ],\n  \"hold_reasons\": [\n    {\n      \"audit_rationale\": \"hold_until_public applied to finding mnpi:material_event:0:54:0 under policy default@2026-06-14; sharing remains blocked until public evidence or reviewer approval is recorded.\",\n      \"finding_id\": \"mnpi:material_event:0:54:0\",\n      \"user_reason\": \"This passage appears to contain high-severity MNPI. Wait for public disclosure or reviewer approval before sharing.\"\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mapping_persisted\": false,\n  \"mnpi_score\": 55.0,\n  \"overall_risk\": \"LOW_RISK\",\n  \"pii_score\": 0.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"mnpi:material_event:0:54:0\"\n    ],\n    \"decision\": \"block\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk MNPI requires public evidence or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"hold_until_public\",\n      \"request_approval\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"privacy_operation\": \"hold_until_public\",\n  \"replacements\": [\n    {\n      \"action\": \"hold_until_public\",\n      \"category\": \"MNPI\",\n      \"end_char\": 54,\n      \"finding_id\": \"mnpi:material_event:0:54:0\",\n      \"original_text_hash\": \"8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a\",\n      \"replacement_text\": \"[HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]\",\n      \"rule\": \"material_event\",\n      \"severity\": \"high\",\n      \"start_char\": 0\n    }\n  ],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"rewrite_policy\": \"mnpi_hold_allowed_spans\",\n  \"rewritten_text\": \"[HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]\",\n  \"send_allowed\": false,\n  \"skipped_findings\": [],\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [],\n  \"timings_ms\": {\n    \"extract\": 0.1,\n    \"hold_until_public\": 0.1,\n    \"review\": 0.4,\n    \"total\": 0.6\n  }\n}"
+        }
+      ],
+      "description": "Hold high-risk MNPI until public"
+    },
+    {
+      "name": "POST /local/pairing/approve",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "X-Junas-Local-Token",
+            "value": "{{junasLocalToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/local/pairing/approve",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "local",
+            "pairing",
+            "approve"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pairing_id\": \"sample-id\",\n  \"pairing_code\": \"string\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Junas-Local-Token",
+                "value": "{{junasLocalToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/local/pairing/approve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "local",
+                "pairing",
+                "approve"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pairing_id\": \"sample-id\",\n  \"pairing_code\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"approved\": false,\n  \"pairing_id\": \"sample-id\",\n  \"client_id\": \"sample-id\",\n  \"expires_at\": 1\n}"
+        }
+      ],
+      "description": "Approve local daemon pairing"
+    },
+    {
+      "name": "POST /local/pairing/claim",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/local/pairing/claim",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "local",
+            "pairing",
+            "claim"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pairing_id\": \"sample-id\",\n  \"pairing_code\": \"string\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/local/pairing/claim",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "local",
+                "pairing",
+                "claim"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pairing_id\": \"sample-id\",\n  \"pairing_code\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"approved\": false,\n  \"expires_at\": 1\n}"
+        }
+      ],
+      "description": "Claim approved local daemon pairing"
+    },
+    {
+      "name": "POST /local/pairing/start",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/local/pairing/start",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "local",
+            "pairing",
+            "start"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/local/pairing/start",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "local",
+                "pairing",
+                "start"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"pairing_id\": \"sample-id\",\n  \"pairing_code\": \"string\",\n  \"expires_at\": 1,\n  \"token_ttl_seconds\": 1\n}"
+        }
+      ],
+      "description": "Start local daemon pairing"
+    },
+    {
+      "name": "GET /local/pairing/status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/local/pairing/status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "local",
+            "pairing",
+            "status"
+          ]
+        }
+      },
+      "response": [],
+      "description": "Get local daemon pairing status"
+    },
+    {
+      "name": "GET /metrics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/metrics",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "metrics"
+          ]
+        }
+      },
+      "response": [],
+      "description": "Get Prometheus metrics"
+    },
+    {
+      "name": "POST /pseudonymize",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/pseudonymize",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pseudonymize"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"include_mnpi_scalars\": true,\n  \"include_suggestions\": true,\n  \"persist_mapping\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft. Acme Corp expects a $2.5 billion acquisition before announcement.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pseudonymize",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "pseudonymize"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"include_mnpi_scalars\": true,\n  \"include_suggestions\": true,\n  \"persist_mapping\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft. Acme Corp expects a $2.5 billion acquisition before announcement.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"anonymized_text\": \"Send [PERSON_1] [NRIC_FIN_1] the confidential draft.\",\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 120,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_score\": 91.0,\n  \"document_type\": \"email\",\n  \"findings\": [],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mapping\": [\n    {\n      \"entity_type\": \"PERSON\",\n      \"occurrence_count\": 1,\n      \"original_text\": \"Dr Jane Tan\",\n      \"placeholder\": \"[PERSON_1]\"\n    }\n  ],\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 88.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"mnpi:transaction_codename:42:55:0\"\n    ],\n    \"decision\": \"block\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk MNPI requires public evidence or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"hold_until_public\",\n      \"request_approval\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"privacy_operation\": \"pseudonymize\",\n  \"pseudonymized_text\": \"Send [PERSON_1] [NRIC_FIN_1] the confidential draft.\",\n  \"replacements\": [\n    {\n      \"end_char\": 16,\n      \"entity_type\": \"PERSON\",\n      \"finding_id\": \"pii:named_person:5:16:0\",\n      \"original_text\": \"Dr Jane Tan\",\n      \"placeholder\": \"[PERSON_1]\",\n      \"start_char\": 5\n    }\n  ],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"send_allowed\": false,\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [],\n  \"timings_ms\": {\n    \"anonymize\": 0.2,\n    \"extract\": 0.1,\n    \"review\": 0.4,\n    \"total\": 0.7\n  }\n}"
+        }
+      ],
+      "description": "Pseudonymize a document before sending"
+    },
+    {
+      "name": "GET /ready",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/ready",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "ready"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ready",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ready"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"status\": \"string\",\n  \"ready\": false\n}"
+        }
+      ],
+      "description": "Get backend readiness"
+    },
+    {
+      "name": "POST /redact",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/redact",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "redact"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"destination_jurisdiction\": \"SG\",\n  \"document_type\": \"email\",\n  \"include_suggestions\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/redact",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "redact"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination_jurisdiction\": \"SG\",\n  \"document_type\": \"email\",\n  \"include_suggestions\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 112,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_score\": 91.0,\n  \"document_type\": \"research_note\",\n  \"findings\": [\n    {\n      \"category\": \"PII\",\n      \"end_char\": 34,\n      \"id\": \"pii:sg_nric_fin:25:34:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"SG_PDPA_PERSONAL_DATA, SG_PDPA_SENSITIVE_CONTEXT\",\n      \"matched_text\": \"S1234567D\",\n      \"reason\": \"Singapore NRIC/FIN-like identifier\",\n      \"rule\": \"sg_nric_fin\",\n      \"score\": 85.0,\n      \"severity\": \"high\",\n      \"start_char\": 25\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 85.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"pii:sg_nric_fin:25:34:0\"\n    ],\n    \"decision\": \"rewrite_required\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk PII requires safe rewrite or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"redact_pii\",\n      \"request_approval\",\n      \"safe_rewrite\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"send_allowed\": false,\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [\n    {\n      \"action\": \"redact\",\n      \"finding_id\": \"pii:sg_nric_fin:25:34:0\",\n      \"id\": \"suggestion:0\",\n      \"rationale\": \"Remove or mask personal data unless it is necessary for the recipient and purpose.\",\n      \"replacement_text\": \"[REDACTED PERSONAL DATA]\"\n    }\n  ],\n  \"timings_ms\": {\n    \"review\": 3.2,\n    \"total\": 3.2\n  }\n}"
+        }
+      ],
+      "description": "Redact a document with opaque markers"
+    },
+    {
+      "name": "POST /redact-pii",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/redact-pii",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "redact-pii"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"allowed_actions\": [\n    \"redact_pii\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"redact_pii\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Send Dr Jane Tan S1234567D to external counsel.\\n\\nAcme Corp will acquire GlobalTech before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/redact-pii",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "redact-pii"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allowed_actions\": [\n    \"redact_pii\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"redact_pii\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Send Dr Jane Tan S1234567D to external counsel.\\n\\nAcme Corp will acquire GlobalTech before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 103,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_hash\": \"4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f\",\n  \"document_score\": 91.0,\n  \"document_type\": \"email\",\n  \"findings\": [\n    {\n      \"category\": \"MNPI\",\n      \"end_char\": 103,\n      \"id\": \"mnpi:material_event:49:103:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"inside_information_review\",\n      \"matched_text\": \"Acme Corp will acquire GlobalTech before announcement.\",\n      \"reason\": \"Material non-public transaction or announcement signal.\",\n      \"rule\": \"material_event\",\n      \"score\": 91.0,\n      \"severity\": \"high\",\n      \"start_char\": 49\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mapping_persisted\": false,\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 85.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"pii:sg_nric_fin:17:26:0\",\n      \"mnpi:material_event:49:103:0\"\n    ],\n    \"decision\": \"block\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk PII requires safe rewrite or reviewer approval before send\",\n      \"high-risk MNPI requires public evidence or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"hold_until_public\",\n      \"redact_pii\",\n      \"request_approval\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"privacy_operation\": \"redact_pii\",\n  \"replacements\": [\n    {\n      \"action\": \"redact_pii\",\n      \"category\": \"PII\",\n      \"end_char\": 26,\n      \"finding_id\": \"pii:sg_nric_fin:17:26:0\",\n      \"original_text_hash\": \"8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a\",\n      \"replacement_text\": \"[REDACTED PERSONAL DATA]\",\n      \"rule\": \"sg_nric_fin\",\n      \"severity\": \"high\",\n      \"start_char\": 17\n    }\n  ],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"rewrite_policy\": \"pii_only_allowed_spans\",\n  \"rewritten_text\": \"Send Dr Jane Tan [REDACTED PERSONAL DATA] to external counsel.\\n\\nAcme Corp will acquire GlobalTech before announcement.\",\n  \"send_allowed\": false,\n  \"skipped_findings\": [\n    {\n      \"finding_id\": \"mnpi:material_event:49:103:0\",\n      \"reason\": \"redact_pii leaves MNPI visible for policy review\"\n    }\n  ],\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [],\n  \"timings_ms\": {\n    \"extract\": 0.1,\n    \"redact_pii\": 0.1,\n    \"review\": 0.4,\n    \"total\": 0.6\n  }\n}"
+        }
+      ],
+      "description": "Redact PII only"
+    },
+    {
+      "name": "POST /reidentify",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/reidentify",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reidentify"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"anonymized_text\": \"Send [PERSON_1] [NRIC_FIN_1] the draft.\",\n  \"mapping\": [\n    {\n      \"original_text\": \"Dr Jane Tan\",\n      \"placeholder\": \"[PERSON_1]\"\n    },\n    {\n      \"original_text\": \"S1234567D\",\n      \"placeholder\": \"[NRIC_FIN_1]\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reidentify",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reidentify"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"anonymized_text\": \"Send [PERSON_1] [NRIC_FIN_1] the draft.\",\n  \"mapping\": [\n    {\n      \"original_text\": \"Dr Jane Tan\",\n      \"placeholder\": \"[PERSON_1]\"\n    },\n    {\n      \"original_text\": \"S1234567D\",\n      \"placeholder\": \"[NRIC_FIN_1]\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"text\": \"Acme Corp is acquiring GlobalTech for $2.5 billion\",\n  \"replacement_count\": 1\n}"
+        }
+      ],
+      "description": "Reidentify previously anonymized text"
+    },
+    {
+      "name": "POST /request-approval",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/request-approval",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "request-approval"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"finding_ids\": [\n    \"pii:sg_nric_fin:25:34:0\"\n  ],\n  \"reason_code\": \"rewrite_required\",\n  \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/request-approval",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "request-approval"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"finding_ids\": [\n    \"pii:sg_nric_fin:25:34:0\"\n  ],\n  \"reason_code\": \"rewrite_required\",\n  \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"approval_status\": \"pending\",\n  \"hmac\": \"0000000000000000000000000000000000000000000000000000000000000000\",\n  \"reason_code\": \"rewrite_required\",\n  \"requested_action\": \"request_approval\",\n  \"requested_finding_ids\": [\n    \"pii:sg_nric_fin:25:34:0\"\n  ],\n  \"requester_id\": \"\",\n  \"requester_identity_source\": \"none\",\n  \"required_policy_actor_roles\": [\n    \"legal_reviewer\",\n    \"compliance_admin\"\n  ],\n  \"required_reviewer_roles\": [\n    \"maker\",\n    \"checker\",\n    \"admin\"\n  ],\n  \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"seq\": 3,\n  \"ts\": \"2026-06-14T09:30:00Z\"\n}"
+        }
+      ],
+      "description": "Request reviewer approval"
+    },
+    {
+      "name": "POST /review",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/review",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "review"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"actor_role\": \"end_user\",\n  \"attachment_count\": 1,\n  \"destination_jurisdiction\": \"SG\",\n  \"document_type\": \"research_note\",\n  \"entity_id\": \"Acme Corp\",\n  \"external_destination\": true,\n  \"include_suggestions\": true,\n  \"recipient_count\": 1,\n  \"recipient_domains\": [\n    \"example.com\"\n  ],\n  \"requested_action\": \"send\",\n  \"sensitivity_label\": \"confidential\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Please send the draft deck to Tan S1234567D. Acme Corp has confidential Q1 guidance.\",\n  \"workflow\": \"email_send\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/review",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "review"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"actor_role\": \"end_user\",\n  \"attachment_count\": 1,\n  \"destination_jurisdiction\": \"SG\",\n  \"document_type\": \"research_note\",\n  \"entity_id\": \"Acme Corp\",\n  \"external_destination\": true,\n  \"include_suggestions\": true,\n  \"recipient_count\": 1,\n  \"recipient_domains\": [\n    \"example.com\"\n  ],\n  \"requested_action\": \"send\",\n  \"sensitivity_label\": \"confidential\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Please send the draft deck to Tan S1234567D. Acme Corp has confidential Q1 guidance.\",\n  \"workflow\": \"email_send\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 112,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_score\": 91.0,\n  \"document_type\": \"research_note\",\n  \"findings\": [\n    {\n      \"category\": \"PII\",\n      \"end_char\": 34,\n      \"id\": \"pii:sg_nric_fin:25:34:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"SG_PDPA_PERSONAL_DATA, SG_PDPA_SENSITIVE_CONTEXT\",\n      \"matched_text\": \"S1234567D\",\n      \"reason\": \"Singapore NRIC/FIN-like identifier\",\n      \"rule\": \"sg_nric_fin\",\n      \"score\": 85.0,\n      \"severity\": \"high\",\n      \"start_char\": 25\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 85.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"pii:sg_nric_fin:25:34:0\"\n    ],\n    \"decision\": \"rewrite_required\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk PII requires safe rewrite or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"redact_pii\",\n      \"request_approval\",\n      \"safe_rewrite\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"send_allowed\": false,\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [\n    {\n      \"action\": \"redact\",\n      \"finding_id\": \"pii:sg_nric_fin:25:34:0\",\n      \"id\": \"suggestion:0\",\n      \"rationale\": \"Remove or mask personal data unless it is necessary for the recipient and purpose.\",\n      \"replacement_text\": \"[REDACTED PERSONAL DATA]\"\n    }\n  ],\n  \"timings_ms\": {\n    \"review\": 3.2,\n    \"total\": 3.2\n  }\n}"
+        }
+      ],
+      "description": "Review a document before sending"
+    },
+    {
+      "name": "GET /review/{review_id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/review/{review_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "review",
+            "{review_id}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/review/{review_id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "review",
+                "{review_id}"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"review_id\": \"sample-id\",\n  \"text_hash\": \"string\",\n  \"document_type\": \"string\",\n  \"source_jurisdiction\": \"string\",\n  \"destination_jurisdiction\": \"string\",\n  \"decisions_recorded\": 1\n}"
+        }
+      ],
+      "description": "Inspect review session state"
+    },
+    {
+      "name": "POST /review/{review_id}/decision",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/review/{review_id}/decision",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "review",
+            "{review_id}",
+            "decision"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"action\": \"reject\",\n  \"finding_id\": \"pii:named_person:5:16:0\",\n  \"rationale\": \"Defined term in contract preamble, not a real party\",\n  \"replacement_text\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/review/{review_id}/decision",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "review",
+                "{review_id}",
+                "decision"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"reject\",\n  \"finding_id\": \"pii:named_person:5:16:0\",\n  \"rationale\": \"Defined term in contract preamble, not a real party\",\n  \"replacement_text\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"review_id\": \"sample-id\",\n  \"finding_id\": \"sample-id\",\n  \"action\": \"string\",\n  \"seq\": 1,\n  \"ts\": \"string\",\n  \"hmac\": \"string\"\n}"
+        }
+      ],
+      "description": "Record a per-finding decision"
+    },
+    {
+      "name": "POST /safe-rewrite",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/safe-rewrite",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "safe-rewrite"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"allowed_actions\": [\n    \"safe_rewrite\",\n    \"redact_pii\",\n    \"hold_until_public\"\n  ],\n  \"allowed_finding_ids\": [\n    \"pii:sg_nric_fin:25:34:0\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"safe_rewrite\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/safe-rewrite",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "safe-rewrite"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allowed_actions\": [\n    \"safe_rewrite\",\n    \"redact_pii\",\n    \"hold_until_public\"\n  ],\n  \"allowed_finding_ids\": [\n    \"pii:sg_nric_fin:25:34:0\"\n  ],\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"requested_action\": \"safe_rewrite\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft before announcement.\",\n  \"workflow\": \"email_send\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 48,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_hash\": \"4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f4f\",\n  \"document_score\": 85.0,\n  \"document_type\": \"email\",\n  \"findings\": [],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mapping_persisted\": false,\n  \"mnpi_score\": 0.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 85.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"pii:sg_nric_fin:25:34:0\"\n    ],\n    \"decision\": \"rewrite_required\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk PII requires safe rewrite or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"redact_pii\",\n      \"request_approval\",\n      \"safe_rewrite\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"privacy_operation\": \"safe_rewrite\",\n  \"replacements\": [\n    {\n      \"action\": \"redact_pii\",\n      \"category\": \"PII\",\n      \"end_char\": 26,\n      \"finding_id\": \"pii:sg_nric_fin:25:34:0\",\n      \"original_text_hash\": \"8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a\",\n      \"replacement_text\": \"[REDACTED PERSONAL DATA]\",\n      \"rule\": \"sg_nric_fin\",\n      \"severity\": \"high\",\n      \"start_char\": 17\n    }\n  ],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"rewrite_policy\": \"deterministic_allowed_spans\",\n  \"rewritten_text\": \"Send Dr Jane Tan [REDACTED PERSONAL DATA] to external counsel.\",\n  \"send_allowed\": false,\n  \"skipped_findings\": [],\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [],\n  \"timings_ms\": {\n    \"extract\": 0.1,\n    \"review\": 0.4,\n    \"safe_rewrite\": 0.1,\n    \"total\": 0.6\n  }\n}"
+        }
+      ],
+      "description": "Safely rewrite a document deterministically"
+    }
+  ]
+}

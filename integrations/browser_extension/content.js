@@ -20,10 +20,10 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 });
 
 function showPanel(text) {
-  const prior = document.getElementById("kaypoh-review-result");
+  const prior = document.getElementById("junas-review-result");
   if (prior) prior.remove();
   const panel = document.createElement("div");
-  panel.id = "kaypoh-review-result";
+  panel.id = "junas-review-result";
   panel.style.cssText = [
     "position:fixed",
     "right:16px",
@@ -51,24 +51,24 @@ function isEditable(element) {
 }
 
 function promptTarget(element) {
-  const adapter = globalThis.KAYPOH_BROWSER_ADAPTERS;
+  const adapter = globalThis.JUNAS_BROWSER_ADAPTERS;
   const resolved = adapter?.resolvePromptTarget ? adapter.resolvePromptTarget(element, window.location) : element;
   return isEditable(resolved) ? resolved : null;
 }
 
 function submitTarget(element) {
-  const adapter = globalThis.KAYPOH_BROWSER_ADAPTERS;
+  const adapter = globalThis.JUNAS_BROWSER_ADAPTERS;
   return adapter?.resolveSubmitTarget ? adapter.resolveSubmitTarget(element, window.location) : null;
 }
 
 function findPromptTarget() {
-  const adapter = globalThis.KAYPOH_BROWSER_ADAPTERS;
+  const adapter = globalThis.JUNAS_BROWSER_ADAPTERS;
   const found = adapter?.findPromptComposer ? adapter.findPromptComposer(document, window.location) : null;
   return isEditable(found) ? found : null;
 }
 
 function findSubmitButton() {
-  const adapter = globalThis.KAYPOH_BROWSER_ADAPTERS;
+  const adapter = globalThis.JUNAS_BROWSER_ADAPTERS;
   return adapter?.findSubmitButton ? adapter.findSubmitButton(document, window.location) : null;
 }
 
@@ -93,18 +93,18 @@ function reviewOutcome(result) {
 async function reviewBeforeSubmit(target) {
   const text = promptText(target).trim();
   if (!text) return true;
-  showPanel("Kaypoh: reviewing prompt");
-  const response = await chrome.runtime.sendMessage({type: "kaypoh-process-text", text, operation: "review"});
+  showPanel("Junas: reviewing prompt");
+  const response = await chrome.runtime.sendMessage({type: "junas-process-text", text, operation: "review"});
   if (!response?.ok) {
-    showPanel(`Kaypoh: ${response?.error || "review unavailable"}`);
+    showPanel(`Junas: ${response?.error || "review unavailable"}`);
     return false;
   }
   const outcome = reviewOutcome(response.result);
   if (outcome === "allow") return true;
   if (outcome === "warn") {
-    return window.confirm("Kaypoh found review warnings. Submit anyway only if this matches policy.");
+    return window.confirm("Junas found review warnings. Submit anyway only if this matches policy.");
   }
-  showPanel("Kaypoh: policy blocked this prompt. Review or rewrite before submitting.");
+  showPanel("Junas: policy blocked this prompt. Review or rewrite before submitting.");
   return false;
 }
 
@@ -151,11 +151,11 @@ function insertText(element, text, insertionPoint) {
 }
 
 chrome.runtime.onMessage.addListener((message) => {
-  if (message.type === "kaypoh-error") {
-    showPanel(`Kaypoh: ${message.error}`);
+  if (message.type === "junas-error") {
+    showPanel(`Junas: ${message.error}`);
     return;
   }
-  if (message.type !== "kaypoh-result") return;
+  if (message.type !== "junas-result") return;
   const findings = Array.isArray(message.result.findings) ? message.result.findings.length : 0;
   const degraded = Array.isArray(message.result.degraded_modes) ? message.result.degraded_modes.length : 0;
   const pii = message.result.pii_score ?? 0;
@@ -163,7 +163,7 @@ chrome.runtime.onMessage.addListener((message) => {
   const action = message.replacementText ? `${message.operation} applied` : "review complete";
   const send = message.result.send_allowed === false ? "; send blocked" : "";
   const coverage = degraded ? `; ${degraded} degraded${send}` : send;
-  showPanel(`Kaypoh: ${action}; ${findings} findings; PII ${pii}; MNPI ${mnpi}${coverage}`);
+  showPanel(`Junas: ${action}; ${findings} findings; PII ${pii}; MNPI ${mnpi}${coverage}`);
 });
 
 document.addEventListener("paste", async (event) => {
@@ -174,18 +174,18 @@ document.addEventListener("paste", async (event) => {
   const text = event.clipboardData?.getData("text/plain") || "";
   if (!text.trim()) return;
   if (cfg.operation === "review") {
-    chrome.runtime.sendMessage({type: "kaypoh-process-text", text});
+    chrome.runtime.sendMessage({type: "junas-process-text", text});
     return;
   }
   const insertionPoint = captureInsertionPoint(target);
   event.preventDefault();
-  const response = await chrome.runtime.sendMessage({type: "kaypoh-process-text", text});
+  const response = await chrome.runtime.sendMessage({type: "junas-process-text", text});
   if (response?.ok && response.replacementText) {
     insertText(target, response.replacementText, insertionPoint);
     return;
   }
   insertText(target, text, insertionPoint);
-  showPanel(`Kaypoh: ${response?.error || "rewrite unavailable"}`);
+  showPanel(`Junas: ${response?.error || "rewrite unavailable"}`);
 });
 
 document.addEventListener("click", (event) => {

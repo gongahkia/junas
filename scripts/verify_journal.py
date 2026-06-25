@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Verify the integrity of the Kaypoh review journal.
+"""Verify the integrity of the Junas review journal.
 
-Recomputes every HMAC and prev_hash link in `${KAYPOH_JOURNAL_DIR:-./kaypoh-journal}/journal.jsonl`.
+Recomputes every HMAC and prev_hash link in `${JUNAS_JOURNAL_DIR:-./junas-journal}/journal.jsonl`.
 Exit 0 if the chain is intact, 1 if any tamper is detected.
 """
 
@@ -15,7 +15,7 @@ SRC_PATH = REPO_ROOT / "src"
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review.journal import journal_path, read_journal, verify_chain  # noqa: E402
+from junas.review.journal import journal_path, read_journal, verify_chain  # noqa: E402
 
 
 def _identity_source_warnings(entries) -> list[str]:

@@ -1,12 +1,12 @@
 # Mapping Store Hardening
 
-Kaypoh can persist `/pseudonymize` mapping tables when `KAYPOH_REVIEW_PERSIST=1` so
+Junas can persist `/pseudonymize` mapping tables when `JUNAS_REVIEW_PERSIST=1` so
 `/reidentify` can restore text later from a `document_hash`. Those mappings contain the
 original PII/MNPI scalars and should be treated as sensitive secrets.
 
 ## Encryption
 
-Set `KAYPOH_MAPPING_STORE_KEY` to enable authenticated encryption for newly written
+Set `JUNAS_MAPPING_STORE_KEY` to enable authenticated encryption for newly written
 mapping files:
 
 ```sh
@@ -17,22 +17,22 @@ PY
 ```
 
 ```sh
-export KAYPOH_MAPPING_STORE_KEY='paste-generated-key-here'
-export KAYPOH_SUBJECT_INDEX_KEY='paste-subject-index-hmac-key-here'
-export KAYPOH_REVIEW_PERSIST=1
+export JUNAS_MAPPING_STORE_KEY='paste-generated-key-here'
+export JUNAS_SUBJECT_INDEX_KEY='paste-subject-index-hmac-key-here'
+export JUNAS_REVIEW_PERSIST=1
 ```
 
 Encrypted mapping files are stored as Fernet envelopes under
-`${KAYPOH_JOURNAL_DIR:-./kaypoh-journal}/mappings/`. Existing plaintext mapping files
+`${JUNAS_JOURNAL_DIR:-./junas-journal}/mappings/`. Existing plaintext mapping files
 remain readable for compatibility, but are not rewritten automatically.
 
 Key loss is destructive: encrypted mappings cannot be recovered without the key. Rotate
 by setting a new key and rewriting only mappings that still need to be retained.
 
-`KAYPOH_SUBJECT_INDEX_KEY` is separate from `KAYPOH_MAPPING_STORE_KEY`. It HMACs
-canonical subject values into `${KAYPOH_JOURNAL_DIR:-./kaypoh-journal}/subject_index/index.json`
+`JUNAS_SUBJECT_INDEX_KEY` is separate from `JUNAS_MAPPING_STORE_KEY`. It HMACs
+canonical subject values into `${JUNAS_JOURNAL_DIR:-./junas-journal}/subject_index/index.json`
 so erasure requests can find affected mapping files without storing raw PII in the
-index. When `KAYPOH_REVIEW_PERSIST=1`, Kaypoh fails closed if this key is missing.
+index. When `JUNAS_REVIEW_PERSIST=1`, Junas fails closed if this key is missing.
 
 ## Retention
 
@@ -64,9 +64,9 @@ document/review references, not the raw subject value.
 
 ## Deployment Controls
 
-- Restrict `${KAYPOH_JOURNAL_DIR}` to the service account that runs Kaypoh.
+- Restrict `${JUNAS_JOURNAL_DIR}` to the service account that runs Junas.
 - Use FileVault, BitLocker, LUKS, or cloud-volume encryption for disk-level protection.
-- Keep `KAYPOH_MAPPING_STORE_KEY` in a secrets manager, not in checked-in config.
-- Keep `KAYPOH_SUBJECT_INDEX_KEY` in a secrets manager; changing it requires
+- Keep `JUNAS_MAPPING_STORE_KEY` in a secrets manager, not in checked-in config.
+- Keep `JUNAS_SUBJECT_INDEX_KEY` in a secrets manager; changing it requires
   `scripts/erase_subject.py --backfill` before subject lookups will match older data.
 - Do not share mapping files between tenants; use separate journal directories for each tenant.

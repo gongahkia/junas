@@ -1,4 +1,4 @@
-(function registerKaypohBrowserAdapters(global) {
+(function registerJunasBrowserAdapters(global) {
   const GENERIC_SELECTORS = [
     "textarea",
     "input[type='text']",
@@ -126,7 +126,7 @@
     return null;
   }
 
-  global.KAYPOH_BROWSER_ADAPTERS = {
+  global.JUNAS_BROWSER_ADAPTERS = {
     all: ADAPTERS,
     adapterForLocation,
     findPromptComposer,

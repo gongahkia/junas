@@ -8,7 +8,7 @@ Three guarantees:
 
 import unittest
 
-from kaypoh.review.engine import (
+from junas.review.engine import (
     LLM_TIER_MNPI_LOWER,
     LLM_TIER_MNPI_UPPER,
     PreSendReviewEngine,

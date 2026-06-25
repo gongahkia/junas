@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from kaypoh.desktop import watch
+from junas.desktop import watch
 
 
 class DesktopWatchTests(unittest.TestCase):
@@ -35,7 +35,7 @@ class DesktopWatchTests(unittest.TestCase):
         self.assertEqual(calls[0][1], "/review")
         self.assertEqual(calls[1][1], "/anonymize")
         self.assertEqual(calls[0][2]["text"], "Send S1234567D")
-        self.assertEqual(calls[0][4]["X-Kaypoh-Local-Token"], "signed-token")
+        self.assertEqual(calls[0][4]["X-Junas-Local-Token"], "signed-token")
 
     def test_scan_paths_does_not_call_anonymize_without_explicit_output_dir(self):
         def fake_post(_base_url, path, _payload, _timeout_seconds, _headers):

@@ -53,21 +53,21 @@ class TenantIsolationTests(unittest.TestCase):
             },
         }
         self._env = {
-            "KAYPOH_TENANCY_ENABLED": "1",
-            "KAYPOH_TENANCY_AUTH_MODES": "api_key",
-            "KAYPOH_TENANT_CREDENTIALS_JSON": json.dumps(credentials),
-            "KAYPOH_JOURNAL_DIR": str(self.tmpdir),
-            "KAYPOH_JOURNAL_KEY": "tenant-test-key",
-            "KAYPOH_REVIEW_PERSIST": "1",
-            "KAYPOH_SUBJECT_INDEX_KEY": "subject-index-test-key",
+            "JUNAS_TENANCY_ENABLED": "1",
+            "JUNAS_TENANCY_AUTH_MODES": "api_key",
+            "JUNAS_TENANT_CREDENTIALS_JSON": json.dumps(credentials),
+            "JUNAS_JOURNAL_DIR": str(self.tmpdir),
+            "JUNAS_JOURNAL_KEY": "tenant-test-key",
+            "JUNAS_REVIEW_PERSIST": "1",
+            "JUNAS_SUBJECT_INDEX_KEY": "subject-index-test-key",
         }
         self._old_env = {key: os.environ.get(key) for key in self._env}
         os.environ.update(self._env)
 
-        import kaypoh.anonymize.mapping_store as mapping_mod
-        import kaypoh.backend.main as main_mod
-        import kaypoh.review.decisions as decisions_mod
-        import kaypoh.review.journal as journal_mod
+        import junas.anonymize.mapping_store as mapping_mod
+        import junas.backend.main as main_mod
+        import junas.review.decisions as decisions_mod
+        import junas.review.journal as journal_mod
 
         importlib.reload(journal_mod)
         importlib.reload(decisions_mod)
@@ -85,7 +85,7 @@ class TenantIsolationTests(unittest.TestCase):
                 os.environ.pop(key, None)
             else:
                 os.environ[key] = old_value
-        import kaypoh.backend.main as main_mod
+        import junas.backend.main as main_mod
 
         importlib.reload(main_mod)
 
@@ -197,20 +197,20 @@ class TenantJWTAuthTests(unittest.TestCase):
         self.tmpdir = Path(self._tmpdir.name)
         self.secret = "jwt-test-secret"
         self._env = {
-            "KAYPOH_TENANCY_ENABLED": "1",
-            "KAYPOH_TENANCY_AUTH_MODES": "jwt",
-            "KAYPOH_JWT_HS256_SECRET": self.secret,
-            "KAYPOH_JWT_ISSUER": "https://issuer.example",
-            "KAYPOH_JWT_AUDIENCE": "kaypoh-api",
-            "KAYPOH_JOURNAL_DIR": str(self.tmpdir),
-            "KAYPOH_JOURNAL_KEY": "jwt-test-journal-key",
-            "KAYPOH_REVIEW_PERSIST": "1",
-            "KAYPOH_SUBJECT_INDEX_KEY": "subject-index-test-key",
+            "JUNAS_TENANCY_ENABLED": "1",
+            "JUNAS_TENANCY_AUTH_MODES": "jwt",
+            "JUNAS_JWT_HS256_SECRET": self.secret,
+            "JUNAS_JWT_ISSUER": "https://issuer.example",
+            "JUNAS_JWT_AUDIENCE": "junas-api",
+            "JUNAS_JOURNAL_DIR": str(self.tmpdir),
+            "JUNAS_JOURNAL_KEY": "jwt-test-journal-key",
+            "JUNAS_REVIEW_PERSIST": "1",
+            "JUNAS_SUBJECT_INDEX_KEY": "subject-index-test-key",
         }
         self._old_env = {key: os.environ.get(key) for key in self._env}
         os.environ.update(self._env)
 
-        import kaypoh.backend.main as main_mod
+        import junas.backend.main as main_mod
 
         importlib.reload(main_mod)
         self.main = main_mod
@@ -225,14 +225,14 @@ class TenantJWTAuthTests(unittest.TestCase):
                 os.environ.pop(key, None)
             else:
                 os.environ[key] = old_value
-        import kaypoh.backend.main as main_mod
+        import junas.backend.main as main_mod
 
         importlib.reload(main_mod)
 
     def _token(self, **overrides) -> str:
         payload = {
             "iss": "https://issuer.example",
-            "aud": "kaypoh-api",
+            "aud": "junas-api",
             "sub": "user-1",
             "tenant_id": "tenant-jwt",
             "roles": ["reviewer"],

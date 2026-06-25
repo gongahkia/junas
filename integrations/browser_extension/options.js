@@ -36,7 +36,7 @@ function authHeaders() {
   const headers = {"Content-Type": "application/json"};
   const value = token.value.trim();
   if (value && authMode.value === "bearer_token") headers.Authorization = `Bearer ${value}`;
-  else if (value && authMode.value !== "none") headers["X-Kaypoh-Local-Token"] = value;
+  else if (value && authMode.value !== "none") headers["X-Junas-Local-Token"] = value;
   return headers;
 }
 
@@ -55,7 +55,7 @@ async function checkConnectionHealth() {
       method: "POST",
       headers,
       body: JSON.stringify({
-        text: "Kaypoh browser extension connection check.",
+        text: "Junas browser extension connection check.",
         source_jurisdiction: "SG",
         destination_jurisdiction: "SG",
         document_type: "generic",
@@ -89,14 +89,14 @@ async function pair(path, body) {
     body: JSON.stringify(body)
   });
   const payload = await response.json();
-  if (!response.ok) throw new Error(payload.detail || `kaypoh ${response.status}`);
+  if (!response.ok) throw new Error(payload.detail || `junas ${response.status}`);
   return payload;
 }
 
 startPairing.addEventListener("click", async () => {
   try {
-    pendingPairing = await pair("/local/pairing/start", {client_name: "Kaypoh browser extension"});
-    pairingStatus.textContent = `Pairing code: ${pendingPairing.pairing_code}\nApprove it in Kaypoh desktop, then complete pairing.`;
+    pendingPairing = await pair("/local/pairing/start", {client_name: "Junas browser extension"});
+    pairingStatus.textContent = `Pairing code: ${pendingPairing.pairing_code}\nApprove it in Junas desktop, then complete pairing.`;
   } catch (error) {
     pairingStatus.textContent = String(error);
   }

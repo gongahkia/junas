@@ -1,6 +1,6 @@
 import unittest
 
-from kaypoh.review.entity_linker import canonical_org, canonical_person, strip_honorific
+from junas.review.entity_linker import canonical_org, canonical_person, strip_honorific
 
 
 class CanonicalPersonTests(unittest.TestCase):
@@ -28,7 +28,7 @@ class CanonicalOrgTests(unittest.TestCase):
 
 class SurnameVariantTests(unittest.TestCase):
     def test_named_person_does_not_cross_line_boundaries(self):
-        from kaypoh.review.engine import PreSendReviewEngine
+        from junas.review.engine import PreSendReviewEngine
 
         engine = PreSendReviewEngine()
         text = "Mr. John Tan  \nBlk 789, Jurong East Street 21"
@@ -45,7 +45,7 @@ class SurnameVariantTests(unittest.TestCase):
         self.assertNotIn("Mr. John Tan  \nBlk", matched)
 
     def test_named_person_handles_malay_name_particles(self):
-        from kaypoh.review.engine import PreSendReviewEngine
+        from junas.review.engine import PreSendReviewEngine
 
         engine = PreSendReviewEngine()
         text = "Ms. Siti Aishah binti Abdullah briefed the board."
@@ -61,7 +61,7 @@ class SurnameVariantTests(unittest.TestCase):
         self.assertIn("Ms. Siti Aishah binti Abdullah", matched)
 
     def test_surname_only_reference_resolves_after_anchored_honorific(self):
-        from kaypoh.review.engine import PreSendReviewEngine
+        from junas.review.engine import PreSendReviewEngine
 
         engine = PreSendReviewEngine()
         text = "Dr Jane Tan met the buyer. Tan confirmed the terms."
@@ -78,7 +78,7 @@ class SurnameVariantTests(unittest.TestCase):
         self.assertIn("Tan", matched)
 
     def test_surname_only_skips_corporate_suffix_denylist(self):
-        from kaypoh.review.engine import PreSendReviewEngine
+        from junas.review.engine import PreSendReviewEngine
 
         engine = PreSendReviewEngine()
         # "Ltd" can be accidentally captured as the trailing token of a NAME_RE match. the
@@ -98,7 +98,7 @@ class SurnameVariantTests(unittest.TestCase):
         self.assertEqual(ltd_findings, [])
 
     def test_surname_only_skips_when_defined_term(self):
-        from kaypoh.review.engine import PreSendReviewEngine
+        from junas.review.engine import PreSendReviewEngine
 
         engine = PreSendReviewEngine()
         # "Tan" is defined as a contract term — should not collapse to a named_person variant.

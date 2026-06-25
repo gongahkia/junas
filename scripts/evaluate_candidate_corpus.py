@@ -21,7 +21,7 @@ if str(REPO_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review.engine import PreSendReviewEngine  # noqa: E402
+from junas.review.engine import PreSendReviewEngine  # noqa: E402
 from scripts.candidate_review import collect_review_status_violations  # noqa: E402
 
 DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
@@ -64,13 +64,13 @@ def _load_pair(path: Path) -> tuple[str, dict[str, Any]]:
 
 
 def _configured_audit_grade_engine() -> PreSendReviewEngine:
-    from kaypoh.configs.runtime import get_runtime_settings
+    from junas.configs.runtime import get_runtime_settings
 
     settings = get_runtime_settings()
     public_evidence = None
     if settings.public_evidence.enabled:
-        from kaypoh.external.privacy_guard import PrivacyGuard
-        from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
+        from junas.external.privacy_guard import PrivacyGuard
+        from junas.external.public_evidence.inference import PublicEvidenceRetriever
 
         public_evidence = PublicEvidenceRetriever(
             settings.public_evidence,
@@ -82,17 +82,17 @@ def _configured_audit_grade_engine() -> PreSendReviewEngine:
         )
     llm_adjudicator = None
     if settings.llm.enabled:
-        from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
+        from junas.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
 
         llm_adjudicator = LocalLLMAdjudicator(settings.llm)
     llm_defined_term_extractor = None
     llm_coverage_auditor = None
     if settings.llm.enabled and settings.llm_helpers.defined_terms_enabled:
-        from kaypoh.advisory.llm_adjudicator.helpers import build_llm_defined_term_extractor
+        from junas.advisory.llm_adjudicator.helpers import build_llm_defined_term_extractor
 
         llm_defined_term_extractor = build_llm_defined_term_extractor(settings.llm)
     if settings.llm.enabled and settings.llm_helpers.coverage_audit_enabled:
-        from kaypoh.advisory.llm_adjudicator.helpers import build_llm_coverage_auditor
+        from junas.advisory.llm_adjudicator.helpers import build_llm_coverage_auditor
 
         llm_coverage_auditor = build_llm_coverage_auditor(settings.llm)
     return PreSendReviewEngine(

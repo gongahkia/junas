@@ -10,9 +10,9 @@ from unittest import mock
 
 from fastapi.testclient import TestClient
 
-import kaypoh.backend.main as main
-from kaypoh.review.container_scan import scan_container
-from kaypoh.review.metadata import inspect_metadata
+import junas.backend.main as main
+from junas.review.container_scan import scan_container
+from junas.review.metadata import inspect_metadata
 
 
 @asynccontextmanager
@@ -360,7 +360,7 @@ class DocumentHardeningTests(unittest.TestCase):
         self.assertTrue(any(mode["status"] == "failed_open" for mode in payload["degraded_modes"]))
 
     def test_pdf_without_text_layer_can_fail_closed_by_env(self):
-        with mock.patch.dict(os.environ, {"KAYPOH_DOCUMENT_FAIL_CLOSED": "1"}, clear=False):
+        with mock.patch.dict(os.environ, {"JUNAS_DOCUMENT_FAIL_CLOSED": "1"}, clear=False):
             with TestClient(main.app) as client:
                 response = client.post(
                     "/review",

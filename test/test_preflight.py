@@ -46,12 +46,12 @@ class PreflightTests(unittest.TestCase):
         retention: tuple[bool, str] = (True, "retention manifest configured"),
     ) -> int:
         base_env = {
-            "KAYPOH_REVIEW_PERSIST": "0",
-            "KAYPOH_API_KEY": "",
-            "KAYPOH_MAPPING_STORE_KEY": "",
-            "KAYPOH_SUBJECT_INDEX_KEY": "",
-            "KAYPOH_JOURNAL_KEYS_FILE": "",
-            "KAYPOH_DEV_AUTH": "",
+            "JUNAS_REVIEW_PERSIST": "0",
+            "JUNAS_API_KEY": "",
+            "JUNAS_MAPPING_STORE_KEY": "",
+            "JUNAS_SUBJECT_INDEX_KEY": "",
+            "JUNAS_JOURNAL_KEYS_FILE": "",
+            "JUNAS_DEV_AUTH": "",
         }
         if env:
             base_env.update(env)
@@ -66,7 +66,7 @@ class PreflightTests(unittest.TestCase):
     def test_production_strict_fails_when_dev_auth_enabled(self):
         exit_code = self._run_preflight(
             ["--strict", "--deployment", "production"],
-            {"KAYPOH_DEV_AUTH": "1"},
+            {"JUNAS_DEV_AUTH": "1"},
         )
 
         self.assertEqual(exit_code, 1)
@@ -74,7 +74,7 @@ class PreflightTests(unittest.TestCase):
     def test_local_strict_allows_dev_auth(self):
         exit_code = self._run_preflight(
             ["--strict", "--deployment", "local"],
-            {"KAYPOH_DEV_AUTH": "1"},
+            {"JUNAS_DEV_AUTH": "1"},
         )
 
         self.assertEqual(exit_code, 0)
@@ -83,11 +83,11 @@ class PreflightTests(unittest.TestCase):
         exit_code = self._run_preflight(
             ["--strict", "--deployment", "production"],
             {
-                "KAYPOH_REVIEW_PERSIST": "1",
-                "KAYPOH_API_KEY": "api-secret",
-                "KAYPOH_MAPPING_STORE_KEY": "",
-                "KAYPOH_SUBJECT_INDEX_KEY": "",
-                "KAYPOH_JOURNAL_KEYS_FILE": "",
+                "JUNAS_REVIEW_PERSIST": "1",
+                "JUNAS_API_KEY": "api-secret",
+                "JUNAS_MAPPING_STORE_KEY": "",
+                "JUNAS_SUBJECT_INDEX_KEY": "",
+                "JUNAS_JOURNAL_KEYS_FILE": "",
             },
             settings=SimpleNamespace(
                 config_path=ROOT / "config.toml",
@@ -113,11 +113,11 @@ class PreflightTests(unittest.TestCase):
             exit_code = self._run_preflight(
                 ["--strict", "--deployment", "production"],
                 {
-                    "KAYPOH_REVIEW_PERSIST": "1",
-                    "KAYPOH_API_KEY": "api-secret",
-                    "KAYPOH_MAPPING_STORE_KEY": Fernet.generate_key().decode("ascii"),
-                    "KAYPOH_SUBJECT_INDEX_KEY": "subject-index-secret",
-                    "KAYPOH_JOURNAL_KEYS_FILE": str(key_file),
+                    "JUNAS_REVIEW_PERSIST": "1",
+                    "JUNAS_API_KEY": "api-secret",
+                    "JUNAS_MAPPING_STORE_KEY": Fernet.generate_key().decode("ascii"),
+                    "JUNAS_SUBJECT_INDEX_KEY": "subject-index-secret",
+                    "JUNAS_JOURNAL_KEYS_FILE": str(key_file),
                 },
                 settings=SimpleNamespace(
                     config_path=ROOT / "config.toml",
@@ -139,7 +139,7 @@ class PreflightTests(unittest.TestCase):
     def test_production_strict_fails_when_retention_manifest_incomplete(self):
         exit_code = self._run_preflight(
             ["--strict", "--deployment", "production"],
-            {"KAYPOH_API_KEY": "api-secret"},
+            {"JUNAS_API_KEY": "api-secret"},
             settings=SimpleNamespace(
                 config_path=ROOT / "config.toml",
                 pipeline=SimpleNamespace(layers=()),

@@ -1,6 +1,6 @@
 # Product Workflows
 
-These workflows define how Kaypoh should appear in daily work. Each path uses the backend review contract as the control point and treats adapters as optional activation surfaces.
+These workflows define how Junas should appear in daily work. Each path uses the backend review contract as the control point and treats adapters as optional activation surfaces.
 
 ## Outlook Send
 

@@ -5,7 +5,7 @@ from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
-from kaypoh.backend import main
+from junas.backend import main
 
 
 class LocalDaemonAclTests(unittest.TestCase):
@@ -17,10 +17,10 @@ class LocalDaemonAclTests(unittest.TestCase):
 
     def _env(self) -> dict[str, str]:
         return {
-            "KAYPOH_API_KEY": "",
-            "KAYPOH_LOCAL_DAEMON_ACL_ENABLED": "1",
-            "KAYPOH_LOCAL_DAEMON_TOKEN": "local-test-token",
-            "KAYPOH_LOCAL_DAEMON_ALLOWED_ORIGINS": "https://chatgpt.com,chrome-extension://*",
+            "JUNAS_API_KEY": "",
+            "JUNAS_LOCAL_DAEMON_ACL_ENABLED": "1",
+            "JUNAS_LOCAL_DAEMON_TOKEN": "local-test-token",
+            "JUNAS_LOCAL_DAEMON_ALLOWED_ORIGINS": "https://chatgpt.com,chrome-extension://*",
         }
 
     def test_rejects_disallowed_browser_origin(self):
@@ -31,7 +31,7 @@ class LocalDaemonAclTests(unittest.TestCase):
                     json={"text": "public update"},
                     headers={
                         "Origin": "https://evil.example",
-                        "X-Kaypoh-Local-Token": "local-test-token",
+                        "X-Junas-Local-Token": "local-test-token",
                     },
                 )
 
@@ -72,7 +72,7 @@ class LocalDaemonAclTests(unittest.TestCase):
                     json={"text": "public update"},
                     headers={
                         "Origin": "chrome-extension://abcdef",
-                        "X-Kaypoh-Local-Token": "local-test-token",
+                        "X-Junas-Local-Token": "local-test-token",
                     },
                 )
 
@@ -126,7 +126,7 @@ class LocalDaemonAclTests(unittest.TestCase):
                     },
                     headers={
                         "Origin": "https://chatgpt.com",
-                        "X-Kaypoh-Local-Token": "local-test-token",
+                        "X-Junas-Local-Token": "local-test-token",
                     },
                 )
                 self.assertEqual(approve.status_code, 200, approve.text)
@@ -150,7 +150,7 @@ class LocalDaemonAclTests(unittest.TestCase):
                     json={"text": "public update"},
                     headers={
                         "Origin": "https://chatgpt.com",
-                        "X-Kaypoh-Local-Token": token,
+                        "X-Junas-Local-Token": token,
                     },
                 )
                 self.assertEqual(response.status_code, 200, response.text)
@@ -179,7 +179,7 @@ class LocalDaemonAclTests(unittest.TestCase):
                     },
                     headers={
                         "Origin": "https://chatgpt.com",
-                        "X-Kaypoh-Local-Token": signed,
+                        "X-Junas-Local-Token": signed,
                     },
                 )
 
@@ -195,7 +195,7 @@ class LocalDaemonAclTests(unittest.TestCase):
                     headers={
                         "Origin": "https://chatgpt.com",
                         "Access-Control-Request-Method": "POST",
-                        "Access-Control-Request-Headers": "content-type,x-kaypoh-local-token",
+                        "Access-Control-Request-Headers": "content-type,x-junas-local-token",
                     },
                 )
             importlib.reload(main)

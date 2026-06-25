@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Recall (and precision) gate for the legal-contract fixture corpus.
 
-Runs the kaypoh review engine over every `<doc>.txt` in the target corpus, compares the
+Runs the junas review engine over every `<doc>.txt` in the target corpus, compares the
 produced findings against `<doc>.labels.json`, and computes per-rule recall + precision.
 Fails (exit 1) when per-rule recall drops below the locked baseline, or when per-rule
 precision drops below the locked baseline (when the lock contains a `baseline_precision`
@@ -44,7 +44,7 @@ if str(REPO_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review.engine import PreSendReviewEngine  # noqa: E402
+from junas.review.engine import PreSendReviewEngine  # noqa: E402
 from scripts.candidate_review import collect_review_status_violations  # noqa: E402
 
 DEFAULT_CORPUS_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus"
@@ -178,7 +178,7 @@ def _write_lock(lock_path: Path, recall: dict[str, float], precision: dict[str, 
 
 
 def _resolve_actor() -> str:
-    env_actor = os.environ.get("KAYPOH_RECALL_ACTOR", "").strip()
+    env_actor = os.environ.get("JUNAS_RECALL_ACTOR", "").strip()
     if env_actor:
         return env_actor
     try:

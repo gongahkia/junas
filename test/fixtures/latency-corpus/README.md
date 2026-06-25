@@ -20,7 +20,7 @@ fixture and runs `/review` plus `/anonymize` for strict and audit-grade profiles
 
 ```sh
 python3 scripts/check_latency_slo.py
-KAYPOH_RUN_LATENCY_SLO=1 PYTHONPATH=src python3 -m pytest test/benchmarks -q
+JUNAS_RUN_LATENCY_SLO=1 PYTHONPATH=src python3 -m pytest test/benchmarks -q
 ```
 
 You can also drop any additional `.txt` files here and they will be included automatically.

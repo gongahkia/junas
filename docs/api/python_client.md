@@ -1,20 +1,20 @@
 # Python Client
 
-Kaypoh ships typed sync and async Python clients for the same backend HTTP API.
-They are not separate backends and do not introduce a second API contract. They call the same Kaypoh service, with the same endpoints and response models.
+Junas ships typed sync and async Python clients for the same backend HTTP API.
+They are not separate backends and do not introduce a second API contract. They call the same Junas service, with the same endpoints and response models.
 
 Canonical import:
 
 ```python
-from kaypoh import KaypohClient
-from kaypoh import AsyncKaypohClient
+from junas import JunasClient
+from junas import AsyncJunasClient
 ```
 
 Repo-local module import:
 
 ```python
-from kaypoh.client import KaypohClient
-from kaypoh.client import AsyncKaypohClient
+from junas.client import JunasClient
+from junas.client import AsyncJunasClient
 ```
 
 ## Install
@@ -33,18 +33,18 @@ Start the backend first in a separate terminal:
 
 ## Which Client To Use
 
-- `KaypohClient`: use in standard blocking Python scripts, notebooks, CLIs, and simple backend jobs
-- `AsyncKaypohClient`: use inside `asyncio` applications such as FastAPI handlers, async workers, and services that already use `await`
-- both call the same Kaypoh backend routes and return the same typed response models
+- `JunasClient`: use in standard blocking Python scripts, notebooks, CLIs, and simple backend jobs
+- `AsyncJunasClient`: use inside `asyncio` applications such as FastAPI handlers, async workers, and services that already use `await`
+- both call the same Junas backend routes and return the same typed response models
 
 ## Quickstart
 
 Synchronous:
 
 ```python
-from kaypoh import KaypohClient
+from junas import JunasClient
 
-with KaypohClient("http://localhost:8000") as client:
+with JunasClient("http://localhost:8000") as client:
     result = client.classify(
         text="Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.",
         entity_id="acme-corp",
@@ -61,11 +61,11 @@ Asynchronous:
 ```python
 import asyncio
 
-from kaypoh import AsyncKaypohClient
+from junas import AsyncJunasClient
 
 
 async def main() -> None:
-    async with AsyncKaypohClient("http://localhost:8000") as client:
+    async with AsyncJunasClient("http://localhost:8000") as client:
         result = await client.classify(
             text="Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.",
             entity_id="acme-corp",
@@ -110,7 +110,7 @@ python scripts/examples/review_then_actions_async.py \
 
 Review then request approval:
 
-The backend must already run with `KAYPOH_REVIEW_PERSIST=1` for approval requests.
+The backend must already run with `JUNAS_REVIEW_PERSIST=1` for approval requests.
 
 ```sh
 python scripts/examples/review_then_actions_sync.py \
@@ -132,13 +132,13 @@ printf '%s\n' 'Send Dr Jane Tan S1234567D externally.' | \
 Authenticated example:
 
 ```sh
-KAYPOH_API_KEY="dev-secret" ./scripts/launch/run_backend_only.sh
+JUNAS_API_KEY="dev-secret" ./scripts/launch/run_backend_only.sh
 python scripts/examples/sync_client_example.py \
   "Restricted board memo" \
   --api-key dev-secret
 ```
 
-Returned values are typed Pydantic models from `kaypoh.backend.schemas`, so they support:
+Returned values are typed Pydantic models from `junas.backend.schemas`, so they support:
 
 ```python
 result.model_dump()
@@ -148,23 +148,23 @@ result.model_dump_json(indent=2)
 ## API Key
 
 ```python
-from kaypoh import KaypohClient
+from junas import JunasClient
 
-with KaypohClient("http://localhost:8000", api_key="dev-secret") as client:
+with JunasClient("http://localhost:8000", api_key="dev-secret") as client:
     result = client.classify(text="Draft board memo")
 ```
 
 ## Batch Classification
 
 ```python
-from kaypoh import KaypohClient
+from junas import JunasClient
 
 items = [
     {"text": "Acme Corp is acquiring GlobalTech next quarter.", "include_offending_spans": True},
     {"text": "Public press release for next week's earnings call."},
 ]
 
-with KaypohClient("http://localhost:8000") as client:
+with JunasClient("http://localhost:8000") as client:
     batch = client.classify_batch(items)
     for result in batch.results:
         print(result.classification)
@@ -175,9 +175,9 @@ with KaypohClient("http://localhost:8000") as client:
 Use `review` when the caller needs PII and MNPI findings, source/destination jurisdiction handling, scores, and remediation suggestions before sending a document:
 
 ```python
-from kaypoh import KaypohClient
+from junas import JunasClient
 
-with KaypohClient("http://localhost:8000") as client:
+with JunasClient("http://localhost:8000") as client:
     result = client.review(
         text="Please send to Tan S1234567D. Confidential: Acme Corp will acquire GlobalTech before announcement.",
         source_jurisdiction="SG",
@@ -196,16 +196,16 @@ with KaypohClient("http://localhost:8000") as client:
     print(result.suggestions)
 ```
 
-For file inputs, pass `document_base64`, `document_filename`, and optionally `document_mime_type`. Supported v1 extraction paths are plain text, DOCX, and PDF when `pypdf` is installed. PDF review returns degraded fail-open responses when the text layer is absent or too sparse unless `KAYPOH_DOCUMENT_FAIL_CLOSED=1` is set, and metadata leakage findings are returned under `result.document.metadata_findings`. Use `degraded_policy="block_send"` when clients should treat degraded coverage as non-sendable; responses expose `send_allowed`.
+For file inputs, pass `document_base64`, `document_filename`, and optionally `document_mime_type`. Supported v1 extraction paths are plain text, DOCX, and PDF when `pypdf` is installed. PDF review returns degraded fail-open responses when the text layer is absent or too sparse unless `JUNAS_DOCUMENT_FAIL_CLOSED=1` is set, and metadata leakage findings are returned under `result.document.metadata_findings`. Use `degraded_policy="block_send"` when clients should treat degraded coverage as non-sendable; responses expose `send_allowed`.
 
 Python client review and rewrite responses expose policy fields as typed attributes: `result.policy_decision` is a `PolicyDecisionResponse`, while `result.policy_decision_name`, `result.policy_send_allowed`, `result.policy_required_actions`, `result.policy_recommended_actions`, and `result.available_actions` avoid parsing `model_dump()` output for common adapter routing.
 
 To scrub supported container metadata before sharing a file:
 
 ```python
-from kaypoh import KaypohClient
+from junas import JunasClient
 
-with KaypohClient("http://localhost:8000") as client:
+with JunasClient("http://localhost:8000") as client:
     scrubbed = client.scrub_document(
         document_base64=encoded_docx,
         document_filename="draft.docx",
@@ -220,9 +220,9 @@ with KaypohClient("http://localhost:8000") as client:
 Use `pseudonymize` when the caller needs deterministic placeholders plus a local mapping table for later `/reidentify`:
 
 ```python
-from kaypoh import KaypohClient
+from junas import JunasClient
 
-with KaypohClient("http://localhost:8000") as client:
+with JunasClient("http://localhost:8000") as client:
     result = client.pseudonymize(
         text="Send Dr Jane Tan S1234567D the confidential draft.",
         source_jurisdiction="SG",
@@ -242,9 +242,9 @@ Set `include_mnpi_scalars=False` when monetary amounts, percentages, and large n
 ## Runtime Status
 
 ```python
-from kaypoh import KaypohClient
+from junas import JunasClient
 
-with KaypohClient("http://localhost:8000") as client:
+with JunasClient("http://localhost:8000") as client:
     print(client.health())
     print(client.ready())
     print(client.diagnostics())
@@ -255,11 +255,11 @@ Async variant:
 ```python
 import asyncio
 
-from kaypoh import AsyncKaypohClient
+from junas import AsyncJunasClient
 
 
 async def main() -> None:
-    async with AsyncKaypohClient("http://localhost:8000") as client:
+    async with AsyncJunasClient("http://localhost:8000") as client:
         print(await client.health())
         print(await client.ready())
         print(await client.diagnostics())
@@ -270,15 +270,15 @@ asyncio.run(main())
 
 ## Error Handling
 
-HTTP errors raise `KaypohAPIError` and include the status code plus parsed error detail:
+HTTP errors raise `JunasAPIError` and include the status code plus parsed error detail:
 
 ```python
-from kaypoh import KaypohAPIError, KaypohClient
+from junas import JunasAPIError, JunasClient
 
 try:
-    with KaypohClient("http://localhost:8000", api_key="wrong-key") as client:
+    with JunasClient("http://localhost:8000", api_key="wrong-key") as client:
         client.classify(text="Public update")
-except KaypohAPIError as exc:
+except JunasAPIError as exc:
     print(exc.status_code)
     print(exc.detail)
 ```

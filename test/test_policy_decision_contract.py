@@ -10,8 +10,8 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh.backend import main
-from kaypoh.policy import WorkflowContext, evaluate_policy
+from junas.backend import main
+from junas.policy import WorkflowContext, evaluate_policy
 
 
 class PolicyDecisionContractTests(unittest.TestCase):

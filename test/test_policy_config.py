@@ -9,7 +9,7 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh.policy import PolicyConfigError, load_policy_profile
+from junas.policy import PolicyConfigError, load_policy_profile
 
 
 class PolicyConfigTests(unittest.TestCase):

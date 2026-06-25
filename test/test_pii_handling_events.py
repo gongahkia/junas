@@ -22,8 +22,8 @@ No MNPI co-occurrence amplifier — these fire at fixed medium standalone.
 
 import unittest
 
-from kaypoh.review.citations import pii_rationale
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.citations import pii_rationale
+from junas.review.engine import PreSendReviewEngine
 
 
 class _ReviewHelper(unittest.TestCase):

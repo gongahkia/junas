@@ -2,14 +2,14 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-KAYPOH_HOST="${KAYPOH_HOST:-0.0.0.0}"
-KAYPOH_PORT="${KAYPOH_PORT:-8000}"
-KAYPOH_READY_TIMEOUT_SECONDS="${KAYPOH_READY_TIMEOUT_SECONDS:-180}"
+JUNAS_HOST="${JUNAS_HOST:-0.0.0.0}"
+JUNAS_PORT="${JUNAS_PORT:-8000}"
+JUNAS_READY_TIMEOUT_SECONDS="${JUNAS_READY_TIMEOUT_SECONDS:-180}"
 export UV_PROJECT_ENVIRONMENT="${UV_PROJECT_ENVIRONMENT:-${ROOT}/.venv-uv}"
 export UV_PYTHON="${UV_PYTHON:-3.12}"
 
 BACKEND_PID=""
-BACKEND_URL="http://localhost:${KAYPOH_PORT}"
+BACKEND_URL="http://localhost:${JUNAS_PORT}"
 
 cleanup_services() {
     local exit_code=$?
@@ -41,7 +41,7 @@ uvicorn_cmd() {
 }
 
 run_preflight() {
-    if [ "${KAYPOH_PREFLIGHT_STRICT:-1}" = "1" ]; then
+    if [ "${JUNAS_PREFLIGHT_STRICT:-1}" = "1" ]; then
         python_cmd "${ROOT}/scripts/preflight.py" --strict
     else
         python_cmd "${ROOT}/scripts/preflight.py" || true
@@ -49,11 +49,11 @@ run_preflight() {
 }
 
 wait_for_backend_ready() {
-    local ready_url="http://127.0.0.1:${KAYPOH_PORT}/ready"
+    local ready_url="http://127.0.0.1:${JUNAS_PORT}/ready"
 
     echo "Waiting for backend readiness at ${ready_url}..."
 
-    python_cmd - "${BACKEND_PID}" "${KAYPOH_PORT}" "${KAYPOH_READY_TIMEOUT_SECONDS}" <<'PY'
+    python_cmd - "${BACKEND_PID}" "${JUNAS_PORT}" "${JUNAS_READY_TIMEOUT_SECONDS}" <<'PY'
 import json
 import os
 import sys
@@ -117,7 +117,7 @@ PY
 }
 
 emit_launch_telemetry_report() {
-    local report_path="${KAYPOH_LAUNCH_TELEMETRY_FILE:-}"
+    local report_path="${JUNAS_LAUNCH_TELEMETRY_FILE:-}"
     local launch_mode="${1:-backend}"
 
     if [ -z "${report_path}" ]; then

@@ -17,7 +17,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `product/positioning.md`: canonical product positioning, target users, non-goals, and DLP boundary
 - `product/workflows.md`: daily workflow maps for Outlook, GenAI browser, DMS, API, reviewer, and auditor paths
 - `product/personas.md`: jobs-to-be-done for end users, legal reviewers, compliance admins, security engineers, and platform integrators
-- `product/non-goals.md`: explicit control planes Kaypoh does not replace
+- `product/non-goals.md`: explicit control planes Junas does not replace
 - `product/research-basis.md`: external deployment/security research basis for adapter and DLP claims
 - `product/glossary.md`: product vocabulary for review, rewrite, audit evidence, adapters, and surfaces
 - `product/review-examples.md`: same-contract `/review` examples for GenAI, email, legal memo, DMS, and Slack-style messages

@@ -15,7 +15,7 @@ _MINOR_AGE_CLIFFS. Age cliffs verified against statute text 2026-05-27:
 
 import unittest
 
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.engine import PreSendReviewEngine
 
 
 class MinorDataReferenceTests(unittest.TestCase):
@@ -167,12 +167,12 @@ class MinorDataReferenceTests(unittest.TestCase):
 
     # --- citation wiring ---
     def test_citation_includes_dpdpa_s9(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="minor_data_reference", jurisdiction="IN", matched_text="aged 14")
         self.assertIn("DPDPA India 2023 s2(f) + s9", rationale)
 
     def test_citation_includes_coppa(self):
-        from kaypoh.review.citations import pii_rationale
+        from junas.review.citations import pii_rationale
         rationale = pii_rationale(rule="minor_data_reference", jurisdiction="US", matched_text="11-year-old")
         self.assertIn("COPPA", rationale)
 

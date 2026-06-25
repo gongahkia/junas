@@ -14,8 +14,8 @@ import os
 import tempfile
 import unittest
 
-from kaypoh.review import llm_defined_terms
-from kaypoh.review.engine import PreSendReviewEngine, ReviewLayerError
+from junas.review import llm_defined_terms
+from junas.review.engine import PreSendReviewEngine, ReviewLayerError
 
 
 class DummyExtractor:
@@ -43,12 +43,12 @@ class FailingExtractor:
 class LLMDefinedTermCacheTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
-        os.environ["KAYPOH_JOURNAL_DIR"] = self._tmpdir.name
+        os.environ["JUNAS_JOURNAL_DIR"] = self._tmpdir.name
         importlib.reload(llm_defined_terms)
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        os.environ.pop("KAYPOH_JOURNAL_DIR", None)
+        os.environ.pop("JUNAS_JOURNAL_DIR", None)
         importlib.reload(llm_defined_terms)
 
     def test_extract_with_cache_returns_casefolded_terms(self):
@@ -93,12 +93,12 @@ class LLMDefinedTermCacheTests(unittest.TestCase):
 class EngineLLMDefinedTermIntegrationTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
-        os.environ["KAYPOH_JOURNAL_DIR"] = self._tmpdir.name
+        os.environ["JUNAS_JOURNAL_DIR"] = self._tmpdir.name
         importlib.reload(llm_defined_terms)
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        os.environ.pop("KAYPOH_JOURNAL_DIR", None)
+        os.environ.pop("JUNAS_JOURNAL_DIR", None)
         importlib.reload(llm_defined_terms)
 
     def test_audit_grade_engages_extractor_and_suppresses_named_person(self):

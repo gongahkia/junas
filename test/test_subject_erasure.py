@@ -19,16 +19,16 @@ class SubjectErasureIndexTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
         self.tmpdir = Path(self._tmpdir.name)
-        os.environ["KAYPOH_JOURNAL_DIR"] = str(self.tmpdir)
-        os.environ["KAYPOH_JOURNAL_KEY"] = "subject-erasure-test-key"
-        os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
-        os.environ["KAYPOH_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
+        os.environ["JUNAS_JOURNAL_DIR"] = str(self.tmpdir)
+        os.environ["JUNAS_JOURNAL_KEY"] = "subject-erasure-test-key"
+        os.environ["JUNAS_REVIEW_PERSIST"] = "1"
+        os.environ["JUNAS_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
-        import kaypoh.anonymize.mapping_store as mapping_mod
-        import kaypoh.backend.main as main_mod
-        import kaypoh.review.decisions as decisions_mod
-        import kaypoh.review.journal as journal_mod
-        import kaypoh.review.subject_index as subject_index_mod
+        import junas.anonymize.mapping_store as mapping_mod
+        import junas.backend.main as main_mod
+        import junas.review.decisions as decisions_mod
+        import junas.review.journal as journal_mod
+        import junas.review.subject_index as subject_index_mod
         import scripts.erase_subject as erase_subject_mod
 
         importlib.reload(journal_mod)
@@ -50,13 +50,13 @@ class SubjectErasureIndexTests(unittest.TestCase):
     def tearDown(self):
         self._tmpdir.cleanup()
         for var in (
-            "KAYPOH_JOURNAL_DIR",
-            "KAYPOH_JOURNAL_KEY",
-            "KAYPOH_REVIEW_PERSIST",
-            "KAYPOH_SUBJECT_INDEX_KEY",
+            "JUNAS_JOURNAL_DIR",
+            "JUNAS_JOURNAL_KEY",
+            "JUNAS_REVIEW_PERSIST",
+            "JUNAS_SUBJECT_INDEX_KEY",
         ):
             os.environ.pop(var, None)
-        import kaypoh.backend.main as main_mod
+        import junas.backend.main as main_mod
 
         importlib.reload(main_mod)
 
@@ -108,7 +108,7 @@ class SubjectErasureIndexTests(unittest.TestCase):
         self.assertTrue(any(entry["entry_type"] == "review" for entry in lookup["entries"]))
 
     def test_persistence_fails_closed_when_subject_index_key_missing(self):
-        os.environ.pop("KAYPOH_SUBJECT_INDEX_KEY", None)
+        os.environ.pop("JUNAS_SUBJECT_INDEX_KEY", None)
         with TestClient(self.main.app) as client:
             response = client.post(
                 "/pseudonymize",

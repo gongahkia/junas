@@ -1,6 +1,6 @@
 # DMS Integration
 
-Source: `src/kaypoh/integrations/dms.py`, `scripts/scan_dms_manifest.py`
+Source: `src/junas/integrations/dms.py`, `scripts/scan_dms_manifest.py`
 
 Maturity: `experimental`
 

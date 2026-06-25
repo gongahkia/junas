@@ -91,16 +91,16 @@ def start_backend(args: argparse.Namespace) -> subprocess.Popen:
     env.setdefault("UV_PROJECT_ENVIRONMENT", str(ROOT / ".venv-uv"))
     env.setdefault("UV_PYTHON", "3.12")
     if args.config:
-        env["KAYPOH_CONFIG"] = str(args.config.resolve())
+        env["JUNAS_CONFIG"] = str(args.config.resolve())
 
     if shutil.which("uv"):
-        cmd = ["uv", "run", "uvicorn", "kaypoh.backend.main:app", "--host", "127.0.0.1", "--port", str(args.port)]
+        cmd = ["uv", "run", "uvicorn", "junas.backend.main:app", "--host", "127.0.0.1", "--port", str(args.port)]
     else:
         cmd = [
             sys.executable,
             "-m",
             "uvicorn",
-            "kaypoh.backend.main:app",
+            "junas.backend.main:app",
             "--host",
             "127.0.0.1",
             "--port",
@@ -291,7 +291,7 @@ def write_reports(
         writer.writerows(summaries)
 
     lines = [
-        "Kaypoh Latency Benchmark Report",
+        "Junas Latency Benchmark Report",
         "",
         f"Generated: {timestamp}",
         f"Target URL: {base_url}",

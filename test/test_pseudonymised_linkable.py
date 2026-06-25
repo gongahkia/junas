@@ -18,8 +18,8 @@ controller can re-link to a subject as personal data.
 
 import unittest
 
-from kaypoh.review.citations import pii_rationale
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.citations import pii_rationale
+from junas.review.engine import PreSendReviewEngine
 
 
 class _Base(unittest.TestCase):

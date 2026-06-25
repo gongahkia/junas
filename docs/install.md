@@ -13,8 +13,8 @@ uv run python -m spacy download en_core_web_sm
 Optional release env:
 
 ```sh
-export KAYPOH_CODESIGN_IDENTITY="Developer ID Application: Example Pte Ltd (TEAMID)"
-export KAYPOH_NOTARYTOOL_PROFILE=kaypoh-notary
+export JUNAS_CODESIGN_IDENTITY="Developer ID Application: Example Pte Ltd (TEAMID)"
+export JUNAS_NOTARYTOOL_PROFILE=junas-notary
 ```
 
 `scripts/package_macos_desktop.sh` runs `codesign`, `notarytool`, and `stapler` when those release env vars are set.
@@ -47,7 +47,7 @@ Package:
 ./scripts/package_browser_extension.sh
 ```
 
-Chrome on macOS/Windows must use Chrome Web Store or enterprise policy for self-hosted extension rollout. The generated ZIP is for store upload, developer loading, or managed packaging. Set `KAYPOH_CHROME_EXTENSION_KEY` to produce a CRX with Chrome's packer for enterprise-controlled channels.
+Chrome on macOS/Windows must use Chrome Web Store or enterprise policy for self-hosted extension rollout. The generated ZIP is for store upload, developer loading, or managed packaging. Set `JUNAS_CHROME_EXTENSION_KEY` to produce a CRX with Chrome's packer for enterprise-controlled channels.
 
 ## Office add-ins
 
@@ -63,7 +63,7 @@ Deploy with Microsoft 365 admin-managed deployment for production users. Outlook
 ```sh
 uv sync --extra dev
 uv run python -m spacy download en_core_web_sm
-KAYPOH_DEPLOYMENT_MODE=production uv run python scripts/preflight.py --deployment production --strict
+JUNAS_DEPLOYMENT_MODE=production uv run python scripts/preflight.py --deployment production --strict
 ./scripts/launch/run_prod.sh
 ```
 
@@ -77,8 +77,8 @@ curl http://localhost:8000/ready
 Managed LLM deployment requires explicit tenant/deployer opt-in:
 
 ```sh
-KAYPOH_LLM_API_KEY=... \
-KAYPOH_LLM_TENANT_OPT_IN_OPENAI=1 \
+JUNAS_LLM_API_KEY=... \
+JUNAS_LLM_TENANT_OPT_IN_OPENAI=1 \
 SERPER_API_KEY=... \
 docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --build
 ```

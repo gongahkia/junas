@@ -15,7 +15,7 @@ REQUIRED_CONTROLS = ("journal", "mapping_store", "logs", "siem", "backups")
 
 
 def _manifest_path(raw: str | None = None) -> Path:
-    path = raw or os.environ.get("KAYPOH_RETENTION_MANIFEST", "").strip() or str(DEFAULT_MANIFEST)
+    path = raw or os.environ.get("JUNAS_RETENTION_MANIFEST", "").strip() or str(DEFAULT_MANIFEST)
     return Path(path).expanduser().resolve()
 
 
@@ -78,7 +78,7 @@ def check_manifest(path: Path) -> dict[str, Any]:
             for name in REQUIRED_CONTROLS
         ]
         return {
-            "schema_version": "kaypoh.retention_manifest.v1",
+            "schema_version": "junas.retention_manifest.v1",
             "manifest_path": str(path),
             "ok": False,
             "error": error,
@@ -91,7 +91,7 @@ def check_manifest(path: Path) -> dict[str, Any]:
     controls = [_evaluate_control(name, controls_section.get(name)) for name in REQUIRED_CONTROLS]
     ok = all(item["status"] == "configured" for item in controls)
     return {
-        "schema_version": "kaypoh.retention_manifest.v1",
+        "schema_version": "junas.retention_manifest.v1",
         "manifest_path": str(path),
         "ok": ok,
         "error": "",
@@ -100,7 +100,7 @@ def check_manifest(path: Path) -> dict[str, Any]:
 
 
 def render_text(payload: dict[str, Any]) -> str:
-    lines = ["=== Kaypoh Retention Manifest ===", f"manifest_path: {payload['manifest_path']}"]
+    lines = ["=== Junas Retention Manifest ===", f"manifest_path: {payload['manifest_path']}"]
     if payload.get("error"):
         lines.append(f"error: {payload['error']}")
     lines.append("controls:")
@@ -111,7 +111,7 @@ def render_text(payload: dict[str, Any]) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Check Kaypoh retention controls manifest")
+    parser = argparse.ArgumentParser(description="Check Junas retention controls manifest")
     parser.add_argument("--manifest", help="path to retention manifest JSON")
     parser.add_argument("--strict", action="store_true", help="exit non-zero when any control is missing or invalid")
     parser.add_argument("--json", action="store_true", help="emit machine-readable JSON")

@@ -5,8 +5,8 @@ same `adjudicate()` interface `LocalLLMAdjudicator` exposes. The architecture
 explicitly says "no runtime contract changes" — so this module satisfies the
 contract from outside rather than mutating LocalLLMAdjudicator itself.
 
-To activate at runtime: set `KAYPOH_LLM_PROVIDER=local_distilled` and provide
-`KAYPOH_LLM_DISTILLED_ADAPTER_PATH` pointing at the LoRA adapter dir. The
+To activate at runtime: set `JUNAS_LLM_PROVIDER=local_distilled` and provide
+`JUNAS_LLM_DISTILLED_ADAPTER_PATH` pointing at the LoRA adapter dir. The
 LocalLLMAdjudicator branch in `inference.py` short-circuits to this builder
 when those are set.
 
@@ -97,7 +97,7 @@ class LocalDistilledAdjudicator:
         except ImportError as exc:
             raise RuntimeError(
                 "local_distilled requires `torch`, `transformers`, `peft`. "
-                f"Install with `pip install kaypoh[server,training]`. (missing: {exc})"
+                f"Install with `pip install junas[server,training]`. (missing: {exc})"
             ) from exc
 
         device = self.device or ("cuda" if torch.cuda.is_available() else "cpu")
@@ -134,7 +134,7 @@ class LocalDistilledAdjudicator:
                 )},
             ]
         if self.input_mode == "structured_tokens":
-            from kaypoh.advisory.llm_adjudicator.structured_query import (
+            from junas.advisory.llm_adjudicator.structured_query import (
                 build_structured_query,
             )
             query = build_structured_query(

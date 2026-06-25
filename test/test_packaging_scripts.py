@@ -26,8 +26,8 @@ class PackagingScriptTests(unittest.TestCase):
             result = self.run_script(
                 "package_browser_extension.sh",
                 {
-                    "KAYPOH_EXTENSION_SRC": str(Path(tmp) / "missing_browser_extension"),
-                    "KAYPOH_EXTENSION_OUT_DIR": str(Path(tmp) / "out"),
+                    "JUNAS_EXTENSION_SRC": str(Path(tmp) / "missing_browser_extension"),
+                    "JUNAS_EXTENSION_OUT_DIR": str(Path(tmp) / "out"),
                 },
             )
 
@@ -40,8 +40,8 @@ class PackagingScriptTests(unittest.TestCase):
             result = self.run_script(
                 "package_macos_desktop.sh",
                 {
-                    "KAYPOH_DESKTOP_SRC": str(Path(tmp) / "missing_desktop"),
-                    "KAYPOH_PACKAGE_OUTPUT": str(Path(tmp) / "out.zip"),
+                    "JUNAS_DESKTOP_SRC": str(Path(tmp) / "missing_desktop"),
+                    "JUNAS_PACKAGE_OUTPUT": str(Path(tmp) / "out.zip"),
                 },
             )
 

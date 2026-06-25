@@ -14,14 +14,14 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh.anonymize.mapping_store import load_mapping, purge_mapping  # noqa: E402
-from kaypoh.review.decisions import (  # noqa: E402
+from junas.anonymize.mapping_store import load_mapping, purge_mapping  # noqa: E402
+from junas.review.decisions import (  # noqa: E402
     EVENT_REVIEW_STARTED,
     EVENT_SUBJECT_ERASURE_RECORDED,
     record_subject_erasure,
 )
-from kaypoh.review.journal import append_event, journal_dir, read_journal  # noqa: E402
-from kaypoh.review.subject_index import (  # noqa: E402
+from junas.review.journal import append_event, journal_dir, read_journal  # noqa: E402
+from junas.review.subject_index import (  # noqa: E402
     SubjectIndexError,
     index_mapping,
     index_review_findings,
@@ -187,7 +187,7 @@ def _print_text(payload: dict[str, Any]) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Erase Kaypoh subject references by HMAC-index lookup")
+    parser = argparse.ArgumentParser(description="Erase Junas subject references by HMAC-index lookup")
     parser.add_argument("--tenant", "--tenant-id", dest="tenant_id", help="tenant storage id")
     parser.add_argument("--value", help="raw subject value to hash and erase; never persisted by this script")
     parser.add_argument("--citation", default="", help="legal or ticket citation for non-dry-run erasure")

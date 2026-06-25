@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Scan a neutral DMS export manifest with Kaypoh review."""
+"""Scan a neutral DMS export manifest with Junas review."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ SRC_PATH = REPO_ROOT / "src"
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.integrations.dms import scan_manifest  # noqa: E402
+from junas.integrations.dms import scan_manifest  # noqa: E402
 
 
 def main(argv: list[str] | None = None) -> int:

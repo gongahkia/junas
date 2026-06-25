@@ -1,47 +1,47 @@
 # Deployment Hardening
 
-This guide covers the controls expected around a production Kaypoh deployment. It
+This guide covers the controls expected around a production Junas deployment. It
 does not replace a formal SOC 2 / ISO 27001 control set; it gives operators concrete
 defaults for filesystem protection, transport hardening, secrets handling, and SIEM
 export.
 
 ## Filesystem Boundaries
 
-Run Kaypoh as a dedicated service account and keep runtime state out of user-writable
+Run Junas as a dedicated service account and keep runtime state out of user-writable
 directories.
 
 ```sh
-sudo install -d -o kaypoh -g kaypoh -m 0700 /var/lib/kaypoh
-sudo install -d -o kaypoh -g kaypoh -m 0700 /var/lib/kaypoh/journal
-sudo install -d -o kaypoh -g kaypoh -m 0750 /etc/kaypoh
+sudo install -d -o junas -g junas -m 0700 /var/lib/junas
+sudo install -d -o junas -g junas -m 0700 /var/lib/junas/journal
+sudo install -d -o junas -g junas -m 0750 /etc/junas
 ```
 
 Recommended ownership:
 
 | Path | Owner | Mode | Contents |
 |---|---|---:|---|
-| `/etc/kaypoh/config.toml` | `root:kaypoh` | `0640` | Runtime config without raw secrets |
-| `/var/lib/kaypoh/journal` | `kaypoh:kaypoh` | `0700` | HMAC journal, mapping store, audit packs |
-| `/var/log/kaypoh` | `kaypoh:adm` | `0750` | Process logs when not shipping directly |
+| `/etc/junas/config.toml` | `root:junas` | `0640` | Runtime config without raw secrets |
+| `/var/lib/junas/journal` | `junas:junas` | `0700` | HMAC journal, mapping store, audit packs |
+| `/var/log/junas` | `junas:adm` | `0750` | Process logs when not shipping directly |
 
-When `KAYPOH_TENANCY_ENABLED=1`, Kaypoh partitions journals, mappings, and defined-term
-session sidecars under `${KAYPOH_JOURNAL_DIR}/tenants/{tenant_id}/`. Tenant IDs are
+When `JUNAS_TENANCY_ENABLED=1`, Junas partitions journals, mappings, and defined-term
+session sidecars under `${JUNAS_JOURNAL_DIR}/tenants/{tenant_id}/`. Tenant IDs are
 derived from configured API-key credentials or validated JWT claims, never from
-caller-supplied tenant headers. Keep the base journal directory private to the Kaypoh
+caller-supplied tenant headers. Keep the base journal directory private to the Junas
 service account.
 
 ## At-Rest Encryption
 
-Use host or volume encryption even when `KAYPOH_MAPPING_STORE_KEY` is enabled. The
+Use host or volume encryption even when `JUNAS_MAPPING_STORE_KEY` is enabled. The
 mapping key protects mapping files; it does not encrypt the HMAC journal, process logs,
 or audit-pack exports.
 
 - macOS: FileVault for desktop deployments.
-- Linux VM / bare metal: LUKS-backed volume for `/var/lib/kaypoh`.
+- Linux VM / bare metal: LUKS-backed volume for `/var/lib/junas`.
 - Windows: BitLocker on the service volume.
 - Cloud: encrypted block volumes with customer-managed KMS keys where available.
 
-Set `KAYPOH_MAPPING_STORE_KEY` from a secret manager for persisted mapping
+Set `JUNAS_MAPPING_STORE_KEY` from a secret manager for persisted mapping
 confidentiality. See `docs/mapping-store-hardening.md` for key generation and purge
 commands.
 
@@ -55,10 +55,10 @@ Minimal Nginx shape:
 ```nginx
 server {
     listen 443 ssl http2;
-    server_name kaypoh.internal.example;
+    server_name junas.internal.example;
 
-    ssl_certificate     /etc/nginx/certs/kaypoh.crt;
-    ssl_certificate_key /etc/nginx/certs/kaypoh.key;
+    ssl_certificate     /etc/nginx/certs/junas.crt;
+    ssl_certificate_key /etc/nginx/certs/junas.key;
 
     location / {
         proxy_pass http://127.0.0.1:8000;
@@ -87,15 +87,15 @@ filter_chains:
         "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
         common_tls_context:
           tls_certificates:
-            - certificate_chain: { filename: /etc/envoy/certs/kaypoh.crt }
-              private_key: { filename: /etc/envoy/certs/kaypoh.key }
+            - certificate_chain: { filename: /etc/envoy/certs/junas.crt }
+              private_key: { filename: /etc/envoy/certs/junas.key }
           validation_context:
             trusted_ca: { filename: /etc/envoy/certs/client-ca.crt }
     filters:
       - name: envoy.filters.network.http_connection_manager
 ```
 
-Keep `KAYPOH_API_KEY` enabled behind the proxy unless an upstream identity layer already
+Keep `JUNAS_API_KEY` enabled behind the proxy unless an upstream identity layer already
 performs authenticated, authorized routing.
 
 ## Secrets
@@ -104,11 +104,11 @@ Keep these values out of checked-in config and shell history:
 
 | Secret | Purpose |
 |---|---|
-| `KAYPOH_API_KEY` | API access gate for local/server endpoints |
-| `KAYPOH_JOURNAL_KEY` or `KAYPOH_JOURNAL_KEYS_FILE` | HMAC journal sealing |
-| `KAYPOH_MAPPING_STORE_KEY` | Fernet encryption for persisted mappings |
-| `KAYPOH_SUBJECT_INDEX_KEY` | HMAC key for subject-erasure reverse-index lookups |
-| `KAYPOH_EXA_API_KEY`, `KAYPOH_TINYFISH_API_KEY`, `KAYPOH_LLM_API_KEY` | External providers |
+| `JUNAS_API_KEY` | API access gate for local/server endpoints |
+| `JUNAS_JOURNAL_KEY` or `JUNAS_JOURNAL_KEYS_FILE` | HMAC journal sealing |
+| `JUNAS_MAPPING_STORE_KEY` | Fernet encryption for persisted mappings |
+| `JUNAS_SUBJECT_INDEX_KEY` | HMAC key for subject-erasure reverse-index lookups |
+| `JUNAS_EXA_API_KEY`, `JUNAS_TINYFISH_API_KEY`, `JUNAS_LLM_API_KEY` | External providers |
 
 Recommended sources:
 
@@ -120,7 +120,7 @@ Recommended sources:
 
 ## Kubernetes Baseline
 
-Use read-only images and writable volumes only where Kaypoh must persist state.
+Use read-only images and writable volumes only where Junas must persist state.
 
 ```yaml
 securityContext:
@@ -131,35 +131,35 @@ securityContext:
 volumes:
   - name: journal
     persistentVolumeClaim:
-      claimName: kaypoh-journal
+      claimName: junas-journal
 containers:
-  - name: kaypoh
-    image: ghcr.io/example/kaypoh:latest
+  - name: junas
+    image: ghcr.io/example/junas:latest
     ports:
       - containerPort: 8000
     volumeMounts:
       - name: journal
-        mountPath: /var/lib/kaypoh/journal
+        mountPath: /var/lib/junas/journal
     env:
-      - name: KAYPOH_JOURNAL_DIR
-        value: /var/lib/kaypoh/journal
+      - name: JUNAS_JOURNAL_DIR
+        value: /var/lib/junas/journal
 ```
 
-Add network policies so only the ingress/proxy namespace can reach the Kaypoh service.
+Add network policies so only the ingress/proxy namespace can reach the Junas service.
 If public evidence or remote LLM providers are disabled, block outbound internet egress.
 
 ## Tenant Auth And RBAC
 
-Legacy single-tenant deployments can keep using `KAYPOH_API_KEY`. Multi-tenant server
+Legacy single-tenant deployments can keep using `JUNAS_API_KEY`. Multi-tenant server
 deployments should enable tenancy and choose API-key registry mode, JWT mode, or both:
 
 ```sh
-export KAYPOH_TENANCY_ENABLED=1
-export KAYPOH_TENANCY_AUTH_MODES=api_key,jwt
-export KAYPOH_TENANT_CREDENTIALS_JSON='{"tenant-a-key":{"tenant_id":"tenant-a","subject":"svc-a","roles":["reviewer","maker","auditor"]}}'
-export KAYPOH_JWT_JWKS_URL=https://idp.example/.well-known/jwks.json
-export KAYPOH_JWT_ISSUER=https://idp.example/
-export KAYPOH_JWT_AUDIENCE=kaypoh-api
+export JUNAS_TENANCY_ENABLED=1
+export JUNAS_TENANCY_AUTH_MODES=api_key,jwt
+export JUNAS_TENANT_CREDENTIALS_JSON='{"tenant-a-key":{"tenant_id":"tenant-a","subject":"svc-a","roles":["reviewer","maker","auditor"]}}'
+export JUNAS_JWT_JWKS_URL=https://idp.example/.well-known/jwks.json
+export JUNAS_JWT_ISSUER=https://idp.example/
+export JUNAS_JWT_AUDIENCE=junas-api
 ```
 
 Supported roles are `reviewer`, `maker`, `checker`, `admin`, and `auditor`. Review,
@@ -169,22 +169,22 @@ recording requires `maker|checker|admin`; review-session reads require
 
 Decision attribution is bound to the authenticated principal: JWT deployments record the
 token subject, API-key deployments record the configured credential subject, and
-`X-Reviewer-ID` is accepted only for local development with `KAYPOH_DEV_AUTH=1`.
+`X-Reviewer-ID` is accepted only for local development with `JUNAS_DEV_AUTH=1`.
 
 ## Subject Erasure Runbook
 
 Subject erasure uses the HMAC reverse index under
-`${KAYPOH_JOURNAL_DIR}/subject_index/` or the tenant-scoped equivalent. The index stores
+`${JUNAS_JOURNAL_DIR}/subject_index/` or the tenant-scoped equivalent. The index stores
 only HMACs and persisted reference metadata; it does not store raw PII. Operators must
-set the same `KAYPOH_SUBJECT_INDEX_KEY` used when the data was indexed.
+set the same `JUNAS_SUBJECT_INDEX_KEY` used when the data was indexed.
 
 Before handling a request, rebuild the index if the deployment predates subject-index
 enforcement or if mappings/journals were restored from backup:
 
 ```sh
-export KAYPOH_JOURNAL_DIR=/var/lib/kaypoh/journal
-export KAYPOH_JOURNAL_KEY=...
-export KAYPOH_SUBJECT_INDEX_KEY=...
+export JUNAS_JOURNAL_DIR=/var/lib/junas/journal
+export JUNAS_JOURNAL_KEY=...
+export JUNAS_SUBJECT_INDEX_KEY=...
 
 uv run python scripts/erase_subject.py --tenant tenant-a --backfill --json
 ```
@@ -224,12 +224,12 @@ Production strict preflight checks for an operator-maintained retention manifest
 manifest records whether journal, mapping-store, application-log, SIEM, and backup
 retention controls are configured; it does not perform deletion by itself.
 
-Point Kaypoh at the manifest with `KAYPOH_RETENTION_MANIFEST`, or keep
+Point Junas at the manifest with `JUNAS_RETENTION_MANIFEST`, or keep
 `retention_manifest.json` at the repository/deployment root:
 
 ```json
 {
-  "schema_version": "kaypoh.retention_manifest.v1",
+  "schema_version": "junas.retention_manifest.v1",
   "controls": {
     "journal": { "retention_days": 2555 },
     "mapping_store": { "delete_after_days": 90 },
@@ -259,15 +259,15 @@ with a separately documented erasure/tombstone process.
 Validate it before production deploys:
 
 ```sh
-uv run python scripts/check_retention_manifest.py --manifest /etc/kaypoh/retention_manifest.json --strict
-uv run python scripts/check_retention_manifest.py --manifest /etc/kaypoh/retention_manifest.json --json
-KAYPOH_RETENTION_MANIFEST=/etc/kaypoh/retention_manifest.json uv run python scripts/preflight.py --deployment production --strict
+uv run python scripts/check_retention_manifest.py --manifest /etc/junas/retention_manifest.json --strict
+uv run python scripts/check_retention_manifest.py --manifest /etc/junas/retention_manifest.json --json
+JUNAS_RETENTION_MANIFEST=/etc/junas/retention_manifest.json uv run python scripts/preflight.py --deployment production --strict
 ```
 
 ## Document Ingest And Metadata
 
 PDF review fails open by default when the extracted text layer is missing, too sparse,
-or image-only. Set `KAYPOH_DOCUMENT_FAIL_CLOSED=1` or `document_ingest.fail_closed=true`
+or image-only. Set `JUNAS_DOCUMENT_FAIL_CLOSED=1` or `document_ingest.fail_closed=true`
 to reject these payloads instead of returning degraded best-effort responses.
 
 `/review`, `/pseudonymize`, `/anonymize`, and `/redact` report DOCX/PDF/image container metadata under
@@ -277,7 +277,7 @@ the installed dependencies support that file type.
 
 ## SIEM Export
 
-Kaypoh can emit JSON-over-syslog events for security and audit correlation. It is off by
+Junas can emit JSON-over-syslog events for security and audit correlation. It is off by
 default.
 
 ```toml
@@ -286,20 +286,20 @@ enabled = true
 sink = "syslog"
 syslog_address = "udp://127.0.0.1:5514"
 facility = "local4"
-app_name = "kaypoh"
+app_name = "junas"
 ```
 
 Equivalent environment variables:
 
 ```sh
-export KAYPOH_SIEM_ENABLED=1
-export KAYPOH_SIEM_SINK=syslog
-export KAYPOH_SIEM_SYSLOG_ADDRESS=udp://127.0.0.1:5514
-export KAYPOH_SIEM_FACILITY=local4
-export KAYPOH_SIEM_APP_NAME=kaypoh
+export JUNAS_SIEM_ENABLED=1
+export JUNAS_SIEM_SINK=syslog
+export JUNAS_SIEM_SYSLOG_ADDRESS=udp://127.0.0.1:5514
+export JUNAS_SIEM_FACILITY=local4
+export JUNAS_SIEM_APP_NAME=junas
 ```
 
-Emitted events use `schema_version="kaypoh.siem.v1"` and include:
+Emitted events use `schema_version="junas.siem.v1"` and include:
 
 | Event type | Source |
 |---|---|

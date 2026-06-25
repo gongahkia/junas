@@ -3,8 +3,8 @@ const DEFAULTS = {
   token: ""
 };
 const STORAGE_KEYS = {
-  endpoint: "kaypoh.endpoint",
-  token: "kaypoh.localToken"
+  endpoint: "junas.endpoint",
+  token: "junas.localToken"
 };
 let currentConfig = {...DEFAULTS};
 
@@ -58,9 +58,9 @@ function bodyText() {
   });
 }
 
-async function kaypohReview(text) {
+async function junasReview(text) {
   const headers = {"Content-Type": "application/json"};
-  if (currentConfig.token) headers["X-Kaypoh-Local-Token"] = currentConfig.token;
+  if (currentConfig.token) headers["X-Junas-Local-Token"] = currentConfig.token;
   const response = await fetch(`${currentConfig.endpoint}/review`, {
     method: "POST",
     headers,
@@ -73,7 +73,7 @@ async function kaypohReview(text) {
       degraded_policy: "warn"
     })
   });
-  if (!response.ok) throw new Error(`kaypoh ${response.status}`);
+  if (!response.ok) throw new Error(`junas ${response.status}`);
   return response.json();
 }
 
@@ -83,7 +83,7 @@ async function run(source) {
     currentConfig.endpoint = endpoint.value.trim() || DEFAULTS.endpoint;
     currentConfig.token = token.value.trim();
     const text = source === "selection" ? await selectedText() : await bodyText();
-    const result = await kaypohReview(text);
+    const result = await junasReview(text);
     output.textContent = JSON.stringify({
       pii_score: result.pii_score,
       mnpi_score: result.mnpi_score,

@@ -126,10 +126,10 @@ def _cost_summary(candidate_dir: Path) -> dict[str, Any]:
     price_env = {
         key: os.environ.get(key, "")
         for key in (
-            "KAYPOH_FIXTURE_INPUT_PRICE_PER_1M",
-            "KAYPOH_FIXTURE_OUTPUT_PRICE_PER_1M",
-            "KAYPOH_AUTOLABEL_INPUT_PRICE_PER_1M",
-            "KAYPOH_AUTOLABEL_OUTPUT_PRICE_PER_1M",
+            "JUNAS_FIXTURE_INPUT_PRICE_PER_1M",
+            "JUNAS_FIXTURE_OUTPUT_PRICE_PER_1M",
+            "JUNAS_AUTOLABEL_INPUT_PRICE_PER_1M",
+            "JUNAS_AUTOLABEL_OUTPUT_PRICE_PER_1M",
         )
         if os.environ.get(key, "")
     }

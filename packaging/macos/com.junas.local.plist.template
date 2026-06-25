@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.junas.local</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__INSTALL_DIR__/junas-local</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>__LOG_DIR__/junas-local.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>__LOG_DIR__/junas-local.err.log</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>JUNAS_HOST</key>
+    <string>127.0.0.1</string>
+    <key>JUNAS_PORT</key>
+    <string>8765</string>
+    <key>JUNAS_LOCAL_DAEMON_ACL_ENABLED</key>
+    <string>1</string>
+  </dict>
+</dict>
+</plist>

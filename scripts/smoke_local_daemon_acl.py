@@ -23,24 +23,24 @@ TOKEN = "local-smoke-token"
 
 def _env() -> dict[str, str]:
     return {
-        "KAYPOH_API_KEY": "",
-        "KAYPOH_LOCAL_DAEMON_ACL_ENABLED": "1",
-        "KAYPOH_LOCAL_DAEMON_TOKEN": TOKEN,
-        "KAYPOH_LOCAL_DAEMON_ALLOWED_ORIGINS": "https://chatgpt.com,https://claude.ai,https://gemini.google.com,chrome-extension://*",
+        "JUNAS_API_KEY": "",
+        "JUNAS_LOCAL_DAEMON_ACL_ENABLED": "1",
+        "JUNAS_LOCAL_DAEMON_TOKEN": TOKEN,
+        "JUNAS_LOCAL_DAEMON_ALLOWED_ORIGINS": "https://chatgpt.com,https://claude.ai,https://gemini.google.com,chrome-extension://*",
     }
 
 
 def _post_classify(client: TestClient, origin: str, token: str = TOKEN):
     headers = {"Origin": origin}
     if token:
-        headers["X-Kaypoh-Local-Token"] = token
+        headers["X-Junas-Local-Token"] = token
     return client.post("/classify", json={"text": "public update"}, headers=headers)
 
 
 def run_smoke() -> tuple[bool, list[dict[str, Any]]]:
     rows: list[dict[str, Any]] = []
     with patch.dict(os.environ, _env(), clear=False):
-        from kaypoh.backend import main  # noqa: PLC0415
+        from junas.backend import main  # noqa: PLC0415
 
         main._state.clear()
         with TestClient(main.app) as client:
@@ -54,7 +54,7 @@ def run_smoke() -> tuple[bool, list[dict[str, Any]]]:
                 pairing = pairing_start.json()
                 client.post(
                     "/local/pairing/approve",
-                    headers={"Origin": "https://chatgpt.com", "X-Kaypoh-Local-Token": TOKEN},
+                    headers={"Origin": "https://chatgpt.com", "X-Junas-Local-Token": TOKEN},
                     json={"pairing_id": pairing["pairing_id"], "pairing_code": pairing["pairing_code"]},
                 )
                 claim = client.post(
@@ -76,7 +76,7 @@ def run_smoke() -> tuple[bool, list[dict[str, Any]]]:
                         headers={
                             "Origin": "https://chatgpt.com",
                             "Access-Control-Request-Method": "POST",
-                            "Access-Control-Request-Headers": "content-type,x-kaypoh-local-token",
+                            "Access-Control-Request-Headers": "content-type,x-junas-local-token",
                         },
                     ),
                     200,

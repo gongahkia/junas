@@ -3,9 +3,9 @@ from contextlib import asynccontextmanager
 from threading import Lock
 from types import SimpleNamespace
 
-import kaypoh.backend.main as main
-from kaypoh.backend.cache import ResponseCache
-from kaypoh.backend.observability import ObservabilityManager
+import junas.backend.main as main
+from junas.backend.cache import ResponseCache
+from junas.backend.observability import ObservabilityManager
 
 
 @asynccontextmanager

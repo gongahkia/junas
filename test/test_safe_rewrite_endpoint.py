@@ -10,8 +10,8 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-import kaypoh.backend.main as main
-from kaypoh.backend.schemas import PolicyDecisionResponse, SafeRewriteRequest
+import junas.backend.main as main
+from junas.backend.schemas import PolicyDecisionResponse, SafeRewriteRequest
 
 
 @asynccontextmanager

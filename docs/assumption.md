@@ -2,7 +2,7 @@
 
 ## General
 
-- Kaypoh is API-only in this repo; archived UI/demo surfaces are not runtime product paths.
+- Junas is API-only in this repo; archived UI/demo surfaces are not runtime product paths.
 - `POST /review`, `POST /pseudonymize`, irreversible `POST /anonymize`, `POST /redact`, `POST /redact-pii`, `POST /hold-until-public`, `POST /cite-public-source`, and `POST /request-approval` are the primary endpoints.
 - `POST /classify` and `POST /classify/batch` are compatibility shims over `engine.review()`.
 - The deterministic engine is the source of truth. LLM/retrieval tiers are advisory and cannot suppress deterministic-high findings.
@@ -27,13 +27,13 @@
 
 - LLM adjudication is optional and disabled by default.
 - Local/private LLM endpoints may receive raw text.
-- Remote endpoints default to `structured_tokens`; remote raw text requires both `KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=1` and `KAYPOH_LLM_ALLOW_REMOTE_RAW_TEXT=1`.
-- OpenAI requires the additional tenant opt-in gate `KAYPOH_LLM_TENANT_OPT_IN_OPENAI=1`.
+- Remote endpoints default to `structured_tokens`; remote raw text requires both `JUNAS_LLM_ALLOW_REMOTE_BASE_URL=1` and `JUNAS_LLM_ALLOW_REMOTE_RAW_TEXT=1`.
+- OpenAI requires the additional tenant opt-in gate `JUNAS_LLM_TENANT_OPT_IN_OPENAI=1`.
 - LLM output is structured JSON and can only soften eligible ambiguous cases when public evidence supports it.
 
 ## FastAPI Orchestration
 
-- Canonical app entrypoint is `kaypoh.backend.main:app`; root `backend.*`, `api.*`, and `configs.*` shims are not supported.
+- Canonical app entrypoint is `junas.backend.main:app`; root `backend.*`, `api.*`, and `configs.*` shims are not supported.
 - Default pipeline is empty because the deterministic engine is called directly.
 - Configurable optional layers are `public_evidence` and `llm_adjudicator`.
 - `GET /health`, `/ready`, `/diagnostics`, and `/metrics` expose runtime status.

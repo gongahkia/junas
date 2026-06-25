@@ -203,7 +203,7 @@ def train(
     except ImportError as exc:
         raise RuntimeError(
             "training requires `torch`, `transformers`, `peft`, and `datasets`. "
-            f"Install them with `pip install kaypoh[server,training]`. (missing: {exc})"
+            f"Install them with `pip install junas[server,training]`. (missing: {exc})"
         ) from exc
 
     tokenizer = AutoTokenizer.from_pretrained(base_model, trust_remote_code=True)

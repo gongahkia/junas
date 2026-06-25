@@ -52,7 +52,7 @@ class CorpusCoverageGateTests(unittest.TestCase):
         self.assertEqual(report["counts"]["sector_mnpi"], 1)
 
     def test_missing_corpus_reports_blocker(self):
-        report = coverage_report(Path("/tmp/kaypoh-missing-corpus-for-test"), {"fixtures": 1})
+        report = coverage_report(Path("/tmp/junas-missing-corpus-for-test"), {"fixtures": 1})
 
         self.assertEqual(report["status"], "missing_corpus")
         self.assertEqual(report["missing"], {"fixtures": 1})

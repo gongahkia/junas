@@ -1,4 +1,4 @@
-"""KAYPOH_JOURNAL_KEYS_FILE keystore + rotate_journal_key sentinel events.
+"""JUNAS_JOURNAL_KEYS_FILE keystore + rotate_journal_key sentinel events.
 
 Three guarantees:
 1. Entries written under the keystore embed `key_version`; verify_chain resolves keys per-entry.
@@ -25,7 +25,7 @@ def _write_keystore(path: Path, *, active: str, keys: dict[str, str]) -> None:
 
 
 def _reload_journal():
-    import kaypoh.review.journal as journal_mod
+    import junas.review.journal as journal_mod
     return importlib.reload(journal_mod)
 
 
@@ -34,13 +34,13 @@ class JournalKeyRotationTests(unittest.TestCase):
         self._tmpdir = tempfile.TemporaryDirectory()
         self.tmpdir = Path(self._tmpdir.name)
         self.keys_path = self.tmpdir / "keys.toml"
-        os.environ["KAYPOH_JOURNAL_DIR"] = str(self.tmpdir)
-        os.environ.pop("KAYPOH_JOURNAL_KEY", None)
-        os.environ["KAYPOH_JOURNAL_KEYS_FILE"] = str(self.keys_path)
+        os.environ["JUNAS_JOURNAL_DIR"] = str(self.tmpdir)
+        os.environ.pop("JUNAS_JOURNAL_KEY", None)
+        os.environ["JUNAS_JOURNAL_KEYS_FILE"] = str(self.keys_path)
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        for var in ("KAYPOH_JOURNAL_DIR", "KAYPOH_JOURNAL_KEY", "KAYPOH_JOURNAL_KEYS_FILE"):
+        for var in ("JUNAS_JOURNAL_DIR", "JUNAS_JOURNAL_KEY", "JUNAS_JOURNAL_KEYS_FILE"):
             os.environ.pop(var, None)
         _reload_journal()
 
@@ -54,8 +54,8 @@ class JournalKeyRotationTests(unittest.TestCase):
 
     def test_legacy_mode_omits_key_version_field(self):
         # no keystore file: behave like the pre-rotation journal — no key_version in the output
-        os.environ.pop("KAYPOH_JOURNAL_KEYS_FILE", None)
-        os.environ["KAYPOH_JOURNAL_KEY"] = "legacy-key"
+        os.environ.pop("JUNAS_JOURNAL_KEYS_FILE", None)
+        os.environ["JUNAS_JOURNAL_KEY"] = "legacy-key"
         journal = _reload_journal()
         entry = journal.append_event(event_type="x", review_id="r1", payload={"a": 1})
         self.assertEqual(entry.key_version, "")
@@ -111,8 +111,8 @@ class JournalKeyRotationTests(unittest.TestCase):
             journal.rotate_journal_key(to_version="v2", reason="premature")
 
     def test_rotation_refuses_when_no_keystore_configured(self):
-        os.environ.pop("KAYPOH_JOURNAL_KEYS_FILE", None)
-        os.environ["KAYPOH_JOURNAL_KEY"] = "legacy"
+        os.environ.pop("JUNAS_JOURNAL_KEYS_FILE", None)
+        os.environ["JUNAS_JOURNAL_KEY"] = "legacy"
         journal = _reload_journal()
         with self.assertRaises(journal.KeyResolutionError):
             journal.rotate_journal_key(to_version="v2", reason="no keystore")

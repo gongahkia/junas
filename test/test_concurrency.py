@@ -5,7 +5,7 @@ import unittest
 from concurrent.futures import ThreadPoolExecutor
 from unittest.mock import patch
 
-import kaypoh.backend.main as main
+import junas.backend.main as main
 
 
 class ConcurrencyTests(unittest.TestCase):
@@ -67,7 +67,7 @@ class ConcurrencyTests(unittest.TestCase):
         )
 
         with (
-            patch.dict(os.environ, {"KAYPOH_BATCH_MAX_CONCURRENCY": "3"}, clear=False),
+            patch.dict(os.environ, {"JUNAS_BATCH_MAX_CONCURRENCY": "3"}, clear=False),
             patch.object(main, "_classify_core", side_effect=fake_core),
         ):
             start = time.perf_counter()
@@ -105,7 +105,7 @@ class ConcurrencyTests(unittest.TestCase):
             batch_result["response"] = main._run_batch_classify_sync(batch_request, "batch")
 
         with (
-            patch.dict(os.environ, {"KAYPOH_BATCH_MAX_CONCURRENCY": "2"}, clear=False),
+            patch.dict(os.environ, {"JUNAS_BATCH_MAX_CONCURRENCY": "2"}, clear=False),
             patch.object(main, "_classify_core", side_effect=fake_core),
         ):
             batch_thread = threading.Thread(target=run_batch, daemon=True)

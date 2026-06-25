@@ -10,10 +10,10 @@ from unittest import mock
 from fastapi.testclient import TestClient
 from PIL import Image
 
-import kaypoh.backend.main as main
-from kaypoh.external.privacy_guard import PrivacyGuard
-from kaypoh.review.document import extract_review_document
-from kaypoh.review.image_scan import (
+import junas.backend.main as main
+from junas.external.privacy_guard import PrivacyGuard
+from junas.review.document import extract_review_document
+from junas.review.image_scan import (
     AWSRekognitionImageScanner,
     AzureVisionImageScanner,
     GoogleVisionImageScanner,
@@ -124,7 +124,7 @@ class ImageScanTests(unittest.TestCase):
         scanner = FakeImageScanner()
         main._state["models"] = {"image_scanner": scanner}
         encoded = base64.b64encode(_png_bytes()).decode("ascii")
-        with mock.patch.dict(os.environ, {"KAYPOH_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
+        with mock.patch.dict(os.environ, {"JUNAS_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
             with TestClient(main.app) as client:
                 response = client.post(
                     "/review",
@@ -149,7 +149,7 @@ class ImageScanTests(unittest.TestCase):
     def test_image_ocr_failure_fails_open(self):
         main._state["models"] = {"image_scanner": FakeImageScanner(fail=True)}
         encoded = base64.b64encode(_png_bytes()).decode("ascii")
-        with mock.patch.dict(os.environ, {"KAYPOH_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
+        with mock.patch.dict(os.environ, {"JUNAS_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
             with TestClient(main.app) as client:
                 response = client.post(
                     "/review",
@@ -177,8 +177,8 @@ class ImageScanTests(unittest.TestCase):
         main._state["models"] = {"image_scanner": FakeImageScanner(ledger=ledger)}
         encoded = base64.b64encode(_png_bytes()).decode("ascii")
         env = {
-            "KAYPOH_IMAGE_SCAN_PROVIDER": "openai_vision",
-            "KAYPOH_IMAGE_SCAN_TENANT_OPT_IN_OPENAI": "1",
+            "JUNAS_IMAGE_SCAN_PROVIDER": "openai_vision",
+            "JUNAS_IMAGE_SCAN_TENANT_OPT_IN_OPENAI": "1",
         }
         with mock.patch.dict(os.environ, env, clear=False):
             with TestClient(main.app) as client:
@@ -196,7 +196,7 @@ class ImageScanTests(unittest.TestCase):
     def test_anonymize_returns_redacted_image_artifact_when_boxes_exist(self):
         main._state["models"] = {"image_scanner": FakeImageScanner(text="S1234567D")}
         encoded = base64.b64encode(_png_bytes()).decode("ascii")
-        with mock.patch.dict(os.environ, {"KAYPOH_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
+        with mock.patch.dict(os.environ, {"JUNAS_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
             with TestClient(main.app) as client:
                 response = client.post(
                     "/anonymize",
@@ -222,7 +222,7 @@ class ImageScanTests(unittest.TestCase):
     def test_docx_anonymize_returns_redacted_docx_container(self):
         main._state["models"] = {"image_scanner": FakeImageScanner(text="S1234567D")}
         encoded = base64.b64encode(_docx_with_embedded_png()).decode("ascii")
-        with mock.patch.dict(os.environ, {"KAYPOH_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
+        with mock.patch.dict(os.environ, {"JUNAS_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
             with TestClient(main.app) as client:
                 response = client.post(
                     "/anonymize",
@@ -253,7 +253,7 @@ class ImageScanTests(unittest.TestCase):
 
         main._state["models"] = {"image_scanner": NoBoxScanner()}
         encoded = base64.b64encode(_png_bytes()).decode("ascii")
-        with mock.patch.dict(os.environ, {"KAYPOH_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
+        with mock.patch.dict(os.environ, {"JUNAS_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
             with TestClient(main.app) as client:
                 response = client.post(
                     "/anonymize",
@@ -324,9 +324,9 @@ class ImageScanTests(unittest.TestCase):
             document_mime_type="application/pdf",
         )
         image_settings = types.SimpleNamespace(pdf_render_pages=True, pdf_render_max_pages=1, pdf_render_scale=1.0)
-        with mock.patch("kaypoh.review.document._extract_pdf") as extract_pdf:
-            with mock.patch("kaypoh.review.document.collect_pdf_images", return_value=[]):
-                with mock.patch("kaypoh.review.document.collect_pdf_page_renders", return_value=[rendered]) as renderer:
+        with mock.patch("junas.review.document._extract_pdf") as extract_pdf:
+            with mock.patch("junas.review.document.collect_pdf_images", return_value=[]):
+                with mock.patch("junas.review.document.collect_pdf_page_renders", return_value=[rendered]) as renderer:
                     extract_pdf.return_value = ("", 1, "ocr_pending", ["sparse PDF"])
                     document = extract_review_document(
                         payload,
@@ -461,7 +461,7 @@ class ImageScanTests(unittest.TestCase):
             mime_type="image/png",
             locator=ImageLocator(container_path="scan.png", image_index=0),
         )
-        with mock.patch("kaypoh.review.image_scan.httpx.Client", FakeClient):
+        with mock.patch("junas.review.image_scan.httpx.Client", FakeClient):
             scanner = OpenAIVisionImageScanner(settings, privacy_guard=guard, tenant_id="tenant-a")
             result = scanner.scan(candidate)
 

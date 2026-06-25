@@ -284,15 +284,15 @@ def _extract_message_content(payload: dict) -> str:
 
 
 def _request_timeout_seconds() -> float:
-    raw = os.environ.get("KAYPOH_AUTOLABEL_TIMEOUT_SECONDS", "").strip()
+    raw = os.environ.get("JUNAS_AUTOLABEL_TIMEOUT_SECONDS", "").strip()
     if not raw:
         return 180.0
     try:
         timeout = float(raw)
     except ValueError as exc:
-        raise RuntimeError("KAYPOH_AUTOLABEL_TIMEOUT_SECONDS must be numeric") from exc
+        raise RuntimeError("JUNAS_AUTOLABEL_TIMEOUT_SECONDS must be numeric") from exc
     if timeout <= 0:
-        raise RuntimeError("KAYPOH_AUTOLABEL_TIMEOUT_SECONDS must be positive")
+        raise RuntimeError("JUNAS_AUTOLABEL_TIMEOUT_SECONDS must be positive")
     return timeout
 
 
@@ -349,7 +349,7 @@ def _azure_env(*names: str) -> str:
 def label_model_for_provider(provider: str, model: str) -> str:
     if provider == "azure":
         deployment = _azure_env(
-            "KAYPOH_AUTOLABEL_AZURE_DEPLOYMENT",
+            "JUNAS_AUTOLABEL_AZURE_DEPLOYMENT",
             "GPT5_MINI_DEPLOYMENT",
             "GPT5_PRO_DEPLOYMENT",
             "AZURE_OPENAI_DEPLOYMENT",
@@ -360,16 +360,16 @@ def label_model_for_provider(provider: str, model: str) -> str:
 
 
 def _call_azure_openai(messages: list[dict], *, model: str, api_key: str) -> tuple[str, str]:
-    endpoint = _azure_env("KAYPOH_AUTOLABEL_AZURE_ENDPOINT", "GPT5_MINI_ENDPOINT", "GPT5_PRO_ENDPOINT")
+    endpoint = _azure_env("JUNAS_AUTOLABEL_AZURE_ENDPOINT", "GPT5_MINI_ENDPOINT", "GPT5_PRO_ENDPOINT")
     deployment = _azure_env(
-        "KAYPOH_AUTOLABEL_AZURE_DEPLOYMENT",
+        "JUNAS_AUTOLABEL_AZURE_DEPLOYMENT",
         "GPT5_MINI_DEPLOYMENT",
         "GPT5_PRO_DEPLOYMENT",
         "AZURE_OPENAI_DEPLOYMENT",
         "AZURE_DEPLOYMENT",
     )
     api_version = _azure_env(
-        "KAYPOH_AUTOLABEL_AZURE_API_VERSION",
+        "JUNAS_AUTOLABEL_AZURE_API_VERSION",
         "GPT5_MINI_API_VERSION",
         "GPT5_PRO_API_VERSION",
         "AZURE_OPENAI_API_VERSION",
@@ -382,12 +382,12 @@ def _call_azure_openai(messages: list[dict], *, model: str, api_key: str) -> tup
     if "max_tokens" in body:
         body.pop("max_tokens")
     body["max_completion_tokens"] = _positive_int_env(
-        "KAYPOH_AUTOLABEL_AZURE_MAX_COMPLETION_TOKENS",
+        "JUNAS_AUTOLABEL_AZURE_MAX_COMPLETION_TOKENS",
         16000,
     )
     url = f"{endpoint.rstrip('/')}/openai/deployments/{deployment}/chat/completions?api-version={api_version}"
-    max_attempts = _positive_int_env("KAYPOH_AUTOLABEL_AZURE_MAX_ATTEMPTS", 3)
-    retry_sleep_seconds = _positive_float_env("KAYPOH_AUTOLABEL_AZURE_RETRY_SLEEP_SECONDS", 2.0)
+    max_attempts = _positive_int_env("JUNAS_AUTOLABEL_AZURE_MAX_ATTEMPTS", 3)
+    retry_sleep_seconds = _positive_float_env("JUNAS_AUTOLABEL_AZURE_RETRY_SLEEP_SECONDS", 2.0)
     last_error = ""
     for attempt in range(1, max_attempts + 1):
         try:
@@ -630,8 +630,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("fixture_path", help="Path to fixture .txt file")
     parser.add_argument(
         "--model",
-        default=os.environ.get("KAYPOH_AUTOLABEL_MODEL", "o1"),
-        help="OpenAI model (default: o1, env KAYPOH_AUTOLABEL_MODEL)",
+        default=os.environ.get("JUNAS_AUTOLABEL_MODEL", "o1"),
+        help="OpenAI model (default: o1, env JUNAS_AUTOLABEL_MODEL)",
     )
     parser.add_argument(
         "--force",
@@ -641,8 +641,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--provider",
         choices=("openai", "azure"),
-        default=os.environ.get("KAYPOH_AUTOLABEL_PROVIDER", "openai"),
-        help="Model provider (default: openai, env KAYPOH_AUTOLABEL_PROVIDER)",
+        default=os.environ.get("JUNAS_AUTOLABEL_PROVIDER", "openai"),
+        help="Model provider (default: openai, env JUNAS_AUTOLABEL_PROVIDER)",
     )
     parser.add_argument("--source-jurisdiction", choices=sorted(JURISDICTIONS))
     parser.add_argument("--destination-jurisdiction", choices=sorted(JURISDICTIONS))
@@ -650,7 +650,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.provider == "azure":
         api_key = _azure_env(
-            "KAYPOH_AUTOLABEL_AZURE_API_KEY",
+            "JUNAS_AUTOLABEL_AZURE_API_KEY",
             "GPT5_MINI_API_KEY",
             "GPT5_PRO_API_KEY",
             "AZURE_OPENAI_API_KEY",

@@ -18,7 +18,7 @@ These host matches only mean the script is present on those origins. They do not
 
 ## Capture Paths
 
-- Context menu: user selects text and chooses "Review selection with Kaypoh".
+- Context menu: user selects text and chooses "Review selection with Junas".
 - Opt-in paste interception: when enabled in extension settings, pasted plain text in editable elements is reviewed or rewritten.
 - Generic editable fallback: `textarea`, text-like `input`, and `contenteditable` elements are treated as editable targets.
 
@@ -41,7 +41,7 @@ For managed GenAI review, callers should use `surface="browser_genai"` and `work
 
 ## Failure Behavior
 
-- Backend error or timeout: show a visible Kaypoh error panel; do not silently replace text.
+- Backend error or timeout: show a visible Junas error panel; do not silently replace text.
 - Rewrite failure: restore the original pasted text.
 - Degraded review: display degraded coverage and `send_allowed` status from the response.
 - Target DOM mismatch: fail as no capture rather than claiming enforcement.

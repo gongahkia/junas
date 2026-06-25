@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "integrations" / "outlook_addin" / "manifest.xml"
 OUT_DIR = ROOT / "dist" / "outlook-addin"
-PLACEHOLDER = "{{KAYPOH_OUTLOOK_ADDIN_ORIGIN}}"
+PLACEHOLDER = "{{JUNAS_OUTLOOK_ADDIN_ORIGIN}}"
 PROFILES = ("dev", "staging", "production")
 
 

@@ -6,9 +6,9 @@ from pathlib import Path
 
 
 def _reload_journal(tmpdir: Path, key: str = "test-key"):
-    os.environ["KAYPOH_JOURNAL_DIR"] = str(tmpdir)
-    os.environ["KAYPOH_JOURNAL_KEY"] = key
-    import kaypoh.review.journal as journal_mod
+    os.environ["JUNAS_JOURNAL_DIR"] = str(tmpdir)
+    os.environ["JUNAS_JOURNAL_KEY"] = key
+    import junas.review.journal as journal_mod
 
     return importlib.reload(journal_mod)
 
@@ -21,7 +21,7 @@ class JournalChainTests(unittest.TestCase):
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        for var in ("KAYPOH_JOURNAL_DIR", "KAYPOH_JOURNAL_KEY"):
+        for var in ("JUNAS_JOURNAL_DIR", "JUNAS_JOURNAL_KEY"):
             os.environ.pop(var, None)
         importlib.reload(self.journal)
 

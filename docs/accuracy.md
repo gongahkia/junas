@@ -1,4 +1,4 @@
-# Kaypoh Detector Accuracy
+# Junas Detector Accuracy
 
 This file is generated from committed recall and precision locks. Do not edit it by hand.
 

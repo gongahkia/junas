@@ -155,14 +155,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Batch auto-labeler")
     parser.add_argument(
         "--model",
-        default=os.environ.get("KAYPOH_AUTOLABEL_MODEL", "o1"),
+        default=os.environ.get("JUNAS_AUTOLABEL_MODEL", "o1"),
         help="OpenAI model (default: o1)",
     )
     parser.add_argument(
         "--provider",
         choices=("openai", "azure"),
-        default=os.environ.get("KAYPOH_AUTOLABEL_PROVIDER", "openai"),
-        help="Model provider (default: openai, env KAYPOH_AUTOLABEL_PROVIDER)",
+        default=os.environ.get("JUNAS_AUTOLABEL_PROVIDER", "openai"),
+        help="Model provider (default: openai, env JUNAS_AUTOLABEL_PROVIDER)",
     )
     parser.add_argument("--force", action="store_true",
                         help="Re-label fixtures that already have labels (skips human-labeled)")
@@ -175,15 +175,15 @@ def main() -> int:
     parser.add_argument(
         "--workers",
         type=int,
-        default=int(os.environ.get("KAYPOH_AUTOLABEL_WORKERS", "1")),
-        help="Parallel OpenAI calls to run (default: 1, env KAYPOH_AUTOLABEL_WORKERS)",
+        default=int(os.environ.get("JUNAS_AUTOLABEL_WORKERS", "1")),
+        help="Parallel OpenAI calls to run (default: 1, env JUNAS_AUTOLABEL_WORKERS)",
     )
     parser.add_argument("--manifest-dir", type=Path, help="write autolabel JSONL manifest here")
     args = parser.parse_args()
 
     if args.provider == "azure":
         api_key = _azure_env(
-            "KAYPOH_AUTOLABEL_AZURE_API_KEY",
+            "JUNAS_AUTOLABEL_AZURE_API_KEY",
             "GPT5_MINI_API_KEY",
             "GPT5_PRO_API_KEY",
             "AZURE_OPENAI_API_KEY",

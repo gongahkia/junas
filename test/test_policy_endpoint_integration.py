@@ -10,8 +10,8 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh.backend import main
-from kaypoh.policy import ACTION_CATALOG
+from junas.backend import main
+from junas.policy import ACTION_CATALOG
 
 
 class PolicyEndpointIntegrationTests(unittest.TestCase):
@@ -57,7 +57,7 @@ class PolicyEndpointIntegrationTests(unittest.TestCase):
             metrics = client.get("/metrics")
 
         self.assertEqual(metrics.status_code, 200, metrics.text)
-        self.assertIn("kaypoh_policy_decision_duration_seconds_bucket", metrics.text)
+        self.assertIn("junas_policy_decision_duration_seconds_bucket", metrics.text)
 
 
 if __name__ == "__main__":

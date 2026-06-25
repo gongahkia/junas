@@ -6,11 +6,11 @@ Date: 2026-06-14
 
 ## Context
 
-Kaypoh has multiple activation surfaces: direct API/client usage, Outlook Smart Alerts, browser GenAI capture, Word taskpane review, desktop watcher fallback, DMS hooks, and future collaboration surfaces. These surfaces differ in deployment control, vendor limitations, runtime permissions, and QA maturity. Treating any adapter as the product core would make policy behavior depend on the weakest or newest surface.
+Junas has multiple activation surfaces: direct API/client usage, Outlook Smart Alerts, browser GenAI capture, Word taskpane review, desktop watcher fallback, DMS hooks, and future collaboration surfaces. These surfaces differ in deployment control, vendor limitations, runtime permissions, and QA maturity. Treating any adapter as the product core would make policy behavior depend on the weakest or newest surface.
 
 ## Decision
 
-Kaypoh keeps adapters, but the FastAPI backend API and policy decisions are the deployment core. The backend owns request validation, tenant/auth boundaries, deterministic review, policy evaluation, rewrite action eligibility, audit events, privacy-safe observability, and compatibility contracts. Adapters collect workflow context, call the backend contract, display decisions, and implement surface-specific completion behavior.
+Junas keeps adapters, but the FastAPI backend API and policy decisions are the deployment core. The backend owns request validation, tenant/auth boundaries, deterministic review, policy evaluation, rewrite action eligibility, audit events, privacy-safe observability, and compatibility contracts. Adapters collect workflow context, call the backend contract, display decisions, and implement surface-specific completion behavior.
 
 Direct HTTP/OpenAPI integration remains a baseline path for customers that do not want UI adapters. Adapter maturity is promoted only when the adapter proves workflow value, privacy behavior, deployment support, and QA coverage against the backend contract.
 

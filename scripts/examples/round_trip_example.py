@@ -2,14 +2,14 @@
 """End-to-end anonymise → external-LLM → reidentify demo.
 
 Shows both reidentify paths:
-  1. Inline mapping (works without KAYPOH_REVIEW_PERSIST)
-  2. document_hash only (requires KAYPOH_REVIEW_PERSIST=1 on the backend)
+  1. Inline mapping (works without JUNAS_REVIEW_PERSIST)
+  2. document_hash only (requires JUNAS_REVIEW_PERSIST=1 on the backend)
 
 Run:
     python3 scripts/examples/round_trip_example.py \
         "Send Dr Jane Tan S1234567D the confidential SPA draft."
 
-    KAYPOH_REVIEW_PERSIST=1 path:
+    JUNAS_REVIEW_PERSIST=1 path:
     python3 scripts/examples/round_trip_example.py \
         --use-document-hash \
         "Send Dr Jane Tan S1234567D the confidential SPA draft."
@@ -17,11 +17,11 @@ Run:
 
 import argparse
 
-from kaypoh import KaypohClient
+from junas import JunasClient
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Anonymise then re-identify through Kaypoh.")
+    parser = argparse.ArgumentParser(description="Anonymise then re-identify through Junas.")
     parser.add_argument("text", help="Document text to anonymise.")
     parser.add_argument("--base-url", default="http://localhost:8000")
     parser.add_argument("--api-key", default=None, help="Optional X-API-Key value.")
@@ -31,7 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--use-document-hash",
         action="store_true",
-        help="Reidentify using only the document_hash (backend must have KAYPOH_REVIEW_PERSIST=1).",
+        help="Reidentify using only the document_hash (backend must have JUNAS_REVIEW_PERSIST=1).",
     )
     return parser.parse_args()
 
@@ -44,7 +44,7 @@ def _simulate_external_llm(anonymised_text: str) -> str:
 
 def main() -> None:
     args = parse_args()
-    with KaypohClient(args.base_url, api_key=args.api_key) as client:
+    with JunasClient(args.base_url, api_key=args.api_key) as client:
         anon = client.anonymize(
             text=args.text,
             source_jurisdiction=args.source,
@@ -64,7 +64,7 @@ def main() -> None:
         if args.use_document_hash:
             if not anon.mapping_persisted:
                 raise SystemExit(
-                    "--use-document-hash requires the backend to have KAYPOH_REVIEW_PERSIST=1; "
+                    "--use-document-hash requires the backend to have JUNAS_REVIEW_PERSIST=1; "
                     "mapping_persisted came back False."
                 )
             restored = client.reidentify(anonymized_text=llm_output, document_hash=anon.document_hash)

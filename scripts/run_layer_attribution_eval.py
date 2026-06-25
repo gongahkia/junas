@@ -20,13 +20,13 @@ from scripts import bucket_candidate_misses, evaluate_candidate_corpus, miss_con
 DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "reports" / "layer-attribution"
 AUDIT_GRADE_ENV_KEYS = (
-    "KAYPOH_LLM_ENABLED",
-    "KAYPOH_LLM_PROVIDER",
-    "KAYPOH_LLM_API_KEY",
-    "KAYPOH_LLM_BASE_URL",
-    "KAYPOH_LLM_AZURE_API_VERSION",
-    "KAYPOH_LLM_TENANT_OPT_IN_OPENAI",
-    "KAYPOH_LLM_TENANT_OPT_IN_AZURE_OPENAI",
+    "JUNAS_LLM_ENABLED",
+    "JUNAS_LLM_PROVIDER",
+    "JUNAS_LLM_API_KEY",
+    "JUNAS_LLM_BASE_URL",
+    "JUNAS_LLM_AZURE_API_VERSION",
+    "JUNAS_LLM_TENANT_OPT_IN_OPENAI",
+    "JUNAS_LLM_TENANT_OPT_IN_AZURE_OPENAI",
 )
 DEFAULT_INPUT_USD_PER_M = 0.75
 DEFAULT_OUTPUT_USD_PER_M = 4.50
@@ -124,13 +124,13 @@ def _profiles_from_args(args: argparse.Namespace) -> list[str]:
 
 def audit_grade_preflight(*, allow_external_cost: bool) -> dict[str, Any]:
     env_state = {key: bool(os.environ.get(key, "").strip()) for key in AUDIT_GRADE_ENV_KEYS}
-    provider = os.environ.get("KAYPOH_LLM_PROVIDER", "").strip() or "configured-default"
+    provider = os.environ.get("JUNAS_LLM_PROVIDER", "").strip() or "configured-default"
     return {
         "profile": "audit_grade",
         "allow_external_cost": allow_external_cost,
         "provider": provider,
         "env_present": env_state,
-        "ready_to_run_paid_sweep": bool(allow_external_cost and env_state["KAYPOH_LLM_API_KEY"]),
+        "ready_to_run_paid_sweep": bool(allow_external_cost and env_state["JUNAS_LLM_API_KEY"]),
         "note": (
             "No candidate evaluation was run. Re-run with --profile audit_grade --allow-external-cost "
             "only after API spend is approved."
@@ -145,7 +145,7 @@ def audit_grade_cost_estimate(
     output_usd_per_m: float = DEFAULT_OUTPUT_USD_PER_M,
     output_tokens_per_doc: int = DEFAULT_OUTPUT_TOKENS_PER_DOC,
 ) -> dict[str, Any]:
-    from kaypoh.review.engine import LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER, PreSendReviewEngine
+    from junas.review.engine import LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER, PreSendReviewEngine
 
     engine = PreSendReviewEngine()
     docs = 0

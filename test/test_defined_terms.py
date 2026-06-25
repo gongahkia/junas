@@ -1,6 +1,6 @@
 import unittest
 
-from kaypoh.review.defined_terms import extract_defined_terms, is_defined_term
+from junas.review.defined_terms import extract_defined_terms, is_defined_term
 
 
 class DefinedTermExtractionTests(unittest.TestCase):

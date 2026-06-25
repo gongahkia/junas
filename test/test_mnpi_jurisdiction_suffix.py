@@ -13,8 +13,8 @@ BOTH statute suffixes.
 
 import unittest
 
-from kaypoh.review.citations import _MNPI_JURISDICTION_SUFFIX, mnpi_rationale
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.citations import _MNPI_JURISDICTION_SUFFIX, mnpi_rationale
+from junas.review.engine import PreSendReviewEngine
 
 # canonical minimal text that triggers each MNPI rule. Each is intentionally simple so we
 # can isolate the rule and confirm the suffix lands on its suggestion, without other rules
@@ -162,7 +162,7 @@ class EnginePipelineSuffixTests(unittest.TestCase):
 
 
 class OverrideHookStillRespected(unittest.TestCase):
-    """When KAYPOH_CITATIONS_OVERRIDE substitutes a rule's rationale, the override fully
+    """When JUNAS_CITATIONS_OVERRIDE substitutes a rule's rationale, the override fully
     replaces the built-in base + suffix (per citations.py contract). Confirm the audit
     above does not break that override path."""
 
@@ -171,7 +171,7 @@ class OverrideHookStillRespected(unittest.TestCase):
         import tempfile
         from pathlib import Path
 
-        from kaypoh.review import citations
+        from junas.review import citations
 
         with tempfile.TemporaryDirectory() as td:
             override_path = Path(td) / "overrides.toml"
@@ -181,9 +181,9 @@ class OverrideHookStillRespected(unittest.TestCase):
                 encoding="utf-8",
             )
             citations._CITATIONS_OVERRIDE_CACHE.clear()
-            prev = os.environ.get("KAYPOH_CITATIONS_OVERRIDE")
+            prev = os.environ.get("JUNAS_CITATIONS_OVERRIDE")
             try:
-                os.environ["KAYPOH_CITATIONS_OVERRIDE"] = str(override_path)
+                os.environ["JUNAS_CITATIONS_OVERRIDE"] = str(override_path)
                 rationale = mnpi_rationale(
                     rule="transaction_codename", jurisdiction="SG",
                     severity="medium", matched_text="Project X",
@@ -193,9 +193,9 @@ class OverrideHookStillRespected(unittest.TestCase):
                 self.assertNotIn(_MNPI_JURISDICTION_SUFFIX["SG"], rationale)
             finally:
                 if prev is None:
-                    os.environ.pop("KAYPOH_CITATIONS_OVERRIDE", None)
+                    os.environ.pop("JUNAS_CITATIONS_OVERRIDE", None)
                 else:
-                    os.environ["KAYPOH_CITATIONS_OVERRIDE"] = prev
+                    os.environ["JUNAS_CITATIONS_OVERRIDE"] = prev
                 citations._CITATIONS_OVERRIDE_CACHE.clear()
 
 

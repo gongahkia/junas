@@ -19,7 +19,7 @@ SRC_PATH = REPO_ROOT / "src"
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review.decisions import POSITIVE_CORPUS_ACTIONS, REJECT_ACTIONS  # noqa: E402
+from junas.review.decisions import POSITIVE_CORPUS_ACTIONS, REJECT_ACTIONS  # noqa: E402
 
 
 def _entries(path: Path) -> list[dict[str, Any]]:
@@ -79,7 +79,7 @@ def build_queue(journal: Path) -> list[dict[str, Any]]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Queue journal decisions for human-reviewed corpus promotion")
-    parser.add_argument("--journal", type=Path, default=Path("kaypoh-journal/journal.jsonl"))
+    parser.add_argument("--journal", type=Path, default=Path("junas-journal/journal.jsonl"))
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     rows = build_queue(args.journal)

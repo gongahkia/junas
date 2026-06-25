@@ -12,7 +12,7 @@ SRC_PATH = REPO_ROOT / "src"
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review import jurisdictions  # noqa: E402
+from junas.review import jurisdictions  # noqa: E402
 
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "defensibility"
 GENERATED_ON = "2026-06-06"
@@ -46,7 +46,7 @@ def render_report(pack: jurisdictions.JurisdictionRulePack) -> str:
     )
     return (
         f"# {pack.label} ({pack.code}) Defensibility Report\n\n"
-        f"> Generated {GENERATED_ON} from `src/kaypoh/review/jurisdictions_data/{pack.code}.toml`. "
+        f"> Generated {GENERATED_ON} from `src/junas/review/jurisdictions_data/{pack.code}.toml`. "
         "Internal benchmarking and procurement-support artifact only; not legal advice.\n"
         f"{baseline_note}\n"
         "## Statutory Coverage\n\n"

@@ -23,7 +23,7 @@ class BrowserExtensionTests(unittest.TestCase):
     def test_options_expose_opt_in_paste_and_irreversible_modes(self):
         html = (EXT / "options.html").read_text(encoding="utf-8")
         js = (EXT / "options.js").read_text(encoding="utf-8")
-        self.assertIn("Kaypoh GenAI Prompt Review", html)
+        self.assertIn("Junas GenAI Prompt Review", html)
         self.assertIn("Review pasted GenAI prompts", html)
         self.assertNotIn("universal dlp", html.lower())
         self.assertIn('id="endpoint"', html)
@@ -69,7 +69,7 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("guardPromptSubmit", text)
         self.assertIn("reviewOutcome", text)
         self.assertIn("window.confirm", text)
-        self.assertIn("KAYPOH_BROWSER_ADAPTERS", text)
+        self.assertIn("JUNAS_BROWSER_ADAPTERS", text)
         self.assertIn("if (!cfg.interceptPaste) return", text)
         self.assertIn('cfg.operation === "review"', text)
         self.assertIn("captureInsertionPoint(target)", text)
@@ -84,13 +84,13 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn('backendMode: "local_daemon"', text)
         self.assertIn('authMode: "local_token"', text)
         self.assertIn("headers.Authorization", text)
-        self.assertIn("callKaypoh(text, requestedOperation)", text)
+        self.assertIn("callJunas(text, requestedOperation)", text)
         self.assertIn("message.operation", text)
         self.assertIn('degraded_policy: "warn"', text)
         self.assertIn("result.pseudonymized_text", text)
         self.assertIn("result.anonymized_text", text)
         self.assertIn("result.redacted_text", text)
-        self.assertIn('"kaypoh-process-text"', text)
+        self.assertIn('"junas-process-text"', text)
 
     def test_target_adapter_selectors_are_declared(self):
         text = (EXT / "adapters.js").read_text(encoding="utf-8")

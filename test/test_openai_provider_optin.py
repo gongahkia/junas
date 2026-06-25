@@ -19,8 +19,8 @@ from types import SimpleNamespace
 
 import httpx
 
-from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
-from kaypoh.configs.runtime import ConfigError, load_runtime_settings
+from junas.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
+from junas.configs.runtime import ConfigError, load_runtime_settings
 
 
 def _llm_settings(

@@ -21,13 +21,13 @@ integrations/word_addin/manifest.xml
 
 Current behavior:
 
-- Opens a Kaypoh Review taskpane from Word.
+- Opens a Junas Review taskpane from Word.
 - Reviews selected or provided document text through the configured backend/local daemon.
 - Does not enforce send-time, upload-time, or repository check-in behavior.
 
 ## Document Review Flow
 
-1. User opens the Kaypoh taskpane from the Word Home tab.
+1. User opens the Junas taskpane from the Word Home tab.
 2. User chooses review selection or review body.
 3. `taskpane.js` reads selected text through `Office.context.document.getSelectedDataAsync` or full body text through `Word.run`.
 4. The taskpane calls `/review` with `document_type="word_document"`, `review_profile="strict"`, and `degraded_policy="warn"`.
@@ -62,5 +62,5 @@ Security model:
 
 - Production deployment should use Microsoft 365 admin-managed deployment.
 - Backend calls must use tenant auth or local pairing token.
-- Document text should be sent only to the configured Kaypoh backend/local daemon.
+- Document text should be sent only to the configured Junas backend/local daemon.
 - The taskpane must not persist raw document text, reversible mappings, or auth headers in Office storage or logs.

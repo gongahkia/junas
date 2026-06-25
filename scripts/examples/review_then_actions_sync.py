@@ -2,7 +2,7 @@
 
 import argparse
 
-from kaypoh import KaypohClient
+from junas import JunasClient
 
 
 def parse_args() -> argparse.Namespace:
@@ -35,7 +35,7 @@ def _approval_reason(decision_name: str | None) -> str:
 
 def main() -> None:
     args = parse_args()
-    with KaypohClient(args.base_url, api_key=args.api_key) as client:
+    with JunasClient(args.base_url, api_key=args.api_key) as client:
         review = client.review(
             text=args.text,
             source_jurisdiction=args.source,

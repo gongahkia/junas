@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Sanitise review decisions into preference-training pairs.
 
-This reads Kaypoh's HMAC journal and emits JSONL suitable for item 30 DPO
+This reads Junas's HMAC journal and emits JSONL suitable for item 30 DPO
 preparation. It does not train a model and does not include matched text.
 """
 
@@ -19,7 +19,7 @@ SRC_PATH = REPO_ROOT / "src"
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review.decisions import POSITIVE_CORPUS_ACTIONS, REJECT_ACTIONS  # noqa: E402
+from junas.review.decisions import POSITIVE_CORPUS_ACTIONS, REJECT_ACTIONS  # noqa: E402
 
 SENSITIVE_RE = re.compile(
     r"(?i)([A-Z]\d{7,9}[A-Z]?|\b\d{3}-?\d{2}-?\d{4}\b|"
@@ -84,8 +84,8 @@ def export_preferences(journal_path: Path) -> list[dict[str, Any]]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Export sanitized DPO preference pairs from a Kaypoh journal")
-    parser.add_argument("--journal", type=Path, default=Path("kaypoh-journal/journal.jsonl"))
+    parser = argparse.ArgumentParser(description="Export sanitized DPO preference pairs from a Junas journal")
+    parser.add_argument("--journal", type=Path, default=Path("junas-journal/journal.jsonl"))
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     rows = export_preferences(args.journal)

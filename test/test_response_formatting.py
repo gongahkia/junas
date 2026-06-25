@@ -37,7 +37,7 @@ class ResponseFormattingTests(unittest.TestCase):
         self.assertEqual(len(json.loads(response.text)["results"]), 2)
 
     def test_http_error_response_is_pretty_json(self):
-        with patch.dict(os.environ, {"KAYPOH_API_KEY": "top-secret"}, clear=False):
+        with patch.dict(os.environ, {"JUNAS_API_KEY": "top-secret"}, clear=False):
             with TestClient(test_app.app) as client:
                 response = client.post("/classify", json={"text": "public update"})
 
@@ -47,7 +47,7 @@ class ResponseFormattingTests(unittest.TestCase):
         self.assertEqual(json.loads(response.text)["detail"], "invalid or missing API key")
 
     def test_request_body_limit_returns_pretty_413_before_validation(self):
-        with patch.dict(os.environ, {"KAYPOH_MAX_REQUEST_BYTES": "1024"}, clear=False):
+        with patch.dict(os.environ, {"JUNAS_MAX_REQUEST_BYTES": "1024"}, clear=False):
             with TestClient(test_app.app) as client:
                 response = client.post("/classify", json={"text": "x" * 2000})
 

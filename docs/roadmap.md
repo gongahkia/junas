@@ -62,7 +62,7 @@ Exit criteria:
 
 Scope:
 
-- Keep `kaypoh-watch` as an experimental local fallback for offline review, demos, and power users.
+- Keep `junas-watch` as an experimental local fallback for offline review, demos, and power users.
 - Document clipboard/folder threat model, explicit clipboard opt-in, local token use, output-directory scope, LaunchAgent packaging, and auth failure behavior.
 
 Exit criteria:

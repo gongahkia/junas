@@ -25,7 +25,7 @@ def _model_card_text() -> str:
 
 def _privacy_eval(status: str = "pass", *, raw_text_remote_allowed: bool = False) -> dict:
     return {
-        "schema_version": "kaypoh.llm_privacy_eval.v1",
+        "schema_version": "junas.llm_privacy_eval.v1",
         "evaluation_status": status,
         "input_mode": "structured_tokens",
         "raw_text_remote_allowed": raw_text_remote_allowed,
@@ -65,7 +65,7 @@ class LLMGovernanceTests(unittest.TestCase):
             manifest = root / "promotion.json"
             manifest.write_text(
                 json.dumps({
-                    "schema_version": "kaypoh.distillation_promotion.v1",
+                    "schema_version": "junas.distillation_promotion.v1",
                     "promoted": True,
                     "adapter_path": "missing-adapter",
                     "model_card_path": "missing-card.md",
@@ -92,7 +92,7 @@ class LLMGovernanceTests(unittest.TestCase):
             manifest = root / "promotion.json"
             manifest.write_text(
                 json.dumps({
-                    "schema_version": "kaypoh.distillation_promotion.v1",
+                    "schema_version": "junas.distillation_promotion.v1",
                     "promoted": True,
                     "adapter_path": "adapter",
                     "model_card_path": "MODEL_CARD.md",
@@ -121,7 +121,7 @@ class LLMGovernanceTests(unittest.TestCase):
             manifest = root / "promotion.json"
             manifest.write_text(
                 json.dumps({
-                    "schema_version": "kaypoh.distillation_promotion.v1",
+                    "schema_version": "junas.distillation_promotion.v1",
                     "promoted": True,
                     "adapter_path": "adapter",
                     "model_card_path": "MODEL_CARD.md",
@@ -152,7 +152,7 @@ class LLMGovernanceTests(unittest.TestCase):
             manifest = root / "promotion.json"
             manifest.write_text(
                 json.dumps({
-                    "schema_version": "kaypoh.distillation_promotion.v1",
+                    "schema_version": "junas.distillation_promotion.v1",
                     "promoted": True,
                     "adapter_path": "adapter",
                     "model_card_path": "MODEL_CARD.md",

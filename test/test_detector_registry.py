@@ -1,7 +1,7 @@
 import unittest
 
-from kaypoh.review.detectors import DetectorContext, DetectorRegistry
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.detectors import DetectorContext, DetectorRegistry
+from junas.review.engine import PreSendReviewEngine
 
 
 class DetectorRegistryTests(unittest.TestCase):

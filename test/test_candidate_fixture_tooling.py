@@ -41,19 +41,19 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         self.assertIn("uncertain", prompt)
 
     def test_autolabel_env_helpers_validate_positive_numbers(self):
-        with patch.dict("os.environ", {"KAYPOH_AUTOLABEL_AZURE_MAX_COMPLETION_TOKENS": "8000"}):
+        with patch.dict("os.environ", {"JUNAS_AUTOLABEL_AZURE_MAX_COMPLETION_TOKENS": "8000"}):
             self.assertEqual(
-                autolabel_fixture._positive_int_env("KAYPOH_AUTOLABEL_AZURE_MAX_COMPLETION_TOKENS", 16000),
+                autolabel_fixture._positive_int_env("JUNAS_AUTOLABEL_AZURE_MAX_COMPLETION_TOKENS", 16000),
                 8000,
             )
-        with patch.dict("os.environ", {"KAYPOH_AUTOLABEL_AZURE_RETRY_SLEEP_SECONDS": "0.25"}):
+        with patch.dict("os.environ", {"JUNAS_AUTOLABEL_AZURE_RETRY_SLEEP_SECONDS": "0.25"}):
             self.assertEqual(
-                autolabel_fixture._positive_float_env("KAYPOH_AUTOLABEL_AZURE_RETRY_SLEEP_SECONDS", 2.0),
+                autolabel_fixture._positive_float_env("JUNAS_AUTOLABEL_AZURE_RETRY_SLEEP_SECONDS", 2.0),
                 0.25,
             )
-        with patch.dict("os.environ", {"KAYPOH_AUTOLABEL_AZURE_MAX_ATTEMPTS": "0"}):
+        with patch.dict("os.environ", {"JUNAS_AUTOLABEL_AZURE_MAX_ATTEMPTS": "0"}):
             with self.assertRaises(RuntimeError):
-                autolabel_fixture._positive_int_env("KAYPOH_AUTOLABEL_AZURE_MAX_ATTEMPTS", 3)
+                autolabel_fixture._positive_int_env("JUNAS_AUTOLABEL_AZURE_MAX_ATTEMPTS", 3)
 
     def test_negative_generation_prompt_does_not_force_dense_positives(self):
         _, prompt = generate_legal_fixture._build_prompt(

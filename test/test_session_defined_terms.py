@@ -13,18 +13,18 @@ import os
 import tempfile
 import unittest
 
-from kaypoh.review import session_store
-from kaypoh.review.engine import PreSendReviewEngine, ReviewLayerError
+from junas.review import session_store
+from junas.review.engine import PreSendReviewEngine, ReviewLayerError
 
 
 class SessionStoreTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
-        os.environ["KAYPOH_JOURNAL_DIR"] = self._tmpdir.name
+        os.environ["JUNAS_JOURNAL_DIR"] = self._tmpdir.name
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        os.environ.pop("KAYPOH_JOURNAL_DIR", None)
+        os.environ.pop("JUNAS_JOURNAL_DIR", None)
 
     def test_round_trip_load_after_add(self):
         merged = session_store.add_defined_terms("sess-1", {"Purchaser", "Vendor"})
@@ -56,13 +56,13 @@ class SessionStoreTests(unittest.TestCase):
 class EngineSessionInheritanceTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
-        os.environ["KAYPOH_JOURNAL_DIR"] = self._tmpdir.name
+        os.environ["JUNAS_JOURNAL_DIR"] = self._tmpdir.name
         importlib.reload(session_store)
         self.engine = PreSendReviewEngine()
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        os.environ.pop("KAYPOH_JOURNAL_DIR", None)
+        os.environ.pop("JUNAS_JOURNAL_DIR", None)
 
     def test_paired_documents_share_defined_terms(self):
         # doc A introduces "Purchaser" as a defined term — engine suppresses it within A.

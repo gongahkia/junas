@@ -27,7 +27,7 @@ Current behavior:
 - Targets `https://chatgpt.com/*`, `https://claude.ai/*`, and `https://gemini.google.com/*`.
 - Product copy must describe this adapter as pre-send review for GenAI prompts on managed browser surfaces.
 - Target adapters define explicit prompt selectors for ChatGPT, Claude, Gemini, and a generic `textarea`/`input`/`contenteditable` fallback.
-- Calls the local Kaypoh daemon at `http://127.0.0.1:8765` by default.
+- Calls the local Junas daemon at `http://127.0.0.1:8765` by default.
 - Backend mode can be `local_daemon` or `hosted_server`.
 - Tenant auth mode can be `local_token`, `bearer_token`, or `none`.
 - Local daemon token pairing stores the returned token as a `local_token`; hosted server mode sends configured tokens as `Authorization: Bearer ...`.

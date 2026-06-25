@@ -7,9 +7,9 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-import kaypoh.backend.main as main
-from kaypoh.configs import runtime
-from kaypoh.review.engine import PreSendReviewEngine
+import junas.backend.main as main
+from junas.configs import runtime
+from junas.review.engine import PreSendReviewEngine
 
 
 @asynccontextmanager
@@ -77,8 +77,8 @@ class LLMHelperRuntimeWiringTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
         self.addCleanup(self._tmpdir.cleanup)
-        os.environ["KAYPOH_JOURNAL_DIR"] = self._tmpdir.name
-        self.addCleanup(lambda: os.environ.pop("KAYPOH_JOURNAL_DIR", None))
+        os.environ["JUNAS_JOURNAL_DIR"] = self._tmpdir.name
+        self.addCleanup(lambda: os.environ.pop("JUNAS_JOURNAL_DIR", None))
         main.app.router.lifespan_context = _noop_lifespan
         main.app.openapi_schema = None
         main._state.clear()

@@ -3,7 +3,7 @@
 import argparse
 import asyncio
 
-from kaypoh import AsyncKaypohClient
+from junas import AsyncJunasClient
 
 
 def parse_args() -> argparse.Namespace:
@@ -36,7 +36,7 @@ def _approval_reason(decision_name: str | None) -> str:
 
 async def main() -> None:
     args = parse_args()
-    async with AsyncKaypohClient(args.base_url, api_key=args.api_key) as client:
+    async with AsyncJunasClient(args.base_url, api_key=args.api_key) as client:
         review = await client.review(
             text=args.text,
             source_jurisdiction=args.source,

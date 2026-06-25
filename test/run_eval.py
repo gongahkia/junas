@@ -26,14 +26,14 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh.helper.determinism import configure_determinism
+from junas.helper.determinism import configure_determinism
 
 REPO_ROOT = ROOT
 DEFAULT_DATA = Path(__file__).parent / "eval.json"
 LABELS = ["SAFE", "LOW_RISK", "HIGH_RISK"]
 
 def parse_args():
-    p = argparse.ArgumentParser(description="Kaypoh pipeline eval runner")
+    p = argparse.ArgumentParser(description="Junas pipeline eval runner")
     p.add_argument("--config", required=True, help="path to config.toml to use for this run")
     p.add_argument("--data", default=str(DEFAULT_DATA), help="path to eval JSON (default: test/eval.json)")
     p.add_argument("--port", type=int, default=8000, help="backend port (default: 8000)")
@@ -145,17 +145,17 @@ def main():
     if not args.no_server:
         env = {
             **os.environ,
-            "KAYPOH_CONFIG": config_path,
-            "KAYPOH_DETERMINISTIC": "1",
-            "KAYPOH_SEED": str(args.seed),
+            "JUNAS_CONFIG": config_path,
+            "JUNAS_DETERMINISTIC": "1",
+            "JUNAS_SEED": str(args.seed),
         }
         env.setdefault("UV_PROJECT_ENVIRONMENT", str(REPO_ROOT / ".venv-uv"))
         env.setdefault("UV_PYTHON", "3.12")
         if shutil.which("uv"):
-            cmd = ["uv", "run", "uvicorn", "kaypoh.backend.main:app",
+            cmd = ["uv", "run", "uvicorn", "junas.backend.main:app",
                    "--host", "0.0.0.0", "--port", str(args.port)]
         else:
-            cmd = [sys.executable, "-m", "uvicorn", "kaypoh.backend.main:app",
+            cmd = [sys.executable, "-m", "uvicorn", "junas.backend.main:app",
                    "--host", "0.0.0.0", "--port", str(args.port)]
         print(f"[eval] config  : {config_path}")
         print(f"[eval] data    : {data_path}")

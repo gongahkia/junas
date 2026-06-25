@@ -4,7 +4,7 @@ transaction_codename does not bleed across newlines or false-positive on prose."
 
 import unittest
 
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.engine import PreSendReviewEngine
 
 
 def _rules(findings, rule_name):

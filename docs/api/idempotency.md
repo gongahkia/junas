@@ -1,6 +1,6 @@
 # Request IDs and Adapter Idempotency
 
-Kaypoh v0.1 returns a server-generated `request_id` in review-like responses and the `X-Request-ID` response header. For `/review`, that value is also the review-session id used by `/review/{review_id}` and `/review/{review_id}/decision`.
+Junas v0.1 returns a server-generated `request_id` in review-like responses and the `X-Request-ID` response header. For `/review`, that value is also the review-session id used by `/review/{review_id}` and `/review/{review_id}/decision`.
 
 The backend does not currently deduplicate repeated `POST /review` calls. Adapters must provide local idempotency for retry, double-click, Smart Alerts re-entry, browser submit interception, and network retry flows.
 

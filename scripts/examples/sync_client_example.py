@@ -2,13 +2,13 @@
 
 import argparse
 
-from kaypoh import KaypohClient
+from junas import JunasClient
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run one classify request through the synchronous Kaypoh client.")
+    parser = argparse.ArgumentParser(description="Run one classify request through the synchronous Junas client.")
     parser.add_argument("text", help="Text payload to classify.")
-    parser.add_argument("--base-url", default="http://localhost:8000", help="Kaypoh backend base URL.")
+    parser.add_argument("--base-url", default="http://localhost:8000", help="Junas backend base URL.")
     parser.add_argument("--api-key", default=None, help="Optional X-API-Key value.")
     parser.add_argument("--entity-id", default=None, help="Optional issuer/entity context for audit-grade checks.")
     parser.add_argument(
@@ -26,7 +26,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    with KaypohClient(args.base_url, api_key=args.api_key) as client:
+    with JunasClient(args.base_url, api_key=args.api_key) as client:
         result = client.classify(
             text=args.text,
             entity_id=args.entity_id,

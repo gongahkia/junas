@@ -164,7 +164,7 @@ def _read_token_file(path: Path | None) -> str:
 
 
 def _local_headers(config: WatchConfig) -> dict[str, str]:
-    return {"X-Kaypoh-Local-Token": config.local_token} if config.local_token else {}
+    return {"X-Junas-Local-Token": config.local_token} if config.local_token else {}
 
 
 def poll_clipboard_once(config: WatchConfig, *, previous: str = "") -> tuple[str, ReviewSummary | None]:
@@ -177,7 +177,7 @@ def poll_clipboard_once(config: WatchConfig, *, previous: str = "") -> tuple[str
 
 
 def _notify(summary: ReviewSummary) -> None:
-    title = "Kaypoh review findings"
+    title = "Junas review findings"
     message = f"{summary.finding_count} findings in {summary.source}"
     if platform.system() == "Darwin":
         subprocess.run(
@@ -197,7 +197,7 @@ def _emit_summary(summary: ReviewSummary, config: WatchConfig) -> None:
 def _config_from_args(args: argparse.Namespace) -> WatchConfig:
     local_token = (
         args.local_token
-        or os.environ.get("KAYPOH_LOCAL_DAEMON_TOKEN", "")
+        or os.environ.get("JUNAS_LOCAL_DAEMON_TOKEN", "")
         or _read_token_file(args.local_token_file)
     )
     return WatchConfig(
@@ -214,9 +214,9 @@ def _config_from_args(args: argparse.Namespace) -> WatchConfig:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Opt-in kaypoh-local clipboard / watched-folder fallback")
+    parser = argparse.ArgumentParser(description="Opt-in junas-local clipboard / watched-folder fallback")
     parser.add_argument("paths", nargs="*", type=Path)
-    parser.add_argument("--base-url", default=os.environ.get("KAYPOH_LOCAL_BASE_URL", DEFAULT_BASE_URL))
+    parser.add_argument("--base-url", default=os.environ.get("JUNAS_LOCAL_BASE_URL", DEFAULT_BASE_URL))
     parser.add_argument("--source-jurisdiction", default="SG")
     parser.add_argument("--destination-jurisdiction", default="SG")
     parser.add_argument("--document-type", default="generic")

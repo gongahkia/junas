@@ -9,6 +9,6 @@ This folder contains the runnable shell launchers for the repository.
 
 Optional launcher telemetry:
 
-- Set `KAYPOH_LAUNCH_TELEMETRY_FILE=reports/launch_telemetry.json`
+- Set `JUNAS_LAUNCH_TELEMETRY_FILE=reports/launch_telemetry.json`
 - Supported by backend-only, dev, and prod launchers
 - Writes startup readiness + diagnostics snapshots after the backend reports ready

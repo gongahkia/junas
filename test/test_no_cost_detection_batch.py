@@ -1,8 +1,8 @@
 import unittest
 from unittest import mock
 
-from kaypoh.review.detectors.semantic import clear_semantic_pii_state_for_tests
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.detectors.semantic import clear_semantic_pii_state_for_tests
+from junas.review.engine import PreSendReviewEngine
 
 
 class NoCostDetectionBatchTests(unittest.TestCase):
@@ -263,7 +263,7 @@ class NoCostDetectionBatchTests(unittest.TestCase):
     def test_semantic_pii_fallback_is_env_gated(self):
         text = "Full name: Jane Tan\nEmployee ID: EMP-2026-1042"
         self.assertNotIn("named_person", self._rules(text, "SG"))
-        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+        with mock.patch.dict("os.environ", {"JUNAS_SEMANTIC_PII_FALLBACK": "1"}):
             result = self._review(text, "SG")
         names = [finding for finding in result.findings if finding.rule == "named_person"]
         self.assertEqual(len(names), 1)
@@ -274,7 +274,7 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         text = "Patient DOB is 14 February 1988.\nPatient age recorded as 42."
         self.assertNotIn("date_of_birth", self._rules(text, "SG"))
         self.assertNotIn("age_reference", self._rules(text, "SG"))
-        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+        with mock.patch.dict("os.environ", {"JUNAS_SEMANTIC_PII_FALLBACK": "1"}):
             result = self._review(text, "SG")
         findings = {(finding.rule, finding.matched_text) for finding in result.findings}
         self.assertIn(("date_of_birth", "14 February 1988"), findings)
@@ -282,7 +282,7 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
     def test_semantic_pii_fallback_can_extract_sentence_dob_and_age(self):
         text = "Patient Jane Tan was born on 14 February 1988.\nSubject Jane Tan is 42 years old."
-        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+        with mock.patch.dict("os.environ", {"JUNAS_SEMANTIC_PII_FALLBACK": "1"}):
             result = self._review(text, "SG")
         findings = {
             (finding.rule, finding.matched_text, finding.metadata.get("fallback"))
@@ -296,7 +296,7 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         text = "Patient Jane Tan was born in 1988.\nDOB unknown but patient age is 42."
         self.assertNotIn("date_of_birth", self._rules(text, "SG"))
         self.assertNotIn("age_reference", self._rules(text, "SG"))
-        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+        with mock.patch.dict("os.environ", {"JUNAS_SEMANTIC_PII_FALLBACK": "1"}):
             result = self._review(text, "SG")
         findings = {
             (finding.rule, finding.matched_text, finding.metadata.get("fallback"), finding.metadata.get("granularity"))
@@ -308,7 +308,7 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
     def test_semantic_pii_fallback_can_extract_bare_person_sentence_dob_and_age(self):
         text = "Jane Tan was born on 14 February 1988.\nMary Lim is 42 years old."
-        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+        with mock.patch.dict("os.environ", {"JUNAS_SEMANTIC_PII_FALLBACK": "1"}):
             result = self._review(text, "SG")
         findings = {
             (finding.rule, finding.matched_text, finding.metadata.get("fallback"))
@@ -320,7 +320,7 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
     def test_semantic_pii_fallback_can_extract_appositive_dob_and_age(self):
         text = "Jane Tan, DOB unknown, aged 42; Mary Lim (born 12 May 1980); Sara Wong, 39, attended."
-        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+        with mock.patch.dict("os.environ", {"JUNAS_SEMANTIC_PII_FALLBACK": "1"}):
             result = self._review(text, "SG")
         findings = {
             (finding.rule, finding.matched_text, finding.metadata.get("fallback"))
@@ -362,14 +362,14 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
     def test_semantic_pii_fallback_rejects_unanchored_company_year(self):
         text = "Company founded in 1988. The model age field is a cohort example."
-        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+        with mock.patch.dict("os.environ", {"JUNAS_SEMANTIC_PII_FALLBACK": "1"}):
             result = self._review(text, "SG")
 
         self.assertNotIn("date_of_birth", {finding.rule for finding in result.findings})
 
     def test_semantic_pii_fallback_can_extract_multilingual_labels(self):
         text = "姓名: Jane Tan\n生年月日: 14 February 1988\n年齢: 42"
-        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+        with mock.patch.dict("os.environ", {"JUNAS_SEMANTIC_PII_FALLBACK": "1"}):
             result = self._review(text, "JP")
         findings = {(finding.rule, finding.matched_text) for finding in result.findings}
 
@@ -380,9 +380,9 @@ class NoCostDetectionBatchTests(unittest.TestCase):
     def test_local_ner_fallback_can_extract_unlabelled_person_when_available(self):
         text = "Meeting note: Jane Tan approved the access review."
         start = text.index("Jane Tan")
-        with mock.patch.dict("os.environ", {"KAYPOH_LOCAL_NER_FALLBACK": "1"}, clear=False):
+        with mock.patch.dict("os.environ", {"JUNAS_LOCAL_NER_FALLBACK": "1"}, clear=False):
             with mock.patch(
-                "kaypoh.review.detectors.semantic._local_ner_entities",
+                "junas.review.detectors.semantic._local_ner_entities",
                 return_value=([(start, start + len("Jane Tan"), "PERSON")], None),
             ):
                 result = self._review(text, "SG")
@@ -396,7 +396,7 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         clear_semantic_pii_state_for_tests()
         with mock.patch.dict(
             "os.environ",
-            {"KAYPOH_LOCAL_NER_FALLBACK": "1", "KAYPOH_LOCAL_NER_MODEL": "__kaypoh_missing_model__"},
+            {"JUNAS_LOCAL_NER_FALLBACK": "1", "JUNAS_LOCAL_NER_MODEL": "__junas_missing_model__"},
             clear=False,
         ):
             result = self._review("Meeting note without labelled names.", "SG")

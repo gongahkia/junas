@@ -1,7 +1,7 @@
 """Tests for the persistent per-document mapping store.
 
 Covers:
-- /pseudonymize writes mapping to ${KAYPOH_JOURNAL_DIR}/mappings/<hash>.json when persistence is on
+- /pseudonymize writes mapping to ${JUNAS_JOURNAL_DIR}/mappings/<hash>.json when persistence is on
 - /reidentify recovers from document_hash alone
 - /reidentify 404s on unknown hash
 - /reidentify still works with inline mapping when persistence is off
@@ -30,14 +30,14 @@ class MappingStorePersistTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
         self.tmpdir = Path(self._tmpdir.name)
-        os.environ["KAYPOH_JOURNAL_DIR"] = str(self.tmpdir)
-        os.environ["KAYPOH_JOURNAL_KEY"] = "mapping-test-key"
-        os.environ["KAYPOH_REVIEW_PERSIST"] = "1"
-        os.environ["KAYPOH_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
+        os.environ["JUNAS_JOURNAL_DIR"] = str(self.tmpdir)
+        os.environ["JUNAS_JOURNAL_KEY"] = "mapping-test-key"
+        os.environ["JUNAS_REVIEW_PERSIST"] = "1"
+        os.environ["JUNAS_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
-        import kaypoh.anonymize.mapping_store as mapping_mod
-        import kaypoh.backend.main as main_mod
-        import kaypoh.review.journal as journal_mod
+        import junas.anonymize.mapping_store as mapping_mod
+        import junas.backend.main as main_mod
+        import junas.review.journal as journal_mod
 
         importlib.reload(journal_mod)
         importlib.reload(mapping_mod)
@@ -51,14 +51,14 @@ class MappingStorePersistTests(unittest.TestCase):
     def tearDown(self):
         self._tmpdir.cleanup()
         for var in (
-            "KAYPOH_JOURNAL_DIR",
-            "KAYPOH_JOURNAL_KEY",
-            "KAYPOH_REVIEW_PERSIST",
-            "KAYPOH_MAPPING_STORE_KEY",
-            "KAYPOH_SUBJECT_INDEX_KEY",
+            "JUNAS_JOURNAL_DIR",
+            "JUNAS_JOURNAL_KEY",
+            "JUNAS_REVIEW_PERSIST",
+            "JUNAS_MAPPING_STORE_KEY",
+            "JUNAS_SUBJECT_INDEX_KEY",
         ):
             os.environ.pop(var, None)
-        import kaypoh.backend.main as main_mod
+        import junas.backend.main as main_mod
         importlib.reload(main_mod)
 
     def test_pseudonymize_persists_mapping_and_reidentify_recovers_from_hash(self):
@@ -166,9 +166,9 @@ class MappingStorePersistTests(unittest.TestCase):
             self.assertEqual(response.status_code, 404)
 
     def test_anonymize_does_not_persist_when_persistence_disabled(self):
-        os.environ["KAYPOH_REVIEW_PERSIST"] = "0"
+        os.environ["JUNAS_REVIEW_PERSIST"] = "0"
         # rebind the persistence flag without reimporting the whole module
-        import kaypoh.backend.main as main_mod
+        import junas.backend.main as main_mod
         importlib.reload(main_mod)
         main_mod._state.clear()
         main_mod.app.openapi_schema = None
@@ -191,9 +191,9 @@ class MappingStorePersistTests(unittest.TestCase):
             self.assertFalse((self.tmpdir / "mappings").exists())
 
     def test_encrypted_mapping_persists_without_plaintext_and_reidentifies(self):
-        os.environ["KAYPOH_MAPPING_STORE_KEY"] = Fernet.generate_key().decode("ascii")
-        import kaypoh.anonymize.mapping_store as mapping_mod
-        import kaypoh.backend.main as main_mod
+        os.environ["JUNAS_MAPPING_STORE_KEY"] = Fernet.generate_key().decode("ascii")
+        import junas.anonymize.mapping_store as mapping_mod
+        import junas.backend.main as main_mod
 
         importlib.reload(mapping_mod)
         importlib.reload(main_mod)
@@ -232,8 +232,8 @@ class MappingStorePersistTests(unittest.TestCase):
 
     def test_encrypted_mapping_wrong_or_missing_key_fails_closed(self):
         key = Fernet.generate_key().decode("ascii")
-        os.environ["KAYPOH_MAPPING_STORE_KEY"] = key
-        import kaypoh.anonymize.mapping_store as mapping_mod
+        os.environ["JUNAS_MAPPING_STORE_KEY"] = key
+        import junas.anonymize.mapping_store as mapping_mod
 
         importlib.reload(mapping_mod)
         doc_hash = mapping_mod.compute_document_hash("secret")
@@ -242,16 +242,16 @@ class MappingStorePersistTests(unittest.TestCase):
             mapping=[{"placeholder": "[PERSON_1]", "entity_type": "PERSON", "original_text": "Dr Jane Tan"}],
         )
 
-        os.environ.pop("KAYPOH_MAPPING_STORE_KEY", None)
+        os.environ.pop("JUNAS_MAPPING_STORE_KEY", None)
         with self.assertRaises(mapping_mod.MappingStoreKeyError):
             mapping_mod.load_mapping(doc_hash)
 
-        os.environ["KAYPOH_MAPPING_STORE_KEY"] = Fernet.generate_key().decode("ascii")
+        os.environ["JUNAS_MAPPING_STORE_KEY"] = Fernet.generate_key().decode("ascii")
         with self.assertRaises(mapping_mod.MappingStoreKeyError):
             mapping_mod.load_mapping(doc_hash)
 
     def test_legacy_plaintext_mapping_still_loads(self):
-        import kaypoh.anonymize.mapping_store as mapping_mod
+        import junas.anonymize.mapping_store as mapping_mod
 
         importlib.reload(mapping_mod)
         doc_hash = "a" * 64
@@ -280,7 +280,7 @@ class MappingStorePersistTests(unittest.TestCase):
         self.assertEqual(loaded[0]["original_text"], "Dr Jane Tan")
 
     def test_purge_by_hash_and_retention(self):
-        import kaypoh.anonymize.mapping_store as mapping_mod
+        import junas.anonymize.mapping_store as mapping_mod
 
         importlib.reload(mapping_mod)
         old_hash = "b" * 64
@@ -312,8 +312,8 @@ class MappingStorePersistTests(unittest.TestCase):
 
 class ReidentifyInlineMappingStillWorksTests(unittest.TestCase):
     def setUp(self):
-        os.environ.pop("KAYPOH_REVIEW_PERSIST", None)
-        import kaypoh.backend.main as main_mod
+        os.environ.pop("JUNAS_REVIEW_PERSIST", None)
+        import junas.backend.main as main_mod
         importlib.reload(main_mod)
         self.main = main_mod
         self.main._state.clear()
@@ -321,7 +321,7 @@ class ReidentifyInlineMappingStillWorksTests(unittest.TestCase):
         self.main.app.router.lifespan_context = _noop_lifespan
 
     def tearDown(self):
-        import kaypoh.backend.main as main_mod
+        import junas.backend.main as main_mod
         importlib.reload(main_mod)
 
     def test_inline_mapping_still_accepted_without_document_hash(self):

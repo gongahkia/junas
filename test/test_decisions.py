@@ -6,10 +6,10 @@ from pathlib import Path
 
 
 def _setup_isolated_journal(tmpdir: Path):
-    os.environ["KAYPOH_JOURNAL_DIR"] = str(tmpdir)
-    os.environ["KAYPOH_JOURNAL_KEY"] = "test-key"
-    import kaypoh.review.decisions as decisions_mod
-    import kaypoh.review.journal as journal_mod
+    os.environ["JUNAS_JOURNAL_DIR"] = str(tmpdir)
+    os.environ["JUNAS_JOURNAL_KEY"] = "test-key"
+    import junas.review.decisions as decisions_mod
+    import junas.review.journal as journal_mod
 
     importlib.reload(journal_mod)
     importlib.reload(decisions_mod)
@@ -24,7 +24,7 @@ class DecisionStateMachineTests(unittest.TestCase):
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        for var in ("KAYPOH_JOURNAL_DIR", "KAYPOH_JOURNAL_KEY"):
+        for var in ("JUNAS_JOURNAL_DIR", "JUNAS_JOURNAL_KEY"):
             os.environ.pop(var, None)
         importlib.reload(self.journal_mod)
         importlib.reload(self.decisions_mod)

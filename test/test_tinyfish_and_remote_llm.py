@@ -9,10 +9,10 @@ from types import SimpleNamespace
 
 import httpx
 
-from kaypoh.advisory.llm_adjudicator.helpers import RuntimeLLMCoverageAuditor
-from kaypoh.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
-from kaypoh.external.privacy_guard import PrivacyGuard
-from kaypoh.external.public_evidence.inference import PublicEvidenceRetriever
+from junas.advisory.llm_adjudicator.helpers import RuntimeLLMCoverageAuditor
+from junas.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
+from junas.external.privacy_guard import PrivacyGuard
+from junas.external.public_evidence.inference import PublicEvidenceRetriever
 
 
 def _tinyfish_settings(
@@ -373,7 +373,7 @@ class RemoteLLMOptInTests(unittest.TestCase):
                 base_url="",
                 allow_remote=False,
                 provider="local_distilled",
-                distilled_adapter_path="/definitely/missing/kaypoh-adapter",
+                distilled_adapter_path="/definitely/missing/junas-adapter",
             )
         )
         health = adjudicator.health()

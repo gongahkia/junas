@@ -4,9 +4,9 @@ const DEFAULTS = {
   sendHookTimeoutMs: "4000"
 };
 const STORAGE_KEYS = {
-  endpoint: "kaypoh.endpoint",
-  token: "kaypoh.localToken",
-  sendHookTimeoutMs: "kaypoh.sendHookTimeoutMs"
+  endpoint: "junas.endpoint",
+  token: "junas.localToken",
+  sendHookTimeoutMs: "junas.sendHookTimeoutMs"
 };
 let currentConfig = {...DEFAULTS};
 let pendingPairing = null;
@@ -58,9 +58,9 @@ function bodyText() {
   });
 }
 
-async function kaypoh(path, text) {
+async function junas(path, text) {
   const headers = {"Content-Type": "application/json"};
-  if (currentConfig.token) headers["X-Kaypoh-Local-Token"] = currentConfig.token;
+  if (currentConfig.token) headers["X-Junas-Local-Token"] = currentConfig.token;
   const response = await fetch(`${currentConfig.endpoint}/${path}`, {
     method: "POST",
     headers,
@@ -73,7 +73,7 @@ async function kaypoh(path, text) {
       degraded_policy: "warn"
     })
   });
-  if (!response.ok) throw new Error(`kaypoh ${response.status}`);
+  if (!response.ok) throw new Error(`junas ${response.status}`);
   return response.json();
 }
 
@@ -82,7 +82,7 @@ async function pairingStatus() {
   try {
     currentConfig.endpoint = endpoint.value.trim() || DEFAULTS.endpoint;
     const response = await fetch(`${currentConfig.endpoint}/local/pairing/status`);
-    if (!response.ok) throw new Error(`kaypoh ${response.status}`);
+    if (!response.ok) throw new Error(`junas ${response.status}`);
     const result = await response.json();
     output.textContent = JSON.stringify({
       acl_enabled: result.acl_enabled,
@@ -103,15 +103,15 @@ async function pairingCall(path, body) {
     body: JSON.stringify(body)
   });
   const payload = await response.json();
-  if (!response.ok) throw new Error(payload.detail || `kaypoh ${response.status}`);
+  if (!response.ok) throw new Error(payload.detail || `junas ${response.status}`);
   return payload;
 }
 
 async function startLocalPairing() {
   output.textContent = "starting pairing";
   try {
-    pendingPairing = await pairingCall("/local/pairing/start", {client_name: "Kaypoh Outlook add-in"});
-    output.textContent = `Pairing code: ${pendingPairing.pairing_code}\nApprove it in Kaypoh desktop, then complete pairing.`;
+    pendingPairing = await pairingCall("/local/pairing/start", {client_name: "Junas Outlook add-in"});
+    output.textContent = `Pairing code: ${pendingPairing.pairing_code}\nApprove it in Junas desktop, then complete pairing.`;
   } catch (error) {
     output.textContent = String(error);
   }
@@ -144,7 +144,7 @@ async function completeLocalPairing() {
 async function run(path) {
   output.textContent = "reviewing";
   try {
-    const result = await kaypoh(path, await bodyText());
+    const result = await junas(path, await bodyText());
     output.textContent = JSON.stringify({
       pii_score: result.pii_score,
       mnpi_score: result.mnpi_score,

@@ -2,4 +2,4 @@
 set -euo pipefail
 
 "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/install.sh"
-launchctl kickstart -k "gui/$(id -u)/com.kaypoh.local"
+launchctl kickstart -k "gui/$(id -u)/com.junas.local"

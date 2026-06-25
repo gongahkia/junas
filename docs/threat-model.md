@@ -24,12 +24,12 @@ This threat model is an operator-facing summary, not a substitute for a formal s
 
 | Threat | Control |
 |---|---|
-| Browser page calls local daemon without consent | Origin allowlist plus `X-Kaypoh-Local-Token`; first-connect pairing issues signed expiring tokens |
+| Browser page calls local daemon without consent | Origin allowlist plus `X-Junas-Local-Token`; first-connect pairing issues signed expiring tokens |
 | Raw PII in logs/SIEM | Backend logs omit body; SIEM sanitizer hashes or drops sensitive fields |
 | Tenant cross-read | Tenant context comes from validated credential/JWT only; storage path is tenant-scoped |
 | Mapping compromise | Optional Fernet encryption; service-account permissions; subject-index HMAC |
 | Journal tampering | HMAC chain, key versions, `verify_journal.py`, rotation sentinel |
-| Unsafe document container | ZIP/TAR caps, path traversal detection, macro/`.msg`/`.7z` degraded fail-open by default; `KAYPOH_DOCUMENT_FAIL_CLOSED=1` rejects |
+| Unsafe document container | ZIP/TAR caps, path traversal detection, macro/`.msg`/`.7z` degraded fail-open by default; `JUNAS_DOCUMENT_FAIL_CLOSED=1` rejects |
 | PDF hidden semantics missed | AcroForm, XFA, signatures, annotations, embedded files, URI actions are surfaced or degraded fail-open |
 | External provider leakage | Disabled by default; PrivacyGuard sanitization; tenant and deployer opt-ins |
 | Model over-suppression | Deterministic-high findings cannot be removed by LLM adjudication |
@@ -37,4 +37,4 @@ This threat model is an operator-facing summary, not a substitute for a formal s
 
 ## Residual Risk
 
-Kaypoh is a pre-send review aid. It is not legal advice, external counsel review, or a procurement-grade legal evaluation. Operators remain responsible for deployment controls, identity policy, retention, backups, legal hold, and user training.
+Junas is a pre-send review aid. It is not legal advice, external counsel review, or a procurement-grade legal evaluation. Operators remain responsible for deployment controls, identity policy, retention, backups, legal hold, and user training.

@@ -3,12 +3,12 @@ set -euo pipefail
 
 source "$(cd "$(dirname "$0")" && pwd)/common.sh"
 
-HOST="${KAYPOH_HOST:-0.0.0.0}"
-PORT="${KAYPOH_PORT:-8000}"
-LOG_LEVEL="${KAYPOH_LOG_LEVEL:-info}"
-RELOAD="${KAYPOH_RELOAD:-0}"
+HOST="${JUNAS_HOST:-0.0.0.0}"
+PORT="${JUNAS_PORT:-8000}"
+LOG_LEVEL="${JUNAS_LOG_LEVEL:-info}"
+RELOAD="${JUNAS_RELOAD:-0}"
 
-export KAYPOH_FAIL_ON_LAYER_LOAD_ERROR="${KAYPOH_FAIL_ON_LAYER_LOAD_ERROR:-1}"
+export JUNAS_FAIL_ON_LAYER_LOAD_ERROR="${JUNAS_FAIL_ON_LAYER_LOAD_ERROR:-1}"
 
 trap cleanup_services EXIT INT TERM
 
@@ -17,13 +17,13 @@ run_preflight
 
 echo "Starting backend only on ${BACKEND_URL}..."
 if [ "${RELOAD}" = "1" ]; then
-    uvicorn_cmd kaypoh.backend.main:app \
+    uvicorn_cmd junas.backend.main:app \
         --host "${HOST}" \
         --port "${PORT}" \
         --log-level "${LOG_LEVEL}" \
         --reload &
 else
-    uvicorn_cmd kaypoh.backend.main:app \
+    uvicorn_cmd junas.backend.main:app \
         --host "${HOST}" \
         --port "${PORT}" \
         --log-level "${LOG_LEVEL}" &

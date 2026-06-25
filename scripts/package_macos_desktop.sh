@@ -4,11 +4,11 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-: "${KAYPOH_CODESIGN_IDENTITY:=}"
-: "${KAYPOH_NOTARYTOOL_PROFILE:=}"
-: "${KAYPOH_PACKAGE_OUTPUT:=dist/kaypoh-local-macos.zip}"
-SPEC="$ROOT/packaging/kaypoh-local.spec"
-DESKTOP_SRC="${KAYPOH_DESKTOP_SRC:-$ROOT/integrations/desktop}"
+: "${JUNAS_CODESIGN_IDENTITY:=}"
+: "${JUNAS_NOTARYTOOL_PROFILE:=}"
+: "${JUNAS_PACKAGE_OUTPUT:=dist/junas-local-macos.zip}"
+SPEC="$ROOT/packaging/junas-local.spec"
+DESKTOP_SRC="${JUNAS_DESKTOP_SRC:-$ROOT/integrations/desktop}"
 
 if [[ ! -f "$DESKTOP_SRC/watch.py" ]]; then
   echo "missing desktop adapter source: $DESKTOP_SRC/watch.py" >&2
@@ -22,14 +22,14 @@ fi
 
 uv run pyinstaller "$SPEC"
 
-if [[ -n "$KAYPOH_CODESIGN_IDENTITY" ]]; then
-  /usr/bin/codesign --force --timestamp --options runtime --sign "$KAYPOH_CODESIGN_IDENTITY" dist/kaypoh-local/kaypoh-local
-  /usr/bin/codesign --verify --strict --deep dist/kaypoh-local/kaypoh-local
+if [[ -n "$JUNAS_CODESIGN_IDENTITY" ]]; then
+  /usr/bin/codesign --force --timestamp --options runtime --sign "$JUNAS_CODESIGN_IDENTITY" dist/junas-local/junas-local
+  /usr/bin/codesign --verify --strict --deep dist/junas-local/junas-local
 fi
 
-/usr/bin/ditto -c -k --keepParent dist/kaypoh-local "$KAYPOH_PACKAGE_OUTPUT"
+/usr/bin/ditto -c -k --keepParent dist/junas-local "$JUNAS_PACKAGE_OUTPUT"
 
-if [[ -n "$KAYPOH_NOTARYTOOL_PROFILE" ]]; then
-  /usr/bin/xcrun notarytool submit "$KAYPOH_PACKAGE_OUTPUT" --keychain-profile "$KAYPOH_NOTARYTOOL_PROFILE" --wait
-  /usr/bin/xcrun stapler staple "$KAYPOH_PACKAGE_OUTPUT" || true
+if [[ -n "$JUNAS_NOTARYTOOL_PROFILE" ]]; then
+  /usr/bin/xcrun notarytool submit "$JUNAS_PACKAGE_OUTPUT" --keychain-profile "$JUNAS_NOTARYTOOL_PROFILE" --wait
+  /usr/bin/xcrun stapler staple "$JUNAS_PACKAGE_OUTPUT" || true
 fi

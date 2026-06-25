@@ -11,9 +11,9 @@ import sys
 import unittest
 from pathlib import Path
 
-from kaypoh.review import jurisdictions
-from kaypoh.review.citations import mnpi_rationale, pii_rationale
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review import jurisdictions
+from junas.review.citations import mnpi_rationale, pii_rationale
+from junas.review.engine import PreSendReviewEngine
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 

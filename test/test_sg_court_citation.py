@@ -1,7 +1,7 @@
 """SG court neutral-citation detector (item 48 first slice).
 
 Recall + adversarial precision lock for a wedge-relevant detector. The recognizer
-ships in `src/kaypoh/review/jurisdictions_data/SG.toml` as `sg_court_citation`.
+ships in `src/junas/review/jurisdictions_data/SG.toml` as `sg_court_citation`.
 
 Positive corpus covers the SAL-published neutral citation forms across Court of Appeal,
 High Court (General + Appellate + Family), DC, FC, MC. Negative corpus covers shapes that
@@ -12,7 +12,7 @@ adversarial precision baselines.
 
 import unittest
 
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.review.engine import PreSendReviewEngine
 
 POSITIVES = [
     ("[2024] SGCA 12", "Court of Appeal"),

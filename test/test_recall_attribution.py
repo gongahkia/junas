@@ -54,7 +54,7 @@ class RecallAttributionTests(unittest.TestCase):
             HISTORY_PATH.unlink()
         result = self._run(
             "--update", "--reason", "added 5 new SPA fixtures (Q2 corpus expansion)",
-            env_extra={"KAYPOH_RECALL_ACTOR": "audit-bot@example.com"},
+            env_extra={"JUNAS_RECALL_ACTOR": "audit-bot@example.com"},
         )
         self.assertEqual(result.returncode, 0, msg=result.stderr)
         self.assertTrue(HISTORY_PATH.exists(), "expected history file to be created")
@@ -78,7 +78,7 @@ class RecallAttributionTests(unittest.TestCase):
         )
         result = self._run(
             "--update", "--reason", "test diff capture",
-            env_extra={"KAYPOH_RECALL_ACTOR": "tester@example.com"},
+            env_extra={"JUNAS_RECALL_ACTOR": "tester@example.com"},
         )
         self.assertEqual(result.returncode, 0, msg=result.stderr)
         entry = json.loads(HISTORY_PATH.read_text(encoding="utf-8").strip().splitlines()[-1])

@@ -5,7 +5,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-import kaypoh.backend.main as main
+import junas.backend.main as main
 
 ROOT = Path(__file__).resolve().parent.parent
 SNAPSHOT_PATH = ROOT / "test" / "fixtures" / "openapi_contract_snapshot.json"

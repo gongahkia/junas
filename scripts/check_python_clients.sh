@@ -13,9 +13,9 @@ else
     PYTHON=(python3)
 fi
 
-echo "Verifying Kaypoh sync and async Python clients..."
+echo "Verifying Junas sync and async Python clients..."
 "${PYTHON[@]}" -m py_compile \
-    src/kaypoh/client.py \
+    src/junas/client.py \
     scripts/examples/sync_client_example.py \
     scripts/examples/async_client_example.py \
     scripts/examples/review_then_actions_sync.py \

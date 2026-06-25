@@ -1,6 +1,6 @@
 # Southeast Asia baseline (SEA) Defensibility Report
 
-> Generated 2026-06-06 from `src/kaypoh/review/jurisdictions_data/SEA.toml`. Internal benchmarking and procurement-support artifact only; not legal advice.
+> Generated 2026-06-06 from `src/junas/review/jurisdictions_data/SEA.toml`. Internal benchmarking and procurement-support artifact only; not legal advice.
 
 SEA is the regional baseline pack: it gives Southeast Asia routing a statutory baseline when a more specific local pack is not selected.
 

@@ -13,11 +13,11 @@ SRC_ROOT = ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh.anonymize.mapping_store import mapping_exists, purge_expired_mappings, purge_mapping  # noqa: E402
+from junas.anonymize.mapping_store import mapping_exists, purge_expired_mappings, purge_mapping  # noqa: E402
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Purge Kaypoh persisted mapping-store entries")
+    parser = argparse.ArgumentParser(description="Purge Junas persisted mapping-store entries")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--document-hash", help="delete one mapping by SHA-256 document hash")
     group.add_argument("--older-than-days", type=int, help="delete mappings older than this many days")

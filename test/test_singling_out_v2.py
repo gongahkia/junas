@@ -5,8 +5,8 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from kaypoh.review.engine import PreSendReviewEngine
-from kaypoh.review.singling_out.scorer import (
+from junas.review.engine import PreSendReviewEngine
+from junas.review.singling_out.scorer import (
     _load_generated_tables,
     _load_sg_tables,
     _tables_for,
@@ -162,7 +162,7 @@ class SinglingOutV2Tests(unittest.TestCase):
             root = Path(tmp)
             self._write_generated_table(root, "UK", "postal_population", "postal_prefix,population\nSW1A 1,3\n")
             clear_table_cache_for_tests()
-            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
+            with mock.patch.dict(os.environ, {"JUNAS_FREQUENCY_DATA_DIR": tmp}):
                 findings = self._quasi_for(
                     "Dr Jane Tan; Age: 42; address 10 Downing Street SW1A 1AA.",
                     "UK",
@@ -178,7 +178,7 @@ class SinglingOutV2Tests(unittest.TestCase):
             root = Path(tmp)
             self._write_generated_table(root, "US", "surname_frequency", "surname,population\nRARETEST,4\n")
             clear_table_cache_for_tests()
-            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
+            with mock.patch.dict(os.environ, {"JUNAS_FREQUENCY_DATA_DIR": tmp}):
                 findings = self._quasi_for(
                     "Dr Jane Raretest; Age: 42; address 123 Market Street, CA 94105.",
                     "US",
@@ -193,7 +193,7 @@ class SinglingOutV2Tests(unittest.TestCase):
             root = Path(tmp)
             self._write_generated_table(root, "US", "name_frequency", "name,population\nJane Raretest,4\n")
             clear_table_cache_for_tests()
-            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
+            with mock.patch.dict(os.environ, {"JUNAS_FREQUENCY_DATA_DIR": tmp}):
                 findings = self._quasi_for(
                     "Dr Jane Raretest; Age: 42; address 123 Market Street, CA 94105.",
                     "US",
@@ -220,7 +220,7 @@ class SinglingOutV2Tests(unittest.TestCase):
             root = Path(tmp)
             self._write_generated_table(root, "SG", "name_frequency", "name,population\nJane Raretest,4\n")
             clear_table_cache_for_tests()
-            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
+            with mock.patch.dict(os.environ, {"JUNAS_FREQUENCY_DATA_DIR": tmp}):
                 findings = self._quasi(
                     "Dr Jane Raretest; Age: 42; address 77 Shenton Way, Singapore 068810."
                 )
@@ -246,7 +246,7 @@ class SinglingOutV2Tests(unittest.TestCase):
                 0,
             )
             clear_table_cache_for_tests()
-            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": str(out)}):
+            with mock.patch.dict(os.environ, {"JUNAS_FREQUENCY_DATA_DIR": str(out)}):
                 findings = self._quasi(
                     "Dr Jane Raretest; Age: 42; address 77 Shenton Way, Singapore 068810."
                 )
@@ -275,7 +275,7 @@ class SinglingOutV2Tests(unittest.TestCase):
                         0,
                     )
                     clear_table_cache_for_tests()
-                    with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": str(out)}):
+                    with mock.patch.dict(os.environ, {"JUNAS_FREQUENCY_DATA_DIR": str(out)}):
                         findings = self._quasi_for(
                             "Dr Jane Raretest works as Senior Actuary. Age: 42.",
                             code,
@@ -290,7 +290,7 @@ class SinglingOutV2Tests(unittest.TestCase):
             root = Path(tmp)
             self._write_generated_table(root, "US", "role_frequency", "role,population\nActuary,3\n")
             clear_table_cache_for_tests()
-            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
+            with mock.patch.dict(os.environ, {"JUNAS_FREQUENCY_DATA_DIR": tmp}):
                 findings = self._quasi_for(
                     "Dr Jane Raretest is a Senior Actuary; Age: 42; address 123 Market Street, CA 94105.",
                     "US",
@@ -349,7 +349,7 @@ class SinglingOutV2Tests(unittest.TestCase):
                 sha256="bad",
             )
             clear_table_cache_for_tests()
-            with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
+            with mock.patch.dict(os.environ, {"JUNAS_FREQUENCY_DATA_DIR": tmp}):
                 findings = self._quasi_for(
                     "Dr Jane Tan; Age: 42; office 1 Liverpool Street London EC2M 5QQ.",
                     "UK",

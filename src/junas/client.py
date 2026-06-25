@@ -1,0 +1,1241 @@
+from __future__ import annotations
+
+from collections.abc import Mapping, Sequence
+from typing import Any
+
+import httpx
+
+from .backend.schemas import (
+    AnonymizeRequest,
+    AnonymizeResponse,
+    BatchClassifyRequest,
+    BatchClassifyResponse,
+    ClassifyRequest,
+    ClassifyResponse,
+    DiagnosticsResponse,
+    DocumentScrubRequest,
+    DocumentScrubResponse,
+    HealthResponse,
+    PseudonymizeRequest,
+    PseudonymizeResponse,
+    ReadyResponse,
+    RedactRequest,
+    RedactResponse,
+    ReidentifyMappingEntry,
+    ReidentifyRequest,
+    ReidentifyResponse,
+    RequestApprovalRequest,
+    RequestApprovalResponse,
+    ReviewRequest,
+    ReviewResponse,
+    SafeRewriteRequest,
+    SafeRewriteResponse,
+)
+
+DEFAULT_BASE_URL = "http://localhost:8000"
+DEFAULT_TIMEOUT_SECONDS = 30.0
+
+
+def _normalize_base_url(base_url: str) -> str:
+    return base_url.rstrip("/")
+
+
+def _extract_error_detail(payload: Any) -> str:
+    if isinstance(payload, Mapping):
+        detail = payload.get("detail")
+        if isinstance(detail, str):
+            return detail.strip()
+        if isinstance(detail, Sequence) and not isinstance(detail, (str, bytes, bytearray)):
+            parts: list[str] = []
+            for item in detail:
+                if isinstance(item, str):
+                    text = item.strip()
+                    if text:
+                        parts.append(text)
+                    continue
+                if not isinstance(item, Mapping):
+                    continue
+                location = ".".join(str(part) for part in item.get("loc", []) if part != "body")
+                message = str(item.get("msg", "")).strip()
+                if message:
+                    parts.append(f"{location}: {message}" if location else message)
+            return "; ".join(parts)
+    return ""
+
+
+def _build_api_error(response: httpx.Response) -> "JunasAPIError":
+    body: Any
+    detail = ""
+    try:
+        body = response.json()
+        detail = _extract_error_detail(body)
+    except ValueError:
+        body = response.text
+        if isinstance(body, str):
+            detail = body.strip()
+
+    message = f"Junas API request failed with status {response.status_code}"
+    if detail:
+        message = f"{message}: {detail}"
+
+    return JunasAPIError(
+        message,
+        status_code=response.status_code,
+        detail=detail,
+        body=body,
+    )
+
+
+def _coerce_classify_request(
+    *,
+    request: ClassifyRequest | Mapping[str, Any] | None,
+    text: str | None,
+    entity_id: str | None,
+    debug: bool,
+    include_offending_spans: bool,
+) -> ClassifyRequest:
+    if request is not None:
+        if text is not None:
+            raise ValueError("pass either request=... or text=..., not both")
+        if isinstance(request, ClassifyRequest):
+            return request
+        return ClassifyRequest.model_validate(request)
+
+    if text is None:
+        raise ValueError("text is required when request is not provided")
+
+    return ClassifyRequest(
+        text=text,
+        entity_id=entity_id,
+        debug=debug,
+        include_offending_spans=include_offending_spans,
+    )
+
+
+def _coerce_batch_request(
+    *,
+    request: BatchClassifyRequest | Mapping[str, Any] | None,
+    items: Sequence[ClassifyRequest | Mapping[str, Any]] | None,
+) -> BatchClassifyRequest:
+    if request is not None:
+        if items is not None:
+            raise ValueError("pass either request=... or items=..., not both")
+        if isinstance(request, BatchClassifyRequest):
+            return request
+        return BatchClassifyRequest.model_validate(request)
+
+    if items is None:
+        raise ValueError("items is required when request is not provided")
+
+    normalized_items = [
+        item if isinstance(item, ClassifyRequest) else ClassifyRequest.model_validate(item)
+        for item in items
+    ]
+    return BatchClassifyRequest(items=normalized_items)
+
+
+def _coerce_review_request(
+    *,
+    request: ReviewRequest | Mapping[str, Any] | None,
+    text: str | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+    source_jurisdiction: str,
+    destination_jurisdiction: str,
+    document_type: str,
+    review_profile: str,
+    entity_id: str | None,
+    include_suggestions: bool,
+    degraded_policy: str,
+) -> ReviewRequest:
+    if request is not None:
+        if text is not None or document_base64 is not None:
+            raise ValueError("pass either request=... or text/document_base64=..., not both")
+        if isinstance(request, ReviewRequest):
+            return request
+        return ReviewRequest.model_validate(request)
+
+    return ReviewRequest(
+        text=text,
+        document_base64=document_base64,
+        document_filename=document_filename,
+        document_mime_type=document_mime_type,
+        source_jurisdiction=source_jurisdiction,
+        destination_jurisdiction=destination_jurisdiction,
+        document_type=document_type,
+        review_profile=review_profile,
+        entity_id=entity_id,
+        include_suggestions=include_suggestions,
+        degraded_policy=degraded_policy,
+    )
+
+
+def _coerce_anonymize_request(
+    *,
+    request: AnonymizeRequest | Mapping[str, Any] | None,
+    text: str | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+    source_jurisdiction: str,
+    destination_jurisdiction: str,
+    document_type: str,
+    review_profile: str,
+    entity_id: str | None,
+    include_suggestions: bool,
+    include_mnpi_scalars: bool,
+    degraded_policy: str,
+) -> AnonymizeRequest:
+    if request is not None:
+        if text is not None or document_base64 is not None:
+            raise ValueError("pass either request=... or text/document_base64=..., not both")
+        if isinstance(request, AnonymizeRequest):
+            return request
+        return AnonymizeRequest.model_validate(request)
+
+    return AnonymizeRequest(
+        text=text,
+        document_base64=document_base64,
+        document_filename=document_filename,
+        document_mime_type=document_mime_type,
+        source_jurisdiction=source_jurisdiction,
+        destination_jurisdiction=destination_jurisdiction,
+        document_type=document_type,
+        review_profile=review_profile,
+        entity_id=entity_id,
+        include_suggestions=include_suggestions,
+        include_mnpi_scalars=include_mnpi_scalars,
+        degraded_policy=degraded_policy,
+    )
+
+
+def _coerce_pseudonymize_request(
+    *,
+    request: PseudonymizeRequest | Mapping[str, Any] | None,
+    text: str | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+    source_jurisdiction: str,
+    destination_jurisdiction: str,
+    document_type: str,
+    review_profile: str,
+    entity_id: str | None,
+    include_suggestions: bool,
+    include_mnpi_scalars: bool,
+    persist_mapping: bool,
+    degraded_policy: str,
+) -> PseudonymizeRequest:
+    if request is not None:
+        if text is not None or document_base64 is not None:
+            raise ValueError("pass either request=... or text/document_base64=..., not both")
+        if isinstance(request, PseudonymizeRequest):
+            return request
+        return PseudonymizeRequest.model_validate(request)
+
+    return PseudonymizeRequest(
+        text=text,
+        document_base64=document_base64,
+        document_filename=document_filename,
+        document_mime_type=document_mime_type,
+        source_jurisdiction=source_jurisdiction,
+        destination_jurisdiction=destination_jurisdiction,
+        document_type=document_type,
+        review_profile=review_profile,
+        entity_id=entity_id,
+        include_suggestions=include_suggestions,
+        include_mnpi_scalars=include_mnpi_scalars,
+        persist_mapping=persist_mapping,
+        degraded_policy=degraded_policy,
+    )
+
+
+def _coerce_redact_request(
+    *,
+    request: RedactRequest | Mapping[str, Any] | None,
+    text: str | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+    source_jurisdiction: str,
+    destination_jurisdiction: str,
+    document_type: str,
+    review_profile: str,
+    entity_id: str | None,
+    include_suggestions: bool,
+    include_mnpi_scalars: bool,
+    degraded_policy: str,
+) -> RedactRequest:
+    if request is not None:
+        if text is not None or document_base64 is not None:
+            raise ValueError("pass either request=... or text/document_base64=..., not both")
+        if isinstance(request, RedactRequest):
+            return request
+        return RedactRequest.model_validate(request)
+
+    return RedactRequest(
+        text=text,
+        document_base64=document_base64,
+        document_filename=document_filename,
+        document_mime_type=document_mime_type,
+        source_jurisdiction=source_jurisdiction,
+        destination_jurisdiction=destination_jurisdiction,
+        document_type=document_type,
+        review_profile=review_profile,
+        entity_id=entity_id,
+        include_suggestions=include_suggestions,
+        include_mnpi_scalars=include_mnpi_scalars,
+        degraded_policy=degraded_policy,
+    )
+
+
+def _coerce_safe_rewrite_request(
+    *,
+    request: SafeRewriteRequest | Mapping[str, Any] | None,
+    text: str | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+    source_jurisdiction: str,
+    destination_jurisdiction: str,
+    document_type: str,
+    review_profile: str,
+    entity_id: str | None,
+    include_suggestions: bool,
+    degraded_policy: str,
+    allowed_actions: Sequence[str] | None,
+    allowed_finding_ids: Sequence[str] | None,
+) -> SafeRewriteRequest:
+    if request is not None:
+        if text is not None or document_base64 is not None:
+            raise ValueError("pass either request=... or text/document_base64=..., not both")
+        if isinstance(request, SafeRewriteRequest):
+            return request
+        return SafeRewriteRequest.model_validate(request)
+
+    payload: dict[str, Any] = {
+        "text": text,
+        "document_base64": document_base64,
+        "document_filename": document_filename,
+        "document_mime_type": document_mime_type,
+        "source_jurisdiction": source_jurisdiction,
+        "destination_jurisdiction": destination_jurisdiction,
+        "document_type": document_type,
+        "review_profile": review_profile,
+        "entity_id": entity_id,
+        "include_suggestions": include_suggestions,
+        "degraded_policy": degraded_policy,
+        "requested_action": "safe_rewrite",
+    }
+    if allowed_actions is not None:
+        payload["allowed_actions"] = list(allowed_actions)
+    if allowed_finding_ids is not None:
+        payload["allowed_finding_ids"] = list(allowed_finding_ids)
+    return SafeRewriteRequest.model_validate(payload)
+
+
+def _coerce_request_approval_request(
+    *,
+    request: RequestApprovalRequest | Mapping[str, Any] | None,
+    review_id: str | None,
+    finding_ids: Sequence[str] | None,
+    reason_code: str,
+) -> RequestApprovalRequest:
+    if request is not None:
+        if review_id is not None or finding_ids is not None:
+            raise ValueError("pass either request=... or review_id/finding_ids=..., not both")
+        if isinstance(request, RequestApprovalRequest):
+            return request
+        return RequestApprovalRequest.model_validate(request)
+
+    if review_id is None:
+        raise ValueError("review_id is required when request is not provided")
+
+    return RequestApprovalRequest(
+        review_id=review_id,
+        finding_ids=list(finding_ids) if finding_ids is not None else None,
+        reason_code=reason_code,
+    )
+
+
+def _coerce_reidentify_request(
+    *,
+    request: ReidentifyRequest | Mapping[str, Any] | None,
+    anonymized_text: str | None,
+    mapping: Sequence[ReidentifyMappingEntry | Mapping[str, Any]] | None,
+    document_hash: str | None = None,
+) -> ReidentifyRequest:
+    if request is not None:
+        if anonymized_text is not None or mapping is not None or document_hash is not None:
+            raise ValueError("pass either request=... or anonymized_text/mapping/document_hash=..., not both")
+        if isinstance(request, ReidentifyRequest):
+            return request
+        return ReidentifyRequest.model_validate(request)
+
+    if anonymized_text is None:
+        raise ValueError("anonymized_text is required when request is not provided")
+    if mapping is None and not document_hash:
+        raise ValueError("either mapping or document_hash is required when request is not provided")
+
+    normalized_mapping = (
+        [
+            entry if isinstance(entry, ReidentifyMappingEntry) else ReidentifyMappingEntry.model_validate(entry)
+            for entry in mapping
+        ]
+        if mapping is not None
+        else None
+    )
+    return ReidentifyRequest(
+        anonymized_text=anonymized_text,
+        mapping=normalized_mapping,
+        document_hash=document_hash,
+    )
+
+
+def _coerce_document_scrub_request(
+    *,
+    request: DocumentScrubRequest | Mapping[str, Any] | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+) -> DocumentScrubRequest:
+    if request is not None:
+        if document_base64 is not None:
+            raise ValueError("pass either request=... or document_base64=..., not both")
+        if isinstance(request, DocumentScrubRequest):
+            return request
+        return DocumentScrubRequest.model_validate(request)
+    if document_base64 is None:
+        raise ValueError("document_base64 is required when request is not provided")
+    return DocumentScrubRequest(
+        document_base64=document_base64,
+        document_filename=document_filename,
+        document_mime_type=document_mime_type,
+    )
+
+
+class JunasAPIError(RuntimeError):
+    def __init__(self, message: str, *, status_code: int, detail: str = "", body: Any = None) -> None:
+        super().__init__(message)
+        self.status_code = status_code
+        self.detail = detail
+        self.body = body
+
+
+class JunasClient:
+    """Typed Python client for the Junas backend HTTP API."""
+
+    def __init__(
+        self,
+        base_url: str = DEFAULT_BASE_URL,
+        *,
+        api_key: str | None = None,
+        timeout: float | httpx.Timeout = DEFAULT_TIMEOUT_SECONDS,
+        transport: httpx.BaseTransport | None = None,
+    ) -> None:
+        self.base_url = _normalize_base_url(base_url)
+        self.api_key = api_key
+        headers = {"Accept": "application/json"}
+        if api_key:
+            headers["X-API-Key"] = api_key
+
+        self._client = httpx.Client(
+            base_url=self.base_url,
+            timeout=timeout,
+            headers=headers,
+            transport=transport,
+        )
+
+    def close(self) -> None:
+        self._client.close()
+
+    def __enter__(self) -> "JunasClient":
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> None:
+        self.close()
+
+    def _request_json(
+        self,
+        method: str,
+        path: str,
+        *,
+        json_body: dict[str, Any] | None = None,
+    ) -> Any:
+        response = self._client.request(method, path, json=json_body)
+        if response.is_error:
+            raise _build_api_error(response)
+        return response.json()
+
+    def health(self) -> HealthResponse:
+        return HealthResponse.model_validate(self._request_json("GET", "/health"))
+
+    def ready(self) -> ReadyResponse:
+        return ReadyResponse.model_validate(self._request_json("GET", "/ready"))
+
+    def diagnostics(self) -> DiagnosticsResponse:
+        return DiagnosticsResponse.model_validate(self._request_json("GET", "/diagnostics"))
+
+    def metrics(self) -> str:
+        response = self._client.get("/metrics")
+        if response.is_error:
+            raise _build_api_error(response)
+        return response.text
+
+    def classify(
+        self,
+        text: str | None = None,
+        *,
+        entity_id: str | None = None,
+        debug: bool = False,
+        include_offending_spans: bool = False,
+        request: ClassifyRequest | Mapping[str, Any] | None = None,
+    ) -> ClassifyResponse:
+        payload = _coerce_classify_request(
+            request=request,
+            text=text,
+            entity_id=entity_id,
+            debug=debug,
+            include_offending_spans=include_offending_spans,
+        )
+        return ClassifyResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/classify",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def classify_batch(
+        self,
+        items: Sequence[ClassifyRequest | Mapping[str, Any]] | None = None,
+        *,
+        request: BatchClassifyRequest | Mapping[str, Any] | None = None,
+    ) -> BatchClassifyResponse:
+        payload = _coerce_batch_request(request=request, items=items)
+        return BatchClassifyResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/classify/batch",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def classify_many(
+        self,
+        items: Sequence[ClassifyRequest | Mapping[str, Any]],
+    ) -> list[ClassifyResponse]:
+        return self.classify_batch(items=items).results
+
+    def review(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        degraded_policy: str = "warn",
+        request: ReviewRequest | Mapping[str, Any] | None = None,
+    ) -> ReviewResponse:
+        payload = _coerce_review_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            degraded_policy=degraded_policy,
+        )
+        return ReviewResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/review",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def anonymize(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        degraded_policy: str = "warn",
+        request: AnonymizeRequest | Mapping[str, Any] | None = None,
+    ) -> AnonymizeResponse:
+        payload = _coerce_anonymize_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+            degraded_policy=degraded_policy,
+        )
+        return AnonymizeResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/anonymize",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def pseudonymize(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        persist_mapping: bool = True,
+        degraded_policy: str = "warn",
+        request: PseudonymizeRequest | Mapping[str, Any] | None = None,
+    ) -> PseudonymizeResponse:
+        payload = _coerce_pseudonymize_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+            persist_mapping=persist_mapping,
+            degraded_policy=degraded_policy,
+        )
+        return PseudonymizeResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/pseudonymize",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def redact(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        degraded_policy: str = "warn",
+        request: RedactRequest | Mapping[str, Any] | None = None,
+    ) -> RedactResponse:
+        payload = _coerce_redact_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+            degraded_policy=degraded_policy,
+        )
+        return RedactResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/redact",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def safe_rewrite(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        degraded_policy: str = "warn",
+        allowed_actions: Sequence[str] | None = None,
+        allowed_finding_ids: Sequence[str] | None = None,
+        request: SafeRewriteRequest | Mapping[str, Any] | None = None,
+    ) -> SafeRewriteResponse:
+        payload = _coerce_safe_rewrite_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            degraded_policy=degraded_policy,
+            allowed_actions=allowed_actions,
+            allowed_finding_ids=allowed_finding_ids,
+        )
+        return SafeRewriteResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/safe-rewrite",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def request_approval(
+        self,
+        review_id: str | None = None,
+        *,
+        finding_ids: Sequence[str] | None = None,
+        reason_code: str = "policy_block",
+        request: RequestApprovalRequest | Mapping[str, Any] | None = None,
+    ) -> RequestApprovalResponse:
+        payload = _coerce_request_approval_request(
+            request=request,
+            review_id=review_id,
+            finding_ids=finding_ids,
+            reason_code=reason_code,
+        )
+        return RequestApprovalResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/request-approval",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def scrub_document(
+        self,
+        document_base64: str | None = None,
+        *,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        request: DocumentScrubRequest | Mapping[str, Any] | None = None,
+    ) -> DocumentScrubResponse:
+        payload = _coerce_document_scrub_request(
+            request=request,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+        )
+        return DocumentScrubResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/documents/scrub",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def reidentify(
+        self,
+        anonymized_text: str | None = None,
+        *,
+        mapping: Sequence[ReidentifyMappingEntry | Mapping[str, Any]] | None = None,
+        document_hash: str | None = None,
+        request: ReidentifyRequest | Mapping[str, Any] | None = None,
+    ) -> ReidentifyResponse:
+        payload = _coerce_reidentify_request(
+            request=request,
+            anonymized_text=anonymized_text,
+            mapping=mapping,
+            document_hash=document_hash,
+        )
+        return ReidentifyResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/reidentify",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+
+class AsyncJunasClient:
+    """Async typed Python client for the Junas backend HTTP API."""
+
+    def __init__(
+        self,
+        base_url: str = DEFAULT_BASE_URL,
+        *,
+        api_key: str | None = None,
+        timeout: float | httpx.Timeout = DEFAULT_TIMEOUT_SECONDS,
+        transport: httpx.AsyncBaseTransport | httpx.BaseTransport | None = None,
+    ) -> None:
+        self.base_url = _normalize_base_url(base_url)
+        self.api_key = api_key
+        headers = {"Accept": "application/json"}
+        if api_key:
+            headers["X-API-Key"] = api_key
+
+        self._client = httpx.AsyncClient(
+            base_url=self.base_url,
+            timeout=timeout,
+            headers=headers,
+            transport=transport,
+        )
+
+    async def aclose(self) -> None:
+        await self._client.aclose()
+
+    async def __aenter__(self) -> "AsyncJunasClient":
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb) -> None:
+        await self.aclose()
+
+    async def _request_json(
+        self,
+        method: str,
+        path: str,
+        *,
+        json_body: dict[str, Any] | None = None,
+    ) -> Any:
+        response = await self._client.request(method, path, json=json_body)
+        if response.is_error:
+            raise _build_api_error(response)
+        return response.json()
+
+    async def health(self) -> HealthResponse:
+        return HealthResponse.model_validate(await self._request_json("GET", "/health"))
+
+    async def ready(self) -> ReadyResponse:
+        return ReadyResponse.model_validate(await self._request_json("GET", "/ready"))
+
+    async def diagnostics(self) -> DiagnosticsResponse:
+        return DiagnosticsResponse.model_validate(await self._request_json("GET", "/diagnostics"))
+
+    async def metrics(self) -> str:
+        response = await self._client.get("/metrics")
+        if response.is_error:
+            raise _build_api_error(response)
+        return response.text
+
+    async def classify(
+        self,
+        text: str | None = None,
+        *,
+        entity_id: str | None = None,
+        debug: bool = False,
+        include_offending_spans: bool = False,
+        request: ClassifyRequest | Mapping[str, Any] | None = None,
+    ) -> ClassifyResponse:
+        payload = _coerce_classify_request(
+            request=request,
+            text=text,
+            entity_id=entity_id,
+            debug=debug,
+            include_offending_spans=include_offending_spans,
+        )
+        return ClassifyResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/classify",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def classify_batch(
+        self,
+        items: Sequence[ClassifyRequest | Mapping[str, Any]] | None = None,
+        *,
+        request: BatchClassifyRequest | Mapping[str, Any] | None = None,
+    ) -> BatchClassifyResponse:
+        payload = _coerce_batch_request(request=request, items=items)
+        return BatchClassifyResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/classify/batch",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def classify_many(
+        self,
+        items: Sequence[ClassifyRequest | Mapping[str, Any]],
+    ) -> list[ClassifyResponse]:
+        return (await self.classify_batch(items=items)).results
+
+    async def review(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        degraded_policy: str = "warn",
+        request: ReviewRequest | Mapping[str, Any] | None = None,
+    ) -> ReviewResponse:
+        payload = _coerce_review_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            degraded_policy=degraded_policy,
+        )
+        return ReviewResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/review",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def anonymize(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        degraded_policy: str = "warn",
+        request: AnonymizeRequest | Mapping[str, Any] | None = None,
+    ) -> AnonymizeResponse:
+        payload = _coerce_anonymize_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+            degraded_policy=degraded_policy,
+        )
+        return AnonymizeResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/anonymize",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def pseudonymize(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        persist_mapping: bool = True,
+        degraded_policy: str = "warn",
+        request: PseudonymizeRequest | Mapping[str, Any] | None = None,
+    ) -> PseudonymizeResponse:
+        payload = _coerce_pseudonymize_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+            persist_mapping=persist_mapping,
+            degraded_policy=degraded_policy,
+        )
+        return PseudonymizeResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/pseudonymize",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def redact(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        degraded_policy: str = "warn",
+        request: RedactRequest | Mapping[str, Any] | None = None,
+    ) -> RedactResponse:
+        payload = _coerce_redact_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+            degraded_policy=degraded_policy,
+        )
+        return RedactResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/redact",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def safe_rewrite(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        degraded_policy: str = "warn",
+        allowed_actions: Sequence[str] | None = None,
+        allowed_finding_ids: Sequence[str] | None = None,
+        request: SafeRewriteRequest | Mapping[str, Any] | None = None,
+    ) -> SafeRewriteResponse:
+        payload = _coerce_safe_rewrite_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            degraded_policy=degraded_policy,
+            allowed_actions=allowed_actions,
+            allowed_finding_ids=allowed_finding_ids,
+        )
+        return SafeRewriteResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/safe-rewrite",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def request_approval(
+        self,
+        review_id: str | None = None,
+        *,
+        finding_ids: Sequence[str] | None = None,
+        reason_code: str = "policy_block",
+        request: RequestApprovalRequest | Mapping[str, Any] | None = None,
+    ) -> RequestApprovalResponse:
+        payload = _coerce_request_approval_request(
+            request=request,
+            review_id=review_id,
+            finding_ids=finding_ids,
+            reason_code=reason_code,
+        )
+        return RequestApprovalResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/request-approval",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def scrub_document(
+        self,
+        document_base64: str | None = None,
+        *,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        request: DocumentScrubRequest | Mapping[str, Any] | None = None,
+    ) -> DocumentScrubResponse:
+        payload = _coerce_document_scrub_request(
+            request=request,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+        )
+        return DocumentScrubResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/documents/scrub",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def reidentify(
+        self,
+        anonymized_text: str | None = None,
+        *,
+        mapping: Sequence[ReidentifyMappingEntry | Mapping[str, Any]] | None = None,
+        document_hash: str | None = None,
+        request: ReidentifyRequest | Mapping[str, Any] | None = None,
+    ) -> ReidentifyResponse:
+        payload = _coerce_reidentify_request(
+            request=request,
+            anonymized_text=anonymized_text,
+            mapping=mapping,
+            document_hash=document_hash,
+        )
+        return ReidentifyResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/reidentify",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+
+def classify_text(
+    text: str,
+    *,
+    base_url: str = DEFAULT_BASE_URL,
+    api_key: str | None = None,
+    entity_id: str | None = None,
+    debug: bool = False,
+    include_offending_spans: bool = False,
+    timeout: float | httpx.Timeout = DEFAULT_TIMEOUT_SECONDS,
+    transport: httpx.BaseTransport | None = None,
+) -> ClassifyResponse:
+    with JunasClient(
+        base_url,
+        api_key=api_key,
+        timeout=timeout,
+        transport=transport,
+    ) as client:
+        return client.classify(
+            text=text,
+            entity_id=entity_id,
+            debug=debug,
+            include_offending_spans=include_offending_spans,
+        )
+
+
+async def async_classify_text(
+    text: str,
+    *,
+    base_url: str = DEFAULT_BASE_URL,
+    api_key: str | None = None,
+    entity_id: str | None = None,
+    debug: bool = False,
+    include_offending_spans: bool = False,
+    timeout: float | httpx.Timeout = DEFAULT_TIMEOUT_SECONDS,
+    transport: httpx.AsyncBaseTransport | httpx.BaseTransport | None = None,
+) -> ClassifyResponse:
+    async with AsyncJunasClient(
+        base_url,
+        api_key=api_key,
+        timeout=timeout,
+        transport=transport,
+    ) as client:
+        return await client.classify(
+            text=text,
+            entity_id=entity_id,
+            debug=debug,
+            include_offending_spans=include_offending_spans,
+        )
+
+
+__all__ = [
+    "AnonymizeRequest",
+    "AnonymizeResponse",
+    "AsyncJunasClient",
+    "DEFAULT_BASE_URL",
+    "DEFAULT_TIMEOUT_SECONDS",
+    "JunasAPIError",
+    "JunasClient",
+    "PseudonymizeRequest",
+    "PseudonymizeResponse",
+    "RedactRequest",
+    "RedactResponse",
+    "ReidentifyMappingEntry",
+    "ReidentifyRequest",
+    "ReidentifyResponse",
+    "async_classify_text",
+    "classify_text",
+]

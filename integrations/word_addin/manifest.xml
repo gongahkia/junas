@@ -6,10 +6,10 @@
   xsi:type="TaskPaneApp">
   <Id>4c1fd2c8-8268-4b1b-8ed2-50bbd4c622a3</Id>
   <Version>0.1.0</Version>
-  <ProviderName>Kaypoh</ProviderName>
+  <ProviderName>Junas</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Kaypoh Review"/>
-  <Description DefaultValue="Review selected Word text through the local Kaypoh daemon."/>
+  <DisplayName DefaultValue="Junas Review"/>
+  <Description DefaultValue="Review selected Word text through the local Junas daemon."/>
   <Hosts>
     <Host Name="Document"/>
   </Hosts>
@@ -29,14 +29,14 @@
           </GetStarted>
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
             <OfficeTab id="TabHome">
-              <Group id="KaypohGroup">
+              <Group id="JunasGroup">
                 <Label resid="Group.Label"/>
                 <Icon>
                   <bt:Image size="16" resid="Icon.16x16"/>
                   <bt:Image size="32" resid="Icon.32x32"/>
                   <bt:Image size="80" resid="Icon.80x80"/>
                 </Icon>
-                <Control xsi:type="Button" id="OpenKaypohPane">
+                <Control xsi:type="Button" id="OpenJunasPane">
                   <Label resid="TaskpaneButton.Label"/>
                   <Supertip>
                     <Title resid="TaskpaneButton.Label"/>
@@ -68,13 +68,13 @@
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://localhost:3000/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="Group.Label" DefaultValue="Kaypoh"/>
+        <bt:String id="Group.Label" DefaultValue="Junas"/>
         <bt:String id="TaskpaneButton.Label" DefaultValue="Review"/>
-        <bt:String id="GetStarted.Title" DefaultValue="Kaypoh Review"/>
+        <bt:String id="GetStarted.Title" DefaultValue="Junas Review"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Review selected document text locally."/>
-        <bt:String id="GetStarted.Description" DefaultValue="Open Kaypoh Review from the Home tab."/>
+        <bt:String id="GetStarted.Description" DefaultValue="Open Junas Review from the Home tab."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

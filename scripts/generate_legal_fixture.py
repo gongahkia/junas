@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Synthetic legal-contract fixture generator. Build-time only — never touches customer data.
 
-Wraps the OpenAI chat-completions API to draft a short legal-style fixture for the kaypoh
+Wraps the OpenAI chat-completions API to draft a short legal-style fixture for the junas
 recall-gate corpus. Prints the draft text + a labels.json stub to stdout, or writes both to
 `test/fixtures/legal-corpus/` (default) or `test/fixtures/legal-corpus-adversarial/` (when
 `--adversarial` is set). Hand-review is mandatory before the labels.json is committed.
@@ -46,7 +46,7 @@ from scripts.fixture_taxonomy import (  # noqa: E402
 CORPUS_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus"
 ADVERSARIAL_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus-adversarial"
 CANDIDATE_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
-FIXTURE_TIMEOUT_SECONDS = float(os.environ.get("KAYPOH_FIXTURE_TIMEOUT_SECONDS", "180"))
+FIXTURE_TIMEOUT_SECONDS = float(os.environ.get("JUNAS_FIXTURE_TIMEOUT_SECONDS", "180"))
 
 
 def _azure_env(*names: str) -> str:
@@ -203,7 +203,7 @@ def _build_prompt(
         "Include at least one fictional organisation.",
         "Use jurisdiction-local terminology, regulator/exchange context, and document conventions where relevant.",
         "Include at least one benign or negative sentence that should help evaluate precision.",
-        "Do not mention Kaypoh, tests, labels, detector rules, or expected outputs.",
+        "Do not mention Junas, tests, labels, detector rules, or expected outputs.",
     ]
     if is_negative:
         constraints.append(
@@ -278,16 +278,16 @@ def _call_openai(system: str, user: str, *, model: str, api_key: str) -> str:
 
 
 def _call_azure_openai(system: str, user: str, *, model: str, api_key: str) -> str:
-    endpoint = _azure_env("KAYPOH_FIXTURE_AZURE_ENDPOINT", "GPT5_MINI_ENDPOINT", "GPT5_PRO_ENDPOINT", "AZURE_ENDPOINT")
+    endpoint = _azure_env("JUNAS_FIXTURE_AZURE_ENDPOINT", "GPT5_MINI_ENDPOINT", "GPT5_PRO_ENDPOINT", "AZURE_ENDPOINT")
     deployment = _azure_env(
-        "KAYPOH_FIXTURE_AZURE_DEPLOYMENT",
+        "JUNAS_FIXTURE_AZURE_DEPLOYMENT",
         "GPT5_MINI_DEPLOYMENT",
         "GPT5_PRO_DEPLOYMENT",
         "AZURE_OPENAI_DEPLOYMENT",
         "AZURE_DEPLOYMENT",
     )
     api_version = _azure_env(
-        "KAYPOH_FIXTURE_AZURE_API_VERSION",
+        "JUNAS_FIXTURE_AZURE_API_VERSION",
         "GPT5_MINI_API_VERSION",
         "GPT5_PRO_API_VERSION",
         "API_VERSION",
@@ -317,7 +317,7 @@ def _call_azure_openai(system: str, user: str, *, model: str, api_key: str) -> s
 def _api_key_for_provider(provider: str) -> str:
     if provider == "azure":
         return _azure_env(
-            "KAYPOH_FIXTURE_AZURE_API_KEY",
+            "JUNAS_FIXTURE_AZURE_API_KEY",
             "GPT5_MINI_API_KEY",
             "GPT5_PRO_API_KEY",
             "AZURE_OPENAI_API_KEY",
@@ -327,7 +327,7 @@ def _api_key_for_provider(provider: str) -> str:
 
 def _api_key_error(provider: str) -> str:
     if provider == "azure":
-        return "Azure fixture API key is not set (KAYPOH_FIXTURE_AZURE_API_KEY or GPT5_MINI_API_KEY/GPT5_PRO_API_KEY)"
+        return "Azure fixture API key is not set (JUNAS_FIXTURE_AZURE_API_KEY or GPT5_MINI_API_KEY/GPT5_PRO_API_KEY)"
     return "OPENAI_API_KEY is not set"
 
 
@@ -386,10 +386,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--provider",
         choices=("openai", "azure"),
-        default=os.environ.get("KAYPOH_FIXTURE_PROVIDER", "openai"),
-        help="Model provider (default: openai, env KAYPOH_FIXTURE_PROVIDER)",
+        default=os.environ.get("JUNAS_FIXTURE_PROVIDER", "openai"),
+        help="Model provider (default: openai, env JUNAS_FIXTURE_PROVIDER)",
     )
-    parser.add_argument("--model", default=os.environ.get("KAYPOH_FIXTURE_MODEL", "gpt-4o-mini"))
+    parser.add_argument("--model", default=os.environ.get("JUNAS_FIXTURE_MODEL", "gpt-4o-mini"))
     parser.add_argument("--candidate", action="store_true", help="Write to candidate quarantine corpus")
     parser.add_argument("--out-dir", type=Path, help="Override output directory")
     parser.add_argument("--dry-run", action="store_true", help="Print prompt only; no network call")

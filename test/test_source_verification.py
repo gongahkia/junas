@@ -13,7 +13,7 @@ Five guarantees:
 
 import unittest
 
-from kaypoh.review.engine import (
+from junas.review.engine import (
     SOURCE_VERIFICATION_AMBIGUOUS,
     SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND,
     SOURCE_VERIFICATION_NOT_CHECKED,

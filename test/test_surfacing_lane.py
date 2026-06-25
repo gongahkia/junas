@@ -8,8 +8,8 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
-from kaypoh.review.engine import ReviewFinding
-from kaypoh.review.surfacing_lane import apply_surfacing_lanes, lane_review_id
+from junas.review.engine import ReviewFinding
+from junas.review.surfacing_lane import apply_surfacing_lanes, lane_review_id
 from scripts.update_lane import update_lane_config
 
 
@@ -37,7 +37,7 @@ def _finding(finding_id: str, severity: str, score: float) -> ReviewFinding:
 class SurfacingLaneModuleTests(unittest.TestCase):
     def test_lane_config_tags_and_partitions_findings(self):
         with tempfile.TemporaryDirectory() as tmp:
-            os.environ["KAYPOH_TENANT_CONFIG_DIR"] = tmp
+            os.environ["JUNAS_TENANT_CONFIG_DIR"] = tmp
             try:
                 Path(tmp, "tenant-a.toml").write_text(
                     "[lane.medium]\nroute = \"batched\"\ndigest_cadence = \"daily\"\n",
@@ -46,7 +46,7 @@ class SurfacingLaneModuleTests(unittest.TestCase):
                 findings = [_finding("medium-1", "medium", 55.0), _finding("high-1", "high", 85.0)]
                 result = apply_surfacing_lanes(findings, tenant_id="tenant-a")
             finally:
-                os.environ.pop("KAYPOH_TENANT_CONFIG_DIR", None)
+                os.environ.pop("JUNAS_TENANT_CONFIG_DIR", None)
 
         self.assertEqual([f.id for f in result.visible_findings], ["high-1"])
         self.assertEqual([f.id for f in result.suppressed_findings], ["medium-1"])
@@ -57,7 +57,7 @@ class SurfacingLaneModuleTests(unittest.TestCase):
 
     def test_threshold_gated_lane_surfaces_scores_at_or_above_threshold(self):
         with tempfile.TemporaryDirectory() as tmp:
-            os.environ["KAYPOH_TENANT_CONFIG_DIR"] = tmp
+            os.environ["JUNAS_TENANT_CONFIG_DIR"] = tmp
             try:
                 Path(tmp, "tenant-a.toml").write_text(
                     "[lane.medium]\nroute = \"threshold_gated\"\nthreshold_value = 55\n",
@@ -66,7 +66,7 @@ class SurfacingLaneModuleTests(unittest.TestCase):
                 findings = [_finding("low-score", "medium", 54.0), _finding("at-threshold", "medium", 55.0)]
                 result = apply_surfacing_lanes(findings, tenant_id="tenant-a")
             finally:
-                os.environ.pop("KAYPOH_TENANT_CONFIG_DIR", None)
+                os.environ.pop("JUNAS_TENANT_CONFIG_DIR", None)
 
         self.assertEqual([f.id for f in result.visible_findings], ["at-threshold"])
         self.assertEqual([f.id for f in result.suppressed_findings], ["low-score"])
@@ -94,14 +94,14 @@ class SurfacingLaneApiTests(unittest.TestCase):
             },
         }
         self._env = {
-            "KAYPOH_TENANCY_ENABLED": "1",
-            "KAYPOH_TENANCY_AUTH_MODES": "api_key",
-            "KAYPOH_TENANT_CREDENTIALS_JSON": json.dumps(credentials),
-            "KAYPOH_TENANT_CONFIG_DIR": str(self.tmpdir / "tenant-config"),
-            "KAYPOH_JOURNAL_DIR": str(self.tmpdir / "journal"),
-            "KAYPOH_JOURNAL_KEY": "lane-test-key",
-            "KAYPOH_REVIEW_PERSIST": "1",
-            "KAYPOH_SUBJECT_INDEX_KEY": "subject-index-test-key",
+            "JUNAS_TENANCY_ENABLED": "1",
+            "JUNAS_TENANCY_AUTH_MODES": "api_key",
+            "JUNAS_TENANT_CREDENTIALS_JSON": json.dumps(credentials),
+            "JUNAS_TENANT_CONFIG_DIR": str(self.tmpdir / "tenant-config"),
+            "JUNAS_JOURNAL_DIR": str(self.tmpdir / "journal"),
+            "JUNAS_JOURNAL_KEY": "lane-test-key",
+            "JUNAS_REVIEW_PERSIST": "1",
+            "JUNAS_SUBJECT_INDEX_KEY": "subject-index-test-key",
         }
         self._old_env = {key: os.environ.get(key) for key in self._env}
         os.environ.update(self._env)
@@ -114,9 +114,9 @@ class SurfacingLaneApiTests(unittest.TestCase):
             reason="tenant wants medium findings in daily digest",
             actor="test",
         )
-        import kaypoh.backend.main as main_mod
-        import kaypoh.review.decisions as decisions_mod
-        import kaypoh.review.journal as journal_mod
+        import junas.backend.main as main_mod
+        import junas.review.decisions as decisions_mod
+        import junas.review.journal as journal_mod
 
         importlib.reload(journal_mod)
         importlib.reload(decisions_mod)
@@ -134,7 +134,7 @@ class SurfacingLaneApiTests(unittest.TestCase):
                 os.environ.pop(key, None)
             else:
                 os.environ[key] = old_value
-        import kaypoh.backend.main as main_mod
+        import junas.backend.main as main_mod
 
         importlib.reload(main_mod)
 

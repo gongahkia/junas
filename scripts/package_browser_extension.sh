@@ -2,9 +2,9 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SRC="${KAYPOH_EXTENSION_SRC:-$ROOT/integrations/browser_extension}"
-OUT_DIR="${KAYPOH_EXTENSION_OUT_DIR:-$ROOT/dist/browser-extension}"
-ZIP_PATH="$OUT_DIR/kaypoh-local-review.zip"
+SRC="${JUNAS_EXTENSION_SRC:-$ROOT/integrations/browser_extension}"
+OUT_DIR="${JUNAS_EXTENSION_OUT_DIR:-$ROOT/dist/browser-extension}"
+ZIP_PATH="$OUT_DIR/junas-local-review.zip"
 
 if [[ ! -f "$SRC/manifest.json" ]]; then
   echo "missing browser extension source: $SRC/manifest.json" >&2
@@ -15,10 +15,10 @@ mkdir -p "$OUT_DIR"
 rm -f "$ZIP_PATH"
 (cd "$SRC" && /usr/bin/zip -X -r "$ZIP_PATH" .)
 
-if [[ -n "${KAYPOH_CHROME_EXTENSION_KEY:-}" ]]; then
-  CHROME_BIN="${KAYPOH_CHROME_BIN:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
-  "$CHROME_BIN" --pack-extension="$SRC" --pack-extension-key="$KAYPOH_CHROME_EXTENSION_KEY"
-  mv "$ROOT/integrations/browser_extension.crx" "$OUT_DIR/kaypoh-local-review.crx"
+if [[ -n "${JUNAS_CHROME_EXTENSION_KEY:-}" ]]; then
+  CHROME_BIN="${JUNAS_CHROME_BIN:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
+  "$CHROME_BIN" --pack-extension="$SRC" --pack-extension-key="$JUNAS_CHROME_EXTENSION_KEY"
+  mv "$ROOT/integrations/browser_extension.crx" "$OUT_DIR/junas-local-review.crx"
 fi
 
 echo "$ZIP_PATH"

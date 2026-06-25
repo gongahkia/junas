@@ -4,11 +4,11 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from kaypoh.advisory.signals import aggregate_signals, classifier_signal, fingerprint, similarity_signal
-from kaypoh.configs.runtime import load_runtime_settings
-from kaypoh.integrations.dms import scan_manifest
-from kaypoh.review.detectors.semantic import clear_semantic_pii_state_for_tests
-from kaypoh.review.engine import PreSendReviewEngine
+from junas.advisory.signals import aggregate_signals, classifier_signal, fingerprint, similarity_signal
+from junas.configs.runtime import load_runtime_settings
+from junas.integrations.dms import scan_manifest
+from junas.review.detectors.semantic import clear_semantic_pii_state_for_tests
+from junas.review.engine import PreSendReviewEngine
 from scripts.generate_tenant_credentials import generate_entry
 from scripts.promote_journal_to_corpus import build_queue
 from training.journal_preference_export import export_preferences
@@ -19,14 +19,14 @@ class RoadmapSubstrateTests(unittest.TestCase):
     def test_local_socket_path_configures_runtime(self):
         settings = load_runtime_settings(
             {
-                "local_daemon.socket_path": "/tmp/kaypoh.sock",
+                "local_daemon.socket_path": "/tmp/junas.sock",
             }
         )
-        self.assertEqual(settings.local_daemon.socket_path, "/tmp/kaypoh.sock")
+        self.assertEqual(settings.local_daemon.socket_path, "/tmp/junas.sock")
 
     def test_semantic_appositive_dob_and_age_fallback(self):
         clear_semantic_pii_state_for_tests()
-        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+        with mock.patch.dict("os.environ", {"JUNAS_SEMANTIC_PII_FALLBACK": "1"}):
             result = PreSendReviewEngine().review(
                 text="Jane Tan (born 1988) joined. Mr Lee, age 42, is reviewer.",
                 source_jurisdiction="SG",

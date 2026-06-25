@@ -82,9 +82,9 @@ def summarize_metrics(samples: list[MetricSample]) -> dict[str, Any]:
     cache_misses = 0.0
 
     for sample in samples:
-        if sample.name == "kaypoh_http_requests_total":
+        if sample.name == "junas_http_requests_total":
             http_total += sample.value
-        elif sample.name == "kaypoh_classification_results_total":
+        elif sample.name == "junas_classification_results_total":
             classify_total += sample.value
             classification = sample.labels.get("classification", "unknown")
             classify_by_label[classification] = classify_by_label.get(classification, 0.0) + sample.value
@@ -117,7 +117,7 @@ def format_status_block(
     errors: list[str],
 ) -> str:
     now = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    lines = [f"Kaypoh Backend Status Watch  {now}", f"Base URL: {base_url}", ""]
+    lines = [f"Junas Backend Status Watch  {now}", f"Base URL: {base_url}", ""]
 
     if ready is not None:
         missing = ",".join(ready.get("missing_required_layers", []) or []) or "-"

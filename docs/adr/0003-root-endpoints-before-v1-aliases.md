@@ -6,7 +6,7 @@ Date: 2026-06-14
 
 ## Context
 
-Kaypoh v0.1 already exposes root endpoints such as `/review`, `/pseudonymize`, `/anonymize`, `/redact`, `/reidentify`, `/documents/scrub`, and `/classify`. The policy decision contract is still being completed, and adapters are not yet certified against a frozen versioned route.
+Junas v0.1 already exposes root endpoints such as `/review`, `/pseudonymize`, `/anonymize`, `/redact`, `/reidentify`, `/documents/scrub`, and `/classify`. The policy decision contract is still being completed, and adapters are not yet certified against a frozen versioned route.
 
 Adding `/v1/review` before the policy contract, idempotency behavior, review expiry, OpenAPI examples, and adapter certification are complete would create two public paths with the same immature semantics.
 

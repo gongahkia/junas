@@ -1,4 +1,4 @@
-"""Lock-in test that the kaypoh-local SKU runs without heavy server-only deps.
+"""Lock-in test that the junas-local SKU runs without heavy server-only deps.
 
 Blocks `torch`, `transformers`, `sentence_transformers`, `redis`, `xgboost`, `sklearn`, and
 `pandas` via `sys.modules[name] = None` before importing the runtime, then drives the full
@@ -49,7 +49,7 @@ def _subprocess_with_blocked_deps(snippet: str) -> subprocess.CompletedProcess:
 class LocalSkuRuntimeTests(unittest.TestCase):
     def test_backend_main_importable_without_heavy_deps(self):
         result = _subprocess_with_blocked_deps(
-            "import kaypoh.backend.main as main\n"
+            "import junas.backend.main as main\n"
             "paths = sorted(r.path for r in main.app.routes if hasattr(r, 'methods'))\n"
             "assert '/anonymize' in paths, paths\n"
             "assert '/reidentify' in paths, paths\n"
@@ -61,8 +61,8 @@ class LocalSkuRuntimeTests(unittest.TestCase):
 
     def test_review_anonymize_reidentify_end_to_end_without_heavy_deps(self):
         result = _subprocess_with_blocked_deps(
-            "from kaypoh.review.engine import PreSendReviewEngine\n"
-            "from kaypoh.anonymize import DeterministicAnonymizer, reidentify\n"
+            "from junas.review.engine import PreSendReviewEngine\n"
+            "from junas.anonymize import DeterministicAnonymizer, reidentify\n"
             "text = 'Send Dr Jane Tan S1234567D the draft.'\n"
             "engine = PreSendReviewEngine()\n"
             "result = engine.review(text=text, source_jurisdiction='SG', destination_jurisdiction='SG',\n"

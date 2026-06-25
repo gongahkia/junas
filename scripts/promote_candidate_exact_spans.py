@@ -16,7 +16,7 @@ if str(REPO_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from kaypoh.review.engine import PreSendReviewEngine  # noqa: E402
+from junas.review.engine import PreSendReviewEngine  # noqa: E402
 from scripts.candidate_review import labels_path_for, load_labels, utc_now, write_labels  # noqa: E402
 
 DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"

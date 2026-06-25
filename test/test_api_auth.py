@@ -15,7 +15,7 @@ class ApiAuthTests(unittest.TestCase):
         )
 
     def test_classify_rejects_missing_api_key_when_configured(self):
-        with patch.dict(os.environ, {"KAYPOH_API_KEY": "top-secret"}, clear=False):
+        with patch.dict(os.environ, {"JUNAS_API_KEY": "top-secret"}, clear=False):
             with TestClient(test_app.app) as client:
                 response = client.post("/classify", json={"text": "public update"})
 
@@ -23,7 +23,7 @@ class ApiAuthTests(unittest.TestCase):
         self.assertEqual(response.json()["detail"], "invalid or missing API key")
 
     def test_classify_accepts_matching_api_key(self):
-        with patch.dict(os.environ, {"KAYPOH_API_KEY": "top-secret"}, clear=False):
+        with patch.dict(os.environ, {"JUNAS_API_KEY": "top-secret"}, clear=False):
             with TestClient(test_app.app) as client:
                 response = client.post(
                     "/classify",
@@ -35,7 +35,7 @@ class ApiAuthTests(unittest.TestCase):
         self.assertEqual(response.json()["classification"], "SAFE")
 
     def test_batch_rejects_wrong_api_key_when_configured(self):
-        with patch.dict(os.environ, {"KAYPOH_API_KEY": "top-secret"}, clear=False):
+        with patch.dict(os.environ, {"JUNAS_API_KEY": "top-secret"}, clear=False):
             with TestClient(test_app.app) as client:
                 response = client.post(
                     "/classify/batch",
@@ -47,7 +47,7 @@ class ApiAuthTests(unittest.TestCase):
         self.assertEqual(response.json()["detail"], "invalid or missing API key")
 
     def test_batch_accepts_matching_api_key(self):
-        with patch.dict(os.environ, {"KAYPOH_API_KEY": "top-secret"}, clear=False):
+        with patch.dict(os.environ, {"JUNAS_API_KEY": "top-secret"}, clear=False):
             with TestClient(test_app.app) as client:
                 response = client.post(
                     "/classify/batch",
